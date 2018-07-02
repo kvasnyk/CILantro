@@ -209,6 +209,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Tests\TestCandidateViewModel.cs" />
+    <Compile Include="ViewModels\Tests\TestsAddViewModel.cs" />
     <Compile Include="ViewModels\Tests\TestsFindViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -270,6 +271,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Tests\Index.cshtml" />
     <Content Include="Views\Tests\Find.cshtml" />
+    <Content Include="Views\Tests\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

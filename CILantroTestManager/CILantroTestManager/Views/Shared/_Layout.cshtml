@@ -7,8 +7,8 @@
     <title>CILantro Test Manager</title>
 
     @Styles.Render("~/Content/css")
+    
     @Scripts.Render("~/bundles/modernizr")
-
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -26,7 +26,7 @@
                     <li>@Html.ActionLink("Find tests", "Find", "Tests")</li>
                     <li>@Html.ActionLink("Manage tests", "Index", "Tests")</li>
                 </ul>
-                
+
                 @*@Html.Partial("_LoginPartial")*@
             </div>
         </div>
@@ -41,6 +41,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

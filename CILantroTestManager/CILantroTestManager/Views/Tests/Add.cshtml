@@ -1,0 +1,19 @@
+﻿@model CILantroTestManager.ViewModels.Tests.TestsAddViewModel
+
+<h2>Add test</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        @using (Html.BeginForm("Add", "Tests", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                @Html.Label("Name", new { @class = "col-md-4 control-label" })
+                <div class="col-md-8">
+                    @Html.TextBoxFor(m => m.TestName, new { @class = "form-control", @readonly = true })
+                </div>
+            </div>
+        }
+    </div>
+</div>

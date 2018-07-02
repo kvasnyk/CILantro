@@ -9,6 +9,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">File name</th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -21,6 +22,12 @@
                 <tr>
                     <td>@i</td>
                     <td>@testCandidate.FileName</td>
+                    <td>
+                        <a href="@Url.Action("Add", "Tests", new { testName = testCandidate.FileName })" type="button" class="btn btn-xs btn-success">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            Add
+                        </a>
+                    </td>
                 </tr>
 
                 i++;

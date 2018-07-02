@@ -37,5 +37,15 @@ namespace CILantroTestManager.Controllers
 
             return View(model);
         }
+
+        public ActionResult Add(string testName)
+        {
+            var model = new TestsAddViewModel
+            {
+                TestName = testName
+            };
+
+            return View(model);
+        }
     }
 }
