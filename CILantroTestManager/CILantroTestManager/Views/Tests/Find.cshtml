@@ -1,0 +1,9 @@
+﻿@model CILantroTestManager.ViewModels.Tests.TestsFindViewModel
+
+<h2>Find tests</h2>
+
+@foreach(var testCandidate in Model.TestCandidates)
+{
+    <text>@testCandidate</text>
+    <br />
+}
