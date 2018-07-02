@@ -2,8 +2,33 @@
 
 <h2>Find tests</h2>
 
-@foreach(var testCandidate in Model.TestCandidates)
+@if (Model.TestCandidates.Count() > 0)
 {
-    <text>@testCandidate</text>
-    <br />
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">File name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var i = 1;
+            }
+
+            @foreach (var testCandidate in Model.TestCandidates)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@testCandidate.FileName</td>
+                </tr>
+
+                i++;
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <text>No test candidates could be found.</text>
 }
