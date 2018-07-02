@@ -199,6 +199,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Controllers\TestsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -208,6 +209,9 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\Tags\TagsAddViewModel.cs" />
+    <Compile Include="ViewModels\Tags\TagsIndexViewModel.cs" />
+    <Compile Include="ViewModels\Tags\TagViewModel.cs" />
     <Compile Include="ViewModels\Tests\TestCandidateViewModel.cs" />
     <Compile Include="ViewModels\Tests\TestsAddViewModel.cs" />
     <Compile Include="ViewModels\Tests\TestsFindViewModel.cs" />
@@ -272,6 +276,8 @@
     <Content Include="Views\Tests\Index.cshtml" />
     <Content Include="Views\Tests\Find.cshtml" />
     <Content Include="Views\Tests\Add.cshtml" />
+    <Content Include="Views\Tags\Index.cshtml" />
+    <Content Include="Views\Tags\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
