@@ -10,30 +10,41 @@
 
 @if (Model.Categories.Count() > 0)
 {
-    foreach (var category in Model.Categories)
-    {
-        <div class="row well">
-            <div class="col-md-4">
-                <h4>@category.Name</h4>
-            </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Category</th>
+                <th scope="col">Subcategories</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var category in Model.Categories)
+            {
+                var firstSubcategoryName = category.Subcategories.FirstOrDefault()?.Name;
 
-            <div class="col-md-4">
-                @foreach(var subcategory in category.Subcategories)
+                <tr>
+                    <td>@category.Name</td>
+                    <td>@firstSubcategoryName</td>
+                    <td>
+                        <a href="@Url.Action("AddSubcategory", "Categories", new { categoryId = category.Id })" type="button" class="btn btn-success btn-xs">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            Add subcategory
+                        </a>
+                    </td>
+                </tr>
+
+                foreach(var subcategory in category.Subcategories.Skip(1))
                 {
-                    <h4>@subcategory.Name</h4>
+                    <tr>
+                        <td></td>
+                        <td>@subcategory.Name</td>
+                        <td></td>
+                    </tr>
                 }
-            </div>
-
-            <div class="col-md-4">
-                <h5>
-                    <a href="@Url.Action("AddSubcategory", "Categories", new { categoryId = category.Id })" type="button" class="btn btn-success btn-xs pull-right">
-                        <span class="glyphicon glyphicon-plus"></span>
-                        Add subcategory
-                    </a>
-                </h5>
-            </div>
-        </div>
-    }
+            }
+        </tbody>
+    </table>
 }
 else
 {
