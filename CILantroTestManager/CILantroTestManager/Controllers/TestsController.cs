@@ -1,4 +1,6 @@
 ﻿using CILantroTestManager.Configuration;
+using CILantroTestManager.Services;
+using CILantroTestManager.ViewModels.Categories;
 using CILantroTestManager.ViewModels.Tests;
 using System.IO;
 using System.Linq;
@@ -11,6 +13,13 @@ namespace CILantroTestManager.Controllers
         private readonly string TESTS_DIRECTORY_PATH = ConfigurationProvider.TestsDirectoryPath;
 
         private readonly string TEST_FILE_NAME_PATTERN = "*.exe";
+
+        private readonly CategoriesService _categoriesService;
+
+        public TestsController()
+        {
+            _categoriesService = new CategoriesService();
+        }
 
         public ActionResult Index()
         {
@@ -40,9 +49,22 @@ namespace CILantroTestManager.Controllers
 
         public ActionResult Add(string testName)
         {
+            var allCategories = _categoriesService.ReadAllCategories().Select(c => new CategoryViewModel
+            {
+                Id = c.Id,
+                Name = c.Name,
+                Subcategories = c.Subcategories.Select(sc => new SubcategoryViewModel
+                {
+                    Id = sc.Id,
+                    Name = sc.Name,
+                    CategoryId = sc.CategoryId
+                })
+            });
+
             var model = new TestsAddViewModel
             {
-                TestName = testName
+                TestName = testName,
+                AllCategories = allCategories
             };
 
             return View(model);

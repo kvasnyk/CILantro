@@ -33,10 +33,17 @@ namespace CILantroTestManager.Services
 
         public IEnumerable<CategoryEntity> ReadAllCategories()
         {
-            return _categoriesRepository
+            var allCategories = _categoriesRepository
                 .ReadAll()
                 .OrderBy(c => c.Name)
                 .ToList();
+
+            foreach(var category in allCategories)
+            {
+                category.Subcategories = category.Subcategories.OrderBy(sc => sc.Name).ToList();
+            }
+
+            return allCategories;
         }
 
         public void CreateSubcategory(Guid categoryId, string name)
