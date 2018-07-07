@@ -10,6 +10,8 @@ namespace CILantroTestManager.Database
     {
         public DbSet<CategoryEntity> Categories { get; set; }
 
+        public DbSet<SubcategoryEntity> Subcategories { get; set; }
+
         static ApplicationDbContext()
         {
             System.Data.Entity.Database.SetInitializer(new ApplicationDbInitializer(true));
@@ -34,6 +36,17 @@ namespace CILantroTestManager.Database
             modelBuilder.Entity<CategoryEntity>()
                 .ToTable("Categories")
                 .HasKey(x => x.Id);
+
+            // subcategories
+
+            modelBuilder.Entity<SubcategoryEntity>()
+                .ToTable("Subcategories")
+                .HasKey(x => x.Id);
+
+            modelBuilder.Entity<SubcategoryEntity>()
+                .HasRequired(x => x.Category)
+                .WithMany(x => x.Subcategories)
+                .HasForeignKey(x => x.CategoryId);
         }
     }
 }

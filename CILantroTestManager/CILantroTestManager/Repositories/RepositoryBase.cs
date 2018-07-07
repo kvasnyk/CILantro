@@ -14,13 +14,13 @@ namespace CILantroTestManager.Repositories
             _context = context;
         }
 
-        public void CreateAsync(TEntity entity)
+        public void Create(TEntity entity)
         {
             _context.Set<TEntity>().Add(entity);
             _context.SaveChanges();
         }
 
-        public IQueryable<TEntity> ReadAllAsync()
+        public IQueryable<TEntity> ReadAll()
         {
             return _context.Set<TEntity>();
         }

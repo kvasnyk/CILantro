@@ -1,14 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace CILantroTestManager.Entities
 {
-    public class CategoryEntity
+    public class SubcategoryEntity
     {
         public Guid Id { get; set; }
 
         public string Name { get; set; }
 
-        public virtual ICollection<SubcategoryEntity> Subcategories { get; set; }
+        public Guid CategoryId { get; set; }
+
+        public virtual CategoryEntity Category { get; set; }
     }
 }

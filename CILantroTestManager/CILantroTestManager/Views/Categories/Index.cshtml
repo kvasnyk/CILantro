@@ -13,14 +13,20 @@
     foreach (var category in Model.Categories)
     {
         <div class="row well">
-            <div class="col-md-6">
-                <h4>
-                    @category.Name
-                </h4>
+            <div class="col-md-4">
+                <h4>@category.Name</h4>
             </div>
-            <div class="col-md-6">
+
+            <div class="col-md-4">
+                @foreach(var subcategory in category.Subcategories)
+                {
+                    <h4>@subcategory.Name</h4>
+                }
+            </div>
+
+            <div class="col-md-4">
                 <h5>
-                    <a href="@Url.Action("AddSubcategory", "Categories", new { categoryId = category.Id })" type="button" class="btn btn-success btn-xs">
+                    <a href="@Url.Action("AddSubcategory", "Categories", new { categoryId = category.Id })" type="button" class="btn btn-success btn-xs pull-right">
                         <span class="glyphicon glyphicon-plus"></span>
                         Add subcategory
                     </a>
