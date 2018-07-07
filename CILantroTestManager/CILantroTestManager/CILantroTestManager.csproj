@@ -206,6 +206,7 @@
     <Compile Include="Database\ApplicationDbMigrationsConfiguration.cs" />
     <Compile Include="Entities\CategoryEntity.cs" />
     <Compile Include="Entities\SubcategoryEntity.cs" />
+    <Compile Include="Entities\TestEntity.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -216,6 +217,10 @@
     <Compile Include="Migrations\201807071412577_SubcategoryEntityMigration.cs" />
     <Compile Include="Migrations\201807071412577_SubcategoryEntityMigration.Designer.cs">
       <DependentUpon>201807071412577_SubcategoryEntityMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807072255026_TestEntityMigration.cs" />
+    <Compile Include="Migrations\201807072255026_TestEntityMigration.Designer.cs">
+      <DependentUpon>201807072255026_TestEntityMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -325,6 +330,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807071412577_SubcategoryEntityMigration.resx">
       <DependentUpon>201807071412577_SubcategoryEntityMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807072255026_TestEntityMigration.resx">
+      <DependentUpon>201807072255026_TestEntityMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
