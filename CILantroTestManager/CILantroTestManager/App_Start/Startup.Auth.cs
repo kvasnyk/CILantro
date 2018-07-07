@@ -1,4 +1,5 @@
-﻿using CILantroTestManager.Models;
+﻿using CILantroTestManager.Database;
+using CILantroTestManager.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
