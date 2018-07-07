@@ -13,18 +13,18 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">Category</th>
-                <th scope="col">Subcategories</th>
-                <th scope="col">Actions</th>
+                <th scope="col"><h4><strong>Category</strong></h4></th>
+                <th scope="col"><h4><strong>Subcategories</strong></h4></th>
+                <th scope="col"><h4><strong>Actions</strong></h4></th>
             </tr>
         </thead>
         <tbody>
             @foreach(var category in Model.Categories)
             {
-                var firstSubcategoryName = category.Subcategories.FirstOrDefault()?.Name;
+                var firstSubcategoryName = category.Subcategories.FirstOrDefault()?.Name ?? "---";
 
                 <tr>
-                    <td>@category.Name</td>
+                    <td><strong>@category.Name</strong></td>
                     <td>@firstSubcategoryName</td>
                     <td>
                         <a href="@Url.Action("AddSubcategory", "Categories", new { categoryId = category.Id })" type="button" class="btn btn-success btn-xs">

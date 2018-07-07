@@ -206,6 +206,7 @@
     <Compile Include="Database\ApplicationDbMigrationsConfiguration.cs" />
     <Compile Include="Entities\CategoryEntity.cs" />
     <Compile Include="Entities\SubcategoryEntity.cs" />
+    <Compile Include="Entities\TestCandidateEntity.cs" />
     <Compile Include="Entities\TestEntity.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -230,6 +231,7 @@
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\SubcategoriesRepository.cs" />
     <Compile Include="Services\CategoriesService.cs" />
+    <Compile Include="Services\TestsService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Categories\CategoriesAddSubcategoryViewModel.cs" />
     <Compile Include="ViewModels\Categories\CategoriesAddViewModel.cs" />
@@ -243,16 +245,12 @@
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap-treeview.css" />
-    <Content Include="Content\bootstrap-treeview.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\bootstrap-treeview.js" />
-    <Content Include="Scripts\bootstrap-treeview.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">

@@ -1,6 +1,6 @@
-﻿namespace CILantroTestManager.ViewModels.Tests
+﻿namespace CILantroTestManager.Entities
 {
-    public class TestCandidateViewModel
+    public class TestCandidateEntity
     {
         public string FileName { get; set; }
 

@@ -7,9 +7,9 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">File name</th>
-                <th scope="col">Actions</th>
+                <th scope="col"><h4><strong>#</strong></h4></th>
+                <th scope="col"><h4><strong>File</strong></h4></th>
+                <th scope="col"><h4><strong>Actions</strong></h4></th>
             </tr>
         </thead>
         <tbody>
@@ -21,7 +21,13 @@
             {
                 <tr>
                     <td>@i</td>
-                    <td>@testCandidate.FileName</td>
+
+                    <td>
+                        <strong>@testCandidate.FileName</strong>
+                        <br />
+                        <span class="test-path"><i>...@testCandidate.ShortPath</i></span>
+                    </td>
+
                     <td>
                         <a href="@Url.Action("Add", "Tests", new { testName = testCandidate.FileName })" type="button" class="btn btn-xs btn-success">
                             <span class="glyphicon glyphicon-plus"></span>

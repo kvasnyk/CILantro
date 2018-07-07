@@ -1,5 +1,4 @@
-﻿using CILantroTestManager.Configuration;
-using CILantroTestManager.Services;
+﻿using CILantroTestManager.Services;
 using CILantroTestManager.ViewModels.Categories;
 using CILantroTestManager.ViewModels.Tests;
 using System.IO;
@@ -10,15 +9,14 @@ namespace CILantroTestManager.Controllers
 {
     public class TestsController : Controller
     {
-        private readonly string TESTS_DIRECTORY_PATH = ConfigurationProvider.TestsDirectoryPath;
-
-        private readonly string TEST_FILE_NAME_PATTERN = "*.exe";
-
         private readonly CategoriesService _categoriesService;
+
+        private readonly TestsService _testsService;
 
         public TestsController()
         {
             _categoriesService = new CategoriesService();
+            _testsService = new TestsService();
         }
 
         public ActionResult Index()
@@ -28,16 +26,12 @@ namespace CILantroTestManager.Controllers
 
         public ActionResult Find()
         {
-            var testCandidates = Directory.GetFiles(TESTS_DIRECTORY_PATH, TEST_FILE_NAME_PATTERN, SearchOption.AllDirectories)
-                .Where(testCandidatePath => testCandidatePath.Contains(@"\Release\"))
-                .Where(testCandidatePath => !testCandidatePath.Contains(@"\obj\"))
-                .Select(testCandidatePath => new TestCandidateViewModel
-                {
-                    FileName = Path.GetFileNameWithoutExtension(testCandidatePath),
-                    Path = testCandidatePath
-                })
-                .OrderBy(testCandidate => testCandidate.FileName);
-                
+            var testCandidates = _testsService.FindAllTestCandidates().Select(testCandidate => new TestCandidateViewModel
+            {
+                FileName = testCandidate.FileName,
+                Path = testCandidate.Path,
+                ShortPath = testCandidate.ShortPath
+            });
 
             var model = new TestsFindViewModel
             {

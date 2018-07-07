@@ -22,3 +22,7 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.test-path {
+    font-size: 0.8em;
+}
