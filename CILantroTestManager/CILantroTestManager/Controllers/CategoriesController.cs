@@ -1,5 +1,6 @@
 ﻿using CILantroTestManager.Services;
 using CILantroTestManager.ViewModels.Categories;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -16,7 +17,16 @@ namespace CILantroTestManager.Controllers
 
         public ActionResult Index()
         {
-            var model = new CategoriesIndexViewModel();
+            var categories = _categoriesService.ReadAllCategories().Select(c => new CategoryViewModel
+            {
+                Id = c.Id,
+                Name = c.Name
+            });
+
+            var model = new CategoriesIndexViewModel
+            {
+                Categories = categories
+            };
 
             return View(model);
         }
@@ -31,7 +41,7 @@ namespace CILantroTestManager.Controllers
         [HttpPost]
         public async Task<ActionResult> Add(CategoriesAddViewModel model)
         {
-            await _categoriesService.CreateCategory(model.Name);
+            _categoriesService.CreateCategory(model.Name);
 
             return RedirectToAction("Index");
         }

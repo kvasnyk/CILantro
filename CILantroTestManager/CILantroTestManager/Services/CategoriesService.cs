@@ -2,7 +2,8 @@
 using CILantroTestManager.Entities;
 using CILantroTestManager.Repositories;
 using System;
-using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CILantroTestManager.Services
 {
@@ -15,7 +16,7 @@ namespace CILantroTestManager.Services
             _categoriesRepository = new CategoriesRepository(ApplicationDbContext.Create());
         }
 
-        public async Task CreateCategory(string name)
+        public void CreateCategory(string name)
         {
             var newCategory = new CategoryEntity
             {
@@ -23,7 +24,15 @@ namespace CILantroTestManager.Services
                 Name = name
             };
 
-            await _categoriesRepository.CreateAsync(newCategory);
+            _categoriesRepository.CreateAsync(newCategory);
+        }
+
+        public IEnumerable<CategoryEntity> ReadAllCategories()
+        {
+            return _categoriesRepository
+                .ReadAllAsync()
+                .OrderBy(c => c.Name)
+                .ToList();
         }
     }
 }

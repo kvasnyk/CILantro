@@ -1,6 +1,6 @@
 ﻿using CILantroTestManager.Database;
 using System;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace CILantroTestManager.Repositories
 {
@@ -14,10 +14,15 @@ namespace CILantroTestManager.Repositories
             _context = context;
         }
 
-        public async Task CreateAsync(TEntity entity)
+        public void CreateAsync(TEntity entity)
         {
             _context.Set<TEntity>().Add(entity);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
+        }
+
+        public IQueryable<TEntity> ReadAllAsync()
+        {
+            return _context.Set<TEntity>();
         }
 
         public void Dispose()
