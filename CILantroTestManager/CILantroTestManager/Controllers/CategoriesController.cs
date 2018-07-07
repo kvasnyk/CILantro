@@ -1,26 +1,26 @@
-﻿using CILantroTestManager.ViewModels.Tags;
+﻿using CILantroTestManager.ViewModels.Categories;
 using System.Web.Mvc;
 
 namespace CILantroTestManager.Controllers
 {
-    public class TagsController : Controller
+    public class CategoriesController : Controller
     {
         public ActionResult Index()
         {
-            var model = new TagsIndexViewModel();
+            var model = new CategoriesIndexViewModel();
 
             return View(model);
         }
 
         public ActionResult Add()
         {
-            var model = new TagsAddViewModel();
+            var model = new CategoriesAddViewModel();
 
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult Add(TagsAddViewModel model)
+        public ActionResult Add(CategoriesAddViewModel model)
         {
             return RedirectToAction("Index");
         }

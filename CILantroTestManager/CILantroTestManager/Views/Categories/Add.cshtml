@@ -1,10 +1,10 @@
-﻿@model CILantroTestManager.ViewModels.Tags.TagsAddViewModel
+﻿@model CILantroTestManager.ViewModels.Categories.CategoriesAddViewModel
 
-<h2>Add tag</h2>
+<h2>Add category</h2>
 
 <div class="row">
     <div class="col-md-12">
-        @using (Html.BeginForm("Add", "Tags", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("Add", "Categories", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
         {
             @Html.AntiForgeryToken()
 

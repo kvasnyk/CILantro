@@ -197,9 +197,9 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Configuration\ConfigurationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Controllers\TestsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -209,9 +209,9 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\Tags\TagsAddViewModel.cs" />
-    <Compile Include="ViewModels\Tags\TagsIndexViewModel.cs" />
-    <Compile Include="ViewModels\Tags\TagViewModel.cs" />
+    <Compile Include="ViewModels\Categories\CategoriesAddViewModel.cs" />
+    <Compile Include="ViewModels\Categories\CategoriesIndexViewModel.cs" />
+    <Compile Include="ViewModels\Categories\CategoryViewModel.cs" />
     <Compile Include="ViewModels\Tests\TestCandidateViewModel.cs" />
     <Compile Include="ViewModels\Tests\TestsAddViewModel.cs" />
     <Compile Include="ViewModels\Tests\TestsFindViewModel.cs" />
@@ -276,11 +276,12 @@
     <Content Include="Views\Tests\Index.cshtml" />
     <Content Include="Views\Tests\Find.cshtml" />
     <Content Include="Views\Tests\Add.cshtml" />
-    <Content Include="Views\Tags\Index.cshtml" />
-    <Content Include="Views\Tags\Add.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Categories\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
