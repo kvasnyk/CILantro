@@ -230,6 +230,7 @@
     <Compile Include="Repositories\CategoriesRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\SubcategoriesRepository.cs" />
+    <Compile Include="Repositories\TestsRepository.cs" />
     <Compile Include="Services\CategoriesService.cs" />
     <Compile Include="Services\TestsService.cs" />
     <Compile Include="Startup.cs" />

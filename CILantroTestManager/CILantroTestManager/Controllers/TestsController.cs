@@ -41,7 +41,7 @@ namespace CILantroTestManager.Controllers
             return View(model);
         }
 
-        public ActionResult Add(string testName)
+        public ActionResult Add(string testName, string shortPath)
         {
             var allCategories = _categoriesService.ReadAllCategories().Select(c => new CategoryViewModel
             {
@@ -58,10 +58,19 @@ namespace CILantroTestManager.Controllers
             var model = new TestsAddViewModel
             {
                 TestName = testName,
+                ShortPath = shortPath,
                 AllCategories = allCategories
             };
 
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Add(TestsAddViewModel model)
+        {
+            _testsService.CreateTest(model.TestName, model.ShortPath, model.CategoryId, model.SubcategoryId);
+
+            return RedirectToAction("Index");
         }
     }
 }

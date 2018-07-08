@@ -8,6 +8,8 @@ namespace CILantroTestManager.ViewModels.Tests
     {
         public string TestName { get; set; }
 
+        public string ShortPath { get; set; }
+
         public Guid CategoryId { get; set; }
 
         public Guid SubcategoryId { get; set; }

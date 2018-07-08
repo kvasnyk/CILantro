@@ -29,7 +29,7 @@
                     </td>
 
                     <td>
-                        <a href="@Url.Action("Add", "Tests", new { testName = testCandidate.FileName })" type="button" class="btn btn-xs btn-success">
+                        <a href="@Url.Action("Add", "Tests", new { testName = testCandidate.FileName, shortPath = testCandidate.ShortPath })" type="button" class="btn btn-xs btn-success">
                             <span class="glyphicon glyphicon-plus"></span>
                             Add
                         </a>

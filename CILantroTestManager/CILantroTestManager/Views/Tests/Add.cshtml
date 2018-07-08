@@ -8,6 +8,8 @@
         {
             @Html.AntiForgeryToken()
 
+            @Html.HiddenFor(m => m.ShortPath)
+
             <div class="form-group">
                 @Html.Label("Name", new { @class = "col-md-4 control-label" })
                 <div class="col-md-8">
