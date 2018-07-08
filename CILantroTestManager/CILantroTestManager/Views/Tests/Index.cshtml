@@ -7,17 +7,22 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col"><h4><strong>Test</strong></h4></th>
-                <th scope="col"><h4><strong>Category</strong></h4></th>
-                <th scope="col"><h4><strong>Subcategory</strong></h4></th>
-                <th scope="col"><h4><strong>Actions</strong></h4></th>
+                <th scope="col"><h5><strong>Test</strong></h5></th>
+                <th scope="col"><h5><strong>Category</strong></h5></th>
+                <th scope="col"><h5><strong>Subcategory</strong></h5></th>
+                <th scope="col"><h5><strong>Actions</strong></h5></th>
             </tr>
         </thead>
         <tbody>
             @foreach(var test in Model.SearchResult)
             {
                 <tr>
-                    <td><strong>@test.Name</strong></td>
+                    <td>
+                        <strong>@test.Name</strong>
+                        <br />
+                        <span class="badge badge-pill badge-primary">@test.CategoryName</span>
+                        <span class="badge badge-pill badge-info">@test.SubcategoryName</span>
+                    </td>
                     <td>@test.CategoryName</td>
                     <td>@test.SubcategoryName</td>
                     <td></td>

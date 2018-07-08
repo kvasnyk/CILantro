@@ -1,5 +1,4 @@
 ﻿body {
-    padding-top: 50px;
     padding-bottom: 20px;
 }
 
@@ -23,6 +22,26 @@ textarea {
     max-width: 280px;
 }
 
+.navbar {
+    margin-bottom: 20px;
+}
+
 .test-path {
     font-size: 0.8em;
+}
+
+h2 {
+    margin-bottom: 30px;
+}
+
+footer {
+    margin-top: 30px;
+}
+
+.table.categories-table td {
+    height: 3.5em;
+}
+
+.col-form-label {
+    text-align: right;
 }

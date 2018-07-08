@@ -2,7 +2,7 @@
 
 <h2>
     Manage categories
-    <a href="@Url.Action("Add", "Categories")" type="button" class="btn btn-success">
+    <a href="@Url.Action("Add", "Categories")" class="btn btn-success">
         <span class="glyphicon glyphicon-plus"></span>
         Add
     </a>
@@ -10,12 +10,12 @@
 
 @if (Model.Categories.Count() > 0)
 {
-    <table class="table table-striped">
+    <table class="table table-striped categories-table">
         <thead>
             <tr>
-                <th scope="col"><h4><strong>Category</strong></h4></th>
-                <th scope="col"><h4><strong>Subcategories</strong></h4></th>
-                <th scope="col"><h4><strong>Actions</strong></h4></th>
+                <th scope="col"><h5><strong>Category</strong></h5></th>
+                <th scope="col"><h5><strong>Subcategories</strong></h5></th>
+                <th scope="col"><h5><strong>Actions</strong></h5></th>
             </tr>
         </thead>
         <tbody>
@@ -27,7 +27,7 @@
                     <td><strong>@category.Name</strong></td>
                     <td>@firstSubcategoryName</td>
                     <td>
-                        <a href="@Url.Action("AddSubcategory", "Categories", new { categoryId = category.Id })" type="button" class="btn btn-success btn-xs">
+                        <a href="@Url.Action("AddSubcategory", "Categories", new { categoryId = category.Id })" class="btn btn-success btn-sm">
                             <span class="glyphicon glyphicon-plus"></span>
                             Add subcategory
                         </a>

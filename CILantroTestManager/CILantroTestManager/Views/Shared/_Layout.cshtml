@@ -13,31 +13,24 @@
     @Scripts.Render("~/bundles/bootstrap")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("CILantro Test Manager", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Manage tests", "Index", "Tests")</li>
-                    <li>@Html.ActionLink("Find tests", "Find", "Tests")</li>
-                    <li>@Html.ActionLink("Manage categories", "Index", "Categories")</li>
-                </ul>
+            @Html.ActionLink("CILantro Test Manager", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
 
-                @*@Html.Partial("_LoginPartial")*@
-            </div>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">@Html.ActionLink("Manage tests", "Index", "Tests", null, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Find tests", "Find", "Tests", null, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Manage categories", "Index", "Categories", null, new { @class = "nav-link" })</li>
+            </ul>
+
+            @*@Html.Partial("_LoginPartial")*@
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
+
         <footer>
+            <hr />
             <p class="text-center">&copy; @DateTime.Now.Year - CILantro Test Manager</p>
         </footer>
     </div>
