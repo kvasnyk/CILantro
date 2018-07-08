@@ -20,7 +20,7 @@ namespace CILantroTestManager.Repositories
             _context.SaveChanges();
         }
 
-        public IQueryable<TEntity> ReadAll()
+        public virtual IQueryable<TEntity> ReadAll()
         {
             return _context.Set<TEntity>();
         }

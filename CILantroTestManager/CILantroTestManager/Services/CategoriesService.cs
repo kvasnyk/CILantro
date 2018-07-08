@@ -40,7 +40,7 @@ namespace CILantroTestManager.Services
 
             foreach(var category in allCategories)
             {
-                category.Subcategories = category.Subcategories.OrderBy(sc => sc.Name).ToList();
+                category.Subcategories = category.Subcategories?.OrderBy(sc => sc.Name).ToList();
             }
 
             return allCategories;

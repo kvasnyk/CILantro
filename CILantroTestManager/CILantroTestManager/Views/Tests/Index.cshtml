@@ -1,1 +1,32 @@
-﻿<h2>Manage tests</h2>
+﻿@model CILantroTestManager.ViewModels.Tests.TestsIndexViewModel
+
+<h2>Manage tests</h2>
+
+@if(Model.SearchResult.Count() > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col"><h4><strong>Test</strong></h4></th>
+                <th scope="col"><h4><strong>Category</strong></h4></th>
+                <th scope="col"><h4><strong>Subcategory</strong></h4></th>
+                <th scope="col"><h4><strong>Actions</strong></h4></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var test in Model.SearchResult)
+            {
+                <tr>
+                    <td><strong>@test.Name</strong></td>
+                    <td>@test.CategoryName</td>
+                    <td>@test.SubcategoryName</td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <text>No tests could be found.</text>
+}

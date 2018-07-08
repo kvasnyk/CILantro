@@ -25,7 +25,8 @@ namespace CILantroTestManager.Database
 
         public static ApplicationDbContext Create()
         {
-            return new ApplicationDbContext();
+            var context = new ApplicationDbContext();
+            return context;
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

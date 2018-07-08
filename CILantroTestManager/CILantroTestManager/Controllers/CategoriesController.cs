@@ -22,7 +22,7 @@ namespace CILantroTestManager.Controllers
             {
                 Id = c.Id,
                 Name = c.Name,
-                Subcategories = c.Subcategories.Select(sc => new SubcategoryViewModel
+                Subcategories = c.Subcategories?.Select(sc => new SubcategoryViewModel
                 {
                     Id = sc.Id,
                     Name = sc.Name

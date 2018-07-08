@@ -1,7 +1,6 @@
 ﻿using CILantroTestManager.Services;
 using CILantroTestManager.ViewModels.Categories;
 using CILantroTestManager.ViewModels.Tests;
-using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -21,7 +20,21 @@ namespace CILantroTestManager.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var allTests = _testsService.ReadAllTests().Select(t => new TestViewModel
+            {
+                Id = t.Id,
+                Name = t.Name,
+                ShortPath = t.Path,
+                CategoryName = t.Category.Name,
+                SubcategoryName = t.Subcategory.Name
+            });
+
+            var model = new TestsIndexViewModel
+            {
+                SearchResult = allTests
+            };
+
+            return View(model);
         }
 
         public ActionResult Find()

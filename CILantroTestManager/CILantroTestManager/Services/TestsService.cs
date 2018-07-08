@@ -54,5 +54,10 @@ namespace CILantroTestManager.Services
 
             _testsRepository.Create(newTest);
         }
+
+        public IEnumerable<TestEntity> ReadAllTests()
+        {
+            return _testsRepository.ReadAll().OrderBy(t => t.Name);
+        }
     }
 }

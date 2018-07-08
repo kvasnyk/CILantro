@@ -242,6 +242,8 @@
     <Compile Include="ViewModels\Tests\TestCandidateViewModel.cs" />
     <Compile Include="ViewModels\Tests\TestsAddViewModel.cs" />
     <Compile Include="ViewModels\Tests\TestsFindViewModel.cs" />
+    <Compile Include="ViewModels\Tests\TestsIndexViewModel.cs" />
+    <Compile Include="ViewModels\Tests\TestViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />

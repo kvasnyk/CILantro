@@ -19,9 +19,9 @@
             </tr>
         </thead>
         <tbody>
-            @foreach(var category in Model.Categories)
+            @foreach (var category in Model.Categories)
             {
-                var firstSubcategoryName = category.Subcategories.FirstOrDefault()?.Name ?? "---";
+                var firstSubcategoryName = category.Subcategories?.FirstOrDefault()?.Name ?? "---";
 
                 <tr>
                     <td><strong>@category.Name</strong></td>
@@ -34,13 +34,16 @@
                     </td>
                 </tr>
 
-                foreach(var subcategory in category.Subcategories.Skip(1))
+                if (category.Subcategories != null)
                 {
-                    <tr>
-                        <td></td>
-                        <td>@subcategory.Name</td>
-                        <td></td>
-                    </tr>
+                    foreach (var subcategory in category.Subcategories.Skip(1))
+                    {
+                        <tr>
+                            <td></td>
+                            <td>@subcategory.Name</td>
+                            <td></td>
+                        </tr>
+                    }
                 }
             }
         </tbody>
