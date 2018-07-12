@@ -8,6 +8,8 @@ namespace CILantroTestManager.Configuration
 
         public static string TestsDataDirectoryPath => ConfigurationManager.AppSettings["TestsDataDirectoryPath"];
 
+        public static string IlasmPath => ConfigurationManager.AppSettings["IlasmPath"];
+
         public static string IldasmPath => ConfigurationManager.AppSettings["IldasmPath"];
     }
 }

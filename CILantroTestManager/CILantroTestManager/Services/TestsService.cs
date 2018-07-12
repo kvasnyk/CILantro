@@ -16,13 +16,19 @@ namespace CILantroTestManager.Services
 
         private readonly string TESTS_DATA_DIRECTORY_PATH = ConfigurationProvider.TestsDataDirectoryPath;
 
+        private readonly string ILASM_PATH = ConfigurationProvider.IlasmPath;
+
         private readonly string ILDASM_PATH = ConfigurationProvider.IldasmPath;
 
         private readonly string TEST_FILE_NAME_PATTERN = "*.exe";
 
         private readonly string IL_SOURCES_DIRECTORY_NAME = "il-sources";
 
+        private readonly string EXECS_DIRECTORY_NAME = "execs";
+
         private string IL_SOURCES_DIRECTORY_PATH => Path.Combine(TESTS_DATA_DIRECTORY_PATH, IL_SOURCES_DIRECTORY_NAME);
+
+        private string EXECS_DIRECTORY_PATH => Path.Combine(TESTS_DATA_DIRECTORY_PATH, EXECS_DIRECTORY_NAME);
 
         private readonly TestsRepository _testsRepository;
 
@@ -33,6 +39,7 @@ namespace CILantroTestManager.Services
             _testsRepository = new TestsRepository(applicationDbContext);
 
             EnsureDirectoryExists(IL_SOURCES_DIRECTORY_PATH);
+            EnsureDirectoryExists(EXECS_DIRECTORY_PATH);
         }
 
         public IEnumerable<TestCandidateEntity> FindAllTestCandidates()
@@ -95,10 +102,35 @@ namespace CILantroTestManager.Services
             ildasmProcess.WaitForExit();
         }
 
+        public void GenerateExe(Guid testId)
+        {
+            var test = ReadTest(testId);
+
+            var ilSourcePath = BuildIlSourcePath(test.Name);
+            var exePath = BuildExePath(test.Name);
+
+            EnsureDirectoryExists(Path.GetDirectoryName(exePath));
+
+            var ilasmArguments = $"\"{ilSourcePath}\" /output=\"{exePath}\"";
+            var ilasmProcessStartInfo = new ProcessStartInfo(ILASM_PATH, ilasmArguments)
+            {
+                WindowStyle = ProcessWindowStyle.Hidden
+            };
+
+            var ilasmProcess = Process.Start(ilasmProcessStartInfo);
+            ilasmProcess.WaitForExit();
+        }
+
         public bool CheckIfIlSourceExists(string testName)
         {
             var ilSourcePath = BuildIlSourcePath(testName);
             return File.Exists(ilSourcePath);
+        }
+
+        public bool CheckIfExeExists(string testName)
+        {
+            var exePath = BuildExePath(testName);
+            return File.Exists(exePath);
         }
 
         private void EnsureDirectoryExists(string path)
@@ -116,9 +148,16 @@ namespace CILantroTestManager.Services
 
         private string BuildIlSourcePath(string testName)
         {
-            var outputFileName = testName + ".il";
-            var outputFilePath = Path.Combine(IL_SOURCES_DIRECTORY_PATH, testName, outputFileName);
-            return outputFilePath;
+            var ilSourceFileName = testName + ".il";
+            var ilSourcePath = Path.Combine(IL_SOURCES_DIRECTORY_PATH, testName, ilSourceFileName);
+            return ilSourcePath;
+        }
+
+        private string BuildExePath(string testName)
+        {
+            var exeFileName = testName + ".exe";
+            var exePath = Path.Combine(EXECS_DIRECTORY_PATH, testName, exeFileName);
+            return exePath;
         }
     }
 }

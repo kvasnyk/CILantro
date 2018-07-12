@@ -15,5 +15,7 @@ namespace CILantroTestManager.ViewModels.Tests
         public string SubcategoryName { get; set; }
 
         public bool IsIlSourceAvailable { get; set; }
+
+        public bool IsExeAvailable { get; set; }
     }
 }
