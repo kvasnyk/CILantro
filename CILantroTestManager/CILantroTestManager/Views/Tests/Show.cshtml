@@ -1,0 +1,116 @@
+﻿@model CILantroTestManager.ViewModels.Tests.TestViewModel
+
+<h2 class="show-test-header">
+    @Model.Name
+    @if (!Model.IsReady)
+    {
+        <span class="fa fa-exclamation-circle text-warning"></span>
+    }
+</h2>
+<span class="test-path"><i>...@Model.ShortPath</i></span>
+
+<br />
+<br />
+
+@if (!Model.IsReady)
+{
+    <h4>Checklist</h4>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <td class="text-center col-icon">
+                            @if (Model.IsIlSourceAvailable)
+                            {
+                                <span class="fa fa-check"></span>
+                            }
+                        </td>
+                        <td>IL source</td>
+                        <td class="col-fit">
+                            @if (!Model.IsIlSourceAvailable)
+                            {
+                                <button class="btn btn-primary btn-sm btn-hub btn-generate-il-source" type="button" data-test-id="@Model.Id">
+                                    <span class="fa fa-wrench"></span>
+                                    Generate IL source
+                                </button>
+                            }
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            @if (Model.IsExeAvailable)
+                            {
+                                <span class="fa fa-check"></span>
+                            }
+                        </td>
+                        <td>EXE</td>
+                        <td>
+                            @if (!Model.IsExeAvailable && Model.IsIlSourceAvailable)
+                            {
+                                <button class="btn btn-primary btn-sm btn-hub btn-generate-exe" type="button" data-test-id="@Model.Id">
+                                    <span class="fa fa-wrench"></span>
+                                    Generate EXE
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalGenerateIlSource">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Generate IL source</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="logger text-sm-left logger-generate-il-source"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalGenerateExe">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Generate EXE</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="logger text-sm-left logger-generate-exe"></div>
+                </div>
+            </div>
+        </div>
+    </div>    
+}
+
+<script>
+    $(function() {
+        $('.btn-generate-il-source').click(function () {
+            var testId = $(this).data('test-id');
+
+            $('#modalGenerateIlSource').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+
+            $.connection.generateIlSourceHub.server.generate(testId);
+        });
+
+        $('.btn-generate-exe').click(function () {
+            var testId = $(this).data('test-id');
+
+            $('#modalGenerateExe').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+
+            $.connection.generateExeHub.server.generate(testId);
+        });
+    });
+</script>

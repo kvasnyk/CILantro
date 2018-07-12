@@ -72,3 +72,16 @@ th.rotate-header h5 {
 .logger pre {
     margin: 0;
 }
+
+.show-test-header {
+    margin-bottom: 0px;
+}
+
+td.col-fit, th.col-fit {
+    white-space: nowrap;
+    width: 1%;
+}
+
+td.col-icon, th.col-icon {
+    width: 4em;
+}

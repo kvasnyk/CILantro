@@ -27,3 +27,19 @@ function addFinishFunctionToHub(hub) {
         }, 1000);
     };
 }
+
+$(function () {
+    $('.btn-hub').addClass('disabled');
+
+    var generateIlSourceHub = $.connection.generateIlSourceHub;
+    addLoggerFunctionsToHub(generateIlSourceHub, '.logger-generate-il-source');
+    addFinishFunctionToHub(generateIlSourceHub);
+
+    var generateExeHub = $.connection.generateExeHub;
+    addLoggerFunctionsToHub(generateExeHub, '.logger-generate-exe');
+    addFinishFunctionToHub(generateExeHub);
+
+    $.connection.hub.start().done(function () {
+        $('.btn-hub').removeClass('disabled');
+    });
+});

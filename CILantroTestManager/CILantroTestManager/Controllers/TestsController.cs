@@ -1,6 +1,8 @@
-﻿using CILantroTestManager.Services;
+﻿using CILantroTestManager.Entities;
+using CILantroTestManager.Services;
 using CILantroTestManager.ViewModels.Categories;
 using CILantroTestManager.ViewModels.Tests;
+using System;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -20,21 +22,19 @@ namespace CILantroTestManager.Controllers
 
         public ActionResult Index()
         {
-            var allTests = _testsService.ReadAllTests().Select(t => new TestViewModel
-            {
-                Id = t.Id,
-                Name = t.Name,
-                ShortPath = t.Path,
-                CategoryName = t.Category.Name,
-                SubcategoryName = t.Subcategory.Name,
-                IsIlSourceAvailable = _testsService.CheckIfIlSourceExists(t.Name),
-                IsExeAvailable = _testsService.CheckIfExeExists(t.Name)
-            });
-
+            var allTests = _testsService.ReadAllTests().Select(t => CreateViewModel(t));
             var model = new TestsIndexViewModel
             {
                 SearchResult = allTests
             };
+
+            return View(model);
+        }
+
+        public ActionResult Show(Guid testId)
+        {
+            var test = _testsService.ReadTest(testId);
+            var model = CreateViewModel(test);
 
             return View(model);
         }
@@ -86,6 +86,26 @@ namespace CILantroTestManager.Controllers
             _testsService.CreateTest(model.TestName, model.ShortPath, model.CategoryId, model.SubcategoryId);
 
             return RedirectToAction("Index");
+        }
+
+        private TestViewModel CreateViewModel(TestEntity test)
+        {
+            var isIlSourceAvailable = _testsService.CheckIfIlSourceExists(test.Name);
+            var isExeAvailable = _testsService.CheckIfExeExists(test.Name);
+
+            var isTestReady = isIlSourceAvailable && isExeAvailable;
+
+            return new TestViewModel
+            {
+                Id = test.Id,
+                Name = test.Name,
+                ShortPath = test.Path,
+                CategoryName = test.Category.Name,
+                SubcategoryName = test.Subcategory.Name,
+                IsIlSourceAvailable = isIlSourceAvailable,
+                IsExeAvailable = isExeAvailable,
+                IsReady = isTestReady
+            };
         }
     }
 }

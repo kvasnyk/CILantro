@@ -17,5 +17,7 @@ namespace CILantroTestManager.ViewModels.Tests
         public bool IsIlSourceAvailable { get; set; }
 
         public bool IsExeAvailable { get; set; }
+
+        public bool IsReady { get; set; }
     }
 }

@@ -10,6 +10,7 @@
                 <th scope="col"><h5><strong>Test</strong></h5></th>
                 <th scope="col" class="rotate-header"><h5><strong>IL source</strong></h5></th>
                 <th scope="col" class="rotate-header"><h5><strong>EXE</strong></h5></th>
+                <th scope="col" class="col-fit"><h5><strong>Actions</strong></h5></th>
             </tr>
         </thead>
         <tbody>
@@ -18,6 +19,10 @@
                 <tr>
                     <td>
                         <strong>@test.Name</strong>
+                        @if (!test.IsReady)
+                        {
+                            <span class="fa fa-exclamation-circle text-warning"></span>
+                        }
                         <br />
                         <span class="badge badge-pill badge-primary">@test.CategoryName</span>
                         <span class="badge badge-pill badge-info">@test.SubcategoryName</span>
@@ -29,7 +34,7 @@
                         }
                         else
                         {
-                            <button class="btn btn-light btn-sm btn-generate-il-source" type="button" data-test-id="@test.Id">
+                            <button class="btn btn-light btn-sm btn-generate-il-source btn-hub" type="button" data-test-id="@test.Id">
                                 <span class="fa fa-wrench"></span>
                             </button>
                         }
@@ -39,12 +44,18 @@
                         {
                             <span class="fa fa-check fa-1dot5x"></span>
                         }
-                        else
+                        else if (test.IsIlSourceAvailable)
                         {
-                            <button class="btn btn-light btn-sm btn-generate-exe" type="button" data-test-id="@test.Id">
+                            <button class="btn btn-light btn-sm btn-generate-exe btn-hub" type="button" data-test-id="@test.Id">
                                 <span class="fa fa-wrench"></span>
                             </button>
                         }
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Show", "Tests", new { testId = test.Id })" class="btn btn-primary btn-sm">
+                            <span class="fa fa-eye"></span>
+                            Show
+                        </a>
                     </td>
                 </tr>
             }
@@ -63,7 +74,7 @@ else
                 <h5 class="modal-title">Generate IL source</h5>
             </div>
             <div class="modal-body">
-                <div class="logger text-sm-left" id="loggerGenerateIlSource"></div>
+                <div class="logger text-sm-left logger-generate-il-source"></div>
             </div>
         </div>
     </div>
@@ -76,7 +87,7 @@ else
                 <h5 class="modal-title">Generate EXE</h5>
             </div>
             <div class="modal-body">
-                <div class="logger text-sm-left" id="loggerGenerateExe"></div>
+                <div class="logger text-sm-left logger-generate-exe"></div>
             </div>
         </div>
     </div>
@@ -92,13 +103,7 @@ else
                 keyboard: false
             });
 
-            var generateIlSourceHub = $.connection.generateIlSourceHub;
-            addLoggerFunctionsToHub(generateIlSourceHub, '#loggerGenerateIlSource');
-            addFinishFunctionToHub(generateIlSourceHub);
-
-            $.connection.hub.start().done(function () {
-                generateIlSourceHub.server.generate(testId);
-            });
+            $.connection.generateIlSourceHub.server.generate(testId);
         });
 
         $('.btn-generate-exe').click(function () {
@@ -109,13 +114,7 @@ else
                 keyboard: false
             });
 
-            var generateExeHub = $.connection.generateExeHub;
-            addLoggerFunctionsToHub(generateExeHub, '#loggerGenerateExe');
-            addFinishFunctionToHub(generateExeHub);
-
-            $.connection.hub.start().done(function () {
-                generateExeHub.server.generate(testId);
-            });
+            $.connection.generateExeHub.server.generate(testId);
         });
     });
 </script>
