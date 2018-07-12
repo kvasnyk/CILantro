@@ -26,7 +26,8 @@ namespace CILantroTestManager.Controllers
                 Name = t.Name,
                 ShortPath = t.Path,
                 CategoryName = t.Category.Name,
-                SubcategoryName = t.Subcategory.Name
+                SubcategoryName = t.Subcategory.Name,
+                IsIlSourceAvailable = _testsService.CheckIfIlSourceExists(t.Name)
             });
 
             var model = new TestsIndexViewModel

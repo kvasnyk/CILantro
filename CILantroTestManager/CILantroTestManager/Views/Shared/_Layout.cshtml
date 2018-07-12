@@ -11,6 +11,10 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/signalR")
+    @Scripts.Render("~/bundles/app")
+
+    <script src="~/signalr/hubs"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-expand-lg navbar-dark bg-dark">
@@ -34,9 +38,6 @@
             <p class="text-center">&copy; @DateTime.Now.Year - CILantro Test Manager</p>
         </footer>
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
 
     @RenderSection("scripts", required: false)
 </body>

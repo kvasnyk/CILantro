@@ -22,8 +22,17 @@ namespace CILantroTestManager
                 "~/Scripts/bootstrap.js"
             ));
 
+            bundles.Add(new ScriptBundle("~/bundles/signalR").Include(
+                "~/Scripts/jquery.signalR-{version}.js"
+            ));
+
+            bundles.Add(new ScriptBundle("~/bundles/app").Include(
+                "~/Scripts/app.js"
+            ));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap.css",
+                "~/Content/all.css",
                 "~/Content/site.css"
             ));
         }

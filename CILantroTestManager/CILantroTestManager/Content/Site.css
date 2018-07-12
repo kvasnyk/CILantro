@@ -45,3 +45,30 @@ footer {
 .col-form-label {
     text-align: right;
 }
+
+th.rotate-header {
+    width: 60px;
+    height: 130px;
+    white-space: nowrap;
+    text-align: left;
+}
+
+th.rotate-header h5 {
+    width: 36px;
+    transform: rotate(-90deg) translateY(28px) translateX(2px);
+    transform-origin: bottom left;
+}
+
+.fa.fa-1dot5x {
+    font-size: 1.5em;
+}
+
+.logger {
+    font-family: Consolas;
+    font-size: 0.75em;
+    line-height: 1.25em;
+}
+
+.logger pre {
+    margin: 0;
+}

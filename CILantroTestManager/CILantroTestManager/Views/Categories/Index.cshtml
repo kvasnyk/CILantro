@@ -3,7 +3,7 @@
 <h2>
     Manage categories
     <a href="@Url.Action("Add", "Categories")" class="btn btn-success">
-        <span class="glyphicon glyphicon-plus"></span>
+        <span class="fa fa-plus"></span>
         Add
     </a>
 </h2>
@@ -28,7 +28,7 @@
                     <td>@firstSubcategoryName</td>
                     <td>
                         <a href="@Url.Action("AddSubcategory", "Categories", new { categoryId = category.Id })" class="btn btn-success btn-sm">
-                            <span class="glyphicon glyphicon-plus"></span>
+                            <span class="fa fa-plus"></span>
                             Add subcategory
                         </a>
                     </td>

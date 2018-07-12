@@ -8,9 +8,7 @@
         <thead>
             <tr>
                 <th scope="col"><h5><strong>Test</strong></h5></th>
-                <th scope="col"><h5><strong>Category</strong></h5></th>
-                <th scope="col"><h5><strong>Subcategory</strong></h5></th>
-                <th scope="col"><h5><strong>Actions</strong></h5></th>
+                <th scope="col" class="rotate-header"><h5><strong>IL source</strong></h5></th>
             </tr>
         </thead>
         <tbody>
@@ -23,9 +21,18 @@
                         <span class="badge badge-pill badge-primary">@test.CategoryName</span>
                         <span class="badge badge-pill badge-info">@test.SubcategoryName</span>
                     </td>
-                    <td>@test.CategoryName</td>
-                    <td>@test.SubcategoryName</td>
-                    <td></td>
+                    <td class="text-center">
+                        @if (test.IsIlSourceAvailable)
+                        {
+                            <span class="fa fa-check fa-1dot5x"></span>
+                        }
+                        else
+                        {
+                            <button class="btn btn-light btn-sm btn-generate-il-source" type="button" data-test-id="@test.Id">
+                                <span class="fa fa-wrench"></span>
+                            </button>
+                        }
+                    </td>
                 </tr>
             }
         </tbody>
@@ -35,3 +42,37 @@ else
 {
     <text>No tests could be found.</text>
 }
+
+<div class="modal fade" id="modalGenerateIlSource">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Generate IL source</h5>
+            </div>
+            <div class="modal-body">
+                <div class="logger text-sm-left" id="loggerGenerateIlSource"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function() {
+        $('.btn-generate-il-source').click(function () {
+            var testId = $(this).data('test-id');
+            
+            $('#modalGenerateIlSource').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+
+            var generateIlSourceHub = $.connection.generateIlSourceHub;
+            addLoggerFunctionsToHub(generateIlSourceHub, '#loggerGenerateIlSource');
+            addFinishFunctionToHub(generateIlSourceHub);
+
+            $.connection.hub.start().done(function () {
+                generateIlSourceHub.server.generate(testId);
+            });
+        });
+    });
+</script>
