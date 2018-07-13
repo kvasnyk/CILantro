@@ -88,12 +88,18 @@ namespace CILantroTestManager.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult EditDocs(Guid testId)
+        {
+            return View();
+        }
+
         private TestViewModel CreateViewModel(TestEntity test)
         {
             var isIlSourceAvailable = _testsService.CheckIfIlSourceExists(test.Name);
             var isExeAvailable = _testsService.CheckIfExeExists(test.Name);
+            var isDocumentationComplete = false;
 
-            var isTestReady = isIlSourceAvailable && isExeAvailable;
+            var isTestReady = isIlSourceAvailable && isExeAvailable && isDocumentationComplete;
 
             return new TestViewModel
             {
@@ -104,6 +110,7 @@ namespace CILantroTestManager.Controllers
                 SubcategoryName = test.Subcategory.Name,
                 IsIlSourceAvailable = isIlSourceAvailable,
                 IsExeAvailable = isExeAvailable,
+                IsDocumentationComplete = isDocumentationComplete,
                 IsReady = isTestReady
             };
         }

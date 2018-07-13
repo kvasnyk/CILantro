@@ -40,7 +40,7 @@
                     </tr>
 
                     <tr>
-                        <td>
+                        <td class="text-center">
                             @if (Model.IsExeAvailable)
                             {
                                 <span class="fa fa-check"></span>
@@ -54,6 +54,25 @@
                                     <span class="fa fa-wrench"></span>
                                     Generate EXE
                                 </button>
+                            }
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-center">
+                            @if(Model.IsDocumentationComplete)
+                            {
+                                <span class="fa fa-check"></span>
+                            }
+                        </td>
+                        <td>Docs</td>
+                        <td>
+                            @if(!Model.IsDocumentationComplete)
+                            {
+                                <a href="@Url.Action("EditDocs", "Tests", new { testId = Model.Id })" class="btn btn-primary btn-sm">
+                                    <span class="fa fa-edit"></span>
+                                    Edit docs
+                                </a>
                             }
                         </td>
                     </tr>

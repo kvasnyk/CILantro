@@ -10,6 +10,7 @@
                 <th scope="col"><h5><strong>Test</strong></h5></th>
                 <th scope="col" class="rotate-header"><h5><strong>IL source</strong></h5></th>
                 <th scope="col" class="rotate-header"><h5><strong>EXE</strong></h5></th>
+                <th scope="col" class="rotate-header"><h5><strong>Docs</strong></h5></th>
                 <th scope="col" class="col-fit"><h5><strong>Actions</strong></h5></th>
             </tr>
         </thead>
@@ -27,6 +28,7 @@
                         <span class="badge badge-pill badge-primary">@test.CategoryName</span>
                         <span class="badge badge-pill badge-info">@test.SubcategoryName</span>
                     </td>
+
                     <td class="text-center">
                         @if (test.IsIlSourceAvailable)
                         {
@@ -39,6 +41,7 @@
                             </button>
                         }
                     </td>
+
                     <td class="text-center">
                         @if(test.IsExeAvailable)
                         {
@@ -51,6 +54,20 @@
                             </button>
                         }
                     </td>
+
+                    <td class="text-center">
+                        @if(test.IsDocumentationComplete)
+                        {
+                            <span class="fa fa-check fa-1dot5x"></span>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("EditDocs", "Tests", new { testId = test.Id })" class="btn btn-light btn-sm">
+                                <span class="fa fa-wrench"></span>
+                            </a>
+                        }
+                    </td>
+
                     <td>
                         <a href="@Url.Action("Show", "Tests", new { testId = test.Id })" class="btn btn-primary btn-sm">
                             <span class="fa fa-eye"></span>
