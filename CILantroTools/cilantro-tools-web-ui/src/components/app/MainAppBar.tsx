@@ -14,7 +14,7 @@ const styles: StyleRulesCallback = theme => ({
         zIndex: theme.zIndex.drawer + 1
     },
     link: {
-        color: 'white',
+        color: theme.palette.common.white,
         textDecoration: 'none'
     }
 });
