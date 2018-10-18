@@ -9,11 +9,13 @@ import AddIcon from '@material-ui/icons/AddRounded';
 
 import { Locales } from '../../locales/Locales';
 
+interface IAddCategoryData {
+    name: string;
+}
+
 interface ICategoriesPageState {
     isAddDialogOpen: boolean;
-    addCategoryData: {
-        name: string
-    };
+    addCategoryData: IAddCategoryData;
 }
 
 const styles: StyleRulesCallback = theme => ({
@@ -77,7 +79,9 @@ class CategoriesPage extends React.Component<StyledComponentProps, ICategoriesPa
     }
 
     private closeAddDialog = () => {
-        this.setState(prevState => ({ ...prevState, isAddDialogOpen: false }));
+        this.setState(prevState => ({ ...prevState, isAddDialogOpen: false }), () => {
+            this.clearAddCategoryData();
+        });
     }
 
     private clearAddCategoryData = () => {
@@ -85,6 +89,19 @@ class CategoriesPage extends React.Component<StyledComponentProps, ICategoriesPa
             ...prevState,
             addCategoryData: {
                 name: ''
+            }
+        }));
+    }
+
+    private changeAddCategoryData = (addCategoryDataKey: keyof IAddCategoryData, e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        const newValue = e.currentTarget.value;
+
+        this.setState(prevState => ({
+            ...prevState,
+            addCategoryData: {
+                ...prevState.addCategoryData,
+                [addCategoryDataKey]: newValue
             }
         }));
     }
@@ -102,21 +119,13 @@ class CategoriesPage extends React.Component<StyledComponentProps, ICategoriesPa
     }
 
     private handleAddDialogNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newValue = e.target.value;
-        this.setState(prevState => ({
-            ...prevState,
-            addCategoryData: {
-                ...prevState.addCategoryData,
-                name: newValue
-            }
-        }));
+        this.changeAddCategoryData('name', e);
     }
 
     private handleAddCategoryFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         this.closeAddDialog();
-        this.clearAddCategoryData();
     }
 }
 
