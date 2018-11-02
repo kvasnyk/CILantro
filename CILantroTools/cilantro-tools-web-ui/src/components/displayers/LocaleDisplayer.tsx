@@ -3,11 +3,11 @@ import * as React from 'react';
 import { Locales } from '../../locales/Locales';
 import LocalesType from '../../locales/LocalesType';
 
-interface ILocaleDisplayerProps {
+interface LocaleDisplayerProps {
     localeKey: keyof LocalesType;
 };
 
-const LocaleDisplayer: React.StatelessComponent<ILocaleDisplayerProps> = (props) => {
+const LocaleDisplayer: React.StatelessComponent<LocaleDisplayerProps> = (props) => {
     return (
         <span>{Locales[props.localeKey]}</span>
     );

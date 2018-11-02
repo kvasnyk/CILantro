@@ -7,15 +7,16 @@ import {
 import green from '@material-ui/core/colors/green';
 import AddIcon from '@material-ui/icons/AddRounded';
 
+import CategoriesApiClient from '../../api/clients/CategoriesApiClient';
 import { Locales } from '../../locales/Locales';
 
-interface IAddCategoryData {
+interface AddCategoryData {
     name: string;
 }
 
-interface ICategoriesPageState {
+interface CategoriesPageState {
     isAddDialogOpen: boolean;
-    addCategoryData: IAddCategoryData;
+    addCategoryData: AddCategoryData;
 }
 
 const styles: StyleRulesCallback = theme => ({
@@ -28,9 +29,13 @@ const styles: StyleRulesCallback = theme => ({
     }
 });
 
-class CategoriesPage extends React.Component<StyledComponentProps, ICategoriesPageState> {
+class CategoriesPage extends React.Component<StyledComponentProps, CategoriesPageState> {
+    private categoriesApiClient: CategoriesApiClient;
+
     constructor(props: StyledComponentProps) {
         super(props);
+
+        this.categoriesApiClient = new CategoriesApiClient();
 
         this.state = {
             addCategoryData: {
@@ -93,7 +98,7 @@ class CategoriesPage extends React.Component<StyledComponentProps, ICategoriesPa
         }));
     }
 
-    private changeAddCategoryData = (addCategoryDataKey: keyof IAddCategoryData, e: React.ChangeEvent<HTMLInputElement>) => {
+    private changeAddCategoryData = (addCategoryDataKey: keyof AddCategoryData, e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         const newValue = e.currentTarget.value;
 
@@ -124,8 +129,14 @@ class CategoriesPage extends React.Component<StyledComponentProps, ICategoriesPa
 
     private handleAddCategoryFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        this.closeAddDialog();
+        
+        this.categoriesApiClient.createCategory(this.state.addCategoryData)
+            .then(() => {
+                this.closeAddDialog();
+            })
+            .catch(() => {
+                this.closeAddDialog();
+            });
     }
 }
 
