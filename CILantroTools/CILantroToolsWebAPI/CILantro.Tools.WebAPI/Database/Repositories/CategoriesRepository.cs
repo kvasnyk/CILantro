@@ -16,7 +16,8 @@ namespace CILantro.Tools.WebAPI.Database.Repositories
             category => new CategorySearchReadModel
             {
                 Id = category.Id,
-                Name = category.Name
+                Name = category.Name,
+                Code = category.Code
             };
 
         protected override Expression<Func<CategorySearchReadModel, string>> MapSearchPropertyToValue(string searchProperty)

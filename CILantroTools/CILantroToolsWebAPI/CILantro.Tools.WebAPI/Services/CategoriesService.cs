@@ -21,12 +21,13 @@ namespace CILantro.Tools.WebAPI.Services
             return await _categoriesRepository.Search(searchParam);
         }
 
-        public async Task CreateCategoryAsync(string name)
+        public async Task CreateCategoryAsync(string name, string code)
         {
             var newCategory = new CategoryEntity
             {
                 Id = Guid.NewGuid(),
-                Name = name
+                Name = name,
+                Code = code
             };
 
             await _categoriesRepository.CreateAsync(newCategory);

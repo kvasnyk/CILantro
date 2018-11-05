@@ -172,6 +172,10 @@
     <Compile Include="Migrations\201811021529066_InitialMigration.Designer.cs">
       <DependentUpon>201811021529066_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811051620437_CodeForCategories.cs" />
+    <Compile Include="Migrations\201811051620437_CodeForCategories.Designer.cs">
+      <DependentUpon>201811051620437_CodeForCategories.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadModels\CategoryReadModel.cs" />
     <Compile Include="ReadModels\CategorySearchReadModel.cs" />
@@ -195,6 +199,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201811021529066_InitialMigration.resx">
       <DependentUpon>201811021529066_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811051620437_CodeForCategories.resx">
+      <DependentUpon>201811051620437_CodeForCategories.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

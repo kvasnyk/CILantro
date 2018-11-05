@@ -29,7 +29,7 @@ namespace CILantro.Tools.WebAPI.Controllers
         [Route("create-category")]
         public async Task<IHttpActionResult> CreateCategoryAsync(CreateCategoryBindingModel model)
         {
-            await _categoriesService.CreateCategoryAsync(model.Name);
+            await _categoriesService.CreateCategoryAsync(model.Name, model.Code);
 
             return Ok();
         }

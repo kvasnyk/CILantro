@@ -4,6 +4,7 @@ type LocalesKeys =
     | 'cancel'
     | 'categories'
     | 'cilantroTools'
+    | 'code'
     | 'findTests'
     | 'name'
     | 'save'

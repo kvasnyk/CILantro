@@ -7,5 +7,7 @@ namespace CILantro.Tools.WebAPI.Entities
         public Guid Id { get; set; }
 
         public string Name { get; set; }
+
+        public string Code { get; set; }
     }
 }

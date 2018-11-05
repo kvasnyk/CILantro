@@ -21,7 +21,7 @@ const CategorySearchCard: React.StatelessComponent<CategorySearchCardProps> = (p
         <Card className={props.classes!.card}>
             <CardHeader
                 avatar={
-                    <Avatar>CN</Avatar>
+                    <Avatar>{props.category.code}</Avatar>
                 }
                 title={props.category.name}
             />

@@ -15,6 +15,7 @@ import CategoriesList from './CategoriesList';
 
 interface AddCategoryData {
     name: string;
+    code: string;
 }
 
 interface CategoriesPageState {
@@ -43,6 +44,7 @@ class CategoriesPage extends React.Component<StyledComponentProps, CategoriesPag
 
         this.state = {
             addCategoryData: {
+                code: '',
                 name: ''
             },
             isAddDialogOpen: false,
@@ -70,12 +72,19 @@ class CategoriesPage extends React.Component<StyledComponentProps, CategoriesPag
                         <DialogTitle>
                             {Locales.addCategory}
                         </DialogTitle>
-                        <DialogContent>
+                        <DialogContent className={this.props.classes!.addDialogContent}>
                             <TextField
                                 autoFocus={true}
                                 label={Locales.name}
                                 value={this.state.addCategoryData.name}
                                 onChange={this.handleAddDialogNameChange}
+                            />
+                            <br />
+                            <br />
+                            <TextField
+                                label={Locales.code}
+                                value={this.state.addCategoryData.code}
+                                onChange={this.handleAddDialogCodeChange}
                             />
                         </DialogContent>
                         <DialogActions>
@@ -106,6 +115,7 @@ class CategoriesPage extends React.Component<StyledComponentProps, CategoriesPag
         this.setState(prevState => ({
             ...prevState,
             addCategoryData: {
+                code: '',
                 name: ''
             }
         }));
@@ -138,6 +148,10 @@ class CategoriesPage extends React.Component<StyledComponentProps, CategoriesPag
 
     private handleAddDialogNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         this.changeAddCategoryData('name', e);
+    }
+
+    private handleAddDialogCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        this.changeAddCategoryData('code', e);
     }
 
     private handleAddCategoryFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
