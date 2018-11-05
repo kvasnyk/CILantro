@@ -4,6 +4,7 @@ import { StyledComponentProps, StyleRulesCallback, withStyles } from '@material-
 
 import MainAppBar from './MainAppBar';
 import MainAppMenu from './MainAppMenu';
+import MainConsole from './MainConsole';
 import MainContent from './MainContent';
 
 const styles: StyleRulesCallback = theme => ({
@@ -23,6 +24,7 @@ const App: React.StatelessComponent<StyledComponentProps> = (props) => {
       <MainAppBar />
       <MainAppMenu />
       <MainContent />
+      <MainConsole />
     </div>
   );
 };

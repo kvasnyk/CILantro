@@ -7,8 +7,11 @@ import {
 import green from '@material-ui/core/colors/green';
 import AddIcon from '@material-ui/icons/AddRounded';
 
-import CategoriesApiClient from '../../api/clients/CategoriesApiClient';
-import { Locales } from '../../locales/Locales';
+import CategoriesApiClient from '../../../api/clients/CategoriesApiClient';
+import CategorySearchReadModel from '../../../api/read-models/CategorySearchReadModel';
+import SearchResult from '../../../api/search/SearchResult';
+import { Locales } from '../../../locales/Locales';
+import CategoriesList from './CategoriesList';
 
 interface AddCategoryData {
     name: string;
@@ -17,15 +20,16 @@ interface AddCategoryData {
 interface CategoriesPageState {
     isAddDialogOpen: boolean;
     addCategoryData: AddCategoryData;
+    searchResult: SearchResult<CategorySearchReadModel>
 }
 
 const styles: StyleRulesCallback = theme => ({
     addFab: {
         backgroundColor: green[500],
-        bottom: theme.spacing.unit * 5,
+        bottom: theme.spacing.unit * 2,
         color: theme.palette.common.white,
         position: 'absolute',
-        right: theme.spacing.unit * 5
+        right: theme.spacing.unit * 2 + 600,
     }
 });
 
@@ -41,13 +45,22 @@ class CategoriesPage extends React.Component<StyledComponentProps, CategoriesPag
             addCategoryData: {
                 name: ''
             },
-            isAddDialogOpen: false
+            isAddDialogOpen: false,
+            searchResult: {
+                results: []
+            }
         };
+    }
+
+    public componentDidMount() {
+        this.refreshCategories();
     }
 
     public render() {
         return (
             <div>
+                <CategoriesList searchResult={this.state.searchResult} />
+
                 <Button variant="fab" className={this.props.classes!.addFab} onClick={this.handleAddFabClick}>
                     <AddIcon />
                 </Button>
@@ -133,10 +146,20 @@ class CategoriesPage extends React.Component<StyledComponentProps, CategoriesPag
         this.categoriesApiClient.createCategory(this.state.addCategoryData)
             .then(() => {
                 this.closeAddDialog();
+                this.refreshCategories();
             })
             .catch(() => {
                 this.closeAddDialog();
             });
+    }
+
+    private refreshCategories = () => {
+        this.categoriesApiClient.searchCategories({
+            orderBy: 'name'
+        })
+        .then(result => {
+            this.setState(prevState => ({ ...prevState, searchResult: result.data }));
+        });
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿using CILantro.Tools.WebAPI.BindingModels.Categories;
+using CILantro.Tools.WebAPI.Search;
 using CILantro.Tools.WebAPI.Services;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -13,6 +14,15 @@ namespace CILantro.Tools.WebAPI.Controllers
         public CategoriesController(CategoriesService categoriesService)
         {
             _categoriesService = categoriesService;
+        }
+
+        [HttpPost]
+        [Route("search-categories")]
+        public async Task<IHttpActionResult> SearchCategoriesAsync(SearchParameter searchParam)
+        {
+            var searchResult = await _categoriesService.SearchCategoriesAsync(searchParam);
+
+            return Ok(searchResult);
         }
 
         [HttpPost]
