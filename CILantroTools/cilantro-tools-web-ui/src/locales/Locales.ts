@@ -7,6 +7,7 @@ export const Locales: LocalesType = {
     'categories': 'Categories',
     'cilantroTools': 'CILantro Tools',
     'code': 'Code',
+    'consoleIsEmpty': 'Console window is empty.',
     'findTests': 'Find tests',
     'name': 'Name',
     'save': 'Save',

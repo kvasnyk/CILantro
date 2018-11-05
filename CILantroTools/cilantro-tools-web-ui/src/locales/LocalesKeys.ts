@@ -5,6 +5,7 @@ type LocalesKeys =
     | 'categories'
     | 'cilantroTools'
     | 'code'
+    | 'consoleIsEmpty'
     | 'findTests'
     | 'name'
     | 'save'
