@@ -5,6 +5,8 @@ import AddIcon from '@material-ui/icons/AddRounded';
 
 import CategoriesApiClient from '../../../api/clients/CategoriesApiClient';
 import { Locales } from '../../../locales/Locales';
+import DataValidation from '../../../types/DataValidation';
+import ValidationHelper from '../../../validation/ValidationHelper';
 import DialogButton from '../../buttons/DialogButton';
 
 interface AddCategoryData {
@@ -20,13 +22,7 @@ interface AddCategoryDialogButtonProps {
 
 interface AddCategoryDialogButtonState {
     data: AddCategoryData;
-}
-
-const getEmptyData = () => {
-    return ({
-        code: '',
-        name: ''
-    });
+    dataValidation: DataValidation<AddCategoryData>;
 }
 
 class AddCategoryDialogButton extends React.Component<AddCategoryDialogButtonProps, AddCategoryDialogButtonState> {
@@ -38,8 +34,13 @@ class AddCategoryDialogButton extends React.Component<AddCategoryDialogButtonPro
         this.categoriesApiClient = new CategoriesApiClient();
 
         this.state = {
-            data: getEmptyData()
+            data: this.getEmptyData(),
+            dataValidation: {}
         };
+    }
+
+    public componentDidMount() {
+        this.updateValidation();
     }
 
     public render() {
@@ -52,12 +53,14 @@ class AddCategoryDialogButton extends React.Component<AddCategoryDialogButtonPro
                 okButtonLabel={Locales.save}
                 onOkButtonClick={this.handleOkButtonClick}
                 onDialogClose={this.handleDialogClose}
+                isOkButtonDisabled={!ValidationHelper.isValid(this.state.dataValidation)}
             >
                 <TextField
                     autoFocus={true}
                     label={Locales.name}
                     value={this.state.data.name}
                     onChange={this.handleNameChange}
+                    error={!this.state.dataValidation.name}
                 />
                 <br />
                 <br />
@@ -65,12 +68,13 @@ class AddCategoryDialogButton extends React.Component<AddCategoryDialogButtonPro
                     label={Locales.code}
                     value={this.state.data.code}
                     onChange={this.handleCodeChange}
+                    error={!this.state.dataValidation.code}
                 />
             </DialogButton>
         );
     }
 
-    private changeAddCategoryData(addCategoryDataKey: keyof AddCategoryData, e: React.ChangeEvent<HTMLInputElement>) {
+    private changeData(addCategoryDataKey: keyof AddCategoryData, e: React.ChangeEvent<HTMLInputElement>) {
         e.preventDefault();
         const newValue = e.currentTarget.value;
 
@@ -80,7 +84,9 @@ class AddCategoryDialogButton extends React.Component<AddCategoryDialogButtonPro
                 ...prevState.data,
                 [addCategoryDataKey]: newValue
             }
-        }));
+        }), () => {
+            this.updateValidation();
+        });
     };
 
     private addCategory() {
@@ -98,16 +104,35 @@ class AddCategoryDialogButton extends React.Component<AddCategoryDialogButtonPro
     private clearData() {
         this.setState(prevState => ({
             ...prevState,
-            data: getEmptyData()
+            data: this.getEmptyData()
+        }), () => {
+            this.updateValidation();
+        });
+    }
+
+    private getEmptyData() {
+        return ({
+            code: '',
+            name: ''
+        });
+    }
+
+    private updateValidation() {
+        this.setState(prevState => ({
+            ...prevState,
+            dataValidation: {
+                code: ValidationHelper.isNotEmpty(prevState.data.code),
+                name: ValidationHelper.isNotEmpty(prevState.data.name)
+            }
         }));
     }
 
     private handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        this.changeAddCategoryData('name', e);
+        this.changeData('name', e);
     }
 
     private handleCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        this.changeAddCategoryData('code', e);
+        this.changeData('code', e);
     }
 
     private handleOkButtonClick = () => {

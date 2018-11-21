@@ -9,6 +9,7 @@ import { Locales } from '../../locales/Locales';
 interface DialogButtonProps {
     className?: string;
     icon: React.ReactElement<SvgIconProps>;
+    isOkButtonDisabled?: boolean;
     okButtonLabel: string;
     onDialogClose?: () => void;
     onOkButtonClick: () => void;
@@ -43,7 +44,7 @@ class DialogButton extends React.Component<DialogButtonProps, DialogButtonState>
                         {this.props.children}
                     </DialogContent>
                     <DialogActions>
-                        <Button color="primary" onClick={this.handleOkButtonClick}>
+                        <Button color="primary" onClick={this.handleOkButtonClick} disabled={this.props.isOkButtonDisabled}>
                             {this.props.okButtonLabel}
                         </Button>
                         <Button color="secondary" onClick={this.handleDialogCancelButtonClick}>
@@ -96,7 +97,9 @@ class DialogButton extends React.Component<DialogButtonProps, DialogButtonState>
     private handleKeyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
         switch (e.which) {
             case Key.Enter:
-                this.handleOkButtonClick();
+                if (!this.props.isOkButtonDisabled) {
+                    this.handleOkButtonClick();
+                }
                 break;
             default:
                 break;
