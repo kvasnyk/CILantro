@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace CILantro.Tools.WebAPI.Entities
 {
-    public class CategoryEntity
+    public class SubcategoryEntity
     {
         public Guid Id { get; set; }
 
@@ -11,6 +10,8 @@ namespace CILantro.Tools.WebAPI.Entities
 
         public string Code { get; set; }
 
-        public virtual ICollection<SubcategoryEntity> Subcategories { get; set; }
+        public Guid CategoryId { get; set; }
+
+        public virtual CategoryEntity Category { get; set; }
     }
 }

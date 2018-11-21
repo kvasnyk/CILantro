@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import {
-    Avatar, Card, CardHeader, StyledComponentProps, StyleRulesCallback, withStyles
+    Avatar, Card, CardContent, CardHeader, StyledComponentProps, StyleRulesCallback, withStyles
 } from '@material-ui/core';
 import indigo from '@material-ui/core/colors/indigo';
 
@@ -30,6 +30,11 @@ const CategorySearchCard: React.StatelessComponent<CategorySearchCardProps> = (p
                 }
                 title={props.category.name}
             />
+            <CardContent>
+                {props.category.subcategories.map(subcategory => (
+                    <span>{subcategory.name}</span>
+                ))}
+            </CardContent>
         </Card>
     );
 }

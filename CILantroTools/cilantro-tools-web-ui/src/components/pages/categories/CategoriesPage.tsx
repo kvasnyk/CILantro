@@ -1,16 +1,12 @@
 import * as React from 'react';
 
-import {
-    Button, Dialog, DialogActions, DialogContent, DialogTitle, StyledComponentProps,
-    StyleRulesCallback, TextField, withStyles
-} from '@material-ui/core';
+import { StyledComponentProps, StyleRulesCallback, withStyles } from '@material-ui/core';
 import green from '@material-ui/core/colors/green';
-import AddIcon from '@material-ui/icons/AddRounded';
 
 import CategoriesApiClient from '../../../api/clients/CategoriesApiClient';
 import CategorySearchReadModel from '../../../api/read-models/CategorySearchReadModel';
 import SearchResult from '../../../api/search/SearchResult';
-import { Locales } from '../../../locales/Locales';
+import AddCategoryDialogButton from './AddCategoryDialogButton';
 import CategoriesList from './CategoriesList';
 
 interface AddCategoryData {
@@ -60,120 +56,25 @@ class CategoriesPage extends React.Component<StyledComponentProps, CategoriesPag
 
     public render() {
         return (
-            <div>
+            <>
+                <AddCategoryDialogButton variant="fab" className={this.props.classes!.addFab} onCategoryAdded={this.handleCategoryAdded} />
+
                 <CategoriesList searchResult={this.state.searchResult} />
-
-                <Button variant="fab" className={this.props.classes!.addFab} onClick={this.handleAddFabClick}>
-                    <AddIcon />
-                </Button>
-
-                <Dialog open={this.state.isAddDialogOpen} onClose={this.handleAddDialogClose}>
-                    <form onSubmit={this.handleAddCategoryFormSubmit}>
-                        <DialogTitle>
-                            {Locales.addCategory}
-                        </DialogTitle>
-                        <DialogContent className={this.props.classes!.addDialogContent}>
-                            <TextField
-                                autoFocus={true}
-                                label={Locales.name}
-                                value={this.state.addCategoryData.name}
-                                onChange={this.handleAddDialogNameChange}
-                            />
-                            <br />
-                            <br />
-                            <TextField
-                                label={Locales.code}
-                                value={this.state.addCategoryData.code}
-                                onChange={this.handleAddDialogCodeChange}
-                            />
-                        </DialogContent>
-                        <DialogActions>
-                            <Button color="primary" type="submit">
-                                {Locales.save}
-                            </Button>
-                            <Button color="secondary" onClick={this.handleAddDialogCancelButtonClick}>
-                                {Locales.cancel}
-                            </Button>
-                        </DialogActions>
-                    </form>
-                </Dialog>
-            </div>
+            </>
         );
     }
 
-    private openAddDialog = () => {
-        this.setState(prevState => ({ ...prevState, isAddDialogOpen: true }));
-    }
-
-    private closeAddDialog = () => {
-        this.setState(prevState => ({ ...prevState, isAddDialogOpen: false }), () => {
-            this.clearAddCategoryData();
-        });
-    }
-
-    private clearAddCategoryData = () => {
-        this.setState(prevState => ({
-            ...prevState,
-            addCategoryData: {
-                code: '',
-                name: ''
-            }
-        }));
-    }
-
-    private changeAddCategoryData = (addCategoryDataKey: keyof AddCategoryData, e: React.ChangeEvent<HTMLInputElement>) => {
-        e.preventDefault();
-        const newValue = e.currentTarget.value;
-
-        this.setState(prevState => ({
-            ...prevState,
-            addCategoryData: {
-                ...prevState.addCategoryData,
-                [addCategoryDataKey]: newValue
-            }
-        }));
-    }
-
-    private handleAddFabClick = () => {
-        this.openAddDialog();
-    }
-
-    private handleAddDialogClose = () => {
-        this.closeAddDialog();
-    }
-
-    private handleAddDialogCancelButtonClick = () => {
-        this.closeAddDialog();
-    }
-
-    private handleAddDialogNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        this.changeAddCategoryData('name', e);
-    }
-
-    private handleAddDialogCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        this.changeAddCategoryData('code', e);
-    }
-
-    private handleAddCategoryFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        
-        this.categoriesApiClient.createCategory(this.state.addCategoryData)
-            .then(() => {
-                this.closeAddDialog();
-                this.refreshCategories();
-            })
-            .catch(() => {
-                this.closeAddDialog();
-            });
-    }
-
-    private refreshCategories = () => {
+    private refreshCategories() {
         this.categoriesApiClient.searchCategories({
             orderBy: 'name'
         })
         .then(result => {
             this.setState(prevState => ({ ...prevState, searchResult: result.data }));
         });
+    }
+
+    private handleCategoryAdded = () => {
+        this.refreshCategories();
     }
 }
 

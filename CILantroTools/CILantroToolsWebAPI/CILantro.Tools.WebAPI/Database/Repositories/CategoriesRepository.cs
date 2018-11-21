@@ -1,6 +1,7 @@
 ﻿using CILantro.Tools.WebAPI.Entities;
 using CILantro.Tools.WebAPI.ReadModels;
 using System;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace CILantro.Tools.WebAPI.Database.Repositories
@@ -17,7 +18,13 @@ namespace CILantro.Tools.WebAPI.Database.Repositories
             {
                 Id = category.Id,
                 Name = category.Name,
-                Code = category.Code
+                Code = category.Code,
+                Subcategories = category.Subcategories.Select(subcategory => new SubcategorySearchReadModel
+                {
+                    Id = subcategory.Id,
+                    Name = subcategory.Name,
+                    Code = subcategory.Code
+                }).OrderBy(subcategory => subcategory.Name).ToList()
             };
 
         protected override Expression<Func<CategorySearchReadModel, string>> MapSearchPropertyToValue(string searchProperty)
