@@ -19,10 +19,9 @@ const styles: StyleRulesCallback = theme => ({
         minWidth: 0
     },
     contentContent: {
-        height: `calc(100vh - ${theme.spacing.unit * 3 * 2}px - 64px - ${theme.spacing.unit * 9}px)`,
+        height: `calc(100vh - ${theme.spacing.unit * 3 * 2}px - 64px - ${theme.spacing.unit * 11}px)`,
         overflow: 'auto',
-        padding: theme.spacing.unit * 3,
-        paddingBottom: theme.spacing.unit
+        padding: theme.spacing.unit * 3
     },
     toolbar: theme.mixins.toolbar,
 });

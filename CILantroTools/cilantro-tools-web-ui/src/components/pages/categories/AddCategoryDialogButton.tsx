@@ -23,6 +23,7 @@ interface AddCategoryDialogButtonProps {
 interface AddCategoryDialogButtonState {
     data: AddCategoryData;
     dataValidation: DataValidation<AddCategoryData>;
+    isButtonLoading: boolean;
 }
 
 class AddCategoryDialogButton extends React.Component<AddCategoryDialogButtonProps, AddCategoryDialogButtonState> {
@@ -35,7 +36,8 @@ class AddCategoryDialogButton extends React.Component<AddCategoryDialogButtonPro
 
         this.state = {
             data: this.getEmptyData(),
-            dataValidation: {}
+            dataValidation: {},
+            isButtonLoading: false
         };
     }
 
@@ -54,6 +56,7 @@ class AddCategoryDialogButton extends React.Component<AddCategoryDialogButtonPro
                 onOkButtonClick={this.handleOkButtonClick}
                 onDialogClose={this.handleDialogClose}
                 isOkButtonDisabled={!ValidationHelper.isValid(this.state.dataValidation)}
+                isLoading={this.state.isButtonLoading}
             >
                 <TextField
                     autoFocus={true}
@@ -89,15 +92,33 @@ class AddCategoryDialogButton extends React.Component<AddCategoryDialogButtonPro
         });
     };
 
+    private enableButtonLoading() {
+        this.setState(prevState => ({
+            ...prevState,
+            isButtonLoading: true
+        }));
+    }
+
+    private disableButtonLoading() {
+        this.setState(prevState => ({
+            ...prevState,
+            isButtonLoading: false
+        }));
+    }
+
     private addCategory() {
+        this.enableButtonLoading();
         this.categoriesApiClient.createCategory(this.state.data)
             .then(() => {
                 if(this.props.onCategoryAdded) {
                     this.props.onCategoryAdded();
                 }
+
+                this.disableButtonLoading();
             })
             .catch(() => {
                 alert('add category - error!');
+                this.disableButtonLoading();
             });
     }
 

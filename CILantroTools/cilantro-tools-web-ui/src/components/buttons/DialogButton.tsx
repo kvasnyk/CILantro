@@ -1,14 +1,20 @@
+import * as classNames from 'classnames';
 import * as React from 'react';
 import { Key } from 'ts-keycode-enum';
 
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
+import {
+    Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle,
+    StyledComponentProps
+} from '@material-ui/core';
+import green from '@material-ui/core/colors/green';
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
 
 import { Locales } from '../../locales/Locales';
 
-interface DialogButtonProps {
+interface DialogButtonProps extends StyledComponentProps {
     className?: string;
     icon: React.ReactElement<SvgIconProps>;
+    isLoading: boolean;
     isOkButtonDisabled?: boolean;
     okButtonLabel: string;
     onDialogClose?: () => void;
@@ -31,10 +37,31 @@ class DialogButton extends React.Component<DialogButtonProps, DialogButtonState>
     }
 
     public render() {
+        const buttonColor = green[500];
+        const buttonClassName = classNames(this.props.className);
+        
+        const isLoading = this.props.isLoading;
+
         return (
             <>
-                <Button variant={this.props.variant} className={this.props.className} onClick={this.handleButtonClick}>
-                    {this.props.icon}
+                <Button
+                    variant={this.props.variant}
+                    className={buttonClassName}
+                    onClick={this.handleButtonClick}
+                    disabled={isLoading}
+                    style={{
+                        backgroundColor: isLoading ? '#fafafa' : buttonColor
+                    }}
+                >
+                    {isLoading ? (
+                        <CircularProgress style={{
+                            color: buttonColor
+                        }} />
+                    ) : (
+                        <>
+                            {this.props.icon}  
+                        </>
+                    )}
                 </Button>
                 <Dialog open={this.state.isDialogOpen} onClose={this.handleDialogClose} onKeyPress={this.handleKeyPress}>
                     <DialogTitle>

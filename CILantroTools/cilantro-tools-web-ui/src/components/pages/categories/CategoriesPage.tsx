@@ -1,7 +1,8 @@
 import * as React from 'react';
 
-import { StyledComponentProps, StyleRulesCallback, withStyles } from '@material-ui/core';
-import green from '@material-ui/core/colors/green';
+import {
+    CircularProgress, StyledComponentProps, StyleRulesCallback, withStyles
+} from '@material-ui/core';
 
 import CategoriesApiClient from '../../../api/clients/CategoriesApiClient';
 import CategorySearchReadModel from '../../../api/read-models/CategorySearchReadModel';
@@ -15,18 +16,23 @@ interface AddCategoryData {
 }
 
 interface CategoriesPageState {
-    isAddDialogOpen: boolean;
     addCategoryData: AddCategoryData;
-    searchResult: SearchResult<CategorySearchReadModel>
+    searchResult: SearchResult<CategorySearchReadModel>;
+    isLoading: boolean;
 }
 
 const styles: StyleRulesCallback = theme => ({
     addFab: {
-        backgroundColor: green[500],
         bottom: theme.spacing.unit * 2,
         color: theme.palette.common.white,
         position: 'absolute',
         right: theme.spacing.unit * 2 + 600,
+    },
+    loadingContainer: {
+        alignItems: 'center',
+        display: 'flex',
+        height: '100%',
+        justifyContent: 'center'
     }
 });
 
@@ -43,7 +49,7 @@ class CategoriesPage extends React.Component<StyledComponentProps, CategoriesPag
                 code: '',
                 name: ''
             },
-            isAddDialogOpen: false,
+            isLoading: false,
             searchResult: {
                 results: []
             }
@@ -59,18 +65,42 @@ class CategoriesPage extends React.Component<StyledComponentProps, CategoriesPag
             <>
                 <AddCategoryDialogButton variant="fab" className={this.props.classes!.addFab} onCategoryAdded={this.handleCategoryAdded} />
 
-                <CategoriesList searchResult={this.state.searchResult} />
+                {this.state.isLoading ? (
+                    <div className={this.props.classes!.loadingContainer}>
+                        <CircularProgress className={this.props.classes!.circularProgress} />
+                    </div>
+                ) : (
+                    <>
+                        <CategoriesList searchResult={this.state.searchResult} />
+                    </>
+                )}
             </>
         );
     }
 
     private refreshCategories() {
+        this.enableLoading();
+
         this.categoriesApiClient.searchCategories({
             orderBy: 'name'
         })
         .then(result => {
-            this.setState(prevState => ({ ...prevState, searchResult: result.data }));
-        });
+            this.setState(prevState => ({ ...prevState, searchResult: result.data }), () => {
+                this.disableLoading();
+            });
+        })
+        .catch(error => {
+            alert('refresh categories - error!');
+            this.disableLoading();
+        })
+    }
+
+    private enableLoading() {
+        this.setState(prevState => ({ ...prevState, isLoading: true }));
+    }
+
+    private disableLoading() {
+        this.setState(prevState => ({ ...prevState, isLoading: false }));
     }
 
     private handleCategoryAdded = () => {
