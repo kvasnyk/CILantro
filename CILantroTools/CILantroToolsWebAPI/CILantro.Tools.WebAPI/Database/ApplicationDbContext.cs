@@ -7,6 +7,8 @@ namespace CILantro.Tools.WebAPI.Database
     {
         public DbSet<CategoryEntity> Categories { get; set; }
 
+        public DbSet<SubcategoryEntity> Subcategories { get; set; }
+
         static ApplicationDbContext()
         {
             System.Data.Entity.Database.SetInitializer(new ApplicationDbInitializer(true));
