@@ -1,9 +1,7 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 
 import {
-    Divider, Drawer, List, ListItem, ListItemIcon, ListItemText, StyledComponentProps,
-    StyleRulesCallback, withStyles
+    Divider, Drawer, List, StyledComponentProps, StyleRulesCallback, withStyles
 } from '@material-ui/core';
 import CategoryIcon from '@material-ui/icons/CategoryRounded';
 import CodeIcon from '@material-ui/icons/CodeRounded';
@@ -11,6 +9,7 @@ import SearchIcon from '@material-ui/icons/SearchRounded';
 
 import { Locales } from '../../locales/Locales';
 import { Routes } from '../../routes/Routes';
+import MainAppMenuItem from './MainAppMenuItem';
 
 const drawerWidth = 240;
 
@@ -18,9 +17,6 @@ const styles: StyleRulesCallback = theme => ({
     drawerPaper: {
         position: 'relative',
         width: drawerWidth
-    },
-    link: {
-        textDecoration: 'none'
     },
     toolbar: theme.mixins.toolbar
 });
@@ -35,34 +31,31 @@ const MainAppMenu: React.StatelessComponent<StyledComponentProps> = (props) => {
         >
             <div className={props.classes!.toolbar} />
             <List>
-                <div>
-                    <Link to={Routes.tests_find} className={props.classes!.link}>
-                        <ListItem button={true}>
-                            <ListItemIcon><SearchIcon /></ListItemIcon>
-                            <ListItemText primary={Locales.findTests} />
-                        </ListItem>
-                    </Link>
-                </div>
+                <>
+                    <MainAppMenuItem
+                        linkTo={Routes.tests_find}
+                        text={Locales.findTests}
+                        icon={<SearchIcon />}
+                    />
+                </>
             </List>
             
             <Divider />
 
             <List>
-                <div>
-                    <Link to={Routes.tests} className={props.classes!.link}>
-                        <ListItem button={true}>
-                            <ListItemIcon><CodeIcon /></ListItemIcon>
-                            <ListItemText primary={Locales.tests} />
-                        </ListItem>
-                    </Link>
+                <>
+                    <MainAppMenuItem
+                        linkTo={Routes.tests}
+                        text={Locales.tests}
+                        icon={<CodeIcon />}
+                    />
 
-                    <Link to={Routes.categories} className={props.classes!.link}>
-                        <ListItem button={true}>
-                            <ListItemIcon><CategoryIcon /></ListItemIcon>
-                            <ListItemText primary={Locales.categories} />
-                        </ListItem>
-                    </Link>    
-                </div>
+                    <MainAppMenuItem
+                        linkTo={Routes.categories}
+                        text={Locales.categories}
+                        icon={<CategoryIcon />}
+                    />
+                </>
             </List>
         </Drawer>
     );
