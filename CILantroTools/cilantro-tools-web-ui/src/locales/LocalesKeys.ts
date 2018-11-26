@@ -8,6 +8,7 @@ type LocalesKeys =
     | 'consoleIsEmpty'
     | 'findTests'
     | 'name'
+    | 'noSubcategoriesAdded'
     | 'save'
     | 'tests';
 
