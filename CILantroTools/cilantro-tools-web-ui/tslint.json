@@ -1,0 +1,14 @@
+{
+	"extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+	"linterOptions": {
+		"exclude": ["config/**/*.js", "node_modules/**/*.ts", "coverage/lcov-report/*.js"]
+	},
+	"rules": {
+		"eofline": true,
+		"interface-name": [true, "never-prefix"],
+		"no-consecutive-blank-lines": true,
+		"no-empty-interface": false,
+		"no-unused-variable": true,
+		"quotemark": [true, "single", "jsx-double"]
+	}
+}
