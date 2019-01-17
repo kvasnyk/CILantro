@@ -6,6 +6,7 @@
 	"rules": {
 		"eofline": true,
 		"interface-name": [true, "never-prefix"],
+		"jsx-no-lambda": false,
 		"no-consecutive-blank-lines": true,
 		"no-empty-interface": false,
 		"no-unused-variable": true,

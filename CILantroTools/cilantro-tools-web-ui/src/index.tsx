@@ -1,6 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 
-import App from './components/App';
+import CilApp from './components/app/CilApp';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+  <BrowserRouter>
+    <CilApp />
+  </BrowserRouter>,
+  document.getElementById('root')
+);
