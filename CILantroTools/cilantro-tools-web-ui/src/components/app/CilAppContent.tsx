@@ -9,10 +9,13 @@ import CilFindTestsPage from '../pages/CilFindTestsPage';
 
 const useStyles = makeStyles((theme: Theme) => ({
   main: {
-    width: '100%'
+    width: '100%',
+    backgroundColor: theme.palette.background.default
   },
   content: {
-    margin: '10px'
+    margin: '10px',
+    minHeight: `calc(100vh - 84px)`,
+    display: 'flex'
   },
   toolbar: theme.mixins.toolbar
 }));
