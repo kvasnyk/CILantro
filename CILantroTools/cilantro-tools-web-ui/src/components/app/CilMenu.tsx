@@ -6,6 +6,7 @@ import CodeIcon from '@material-ui/icons/CodeRounded';
 import SearchIcon from '@material-ui/icons/SearchRounded';
 import { makeStyles } from '@material-ui/styles';
 
+import routes from '../../routing/routes';
 import styles from '../../styles/styles';
 import translations from '../../translations/translations';
 import CilMenuItem from './CilMenuItem';
@@ -32,7 +33,7 @@ const CilMenu: StatelessComponent = props => {
       <div className={classes.toolbar} />
       <List>
         <CilMenuItem
-          to="#"
+          to={routes.tests.find}
           label={translations.tests.findTests}
           icon={<SearchIcon />}
         />
@@ -42,12 +43,12 @@ const CilMenu: StatelessComponent = props => {
 
       <List>
         <CilMenuItem
-          to="#"
+          to={routes.tests.tests}
           label={translations.tests.tests}
           icon={<CodeIcon />}
         />
         <CilMenuItem
-          to="#"
+          to={routes.categories.categories}
           label={translations.categories.categories}
           icon={<CategoryIcon />}
         />

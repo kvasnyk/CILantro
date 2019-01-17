@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { AppBar, Theme, Toolbar, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
+import routes from '../../routing/routes';
 import translations from '../../translations/translations';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -22,7 +23,7 @@ const CilAppBar: StatelessComponent = props => {
   return (
     <AppBar color="primary" position="absolute" className={classes.appBar}>
       <Toolbar>
-        <Link to="#" className={classes.appNameLink}>
+        <Link to={routes.root} className={classes.appNameLink}>
           <Typography variant="h6" color="inherit">
             {translations.app.name}
           </Typography>

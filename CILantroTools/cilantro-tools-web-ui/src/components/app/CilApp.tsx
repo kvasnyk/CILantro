@@ -4,6 +4,7 @@ import { createMuiTheme, Theme } from '@material-ui/core';
 import { makeStyles, ThemeProvider } from '@material-ui/styles';
 
 import CilAppBar from './CilAppBar';
+import CilAppContent from './CilAppContent';
 import CilMenu from './CilMenu';
 
 const appTheme = createMuiTheme({
@@ -30,6 +31,7 @@ const CilApp: StatelessComponent = props => {
       <div className={classes.root}>
         <CilAppBar />
         <CilMenu />
+        <CilAppContent />
       </div>
     </ThemeProvider>
   );
