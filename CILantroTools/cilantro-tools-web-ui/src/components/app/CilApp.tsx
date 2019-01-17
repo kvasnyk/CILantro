@@ -1,16 +1,36 @@
 import React, { StatelessComponent } from 'react';
 
-import { createMuiTheme } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme, Theme } from '@material-ui/core';
+import { makeStyles, ThemeProvider } from '@material-ui/styles';
 
 import CilAppBar from './CilAppBar';
+import CilMenu from './CilMenu';
 
-const theme = createMuiTheme();
+const appTheme = createMuiTheme({
+  zIndex: {
+    appBar: 1200,
+    drawer: 1100
+  }
+});
+
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    display: 'flex',
+    height: '100vh',
+    margin: 0,
+    padding: 0
+  }
+}));
 
 const CilApp: StatelessComponent = props => {
+  const classes = useStyles();
+
   return (
-    <ThemeProvider theme={theme}>
-      <CilAppBar />
+    <ThemeProvider theme={appTheme}>
+      <div className={classes.root}>
+        <CilAppBar />
+        <CilMenu />
+      </div>
     </ThemeProvider>
   );
 };
