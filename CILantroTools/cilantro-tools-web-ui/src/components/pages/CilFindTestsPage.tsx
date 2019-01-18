@@ -1,25 +1,11 @@
-import React, { StatelessComponent } from 'react';
+import React, { StatelessComponent, useState } from 'react';
 
-import { Theme } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
-
-import CilLoading from '../shared/utils/CilLoading';
-
-const useStyles = makeStyles((theme: Theme) => ({
-  page: {
-    position: 'relative',
-    width: '100%'
-  }
-}));
+import CilPage, { PageState } from '../base/CilPage';
 
 const CilFindTestsPage: StatelessComponent = props => {
-  const classes = useStyles();
+  const [pageState] = useState<PageState>('loading');
 
-  return (
-    <div className={classes.page}>
-      <CilLoading />
-    </div>
-  );
+  return <CilPage state={pageState}>CilFindTestsPage</CilPage>;
 };
 
 export default CilFindTestsPage;
