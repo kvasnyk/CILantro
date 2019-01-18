@@ -8,6 +8,9 @@ import CilAppContent from './CilAppContent';
 import CilMenu from './CilMenu';
 
 const appTheme = createMuiTheme({
+  typography: {
+    useNextVariants: true
+  },
   zIndex: {
     appBar: 1200,
     drawer: 1100
