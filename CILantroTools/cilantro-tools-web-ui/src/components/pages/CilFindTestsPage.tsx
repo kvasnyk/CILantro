@@ -1,13 +1,15 @@
 import React, { StatelessComponent, useEffect, useState } from 'react';
 
 import TestsApiClient from '../../api/clients/TestsApiClient';
+import TestCandidate from '../../api/models/tests/TestCandidate';
 import CilPage, { PageState } from '../base/CilPage';
+import CilTestCandidatesList from '../shared/tests/CilTestCandidatesList';
 
 const CilFindTestsPage: StatelessComponent = props => {
   const testsApiClient = new TestsApiClient();
 
   const [pageState, setPageState] = useState<PageState>('loading');
-  const [, setTestCandidates] = useState<Array<unknown>>([]);
+  const [testCandidates, setTestCandidates] = useState<TestCandidate[]>([]);
 
   const refreshTestCandidates = async () => {
     try {
@@ -24,7 +26,11 @@ const CilFindTestsPage: StatelessComponent = props => {
     refreshTestCandidates();
   }, []);
 
-  return <CilPage state={pageState}>CilFindTestsPage</CilPage>;
+  return (
+    <CilPage state={pageState}>
+      <CilTestCandidatesList testCandidates={testCandidates} />
+    </CilPage>
+  );
 };
 
 export default CilFindTestsPage;

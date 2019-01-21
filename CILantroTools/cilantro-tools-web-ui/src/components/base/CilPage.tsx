@@ -3,7 +3,7 @@ import React, { StatelessComponent } from 'react';
 import { Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
-import CilLoading from '../shared/utils/CilLoading';
+import CilLoading from '../utils/CilLoading';
 
 export type PageState = 'loading' | 'success' | 'error';
 

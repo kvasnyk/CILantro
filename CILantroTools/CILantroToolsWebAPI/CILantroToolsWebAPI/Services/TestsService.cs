@@ -1,5 +1,6 @@
 ﻿using CILantroToolsWebAPI.Models.Tests;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CILantroToolsWebAPI.Services
@@ -8,17 +9,10 @@ namespace CILantroToolsWebAPI.Services
     {
         public async Task<IEnumerable<TestCandidate>> FindTestCandidatesAsync()
         {
-            return new List<TestCandidate>
+            return Enumerable.Range(1, 100).Select(i => new TestCandidate
             {
-                new TestCandidate
-                {
-                    Name = "Test1"
-                },
-                new TestCandidate
-                {
-                    Name = "Test2"
-                }
-            };
+                Name = $"TestCandidate{i}"
+            });
         }
     }
 }
