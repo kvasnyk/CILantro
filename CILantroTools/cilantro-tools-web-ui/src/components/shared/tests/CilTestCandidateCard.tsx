@@ -35,7 +35,9 @@ const CilTestCandidateCard: StatelessComponent<
         <Typography variant="subtitle1">{props.testCandidate.path}</Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        <CilCreateTestFromTestCandidateButton />
+        <CilCreateTestFromTestCandidateButton
+          testCandidate={props.testCandidate}
+        />
       </CardActions>
     </Card>
   );

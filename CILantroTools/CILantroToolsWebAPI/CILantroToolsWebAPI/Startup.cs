@@ -1,4 +1,6 @@
 ﻿using CILantroToolsWebAPI.Db;
+using CILantroToolsWebAPI.DbModels;
+using CILantroToolsWebAPI.Services;
 using CILantroToolsWebAPI.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,7 +35,10 @@ namespace CILantroToolsWebAPI
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
-            services.AddDbContext<AppDbContext>(options=> options.UseSqlServer(Configuration.GetConnectionString("AppDatabase")));
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AppDatabase")));
+
+            services.AddScoped<AppKeyRepository<Test>>();
+            services.AddScoped<TestsService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

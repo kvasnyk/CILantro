@@ -1,5 +1,6 @@
 const apiRoutes = {
   tests: {
+    createFromCandidate: '/tests/create-from-candidate',
     findTests: '/tests/find'
   }
 };

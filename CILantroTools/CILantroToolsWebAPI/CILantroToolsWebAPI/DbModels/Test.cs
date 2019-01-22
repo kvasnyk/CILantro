@@ -1,8 +1,9 @@
-﻿using System;
+﻿using CILantroToolsWebAPI.Db;
+using System;
 
 namespace CILantroToolsWebAPI.DbModels
 {
-    public class Test
+    public class Test : IKeyEntity
     {
         public Guid Id { get; set; }
 

@@ -11,6 +11,10 @@ abstract class ApiClientBase {
   protected get<TResult>(url: string) {
     return this.axiosInstance.get<TResult>(url);
   }
+
+  protected post<TData, TResult>(url: string, data: TData) {
+    return this.axiosInstance.post<TResult>(url, data);
+  }
 }
 
 export default ApiClientBase;
