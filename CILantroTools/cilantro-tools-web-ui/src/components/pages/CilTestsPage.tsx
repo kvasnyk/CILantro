@@ -20,7 +20,6 @@ const CilTestsPage: StatelessComponent = props => {
       setSearchResult(searchTestsResponse.data);
       setPageState('success');
     } catch (error) {
-      alert(error);
       setPageState('error');
     }
   };

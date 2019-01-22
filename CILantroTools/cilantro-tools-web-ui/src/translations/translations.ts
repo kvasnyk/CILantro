@@ -8,6 +8,9 @@ const translations = {
   tests: {
     findTests: 'Find tests',
     tests: 'Tests'
+  },
+  shared: {
+    anErrorOccurred: 'An error occurred. Please try again.'
   }
 };
 

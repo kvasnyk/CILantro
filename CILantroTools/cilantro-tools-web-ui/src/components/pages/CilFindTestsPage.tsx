@@ -17,7 +17,6 @@ const CilFindTestsPage: StatelessComponent = props => {
       setTestCandidates(findTestsResponse.data);
       setPageState('success');
     } catch (error) {
-      alert(error);
       setPageState('error');
     }
   };
