@@ -356,6 +356,9 @@ module.exports = function(webpackEnv) {
 			tls: 'empty',
 			child_process: 'empty'
 		},
-		performance: false
+		performance: false,
+		externals: {
+			appSettings: 'cilAppSettings'
+		}
 	};
 };

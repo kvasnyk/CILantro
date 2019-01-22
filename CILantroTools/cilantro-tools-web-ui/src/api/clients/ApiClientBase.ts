@@ -1,8 +1,10 @@
 import AxiosStatic, { AxiosInstance } from 'axios';
 
+const appSettings = require('appSettings');
+
 const axiosInstance = AxiosStatic.create({
-  baseURL: 'http://localhost:56473/api',
-  timeout: 300000
+  baseURL: appSettings.apiBaseUrl,
+  timeout: appSettings.apiTimeout
 });
 
 abstract class ApiClientBase {

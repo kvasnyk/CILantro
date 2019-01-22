@@ -11,6 +11,7 @@
 		"no-empty-interface": false,
 		"no-unused-variable": true,
 		"object-literal-sort-keys": false,
-		"quotemark": [true, "single", "jsx-double"]
+		"quotemark": [true, "single", "jsx-double"],
+		"no-var-requires": false
 	}
 }
