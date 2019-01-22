@@ -6,9 +6,7 @@ import { makeStyles } from '@material-ui/styles';
 import TestCandidate from '../../../api/models/tests/TestCandidate';
 
 const useStyles = makeStyles((theme: Theme) => ({
-  card: {
-    width: '100px'
-  }
+  card: {}
 }));
 
 interface CilTestCandidateCardProps {
