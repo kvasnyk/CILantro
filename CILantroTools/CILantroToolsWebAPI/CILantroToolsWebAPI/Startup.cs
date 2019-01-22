@@ -1,6 +1,8 @@
-﻿using CILantroToolsWebAPI.Settings;
+﻿using CILantroToolsWebAPI.Db;
+using CILantroToolsWebAPI.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -30,6 +32,8 @@ namespace CILantroToolsWebAPI
             });
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
+            services.AddDbContext<AppDbContext>(options=> options.UseSqlServer(Configuration.GetConnectionString("AppDatabase")));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -37,6 +41,12 @@ namespace CILantroToolsWebAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<AppDbContext>();
+                context.Database.Migrate();
             }
 
             app.UseMvc();
