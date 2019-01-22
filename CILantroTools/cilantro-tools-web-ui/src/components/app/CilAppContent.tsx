@@ -14,6 +14,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   content: {
     margin: '10px',
+    marginRight: '5px',
+    paddingRight: '10px',
+    paddingLeft: '5px',
+    paddingTop: '5px',
     height: `calc(100vh - 84px)`,
     display: 'flex',
     overflow: 'auto'
