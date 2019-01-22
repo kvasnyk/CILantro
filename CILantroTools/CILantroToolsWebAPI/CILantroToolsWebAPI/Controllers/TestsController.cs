@@ -1,5 +1,7 @@
 ﻿using CILantroToolsWebAPI.BindingModels.Tests;
 using CILantroToolsWebAPI.Models.Tests;
+using CILantroToolsWebAPI.ReadModels.Tests;
+using CILantroToolsWebAPI.Search;
 using CILantroToolsWebAPI.Services;
 using CILantroToolsWebAPI.Settings;
 using Microsoft.AspNetCore.Cors;
@@ -33,6 +35,18 @@ namespace CILantroToolsWebAPI.Controllers
         public async Task<Guid> CreateTestFromCandidateAsync([FromBody]CreateTestFromCandidateBindingModel model)
         {
             return await _testsService.CreateTestFromCandidateAsync(model);
+        }
+
+        [HttpGet("{testId}")]
+        public async Task<TestReadModel> GetTestAsync([FromRoute]Guid testId)
+        {
+            return await _testsService.GetTestAsync(testId);
+        }
+
+        [HttpGet("search")]
+        public async Task<SearchResult<TestReadModel>> SearchTestsAsync([FromBody]SearchParameter searchParameter)
+        {
+            return await _testsService.SearchTestsAsync(searchParameter);
         }
     }
 }

@@ -3,6 +3,7 @@ using CILantroToolsWebAPI.Db;
 using CILantroToolsWebAPI.DbModels;
 using CILantroToolsWebAPI.Models.Tests;
 using CILantroToolsWebAPI.ReadModels.Tests;
+using CILantroToolsWebAPI.Search;
 using CILantroToolsWebAPI.Settings;
 using Microsoft.Extensions.Options;
 using System;
@@ -58,6 +59,16 @@ namespace CILantroToolsWebAPI.Services
             };
 
             return await _testsRepository.CreateAsync(newTest);
+        }
+
+        public async Task<TestReadModel> GetTestAsync(Guid testId)
+        {
+            return _testsRepository.Read<TestReadModel>().SingleOrDefault(t => t.Id == testId);
+        }
+
+        public async Task<SearchResult<TestReadModel>> SearchTestsAsync(SearchParameter searchParameter)
+        {
+            return await _testsRepository.Search<TestReadModel>(searchParameter);
         }
     }
 }
