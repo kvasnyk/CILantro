@@ -2,6 +2,7 @@
 using CILantroToolsWebAPI.Db;
 using CILantroToolsWebAPI.DbModels;
 using CILantroToolsWebAPI.Models.Tests;
+using CILantroToolsWebAPI.ReadModels.Tests;
 using CILantroToolsWebAPI.Settings;
 using Microsoft.Extensions.Options;
 using System;
@@ -26,6 +27,8 @@ namespace CILantroToolsWebAPI.Services
 
         public async Task<IEnumerable<TestCandidate>> FindTestCandidatesAsync()
         {
+            var existingTests = _testsRepository.Read<TestReadModel>();
+
             var testExecs = Directory
                 .GetFiles(_appSettings.Value.TestsDirectoryPath, "*.exe", SearchOption.AllDirectories)
                 .Where(path => path.Contains(@"\Release\"))
@@ -36,7 +39,8 @@ namespace CILantroToolsWebAPI.Services
             {
                 Name = Path.GetFileNameWithoutExtension(testExecPath),
                 Path = testExecPath.Substring(_appSettings.Value.TestsDirectoryPath.Length)
-            });
+            })
+            .Where(tc => !existingTests.Any(et => et.Name == tc.Name && et.Path == tc.Path));
 
             return testCandidates;
         }

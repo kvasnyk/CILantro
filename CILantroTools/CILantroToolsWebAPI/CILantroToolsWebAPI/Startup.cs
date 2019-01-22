@@ -1,5 +1,6 @@
 ﻿using CILantroToolsWebAPI.Db;
 using CILantroToolsWebAPI.DbModels;
+using CILantroToolsWebAPI.ReadModels;
 using CILantroToolsWebAPI.Services;
 using CILantroToolsWebAPI.Settings;
 using Microsoft.AspNetCore.Builder;
@@ -55,6 +56,8 @@ namespace CILantroToolsWebAPI
             }
 
             app.UseMvc();
+
+            ReadModelMappingsFactory.RegisterMappings();
         }
     }
 }

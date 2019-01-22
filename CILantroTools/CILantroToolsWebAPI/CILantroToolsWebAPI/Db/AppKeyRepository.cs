@@ -1,4 +1,7 @@
-﻿using System;
+﻿using CILantroToolsWebAPI.ReadModels;
+using LinqKit;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CILantroToolsWebAPI.Db
@@ -19,6 +22,13 @@ namespace CILantroToolsWebAPI.Db
             await _context.SaveChangesAsync();
 
             return entity.Id;
+        }
+
+        public IQueryable<TReadModel> Read<TReadModel>()
+            where TReadModel : class, IKeyReadModel
+        {
+            var mapping = ReadModelMappingsFactory.CreateMapping<TEntity, TReadModel>();
+            return _context.Set<TEntity>().AsExpandable().Select(mapping);
         }
     }
 }
