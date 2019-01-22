@@ -8,8 +8,10 @@ const axiosInstance = AxiosStatic.create({
 abstract class ApiClientBase {
   private axiosInstance: AxiosInstance = axiosInstance;
 
-  protected get<TResult>(url: string) {
-    return this.axiosInstance.get<TResult>(url);
+  protected get<TData, TResult>(url: string, data: TData) {
+    return this.axiosInstance.get<TResult>(url, {
+      data
+    });
   }
 
   protected post<TData, TResult>(url: string, data: TData) {

@@ -6,6 +6,7 @@ import CilTestCandidateCard from './CilTestCandidateCard';
 
 interface CilTestCandidatesListProps {
   testCandidates: TestCandidate[];
+  onTestCreated: () => void;
 }
 
 const CilTestCandidatesList: StatelessComponent<
@@ -14,7 +15,11 @@ const CilTestCandidatesList: StatelessComponent<
   return (
     <CilGridLayout columns={3}>
       {props.testCandidates.map(tc => (
-        <CilTestCandidateCard key={tc.name} testCandidate={tc} />
+        <CilTestCandidateCard
+          key={tc.name}
+          testCandidate={tc}
+          onTestCreated={props.onTestCreated}
+        />
       ))}
     </CilGridLayout>
   );

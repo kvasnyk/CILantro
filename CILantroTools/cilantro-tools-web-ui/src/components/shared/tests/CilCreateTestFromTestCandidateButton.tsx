@@ -8,6 +8,7 @@ import TestCandidate from '../../../api/models/tests/TestCandidate';
 
 interface CilCreateTestFromTestCandidateButtonProps {
   testCandidate: TestCandidate;
+  onTestCreated: () => void;
 }
 
 const CilCreateTestFromTestCandidateButton: StatelessComponent<
@@ -16,10 +17,15 @@ const CilCreateTestFromTestCandidateButton: StatelessComponent<
   const testsApiClient = new TestsApiClient();
 
   const handleClick = async () => {
-    await testsApiClient.createTestFromCandidate({
-      testCandidateName: props.testCandidate.name,
-      testCandidatePath: props.testCandidate.path
-    });
+    try {
+      await testsApiClient.createTestFromCandidate({
+        testCandidateName: props.testCandidate.name,
+        testCandidatePath: props.testCandidate.path
+      });
+      props.onTestCreated();
+    } catch (error) {
+      alert('error!');
+    }
   };
 
   return (

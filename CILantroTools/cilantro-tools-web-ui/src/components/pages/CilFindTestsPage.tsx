@@ -22,13 +22,20 @@ const CilFindTestsPage: StatelessComponent = props => {
     }
   };
 
+  const handleTestCreated = () => {
+    refreshTestCandidates();
+  };
+
   useEffect(() => {
     refreshTestCandidates();
   }, []);
 
   return (
     <CilPage state={pageState}>
-      <CilTestCandidatesList testCandidates={testCandidates} />
+      <CilTestCandidatesList
+        testCandidates={testCandidates}
+        onTestCreated={handleTestCreated}
+      />
     </CilPage>
   );
 };

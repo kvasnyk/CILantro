@@ -13,7 +13,6 @@ import TestCandidate from '../../../api/models/tests/TestCandidate';
 import CilCreateTestFromTestCandidateButton from './CilCreateTestFromTestCandidateButton';
 
 const useStyles = makeStyles((theme: Theme) => ({
-  card: {},
   cardActions: {
     justifyContent: 'flex-end'
   }
@@ -21,6 +20,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface CilTestCandidateCardProps {
   testCandidate: TestCandidate;
+  onTestCreated: () => void;
 }
 
 const CilTestCandidateCard: StatelessComponent<
@@ -29,7 +29,7 @@ const CilTestCandidateCard: StatelessComponent<
   const classes = useStyles();
 
   return (
-    <Card className={classes.card}>
+    <Card>
       <CardContent>
         <Typography variant="h2">{props.testCandidate.name}</Typography>
         <Typography variant="subtitle1">{props.testCandidate.path}</Typography>
@@ -37,6 +37,7 @@ const CilTestCandidateCard: StatelessComponent<
       <CardActions className={classes.cardActions}>
         <CilCreateTestFromTestCandidateButton
           testCandidate={props.testCandidate}
+          onTestCreated={props.onTestCreated}
         />
       </CardActions>
     </Card>
