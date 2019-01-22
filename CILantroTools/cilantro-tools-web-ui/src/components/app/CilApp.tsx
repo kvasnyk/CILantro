@@ -9,7 +9,18 @@ import CilMenu from './CilMenu';
 
 const appTheme = createMuiTheme({
   typography: {
-    useNextVariants: true
+    useNextVariants: true,
+    h2: {
+      fontSize: '2rem',
+      fontWeight: 400,
+      wordBreak: 'break-all',
+      marginBottom: '10px'
+    },
+    subtitle1: {
+      fontSize: '0.8rem',
+      fontStyle: 'italic',
+      wordBreak: 'break-all'
+    }
   },
   zIndex: {
     appBar: 1200,

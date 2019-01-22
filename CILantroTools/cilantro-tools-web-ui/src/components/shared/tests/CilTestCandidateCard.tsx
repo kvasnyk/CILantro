@@ -21,7 +21,8 @@ const CilTestCandidateCard: StatelessComponent<
   return (
     <Card className={classes.card}>
       <CardContent>
-        <Typography variant="h6">{props.testCandidate.name}</Typography>
+        <Typography variant="h2">{props.testCandidate.name}</Typography>
+        <Typography variant="subtitle1">{props.testCandidate.path}</Typography>
       </CardContent>
     </Card>
   );

@@ -12,7 +12,7 @@ const CilTestCandidatesList: StatelessComponent<
   CilTestCandidatesListProps
 > = props => {
   return (
-    <CilGridLayout columns={4}>
+    <CilGridLayout columns={3}>
       {props.testCandidates.map(tc => (
         <CilTestCandidateCard key={tc.name} testCandidate={tc} />
       ))}

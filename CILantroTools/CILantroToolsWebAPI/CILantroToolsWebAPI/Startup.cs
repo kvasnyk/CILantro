@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using CILantroToolsWebAPI.Settings;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +28,8 @@ namespace CILantroToolsWebAPI
                         .AllowAnyHeader()
                 );
             });
+
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

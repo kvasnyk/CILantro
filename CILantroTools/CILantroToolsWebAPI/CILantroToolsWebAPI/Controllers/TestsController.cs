@@ -1,7 +1,9 @@
 ﻿using CILantroToolsWebAPI.Models.Tests;
 using CILantroToolsWebAPI.Services;
+using CILantroToolsWebAPI.Settings;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,9 +16,9 @@ namespace CILantroToolsWebAPI.Controllers
     {
         private readonly TestsService _testsService;
 
-        public TestsController()
+        public TestsController(IOptions<AppSettings> appSettings)
         {
-            _testsService = new TestsService();
+            _testsService = new TestsService(appSettings);
         }
 
         [HttpGet("find")]
