@@ -14,8 +14,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   content: {
     margin: '10px',
-    minHeight: `calc(100vh - 84px)`,
-    display: 'flex'
+    height: `calc(100vh - 84px)`,
+    display: 'flex',
+    overflow: 'auto'
   },
   toolbar: theme.mixins.toolbar
 }));
