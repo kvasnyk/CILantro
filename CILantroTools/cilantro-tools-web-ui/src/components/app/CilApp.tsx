@@ -1,3 +1,4 @@
+import { SnackbarProvider } from 'notistack';
 import React, { StatelessComponent } from 'react';
 
 import { createMuiTheme, Theme } from '@material-ui/core';
@@ -43,11 +44,16 @@ const CilApp: StatelessComponent = props => {
 
   return (
     <ThemeProvider theme={appTheme}>
-      <div className={classes.root}>
-        <CilAppBar />
-        <CilMenu />
-        <CilAppContent />
-      </div>
+      <SnackbarProvider
+        maxSnack={10}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      >
+        <div className={classes.root}>
+          <CilAppBar />
+          <CilMenu />
+          <CilAppContent />
+        </div>
+      </SnackbarProvider>
     </ThemeProvider>
   );
 };

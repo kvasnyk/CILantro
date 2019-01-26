@@ -1,3 +1,4 @@
+import { InjectedNotistackProps, withSnackbar } from 'notistack';
 import React, { StatelessComponent } from 'react';
 
 import { IconButton } from '@material-ui/core';
@@ -6,7 +7,8 @@ import AddIcon from '@material-ui/icons/AddRounded';
 import TestsApiClient from '../../../api/clients/TestsApiClient';
 import TestCandidate from '../../../api/models/tests/TestCandidate';
 
-interface CilCreateTestFromTestCandidateButtonProps {
+interface CilCreateTestFromTestCandidateButtonProps
+  extends InjectedNotistackProps {
   testCandidate: TestCandidate;
   onTestCreated: () => void;
 }
@@ -14,6 +16,7 @@ interface CilCreateTestFromTestCandidateButtonProps {
 const CilCreateTestFromTestCandidateButton: StatelessComponent<
   CilCreateTestFromTestCandidateButtonProps
 > = props => {
+  props.enqueueSnackbar('few');
   const testsApiClient = new TestsApiClient();
 
   const handleClick = async () => {
@@ -35,4 +38,4 @@ const CilCreateTestFromTestCandidateButton: StatelessComponent<
   );
 };
 
-export default CilCreateTestFromTestCandidateButton;
+export default withSnackbar(CilCreateTestFromTestCandidateButton);
