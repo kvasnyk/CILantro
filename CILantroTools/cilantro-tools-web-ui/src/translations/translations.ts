@@ -7,6 +7,7 @@ const translations = {
   },
   tests: {
     findTests: 'Find tests',
+    noTestCandidates: 'No test candidates have been found.',
     tests: 'Tests'
   },
   shared: {

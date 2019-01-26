@@ -1,6 +1,9 @@
 import React, { StatelessComponent } from 'react';
 
+import { Typography } from '@material-ui/core';
+
 import TestCandidate from '../../../api/models/tests/TestCandidate';
+import translations from '../../../translations/translations';
 import CilGridLayout from '../../layouts/CilGridLayout';
 import CilTestCandidateCard from './CilTestCandidateCard';
 
@@ -12,7 +15,7 @@ interface CilTestCandidatesListProps {
 const CilTestCandidatesList: StatelessComponent<
   CilTestCandidatesListProps
 > = props => {
-  return (
+  return props.testCandidates.length > 0 ? (
     <CilGridLayout columns={3}>
       {props.testCandidates.map(tc => (
         <CilTestCandidateCard
@@ -22,6 +25,10 @@ const CilTestCandidatesList: StatelessComponent<
         />
       ))}
     </CilGridLayout>
+  ) : (
+    <Typography variant="h2" align="center">
+      {translations.tests.noTestCandidates}
+    </Typography>
   );
 };
 

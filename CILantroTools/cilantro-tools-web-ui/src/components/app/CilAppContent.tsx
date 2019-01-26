@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingRight: '10px',
     paddingLeft: '5px',
     paddingTop: '5px',
-    height: `calc(100vh - 84px)`,
+    height: `calc(100vh - 89px)`,
     display: 'flex',
     overflow: 'auto'
   },

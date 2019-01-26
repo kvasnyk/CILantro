@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     position: 'relative',
     width: '100%'
   },
-  errorContainer: {
+  centerContainer: {
     display: 'flex',
     width: '100%',
     height: '100%',
@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface CilPageProps {
   state: PageState;
+  centerChildren?: boolean;
 }
 
 const CilPage: StatelessComponent<CilPageProps> = props => {
@@ -37,9 +38,19 @@ const CilPage: StatelessComponent<CilPageProps> = props => {
   return (
     <div className={classes.page}>
       {props.state === 'loading' ? <CilLoading /> : undefined}
-      {props.state === 'success' ? props.children : undefined}
+
+      {props.state === 'success' ? (
+        props.centerChildren ? (
+          <div className={classes.centerContainer}>{props.children}</div>
+        ) : (
+          props.children
+        )
+      ) : (
+        undefined
+      )}
+
       {props.state === 'error' ? (
-        <div className={classes.errorContainer}>
+        <div className={classes.centerContainer}>
           <ErrorIcon color="error" className={classes.errorIcon} />
           <Typography color="error" variant="h2">
             {translations.shared.anErrorOccurred}
