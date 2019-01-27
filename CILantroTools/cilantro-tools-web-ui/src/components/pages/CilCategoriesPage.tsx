@@ -4,6 +4,7 @@ import CategoriesApiClient from '../../api/clients/CategoriesApiClient';
 import CategoryReadModel from '../../api/read-models/categories/CategoryReadModel';
 import SearchResult from '../../api/search/SearchResult';
 import CilPage, { PageState } from '../base/CilPage';
+import CilAddCategoryButton from '../shared/categories/CilAddCategoryButton';
 import CilCategoriesList from '../shared/categories/CilCategoriesList';
 
 const CilCategoriesPage: StatelessComponent = props => {
@@ -33,7 +34,15 @@ const CilCategoriesPage: StatelessComponent = props => {
   const centerChildren = searchResult.data.length <= 0;
 
   return (
-    <CilPage state={pageState} centerChildren={centerChildren}>
+    <CilPage
+      state={pageState}
+      centerChildren={centerChildren}
+      menu={
+        <>
+          <CilAddCategoryButton />
+        </>
+      }
+    >
       <CilCategoriesList categories={searchResult.data} />
     </CilPage>
   );

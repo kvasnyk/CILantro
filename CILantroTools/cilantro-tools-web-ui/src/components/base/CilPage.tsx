@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, { StatelessComponent } from 'react';
 
 import { Theme, Typography } from '@material-ui/core';
@@ -12,7 +13,9 @@ export type PageState = 'loading' | 'success' | 'error';
 const useStyles = makeStyles((theme: Theme) => ({
   page: {
     position: 'relative',
-    width: '100%'
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column'
   },
   centerContainer: {
     display: 'flex',
@@ -24,27 +27,43 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   errorIcon: {
     fontSize: '15rem'
+  },
+  menu: {
+    height: theme.spacing.unit * 10,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 }));
 
 interface CilPageProps {
   state: PageState;
   centerChildren?: boolean;
+  menu?: React.ReactNode;
 }
 
 const CilPage: StatelessComponent<CilPageProps> = props => {
   const classes = useStyles();
+
+  const pageContentClassName = classNames({
+    [classes.centerContainer]: props.centerChildren
+  });
 
   return (
     <div className={classes.page}>
       {props.state === 'loading' ? <CilLoading /> : undefined}
 
       {props.state === 'success' ? (
-        props.centerChildren ? (
-          <div className={classes.centerContainer}>{props.children}</div>
-        ) : (
-          props.children
-        )
+        <>
+          <div className={pageContentClassName}>{props.children}</div>
+
+          {props.menu ? (
+            <div className={classes.menu}>{props.menu}</div>
+          ) : (
+            undefined
+          )}
+        </>
       ) : (
         undefined
       )}
