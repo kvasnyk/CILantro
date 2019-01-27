@@ -15,7 +15,7 @@ const CilTestsList: StatelessComponent<CilTestsListProps> = props => {
   return props.tests.length > 0 ? (
     <CilGridLayout columns={3}>
       {props.tests.map(test => (
-        <CiLTestCard test={test} />
+        <CiLTestCard key={test.id} test={test} />
       ))}
     </CilGridLayout>
   ) : (

@@ -5,6 +5,7 @@ import { Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 import routes from '../../routing/routes';
+import CilCategoriesPage from '../pages/CilCategoriesPage';
 import CilFindTestsPage from '../pages/CilFindTestsPage';
 import CilTestsPage from '../pages/CilTestsPage';
 
@@ -34,7 +35,7 @@ const CilAppContent: StatelessComponent = props => {
       <div className={classes.content}>
         <Switch>
           <Route exact={true} path={routes.categories.categories}>
-            <div>Categories</div>
+            <CilCategoriesPage />
           </Route>
           <Route exact={true} path={routes.tests.tests}>
             <CilTestsPage />

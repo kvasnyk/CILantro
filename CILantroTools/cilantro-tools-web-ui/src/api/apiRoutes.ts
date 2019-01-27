@@ -1,4 +1,8 @@
 const apiRoutes = {
+  categories: {
+    searchCategories: '/categories/search'
+  },
+
   tests: {
     createFromCandidate: '/tests/create-from-candidate',
     findTests: '/tests/find',

@@ -3,7 +3,8 @@ const translations = {
     name: 'CILantro Tools'
   },
   categories: {
-    categories: 'Categories'
+    categories: 'Categories',
+    noCategories: 'No categories have been found.'
   },
   tests: {
     errorOccurredWhileAddingTest: 'An error occurred while adding the test.',

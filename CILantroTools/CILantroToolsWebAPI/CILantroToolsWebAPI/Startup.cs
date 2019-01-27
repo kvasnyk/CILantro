@@ -39,7 +39,9 @@ namespace CILantroToolsWebAPI
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AppDatabase")));
 
             services.AddScoped<AppKeyRepository<Test>>();
+
             services.AddScoped<TestsService>();
+            services.AddScoped<CategoriesService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -49,9 +51,9 @@ namespace CILantroToolsWebAPI
                 app.UseDeveloperExceptionPage();
             }
 
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            using (IServiceScope serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                var context = serviceScope.ServiceProvider.GetRequiredService<AppDbContext>();
+                AppDbContext context = serviceScope.ServiceProvider.GetRequiredService<AppDbContext>();
                 context.Database.Migrate();
             }
 
