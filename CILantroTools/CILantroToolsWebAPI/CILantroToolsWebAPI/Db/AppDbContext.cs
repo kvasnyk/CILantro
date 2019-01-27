@@ -5,6 +5,8 @@ namespace CILantroToolsWebAPI.Db
 {
     public class AppDbContext : DbContext
     {
+        public DbSet<Category> Categories { get; set; }
+
         public DbSet<Test> Tests { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options)
@@ -16,6 +18,9 @@ namespace CILantroToolsWebAPI.Db
         {
             modelBuilder.Entity<Test>()
                 .HasKey(t => t.Id);
+
+            modelBuilder.Entity<Category>()
+                .HasKey(c => c.Id);
         }
     }
 }

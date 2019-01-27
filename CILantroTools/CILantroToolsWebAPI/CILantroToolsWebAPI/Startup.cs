@@ -38,10 +38,11 @@ namespace CILantroToolsWebAPI
 
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AppDatabase")));
 
+            services.AddScoped<AppKeyRepository<Category>>();
             services.AddScoped<AppKeyRepository<Test>>();
 
-            services.AddScoped<TestsService>();
             services.AddScoped<CategoriesService>();
+            services.AddScoped<TestsService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
