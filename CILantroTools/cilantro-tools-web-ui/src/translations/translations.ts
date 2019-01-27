@@ -9,6 +9,7 @@ const translations = {
     errorOccurredWhileAddingTest: 'An error occurred while adding the test.',
     findTests: 'Find tests',
     noTestCandidates: 'No test candidates have been found.',
+    noTests: 'No tests have been found.',
     testHasBeenAdded: 'The test has been added.',
     tests: 'Tests'
   },

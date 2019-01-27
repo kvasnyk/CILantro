@@ -28,8 +28,10 @@ const CilTestsPage: StatelessComponent = props => {
     refreshTests();
   }, []);
 
+  const centerChildren = searchResult.data.length <= 0;
+
   return (
-    <CilPage state={pageState}>
+    <CilPage state={pageState} centerChildren={centerChildren}>
       <CilTestsList tests={searchResult.data} />
     </CilPage>
   );
