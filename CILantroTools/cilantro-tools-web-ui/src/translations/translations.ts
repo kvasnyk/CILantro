@@ -6,8 +6,10 @@ const translations = {
     categories: 'Categories'
   },
   tests: {
+    errorOccurredWhileAddingTest: 'An error occurred while adding the test.',
     findTests: 'Find tests',
     noTestCandidates: 'No test candidates have been found.',
+    testHasBeenAdded: 'The test has been added.',
     tests: 'Tests'
   },
   shared: {

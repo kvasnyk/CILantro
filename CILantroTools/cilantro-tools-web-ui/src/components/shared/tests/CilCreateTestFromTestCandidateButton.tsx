@@ -1,4 +1,3 @@
-import { InjectedNotistackProps, withSnackbar } from 'notistack';
 import React, { StatelessComponent } from 'react';
 
 import { IconButton } from '@material-ui/core';
@@ -6,9 +5,10 @@ import AddIcon from '@material-ui/icons/AddRounded';
 
 import TestsApiClient from '../../../api/clients/TestsApiClient';
 import TestCandidate from '../../../api/models/tests/TestCandidate';
+import useNotistack from '../../../hooks/external/useNotistack';
+import translations from '../../../translations/translations';
 
-interface CilCreateTestFromTestCandidateButtonProps
-  extends InjectedNotistackProps {
+interface CilCreateTestFromTestCandidateButtonProps {
   testCandidate: TestCandidate;
   onTestCreated: () => void;
 }
@@ -16,8 +16,9 @@ interface CilCreateTestFromTestCandidateButtonProps
 const CilCreateTestFromTestCandidateButton: StatelessComponent<
   CilCreateTestFromTestCandidateButtonProps
 > = props => {
-  props.enqueueSnackbar('few');
   const testsApiClient = new TestsApiClient();
+
+  const notistack = useNotistack();
 
   const handleClick = async () => {
     try {
@@ -25,9 +26,17 @@ const CilCreateTestFromTestCandidateButton: StatelessComponent<
         testCandidateName: props.testCandidate.name,
         testCandidatePath: props.testCandidate.path
       });
+      notistack.enqueueSnackbar(translations.tests.testHasBeenAdded, {
+        variant: 'success'
+      });
       props.onTestCreated();
     } catch (error) {
-      alert('error!');
+      notistack.enqueueSnackbar(
+        translations.tests.errorOccurredWhileAddingTest,
+        {
+          variant: 'error'
+        }
+      );
     }
   };
 
@@ -38,4 +47,4 @@ const CilCreateTestFromTestCandidateButton: StatelessComponent<
   );
 };
 
-export default withSnackbar(CilCreateTestFromTestCandidateButton);
+export default CilCreateTestFromTestCandidateButton;
