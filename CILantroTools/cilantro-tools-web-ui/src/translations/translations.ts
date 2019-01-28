@@ -5,6 +5,10 @@ const translations = {
   categories: {
     addCategory: 'New category',
     categories: 'Categories',
+    categoryHasBeenAdded: 'The category has been added.',
+    errorOccurredWhileAddingCategory:
+      'An error occurred while adding the category.',
+    name: 'Name',
     noCategories: 'No categories have been found.'
   },
   tests: {
@@ -16,7 +20,8 @@ const translations = {
     tests: 'Tests'
   },
   shared: {
-    anErrorOccurred: 'An error occurred. Please try again.'
+    anErrorOccurred: 'An error occurred. Please try again.',
+    save: 'Add'
   }
 };
 

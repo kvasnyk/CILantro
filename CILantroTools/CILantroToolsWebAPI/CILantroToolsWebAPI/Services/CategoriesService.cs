@@ -1,7 +1,9 @@
-﻿using CILantroToolsWebAPI.Db;
+﻿using CILantroToolsWebAPI.BindingModels.Categories;
+using CILantroToolsWebAPI.Db;
 using CILantroToolsWebAPI.DbModels;
 using CILantroToolsWebAPI.ReadModels.Categories;
 using CILantroToolsWebAPI.Search;
+using System;
 using System.Threading.Tasks;
 
 namespace CILantroToolsWebAPI.Services
@@ -18,6 +20,17 @@ namespace CILantroToolsWebAPI.Services
         public async Task<SearchResult<CategoryReadModel>> SearchCategoriesAsync(SearchParameter searchParameter)
         {
             return await _categoriesRepository.Search<CategoryReadModel>(searchParameter);
+        }
+
+        public async Task<Guid> AddCategoryAsync(AddCategoryBindingModel model)
+        {
+            var newCategory = new Category
+            {
+                Id = Guid.NewGuid(),
+                Name = model.Name
+            };
+
+            return await _categoriesRepository.CreateAsync(newCategory);
         }
     }
 }
