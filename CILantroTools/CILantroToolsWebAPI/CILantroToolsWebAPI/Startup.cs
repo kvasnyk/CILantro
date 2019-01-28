@@ -60,14 +60,19 @@ namespace CILantroToolsWebAPI
                 AppDbContext context = serviceScope.ServiceProvider.GetRequiredService<AppDbContext>();
                 context.Database.Migrate();
 
-                #region seed categories
+                #region seed categories, subcategories
                 
                 if (env.IsDevelopment())
                 {
                     var categoriesSeed = Enumerable.Range(1, 25).Select(i => new Category
                     {
                         Id = Guid.NewGuid(),
-                        Name = $"Category {i}"
+                        Name = $"Category {i}",
+                        Subcategories = Enumerable.Range(1, 25).Select(j => new Subcategory
+                        {
+                            Id = Guid.NewGuid(),
+                            Name = $"Subcategory {i} {j}"
+                        }).ToList()
                     });
 
                     foreach (var category in categoriesSeed)
