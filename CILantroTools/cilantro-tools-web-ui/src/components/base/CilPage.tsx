@@ -17,8 +17,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     flexDirection: 'column'
   },
+  pageWithMenu: {
+    height: '100%',
+    overflow: 'hidden'
+  },
   pageContent: {
-    height: '100%'
+    height: 'calc(100% - 90px)',
+    overflow: 'auto'
   },
   centerContainer: {
     display: 'flex',
@@ -36,7 +41,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginTop: theme.spacing.unit + 2
   }
 }));
 
