@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Linq;
 
 namespace CILantroToolsWebAPI
 {
@@ -57,6 +59,29 @@ namespace CILantroToolsWebAPI
             {
                 AppDbContext context = serviceScope.ServiceProvider.GetRequiredService<AppDbContext>();
                 context.Database.Migrate();
+
+                #region seed
+
+                // seed categories
+
+                var categoriesSeed = Enumerable.Range(1, 25).Select(i => new Category
+                {
+                    Id = Guid.NewGuid(),
+                    Name = $"Category {i}"
+                });
+
+                foreach (var category in categoriesSeed)
+                {
+                    var existingCategory = context.Categories.SingleOrDefault(c => c.Name == category.Name);
+                    if (existingCategory == null)
+                    {
+                        context.Categories.Add(category);
+                    }
+                }
+
+                context.SaveChanges();
+
+                #endregion
             }
 
             app.UseMvc();
