@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CILantroToolsWebAPI
@@ -81,6 +82,40 @@ namespace CILantroToolsWebAPI
                         if (existingCategory == null)
                         {
                             context.Categories.Add(category);
+                        }
+                    }
+
+                    context.SaveChanges();
+                }
+
+                #endregion
+
+                #region seed tests
+
+                if (env.IsDevelopment())
+                {
+                    var testsSeed = new List<Test>
+                    {
+                        new Test
+                        {
+                            Id = Guid.NewGuid(),
+                            Name = "CSF_Basics_HelloWorld",
+                            Path = @"\CILantroTests_CSharpFeatures\CSF_Basics_HelloWorld\bin\Release\CSF_Basics_HelloWorld.exe"
+                        },
+                        new Test
+                        {
+                            Id = Guid.NewGuid(),
+                            Name = "CSF_Basics_Hello",
+                            Path = @"\CILantroTests_CSharpFeatures\CSF_Basics_Hello\bin\Release\CSF_Basics_Hello.exe"
+                        }
+                    };
+
+                    foreach (var test in testsSeed)
+                    {
+                        var existingTest = context.Tests.SingleOrDefault(t => t.Name == test.Name && t.Path == test.Path);
+                        if (existingTest == null)
+                        {
+                            context.Tests.Add(test);
                         }
                     }
 
