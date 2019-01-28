@@ -3,6 +3,7 @@ const translations = {
     name: 'CILantro Tools'
   },
   categories: {
+    addCategory: 'New category',
     categories: 'Categories',
     noCategories: 'No categories have been found.'
   },
