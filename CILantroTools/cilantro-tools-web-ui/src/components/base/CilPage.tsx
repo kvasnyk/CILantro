@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     flexDirection: 'column'
   },
+  pageContent: {
+    height: '100%'
+  },
   centerContainer: {
     display: 'flex',
     width: '100%',
@@ -46,7 +49,7 @@ interface CilPageProps {
 const CilPage: StatelessComponent<CilPageProps> = props => {
   const classes = useStyles();
 
-  const pageContentClassName = classNames({
+  const pageContentClassName = classNames(classes.pageContent, {
     [classes.centerContainer]: props.centerChildren
   });
 
