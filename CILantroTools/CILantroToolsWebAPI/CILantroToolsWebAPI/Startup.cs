@@ -40,6 +40,7 @@ namespace CILantroToolsWebAPI
 
             services.AddScoped<AppKeyRepository<Category>>();
             services.AddScoped<AppKeyRepository<Test>>();
+            services.AddScoped<AppKeyRepository<Subcategory>>();
 
             services.AddScoped<CategoriesService>();
             services.AddScoped<TestsService>();

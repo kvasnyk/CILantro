@@ -9,13 +9,18 @@ import CilCategoryCard from './CilCategoryCard';
 
 interface CilCategoriesListProps {
   categories: CategoryReadModel[];
+  onSubcategoryAdded: () => void;
 }
 
 const CilCategoriesList: StatelessComponent<CilCategoriesListProps> = props => {
   return props.categories.length > 0 ? (
     <CilGridLayout columns={3}>
       {props.categories.map(category => (
-        <CilCategoryCard key={category.id} category={category} />
+        <CilCategoryCard
+          key={category.id}
+          category={category}
+          onSubcategoryAdded={props.onSubcategoryAdded}
+        />
       ))}
     </CilGridLayout>
   ) : (

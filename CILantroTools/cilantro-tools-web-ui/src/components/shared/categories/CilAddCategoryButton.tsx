@@ -27,11 +27,9 @@ interface AddCategoryData {
   name: string;
 }
 
-const buildEmptyAddCategoryData = (): AddCategoryData => {
-  return {
-    name: ''
-  };
-};
+const buildEmptyAddCategoryData = (): AddCategoryData => ({
+  name: ''
+});
 
 const useStyles = makeStyles((theme: Theme) => ({
   fab: {

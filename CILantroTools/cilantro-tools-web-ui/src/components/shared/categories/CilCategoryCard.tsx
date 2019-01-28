@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface CilCategoryCardProps {
   category: CategoryReadModel;
+  onSubcategoryAdded: () => void;
 }
 
 const CilCategoryCard: StatelessComponent<CilCategoryCardProps> = props => {
@@ -31,7 +32,10 @@ const CilCategoryCard: StatelessComponent<CilCategoryCardProps> = props => {
         <Typography variant="h2">{props.category.name}</Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        <CilAddSubcategoryButton />
+        <CilAddSubcategoryButton
+          category={props.category}
+          onSubcategoryAdded={props.onSubcategoryAdded}
+        />
       </CardActions>
     </Card>
   );

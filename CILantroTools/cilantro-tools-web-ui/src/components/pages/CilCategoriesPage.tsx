@@ -35,6 +35,10 @@ const CilCategoriesPage: StatelessComponent = props => {
     refreshCategories();
   };
 
+  const handleSubcategoryAdded = () => {
+    refreshCategories();
+  };
+
   const centerChildren = searchResult.data.length <= 0;
 
   return (
@@ -47,7 +51,10 @@ const CilCategoriesPage: StatelessComponent = props => {
         </>
       }
     >
-      <CilCategoriesList categories={searchResult.data} />
+      <CilCategoriesList
+        categories={searchResult.data}
+        onSubcategoryAdded={handleSubcategoryAdded}
+      />
     </CilPage>
   );
 };

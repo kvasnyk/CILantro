@@ -32,5 +32,11 @@ namespace CILantroToolsWebAPI.Controllers
         {
             return await _categoriesService.AddCategoryAsync(model);
         }
+
+        [HttpPost("add-subcategory")]
+        public async Task<Guid> AddSubcategoryAsync([FromBody]AddSubcategoryBindingModel model)
+        {
+            return await _categoriesService.AddSubcategoryAsync(model);
+        }
     }
 }

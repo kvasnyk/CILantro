@@ -1,6 +1,7 @@
 const apiRoutes = {
   categories: {
     addCategory: '/categories/add',
+    addSubcategory: '/categories/add-subcategory',
     searchCategories: '/categories/search'
   },
 

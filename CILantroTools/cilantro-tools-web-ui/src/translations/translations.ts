@@ -4,12 +4,17 @@ const translations = {
   },
   categories: {
     addCategory: 'New category',
+    addSubcategory: 'New subcategory',
     categories: 'Categories',
     categoryHasBeenAdded: 'The category has been added.',
     errorOccurredWhileAddingCategory:
       'An error occurred while adding the category.',
+    errorOccurredWhileAddingSubcategory:
+      'An error occurred while adding the subcategory.',
     name: 'Name',
-    noCategories: 'No categories have been found.'
+    noCategories: 'No categories have been found.',
+    subcategoryHasBeenAdded: 'The subcategory has been added.',
+    subcategoryName: 'Name'
   },
   tests: {
     errorOccurredWhileAddingTest: 'An error occurred while adding the test.',
