@@ -1,4 +1,6 @@
 ﻿using CILantroToolsWebAPI.DbModels;
+using CILantroToolsWebAPI.ReadModels.Categories;
+using LinqKit;
 using System;
 using System.Linq.Expressions;
 
@@ -11,15 +13,31 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
         public string Name { get; set; }
 
         public string Path { get; set; }
+
+        public CategoryReadModel Category { get; set; }
+
+        public SubcategoryReadModel Subcategory { get; set; }
+
+        public bool HasCategory => Category != null;
+
+        public bool HasSubcategory => Subcategory != null;
+
+        public bool IsReady => HasCategory && HasSubcategory;
     }
 
     public class TestReadModelMapping : ReadModelMappingBase<Test, TestReadModel>
     {
+        private readonly Expression<Func<Category, CategoryReadModel>> _categoryMapping = new CategoryReadModelMapping().Mapping.Expand();
+
+        private readonly Expression<Func<Subcategory, SubcategoryReadModel>> _subcategoryMapping = new SubcategoryReadModelMapping().Mapping.Expand();
+
         public override Expression<Func<Test, TestReadModel>> Mapping => test => new TestReadModel
         {
             Id = test.Id,
             Name = test.Name,
-            Path = test.Path
+            Path = test.Path,
+            Category = test.CategoryId.HasValue ? _categoryMapping.Invoke(test.Category) : null,
+            Subcategory = test.SubcategoryId.HasValue ? _subcategoryMapping.Invoke(test.Subcategory) : null
         };
     }
 }
