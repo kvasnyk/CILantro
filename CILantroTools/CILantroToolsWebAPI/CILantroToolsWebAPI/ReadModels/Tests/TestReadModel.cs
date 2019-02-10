@@ -14,7 +14,11 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
 
         public string Path { get; set; }
 
+        public Guid? CategoryId { get; set; }
+
         public CategoryReadModel Category { get; set; }
+
+        public Guid? SubcategoryId { get; set; }
 
         public SubcategoryReadModel Subcategory { get; set; }
 
@@ -36,7 +40,9 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
             Id = test.Id,
             Name = test.Name,
             Path = test.Path,
+            CategoryId = test.CategoryId,
             Category = test.CategoryId.HasValue ? _categoryMapping.Invoke(test.Category) : null,
+            SubcategoryId = test.SubcategoryId,
             Subcategory = test.SubcategoryId.HasValue ? _subcategoryMapping.Invoke(test.Subcategory) : null
         };
     }

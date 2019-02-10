@@ -33,7 +33,8 @@ const translations = {
 	},
 	shared: {
 		anErrorOccurred: 'An error occurred. Please try again.',
-		save: 'Add'
+		save: 'Add',
+		noInfo: '---'
 	}
 };
 

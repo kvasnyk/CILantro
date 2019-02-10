@@ -10,11 +10,12 @@ import TestReadModel from '../../api/read-models/tests/TestReadModel';
 import translations from '../../translations/translations';
 import CilPage, { PageState } from '../base/CilPage';
 import CilEditTestCategorySelect from '../shared/tests/CilEditTestCategorySelect';
+import CilEditTestSubcategorySelect from '../shared/tests/CilEditTestSubcategorySelect';
 import CilTestChecklist from '../shared/tests/CilTestChecklist';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	tabsAppBar: {
-		marginBottom: 0
+		marginTop: '20px'
 	},
 	tabContainer: {
 		padding: '20px'
@@ -37,6 +38,8 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 	const [test, setTest] = useState<TestReadModel | undefined>(undefined);
 	const [tabsValue, setTabsValue] = useState<TabsValue>('overview');
 	const [categories, setCategories] = useState<CategoryReadModel[] | undefined>(undefined);
+
+	const subcategories = test && test.category ? test.category.subcategories : [];
 
 	const refreshTest = async () => {
 		try {
@@ -63,6 +66,10 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 	};
 
 	const handleCategoryUpdated = () => {
+		refreshTest();
+	};
+
+	const handleSubcategoryUpdated = () => {
 		refreshTest();
 	};
 
@@ -95,6 +102,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 					{tabsValue === 'overview' ? (
 						<div className={classes.tabContainer}>
 							<CilEditTestCategorySelect categories={categories} test={test} onCategoryUpdated={handleCategoryUpdated} />
+							<CilEditTestSubcategorySelect subcategories={subcategories} test={test} onSubcategoryUpdated={handleSubcategoryUpdated} />
 						</div>
 					) : null}
 				</>

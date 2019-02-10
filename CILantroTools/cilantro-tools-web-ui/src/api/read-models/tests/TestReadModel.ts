@@ -5,7 +5,9 @@ interface TestReadModel {
 	id: string;
 	name: string;
 	path: string;
+	categoryId?: string;
 	category: CategoryReadModel;
+	subcategoryId?: string;
 	subcategory: SubcategoryReadModel;
 	hasCategory: boolean;
 	hasSubcategory: boolean;

@@ -42,7 +42,7 @@ const CilEditTestCategorySelect: FunctionComponent<CilEditTestCategorySelectProp
 				value: category.id
 			}))}
 			onValueChange={handleValueChange}
-			selectedValue={props.test.category.id}
+			selectedValue={props.test.categoryId}
 		/>
 	);
 };

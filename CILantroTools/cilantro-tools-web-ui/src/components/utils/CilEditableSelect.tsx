@@ -4,6 +4,8 @@ import { FormControl, IconButton, MenuItem, Select, Theme, Typography } from '@m
 import EditIcon from '@material-ui/icons/EditRounded';
 import { makeStyles } from '@material-ui/styles';
 
+import translations from '../../translations/translations';
+
 const useStyles = makeStyles((theme: Theme) => ({
 	fieldDetails: {
 		width: '100%',
@@ -58,7 +60,9 @@ const CilEditableSelect: FunctionComponent<CilEditableSelectProps> = props => {
 
 	const [isEditable, setIsEditable] = useState<boolean>(false);
 
-	const selectedLabel = props.options.filter(o => o.value === props.selectedValue)[0].label;
+	const selectedValues = props.options.filter(o => o.value === props.selectedValue);
+	const selectedValue = selectedValues.length > 0 ? selectedValues[0] : null;
+	const selectedLabel = selectedValue ? selectedValue.label : translations.shared.noInfo;
 
 	const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
 		const newValue = e.target.value;

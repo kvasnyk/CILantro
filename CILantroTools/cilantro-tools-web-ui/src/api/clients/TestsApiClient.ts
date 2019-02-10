@@ -1,6 +1,7 @@
 import apiRoutes from '../apiRoutes';
 import CreateTestFromCandidateBindingModel from '../binding-models/tests/CreateTestFromCandidateBindingModel';
 import EditTestCategoryBindingModel from '../binding-models/tests/EditTestCategoryBindingModel';
+import EditTestSubcategoryBindingModel from '../binding-models/tests/EditTestSubcategoryBindingModel';
 import TestCandidate from '../models/tests/TestCandidate';
 import TestReadModel from '../read-models/tests/TestReadModel';
 import SearchParameter from '../search/SearchParameter';
@@ -26,6 +27,10 @@ class TestsApiClient extends ApiClientBase {
 
 	public editTestCategory(testId: string, data: EditTestCategoryBindingModel) {
 		return this.put<EditTestCategoryBindingModel, {}>(apiRoutes.tests.editTestCategory(testId), data);
+	}
+
+	public editTestSubcategory(testId: string, data: EditTestSubcategoryBindingModel) {
+		return this.put<EditTestSubcategoryBindingModel, {}>(apiRoutes.tests.editTestSubcategory(testId), data);
 	}
 }
 

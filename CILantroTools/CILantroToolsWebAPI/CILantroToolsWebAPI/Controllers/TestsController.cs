@@ -54,5 +54,11 @@ namespace CILantroToolsWebAPI.Controllers
         {
             await _testsService.EditTestCategoryAsync(testId, model);
         }
+
+        [HttpPut("{testId}/edit-subcategory")]
+        public async Task EditTestSubcategoryAsync([FromRoute]Guid testId, [FromBody]EditTestSubcategoryBindingModel model)
+        {
+            await _testsService.EditTestSubcategoryAsync(testId, model);
+        }
     }
 }
