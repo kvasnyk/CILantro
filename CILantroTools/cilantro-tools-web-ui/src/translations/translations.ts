@@ -20,6 +20,7 @@ const translations = {
 		noTestCandidates: 'No test candidates have been found.',
 		noTests: 'No tests have been found.',
 		testHasBeenAdded: 'The test has been added.',
+		testOverview: 'Overview',
 		tests: 'Tests',
 		selectTestCategory: 'Select a category',
 		selectTestSubcategory: 'Select a subcategory'
