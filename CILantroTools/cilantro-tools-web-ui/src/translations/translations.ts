@@ -23,7 +23,13 @@ const translations = {
 		testOverview: 'Overview',
 		tests: 'Tests',
 		selectTestCategory: 'Select a category',
-		selectTestSubcategory: 'Select a subcategory'
+		selectTestSubcategory: 'Select a subcategory',
+		testCategory: 'Category',
+		testSubcategory: 'Subcategory',
+		categoryHasBeenUpdated: 'The category has been updated.',
+		subcategoryHasBeenUpdated: 'The category has been updated.',
+		errorOccurredWhileUpdatingCategory: 'An error occurred while updating the category.',
+		errorOccurredWhileUpdatingSubcategory: 'An error occurred while updating the subcategory.'
 	},
 	shared: {
 		anErrorOccurred: 'An error occurred. Please try again.',

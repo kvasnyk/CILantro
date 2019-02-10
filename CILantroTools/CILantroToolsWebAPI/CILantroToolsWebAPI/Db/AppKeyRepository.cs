@@ -3,6 +3,7 @@ using CILantroToolsWebAPI.Search;
 using LinqKit;
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace CILantroToolsWebAPI.Db
@@ -30,6 +31,18 @@ namespace CILantroToolsWebAPI.Db
         {
             var mapping = ReadModelMappingsFactory.CreateMapping<TEntity, TReadModel>();
             return _context.Set<TEntity>().AsExpandable().Select(mapping);
+        }
+
+        public async Task UpdateAsync(Expression<Func<TEntity, bool>> predicate, Action<TEntity> updateAction)
+        {
+            var matchingEntities = _context.Set<TEntity>().Where(predicate);
+
+            foreach (var matchingEntity in matchingEntities)
+            {
+                updateAction(matchingEntity);
+            }
+
+            await _context.SaveChangesAsync();
         }
 
         public async Task<SearchResult<TReadModel>> Search<TReadModel>(SearchParameter searchParameter)

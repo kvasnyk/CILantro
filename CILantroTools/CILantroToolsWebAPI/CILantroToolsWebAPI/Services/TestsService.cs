@@ -70,5 +70,13 @@ namespace CILantroToolsWebAPI.Services
         {
             return await _testsRepository.Search<TestReadModel>(searchParameter);
         }
+
+        public async Task EditTestCategoryAsync(Guid testId, EditTestCategoryBindingModel model)
+        {
+            await _testsRepository.UpdateAsync(t => t.Id == testId, test =>
+            {
+                test.CategoryId = model.CategoryId;
+            });
+        }
     }
 }
