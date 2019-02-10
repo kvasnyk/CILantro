@@ -10,5 +10,13 @@ namespace CILantroToolsWebAPI.DbModels
         public string Name { get; set; }
 
         public string Path { get; set; }
+
+        public Guid? CategoryId { get; set; }
+
+        public virtual Category Category { get; set; }
+
+        public Guid? SubcategoryId { get; set; }
+
+        public virtual Subcategory Subcategory { get; set; }
     }
 }

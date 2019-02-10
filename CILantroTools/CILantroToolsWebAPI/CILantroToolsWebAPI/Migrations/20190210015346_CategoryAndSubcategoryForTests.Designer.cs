@@ -11,9 +11,10 @@ using System;
 namespace CILantroToolsWebAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190210015346_CategoryAndSubcategoryForTests")]
+    partial class CategoryAndSubcategoryForTests
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

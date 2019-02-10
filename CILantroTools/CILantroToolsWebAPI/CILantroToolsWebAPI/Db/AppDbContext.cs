@@ -21,6 +21,14 @@ namespace CILantroToolsWebAPI.Db
             // Test
             modelBuilder.Entity<Test>()
                 .HasKey(t => t.Id);
+            modelBuilder.Entity<Test>()
+                .HasOne(t => t.Category)
+                .WithMany(c => c.Tests)
+                .HasForeignKey(t => t.CategoryId);
+            modelBuilder.Entity<Test>()
+                .HasOne(t => t.Subcategory)
+                .WithMany(s => s.Tests)
+                .HasForeignKey(t => t.SubcategoryId);
 
             // Category
             modelBuilder.Entity<Category>()

@@ -1,5 +1,6 @@
 ﻿using CILantroToolsWebAPI.Db;
 using System;
+using System.Collections.Generic;
 
 namespace CILantroToolsWebAPI.DbModels
 {
@@ -12,5 +13,7 @@ namespace CILantroToolsWebAPI.DbModels
         public Guid CategoryId { get; set; }
 
         public virtual Category Category { get; set; }
+
+        public virtual ICollection<Test> Tests { get; set; }
     }
 }
