@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/styles';
 
 import TestReadModel from '../../../api/read-models/tests/TestReadModel';
 import CilShowTestButton from './CilShowTestButton';
+import CilTestChecklist from './CilTestChecklist';
 
 interface CilTestCardProps {
 	test: TestReadModel;
@@ -44,6 +45,7 @@ const CiLTestCard: StatelessComponent<CilTestCardProps> = props => {
 				<Typography variant="subtitle1" className={typographyClassName}>
 					{props.test.path}
 				</Typography>
+				{!props.test.isReady ? <CilTestChecklist test={props.test} /> : null}
 			</CardContent>
 			<CardActions className={classes.cardActions}>
 				<CilShowTestButton test={props.test} />
