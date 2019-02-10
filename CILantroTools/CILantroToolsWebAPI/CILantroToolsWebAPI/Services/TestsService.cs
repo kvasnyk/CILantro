@@ -63,7 +63,7 @@ namespace CILantroToolsWebAPI.Services
 
         public async Task<TestReadModel> GetTestAsync(Guid testId)
         {
-            return _testsRepository.Read<TestReadModel>().SingleOrDefault(t => t.Id == testId);
+            return _testsRepository.Read<TestReadModel>().Single(t => t.Id == testId);
         }
 
         public async Task<SearchResult<TestReadModel>> SearchTestsAsync(SearchParameter searchParameter)

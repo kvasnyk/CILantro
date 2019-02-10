@@ -1,11 +1,17 @@
+export interface TestRouteData {
+	isTemplate?: boolean;
+	testId?: string;
+}
+
 const routes = {
 	root: '/',
 	categories: {
 		categories: '/categories'
 	},
 	tests: {
+		find: '/find-tests',
 		tests: '/tests',
-		find: '/find-tests'
+		test: (data: TestRouteData) => (data.isTemplate ? '/tests/:testId' : `/tests/${data.testId}`)
 	}
 };
 
