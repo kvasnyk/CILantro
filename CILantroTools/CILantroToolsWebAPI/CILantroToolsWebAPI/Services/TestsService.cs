@@ -146,7 +146,7 @@ namespace CILantroToolsWebAPI.Services
 
         private string BuildTestExePath(string testPath)
         {
-            return Path.Combine(_appSettings.Value.TestsDirectoryPath, testPath);
+            return Path.Combine(_appSettings.Value.TestsDirectoryPath, testPath.Substring(1));
         }
 
         private string BuildTestIlSourcesPath(string testName)
