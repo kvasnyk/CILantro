@@ -9,6 +9,7 @@ interface TestReadModel {
 	category: CategoryReadModel;
 	subcategoryId?: string;
 	subcategory: SubcategoryReadModel;
+	mainIlSourcePath: string;
 	mainIlSource: string;
 	hasCategory: boolean;
 	hasSubcategory: boolean;

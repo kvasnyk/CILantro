@@ -13,6 +13,7 @@ import CilEditTestCategorySelect from '../shared/tests/CilEditTestCategorySelect
 import CilEditTestSubcategorySelect from '../shared/tests/CilEditTestSubcategorySelect';
 import CilTestChecklist from '../shared/tests/CilTestChecklist';
 import CilDetailsRow from '../utils/CilDetailsRow';
+import CilDetailsValue from '../utils/CilDetailsValue';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	tabsAppBar: {
@@ -112,7 +113,14 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 						</div>
 					) : null}
 
-					{tabsValue === 'il-sources' ? <div className={classes.tabContainer}>IL SOURCES TO BE HERE</div> : null}
+					{tabsValue === 'il-sources' ? (
+						<div className={classes.tabContainer}>
+							<CilDetailsRow label={translations.tests.testMainIlSource}>
+								<CilDetailsValue value={test.mainIlSourcePath} />
+								<CilGenerateTestIlSourcesButton />
+							</CilDetailsRow>
+						</div>
+					) : null}
 				</>
 			) : null}
 		</CilPage>

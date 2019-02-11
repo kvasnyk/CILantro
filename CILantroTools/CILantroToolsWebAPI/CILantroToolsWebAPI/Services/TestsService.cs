@@ -121,6 +121,10 @@ namespace CILantroToolsWebAPI.Services
             EnsureDirectoryExists(testIlSourcesPath);
 
             testReadModel.MainIlSource = await ReadIlSource(testReadModel.Name);
+            if (testReadModel.HasIlSources)
+            {
+                testReadModel.MainIlSourcePath = BuildTestMainIlSourcePath(testReadModel.Name);
+            }
         }
 
         private async Task CompleteTestReadModels(IEnumerable<TestReadModel> testReadModels)

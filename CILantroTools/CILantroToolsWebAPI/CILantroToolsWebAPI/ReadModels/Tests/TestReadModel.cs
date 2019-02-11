@@ -22,6 +22,8 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
 
         public SubcategoryReadModel Subcategory { get; set; }
 
+        public string MainIlSourcePath { get; set; }
+
         public string MainIlSource { get; set; }
 
         public bool HasCategory => Category != null;
