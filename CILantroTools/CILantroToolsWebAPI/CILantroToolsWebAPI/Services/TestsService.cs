@@ -26,6 +26,9 @@ namespace CILantroToolsWebAPI.Services
         {
             _appSettings = appSettings;
             _testsRepository = testsRepository;
+
+            var ilSourcesPath = BuildIlSourcesPath();
+            EnsureDirectoryExists(ilSourcesPath);
         }
 
         public async Task<IEnumerable<TestCandidate>> FindTestCandidatesAsync()
@@ -96,6 +99,9 @@ namespace CILantroToolsWebAPI.Services
 
         private async Task CompleteTestReadModel(TestReadModel testReadModel)
         {
+            var testIlSourcesPath = BuildTestIlSourcesPath(testReadModel.Name);
+            EnsureDirectoryExists(testIlSourcesPath);
+
             testReadModel.MainIlSource = await ReadIlSource(testReadModel.Name);
         }
 
@@ -112,18 +118,38 @@ namespace CILantroToolsWebAPI.Services
             return Path.Combine(_appSettings.Value.TestsDataDirectoryPath, IL_SOURCES_DIRECTORY_NAME);
         }
 
+        private string BuildTestIlSourcesPath(string testName)
+        {
+            var ilSourcesPath = BuildIlSourcesPath();
+            return Path.Combine(ilSourcesPath, testName);
+        }
+
         private string BuildMainIlSourcePath(string testName)
         {
             var ilSourceFileName = $"{testName}.il";
-            var ilSourcesPath = BuildIlSourcesPath();
-            var ilSourcePath = Path.Combine(ilSourcesPath, testName, ilSourceFileName);
+            var testIlSourcesPath = BuildTestIlSourcesPath(testName);
+            var ilSourcePath = Path.Combine(testIlSourcesPath, ilSourceFileName);
             return ilSourcePath;
         }
 
         private async Task<string> ReadIlSource(string testName)
         {
             var ilSourcePath = BuildMainIlSourcePath(testName);
+
+            if (!File.Exists(ilSourcePath))
+            {
+                return null;
+            }
+
             return await File.ReadAllTextAsync(ilSourcePath);
+        }
+
+        private void EnsureDirectoryExists(string directoryPath)
+        {
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
         }
     }
 }

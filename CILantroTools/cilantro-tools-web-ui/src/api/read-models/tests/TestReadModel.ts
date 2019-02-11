@@ -9,8 +9,10 @@ interface TestReadModel {
 	category: CategoryReadModel;
 	subcategoryId?: string;
 	subcategory: SubcategoryReadModel;
+	mainIlSource: string;
 	hasCategory: boolean;
 	hasSubcategory: boolean;
+	hasIlSources: boolean;
 	isReady: boolean;
 }
 
