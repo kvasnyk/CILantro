@@ -31,7 +31,8 @@ namespace CILantroToolsWebAPI
             {
                 options.AddPolicy(
                     "AllowEverything",
-                    builder => builder.AllowAnyOrigin()
+                    builder => builder
+                        .AllowAnyOrigin()
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                 );
@@ -54,6 +55,7 @@ namespace CILantroToolsWebAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseCors("AllowEverything");
             }
 
             using (IServiceScope serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())

@@ -22,11 +22,18 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
 
         public SubcategoryReadModel Subcategory { get; set; }
 
+        public string MainIlSource { get; set; }
+
         public bool HasCategory => Category != null;
 
         public bool HasSubcategory => Subcategory != null;
 
-        public bool IsReady => HasCategory && HasSubcategory;
+        public bool HasIlSource => !string.IsNullOrEmpty(MainIlSource);
+
+        public bool IsReady =>
+            HasCategory &&
+            HasSubcategory &&
+            HasIlSource;
     }
 
     public class TestReadModelMapping : ReadModelMappingBase<Test, TestReadModel>

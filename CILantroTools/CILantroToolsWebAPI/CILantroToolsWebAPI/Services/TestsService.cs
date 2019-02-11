@@ -16,6 +16,8 @@ namespace CILantroToolsWebAPI.Services
 {
     public class TestsService
     {
+        private const string IL_SOURCES_DIRECTORY_NAME = "il-sources";
+
         private readonly IOptions<AppSettings> _appSettings;
 
         private readonly AppKeyRepository<Test> _testsRepository;
@@ -63,12 +65,16 @@ namespace CILantroToolsWebAPI.Services
 
         public async Task<TestReadModel> GetTestAsync(Guid testId)
         {
-            return _testsRepository.Read<TestReadModel>().Single(t => t.Id == testId);
+            var result = _testsRepository.Read<TestReadModel>().Single(t => t.Id == testId);
+            await CompleteTestReadModel(result);
+            return result;
         }
 
         public async Task<SearchResult<TestReadModel>> SearchTestsAsync(SearchParameter searchParameter)
         {
-            return await _testsRepository.Search<TestReadModel>(searchParameter);
+            var searchResult = await _testsRepository.Search<TestReadModel>(searchParameter);
+            await CompleteTestReadModels(searchResult.Data);
+            return searchResult;
         }
 
         public async Task EditTestCategoryAsync(Guid testId, EditTestCategoryBindingModel model)
@@ -86,6 +92,38 @@ namespace CILantroToolsWebAPI.Services
             {
                 test.SubcategoryId = model.SubcategoryId;
             });
+        }
+
+        private async Task CompleteTestReadModel(TestReadModel testReadModel)
+        {
+            testReadModel.MainIlSource = await ReadIlSource(testReadModel.Name);
+        }
+
+        private async Task CompleteTestReadModels(IEnumerable<TestReadModel> testReadModels)
+        {
+            foreach (var testReadModel in testReadModels)
+            {
+                await CompleteTestReadModel(testReadModel);
+            }
+        }
+
+        private string BuildIlSourcesPath()
+        {
+            return Path.Combine(_appSettings.Value.TestsDataDirectoryPath, IL_SOURCES_DIRECTORY_NAME);
+        }
+
+        private string BuildMainIlSourcePath(string testName)
+        {
+            var ilSourceFileName = $"{testName}.il";
+            var ilSourcesPath = BuildIlSourcesPath();
+            var ilSourcePath = Path.Combine(ilSourcesPath, testName, ilSourceFileName);
+            return ilSourcePath;
+        }
+
+        private async Task<string> ReadIlSource(string testName)
+        {
+            var ilSourcePath = BuildMainIlSourcePath(testName);
+            return await File.ReadAllTextAsync(ilSourcePath);
         }
     }
 }
