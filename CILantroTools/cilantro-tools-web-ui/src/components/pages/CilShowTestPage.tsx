@@ -13,6 +13,7 @@ import CilEditTestCategorySelect from '../shared/tests/CilEditTestCategorySelect
 import CilEditTestSubcategorySelect from '../shared/tests/CilEditTestSubcategorySelect';
 import CilGenerateTestIlSourcesButton from '../shared/tests/CilGenerateTestIlSourcesButton';
 import CilTestChecklist from '../shared/tests/CilTestChecklist';
+import CilCodeEditor from '../utils/CilCodeEditor';
 import CilDetailsRow from '../utils/CilDetailsRow';
 import CilDetailsValue from '../utils/CilDetailsValue';
 
@@ -132,6 +133,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 								<CilDetailsValue value={test.mainIlSourcePath} prefix="..." />
 								<CilGenerateTestIlSourcesButton test={test} onIlSourcesGenerated={handleIlSourcesGenerated} />
 							</CilDetailsRow>
+							{test.hasIlSources ? <CilCodeEditor code={test.mainIlSource} /> : null}
 						</div>
 					) : null}
 				</>

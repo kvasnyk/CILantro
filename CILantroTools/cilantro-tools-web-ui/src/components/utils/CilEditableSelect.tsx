@@ -56,9 +56,17 @@ const CilEditableSelect: FunctionComponent<CilEditableSelectProps> = props => {
 			{isEditable ? (
 				<div className={classes.formControlContainer}>
 					<FormControl>
-						<Select fullWidth={true} onChange={handleChange} value={props.selectedValue} open={isEditable} onClose={handleSelectClose}>
+						<Select
+							fullWidth={true}
+							onChange={handleChange}
+							value={props.selectedValue || ''}
+							open={isEditable}
+							onClose={handleSelectClose}
+						>
 							{props.options.map(option => (
-								<MenuItem value={option.value}>{option.label}</MenuItem>
+								<MenuItem key={option.value} value={option.value}>
+									{option.label}
+								</MenuItem>
 							))}
 						</Select>
 					</FormControl>
