@@ -21,12 +21,10 @@ const CilEditTestCategorySelect: FunctionComponent<CilEditTestCategorySelectProp
 	const editTestCategory = async (newCategoryId: string) => {
 		try {
 			await testsApiClient.editTestCategory(props.test.id, { categoryId: newCategoryId });
-			notistack.enqueueSnackbar(translations.tests.categoryHasBeenUpdated, {
-				variant: 'success'
-			});
+			notistack.enqueueSuccess(translations.tests.categoryHasBeenUpdated);
 			props.onCategoryUpdated();
 		} catch (error) {
-			notistack.enqueueSnackbar(translations.tests.errorOccurredWhileUpdatingCategory, { variant: 'error' });
+			notistack.enqueueError(translations.tests.errorOccurredWhileUpdatingCategory);
 		}
 	};
 

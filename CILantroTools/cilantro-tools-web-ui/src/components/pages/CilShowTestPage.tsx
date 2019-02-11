@@ -11,6 +11,7 @@ import translations from '../../translations/translations';
 import CilPage, { PageState } from '../base/CilPage';
 import CilEditTestCategorySelect from '../shared/tests/CilEditTestCategorySelect';
 import CilEditTestSubcategorySelect from '../shared/tests/CilEditTestSubcategorySelect';
+import CilGenerateTestIlSourcesButton from '../shared/tests/CilGenerateTestIlSourcesButton';
 import CilTestChecklist from '../shared/tests/CilTestChecklist';
 import CilDetailsRow from '../utils/CilDetailsRow';
 import CilDetailsValue from '../utils/CilDetailsValue';
@@ -75,6 +76,10 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 		refreshTest();
 	};
 
+	const handleIlSourcesGenerated = () => {
+		refreshTest();
+	};
+
 	useEffect(() => {
 		try {
 			refreshTest();
@@ -105,10 +110,18 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 					{tabsValue === 'overview' ? (
 						<div className={classes.tabContainer}>
 							<CilDetailsRow label={translations.tests.testCategory}>
-								<CilEditTestCategorySelect categories={categories} test={test} onCategoryUpdated={handleCategoryUpdated} />
+								<CilEditTestCategorySelect
+									categories={categories}
+									test={test}
+									onCategoryUpdated={handleCategoryUpdated}
+								/>
 							</CilDetailsRow>
 							<CilDetailsRow label={translations.tests.testSubcategory}>
-								<CilEditTestSubcategorySelect subcategories={subcategories} test={test} onSubcategoryUpdated={handleSubcategoryUpdated} />
+								<CilEditTestSubcategorySelect
+									subcategories={subcategories}
+									test={test}
+									onSubcategoryUpdated={handleSubcategoryUpdated}
+								/>
 							</CilDetailsRow>
 						</div>
 					) : null}
@@ -117,7 +130,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 						<div className={classes.tabContainer}>
 							<CilDetailsRow label={translations.tests.testMainIlSource}>
 								<CilDetailsValue value={test.mainIlSourcePath} />
-								<CilGenerateTestIlSourcesButton />
+								<CilGenerateTestIlSourcesButton test={test} onIlSourcesGenerated={handleIlSourcesGenerated} />
 							</CilDetailsRow>
 						</div>
 					) : null}

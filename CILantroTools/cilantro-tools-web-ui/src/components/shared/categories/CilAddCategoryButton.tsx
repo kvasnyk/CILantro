@@ -58,16 +58,12 @@ const CilAddCategoryButton: StatelessComponent<CilAddCategoryButtonProps> = prop
 
 		try {
 			await categoriesApiClient.addCategory(formData);
-			notistack.enqueueSnackbar(translations.categories.categoryHasBeenAdded, {
-				variant: 'success'
-			});
+			notistack.enqueueSuccess(translations.categories.categoryHasBeenAdded);
 			setIsDialogOpen(false);
 			setFormData(buildEmptyAddCategoryData());
 			props.onCategoryAdded();
 		} catch (error) {
-			notistack.enqueueSnackbar(translations.categories.errorOccurredWhileAddingCategory, {
-				variant: 'error'
-			});
+			notistack.enqueueError(translations.categories.errorOccurredWhileAddingCategory);
 		}
 	};
 

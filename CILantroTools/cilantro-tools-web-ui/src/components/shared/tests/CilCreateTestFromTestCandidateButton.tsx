@@ -9,42 +9,33 @@ import useNotistack from '../../../hooks/external/useNotistack';
 import translations from '../../../translations/translations';
 
 interface CilCreateTestFromTestCandidateButtonProps {
-  testCandidate: TestCandidate;
-  onTestCreated: () => void;
+	testCandidate: TestCandidate;
+	onTestCreated: () => void;
 }
 
-const CilCreateTestFromTestCandidateButton: StatelessComponent<
-  CilCreateTestFromTestCandidateButtonProps
-> = props => {
-  const testsApiClient = new TestsApiClient();
+const CilCreateTestFromTestCandidateButton: StatelessComponent<CilCreateTestFromTestCandidateButtonProps> = props => {
+	const testsApiClient = new TestsApiClient();
 
-  const notistack = useNotistack();
+	const notistack = useNotistack();
 
-  const handleClick = async () => {
-    try {
-      await testsApiClient.createTestFromCandidate({
-        testCandidateName: props.testCandidate.name,
-        testCandidatePath: props.testCandidate.path
-      });
-      notistack.enqueueSnackbar(translations.tests.testHasBeenAdded, {
-        variant: 'success'
-      });
-      props.onTestCreated();
-    } catch (error) {
-      notistack.enqueueSnackbar(
-        translations.tests.errorOccurredWhileAddingTest,
-        {
-          variant: 'error'
-        }
-      );
-    }
-  };
+	const handleClick = async () => {
+		try {
+			await testsApiClient.createTestFromCandidate({
+				testCandidateName: props.testCandidate.name,
+				testCandidatePath: props.testCandidate.path
+			});
+			notistack.enqueueSuccess(translations.tests.testHasBeenAdded);
+			props.onTestCreated();
+		} catch (error) {
+			notistack.enqueueError(translations.tests.errorOccurredWhileAddingTest);
+		}
+	};
 
-  return (
-    <IconButton onClick={handleClick}>
-      <AddIcon />
-    </IconButton>
-  );
+	return (
+		<IconButton onClick={handleClick}>
+			<AddIcon />
+		</IconButton>
+	);
 };
 
 export default CilCreateTestFromTestCandidateButton;

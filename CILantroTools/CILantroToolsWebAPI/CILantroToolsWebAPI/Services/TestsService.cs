@@ -129,10 +129,14 @@ namespace CILantroToolsWebAPI.Services
 
         private async Task CompleteTestReadModels(IEnumerable<TestReadModel> testReadModels)
         {
+            var tasks = new List<Task>();
+
             foreach (var testReadModel in testReadModels)
             {
-                await CompleteTestReadModel(testReadModel);
+                tasks.Add(CompleteTestReadModel(testReadModel));
             }
+
+            await Task.WhenAll(tasks);
         }
 
         private string BuildIlSourcesPath()

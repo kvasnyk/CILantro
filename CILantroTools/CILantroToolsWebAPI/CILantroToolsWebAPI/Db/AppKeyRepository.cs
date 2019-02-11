@@ -54,7 +54,7 @@ namespace CILantroToolsWebAPI.Db
 
             var result = new SearchResult<TReadModel>
             {
-                Data = data
+                Data = data.ToList()
             };
 
             return result;

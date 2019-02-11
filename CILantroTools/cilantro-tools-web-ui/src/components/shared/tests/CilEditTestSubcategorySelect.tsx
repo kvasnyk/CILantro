@@ -21,10 +21,10 @@ const CilEditTestSubcategorySelect: FunctionComponent<CilEditTestSubcategorySele
 	const editTestSubcategory = async (newSubcategoryId: string) => {
 		try {
 			await testsApiClient.editTestSubcategory(props.test.id, { subcategoryId: newSubcategoryId });
-			notistack.enqueueSnackbar(translations.tests.subcategoryHasBeenUpdated, { variant: 'success' });
+			notistack.enqueueSuccess(translations.tests.subcategoryHasBeenUpdated);
 			props.onSubcategoryUpdated();
 		} catch (error) {
-			notistack.enqueueSnackbar(translations.tests.errorOccurredWhileUpdatingSubcategory, { variant: 'error' });
+			notistack.enqueueError(translations.tests.errorOccurredWhileUpdatingSubcategory);
 		}
 	};
 
