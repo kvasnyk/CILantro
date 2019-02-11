@@ -13,13 +13,16 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface CilDetailsValueProps {
 	value: string;
+	prefix?: string;
 }
 
 const CilDetailsValue: FunctionComponent<CilDetailsValueProps> = props => {
 	const classes = useStyles();
 
 	return (
-		<Typography className={classes.typography}>{props.value ? props.value : translations.shared.noInfo}</Typography>
+		<Typography className={classes.typography}>
+			{props.value ? props.prefix + props.value : translations.shared.noInfo}
+		</Typography>
 	);
 };
 

@@ -43,7 +43,7 @@ const CiLTestCard: StatelessComponent<CilTestCardProps> = props => {
 					{props.test.name}
 				</Typography>
 				<Typography variant="subtitle1" className={typographyClassName}>
-					{props.test.path}
+					...{props.test.path}
 				</Typography>
 				{!props.test.isReady ? <CilTestChecklist test={props.test} /> : null}
 			</CardContent>

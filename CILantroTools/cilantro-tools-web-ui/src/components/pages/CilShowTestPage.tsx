@@ -96,7 +96,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 			{test && categories ? (
 				<>
 					<Typography variant="h1">{test.name}</Typography>
-					<Typography variant="subtitle1">{test.path}</Typography>
+					<Typography variant="subtitle1">...{test.path}</Typography>
 
 					{!test.isReady ? <CilTestChecklist test={test} /> : null}
 
@@ -129,7 +129,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 					{tabsValue === 'il-sources' ? (
 						<div className={classes.tabContainer}>
 							<CilDetailsRow label={translations.tests.testMainIlSource}>
-								<CilDetailsValue value={test.mainIlSourcePath} />
+								<CilDetailsValue value={test.mainIlSourcePath} prefix="..." />
 								<CilGenerateTestIlSourcesButton test={test} onIlSourcesGenerated={handleIlSourcesGenerated} />
 							</CilDetailsRow>
 						</div>

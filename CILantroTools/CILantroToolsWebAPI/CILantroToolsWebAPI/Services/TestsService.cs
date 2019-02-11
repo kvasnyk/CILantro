@@ -123,7 +123,7 @@ namespace CILantroToolsWebAPI.Services
             testReadModel.MainIlSource = await ReadIlSource(testReadModel.Name);
             if (testReadModel.HasIlSources)
             {
-                testReadModel.MainIlSourcePath = BuildTestMainIlSourcePath(testReadModel.Name);
+                testReadModel.MainIlSourcePath = BuildTestMainIlSourcePath(testReadModel.Name, true);
             }
         }
 
@@ -155,11 +155,14 @@ namespace CILantroToolsWebAPI.Services
             return Path.Combine(ilSourcesPath, testName);
         }
 
-        private string BuildTestMainIlSourcePath(string testName)
+        private string BuildTestMainIlSourcePath(string testName, bool relative = false)
         {
             var ilSourceFileName = $"{testName}.il";
             var testIlSourcesPath = BuildTestIlSourcesPath(testName);
             var ilSourcePath = Path.Combine(testIlSourcesPath, ilSourceFileName);
+
+            if (relative) ilSourcePath = ilSourcePath.Substring(_appSettings.Value.TestsDataDirectoryPath.Length);
+
             return ilSourcePath;
         }
 
