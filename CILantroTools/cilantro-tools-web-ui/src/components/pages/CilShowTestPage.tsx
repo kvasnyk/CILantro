@@ -12,6 +12,7 @@ import CilPage, { PageState } from '../base/CilPage';
 import CilEditTestCategorySelect from '../shared/tests/CilEditTestCategorySelect';
 import CilEditTestSubcategorySelect from '../shared/tests/CilEditTestSubcategorySelect';
 import CilTestChecklist from '../shared/tests/CilTestChecklist';
+import CilDetailsRow from '../utils/CilDetailsRow';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	tabsAppBar: {
@@ -26,7 +27,7 @@ interface CilShowTestPageProps {
 	testId: string;
 }
 
-type TabsValue = 'overview';
+type TabsValue = 'overview' | 'il-sources';
 
 const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 	const classes = useStyles();
@@ -96,15 +97,22 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 					<AppBar position="static" className={classes.tabsAppBar}>
 						<Tabs value={tabsValue} onChange={handleTabsValueChange}>
 							<Tab label={translations.tests.testOverview} value="overview" />
+							<Tab label={translations.tests.testIlSources} value="il-sources" />
 						</Tabs>
 					</AppBar>
 
 					{tabsValue === 'overview' ? (
 						<div className={classes.tabContainer}>
-							<CilEditTestCategorySelect categories={categories} test={test} onCategoryUpdated={handleCategoryUpdated} />
-							<CilEditTestSubcategorySelect subcategories={subcategories} test={test} onSubcategoryUpdated={handleSubcategoryUpdated} />
+							<CilDetailsRow label={translations.tests.testCategory}>
+								<CilEditTestCategorySelect categories={categories} test={test} onCategoryUpdated={handleCategoryUpdated} />
+							</CilDetailsRow>
+							<CilDetailsRow label={translations.tests.testSubcategory}>
+								<CilEditTestSubcategorySelect subcategories={subcategories} test={test} onSubcategoryUpdated={handleSubcategoryUpdated} />
+							</CilDetailsRow>
 						</div>
 					) : null}
+
+					{tabsValue === 'il-sources' ? <div className={classes.tabContainer}>IL SOURCES TO BE HERE</div> : null}
 				</>
 			) : null}
 		</CilPage>

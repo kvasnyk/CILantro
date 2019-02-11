@@ -11,7 +11,8 @@ const apiRoutes = {
 		getTest: (testId: string) => `/tests/${testId}`,
 		searchTests: '/tests/search',
 		editTestCategory: (testId: string) => `/tests/${testId}/edit-category`,
-		editTestSubcategory: (testId: string) => `/tests/${testId}/edit-subcategory`
+		editTestSubcategory: (testId: string) => `/tests/${testId}/edit-subcategory`,
+		generateIlSources: (testId: string) => `/tests/${testId}/generate-il-sources`
 	}
 };
 

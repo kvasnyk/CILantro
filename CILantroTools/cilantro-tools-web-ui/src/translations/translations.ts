@@ -30,7 +30,8 @@ const translations = {
 		subcategoryHasBeenUpdated: 'The category has been updated.',
 		errorOccurredWhileUpdatingCategory: 'An error occurred while updating the category.',
 		errorOccurredWhileUpdatingSubcategory: 'An error occurred while updating the subcategory.',
-		generateIlSources: 'Generate IL sources'
+		generateIlSources: 'Generate IL sources',
+		testIlSources: 'IL sources'
 	},
 	shared: {
 		anErrorOccurred: 'An error occurred. Please try again.',

@@ -7,35 +7,9 @@ import { makeStyles } from '@material-ui/styles';
 import translations from '../../translations/translations';
 
 const useStyles = makeStyles((theme: Theme) => ({
-	fieldDetails: {
-		width: '100%',
-		display: 'flex',
-		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'center',
-		height: '50px'
-	},
-	fieldLabel: {
-		width: '200px',
-		flexBasis: 'auto'
-	},
-	fieldLabelTypography: {
-		fontSize: '1rem',
-		fontWeight: 500
-	},
-	fieldValue: {
-		flexGrow: 1,
-		flexBasis: 0,
-		display: 'flex',
-		flexDirection: 'row',
-		alignItems: 'center'
-	},
 	fieldValueTypography: {
 		fontSize: '1rem',
 		marginRight: '10px'
-	},
-	formControl: {
-		width: '300px'
 	},
 	formControlContainer: {
 		flexGrow: 1,
@@ -79,14 +53,10 @@ const CilEditableSelect: FunctionComponent<CilEditableSelectProps> = props => {
 	};
 
 	return (
-		<div className={classes.fieldDetails}>
-			<div className={classes.fieldLabel}>
-				<Typography className={classes.fieldLabelTypography}>{props.label}</Typography>
-			</div>
-
+		<>
 			{isEditable ? (
 				<div className={classes.formControlContainer}>
-					<FormControl className={classes.formControl}>
+					<FormControl>
 						<Select fullWidth={true} onChange={handleChange} value={props.selectedValue} open={isEditable} onClose={handleSelectClose}>
 							{props.options.map(option => (
 								<MenuItem value={option.value}>{option.label}</MenuItem>
@@ -95,14 +65,14 @@ const CilEditableSelect: FunctionComponent<CilEditableSelectProps> = props => {
 					</FormControl>
 				</div>
 			) : (
-				<div className={classes.fieldValue}>
+				<>
 					<Typography className={classes.fieldValueTypography}>{selectedLabel}</Typography>
 					<IconButton onClick={handleEditButtonClick}>
 						<EditIcon fontSize="small" />
 					</IconButton>
-				</div>
+				</>
 			)}
-		</div>
+		</>
 	);
 };
 

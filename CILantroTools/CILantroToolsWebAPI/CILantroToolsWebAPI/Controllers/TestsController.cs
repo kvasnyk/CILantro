@@ -58,5 +58,11 @@ namespace CILantroToolsWebAPI.Controllers
         {
             await _testsService.EditTestSubcategoryAsync(testId, model);
         }
+
+        [HttpPost("{testId}/generate-il-sources")]
+        public async Task GenerateTestIlSourcesAsync([FromRoute]Guid testId)
+        {
+            await _testsService.GenerateIlSources(testId);
+        }
     }
 }

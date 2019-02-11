@@ -5,5 +5,7 @@
         public string TestsDirectoryPath { get; set; }
 
         public string TestsDataDirectoryPath { get; set; }
+
+        public string IldasmExePath { get; set; }
     }
 }

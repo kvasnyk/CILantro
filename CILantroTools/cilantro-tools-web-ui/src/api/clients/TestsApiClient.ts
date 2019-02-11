@@ -32,6 +32,10 @@ class TestsApiClient extends ApiClientBase {
 	public editTestSubcategory(testId: string, data: EditTestSubcategoryBindingModel) {
 		return this.put<EditTestSubcategoryBindingModel, {}>(apiRoutes.tests.editTestSubcategory(testId), data);
 	}
+
+	public generateIlSources(testId: string) {
+		return this.post<{}, {}>(apiRoutes.tests.generateIlSources(testId), {});
+	}
 }
 
 export default TestsApiClient;

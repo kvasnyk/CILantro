@@ -8,6 +8,7 @@ using CILantroToolsWebAPI.Settings;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -97,6 +98,23 @@ namespace CILantroToolsWebAPI.Services
             });
         }
 
+        public async Task GenerateIlSources(Guid testId)
+        {
+            var testReadModel = _testsRepository.Read<TestReadModel>().Single(t => t.Id == testId);
+
+            var testExePath = BuildTestExePath(testReadModel.Path);
+            var testMainIlSourcePath = BuildTestMainIlSourcePath(testReadModel.Name);
+
+            var ildasmArguments = $"\"{testExePath}\" /output=\"{testMainIlSourcePath}\"";
+            var ildasmProcessStartInfo = new ProcessStartInfo(_appSettings.Value.IldasmExePath, ildasmArguments)
+            {
+                WindowStyle = ProcessWindowStyle.Hidden
+            };
+
+            var ildasmProcess = Process.Start(ildasmProcessStartInfo);
+            ildasmProcess.WaitForExit();
+        }
+
         private async Task CompleteTestReadModel(TestReadModel testReadModel)
         {
             var testIlSourcesPath = BuildTestIlSourcesPath(testReadModel.Name);
@@ -118,13 +136,18 @@ namespace CILantroToolsWebAPI.Services
             return Path.Combine(_appSettings.Value.TestsDataDirectoryPath, IL_SOURCES_DIRECTORY_NAME);
         }
 
+        private string BuildTestExePath(string testPath)
+        {
+            return Path.Combine(_appSettings.Value.TestsDirectoryPath, testPath);
+        }
+
         private string BuildTestIlSourcesPath(string testName)
         {
             var ilSourcesPath = BuildIlSourcesPath();
             return Path.Combine(ilSourcesPath, testName);
         }
 
-        private string BuildMainIlSourcePath(string testName)
+        private string BuildTestMainIlSourcePath(string testName)
         {
             var ilSourceFileName = $"{testName}.il";
             var testIlSourcesPath = BuildTestIlSourcesPath(testName);
@@ -134,7 +157,7 @@ namespace CILantroToolsWebAPI.Services
 
         private async Task<string> ReadIlSource(string testName)
         {
-            var ilSourcePath = BuildMainIlSourcePath(testName);
+            var ilSourcePath = BuildTestMainIlSourcePath(testName);
 
             if (!File.Exists(ilSourcePath))
             {
