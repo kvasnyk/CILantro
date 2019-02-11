@@ -23,7 +23,6 @@ export interface SelectOption {
 }
 
 interface CilEditableSelectProps {
-	label: string;
 	options: SelectOption[];
 	selectedValue?: string;
 	onValueChange: (newValue: string) => void;

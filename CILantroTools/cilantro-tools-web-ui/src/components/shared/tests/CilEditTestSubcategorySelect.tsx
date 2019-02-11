@@ -34,7 +34,6 @@ const CilEditTestSubcategorySelect: FunctionComponent<CilEditTestSubcategorySele
 
 	return (
 		<CilEditableSelect
-			label={translations.tests.testSubcategory}
 			options={props.subcategories.map(subcategory => ({
 				label: subcategory.name,
 				value: subcategory.id

@@ -36,7 +36,6 @@ const CilEditTestCategorySelect: FunctionComponent<CilEditTestCategorySelectProp
 
 	return (
 		<CilEditableSelect
-			label={translations.tests.testCategory}
 			options={props.categories.map(category => ({
 				label: category.name,
 				value: category.id
