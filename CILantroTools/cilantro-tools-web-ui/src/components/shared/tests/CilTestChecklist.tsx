@@ -37,6 +37,11 @@ const CilTestChecklist: FunctionComponent<CilTestChecklistProps> = props => {
 				<Checkbox checked={props.test.hasIlSources} readOnly={true} className={classes.checkbox} />
 				<ListItemText primary={translations.tests.generateIlSources} />
 			</ListItem>
+
+			<ListItem>
+				<Checkbox checked={props.test.hasExe} readOnly={true} className={classes.checkbox} />
+				<ListItemText primary={translations.tests.generateExe} />
+			</ListItem>
 		</List>
 	);
 };

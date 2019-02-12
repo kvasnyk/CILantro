@@ -20,6 +20,7 @@ const CilCodeEditor: FunctionComponent<CilCodeEditorProps> = props => {
 			readOnly={true}
 			value={props.code}
 			maxLines={999}
+			showPrintMargin={false}
 			editorProps={{
 				$blockScrolling: Infinity
 			}}

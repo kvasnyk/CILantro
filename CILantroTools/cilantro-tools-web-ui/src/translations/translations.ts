@@ -34,7 +34,9 @@ const translations = {
 		testIlSources: 'IL sources',
 		testMainIlSource: 'Main IL source',
 		ilSourcesHasBeenGenerated: 'IL sources has been generated.',
-		errorOccurredWhileGeneratingIlSources: 'An error occurred while generating IL sources.'
+		errorOccurredWhileGeneratingIlSources: 'An error occurred while generating IL sources.',
+		testExe: 'EXE',
+		generateExe: 'Generate EXE'
 	},
 	shared: {
 		anErrorOccurred: 'An error occurred. Please try again.',

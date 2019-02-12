@@ -14,6 +14,7 @@ interface TestReadModel {
 	hasCategory: boolean;
 	hasSubcategory: boolean;
 	hasIlSources: boolean;
+	hasExe: boolean;
 	isReady: boolean;
 }
 

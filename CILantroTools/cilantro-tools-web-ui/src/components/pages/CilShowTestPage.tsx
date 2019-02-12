@@ -30,7 +30,7 @@ interface CilShowTestPageProps {
 	testId: string;
 }
 
-type TabsValue = 'overview' | 'il-sources';
+type TabsValue = 'overview' | 'il-sources' | 'exe';
 
 const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 	const classes = useStyles();
@@ -105,6 +105,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 						<Tabs value={tabsValue} onChange={handleTabsValueChange}>
 							<Tab label={translations.tests.testOverview} value="overview" />
 							<Tab label={translations.tests.testIlSources} value="il-sources" />
+							<Tab label={translations.tests.testExe} value="exe" />
 						</Tabs>
 					</AppBar>
 
