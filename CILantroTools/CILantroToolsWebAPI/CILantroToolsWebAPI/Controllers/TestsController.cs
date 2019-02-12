@@ -64,5 +64,11 @@ namespace CILantroToolsWebAPI.Controllers
         {
             await _testsService.GenerateIlSources(testId);
         }
+
+        [HttpPost("{testId}/generate-exe")]
+        public async Task GenerateExeAsync([FromRoute]Guid testId)
+        {
+            await _testsService.GenerateExe(testId);
+        }
     }
 }

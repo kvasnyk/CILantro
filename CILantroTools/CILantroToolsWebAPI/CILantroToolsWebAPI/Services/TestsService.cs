@@ -19,6 +19,8 @@ namespace CILantroToolsWebAPI.Services
     {
         private const string IL_SOURCES_DIRECTORY_NAME = "il-sources";
 
+        private const string EXECS_DIRECTORY_NAME = "execs";
+
         private readonly IOptions<AppSettings> _appSettings;
 
         private readonly AppKeyRepository<Test> _testsRepository;
@@ -102,7 +104,7 @@ namespace CILantroToolsWebAPI.Services
         {
             var testReadModel = _testsRepository.Read<TestReadModel>().Single(t => t.Id == testId);
 
-            var testExePath = BuildTestExePath(testReadModel.Path);
+            var testExePath = BuildTestOriginalExePath(testReadModel.Path);
             var testMainIlSourcePath = BuildTestMainIlSourcePath(testReadModel.Name);
 
             var ildasmArguments = $"\"{testExePath}\" /output=\"{testMainIlSourcePath}\"";
@@ -115,15 +117,42 @@ namespace CILantroToolsWebAPI.Services
             ildasmProcess.WaitForExit();
         }
 
+        public async Task GenerateExe(Guid testId)
+        {
+            var testReadModel = _testsRepository.Read<TestReadModel>().Single(t => t.Id == testId);
+
+            var ilSourcePath = BuildTestMainIlSourcePath(testReadModel.Name);
+            var exePath = BuildTestExePath(testReadModel.Name);
+
+            var ilasmArguments = $"\"{ilSourcePath}\" /output=\"{exePath}\"";
+            var ilasmProcessStartInfo = new ProcessStartInfo(_appSettings.Value.IlasmExePath, ilasmArguments)
+            {
+                WindowStyle = ProcessWindowStyle.Hidden
+            };
+
+            var ilasmProcess = Process.Start(ilasmProcessStartInfo);
+            ilasmProcess.WaitForExit();
+        }
+
         private async Task CompleteTestReadModel(TestReadModel testReadModel)
         {
             var testIlSourcesPath = BuildTestIlSourcesPath(testReadModel.Name);
             EnsureDirectoryExists(testIlSourcesPath);
 
+            var testExecsPath = BuildTestExecsPath(testReadModel.Name);
+            EnsureDirectoryExists(testExecsPath);
+
             testReadModel.MainIlSource = await ReadIlSource(testReadModel.Name);
             if (testReadModel.HasIlSources)
             {
                 testReadModel.MainIlSourcePath = BuildTestMainIlSourcePath(testReadModel.Name, true);
+            }
+
+            var testExePath = BuildTestExePath(testReadModel.Name);
+
+            if (File.Exists(testExePath))
+            {
+                testReadModel.ExePath = BuildTestExePath(testReadModel.Name, true);
             }
         }
 
@@ -144,7 +173,12 @@ namespace CILantroToolsWebAPI.Services
             return Path.Combine(_appSettings.Value.TestsDataDirectoryPath, IL_SOURCES_DIRECTORY_NAME);
         }
 
-        private string BuildTestExePath(string testPath)
+        private string BuildExecsPath()
+        {
+            return Path.Combine(_appSettings.Value.TestsDataDirectoryPath, EXECS_DIRECTORY_NAME);
+        }
+
+        private string BuildTestOriginalExePath(string testPath)
         {
             return Path.Combine(_appSettings.Value.TestsDirectoryPath, testPath.Substring(1));
         }
@@ -153,6 +187,12 @@ namespace CILantroToolsWebAPI.Services
         {
             var ilSourcesPath = BuildIlSourcesPath();
             return Path.Combine(ilSourcesPath, testName);
+        }
+
+        private string BuildTestExecsPath(string testName)
+        {
+            var execsPath = BuildExecsPath();
+            return Path.Combine(execsPath, testName);
         }
 
         private string BuildTestMainIlSourcePath(string testName, bool relative = false)
@@ -164,6 +204,17 @@ namespace CILantroToolsWebAPI.Services
             if (relative) ilSourcePath = ilSourcePath.Substring(_appSettings.Value.TestsDataDirectoryPath.Length);
 
             return ilSourcePath;
+        }
+
+        private string BuildTestExePath(string testName, bool relative = false)
+        {
+            var exeFileName = $"{testName}.exe";
+            var testExecsPath = BuildTestExecsPath(testName);
+            var exePath = Path.Combine(testExecsPath, exeFileName);
+
+            if (relative) exePath = exePath.Substring(_appSettings.Value.TestsDataDirectoryPath.Length);
+
+            return exePath;
         }
 
         private async Task<string> ReadIlSource(string testName)

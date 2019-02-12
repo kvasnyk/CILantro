@@ -36,6 +36,10 @@ class TestsApiClient extends ApiClientBase {
 	public generateIlSources(testId: string) {
 		return this.post<{}, {}>(apiRoutes.tests.generateIlSources(testId), {});
 	}
+
+	public generateExe(testId: string) {
+		return this.post<{}, {}>(apiRoutes.tests.generateExe(testId), {});
+	}
 }
 
 export default TestsApiClient;

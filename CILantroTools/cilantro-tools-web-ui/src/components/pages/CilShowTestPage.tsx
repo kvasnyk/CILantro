@@ -11,6 +11,7 @@ import translations from '../../translations/translations';
 import CilPage, { PageState } from '../base/CilPage';
 import CilEditTestCategorySelect from '../shared/tests/CilEditTestCategorySelect';
 import CilEditTestSubcategorySelect from '../shared/tests/CilEditTestSubcategorySelect';
+import CilGenerateTestExeButton from '../shared/tests/CilGenerateTestExeButton';
 import CilGenerateTestIlSourcesButton from '../shared/tests/CilGenerateTestIlSourcesButton';
 import CilTestChecklist from '../shared/tests/CilTestChecklist';
 import CilCodeEditor from '../utils/CilCodeEditor';
@@ -81,6 +82,10 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 		refreshTest();
 	};
 
+	const handleExeGenerated = () => {
+		refreshTest();
+	};
+
 	useEffect(() => {
 		try {
 			refreshTest();
@@ -135,6 +140,15 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 								<CilGenerateTestIlSourcesButton test={test} onIlSourcesGenerated={handleIlSourcesGenerated} />
 							</CilDetailsRow>
 							{test.hasIlSources ? <CilCodeEditor code={test.mainIlSource} /> : null}
+						</div>
+					) : null}
+
+					{tabsValue === 'exe' ? (
+						<div className={classes.tabContainer}>
+							<CilDetailsRow label={translations.tests.testExe}>
+								<CilDetailsValue value={test.exePath} prefix="..." />
+								<CilGenerateTestExeButton test={test} onExeGenerated={handleExeGenerated} />
+							</CilDetailsRow>
 						</div>
 					) : null}
 				</>

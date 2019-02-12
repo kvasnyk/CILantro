@@ -11,6 +11,7 @@ interface TestReadModel {
 	subcategory: SubcategoryReadModel;
 	mainIlSourcePath: string;
 	mainIlSource: string;
+	exePath: string;
 	hasCategory: boolean;
 	hasSubcategory: boolean;
 	hasIlSources: boolean;
