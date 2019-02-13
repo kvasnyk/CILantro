@@ -7,7 +7,8 @@ import translations from '../../translations/translations';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	typography: {
-		fontSize: '1rem'
+		fontSize: '1rem',
+		marginRight: '10px'
 	}
 }));
 

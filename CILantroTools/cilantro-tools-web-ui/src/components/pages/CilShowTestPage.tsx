@@ -13,6 +13,7 @@ import CilEditTestCategorySelect from '../shared/tests/CilEditTestCategorySelect
 import CilEditTestSubcategorySelect from '../shared/tests/CilEditTestSubcategorySelect';
 import CilGenerateTestExeButton from '../shared/tests/CilGenerateTestExeButton';
 import CilGenerateTestIlSourcesButton from '../shared/tests/CilGenerateTestIlSourcesButton';
+import CilRunTestExeButton from '../shared/tests/CilRunTestExeButton';
 import CilTestChecklist from '../shared/tests/CilTestChecklist';
 import CilCodeEditor from '../utils/CilCodeEditor';
 import CilDetailsRow from '../utils/CilDetailsRow';
@@ -148,6 +149,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 							<CilDetailsRow label={translations.tests.testExe}>
 								<CilDetailsValue value={test.exePath} prefix="..." />
 								<CilGenerateTestExeButton test={test} onExeGenerated={handleExeGenerated} />
+								<CilRunTestExeButton test={test} />
 							</CilDetailsRow>
 						</div>
 					) : null}

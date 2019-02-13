@@ -153,6 +153,7 @@ namespace CILantroToolsWebAPI.Services
             if (File.Exists(testExePath))
             {
                 testReadModel.ExePath = BuildTestExePath(testReadModel.Name, true);
+                testReadModel.ExePathFull = testExePath;
             }
         }
 

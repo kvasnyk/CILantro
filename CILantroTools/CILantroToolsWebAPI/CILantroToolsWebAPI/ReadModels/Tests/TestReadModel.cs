@@ -28,13 +28,15 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
 
         public string ExePath { get; set; }
 
+        public string ExePathFull { get; set; }
+
         public bool HasCategory => Category != null;
 
         public bool HasSubcategory => Subcategory != null;
 
         public bool HasIlSources => !string.IsNullOrEmpty(MainIlSource);
 
-        public bool HasExe => !string.IsNullOrEmpty(ExePath);
+        public bool HasExe => !string.IsNullOrEmpty(ExePath) && !string.IsNullOrEmpty(ExePathFull);
 
         public bool IsReady =>
             HasCategory &&

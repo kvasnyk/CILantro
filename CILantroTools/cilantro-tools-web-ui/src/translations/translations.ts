@@ -38,7 +38,10 @@ const translations = {
 		testExe: 'EXE',
 		generateExe: 'Generate EXE',
 		exeHasBeenGenerated: 'EXE has been generated.',
-		errorOccurredWhileGeneratingExe: 'An error occurred while generating EXE.'
+		errorOccurredWhileGeneratingExe: 'An error occurred while generating EXE.',
+		runningExe: 'EXE',
+		exeProcessStarted: '// EXE process started',
+		exeProcessEnded: '// EXE process ended'
 	},
 	shared: {
 		anErrorOccurred: 'An error occurred. Please try again.',

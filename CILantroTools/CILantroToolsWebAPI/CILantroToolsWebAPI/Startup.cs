@@ -1,10 +1,12 @@
 ﻿using CILantroToolsWebAPI.Db;
 using CILantroToolsWebAPI.DbModels;
+using CILantroToolsWebAPI.Hubs;
 using CILantroToolsWebAPI.ReadModels;
 using CILantroToolsWebAPI.Services;
 using CILantroToolsWebAPI.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +27,7 @@ namespace CILantroToolsWebAPI
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR();
             services.AddMvc();
 
             services.AddCors(options =>
@@ -32,9 +35,10 @@ namespace CILantroToolsWebAPI
                 options.AddPolicy(
                     "AllowEverything",
                     builder => builder
-                        .AllowAnyOrigin()
-                        .AllowAnyMethod()
                         .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .SetIsOriginAllowed(host => true)
+                        .AllowCredentials()
                 );
             });
 
@@ -55,8 +59,9 @@ namespace CILantroToolsWebAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseCors("AllowEverything");
             }
+
+            app.UseCors("AllowEverything");
 
             using (IServiceScope serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
@@ -127,7 +132,16 @@ namespace CILantroToolsWebAPI
                 #endregion
             }
 
+            app.UseSignalR(options =>
+            {
+                options.MapHub<RunExeHub>("/run-exe-hub");
+            });
             app.UseMvc();
+
+            app.Use(async (context, next) =>
+            {
+                var runExeHubContext = context.RequestServices.GetRequiredService<IHubContext<RunExeHub>>();
+            });
 
             ReadModelMappingsFactory.RegisterMappings();
         }
