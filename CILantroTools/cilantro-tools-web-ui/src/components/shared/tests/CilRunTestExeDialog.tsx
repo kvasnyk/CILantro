@@ -48,17 +48,18 @@ interface CilRunTestExeDialogProps {
 const CilRunTestExeDialog: FunctionComponent<CilRunTestExeDialogProps> = props => {
 	const classes = useStyles();
 
-	let connection: SignalR.HubConnection | undefined;
+	const [connection, setConnection] = useState<SignalR.HubConnection | undefined>(undefined);
+	const [consoleLines, setConsoleLines] = useState<CilConsoleLine[]>([]);
 
-	const sendInLine = (newLine: string) => {
+	const sendInputLine = (line: string) => {
 		if (connection) {
-			connection.send('in', newLine).catch(error => {
+			return connection.send('input', line).catch(error => {
 				alert(error);
 			});
 		}
-	};
 
-	const [consoleLines, setConsoleLines] = useState<CilConsoleLine[]>([]);
+		return Promise.resolve();
+	};
 
 	const handleCloseButtonClick = () => {
 		props.onClose();
@@ -69,24 +70,26 @@ const CilRunTestExeDialog: FunctionComponent<CilRunTestExeDialogProps> = props =
 	};
 
 	const handleLineAdded = (newLine: string) => {
-		setConsoleLines([
-			...consoleLines,
-			{
-				type: 'in',
-				content: newLine
-			}
-		]);
-
-		sendInLine(newLine);
+		sendInputLine(newLine).then(() => {
+			setConsoleLines(prevConsoleLines => [
+				...prevConsoleLines,
+				{
+					type: 'in',
+					content: newLine
+				}
+			]);
+		});
 	};
 
 	useEffect(() => {
-		connection = new SignalR.HubConnectionBuilder().withUrl(appSettings.hubsBaseUrl + '/run-exe-hub').build();
-		connection
+		const newConnection = new SignalR.HubConnectionBuilder().withUrl(appSettings.hubsBaseUrl + '/run-exe-hub').build();
+		newConnection
 			.start()
 			.then(() => {
-				connection!
-					.send('runExe', props.test.id)
+				setConnection(newConnection);
+
+				newConnection
+					.send('run', props.test.id)
 
 					.catch(error => {
 						alert(error);
@@ -96,9 +99,9 @@ const CilRunTestExeDialog: FunctionComponent<CilRunTestExeDialogProps> = props =
 				alert(error);
 			});
 
-		connection.on('start', () => {
-			setConsoleLines([
-				...consoleLines,
+		newConnection.on('start', () => {
+			setConsoleLines(prevConsoleLines => [
+				...prevConsoleLines,
 				{
 					type: 'start',
 					content: translations.tests.exeProcessStarted
@@ -106,24 +109,19 @@ const CilRunTestExeDialog: FunctionComponent<CilRunTestExeDialogProps> = props =
 			]);
 		});
 
-		connection.on('end', () => {
-			// setConsoleLines([
-			// 	...consoleLines,
-			// 	{
-			// 		type: 'end',
-			// 		content: translations.tests.exeProcessEnded
-			// 	}
-			// ]);
-			consoleLines.push({
-				type: 'end',
-				content: translations.tests.exeProcessEnded
-			});
+		newConnection.on('end', () => {
+			setConsoleLines(prevConsoleLines => [
+				...prevConsoleLines,
+				{
+					type: 'end',
+					content: translations.tests.exeProcessEnded
+				}
+			]);
 		});
 
-		connection.on('out', line => {
-			alert(line);
-			setConsoleLines([
-				...consoleLines,
+		newConnection.on('out', line => {
+			setConsoleLines(prevConsoleLines => [
+				...prevConsoleLines,
 				{
 					type: 'out',
 					content: line
@@ -132,7 +130,9 @@ const CilRunTestExeDialog: FunctionComponent<CilRunTestExeDialogProps> = props =
 		});
 
 		return () => {
-			connection!.stop();
+			if (newConnection) {
+				newConnection.stop();
+			}
 		};
 	}, []);
 

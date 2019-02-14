@@ -9,12 +9,33 @@ namespace CILantroToolsWebAPI.Hubs
 {
     public class RunExeHub : Hub
     {
+        private class RunExeHubWatcher
+        {
+            private readonly IHubContext<RunExeHub> _hubContext;
+
+            public RunExeHubWatcher(IHubContext<RunExeHub> hubContext)
+            {
+                _hubContext = hubContext;
+            }
+
+            public async void Watch(Process process)
+            {
+                while (!process.StandardOutput.EndOfStream)
+                {
+                    var outputLine = await process.StandardOutput.ReadLineAsync();
+                    await _hubContext.Clients.All.SendAsync("out", outputLine);
+                }
+
+                if (!process.HasExited) process.Kill();
+                await _hubContext.Clients.All.SendAsync("end");
+            }
+        }
+
         private readonly TestsService _testsService;
 
-        private readonly IHubContext<RunExeHub> _hubContext;
+        private static Process _process;
 
-        private static StreamWriter _processWriter;
-        private static StreamReader _processReader;
+        private IHubContext<RunExeHub> _hubContext;
 
         public RunExeHub(TestsService testsService, IHubContext<RunExeHub> hubContext)
         {
@@ -22,7 +43,7 @@ namespace CILantroToolsWebAPI.Hubs
             _hubContext = hubContext;
         }
 
-        public async Task RunExe(Guid testId)
+        public async Task Run(Guid testId)
         {
             var test = await _testsService.GetTestAsync(testId);
 
@@ -34,31 +55,28 @@ namespace CILantroToolsWebAPI.Hubs
                 CreateNoWindow = true
             };
 
-            var process = Process.Start(exeProcessStartInfo);
-            //await Clients.Caller.SendAsync("start");
-            await _hubContext.Clients.All.SendAsync("start");
-            //var context = GlobalHost.ConnectionManager.GetHubContext<SomeHub>();
-            //context.Clients.Client(connectionId).SendComplete(message);
-
-            _processWriter = process.StandardInput;
-            _processReader = process.StandardOutput;
-
-
-            await Task.Run(async () =>
+            if (_process != null && !_process.HasExited)
             {
-                while (!_processReader.EndOfStream)
-                {
-                    var outLine = await _processReader.ReadLineAsync();
-                    await _hubContext.Clients.All.SendAsync("out", outLine);
-                }
-            });
+                _process.Kill();
+            }
 
-            await _hubContext.Clients.All.SendAsync("end");
+            _process = Process.Start(exeProcessStartInfo);
+            await Clients.Caller.SendAsync("start");
+
+            Task.Run(() => { new RunExeHubWatcher(_hubContext).Watch(_process); } );
         }
 
-        public async Task In(string message)
+        public async Task Input(string inputLine)
         {
-            await _processWriter.WriteLineAsync(message);
+            if (_process != null)
+            {
+                await _process.StandardInput.WriteLineAsync(inputLine);
+            }
+        }
+
+        public override Task OnConnectedAsync()
+        {
+            return base.OnConnectedAsync();
         }
 
         public override Task OnDisconnectedAsync(Exception exception)
