@@ -50,17 +50,20 @@ interface CilPageProps {
 	state: PageState;
 	centerChildren?: boolean;
 	menu?: React.ReactNode;
+	className?: string;
 }
 
 const CilPage: StatelessComponent<CilPageProps> = props => {
 	const classes = useStyles();
+
+	const pageClassName = classNames(classes.page, props.className);
 
 	const pageContentClassName = classNames(classes.pageContent, {
 		[classes.centerContainer]: props.centerChildren
 	});
 
 	return (
-		<div className={classes.page}>
+		<div className={pageClassName}>
 			{props.state === 'loading' ? <CilLoading /> : undefined}
 
 			{props.state === 'success' ? (

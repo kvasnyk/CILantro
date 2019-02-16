@@ -6,7 +6,6 @@ using CILantroToolsWebAPI.Services;
 using CILantroToolsWebAPI.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -63,6 +62,7 @@ namespace CILantroToolsWebAPI
 
             app.UseCors("AllowEverything");
 
+            // TODO: migrating here causes errors while using Add-Migration
             using (IServiceScope serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 AppDbContext context = serviceScope.ServiceProvider.GetRequiredService<AppDbContext>();
@@ -134,14 +134,9 @@ namespace CILantroToolsWebAPI
 
             app.UseSignalR(options =>
             {
-                options.MapHub<RunExeHub>("/run-exe-hub");
+                options.MapHub<RunExeHub>("/hubs/run-exe");
             });
             app.UseMvc();
-
-            app.Use(async (context, next) =>
-            {
-                var runExeHubContext = context.RequestServices.GetRequiredService<IHubContext<RunExeHub>>();
-            });
 
             ReadModelMappingsFactory.RegisterMappings();
         }

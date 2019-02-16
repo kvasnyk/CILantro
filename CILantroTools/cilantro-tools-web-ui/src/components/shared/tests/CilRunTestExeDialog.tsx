@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/styles';
 
 import TestReadModel from '../../../api/read-models/tests/TestReadModel';
 import translations from '../../../translations/translations';
+import CilPage, { PageState } from '../../base/CilPage';
 import CilConsole, { CilConsoleLine } from '../../utils/CilConsole';
 
 const appSettings = require('appSettings');
@@ -14,6 +15,13 @@ const appSettings = require('appSettings');
 const useStyles = makeStyles((theme: Theme) => ({
 	appBarIcon: {
 		fill: theme.palette.primary.contrastText
+	},
+	dialogContent: {
+		display: 'flex',
+		flexDirection: 'column'
+	},
+	page: {
+		height: '100%'
 	},
 	toolbar: {
 		display: 'flex'
@@ -50,11 +58,12 @@ const CilRunTestExeDialog: FunctionComponent<CilRunTestExeDialogProps> = props =
 
 	const [connection, setConnection] = useState<SignalR.HubConnection | undefined>(undefined);
 	const [consoleLines, setConsoleLines] = useState<CilConsoleLine[]>([]);
+	const [pageState, setPageState] = useState<PageState>('loading');
 
 	const sendInputLine = (line: string) => {
 		if (connection) {
 			return connection.send('input', line).catch(error => {
-				alert(error);
+				setPageState(error);
 			});
 		}
 
@@ -82,21 +91,19 @@ const CilRunTestExeDialog: FunctionComponent<CilRunTestExeDialogProps> = props =
 	};
 
 	useEffect(() => {
-		const newConnection = new SignalR.HubConnectionBuilder().withUrl(appSettings.hubsBaseUrl + '/run-exe-hub').build();
+		const newConnection = new SignalR.HubConnectionBuilder().withUrl(appSettings.hubsBaseUrl + '/run-exe').build();
 		newConnection
 			.start()
 			.then(() => {
+				setPageState('success');
 				setConnection(newConnection);
 
-				newConnection
-					.send('run', props.test.id)
-
-					.catch(error => {
-						alert(error);
-					});
+				newConnection.send('run', props.test.id).catch(error => {
+					setPageState(error);
+				});
 			})
 			.catch(error => {
-				alert(error);
+				setPageState('error');
 			});
 
 		newConnection.on('start', () => {
@@ -155,11 +162,13 @@ const CilRunTestExeDialog: FunctionComponent<CilRunTestExeDialogProps> = props =
 					</div>
 				</Toolbar>
 			</AppBar>
-			<DialogContent>
+			<DialogContent className={classes.dialogContent}>
 				<div className={classes.fakeToolbar} />
-				<div className={classes.content}>
-					<CilConsole lines={consoleLines} title={'...' + props.test.exePath} onLineAdded={handleLineAdded} />
-				</div>
+				<CilPage state={pageState} className={classes.page}>
+					<div className={classes.content}>
+						<CilConsole lines={consoleLines} title={'...' + props.test.exePath} onLineAdded={handleLineAdded} />
+					</div>
+				</CilPage>
 			</DialogContent>
 		</Dialog>
 	);
