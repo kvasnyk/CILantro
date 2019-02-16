@@ -24,7 +24,7 @@ const CilRunTestExeButton: FunctionComponent<CilRunTestExeButtonProps> = props =
 		setIsDialogOpen(false);
 	};
 
-	return (
+	return props.test.hasExe ? (
 		<>
 			{props.type === 'icon-button' ? (
 				<IconButton onClick={handleClick}>
@@ -37,7 +37,7 @@ const CilRunTestExeButton: FunctionComponent<CilRunTestExeButtonProps> = props =
 			)}
 			{isDialogOpen ? <CilRunTestExeDialog onClose={handleDialogClose} test={props.test} /> : null}
 		</>
-	);
+	) : null;
 };
 
 export default CilRunTestExeButton;

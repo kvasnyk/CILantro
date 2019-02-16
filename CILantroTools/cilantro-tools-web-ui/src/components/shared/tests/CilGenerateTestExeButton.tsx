@@ -29,11 +29,11 @@ const CilGenerateTestExeButton: FunctionComponent<CilGenerateTestExeButtonProps>
 		}
 	};
 
-	return (
+	return props.test.hasIlSources ? (
 		<IconButton onClick={handleClick}>
 			{props.test.hasExe ? <RefreshIcon fontSize="small" /> : <BuildIcon fontSize="small" />}
 		</IconButton>
-	);
+	) : null;
 };
 
 export default CilGenerateTestExeButton;
