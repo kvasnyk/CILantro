@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, FunctionComponent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, FunctionComponent, useRef, useState } from 'react';
 
 import { Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
@@ -32,12 +32,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 	},
 	consoleStartLine: {
 		color: 'lightgrey',
-		textAlign: 'right',
+		textAlign: 'center',
 		fontStyle: 'italic'
 	},
 	consoleEndLine: {
 		color: 'lightgrey',
-		textAlign: 'right',
+		textAlign: 'center',
 		fontStyle: 'italic'
 	},
 	form: {
@@ -81,6 +81,9 @@ const CilConsole: FunctionComponent<CilConsoleProps> = props => {
 
 	const [inputLine, setInputLine] = useState<string>('');
 	const [inputWidth, setInputWidth] = useState<string>('0px');
+	const [isInputFocused, setInputFocused] = useState<boolean>(false);
+
+	const inputElem = useRef<HTMLInputElement>(null);
 
 	const resizeInput = (currentValueLength: number) => {
 		const newValueLength = currentValueLength;
@@ -100,8 +103,22 @@ const CilConsole: FunctionComponent<CilConsoleProps> = props => {
 		resizeInput(0);
 	};
 
+	const handleConsoleClick = () => {
+		if (inputElem.current) {
+			inputElem.current.focus();
+		}
+	};
+
+	const handleInputFocus = () => {
+		setInputFocused(true);
+	};
+
+	const handleInputBlur = () => {
+		setInputFocused(false);
+	};
+
 	return (
-		<div className={classes.console}>
+		<div className={classes.console} onClick={handleConsoleClick}>
 			<div className={classes.consoleTitle}>{props.title}</div>
 			<div className={classes.content}>
 				{props.lines.map((line, index) => (
@@ -125,8 +142,11 @@ const CilConsole: FunctionComponent<CilConsoleProps> = props => {
 							autoFocus={true}
 							className={classes.input}
 							style={{ width: inputWidth }}
+							ref={inputElem}
+							onFocus={handleInputFocus}
+							onBlur={handleInputBlur}
 						/>
-						<div className={classes.caret} />
+						{isInputFocused ? <div className={classes.caret} /> : null}
 						<button type="submit" className={classes.button} />
 					</form>
 				) : null}
