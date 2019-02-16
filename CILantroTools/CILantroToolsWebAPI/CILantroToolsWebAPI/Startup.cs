@@ -51,6 +51,8 @@ namespace CILantroToolsWebAPI
 
             services.AddScoped<CategoriesService>();
             services.AddScoped<TestsService>();
+
+            services.AddSingleton<HubExeRunner>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

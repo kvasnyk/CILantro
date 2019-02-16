@@ -4,7 +4,7 @@ import { Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 export interface CilConsoleLine {
-	type: 'in' | 'out' | 'start' | 'end';
+	type: 'start' | 'end' | 'input' | 'output' | 'error';
 	content: string;
 }
 
@@ -105,9 +105,9 @@ const CilConsole: FunctionComponent<CilConsoleProps> = props => {
 			<div className={classes.content}>
 				{props.lines.map((line, index) => (
 					<React.Fragment key={index}>
-						{line.type === 'in' ? <div className={classes.consoleInLine}>{line.content}</div> : null}
+						{line.type === 'input' ? <div className={classes.consoleInLine}>{line.content}</div> : null}
 
-						{line.type === 'out' ? <div className={classes.consoleOutLine}>{line.content}</div> : null}
+						{line.type === 'output' ? <div className={classes.consoleOutLine}>{line.content}</div> : null}
 
 						{line.type === 'start' ? <div className={classes.consoleStartLine}>{line.content}</div> : null}
 

@@ -83,7 +83,7 @@ const CilRunTestExeDialog: FunctionComponent<CilRunTestExeDialogProps> = props =
 			setConsoleLines(prevConsoleLines => [
 				...prevConsoleLines,
 				{
-					type: 'in',
+					type: 'input',
 					content: newLine
 				}
 			]);
@@ -126,11 +126,11 @@ const CilRunTestExeDialog: FunctionComponent<CilRunTestExeDialogProps> = props =
 			]);
 		});
 
-		newConnection.on('out', line => {
+		newConnection.on('output', line => {
 			setConsoleLines(prevConsoleLines => [
 				...prevConsoleLines,
 				{
-					type: 'out',
+					type: 'output',
 					content: line
 				}
 			]);
