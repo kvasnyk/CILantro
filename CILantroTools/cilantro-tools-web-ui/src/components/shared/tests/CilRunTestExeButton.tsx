@@ -1,13 +1,16 @@
 import React, { FunctionComponent, useState } from 'react';
 
-import { IconButton } from '@material-ui/core';
+import { Fab, IconButton } from '@material-ui/core';
 import PlayArrowIcon from '@material-ui/icons/PlayArrowRounded';
 
 import TestReadModel from '../../../api/read-models/tests/TestReadModel';
 import CilRunTestExeDialog from './CilRunTestExeDialog';
 
+type CilRunTestExeButtonType = 'icon-button' | 'fab';
+
 interface CilRunTestExeButtonProps {
 	test: TestReadModel;
+	type: CilRunTestExeButtonType;
 }
 
 const CilRunTestExeButton: FunctionComponent<CilRunTestExeButtonProps> = props => {
@@ -23,9 +26,15 @@ const CilRunTestExeButton: FunctionComponent<CilRunTestExeButtonProps> = props =
 
 	return (
 		<>
-			<IconButton onClick={handleClick}>
-				<PlayArrowIcon />
-			</IconButton>
+			{props.type === 'icon-button' ? (
+				<IconButton onClick={handleClick}>
+					<PlayArrowIcon />
+				</IconButton>
+			) : (
+				<Fab onClick={handleClick} color="primary">
+					<PlayArrowIcon />
+				</Fab>
+			)}
 			{isDialogOpen ? <CilRunTestExeDialog onClose={handleDialogClose} test={props.test} /> : null}
 		</>
 	);

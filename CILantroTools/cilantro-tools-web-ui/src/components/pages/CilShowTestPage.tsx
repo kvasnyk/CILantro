@@ -25,6 +25,16 @@ const useStyles = makeStyles((theme: Theme) => ({
 	},
 	tabContainer: {
 		padding: '20px'
+	},
+	titleWrapper: {
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		marginBottom: '10px'
+	},
+	testNameTypography: {
+		marginRight: '10px',
+		marginBottom: 0
 	}
 }));
 
@@ -102,7 +112,12 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 		<CilPage state={pageState}>
 			{test && categories ? (
 				<>
-					<Typography variant="h1">{test.name}</Typography>
+					<div className={classes.titleWrapper}>
+						<Typography variant="h1" className={classes.testNameTypography}>
+							{test.name}
+						</Typography>
+						<CilRunTestExeButton type="fab" test={test} />
+					</div>
 					<Typography variant="subtitle1">...{test.path}</Typography>
 
 					{!test.isReady ? <CilTestChecklist test={test} /> : null}
@@ -149,7 +164,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 							<CilDetailsRow label={translations.tests.testExe}>
 								<CilDetailsValue value={test.exePath} prefix="..." />
 								<CilGenerateTestExeButton test={test} onExeGenerated={handleExeGenerated} />
-								<CilRunTestExeButton test={test} />
+								<CilRunTestExeButton type="icon-button" test={test} />
 							</CilDetailsRow>
 						</div>
 					) : null}

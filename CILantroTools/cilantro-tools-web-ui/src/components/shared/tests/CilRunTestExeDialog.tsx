@@ -91,6 +91,12 @@ const CilRunTestExeDialog: FunctionComponent<CilRunTestExeDialogProps> = props =
 		});
 	};
 
+	const handleKeyUp = (event: KeyboardEvent) => {
+		if (event.key === 'Escape') {
+			handleDialogClose();
+		}
+	};
+
 	useEffect(() => {
 		const newConnection = new SignalR.HubConnectionBuilder().withUrl(appSettings.hubsBaseUrl + '/run-exe').build();
 		newConnection
@@ -143,6 +149,14 @@ const CilRunTestExeDialog: FunctionComponent<CilRunTestExeDialogProps> = props =
 			if (newConnection) {
 				newConnection.stop();
 			}
+		};
+	}, []);
+
+	useEffect(() => {
+		window.addEventListener('keyup', handleKeyUp);
+
+		return () => {
+			window.removeEventListener('keyup', handleKeyUp);
 		};
 	}, []);
 
