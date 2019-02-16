@@ -73,6 +73,7 @@ interface CilConsoleProps {
 	title: string;
 	lines: CilConsoleLine[];
 	onLineAdded: (newLine: string) => void;
+	isInputEnabled?: boolean;
 }
 
 const CilConsole: FunctionComponent<CilConsoleProps> = props => {
@@ -115,21 +116,27 @@ const CilConsole: FunctionComponent<CilConsoleProps> = props => {
 					</React.Fragment>
 				))}
 
-				<form onSubmit={handleSubmit} className={classes.form}>
-					<input
-						type="text"
-						value={inputLine}
-						onChange={handleChange}
-						autoFocus={true}
-						className={classes.input}
-						style={{ width: inputWidth }}
-					/>
-					<div className={classes.caret} />
-					<button type="submit" className={classes.button} />
-				</form>
+				{props.isInputEnabled ? (
+					<form onSubmit={handleSubmit} className={classes.form}>
+						<input
+							type="text"
+							value={inputLine}
+							onChange={handleChange}
+							autoFocus={true}
+							className={classes.input}
+							style={{ width: inputWidth }}
+						/>
+						<div className={classes.caret} />
+						<button type="submit" className={classes.button} />
+					</form>
+				) : null}
 			</div>
 		</div>
 	);
+};
+
+CilConsole.defaultProps = {
+	isInputEnabled: true
 };
 
 export default CilConsole;

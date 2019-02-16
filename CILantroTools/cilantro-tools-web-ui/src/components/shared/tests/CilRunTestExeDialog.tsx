@@ -59,6 +59,7 @@ const CilRunTestExeDialog: FunctionComponent<CilRunTestExeDialogProps> = props =
 	const [connection, setConnection] = useState<SignalR.HubConnection | undefined>(undefined);
 	const [consoleLines, setConsoleLines] = useState<CilConsoleLine[]>([]);
 	const [pageState, setPageState] = useState<PageState>('loading');
+	const [isInputEnabled, setIsInputEnabled] = useState<boolean>(false);
 
 	const sendInputLine = (line: string) => {
 		if (connection) {
@@ -114,6 +115,7 @@ const CilRunTestExeDialog: FunctionComponent<CilRunTestExeDialogProps> = props =
 					content: translations.tests.exeProcessStarted
 				}
 			]);
+			setIsInputEnabled(true);
 		});
 
 		newConnection.on('end', () => {
@@ -124,6 +126,7 @@ const CilRunTestExeDialog: FunctionComponent<CilRunTestExeDialogProps> = props =
 					content: translations.tests.exeProcessEnded
 				}
 			]);
+			setIsInputEnabled(false);
 		});
 
 		newConnection.on('output', line => {
@@ -166,7 +169,12 @@ const CilRunTestExeDialog: FunctionComponent<CilRunTestExeDialogProps> = props =
 				<div className={classes.fakeToolbar} />
 				<CilPage state={pageState} className={classes.page}>
 					<div className={classes.content}>
-						<CilConsole lines={consoleLines} title={'...' + props.test.exePath} onLineAdded={handleLineAdded} />
+						<CilConsole
+							lines={consoleLines}
+							title={'...' + props.test.exePath}
+							onLineAdded={handleLineAdded}
+							isInputEnabled={isInputEnabled}
+						/>
 					</div>
 				</CilPage>
 			</DialogContent>
