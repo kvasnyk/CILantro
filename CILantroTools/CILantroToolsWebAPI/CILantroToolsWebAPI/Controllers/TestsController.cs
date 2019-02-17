@@ -65,6 +65,12 @@ namespace CILantroToolsWebAPI.Controllers
             await _testsService.EditTestHasEmptyInputAsync(testId, model);
         }
 
+        [HttpPut("{testId}/edit-input")]
+        public async Task EditTestInputAsync([FromRoute]Guid testId, [FromBody]EditTestInputBindingModel model)
+        {
+            await _testsService.EditTestInputAsync(testId, model);
+        }
+
         [HttpPost("{testId}/generate-il-sources")]
         public async Task GenerateTestIlSourcesAsync([FromRoute]Guid testId)
         {

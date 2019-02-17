@@ -46,7 +46,11 @@ const translations = {
 		configureInput: 'Configure input',
 		emptyInput: 'Empty input',
 		emptyInputHasBeenUpdated: 'The empty input value has been updated.',
-		errorOccurredWhileUpdatingEmptyInput: 'An error occurred while updating the empty input value.'
+		errorOccurredWhileUpdatingEmptyInput: 'An error occurred while updating the empty input value.',
+		testInput: 'Input',
+		testOutput: 'Output',
+		inputHasBeenUpdated: 'The input has been updated.',
+		errorOccurredWhileUpdatingInput: 'An error occurred while updating the input.'
 	},
 	shared: {
 		anErrorOccurred: 'An error occurred. Please try again.',

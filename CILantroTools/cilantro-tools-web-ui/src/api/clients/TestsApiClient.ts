@@ -2,6 +2,7 @@ import apiRoutes from '../apiRoutes';
 import CreateTestFromCandidateBindingModel from '../binding-models/tests/CreateTestFromCandidateBindingModel';
 import EditTestCategoryBindingModel from '../binding-models/tests/EditTestCategoryBindingModel';
 import EditTestHasEmptyInputBindingModel from '../binding-models/tests/EditTestHasEmptyInputBindingModel';
+import EditTestInputBindingModel from '../binding-models/tests/EditTestInputBindingModel';
 import EditTestSubcategoryBindingModel from '../binding-models/tests/EditTestSubcategoryBindingModel';
 import TestCandidate from '../models/tests/TestCandidate';
 import TestReadModel from '../read-models/tests/TestReadModel';
@@ -36,6 +37,10 @@ class TestsApiClient extends ApiClientBase {
 
 	public editTestHasEmptyInput(testId: string, data: EditTestHasEmptyInputBindingModel) {
 		return this.put<EditTestHasEmptyInputBindingModel, {}>(apiRoutes.tests.editTestHasEmptyInput(testId), data);
+	}
+
+	public editTestInput(testId: string, data: EditTestInputBindingModel) {
+		return this.put<EditTestInputBindingModel, {}>(apiRoutes.tests.editTestInput(testId), data);
 	}
 
 	public generateIlSources(testId: string) {

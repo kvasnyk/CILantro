@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, { ChangeEvent, FunctionComponent, useEffect, useState } from 'react';
 
 import { AppBar, Tab, Tabs, Theme, Typography } from '@material-ui/core';
@@ -10,13 +11,13 @@ import TestReadModel from '../../api/read-models/tests/TestReadModel';
 import translations from '../../translations/translations';
 import CilPage, { PageState } from '../base/CilPage';
 import CilEditTestCategorySelect from '../shared/tests/CilEditTestCategorySelect';
-import CilEditTestHasEmptyInputCheckbox from '../shared/tests/CilEditTestHasEmptyInputCheckbox';
 import CilEditTestSubcategorySelect from '../shared/tests/CilEditTestSubcategorySelect';
 import CilGenerateTestExeButton from '../shared/tests/CilGenerateTestExeButton';
 import CilGenerateTestIlSourcesButton from '../shared/tests/CilGenerateTestIlSourcesButton';
 import CilRunTestExeButton from '../shared/tests/CilRunTestExeButton';
 import CilRunTestInterpreterButton from '../shared/tests/CilRunTestInterpreterButton';
 import CilTestChecklist from '../shared/tests/CilTestChecklist';
+import CilTestInputEditor from '../shared/tests/CilTestInputEditor';
 import CilCodeEditor from '../utils/CilCodeEditor';
 import CilDetailsRow from '../utils/CilDetailsRow';
 import CilDetailsValue from '../utils/CilDetailsValue';
@@ -27,6 +28,14 @@ const useStyles = makeStyles((theme: Theme) => ({
 	},
 	tabContainer: {
 		padding: '20px'
+	},
+	ioTabContainer: {
+		display: 'flex',
+		flexDirection: 'row',
+		'&>*': {
+			flexGrow: 1,
+			flexBasis: 0
+		}
 	},
 	titleWrapper: {
 		display: 'flex',
@@ -113,7 +122,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 		refreshTest();
 	};
 
-	const handleHasEmptyInputUpdated = () => {
+	const handleInputUpdated = () => {
 		refreshTest();
 	};
 
@@ -135,6 +144,8 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 			setPageState('error');
 		}
 	}, []);
+
+	const ioTabContainerClassName = classNames(classes.tabContainer, classes.ioTabContainer);
 
 	return (
 		<CilPage state={pageState}>
@@ -211,10 +222,13 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 					) : null}
 
 					{tabsValue === 'io' ? (
-						<div className={classes.tabContainer}>
-							<CilDetailsRow label={translations.tests.emptyInput}>
-								<CilEditTestHasEmptyInputCheckbox test={test} onHasEmptyInputUpdated={handleHasEmptyInputUpdated} />
-							</CilDetailsRow>
+						<div className={ioTabContainerClassName}>
+							<div>
+								<CilTestInputEditor test={test} onInputUpdated={handleInputUpdated} />
+							</div>
+							<div>
+								<Typography variant="h5">{translations.tests.testOutput}</Typography>
+							</div>
 						</div>
 					) : null}
 				</>

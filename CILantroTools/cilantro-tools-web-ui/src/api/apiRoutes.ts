@@ -13,6 +13,7 @@ const apiRoutes = {
 		editTestCategory: (testId: string) => `/tests/${testId}/edit-category`,
 		editTestSubcategory: (testId: string) => `/tests/${testId}/edit-subcategory`,
 		editTestHasEmptyInput: (testId: string) => `/tests/${testId}/edit-has-empty-input`,
+		editTestInput: (testId: string) => `/tests/${testId}/edit-input`,
 		generateIlSources: (testId: string) => `/tests/${testId}/generate-il-sources`,
 		generateExe: (testId: string) => `/tests/${testId}/generate-exe`
 	}
