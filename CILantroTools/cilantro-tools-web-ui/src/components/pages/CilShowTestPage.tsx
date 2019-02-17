@@ -84,6 +84,22 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 		setTabsValue(newValue);
 	};
 
+	const handleGoToCategory = () => {
+		setTabsValue('overview');
+	};
+
+	const handleGoToSubcategory = () => {
+		setTabsValue('overview');
+	};
+
+	const handleGoToIlSources = () => {
+		setTabsValue('il-sources');
+	};
+
+	const handleGoToExe = () => {
+		setTabsValue('exe');
+	};
+
 	const handleCategoryUpdated = () => {
 		refreshTest();
 	};
@@ -124,7 +140,15 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 					</div>
 					<Typography variant="subtitle1">...{test.path}</Typography>
 
-					{!test.isReady ? <CilTestChecklist test={test} /> : null}
+					{!test.isReady ? (
+						<CilTestChecklist
+							test={test}
+							onGoToCategory={handleGoToCategory}
+							onGoToSubcategory={handleGoToSubcategory}
+							onGoToIlSources={handleGoToIlSources}
+							onGoToExe={handleGoToExe}
+						/>
+					) : null}
 
 					<AppBar position="static" className={classes.tabsAppBar}>
 						<Tabs value={tabsValue} onChange={handleTabsValueChange}>
