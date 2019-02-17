@@ -45,7 +45,7 @@ interface CilShowTestPageProps {
 	testId: string;
 }
 
-type TabsValue = 'overview' | 'il-sources' | 'exe';
+type TabsValue = 'overview' | 'il-sources' | 'exe' | 'io';
 
 const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 	const classes = useStyles();
@@ -155,6 +155,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 							<Tab label={translations.tests.testOverview} value="overview" />
 							<Tab label={translations.tests.testIlSources} value="il-sources" />
 							<Tab label={translations.tests.testExe} value="exe" />
+							<Tab label={translations.tests.testIO} value="io" />
 						</Tabs>
 					</AppBar>
 
@@ -196,6 +197,8 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 							</CilDetailsRow>
 						</div>
 					) : null}
+
+					{tabsValue === 'io' ? <div className={classes.tabContainer}>I / O</div> : null}
 				</>
 			) : null}
 		</CilPage>
