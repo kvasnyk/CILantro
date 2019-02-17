@@ -42,7 +42,8 @@ const translations = {
 		runningExe: 'EXE',
 		exeProcessStarted: 'EXE process started',
 		exeProcessEnded: 'EXE process ended',
-		testIO: 'I / O'
+		testIO: 'I / O',
+		configureInput: 'Configure input'
 	},
 	shared: {
 		anErrorOccurred: 'An error occurred. Please try again.',

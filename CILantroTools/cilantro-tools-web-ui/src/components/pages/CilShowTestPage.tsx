@@ -100,6 +100,10 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 		setTabsValue('exe');
 	};
 
+	const handleGoToInput = () => {
+		setTabsValue('io');
+	};
+
 	const handleCategoryUpdated = () => {
 		refreshTest();
 	};
@@ -147,6 +151,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 							onGoToSubcategory={handleGoToSubcategory}
 							onGoToIlSources={handleGoToIlSources}
 							onGoToExe={handleGoToExe}
+							onGoToInput={handleGoToInput}
 						/>
 					) : null}
 

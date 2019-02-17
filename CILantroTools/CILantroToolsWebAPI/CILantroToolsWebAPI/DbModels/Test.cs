@@ -11,6 +11,8 @@ namespace CILantroToolsWebAPI.DbModels
 
         public string Path { get; set; }
 
+        public bool HasEmptyInput { get; set; }
+
         public Guid? CategoryId { get; set; }
 
         public virtual Category Category { get; set; }

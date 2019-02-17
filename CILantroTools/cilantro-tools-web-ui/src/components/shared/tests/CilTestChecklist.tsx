@@ -25,6 +25,7 @@ interface CilTestChecklistProps {
 	onGoToSubcategory?: () => void;
 	onGoToIlSources?: () => void;
 	onGoToExe?: () => void;
+	onGoToInput?: () => void;
 }
 
 const CilTestChecklist: FunctionComponent<CilTestChecklistProps> = props => {
@@ -67,6 +68,16 @@ const CilTestChecklist: FunctionComponent<CilTestChecklistProps> = props => {
 				<ListItemText primary={translations.tests.generateExe} className={classes.listItemText} />
 				{props.onGoToExe ? (
 					<IconButton onClick={props.onGoToExe}>
+						<ArrowIcon fontSize="small" />
+					</IconButton>
+				) : null}
+			</ListItem>
+
+			<ListItem>
+				<Checkbox checked={props.test.hasInput} readOnly={true} className={classes.checkbox} />
+				<ListItemText primary={translations.tests.configureInput} className={classes.listItemText} />
+				{props.onGoToInput ? (
+					<IconButton onClick={props.onGoToInput}>
 						<ArrowIcon fontSize="small" />
 					</IconButton>
 				) : null}
