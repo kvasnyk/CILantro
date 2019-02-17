@@ -116,6 +116,11 @@ namespace CILantroToolsWebAPI.Services
             });
         }
 
+        public async Task EditTestOutputAsync(Guid testId, EditTestOutputBindingModel model)
+        {
+            await _testsRepository.UpdateAsync(t => t.Id == testId, test => { });
+        }
+
         public async Task GenerateIlSources(Guid testId)
         {
             var testReadModel = _testsRepository.Read<TestReadModel>().Single(t => t.Id == testId);

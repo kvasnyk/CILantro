@@ -50,7 +50,9 @@ const translations = {
 		testInput: 'Input',
 		testOutput: 'Output',
 		inputHasBeenUpdated: 'The input has been updated.',
-		errorOccurredWhileUpdatingInput: 'An error occurred while updating the input.'
+		errorOccurredWhileUpdatingInput: 'An error occurred while updating the input.',
+		outputHasBeenUpdated: 'The output has been updated.',
+		errorOccurredWhileUpdatingOutput: 'An error occurred while updating the output.'
 	},
 	shared: {
 		anErrorOccurred: 'An error occurred. Please try again.',

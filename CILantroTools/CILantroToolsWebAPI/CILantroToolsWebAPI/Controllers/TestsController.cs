@@ -71,6 +71,12 @@ namespace CILantroToolsWebAPI.Controllers
             await _testsService.EditTestInputAsync(testId, model);
         }
 
+        [HttpPut("{testId}/edit-output")]
+        public async Task EditTestOutputAsync([FromRoute]Guid testId, [FromBody]EditTestOutputBindingModel model)
+        {
+            await _testsService.EditTestOutputAsync(testId, model);
+        }
+
         [HttpPost("{testId}/generate-il-sources")]
         public async Task GenerateTestIlSourcesAsync([FromRoute]Guid testId)
         {

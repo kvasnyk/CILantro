@@ -18,6 +18,7 @@ import CilRunTestExeButton from '../shared/tests/CilRunTestExeButton';
 import CilRunTestInterpreterButton from '../shared/tests/CilRunTestInterpreterButton';
 import CilTestChecklist from '../shared/tests/CilTestChecklist';
 import CilTestInputEditor from '../shared/tests/CilTestInputEditor';
+import CilTestOutputEditor from '../shared/tests/CilTestOutputEditor';
 import CilCodeEditor from '../utils/CilCodeEditor';
 import CilDetailsRow from '../utils/CilDetailsRow';
 import CilDetailsValue from '../utils/CilDetailsValue';
@@ -126,6 +127,10 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 		refreshTest();
 	};
 
+	const handleOutputUpdated = () => {
+		refreshTest();
+	};
+
 	const handleIlSourcesGenerated = () => {
 		refreshTest();
 	};
@@ -227,7 +232,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 								<CilTestInputEditor test={test} onInputUpdated={handleInputUpdated} />
 							</div>
 							<div>
-								<Typography variant="h5">{translations.tests.testOutput}</Typography>
+								<CilTestOutputEditor test={test} onOutputUpdated={handleOutputUpdated} />
 							</div>
 						</div>
 					) : null}

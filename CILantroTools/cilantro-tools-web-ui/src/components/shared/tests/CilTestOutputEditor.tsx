@@ -1,6 +1,6 @@
-import React, { ChangeEvent, FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 
-import { Checkbox, IconButton, Theme, Typography } from '@material-ui/core';
+import { IconButton, Theme, Typography } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/CheckRounded';
 import EditIcon from '@material-ui/icons/EditRounded';
 import NotCheckIcon from '@material-ui/icons/NotInterestedRounded';
@@ -10,7 +10,6 @@ import TestsApiClient from '../../../api/clients/TestsApiClient';
 import TestReadModel from '../../../api/read-models/tests/TestReadModel';
 import useNotistack from '../../../hooks/external/useNotistack';
 import translations from '../../../translations/translations';
-import CilDetailsRow from '../../utils/CilDetailsRow';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	titleWrapper: {
@@ -23,12 +22,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 	}
 }));
 
-interface CilTestInputEditorProps {
+interface CilTestOutputEditorProps {
 	test: TestReadModel;
-	onInputUpdated: () => void;
+	onOutputUpdated: () => void;
 }
 
-const CilTestInputEditor: FunctionComponent<CilTestInputEditorProps> = props => {
+const CilTestOutputEditor: FunctionComponent<CilTestOutputEditorProps> = props => {
 	const testsApiClient = new TestsApiClient();
 
 	const classes = useStyles();
@@ -36,17 +35,14 @@ const CilTestInputEditor: FunctionComponent<CilTestInputEditorProps> = props => 
 	const notistack = useNotistack();
 
 	const [isEditable, setIsEditable] = useState<boolean>(false);
-	const [hasEmptyInput, setHasEmptyInput] = useState<boolean>(props.test.hasEmptyInput);
 
-	const editTestInput = async () => {
+	const editTestOutput = async () => {
 		try {
-			await testsApiClient.editTestInput(props.test.id, {
-				hasEmptyInput
-			});
-			notistack.enqueueSuccess(translations.tests.inputHasBeenUpdated);
-			props.onInputUpdated();
+			await testsApiClient.editTestOutput(props.test.id, {});
+			notistack.enqueueSuccess(translations.tests.outputHasBeenUpdated);
+			props.onOutputUpdated();
 		} catch (error) {
-			notistack.enqueueError(translations.tests.errorOccurredWhileUpdatingInput);
+			notistack.enqueueError(translations.tests.errorOccurredWhileUpdatingOutput);
 		}
 	};
 
@@ -55,24 +51,19 @@ const CilTestInputEditor: FunctionComponent<CilTestInputEditorProps> = props => 
 	};
 
 	const handleOkButtonClick = () => {
-		editTestInput();
+		editTestOutput();
 		setIsEditable(false);
 	};
 
 	const handleCancelButtonClick = () => {
-		setHasEmptyInput(props.test.hasEmptyInput);
 		setIsEditable(false);
-	};
-
-	const handleHasEmptyInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-		setHasEmptyInput(event.target.checked);
 	};
 
 	return (
 		<>
 			<div className={classes.titleWrapper}>
 				<Typography variant="h5" className={classes.titleTypography}>
-					{translations.tests.testInput}
+					{translations.tests.testOutput}
 				</Typography>
 
 				{!isEditable ? (
@@ -92,19 +83,8 @@ const CilTestInputEditor: FunctionComponent<CilTestInputEditorProps> = props => 
 					</>
 				) : null}
 			</div>
-
-			<CilDetailsRow label={translations.tests.emptyInput}>
-				{isEditable ? <Checkbox checked={hasEmptyInput} onChange={handleHasEmptyInputChange} /> : null}
-				{!isEditable ? (
-					props.test.hasEmptyInput ? (
-						<CheckIcon fontSize="small" />
-					) : (
-						<NotCheckIcon fontSize="small" />
-					)
-				) : null}
-			</CilDetailsRow>
 		</>
 	);
 };
 
-export default CilTestInputEditor;
+export default CilTestOutputEditor;
