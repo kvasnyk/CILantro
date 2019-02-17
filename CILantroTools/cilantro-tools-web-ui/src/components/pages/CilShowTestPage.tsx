@@ -10,6 +10,7 @@ import TestReadModel from '../../api/read-models/tests/TestReadModel';
 import translations from '../../translations/translations';
 import CilPage, { PageState } from '../base/CilPage';
 import CilEditTestCategorySelect from '../shared/tests/CilEditTestCategorySelect';
+import CilEditTestHasEmptyInputCheckbox from '../shared/tests/CilEditTestHasEmptyInputCheckbox';
 import CilEditTestSubcategorySelect from '../shared/tests/CilEditTestSubcategorySelect';
 import CilGenerateTestExeButton from '../shared/tests/CilGenerateTestExeButton';
 import CilGenerateTestIlSourcesButton from '../shared/tests/CilGenerateTestIlSourcesButton';
@@ -112,6 +113,10 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 		refreshTest();
 	};
 
+	const handleHasEmptyInputUpdated = () => {
+		refreshTest();
+	};
+
 	const handleIlSourcesGenerated = () => {
 		refreshTest();
 	};
@@ -205,7 +210,13 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 						</div>
 					) : null}
 
-					{tabsValue === 'io' ? <div className={classes.tabContainer}>I / O</div> : null}
+					{tabsValue === 'io' ? (
+						<div className={classes.tabContainer}>
+							<CilDetailsRow label={translations.tests.emptyInput}>
+								<CilEditTestHasEmptyInputCheckbox test={test} onHasEmptyInputUpdated={handleHasEmptyInputUpdated} />
+							</CilDetailsRow>
+						</div>
+					) : null}
 				</>
 			) : null}
 		</CilPage>

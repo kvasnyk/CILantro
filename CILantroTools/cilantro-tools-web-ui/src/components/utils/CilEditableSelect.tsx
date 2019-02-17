@@ -52,36 +52,32 @@ const CilEditableSelect: FunctionComponent<CilEditableSelectProps> = props => {
 		setIsEditable(false);
 	};
 
-	return (
+	return isEditable ? (
+		<div className={classes.formControlContainer}>
+			<FormControl>
+				<Select
+					fullWidth={true}
+					onChange={handleChange}
+					value={props.selectedValue || ''}
+					open={isEditable}
+					onClose={handleSelectClose}
+				>
+					{props.options.map(option => (
+						<MenuItem key={option.value} value={option.value}>
+							{option.label}
+						</MenuItem>
+					))}
+				</Select>
+			</FormControl>
+		</div>
+	) : (
 		<>
-			{isEditable ? (
-				<div className={classes.formControlContainer}>
-					<FormControl>
-						<Select
-							fullWidth={true}
-							onChange={handleChange}
-							value={props.selectedValue || ''}
-							open={isEditable}
-							onClose={handleSelectClose}
-						>
-							{props.options.map(option => (
-								<MenuItem key={option.value} value={option.value}>
-									{option.label}
-								</MenuItem>
-							))}
-						</Select>
-					</FormControl>
-				</div>
-			) : (
-				<>
-					<Typography className={classes.fieldValueTypography}>{selectedLabel}</Typography>
-					{props.isEditable ? (
-						<IconButton onClick={handleEditButtonClick}>
-							<EditIcon fontSize="small" />
-						</IconButton>
-					) : null}
-				</>
-			)}
+			<Typography className={classes.fieldValueTypography}>{selectedLabel}</Typography>
+			{props.isEditable ? (
+				<IconButton onClick={handleEditButtonClick}>
+					<EditIcon fontSize="small" />
+				</IconButton>
+			) : null}
 		</>
 	);
 };
