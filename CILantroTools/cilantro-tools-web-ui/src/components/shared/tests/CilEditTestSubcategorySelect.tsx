@@ -11,6 +11,7 @@ interface CilEditTestSubcategorySelectProps {
 	test: TestReadModel;
 	subcategories: SubcategoryReadModel[];
 	onSubcategoryUpdated: () => void;
+	isEditable?: boolean;
 }
 
 const CilEditTestSubcategorySelect: FunctionComponent<CilEditTestSubcategorySelectProps> = props => {
@@ -40,8 +41,13 @@ const CilEditTestSubcategorySelect: FunctionComponent<CilEditTestSubcategorySele
 			}))}
 			onValueChange={handleValueChange}
 			selectedValue={props.test.subcategoryId}
+			isEditable={props.isEditable}
 		/>
 	);
+};
+
+CilEditTestSubcategorySelect.defaultProps = {
+	isEditable: true
 };
 
 export default CilEditTestSubcategorySelect;

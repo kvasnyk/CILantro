@@ -166,6 +166,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 									categories={categories}
 									test={test}
 									onCategoryUpdated={handleCategoryUpdated}
+									isEditable={categories.length > 0}
 								/>
 							</CilDetailsRow>
 							<CilDetailsRow label={translations.tests.testSubcategory}>
@@ -173,6 +174,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 									subcategories={subcategories}
 									test={test}
 									onSubcategoryUpdated={handleSubcategoryUpdated}
+									isEditable={subcategories.length > 0}
 								/>
 							</CilDetailsRow>
 						</div>

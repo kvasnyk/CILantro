@@ -26,6 +26,7 @@ interface CilEditableSelectProps {
 	options: SelectOption[];
 	selectedValue?: string;
 	onValueChange: (newValue: string) => void;
+	isEditable?: boolean;
 }
 
 const CilEditableSelect: FunctionComponent<CilEditableSelectProps> = props => {
@@ -74,13 +75,19 @@ const CilEditableSelect: FunctionComponent<CilEditableSelectProps> = props => {
 			) : (
 				<>
 					<Typography className={classes.fieldValueTypography}>{selectedLabel}</Typography>
-					<IconButton onClick={handleEditButtonClick}>
-						<EditIcon fontSize="small" />
-					</IconButton>
+					{props.isEditable ? (
+						<IconButton onClick={handleEditButtonClick}>
+							<EditIcon fontSize="small" />
+						</IconButton>
+					) : null}
 				</>
 			)}
 		</>
 	);
+};
+
+CilEditableSelect.defaultProps = {
+	isEditable: true
 };
 
 export default CilEditableSelect;

@@ -11,6 +11,7 @@ interface CilEditTestCategorySelectProps {
 	test: TestReadModel;
 	categories: CategoryReadModel[];
 	onCategoryUpdated: () => void;
+	isEditable: boolean;
 }
 
 const CilEditTestCategorySelect: FunctionComponent<CilEditTestCategorySelectProps> = props => {
@@ -40,8 +41,13 @@ const CilEditTestCategorySelect: FunctionComponent<CilEditTestCategorySelectProp
 			}))}
 			onValueChange={handleValueChange}
 			selectedValue={props.test.categoryId}
+			isEditable={props.isEditable}
 		/>
 	);
+};
+
+CilEditTestCategorySelect.defaultProps = {
+	isEditable: true
 };
 
 export default CilEditTestCategorySelect;
