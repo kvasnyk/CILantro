@@ -38,7 +38,7 @@ const CilRunTestInterpreterButton: FunctionComponent<CilRunTestInterpreterButton
 		setIsDialogOpen(false);
 	};
 
-	return props.test.hasExe ? (
+	return props.test.hasIlSources ? (
 		<>
 			{props.type === 'icon-button' ? (
 				<IconButton onClick={handleClick}>
