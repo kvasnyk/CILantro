@@ -136,7 +136,7 @@ namespace CILantroToolsWebAPI
 
             app.UseSignalR(options =>
             {
-                options.MapHub<RunExeHub>("/hubs/run-exe");
+                options.MapHub<ExecuteTestHub>("/hubs/execute-test");
             });
             app.UseMvc();
 

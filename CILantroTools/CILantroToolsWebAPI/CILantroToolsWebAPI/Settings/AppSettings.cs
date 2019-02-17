@@ -9,5 +9,7 @@
         public string IlasmExePath { get; set; }
 
         public string IldasmExePath { get; set; }
+
+        public string CILantroExePath { get; set; }
     }
 }

@@ -1,16 +1,14 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 
-import * as SignalR from '@aspnet/signalr';
 import { AppBar, Dialog, DialogContent, IconButton, Theme, Toolbar, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/CloseRounded';
 import { makeStyles } from '@material-ui/styles';
 
 import TestReadModel from '../../../api/read-models/tests/TestReadModel';
+import useExecuteTestHub, { TestExecutionType } from '../../../hooks/useExecuteTestHub';
 import translations from '../../../translations/translations';
 import CilPage, { PageState } from '../../base/CilPage';
 import CilConsole, { CilConsoleLine } from '../../utils/CilConsole';
-
-const appSettings = require('appSettings');
 
 const useStyles = makeStyles((theme: Theme) => ({
 	appBarIcon: {
@@ -49,27 +47,17 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 interface CilRunTestExeDialogProps {
+	executionType: TestExecutionType;
 	test: TestReadModel;
 	onClose: () => void;
 }
 
-const CilRunTestExeDialog: FunctionComponent<CilRunTestExeDialogProps> = props => {
+const CilExecuteTestDialog: FunctionComponent<CilRunTestExeDialogProps> = props => {
 	const classes = useStyles();
 
-	const [connection, setConnection] = useState<SignalR.HubConnection | undefined>(undefined);
 	const [consoleLines, setConsoleLines] = useState<CilConsoleLine[]>([]);
 	const [pageState, setPageState] = useState<PageState>('loading');
 	const [isInputEnabled, setIsInputEnabled] = useState<boolean>(false);
-
-	const sendInputLine = (line: string) => {
-		if (connection) {
-			return connection.send('input', line).catch(error => {
-				setPageState(error);
-			});
-		}
-
-		return Promise.resolve();
-	};
 
 	const handleCloseButtonClick = () => {
 		props.onClose();
@@ -79,8 +67,64 @@ const CilRunTestExeDialog: FunctionComponent<CilRunTestExeDialogProps> = props =
 		props.onClose();
 	};
 
-	const handleLineAdded = (newLine: string) => {
-		sendInputLine(newLine).then(() => {
+	const handleKeyUp = (event: KeyboardEvent) => {
+		if (event.key === 'Escape') {
+			handleDialogClose();
+		}
+	};
+
+	const handleHubConnectionStart = () => {
+		setPageState('success');
+	};
+
+	const handleHubConnectionError = () => {
+		setPageState('error');
+	};
+
+	const handleTestExecutionStart = () => {
+		setConsoleLines(prevConsoleLines => [
+			...prevConsoleLines,
+			{
+				type: 'start',
+				content: translations.tests.exeProcessStarted
+			}
+		]);
+		setIsInputEnabled(true);
+	};
+
+	const handleTestExecutionEnd = () => {
+		setConsoleLines(prevConsoleLines => [
+			...prevConsoleLines,
+			{
+				type: 'end',
+				content: translations.tests.exeProcessEnded
+			}
+		]);
+		setIsInputEnabled(false);
+	};
+
+	const handleExecutionOutput = (line: string) => {
+		setConsoleLines(prevConsoleLines => [
+			...prevConsoleLines,
+			{
+				type: 'output',
+				content: line
+			}
+		]);
+	};
+
+	const executeTestHub = useExecuteTestHub({
+		executionType: props.executionType,
+		testId: props.test.id,
+		onConnectionStart: handleHubConnectionStart,
+		onConnectionError: handleHubConnectionError,
+		onExecutionStart: handleTestExecutionStart,
+		onExecutionEnd: handleTestExecutionEnd,
+		onExecutionOutput: handleExecutionOutput
+	});
+
+	const handleLineAdded = async (newLine: string) => {
+		await executeTestHub!.input(newLine).then(() => {
 			setConsoleLines(prevConsoleLines => [
 				...prevConsoleLines,
 				{
@@ -90,67 +134,6 @@ const CilRunTestExeDialog: FunctionComponent<CilRunTestExeDialogProps> = props =
 			]);
 		});
 	};
-
-	const handleKeyUp = (event: KeyboardEvent) => {
-		if (event.key === 'Escape') {
-			handleDialogClose();
-		}
-	};
-
-	useEffect(() => {
-		const newConnection = new SignalR.HubConnectionBuilder().withUrl(appSettings.hubsBaseUrl + '/run-exe').build();
-		newConnection
-			.start()
-			.then(() => {
-				setPageState('success');
-				setConnection(newConnection);
-
-				newConnection.send('run', props.test.id).catch(error => {
-					setPageState(error);
-				});
-			})
-			.catch(error => {
-				setPageState('error');
-			});
-
-		newConnection.on('start', () => {
-			setConsoleLines(prevConsoleLines => [
-				...prevConsoleLines,
-				{
-					type: 'start',
-					content: translations.tests.exeProcessStarted
-				}
-			]);
-			setIsInputEnabled(true);
-		});
-
-		newConnection.on('end', () => {
-			setConsoleLines(prevConsoleLines => [
-				...prevConsoleLines,
-				{
-					type: 'end',
-					content: translations.tests.exeProcessEnded
-				}
-			]);
-			setIsInputEnabled(false);
-		});
-
-		newConnection.on('output', line => {
-			setConsoleLines(prevConsoleLines => [
-				...prevConsoleLines,
-				{
-					type: 'output',
-					content: line
-				}
-			]);
-		});
-
-		return () => {
-			if (newConnection) {
-				newConnection.stop();
-			}
-		};
-	}, []);
 
 	useEffect(() => {
 		window.addEventListener('keyup', handleKeyUp);
@@ -196,4 +179,4 @@ const CilRunTestExeDialog: FunctionComponent<CilRunTestExeDialogProps> = props =
 	);
 };
 
-export default CilRunTestExeDialog;
+export default CilExecuteTestDialog;

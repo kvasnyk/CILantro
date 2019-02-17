@@ -7,11 +7,11 @@ namespace CILantroToolsWebAPI.Hubs
 {
     public class HubExeRunner
     {
-        private readonly IHubContext<RunExeHub> _hubContext;
+        private readonly IHubContext<ExecuteTestHub> _hubContext;
 
         private Dictionary<string, Process> _processes;
 
-        public HubExeRunner(IHubContext<RunExeHub> hubContext)
+        public HubExeRunner(IHubContext<ExecuteTestHub> hubContext)
         {
             _hubContext = hubContext;
 

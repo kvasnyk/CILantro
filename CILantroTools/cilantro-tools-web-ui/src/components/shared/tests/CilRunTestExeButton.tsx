@@ -4,7 +4,7 @@ import { Fab, IconButton } from '@material-ui/core';
 import PlayArrowIcon from '@material-ui/icons/PlayArrowRounded';
 
 import TestReadModel from '../../../api/read-models/tests/TestReadModel';
-import CilRunTestExeDialog from './CilRunTestExeDialog';
+import CilExecuteTestDialog from './CilExecuteTestDialog';
 
 type CilRunTestExeButtonType = 'icon-button' | 'fab';
 
@@ -35,7 +35,7 @@ const CilRunTestExeButton: FunctionComponent<CilRunTestExeButtonProps> = props =
 					<PlayArrowIcon />
 				</Fab>
 			)}
-			{isDialogOpen ? <CilRunTestExeDialog onClose={handleDialogClose} test={props.test} /> : null}
+			{isDialogOpen ? <CilExecuteTestDialog executionType="exe" onClose={handleDialogClose} test={props.test} /> : null}
 		</>
 	) : null;
 };

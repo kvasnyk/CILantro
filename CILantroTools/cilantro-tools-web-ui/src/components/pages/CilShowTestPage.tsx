@@ -14,6 +14,7 @@ import CilEditTestSubcategorySelect from '../shared/tests/CilEditTestSubcategory
 import CilGenerateTestExeButton from '../shared/tests/CilGenerateTestExeButton';
 import CilGenerateTestIlSourcesButton from '../shared/tests/CilGenerateTestIlSourcesButton';
 import CilRunTestExeButton from '../shared/tests/CilRunTestExeButton';
+import CilRunTestInterpreterButton from '../shared/tests/CilRunTestInterpreterButton';
 import CilTestChecklist from '../shared/tests/CilTestChecklist';
 import CilCodeEditor from '../utils/CilCodeEditor';
 import CilDetailsRow from '../utils/CilDetailsRow';
@@ -30,10 +31,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 		display: 'flex',
 		flexDirection: 'row',
 		alignItems: 'center',
-		marginBottom: '10px'
+		marginBottom: '10px',
+		'&>*': {
+			marginRight: '10px'
+		}
 	},
 	testNameTypography: {
-		marginRight: '10px',
 		marginBottom: 0
 	}
 }));
@@ -117,6 +120,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 							{test.name}
 						</Typography>
 						<CilRunTestExeButton type="fab" test={test} />
+						<CilRunTestInterpreterButton type="fab" test={test} />
 					</div>
 					<Typography variant="subtitle1">...{test.path}</Typography>
 
