@@ -10,6 +10,7 @@ import TestsApiClient from '../../../api/clients/TestsApiClient';
 import TestReadModel from '../../../api/read-models/tests/TestReadModel';
 import useNotistack from '../../../hooks/external/useNotistack';
 import translations from '../../../translations/translations';
+import CilInputOutputEditor from '../../utils/CilInputOutputEditor';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	titleWrapper: {
@@ -34,7 +35,7 @@ const CilTestOutputEditor: FunctionComponent<CilTestOutputEditorProps> = props =
 
 	const notistack = useNotistack();
 
-	const [isEditable, setIsEditable] = useState<boolean>(false);
+	const [isEditable, setIsEditable] = useState<boolean>(true);
 
 	const editTestOutput = async () => {
 		try {
@@ -83,6 +84,8 @@ const CilTestOutputEditor: FunctionComponent<CilTestOutputEditorProps> = props =
 					</>
 				) : null}
 			</div>
+
+			{isEditable ? <CilInputOutputEditor /> : null}
 		</>
 	);
 };
