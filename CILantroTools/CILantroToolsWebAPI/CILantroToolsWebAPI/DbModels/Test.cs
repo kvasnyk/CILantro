@@ -1,4 +1,5 @@
 ﻿using CILantroToolsWebAPI.Db;
+using CILantroToolsWebAPI.Models.Tests.InputOutput;
 using System;
 
 namespace CILantroToolsWebAPI.DbModels
@@ -12,6 +13,8 @@ namespace CILantroToolsWebAPI.DbModels
         public string Path { get; set; }
 
         public bool HasEmptyInput { get; set; }
+
+        public InputOutput Output { get; set; }
 
         public Guid? CategoryId { get; set; }
 

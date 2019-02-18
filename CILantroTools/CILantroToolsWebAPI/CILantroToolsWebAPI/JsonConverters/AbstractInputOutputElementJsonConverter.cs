@@ -8,7 +8,7 @@ namespace CILantroToolsWebAPI.JsonConverters
 {
     public class AbstractInputOutputElementJsonConverter : JsonConverter<AbstractInputOutputElement>
     {
-        private class AbstractInputOutputElementContractResolver : DefaultContractResolver
+        private class AbstractInputOutputElementContractResolver : CamelCasePropertyNamesContractResolver
         {
             protected override JsonConverter ResolveContractConverter(Type objectType)
             {
@@ -37,7 +37,15 @@ namespace CILantroToolsWebAPI.JsonConverters
 
         public override void WriteJson(JsonWriter writer, AbstractInputOutputElement value, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            var jsonSerializerSettings = new JsonSerializerSettings
+            {
+                ContractResolver = new AbstractInputOutputElementContractResolver()
+            };
+
+            var json = JsonConvert.SerializeObject(value, jsonSerializerSettings);
+
+            var jObject = JObject.Parse(json);
+            jObject.WriteTo(writer);
         }
     }
 }

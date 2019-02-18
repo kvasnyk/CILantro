@@ -1,9 +1,5 @@
-abstract class AbstractInputOutputElement {
-	public type: string;
+import ConstStringElement from './ConstStringElement';
 
-	constructor(type: string) {
-		this.type = type;
-	}
-}
+type AbstractInputOutputElement = ConstStringElement;
 
 export default AbstractInputOutputElement;

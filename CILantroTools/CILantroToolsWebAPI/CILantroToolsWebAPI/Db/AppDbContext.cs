@@ -1,5 +1,8 @@
 ﻿using CILantroToolsWebAPI.DbModels;
+using CILantroToolsWebAPI.Models.Tests.InputOutput;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace CILantroToolsWebAPI.Db
 {
@@ -29,6 +32,12 @@ namespace CILantroToolsWebAPI.Db
                 .HasOne(t => t.Subcategory)
                 .WithMany(s => s.Tests)
                 .HasForeignKey(t => t.SubcategoryId);
+            modelBuilder.Entity<Test>()
+                .Property(t => t.Output)
+                .HasConversion(
+                    o => JsonConvert.SerializeObject(o, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() } ),
+                    o => JsonConvert.DeserializeObject<InputOutput>(o, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() })
+                );
 
             // Category
             modelBuilder.Entity<Category>()

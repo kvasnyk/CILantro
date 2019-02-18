@@ -16,7 +16,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 	titleWrapper: {
 		display: 'flex',
 		flexDirection: 'row',
-		alignItems: 'center'
+		alignItems: 'center',
+		marginBottom: '10px'
 	},
 	titleTypography: {
 		marginRight: '10px'

@@ -44,6 +44,7 @@ const translations = {
 		exeProcessEnded: 'EXE process ended',
 		testIO: 'I / O',
 		configureInput: 'Configure input',
+		configureOutput: 'Configure output',
 		emptyInput: 'Empty input',
 		emptyInputHasBeenUpdated: 'The empty input value has been updated.',
 		errorOccurredWhileUpdatingEmptyInput: 'An error occurred while updating the empty input value.',

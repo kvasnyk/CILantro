@@ -28,7 +28,7 @@ interface CilInputOutputElementProps {
 const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = props => {
 	const classes = useStyles();
 
-	const isConstStringElement = props.element instanceof ConstStringElement;
+	const isConstStringElement = props.element.type === 'ConstString';
 	const constStringElement = isConstStringElement ? (props.element as ConstStringElement) : null;
 
 	const elementClassName = classNames(classes.element, {

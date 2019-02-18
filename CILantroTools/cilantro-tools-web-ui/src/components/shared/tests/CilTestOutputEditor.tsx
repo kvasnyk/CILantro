@@ -1,3 +1,4 @@
+import { cloneDeep } from 'lodash';
 import React, { FunctionComponent, useState } from 'react';
 
 import { IconButton, Theme, Typography } from '@material-ui/core';
@@ -7,17 +8,33 @@ import NotCheckIcon from '@material-ui/icons/NotInterestedRounded';
 import { makeStyles } from '@material-ui/styles';
 
 import TestsApiClient from '../../../api/clients/TestsApiClient';
+import AbstractInputOutputElement from '../../../api/models/tests/input-output/elements/AbstractInputOutputElement';
 import InputOutput from '../../../api/models/tests/input-output/InputOutput';
 import TestReadModel from '../../../api/read-models/tests/TestReadModel';
 import useNotistack from '../../../hooks/external/useNotistack';
 import translations from '../../../translations/translations';
 import CilInputOutputEditor from '../../utils/CilInputOutputEditor';
 
+const getDefaultOutput = (output?: InputOutput) => {
+	if (output) {
+		return cloneDeep(output);
+	}
+
+	return {
+		lines: [
+			{
+				elements: []
+			}
+		]
+	};
+};
+
 const useStyles = makeStyles((theme: Theme) => ({
 	titleWrapper: {
 		display: 'flex',
 		flexDirection: 'row',
-		alignItems: 'center'
+		alignItems: 'center',
+		marginBottom: '10px'
 	},
 	titleTypography: {
 		marginRight: '10px'
@@ -36,8 +53,8 @@ const CilTestOutputEditor: FunctionComponent<CilTestOutputEditorProps> = props =
 
 	const notistack = useNotistack();
 
-	const [isEditable, setIsEditable] = useState<boolean>(true);
-	const [output, setOutput] = useState<InputOutput>(props.test.output);
+	const [isEditable, setIsEditable] = useState<boolean>(false);
+	const [output, setOutput] = useState<InputOutput>(getDefaultOutput(props.test.output));
 
 	const editTestOutput = async () => {
 		try {
@@ -61,10 +78,13 @@ const CilTestOutputEditor: FunctionComponent<CilTestOutputEditorProps> = props =
 	};
 
 	const handleCancelButtonClick = () => {
+		setOutput(getDefaultOutput(props.test.output));
 		setIsEditable(false);
 	};
 
-	const handleOutputEdited = (newOutput: InputOutput) => {
+	const handleElementAdded = (lineIndex: number, element: AbstractInputOutputElement) => {
+		const newOutput = cloneDeep(output);
+		newOutput.lines[lineIndex].elements.push(element);
 		setOutput(newOutput);
 	};
 
@@ -93,7 +113,7 @@ const CilTestOutputEditor: FunctionComponent<CilTestOutputEditorProps> = props =
 				) : null}
 			</div>
 
-			{isEditable ? <CilInputOutputEditor onInputOutputEdited={handleOutputEdited} /> : null}
+			<CilInputOutputEditor inputOutput={output} onElementAdded={handleElementAdded} isReadonly={!isEditable} />
 		</>
 	);
 };

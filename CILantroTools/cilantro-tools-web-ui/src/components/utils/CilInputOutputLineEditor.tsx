@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 
 import { Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
@@ -19,34 +19,32 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 interface CilInputOutputLineEditorProps {
-	index: number;
-	onLineEdited: (index: number, newLine: InputOutputLine) => void;
+	lineIndex: number;
+	line: InputOutputLine;
+	onElementAdded: (lineIndex: number, element: AbstractInputOutputElement) => void;
+	isReadonly?: boolean;
 }
 
 const CilInputOutputLineEditor: FunctionComponent<CilInputOutputLineEditorProps> = props => {
 	const classes = useStyles();
 
-	const [line, setLine] = useState<InputOutputLine>({
-		elements: []
-	});
-
 	const handleElementAdded = (element: AbstractInputOutputElement) => {
-		const newLine = {
-			...line,
-			elements: [...line.elements, element]
-		};
-		setLine(newLine);
-		props.onLineEdited(props.index, newLine);
+		props.onElementAdded(props.lineIndex, element);
 	};
 
 	return (
 		<div className={classes.inputOutputLine}>
-			{line.elements.map((element, index) => (
+			{props.line.elements.map((element, index) => (
 				<CilInputOutputElement key={index} element={element} />
 			))}
-			<CilInputOutputElementInput onElementAdded={handleElementAdded} />
+
+			{!props.isReadonly ? <CilInputOutputElementInput onElementAdded={handleElementAdded} /> : null}
 		</div>
 	);
+};
+
+CilInputOutputLineEditor.defaultProps = {
+	isReadonly: false
 };
 
 export default CilInputOutputLineEditor;

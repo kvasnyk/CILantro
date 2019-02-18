@@ -118,7 +118,10 @@ namespace CILantroToolsWebAPI.Services
 
         public async Task EditTestOutputAsync(Guid testId, EditTestOutputBindingModel model)
         {
-            await _testsRepository.UpdateAsync(t => t.Id == testId, test => { });
+            await _testsRepository.UpdateAsync(t => t.Id == testId, test =>
+            {
+                test.Output = model.Output;
+            });
         }
 
         public async Task GenerateIlSources(Guid testId)

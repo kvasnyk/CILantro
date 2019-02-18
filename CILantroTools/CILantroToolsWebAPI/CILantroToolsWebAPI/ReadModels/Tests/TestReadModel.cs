@@ -45,12 +45,15 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
 
         public bool HasInput => HasEmptyInput;
 
+        public bool HasOutput => Output != null && !Output.IsEmpty;
+
         public bool IsReady =>
             HasCategory &&
             HasSubcategory &&
             HasIlSources &&
             HasExe &&
-            HasInput;
+            HasInput &&
+            HasOutput;
     }
 
     public class TestReadModelMapping : ReadModelMappingBase<Test, TestReadModel>
@@ -65,11 +68,11 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
             Name = test.Name,
             Path = test.Path,
             HasEmptyInput = test.HasEmptyInput,
+            Output = test.Output,
             CategoryId = test.CategoryId,
             Category = test.CategoryId.HasValue ? _categoryMapping.Invoke(test.Category) : null,
             SubcategoryId = test.SubcategoryId,
-            Subcategory = test.SubcategoryId.HasValue ? _subcategoryMapping.Invoke(test.Subcategory) : null,
-            Output = new InputOutput()
+            Subcategory = test.SubcategoryId.HasValue ? _subcategoryMapping.Invoke(test.Subcategory) : null
         };
     }
 }

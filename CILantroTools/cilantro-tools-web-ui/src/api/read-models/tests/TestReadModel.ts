@@ -14,12 +14,13 @@ interface TestReadModel {
 	mainIlSource: string;
 	exePath: string;
 	hasEmptyInput: boolean;
-	output: InputOutput;
+	output?: InputOutput;
 	hasCategory: boolean;
 	hasSubcategory: boolean;
 	hasIlSources: boolean;
 	hasExe: boolean;
 	hasInput: boolean;
+	hasOutput: boolean;
 	isReady: boolean;
 }
 
