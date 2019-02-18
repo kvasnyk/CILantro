@@ -4,6 +4,6 @@ namespace CILantroToolsWebAPI.Models.Tests.InputOutput
 {
     public class InputOutputLine
     {
-        public AbstractInputOutputElement[] Elements { get; set; } = new AbstractInputOutputElement[];
+        public AbstractInputOutputElement[] Elements { get; set; } = new AbstractInputOutputElement[0];
     }
 }

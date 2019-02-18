@@ -1,3 +1,4 @@
+import InputOutput from '../../models/tests/input-output/InputOutput';
 import CategoryReadModel from '../categories/CategoryReadModel';
 import SubcategoryReadModel from '../categories/SubcategoryReadModel';
 
@@ -13,6 +14,7 @@ interface TestReadModel {
 	mainIlSource: string;
 	exePath: string;
 	hasEmptyInput: boolean;
+	output: InputOutput;
 	hasCategory: boolean;
 	hasSubcategory: boolean;
 	hasIlSources: boolean;

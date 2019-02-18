@@ -7,6 +7,7 @@ import NotCheckIcon from '@material-ui/icons/NotInterestedRounded';
 import { makeStyles } from '@material-ui/styles';
 
 import TestsApiClient from '../../../api/clients/TestsApiClient';
+import InputOutput from '../../../api/models/tests/input-output/InputOutput';
 import TestReadModel from '../../../api/read-models/tests/TestReadModel';
 import useNotistack from '../../../hooks/external/useNotistack';
 import translations from '../../../translations/translations';
@@ -36,10 +37,13 @@ const CilTestOutputEditor: FunctionComponent<CilTestOutputEditorProps> = props =
 	const notistack = useNotistack();
 
 	const [isEditable, setIsEditable] = useState<boolean>(true);
+	const [output, setOutput] = useState<InputOutput>(props.test.output);
 
 	const editTestOutput = async () => {
 		try {
-			await testsApiClient.editTestOutput(props.test.id, {});
+			await testsApiClient.editTestOutput(props.test.id, {
+				output
+			});
 			notistack.enqueueSuccess(translations.tests.outputHasBeenUpdated);
 			props.onOutputUpdated();
 		} catch (error) {
@@ -58,6 +62,10 @@ const CilTestOutputEditor: FunctionComponent<CilTestOutputEditorProps> = props =
 
 	const handleCancelButtonClick = () => {
 		setIsEditable(false);
+	};
+
+	const handleOutputEdited = (newOutput: InputOutput) => {
+		setOutput(newOutput);
 	};
 
 	return (
@@ -85,7 +93,7 @@ const CilTestOutputEditor: FunctionComponent<CilTestOutputEditorProps> = props =
 				) : null}
 			</div>
 
-			{isEditable ? <CilInputOutputEditor /> : null}
+			{isEditable ? <CilInputOutputEditor onInputOutputEdited={handleOutputEdited} /> : null}
 		</>
 	);
 };

@@ -1,4 +1,5 @@
 ﻿using CILantroToolsWebAPI.DbModels;
+using CILantroToolsWebAPI.Models.Tests.InputOutput;
 using CILantroToolsWebAPI.ReadModels.Categories;
 using LinqKit;
 using System;
@@ -31,6 +32,8 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
         public string ExePathFull { get; set; }
         
         public bool HasEmptyInput { get; set; }
+
+        public InputOutput Output { get; set; }
 
         public bool HasCategory => Category != null;
 
@@ -65,7 +68,8 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
             CategoryId = test.CategoryId,
             Category = test.CategoryId.HasValue ? _categoryMapping.Invoke(test.Category) : null,
             SubcategoryId = test.SubcategoryId,
-            Subcategory = test.SubcategoryId.HasValue ? _subcategoryMapping.Invoke(test.Subcategory) : null
+            Subcategory = test.SubcategoryId.HasValue ? _subcategoryMapping.Invoke(test.Subcategory) : null,
+            Output = new InputOutput()
         };
     }
 }

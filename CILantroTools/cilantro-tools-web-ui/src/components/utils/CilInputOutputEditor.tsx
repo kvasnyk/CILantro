@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface CilInputOutputEditorProps {
 	initialInputOutput?: InputOutput;
+	onInputOutputEdited: (newInputOutput: InputOutput) => void;
 }
 
 const CilInputOutputEditor: FunctionComponent<CilInputOutputEditorProps> = props => {
@@ -24,6 +25,7 @@ const CilInputOutputEditor: FunctionComponent<CilInputOutputEditorProps> = props
 		const newInputOutput = { ...inputOutput };
 		newInputOutput.lines[index] = newLine;
 		setInputOutput(newInputOutput);
+		props.onInputOutputEdited(newInputOutput);
 	};
 
 	return (
