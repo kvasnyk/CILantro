@@ -36,12 +36,14 @@ const useStyles = makeStyles((theme: Theme) => ({
 	consoleStartLine: {
 		color: 'lightgrey',
 		textAlign: 'center',
-		fontStyle: 'italic'
+		fontStyle: 'italic',
+		marginBottom: '10px'
 	},
 	consoleEndLine: {
 		color: 'lightgrey',
 		textAlign: 'center',
-		fontStyle: 'italic'
+		fontStyle: 'italic',
+		marginTop: '10px'
 	},
 	form: {
 		display: 'flex',
