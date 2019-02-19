@@ -14,6 +14,7 @@ interface ExecuteTestHubConfig {
 	onExecutionStart: () => void;
 	onExecutionEnd: () => void;
 	onExecutionOutput: (line: string) => void;
+	onExecutionError: (line: string) => void;
 }
 
 interface ExecuteTestHub {
@@ -37,6 +38,10 @@ const useExecuteTestHub = (hubConfig: ExecuteTestHubConfig) => {
 
 		hubConnection.on('output', line => {
 			hubConfig.onExecutionOutput(line);
+		});
+
+		hubConnection.on('error', line => {
+			hubConfig.onExecutionError(line);
 		});
 
 		hubConnection

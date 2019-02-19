@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 	consoleOutLine: {
 		color: 'deepskyblue'
 	},
+	consoleErrorLine: {
+		color: '#ff2020'
+	},
 	consoleStartLine: {
 		color: 'lightgrey',
 		textAlign: 'center',
@@ -124,12 +127,10 @@ const CilConsole: FunctionComponent<CilConsoleProps> = props => {
 				{props.lines.map((line, index) => (
 					<React.Fragment key={index}>
 						{line.type === 'input' ? <div className={classes.consoleInLine}>{line.content}</div> : null}
-
 						{line.type === 'output' ? <div className={classes.consoleOutLine}>{line.content}</div> : null}
-
 						{line.type === 'start' ? <div className={classes.consoleStartLine}>{line.content}</div> : null}
-
 						{line.type === 'end' ? <div className={classes.consoleEndLine}>{line.content}</div> : null}
+						{line.type === 'error' ? <div className={classes.consoleErrorLine}>{line.content}</div> : null}
 					</React.Fragment>
 				))}
 

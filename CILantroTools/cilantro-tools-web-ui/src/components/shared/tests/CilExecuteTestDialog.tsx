@@ -104,13 +104,11 @@ const CilExecuteTestDialog: FunctionComponent<CilRunTestExeDialogProps> = props 
 	};
 
 	const handleExecutionOutput = (line: string) => {
-		setConsoleLines(prevConsoleLines => [
-			...prevConsoleLines,
-			{
-				type: 'output',
-				content: line
-			}
-		]);
+		setConsoleLines(prevConsoleLines => [...prevConsoleLines, { type: 'output', content: line }]);
+	};
+
+	const handleExecutionError = (line: string) => {
+		setConsoleLines(prevConsoleLines => [...prevConsoleLines, { type: 'error', content: line }]);
 	};
 
 	const executeTestHub = useExecuteTestHub({
@@ -120,7 +118,8 @@ const CilExecuteTestDialog: FunctionComponent<CilRunTestExeDialogProps> = props 
 		onConnectionError: handleHubConnectionError,
 		onExecutionStart: handleTestExecutionStart,
 		onExecutionEnd: handleTestExecutionEnd,
-		onExecutionOutput: handleExecutionOutput
+		onExecutionOutput: handleExecutionOutput,
+		onExecutionError: handleExecutionError
 	});
 
 	const handleLineAdded = async (newLine: string) => {

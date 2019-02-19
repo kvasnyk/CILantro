@@ -24,6 +24,7 @@ namespace CILantroToolsWebAPI.Hubs
             {
                 RedirectStandardOutput = true,
                 RedirectStandardInput = true,
+                RedirectStandardError = true,
                 WindowStyle = ProcessWindowStyle.Hidden,
                 CreateNoWindow = true
             };
@@ -35,6 +36,8 @@ namespace CILantroToolsWebAPI.Hubs
                 .Run(() => { WatchOuput(connectionId); })
                 .ContinueWith(ct => { _hubContext.Clients.Group(connectionId).SendAsync("end"); });
 
+            Task.Run(() => { WatchError(connectionId); });
+
             _hubContext.Clients.Group(connectionId).SendAsync("start");
         }
 
@@ -43,14 +46,25 @@ namespace CILantroToolsWebAPI.Hubs
             _processes[connectionId].StandardInput.WriteLineAsync(inputLine);
         }
 
-        public async Task WatchOuput(string connectionId)
+        private async Task WatchOuput(string connectionId)
         {
             var standardOutput = _processes[connectionId].StandardOutput;
 
-            while(!standardOutput.EndOfStream)
+            while (!standardOutput.EndOfStream)
             {
                 var outputLine = await standardOutput.ReadLineAsync();
                 _hubContext.Clients.Group(connectionId).SendAsync("output", outputLine);
+            }
+        }
+
+        private async Task WatchError(string connectionId)
+        {
+            var standardError = _processes[connectionId].StandardError;
+
+            while (!standardError.EndOfStream)
+            {
+                var errorLine = await standardError.ReadLineAsync();
+                _hubContext.Clients.Group(connectionId).SendAsync("error", errorLine);
             }
         }
     }
