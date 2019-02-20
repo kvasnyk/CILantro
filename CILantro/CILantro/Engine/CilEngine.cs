@@ -1,4 +1,5 @@
 ﻿using CILantro.Parsing;
+using System;
 
 namespace CILantro.Engine
 {
@@ -17,6 +18,7 @@ namespace CILantro.Engine
 
         public void Parse()
         {
+            Console.WriteLine(_sourceCode);
             _parser.Parse(_sourceCode);
         }
     }
