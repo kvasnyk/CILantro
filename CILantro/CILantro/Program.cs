@@ -1,5 +1,4 @@
-﻿using CILantro.CilAntroParser;
-using System;
+﻿using CILantro.Engine;
 
 namespace CILantro
 {
@@ -7,10 +6,8 @@ namespace CILantro
     {
         static void Main(string[] args)
         {
-            var parser = new CilParser();
-            parser.Parse("test");
-
-            Console.WriteLine("CILantro!");
+            var engine = new CilEngine("test");
+            engine.Parse();
         }
     }
 }

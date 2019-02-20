@@ -1,7 +1,6 @@
-﻿using CILantro.CilAntroGrammar;
-using Irony.Parsing;
+﻿using Irony.Parsing;
 
-namespace CILantro.CilAntroParser
+namespace CILantro.Parsing
 {
     public class CilParser
     {
