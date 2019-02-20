@@ -11,7 +11,6 @@ namespace CILantro
         static void Main(string[] originalArgs)
         {
             var args = CILantroArgs.Parse(originalArgs);
-            Console.WriteLine(args.FileName);
 
             var ilSourceCode = File.ReadAllText(args.FileName);
 
