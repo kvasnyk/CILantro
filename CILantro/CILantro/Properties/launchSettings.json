@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CILantro": {
+      "commandName": "Project",
+      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\CSF_Basics_HelloWorld\\CSF_Basics_HelloWorld.il\""
+    }
+  }
+}
