@@ -134,7 +134,8 @@ namespace CILantroToolsWebAPI.Services
             var ildasmArguments = $"\"{testExePath}\" /output=\"{testMainIlSourcePath}\"";
             var ildasmProcessStartInfo = new ProcessStartInfo(_appSettings.Value.IldasmExePath, ildasmArguments)
             {
-                WindowStyle = ProcessWindowStyle.Hidden
+                WindowStyle = ProcessWindowStyle.Hidden,
+                CreateNoWindow = true
             };
 
             var ildasmProcess = Process.Start(ildasmProcessStartInfo);

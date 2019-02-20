@@ -6,5 +6,7 @@ bin/
 obj/
 packages/
 
+tests-data/
+
 CILantroTools/tests/
 CILantroTools/tests-data/
