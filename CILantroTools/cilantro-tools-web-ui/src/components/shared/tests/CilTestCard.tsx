@@ -40,7 +40,7 @@ const CiLTestCard: StatelessComponent<CilTestCardProps> = props => {
 		<Card className={cardClassName}>
 			<CardContent>
 				<Typography variant="h2" className={typographyClassName}>
-					{props.test.name}
+					{('00000' + props.test.intId).slice(-5)} | {props.test.name}
 				</Typography>
 				<Typography variant="subtitle1" className={typographyClassName}>
 					...{props.test.path}

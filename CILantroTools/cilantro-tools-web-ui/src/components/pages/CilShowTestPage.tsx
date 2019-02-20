@@ -162,7 +162,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 				<>
 					<div className={classes.titleWrapper}>
 						<Typography variant="h1" className={classes.testNameTypography}>
-							{test.name}
+							{('00000' + test.intId).slice(-5)} | {test.name}
 						</Typography>
 						<CilRunTestExeButton type="fab" test={test} />
 						<CilRunTestInterpreterButton type="fab" test={test} />

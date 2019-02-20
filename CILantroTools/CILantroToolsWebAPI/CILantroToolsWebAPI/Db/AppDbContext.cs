@@ -25,6 +25,9 @@ namespace CILantroToolsWebAPI.Db
             modelBuilder.Entity<Test>()
                 .HasKey(t => t.Id);
             modelBuilder.Entity<Test>()
+                .Property(t => t.IntId)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Test>()
                 .HasOne(t => t.Category)
                 .WithMany(c => c.Tests)
                 .HasForeignKey(t => t.CategoryId);

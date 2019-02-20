@@ -8,6 +8,8 @@ namespace CILantroToolsWebAPI.DbModels
     {
         public Guid Id { get; set; }
 
+        public int IntId { get; set; }
+
         public string Name { get; set; }
 
         public string Path { get; set; }

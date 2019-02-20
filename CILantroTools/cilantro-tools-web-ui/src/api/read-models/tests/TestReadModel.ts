@@ -4,6 +4,7 @@ import SubcategoryReadModel from '../categories/SubcategoryReadModel';
 
 interface TestReadModel {
 	id: string;
+	intId: number;
 	name: string;
 	path: string;
 	categoryId?: string;
