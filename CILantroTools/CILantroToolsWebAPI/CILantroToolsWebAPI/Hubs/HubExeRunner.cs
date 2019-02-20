@@ -18,9 +18,9 @@ namespace CILantroToolsWebAPI.Hubs
             _processes = new Dictionary<string, Process>();
         }
 
-        public void Run(string connectionId, string exePath)
+        public void Run(string connectionId, string exePath, string arguments = null)
         {
-            var processStartInfo = new ProcessStartInfo(exePath)
+            var processStartInfo = new ProcessStartInfo(exePath, arguments)
             {
                 RedirectStandardOutput = true,
                 RedirectStandardInput = true,

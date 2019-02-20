@@ -31,7 +31,8 @@ namespace CILantroToolsWebAPI.Hubs
         public async Task RunInterpreter(Guid testId)
         {
             var test = await _testsService.GetTestAsync(testId);
-            _exeRunner.Run(Context.ConnectionId, _appSettings.Value.CILantroExePath);
+            var cilAntroArguments = $"--fileName \"{test.MainIlSourcePathFull}\"";
+            _exeRunner.Run(Context.ConnectionId, _appSettings.Value.CILantroExePath, cilAntroArguments);
         }
 
         public void Input(string inputLine)

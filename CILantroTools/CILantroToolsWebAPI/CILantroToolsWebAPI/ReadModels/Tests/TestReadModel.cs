@@ -27,6 +27,8 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
 
         public string MainIlSourcePath { get; set; }
 
+        public string MainIlSourcePathFull { get; set; }
+
         public string MainIlSource { get; set; }
 
         public string ExePath { get; set; }

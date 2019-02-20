@@ -171,6 +171,7 @@ namespace CILantroToolsWebAPI.Services
             if (testReadModel.HasIlSources)
             {
                 testReadModel.MainIlSourcePath = BuildTestMainIlSourcePath(testReadModel.Name, true);
+                testReadModel.MainIlSourcePathFull = BuildTestMainIlSourcePath(testReadModel.Name);
             }
 
             var testExePath = BuildTestExePath(testReadModel.Name);
