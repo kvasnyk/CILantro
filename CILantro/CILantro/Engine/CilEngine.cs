@@ -1,5 +1,4 @@
 ﻿using CILantro.Parsing;
-using System;
 
 namespace CILantro.Engine
 {
@@ -16,10 +15,9 @@ namespace CILantro.Engine
             _sourceCode = sourceCode;
         }
 
-        public void Parse()
+        public CilParserResult Parse()
         {
-            Console.WriteLine(_sourceCode);
-            _parser.Parse(_sourceCode);
+            return _parser.Parse(_sourceCode);
         }
     }
 }
