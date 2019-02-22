@@ -1,4 +1,7 @@
-﻿using Irony.Parsing;
+﻿using CILantro.AbstractSyntaxTree;
+using Irony.Ast;
+using Irony.Parsing;
+using System;
 using System.Linq;
 
 namespace CILantro.Parsing
@@ -8,9 +11,12 @@ namespace CILantro.Parsing
         public CilGrammar()
             : base(true)
         {
+            LanguageFlags = LanguageFlags.CreateAst;
+
             // comments
 
             var SINGLELINECOMMENT = new CommentTerminal("SINGLELINECOMMENT", "//", "\n", "\r\n");
+            ConfigureAstNode(SINGLELINECOMMENT);
 
             NonGrammarTerminals.Add(SINGLELINECOMMENT);
 
@@ -18,129 +24,136 @@ namespace CILantro.Parsing
 
             // TODO: specify
             var HEXBYTE = new RegexBasedTerminal("HEXBYTE", @"[A-F0-9]{2}");
+            ConfigureAstNode(HEXBYTE);
 
             // TODO: specify
-            var DOTTEDNAME = new NonTerminal("DOTTEDNAME");
+            var DOTTEDNAME = CreateNonTerminal("DOTTEDNAME");
             DOTTEDNAME.Rule = _("DOTTEDNAME");
+            ConfigureAstNode(DOTTEDNAME);
 
             // TODO: specify
             var ID = new IdentifierTerminal("ID");
+            ConfigureAstNode(DOTTEDNAME);
 
             // TODO: specify
             var QSTRING = new StringLiteral("QSTRING", "\"");
+            ConfigureAstNode(QSTRING);
 
             // TODO: specify
             var SQSTRING = new StringLiteral("SQSTRING", "'");
+            ConfigureAstNode(SQSTRING);
 
             // TODO: specify
             var INT32 = new RegexBasedTerminal("INT32", @"(0x)?[0-9]*");
+            ConfigureAstNode(INT32);
 
             // TODO: specify
             var INT64 = new RegexBasedTerminal("INT64", @"(0x)?[0-9]*");
+            ConfigureAstNode(INT64);
 
             // non-terminals
 
-            var decls = new NonTerminal("decls");
-            var decl = new NonTerminal("decl");
-            var compQstring = new NonTerminal("compQstring");
-            var languageDecl = new NonTerminal("languageDecl");
-            var customAttrDecl = new NonTerminal("customAttrDecl");
-            var moduleHead = new NonTerminal("moduleHead");
-            var vtfixupDecl = new NonTerminal("vtfixupDecl");
-            var vtableDecl = new NonTerminal("vtableDecl");
-            var nameSpaceHead = new NonTerminal("nameSpaceHead");
-            var classHead = new NonTerminal("classHead");
-            var classAttr = new NonTerminal("classAttr");
-            var extendsClause = new NonTerminal("extendsClause");
-            var implClause = new NonTerminal("implClause");
-            var classNames = new NonTerminal("classNames");
-            var classDecls = new NonTerminal("classDecls");
-            var classDecl = new NonTerminal("classDecl");
-            var fieldDecl = new NonTerminal("fieldDecl");
-            var initOpt = new NonTerminal("initOpt");
-            var customHead = new NonTerminal("customHead");
-            var customHeadWithOwner = new NonTerminal("customHeadWithOwner");
-            var customType = new NonTerminal("customType");
-            var ownerType = new NonTerminal("ownerType");
-            var eventHead = new NonTerminal("eventHead");
-            var eventDecls = new NonTerminal("eventDecls");
-            var propHead = new NonTerminal("propHead");
-            var propDecls = new NonTerminal("propDecls");
-            var methodHeadPart1 = new NonTerminal("methodHeadPart1");
-            var methodHead = new NonTerminal("methodHead");
-            var methAttr = new NonTerminal("methAttr");
-            var pinvAttr = new NonTerminal("pinvAttr");
-            var methodName = new NonTerminal("methodName");
-            var paramAttr = new NonTerminal("paramAttr");
-            var implAttr = new NonTerminal("implAttr");
-            var localsHead = new NonTerminal("localsHead");
-            var methodDecl = new NonTerminal("methodDecl");
-            var scopeBlock = new NonTerminal("scopeBlock");
-            var sehBlock = new NonTerminal("sehBlock");
-            var methodDecls = new NonTerminal("methodDecls");
-            var dataDecl = new NonTerminal("dataDecl");
-            var bytearrayhead = new NonTerminal("bytearrayhead");
-            var bytes = new NonTerminal("bytes");
-            var hexbytes = new NonTerminal("hexbytes");
-            var instr_r_head = new NonTerminal("instr_r_head");
-            var instr_tok_head = new NonTerminal("instr_tok_head");
-            var methodSpec = new NonTerminal("methodSpec");
-            var instr = new NonTerminal("instr");
-            var sigArgs0 = new NonTerminal("sigArgs0");
-            var sigArgs1 = new NonTerminal("sigArgs1");
-            var sigArg = new NonTerminal("sigArg");
-            var name1 = new NonTerminal("name1");
-            var className = new NonTerminal("className");
-            var slashedName = new NonTerminal("slashedName");
-            var typeSpec = new NonTerminal("typeSpec");
-            var callConv = new NonTerminal("callConv");
-            var callKind = new NonTerminal("callKind");
-            var nativeType = new NonTerminal("nativeType");
-            var type = new NonTerminal("type");
-            var bounds1 = new NonTerminal("bounds1");
-            var labels = new NonTerminal("labels");
-            var id = new NonTerminal("id");
-            var int16s = new NonTerminal("int16s");
-            var int32 = new NonTerminal("int32");
-            var int64 = new NonTerminal("int64");
-            var float64 = new NonTerminal("float64");
-            var secDecl = new NonTerminal("secDecl");
-            var extSourceSpec = new NonTerminal("extSourceSpec");
-            var fileDecl = new NonTerminal("fileDecl");
-            var hashHead = new NonTerminal("hashHead");
-            var assemblyHead = new NonTerminal("assemblyHead");
-            var asmAttr = new NonTerminal("asmAttr");
-            var assemblyDecls = new NonTerminal("assemblyDecls");
-            var assemblyDecl = new NonTerminal("assemblyDecl");
-            var asmOrRefDecl = new NonTerminal("asmOrRefDecl");
-            var publicKeyHead = new NonTerminal("publicKeyHead");
-            var publicKeyTokenHead = new NonTerminal("publicKeyTokenHead");
-            var localeHead = new NonTerminal("localeHead");
-            var assemblyRefHead = new NonTerminal("assemblyRefHead");
-            var assemblyRefDecls = new NonTerminal("assemblyRefDecls");
-            var assemblyRefDecl = new NonTerminal("assemblyRefDecl");
-            var comtypeHead = new NonTerminal("comtypeHead");
-            var exportHead = new NonTerminal("exportHead");
-            var comtypeDecls = new NonTerminal("comtypeDecls");
-            var manifestResHead = new NonTerminal("manifestResHead");
-            var manifestResDecls = new NonTerminal("manifestResDecls");
+            var decls = CreateNonTerminal("decls");
+            var decl = CreateNonTerminal("decl");
+            var compQstring = CreateNonTerminal("compQstring");
+            var languageDecl = CreateNonTerminal("languageDecl");
+            var customAttrDecl = CreateNonTerminal("customAttrDecl");
+            var moduleHead = CreateNonTerminal("moduleHead");
+            var vtfixupDecl = CreateNonTerminal("vtfixupDecl");
+            var vtableDecl = CreateNonTerminal("vtableDecl");
+            var nameSpaceHead = CreateNonTerminal("nameSpaceHead");
+            var classHead = CreateNonTerminal("classHead");
+            var classAttr = CreateNonTerminal("classAttr");
+            var extendsClause = CreateNonTerminal("extendsClause");
+            var implClause = CreateNonTerminal("implClause");
+            var classNames = CreateNonTerminal("classNames");
+            var classDecls = CreateNonTerminal("classDecls");
+            var classDecl = CreateNonTerminal("classDecl");
+            var fieldDecl = CreateNonTerminal("fieldDecl");
+            var initOpt = CreateNonTerminal("initOpt");
+            var customHead = CreateNonTerminal("customHead");
+            var customHeadWithOwner = CreateNonTerminal("customHeadWithOwner");
+            var customType = CreateNonTerminal("customType");
+            var ownerType = CreateNonTerminal("ownerType");
+            var eventHead = CreateNonTerminal("eventHead");
+            var eventDecls = CreateNonTerminal("eventDecls");
+            var propHead = CreateNonTerminal("propHead");
+            var propDecls = CreateNonTerminal("propDecls");
+            var methodHeadPart1 = CreateNonTerminal("methodHeadPart1");
+            var methodHead = CreateNonTerminal("methodHead");
+            var methAttr = CreateNonTerminal("methAttr");
+            var pinvAttr = CreateNonTerminal("pinvAttr");
+            var methodName = CreateNonTerminal("methodName");
+            var paramAttr = CreateNonTerminal("paramAttr");
+            var implAttr = CreateNonTerminal("implAttr");
+            var localsHead = CreateNonTerminal("localsHead");
+            var methodDecl = CreateNonTerminal("methodDecl");
+            var scopeBlock = CreateNonTerminal("scopeBlock");
+            var sehBlock = CreateNonTerminal("sehBlock");
+            var methodDecls = CreateNonTerminal("methodDecls");
+            var dataDecl = CreateNonTerminal("dataDecl");
+            var bytearrayhead = CreateNonTerminal("bytearrayhead");
+            var bytes = CreateNonTerminal("bytes");
+            var hexbytes = CreateNonTerminal("hexbytes");
+            var instr_r_head = CreateNonTerminal("instr_r_head");
+            var instr_tok_head = CreateNonTerminal("instr_tok_head");
+            var methodSpec = CreateNonTerminal("methodSpec");
+            var instr = CreateNonTerminal("instr");
+            var sigArgs0 = CreateNonTerminal("sigArgs0");
+            var sigArgs1 = CreateNonTerminal("sigArgs1");
+            var sigArg = CreateNonTerminal("sigArg");
+            var name1 = CreateNonTerminal("name1");
+            var className = CreateNonTerminal("className");
+            var slashedName = CreateNonTerminal("slashedName");
+            var typeSpec = CreateNonTerminal("typeSpec");
+            var callConv = CreateNonTerminal("callConv");
+            var callKind = CreateNonTerminal("callKind");
+            var nativeType = CreateNonTerminal("nativeType");
+            var type = CreateNonTerminal("type");
+            var bounds1 = CreateNonTerminal("bounds1");
+            var labels = CreateNonTerminal("labels");
+            var id = CreateNonTerminal("id");
+            var int16s = CreateNonTerminal("int16s");
+            var int32 = CreateNonTerminal("int32");
+            var int64 = CreateNonTerminal("int64");
+            var float64 = CreateNonTerminal("float64");
+            var secDecl = CreateNonTerminal("secDecl");
+            var extSourceSpec = CreateNonTerminal("extSourceSpec");
+            var fileDecl = CreateNonTerminal("fileDecl");
+            var hashHead = CreateNonTerminal("hashHead");
+            var assemblyHead = CreateNonTerminal("assemblyHead");
+            var asmAttr = CreateNonTerminal("asmAttr");
+            var assemblyDecls = CreateNonTerminal("assemblyDecls");
+            var assemblyDecl = CreateNonTerminal("assemblyDecl");
+            var asmOrRefDecl = CreateNonTerminal("asmOrRefDecl");
+            var publicKeyHead = CreateNonTerminal("publicKeyHead");
+            var publicKeyTokenHead = CreateNonTerminal("publicKeyTokenHead");
+            var localeHead = CreateNonTerminal("localeHead");
+            var assemblyRefHead = CreateNonTerminal("assemblyRefHead");
+            var assemblyRefDecls = CreateNonTerminal("assemblyRefDecls");
+            var assemblyRefDecl = CreateNonTerminal("assemblyRefDecl");
+            var comtypeHead = CreateNonTerminal("comtypeHead");
+            var exportHead = CreateNonTerminal("exportHead");
+            var comtypeDecls = CreateNonTerminal("comtypeDecls");
+            var manifestResHead = CreateNonTerminal("manifestResHead");
+            var manifestResDecls = CreateNonTerminal("manifestResDecls");
 
             // instructions
 
-            var INSTR_NONE = new NonTerminal("INSTR_NONE");
-            var INSTR_VAR = new NonTerminal("INSTR_VAR");
-            var INSTR_I = new NonTerminal("INSTR_I");
-            var INSTR_I8 = new NonTerminal("INSTR_I8");
-            var INSTR_R = new NonTerminal("INSTR_R");
-            var INSTR_BRTARGET = new NonTerminal("INSTR_BRTARGET");
-            var INSTR_METHOD = new NonTerminal("INSTR_METHOD");
-            var INSTR_FIELD = new NonTerminal("INSTR_FIELD");
-            var INSTR_TYPE = new NonTerminal("INSTR_TYPE");
-            var INSTR_STRING = new NonTerminal("INSTR_STRING");
-            var INSTR_SIG = new NonTerminal("INSTR_SIG");
-            var INSTR_RVA = new NonTerminal("INSTR_RVA");
-            var INSTR_SWITCH = new NonTerminal("INSTR_SWITCH");
-            var INSTR_PHI = new NonTerminal("INSTR_PHI");
+            var INSTR_NONE = CreateNonTerminal("INSTR_NONE");
+            var INSTR_VAR = CreateNonTerminal("INSTR_VAR");
+            var INSTR_I = CreateNonTerminal("INSTR_I");
+            var INSTR_I8 = CreateNonTerminal("INSTR_I8");
+            var INSTR_R = CreateNonTerminal("INSTR_R");
+            var INSTR_BRTARGET = CreateNonTerminal("INSTR_BRTARGET");
+            var INSTR_METHOD = CreateNonTerminal("INSTR_METHOD");
+            var INSTR_FIELD = CreateNonTerminal("INSTR_FIELD");
+            var INSTR_TYPE = CreateNonTerminal("INSTR_TYPE");
+            var INSTR_STRING = CreateNonTerminal("INSTR_STRING");
+            var INSTR_SIG = CreateNonTerminal("INSTR_SIG");
+            var INSTR_RVA = CreateNonTerminal("INSTR_RVA");
+            var INSTR_SWITCH = CreateNonTerminal("INSTR_SWITCH");
+            var INSTR_PHI = CreateNonTerminal("INSTR_PHI");
 
             INSTR_NONE.Rule =
                 _("add") |
@@ -806,23 +819,48 @@ namespace CILantro.Parsing
             manifestResDecls.Rule = _("TODO: manifestResDecls");
         }
 
-        private BnfExpression _(string s)
+        private NonTerminal _(string s)
         {
             if (s.IndexOf('.') > 0 && s.IndexOf('.') < s.Length - 1)
             {
                 var splittedToken = s.Split('.');
 
-                var result = new NonTerminal(s);
-                result.Rule = splittedToken[0];
+                var nonTerminal = new NonTerminal(s);
+                nonTerminal.Rule = splittedToken[0];
                 foreach(var tokenPart in splittedToken.Skip(1))
                 {
-                    result.Rule += ToTerm(".");
-                    result.Rule += ToTerm(tokenPart);
+                    nonTerminal.Rule += ToTerm(".");
+                    nonTerminal.Rule += ToTerm(tokenPart);
                 }
-                return result;
+                return nonTerminal;
             }
 
-            return ToTerm(s);
+            var result = new NonTerminal(s);
+            result.Rule = ToTerm(s);
+            return result;
+        }
+
+        private static NonTerminal CreateNonTerminal(string name)
+        {
+            var result = new NonTerminal(name);
+            result.AstConfig = new AstNodeConfig
+            {
+                NodeType = GetNodeType(name)
+            };
+            return result;
+        }
+
+        private static Type GetNodeType(string termName)
+        {
+            return AstNodeTypeFactory.CreateAstNodeType(termName);
+        }
+
+        private static void ConfigureAstNode(BnfTerm bnfTerm)
+        {
+            bnfTerm.AstConfig = new AstNodeConfig
+            {
+                NodeType = GetNodeType(bnfTerm.Name)
+            };
         }
     }
 }
