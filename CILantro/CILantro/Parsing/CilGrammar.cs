@@ -1,4 +1,5 @@
 ﻿using Irony.Parsing;
+using System.Linq;
 
 namespace CILantro.Parsing
 {
@@ -141,8 +142,146 @@ namespace CILantro.Parsing
             var INSTR_SWITCH = new NonTerminal("INSTR_SWITCH");
             var INSTR_PHI = new NonTerminal("INSTR_PHI");
 
-            // TODO: INSTR_NONE
-            INSTR_NONE.Rule = _("TODO: INSTR_NONE");
+            INSTR_NONE.Rule =
+                _("add") |
+                _("add.ovf") |
+                _("add.ovf.un") |
+                _("and") |
+                _("arglist") |
+                _("break") |
+                _("ceq") |
+                _("cgt") |
+                _("cgt.un") |
+                _("ckfinite") |
+                _("clt") |
+                _("clt.un") |
+                _("conv.i") |
+                _("conv.i1") |
+                _("conv.i2") |
+                _("conv.i4") |
+                _("conv.i8") |
+                _("conv.ovf.i") |
+                _("conv.ovf.i.un") |
+                _("conv.ovf.i1") |
+                _("conv.ovf.i1.un") |
+                _("conv.ovf.i2") |
+                _("conv.ovf.i2.un") |
+                _("conv.ovf.i4") |
+                _("conv.ovf.i4.un") |
+                _("conv.ovf.i8") |
+                _("conv.ovf.i8.un") |
+                _("conv.ovf.u") |
+                _("conv.ovf.u.un") |
+                _("conv.ovf.u1") |
+                _("conv.ovf.u1.un") |
+                _("conv.ovf.u2") |
+                _("conv.ovf.u2.un") |
+                _("conv.ovf.u4") |
+                _("conv.ovf.u4.un") |
+                _("conv.ovf.u8") |
+                _("conv.ovf.u8.un") |
+                _("conv.r.un") |
+                _("conv.r4") |
+                _("conv.r8") |
+                _("conv.u") |
+                _("conv.u1") |
+                _("conv.u2") |
+                _("conv.u4") |
+                _("conv.u8") |
+                _("cpblk") |
+                _("div") |
+                _("div.un") |
+                _("dup") |
+                _("endfault") |
+                _("endfilter") |
+                _("endfinally") |
+                _("initblk") |
+                _("ldarg.0") |
+                _("ladrg.1") |
+                _("ldarg.2") |
+                _("ldarg.3") |
+                _("ldc.i4.0") |
+                _("ldc.i4.1") |
+                _("ldc.i4.2") |
+                _("ldc.i4.3") |
+                _("ldc.i4.4") |
+                _("ldc.i4.5") |
+                _("ldc.i4.6") |
+                _("ldc.i4.7") |
+                _("ldc.i4.8") |
+                _("ldc.i4.M1") |
+                _("ldelem.i") |
+                _("ldelem.i1") |
+                _("ldelem.i2") |
+                _("ldelem.i4") |
+                _("ldelem.i8") |
+                _("ldelem.r4") |
+                _("ldelem.r8") |
+                _("ldelem.ref") |
+                _("ldelem.u1") |
+                _("ldelem.u2") |
+                _("ldelem.u4") |
+                _("ldind.i") |
+                _("ldind.i1") |
+                _("ldind.i2") |
+                _("ldind.i4") |
+                _("ldind.i8") |
+                _("ldind.r4") |
+                _("ldind.r8") |
+                _("ldind.ref") |
+                _("ldind.u1") |
+                _("ldind.u2") |
+                _("ldind.u4") |
+                _("ldlen") |
+                _("ldloc.0") |
+                _("ldloc.1") |
+                _("ldloc.2") |
+                _("ldloc.3") |
+                _("ldnull") |
+                _("localloc") |
+                _("mul") |
+                _("mul.ovf") |
+                _("mul.ovf.un") |
+                _("neg") |
+                _("nop") |
+                _("not") |
+                _("or") |
+                _("pop") |
+                _("refanytype") |
+                _("rem") |
+                _("rem.un") |
+                _("ret") |
+                _("rethrow") |
+                _("shl") |
+                _("shr") |
+                _("shr.un") |
+                _("stelem.i") |
+                _("stelem.i1") |
+                _("stelem.i2") |
+                _("stelem.i4") |
+                _("stelem.i8") |
+                _("stelem.r4") |
+                _("stelem.r8") |
+                _("stelem.ref") |
+                _("stind.i") |
+                _("stind.i1") |
+                _("stind.i2") |
+                _("stind.i4") |
+                _("stind.i8") |
+                _("stind.r4") |
+                _("stind.r8") |
+                _("stind.ref") |
+                _("stloc.0") |
+                _("stloc.1") |
+                _("stloc.2") |
+                _("stloc.3") |
+                _("sub") |
+                _("sub.ovf") |
+                _("sub.ovf.un") |
+                _("tail.") |
+                _("throw") |
+                _("volatile.") |
+                _("xor");
 
             // TODO: INSTR_VAR
             INSTR_VAR.Rule = _("TODO: INSTR_VAR");
@@ -667,8 +806,22 @@ namespace CILantro.Parsing
             manifestResDecls.Rule = _("TODO: manifestResDecls");
         }
 
-        private KeyTerm _(string s)
+        private BnfExpression _(string s)
         {
+            if (s.IndexOf('.') > 0 && s.IndexOf('.') < s.Length - 1)
+            {
+                var splittedToken = s.Split('.');
+
+                var result = new NonTerminal(s);
+                result.Rule = splittedToken[0];
+                foreach(var tokenPart in splittedToken.Skip(1))
+                {
+                    result.Rule += ToTerm(".");
+                    result.Rule += ToTerm(tokenPart);
+                }
+                return result;
+            }
+
             return ToTerm(s);
         }
     }
