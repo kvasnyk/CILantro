@@ -31,7 +31,7 @@ namespace CILantro.AbstractSyntaxTree
                 return result;
             }
 
-            throw new ArgumentException($"Cannot create a node type for term '{termName}'.");
+            throw new ArgumentException($"Cannot create a node type for term \"{termName}\".");
         }
     }
 }

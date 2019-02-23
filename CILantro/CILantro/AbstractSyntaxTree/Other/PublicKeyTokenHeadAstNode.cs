@@ -1,6 +1,6 @@
-﻿using Irony.Ast;
+﻿using CILantro.Exceptions;
+using Irony.Ast;
 using Irony.Parsing;
-using System;
 
 namespace CILantro.AbstractSyntaxTree.Other
 {
@@ -9,7 +9,13 @@ namespace CILantro.AbstractSyntaxTree.Other
     {
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
-            throw new NotImplementedException();
+            // ___(".publickeytoken") + _("=") + _("(")
+            if (parseNode.ChildNodes.Count == 3)
+            {
+                return;
+            }
+
+            throw new InitAstNodeException(nameof(PublicKeyTokenHeadAstNode));
         }
     }
 }

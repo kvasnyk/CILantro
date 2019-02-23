@@ -24,12 +24,12 @@ namespace CILantro.Parsing
             // lexical tokens
 
             // TODO: specify
-            var HEXBYTE = new RegexBasedTerminal("HEXBYTE", @"[A-F0-9]{2}");
+            var HEXBYTE = new RegexBasedTerminal("HEXBYTE", @"[A-F0-9]{2}"); // DOCS: not specified in ECMA grammar
             ConfigureAstNode(HEXBYTE);
 
             // TODO: specify
             var DOTTEDNAME = CreateNonTerminal("DOTTEDNAME");
-            DOTTEDNAME.Rule = _("DOTTEDNAME");
+            DOTTEDNAME.Rule = _("TODO: DOTTEDNAME");
             ConfigureAstNode(DOTTEDNAME);
 
             // TODO: specify
@@ -45,11 +45,13 @@ namespace CILantro.Parsing
             ConfigureAstNode(SQSTRING);
 
             // TODO: specify
-            var INT32 = new RegexBasedTerminal("INT32", @"(0x)?[0-9]*");
+            var INT32 = new NumberLiteral("INT32");
+            INT32.AddPrefix("0x", NumberOptions.Hex);
             ConfigureAstNode(INT32);
 
             // TODO: specify
-            var INT64 = new RegexBasedTerminal("INT64", @"(0x)?[0-9]*");
+            var INT64 = new NumberLiteral("INT64");
+            INT64.AddPrefix("0x", NumberOptions.Hex);
             ConfigureAstNode(INT64);
 
             // non-terminals
@@ -292,9 +294,9 @@ namespace CILantro.Parsing
                 _("sub") |
                 ___("sub.ovf") |
                 ___("sub.ovf.un") |
-                ___("tail.") |
+                _("tail.") |
                 _("throw") |
-                ___("volatile.") |
+                _("volatile.") |
                 _("xor");
 
             // TODO: INSTR_VAR
@@ -366,12 +368,12 @@ namespace CILantro.Parsing
                 moduleHead |
                 secDecl |
                 customAttrDecl |
-                ___(".subsystem") + int32 |
-                ___(".corflags") + int32 |
-                ___(".file") + _("alignment") + int32 |
-                ___(".imagebase") + int64 |
+                _(".subsystem") + int32 |
+                _(".corflags") + int32 |
+                _(".file") + _("alignment") + int32 |
+                _(".imagebase") + int64 |
                 languageDecl |
-                ___(".stackreserve") + int64; // DOCS: not present in ECMA grammar
+                _(".stackreserve") + int64; // DOCS: not present in ECMA grammar
 
             compQstring.Rule =
                 QSTRING |
@@ -381,17 +383,17 @@ namespace CILantro.Parsing
             languageDecl.Rule = _("TODO: languageDecl");
 
             customAttrDecl.Rule =
-                ___(".custom") + customType |
-                ___(".custom") + customType + _("=") + compQstring |
+                _(".custom") + customType |
+                _(".custom") + customType + _("=") + compQstring |
                 customHead + bytes + _(")") |
-                ___(".custom") + _("(") + ownerType + _(")") + customType |
-                ___(".custom") + _("(") + ownerType + _(")") + customType + _("=") + compQstring |
+                _(".custom") + _("(") + ownerType + _(")") + customType |
+                _(".custom") + _("(") + ownerType + _(")") + customType + _("=") + compQstring |
                 customHeadWithOwner + bytes + _(")");
 
             moduleHead.Rule =
-                ___(".module") |
-                ___(".module") + name1 |
-                ___(".module") + _("extern") + name1;
+                _(".module") |
+                _(".module") + name1 |
+                _(".module") + _("extern") + name1;
 
             // TODO: vtfixupDecl
             vtfixupDecl.Rule = _("TODO: vtfixupDecl");
@@ -403,8 +405,8 @@ namespace CILantro.Parsing
             nameSpaceHead.Rule = _("TODO: nameSpaceHead");
 
             classHead.Rule =
-                ___(".class") + classAttr + id + extendsClause + implClause |
-                ___(".class") + classAttr + name1 + extendsClause + implClause; // DOCS: not present in ECMA grammar
+                _(".class") + classAttr + id + extendsClause + implClause |
+                _(".class") + classAttr + name1 + extendsClause + implClause; // DOCS: not present in ECMA grammar
 
             classAttr.Rule =
                 Empty |
@@ -458,10 +460,10 @@ namespace CILantro.Parsing
                 secDecl |
                 extSourceSpec |
                 customAttrDecl |
-                ___(".size") + int32 |
-                ___(".pack") + int32 |
+                _(".size") + int32 |
+                _(".pack") + int32 |
                 exportHead + _("{") + comtypeDecls + _("}") |
-                ___(".override") + typeSpec + _("::") + methodName + _("with") + callConv + type + typeSpec + _("::") + methodName + _("(") + sigArgs0 + _(")") |
+                _(".override") + typeSpec + _("::") + methodName + _("with") + callConv + type + typeSpec + _("::") + methodName + _("(") + sigArgs0 + _(")") |
                 languageDecl;
 
             // TODO: fieldDecl
@@ -471,14 +473,14 @@ namespace CILantro.Parsing
             initOpt.Rule = _("TODO: initOpt");
 
             customHead.Rule =
-                ___(".custom") + customType + _("=") + _("(");
+                _(".custom") + customType + _("=") + _("(");
 
             customHeadWithOwner.Rule =
-                ___(".custom") + _("(") + ownerType + _(")") + customType + _("=") + _("(");
+                _(".custom") + _("(") + ownerType + _(")") + customType + _("=") + _("(");
 
             customType.Rule =
-                callConv + type + typeSpec + _("::") + ___(".ctor") + _("(") + sigArgs0 + _(")") |
-                callConv + type + ___(".ctor") + _("(") + sigArgs0 + _(")");
+                callConv + type + typeSpec + _("::") + _(".ctor") + _("(") + sigArgs0 + _(")") |
+                callConv + type + _(".ctor") + _("(") + sigArgs0 + _(")");
 
             // TODO: ownerType
             ownerType.Rule = _("TODO: ownerType");
@@ -496,7 +498,7 @@ namespace CILantro.Parsing
             propDecls.Rule = _("TODO: propDecls");
 
             methodHeadPart1.Rule =
-                ___(".method");
+                _(".method");
 
             methodHead.Rule =
                 methodHeadPart1 + methAttr + callConv + paramAttr + type + methodName + _("(") + sigArgs0 + _(")") + implAttr + _("{") |
@@ -529,8 +531,8 @@ namespace CILantro.Parsing
             pinvAttr.Rule = _("TODO: pinvAttr");
 
             methodName.Rule =
-                ___(".ctor") |
-                ___(".cctor") |
+                _(".ctor") |
+                _(".cctor") |
                 name1;
 
             paramAttr.Rule =
@@ -555,16 +557,16 @@ namespace CILantro.Parsing
                 implAttr + _("noinlining");
 
             localsHead.Rule =
-                ___(".locals");
+                _(".locals");
 
             methodDecl.Rule =
-                ___(".emitbyte") + int32 |
+                _(".emitbyte") + int32 |
                 sehBlock |
-                ___(".maxstack") + int32 |
+                _(".maxstack") + int32 |
                 localsHead + _("(") + sigArgs0 + _(")") |
                 localsHead + _("init") + _("(") + sigArgs0 + _(")") |
-                ___(".entrypoint") |
-                ___(".zeroinit") |
+                _(".entrypoint") |
+                _(".zeroinit") |
                 dataDecl |
                 instr |
                 id + _(":") |
@@ -572,12 +574,12 @@ namespace CILantro.Parsing
                 extSourceSpec |
                 languageDecl |
                 customAttrDecl |
-                ___(".export") + _("[") + int32 + _("]") |
-                ___(".export") + _("[") + int32 + _("]") + _("as") + id |
-                ___(".vtentry") + int32 + _(":") + int32 |
-                ___(".override") + typeSpec + _("::") + methodName |
+                _(".export") + _("[") + int32 + _("]") |
+                _(".export") + _("[") + int32 + _("]") + _("as") + id |
+                _(".vtentry") + int32 + _(":") + int32 |
+                _(".override") + typeSpec + _("::") + methodName |
                 scopeBlock |
-                ___(".param") + _("[") + int32 + _("]") + initOpt;
+                _(".param") + _("[") + int32 + _("]") + initOpt;
 
             // TODO: scopeBlock
             scopeBlock.Rule = _("TODO: scopeBlock");
@@ -659,7 +661,7 @@ namespace CILantro.Parsing
 
             className.Rule =
                 _("[") + name1 + _("]") + slashedName |
-                _("[") + ___(".module") + name1 + _("]") + slashedName |
+                _("[") + _(".module") + name1 + _("]") + slashedName |
                 slashedName;
 
             slashedName.Rule =
@@ -669,7 +671,7 @@ namespace CILantro.Parsing
             typeSpec.Rule =
                 className |
                 _("[") + name1 + _("]") |
-                _("[") + ___(".module") + name1 + _("]") |
+                _("[") + _(".module") + name1 + _("]") |
                 type;
 
             callConv.Rule =
@@ -737,7 +739,7 @@ namespace CILantro.Parsing
             int16s.Rule = _("TODO: int16s");
 
             int32.Rule =
-                INT64; // TODO: perhaps INT32?
+                INT32; // TODO: ECMA grammar uses INT32 here
 
             int64.Rule =
                 INT64;
@@ -758,7 +760,7 @@ namespace CILantro.Parsing
             hashHead.Rule = _("TODO: hashHead");
 
             assemblyHead.Rule =
-                ___(".assembly") + asmAttr + name1;
+                _(".assembly") + asmAttr + name1;
 
             asmAttr.Rule =
                 Empty |
@@ -771,14 +773,14 @@ namespace CILantro.Parsing
                 assemblyDecls + assemblyDecl;
 
             assemblyDecl.Rule =
-                ___(".hash") + _("algorithm") + int32 |
+                _(".hash") + _("algorithm") + int32 |
                 secDecl |
                 asmOrRefDecl;
 
             asmOrRefDecl.Rule =
                 publicKeyHead + bytes + _(")") |
-                ___(".ver") + int32 + _(":") + int32 + _(":") + int32 + _(":") + int32 |
-                ___(".locale") + compQstring |
+                _(".ver") + int32 + _(":") + int32 + _(":") + int32 + _(":") + int32 |
+                _(".locale") + compQstring |
                 localeHead + bytes + _(")") |
                 customAttrDecl;
 
@@ -786,14 +788,14 @@ namespace CILantro.Parsing
             publicKeyHead.Rule = _("TODO: publicKeyHead");
 
             publicKeyTokenHead.Rule =
-                ___(".publickeytoken") + _("=") + _("(");
+                _(".publickeytoken") + _("=") + _("(");
 
             // TODO: localeHead
             localeHead.Rule = _("TODO: localeHead");
 
             assemblyRefHead.Rule =
-                ___(".assembly") + _("extern") + name1 |
-                ___(".assembly") + _("extern") + name1 + _("as") + name1;
+                _(".assembly") + _("extern") + name1 |
+                _(".assembly") + _("extern") + name1 + _("as") + name1;
 
             assemblyRefDecls.Rule =
                 Empty |
@@ -822,16 +824,18 @@ namespace CILantro.Parsing
 
         private KeyTerm _(string s)
         {
-            if (s.IndexOf('.') >= 0 && s.Any(c => c != '.')) throw new ArgumentException($"Cannot use _ method with a complex string '{s}'.");
+            if (!CheckIf_CanBeUsed(s)) throw new ArgumentException($"Cannot use _ method with string \"{s}\".");
 
             return ToTerm(s);
         }
 
         private NonTerminal ___(string s)
         {
-            if (s.IndexOf('.') < 0) throw new ArgumentException($"Cannot use ___ method with a simple string '{s}'.");
+            if (!CheckIf___CanBeUsed(s)) throw new ArgumentException($"Cannot use ___ method with string \"{s}\".");
 
             var splittedToken = Regex.Split(s, @"(\.)").Where(st => !string.IsNullOrEmpty(st)).ToList();
+
+            if (s.All(c => !char.IsLetterOrDigit(c))) splittedToken = s.Select(c => c.ToString()).ToList();
 
             var result = new NonTerminal(s);
 
@@ -867,6 +871,16 @@ namespace CILantro.Parsing
             {
                 NodeType = GetNodeType(bnfTerm.Name)
             };
+        }
+        
+        private bool CheckIf_CanBeUsed(string s)
+        {
+            return !CheckIf___CanBeUsed(s);
+        }
+
+        private bool CheckIf___CanBeUsed(string s)
+        {
+            return s.IndexOf('.') > 0 && s.IndexOf('.') < s.Length - 1;
         }
     }
 }
