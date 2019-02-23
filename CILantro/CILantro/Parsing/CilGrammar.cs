@@ -3,6 +3,7 @@ using Irony.Ast;
 using Irony.Parsing;
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace CILantro.Parsing
 {
@@ -33,7 +34,7 @@ namespace CILantro.Parsing
 
             // TODO: specify
             var ID = new IdentifierTerminal("ID");
-            ConfigureAstNode(DOTTEDNAME);
+            ConfigureAstNode(ID);
 
             // TODO: specify
             var QSTRING = new StringLiteral("QSTRING", "\"");
@@ -157,104 +158,104 @@ namespace CILantro.Parsing
 
             INSTR_NONE.Rule =
                 _("add") |
-                _("add.ovf") |
-                _("add.ovf.un") |
+                ___("add.ovf") |
+                ___("add.ovf.un") |
                 _("and") |
                 _("arglist") |
                 _("break") |
                 _("ceq") |
                 _("cgt") |
-                _("cgt.un") |
+                ___("cgt.un") |
                 _("ckfinite") |
                 _("clt") |
-                _("clt.un") |
-                _("conv.i") |
-                _("conv.i1") |
-                _("conv.i2") |
-                _("conv.i4") |
-                _("conv.i8") |
-                _("conv.ovf.i") |
-                _("conv.ovf.i.un") |
-                _("conv.ovf.i1") |
-                _("conv.ovf.i1.un") |
-                _("conv.ovf.i2") |
-                _("conv.ovf.i2.un") |
-                _("conv.ovf.i4") |
-                _("conv.ovf.i4.un") |
-                _("conv.ovf.i8") |
-                _("conv.ovf.i8.un") |
-                _("conv.ovf.u") |
-                _("conv.ovf.u.un") |
-                _("conv.ovf.u1") |
-                _("conv.ovf.u1.un") |
-                _("conv.ovf.u2") |
-                _("conv.ovf.u2.un") |
-                _("conv.ovf.u4") |
-                _("conv.ovf.u4.un") |
-                _("conv.ovf.u8") |
-                _("conv.ovf.u8.un") |
-                _("conv.r.un") |
-                _("conv.r4") |
-                _("conv.r8") |
-                _("conv.u") |
-                _("conv.u1") |
-                _("conv.u2") |
-                _("conv.u4") |
-                _("conv.u8") |
+                ___("clt.un") |
+                ___("conv.i") |
+                ___("conv.i1") |
+                ___("conv.i2") |
+                ___("conv.i4") |
+                ___("conv.i8") |
+                ___("conv.ovf.i") |
+                ___("conv.ovf.i.un") |
+                ___("conv.ovf.i1") |
+                ___("conv.ovf.i1.un") |
+                ___("conv.ovf.i2") |
+                ___("conv.ovf.i2.un") |
+                ___("conv.ovf.i4") |
+                ___("conv.ovf.i4.un") |
+                ___("conv.ovf.i8") |
+                ___("conv.ovf.i8.un") |
+                ___("conv.ovf.u") |
+                ___("conv.ovf.u.un") |
+                ___("conv.ovf.u1") |
+                ___("conv.ovf.u1.un") |
+                ___("conv.ovf.u2") |
+                ___("conv.ovf.u2.un") |
+                ___("conv.ovf.u4") |
+                ___("conv.ovf.u4.un") |
+                ___("conv.ovf.u8") |
+                ___("conv.ovf.u8.un") |
+                ___("conv.r.un") |
+                ___("conv.r4") |
+                ___("conv.r8") |
+                ___("conv.u") |
+                ___("conv.u1") |
+                ___("conv.u2") |
+                ___("conv.u4") |
+                ___("conv.u8") |
                 _("cpblk") |
                 _("div") |
-                _("div.un") |
+                ___("div.un") |
                 _("dup") |
                 _("endfault") |
                 _("endfilter") |
                 _("endfinally") |
                 _("initblk") |
-                _("ldarg.0") |
-                _("ladrg.1") |
-                _("ldarg.2") |
-                _("ldarg.3") |
-                _("ldc.i4.0") |
-                _("ldc.i4.1") |
-                _("ldc.i4.2") |
-                _("ldc.i4.3") |
-                _("ldc.i4.4") |
-                _("ldc.i4.5") |
-                _("ldc.i4.6") |
-                _("ldc.i4.7") |
-                _("ldc.i4.8") |
-                _("ldc.i4.M1") |
-                _("ldelem.i") |
-                _("ldelem.i1") |
-                _("ldelem.i2") |
-                _("ldelem.i4") |
-                _("ldelem.i8") |
-                _("ldelem.r4") |
-                _("ldelem.r8") |
-                _("ldelem.ref") |
-                _("ldelem.u1") |
-                _("ldelem.u2") |
-                _("ldelem.u4") |
-                _("ldind.i") |
-                _("ldind.i1") |
-                _("ldind.i2") |
-                _("ldind.i4") |
-                _("ldind.i8") |
-                _("ldind.r4") |
-                _("ldind.r8") |
-                _("ldind.ref") |
-                _("ldind.u1") |
-                _("ldind.u2") |
-                _("ldind.u4") |
+                ___("ldarg.0") |
+                ___("ladrg.1") |
+                ___("ldarg.2") |
+                ___("ldarg.3") |
+                ___("ldc.i4.0") |
+                ___("ldc.i4.1") |
+                ___("ldc.i4.2") |
+                ___("ldc.i4.3") |
+                ___("ldc.i4.4") |
+                ___("ldc.i4.5") |
+                ___("ldc.i4.6") |
+                ___("ldc.i4.7") |
+                ___("ldc.i4.8") |
+                ___("ldc.i4.M1") |
+                ___("ldelem.i") |
+                ___("ldelem.i1") |
+                ___("ldelem.i2") |
+                ___("ldelem.i4") |
+                ___("ldelem.i8") |
+                ___("ldelem.r4") |
+                ___("ldelem.r8") |
+                ___("ldelem.ref") |
+                ___("ldelem.u1") |
+                ___("ldelem.u2") |
+                ___("ldelem.u4") |
+                ___("ldind.i") |
+                ___("ldind.i1") |
+                ___("ldind.i2") |
+                ___("ldind.i4") |
+                ___("ldind.i8") |
+                ___("ldind.r4") |
+                ___("ldind.r8") |
+                ___("ldind.ref") |
+                ___("ldind.u1") |
+                ___("ldind.u2") |
+                ___("ldind.u4") |
                 _("ldlen") |
-                _("ldloc.0") |
-                _("ldloc.1") |
-                _("ldloc.2") |
-                _("ldloc.3") |
+                ___("ldloc.0") |
+                ___("ldloc.1") |
+                ___("ldloc.2") |
+                ___("ldloc.3") |
                 _("ldnull") |
                 _("localloc") |
                 _("mul") |
-                _("mul.ovf") |
-                _("mul.ovf.un") |
+                ___("mul.ovf") |
+                ___("mul.ovf.un") |
                 _("neg") |
                 _("nop") |
                 _("not") |
@@ -262,38 +263,38 @@ namespace CILantro.Parsing
                 _("pop") |
                 _("refanytype") |
                 _("rem") |
-                _("rem.un") |
+                ___("rem.un") |
                 _("ret") |
                 _("rethrow") |
                 _("shl") |
                 _("shr") |
-                _("shr.un") |
-                _("stelem.i") |
-                _("stelem.i1") |
-                _("stelem.i2") |
-                _("stelem.i4") |
-                _("stelem.i8") |
-                _("stelem.r4") |
-                _("stelem.r8") |
-                _("stelem.ref") |
-                _("stind.i") |
-                _("stind.i1") |
-                _("stind.i2") |
-                _("stind.i4") |
-                _("stind.i8") |
-                _("stind.r4") |
-                _("stind.r8") |
-                _("stind.ref") |
-                _("stloc.0") |
-                _("stloc.1") |
-                _("stloc.2") |
-                _("stloc.3") |
+                ___("shr.un") |
+                ___("stelem.i") |
+                ___("stelem.i1") |
+                ___("stelem.i2") |
+                ___("stelem.i4") |
+                ___("stelem.i8") |
+                ___("stelem.r4") |
+                ___("stelem.r8") |
+                ___("stelem.ref") |
+                ___("stind.i") |
+                ___("stind.i1") |
+                ___("stind.i2") |
+                ___("stind.i4") |
+                ___("stind.i8") |
+                ___("stind.r4") |
+                ___("stind.r8") |
+                ___("stind.ref") |
+                ___("stloc.0") |
+                ___("stloc.1") |
+                ___("stloc.2") |
+                ___("stloc.3") |
                 _("sub") |
-                _("sub.ovf") |
-                _("sub.ovf.un") |
-                _("tail.") |
+                ___("sub.ovf") |
+                ___("sub.ovf.un") |
+                ___("tail.") |
                 _("throw") |
-                _("volatile.") |
+                ___("volatile.") |
                 _("xor");
 
             // TODO: INSTR_VAR
@@ -365,12 +366,12 @@ namespace CILantro.Parsing
                 moduleHead |
                 secDecl |
                 customAttrDecl |
-                _(".subsystem") + int32 |
-                _(".corflags") + int32 |
-                _(".file") + _("alignment") + int32 |
-                _(".imagebase") + int64 |
+                ___(".subsystem") + int32 |
+                ___(".corflags") + int32 |
+                ___(".file") + _("alignment") + int32 |
+                ___(".imagebase") + int64 |
                 languageDecl |
-                _(".stackreserve") + int64; // DOCS: not present in ECMA grammar
+                ___(".stackreserve") + int64; // DOCS: not present in ECMA grammar
 
             compQstring.Rule =
                 QSTRING |
@@ -380,17 +381,17 @@ namespace CILantro.Parsing
             languageDecl.Rule = _("TODO: languageDecl");
 
             customAttrDecl.Rule =
-                _(".custom") + customType |
-                _(".custom") + customType + _("=") + compQstring |
+                ___(".custom") + customType |
+                ___(".custom") + customType + _("=") + compQstring |
                 customHead + bytes + _(")") |
-                _(".custom") + _("(") + ownerType + _(")") + customType |
-                _(".custom") + _("(") + ownerType + _(")") + customType + _("=") + compQstring |
+                ___(".custom") + _("(") + ownerType + _(")") + customType |
+                ___(".custom") + _("(") + ownerType + _(")") + customType + _("=") + compQstring |
                 customHeadWithOwner + bytes + _(")");
 
             moduleHead.Rule =
-                _(".module") |
-                _(".module") + name1 |
-                _(".module") + _("extern") + name1;
+                ___(".module") |
+                ___(".module") + name1 |
+                ___(".module") + _("extern") + name1;
 
             // TODO: vtfixupDecl
             vtfixupDecl.Rule = _("TODO: vtfixupDecl");
@@ -402,8 +403,8 @@ namespace CILantro.Parsing
             nameSpaceHead.Rule = _("TODO: nameSpaceHead");
 
             classHead.Rule =
-                _(".class") + classAttr + id + extendsClause + implClause |
-                _(".class") + classAttr + name1 + extendsClause + implClause; // DOCS: not present in ECMA grammar
+                ___(".class") + classAttr + id + extendsClause + implClause |
+                ___(".class") + classAttr + name1 + extendsClause + implClause; // DOCS: not present in ECMA grammar
 
             classAttr.Rule =
                 Empty |
@@ -457,10 +458,10 @@ namespace CILantro.Parsing
                 secDecl |
                 extSourceSpec |
                 customAttrDecl |
-                _(".size") + int32 |
-                _(".pack") + int32 |
+                ___(".size") + int32 |
+                ___(".pack") + int32 |
                 exportHead + _("{") + comtypeDecls + _("}") |
-                _(".override") + typeSpec + _("::") + methodName + _("with") + callConv + type + typeSpec + _("::") + methodName + _("(") + sigArgs0 + _(")") |
+                ___(".override") + typeSpec + _("::") + methodName + _("with") + callConv + type + typeSpec + _("::") + methodName + _("(") + sigArgs0 + _(")") |
                 languageDecl;
 
             // TODO: fieldDecl
@@ -470,14 +471,14 @@ namespace CILantro.Parsing
             initOpt.Rule = _("TODO: initOpt");
 
             customHead.Rule =
-                _(".custom") + customType + _("=") + _("(");
+                ___(".custom") + customType + _("=") + _("(");
 
             customHeadWithOwner.Rule =
-                _(".custom") + _("(") + ownerType + _(")") + customType + _("=") + _("(");
+                ___(".custom") + _("(") + ownerType + _(")") + customType + _("=") + _("(");
 
             customType.Rule =
-                callConv + type + typeSpec + _("::") + _(".ctor") + _("(") + sigArgs0 + _(")") |
-                callConv + type + _(".ctor") + _("(") + sigArgs0 + _(")");
+                callConv + type + typeSpec + _("::") + ___(".ctor") + _("(") + sigArgs0 + _(")") |
+                callConv + type + ___(".ctor") + _("(") + sigArgs0 + _(")");
 
             // TODO: ownerType
             ownerType.Rule = _("TODO: ownerType");
@@ -495,7 +496,7 @@ namespace CILantro.Parsing
             propDecls.Rule = _("TODO: propDecls");
 
             methodHeadPart1.Rule =
-                _(".method");
+                ___(".method");
 
             methodHead.Rule =
                 methodHeadPart1 + methAttr + callConv + paramAttr + type + methodName + _("(") + sigArgs0 + _(")") + implAttr + _("{") |
@@ -528,8 +529,8 @@ namespace CILantro.Parsing
             pinvAttr.Rule = _("TODO: pinvAttr");
 
             methodName.Rule =
-                _(".ctor") |
-                _(".cctor") |
+                ___(".ctor") |
+                ___(".cctor") |
                 name1;
 
             paramAttr.Rule =
@@ -554,16 +555,16 @@ namespace CILantro.Parsing
                 implAttr + _("noinlining");
 
             localsHead.Rule =
-                _(".locals");
+                ___(".locals");
 
             methodDecl.Rule =
-                _(".emitbyte") + int32 |
+                ___(".emitbyte") + int32 |
                 sehBlock |
-                _(".maxstack") + int32 |
+                ___(".maxstack") + int32 |
                 localsHead + _("(") + sigArgs0 + _(")") |
                 localsHead + _("init") + _("(") + sigArgs0 + _(")") |
-                _(".entrypoint") |
-                _(".zeroinit") |
+                ___(".entrypoint") |
+                ___(".zeroinit") |
                 dataDecl |
                 instr |
                 id + _(":") |
@@ -571,12 +572,12 @@ namespace CILantro.Parsing
                 extSourceSpec |
                 languageDecl |
                 customAttrDecl |
-                _(".export") + _("[") + int32 + _("]") |
-                _(".export") + _("[") + int32 + _("]") + _("as") + id |
-                _(".vtentry") + int32 + _(":") + int32 |
-                _(".override") + typeSpec + _("::") + methodName |
+                ___(".export") + _("[") + int32 + _("]") |
+                ___(".export") + _("[") + int32 + _("]") + _("as") + id |
+                ___(".vtentry") + int32 + _(":") + int32 |
+                ___(".override") + typeSpec + _("::") + methodName |
                 scopeBlock |
-                _(".param") + _("[") + int32 + _("]") + initOpt;
+                ___(".param") + _("[") + int32 + _("]") + initOpt;
 
             // TODO: scopeBlock
             scopeBlock.Rule = _("TODO: scopeBlock");
@@ -658,7 +659,7 @@ namespace CILantro.Parsing
 
             className.Rule =
                 _("[") + name1 + _("]") + slashedName |
-                _("[") + _(".module") + name1 + _("]") + slashedName |
+                _("[") + ___(".module") + name1 + _("]") + slashedName |
                 slashedName;
 
             slashedName.Rule =
@@ -668,7 +669,7 @@ namespace CILantro.Parsing
             typeSpec.Rule =
                 className |
                 _("[") + name1 + _("]") |
-                _("[") + _(".module") + name1 + _("]") |
+                _("[") + ___(".module") + name1 + _("]") |
                 type;
 
             callConv.Rule =
@@ -757,7 +758,7 @@ namespace CILantro.Parsing
             hashHead.Rule = _("TODO: hashHead");
 
             assemblyHead.Rule =
-                _(".assembly") + asmAttr + name1;
+                ___(".assembly") + asmAttr + name1;
 
             asmAttr.Rule =
                 Empty |
@@ -770,14 +771,14 @@ namespace CILantro.Parsing
                 assemblyDecls + assemblyDecl;
 
             assemblyDecl.Rule =
-                _(".hash") + _("algorithm") + int32 |
+                ___(".hash") + _("algorithm") + int32 |
                 secDecl |
                 asmOrRefDecl;
 
             asmOrRefDecl.Rule =
                 publicKeyHead + bytes + _(")") |
-                _(".ver") + int32 + _(":") + int32 + _(":") + int32 + _(":") + int32 |
-                _(".locale") + compQstring |
+                ___(".ver") + int32 + _(":") + int32 + _(":") + int32 + _(":") + int32 |
+                ___(".locale") + compQstring |
                 localeHead + bytes + _(")") |
                 customAttrDecl;
 
@@ -785,14 +786,14 @@ namespace CILantro.Parsing
             publicKeyHead.Rule = _("TODO: publicKeyHead");
 
             publicKeyTokenHead.Rule =
-                _(".publickeytoken") + _("=") + _("(");
+                ___(".publickeytoken") + _("=") + _("(");
 
             // TODO: localeHead
             localeHead.Rule = _("TODO: localeHead");
 
             assemblyRefHead.Rule =
-                _(".assembly") + _("extern") + name1 |
-                _(".assembly") + _("extern") + name1 + _("as") + name1;
+                ___(".assembly") + _("extern") + name1 |
+                ___(".assembly") + _("extern") + name1 + _("as") + name1;
 
             assemblyRefDecls.Rule =
                 Empty |
@@ -819,24 +820,29 @@ namespace CILantro.Parsing
             manifestResDecls.Rule = _("TODO: manifestResDecls");
         }
 
-        private NonTerminal _(string s)
+        private KeyTerm _(string s)
         {
-            if (s.IndexOf('.') > 0 && s.IndexOf('.') < s.Length - 1)
-            {
-                var splittedToken = s.Split('.');
+            if (s.IndexOf('.') >= 0 && s.Any(c => c != '.')) throw new ArgumentException($"Cannot use _ method with a complex string '{s}'.");
 
-                var nonTerminal = new NonTerminal(s);
-                nonTerminal.Rule = splittedToken[0];
-                foreach(var tokenPart in splittedToken.Skip(1))
-                {
-                    nonTerminal.Rule += ToTerm(".");
-                    nonTerminal.Rule += ToTerm(tokenPart);
-                }
-                return nonTerminal;
-            }
+            return ToTerm(s);
+        }
+
+        private NonTerminal ___(string s)
+        {
+            if (s.IndexOf('.') < 0) throw new ArgumentException($"Cannot use ___ method with a simple string '{s}'.");
+
+            var splittedToken = Regex.Split(s, @"(\.)").Where(st => !string.IsNullOrEmpty(st)).ToList();
 
             var result = new NonTerminal(s);
-            result.Rule = ToTerm(s);
+
+            result.Rule = ToTerm(splittedToken[0]);
+            foreach (var tokenPart in splittedToken.Skip(1))
+            {
+                result.Rule += ToTerm(tokenPart);
+            }
+
+            result.SetFlag(TermFlags.NoAstNode);
+
             return result;
         }
 

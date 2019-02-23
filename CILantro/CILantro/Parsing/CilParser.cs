@@ -1,4 +1,6 @@
-﻿using Irony;
+﻿
+using CILantro.AbstractSyntaxTree.Other;
+using Irony;
 using Irony.Parsing;
 using System.Linq;
 
@@ -28,7 +30,8 @@ namespace CILantro.Parsing
 
             return new CilParserResult
             {
-                Status = CilParserStatus.Success
+                Status = CilParserStatus.Success,
+                Program = (ironyParseTree.Root.AstNode as DeclsAstNode).Program
             };
         }
 

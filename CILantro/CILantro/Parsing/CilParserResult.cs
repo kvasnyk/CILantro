@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CILantro.Model;
+using System.Collections.Generic;
 
 namespace CILantro.Parsing
 {
@@ -7,5 +8,7 @@ namespace CILantro.Parsing
         public CilParserStatus Status { get; set; }
 
         public List<string> Errors { get; set; }
+
+        public CilProgram Program { get; set; }
     }
 }
