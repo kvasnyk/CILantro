@@ -1,4 +1,5 @@
 ﻿using CILantro.AbstractSyntaxTree.InstuctionTypes;
+using CILantro.Instructions;
 using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
@@ -9,6 +10,8 @@ namespace CILantro.AbstractSyntaxTree.Other
     [AstNode("instr")]
     public class InstrAstNode : AstNodeBase
     {
+        public CilInstruction Instruction { get; private set; }
+
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
             // INSTR_NONE
@@ -16,7 +19,9 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<INSTR_NONEAstNode>();
             if (noneChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                var instructionNone = noneChildren.Child1.Instruction;
+                Instruction = instructionNone;
+
                 return;
             }
 
@@ -33,7 +38,9 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add(")");
             if (methodTypeSpecChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                var instructionMethod = methodTypeSpecChildren.Child1.Instruction;
+                Instruction = instructionMethod;
+
                 return;
             }
 
@@ -43,7 +50,9 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<CompQstringAstNode>();
             if (stringQstringChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                var instructionString = stringQstringChildren.Child1.Instruction;
+                Instruction = instructionString;
+
                 return;
             }
 

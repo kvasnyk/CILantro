@@ -1,4 +1,4 @@
-﻿using CILantro.ProgramStructure;
+﻿using CILantro.Structure;
 using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
@@ -18,7 +18,10 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<ClassNameAstNode>();
             if (classNameChildren.PopulateWith(parseNode))
             {
-                TypeSpec = new CilTypeSpec(classNameChildren.Child1.ClassName);
+                TypeSpec = new CilTypeSpec
+                {
+                    ClassName = classNameChildren.Child1.ClassName
+                };
 
                 return;
             }

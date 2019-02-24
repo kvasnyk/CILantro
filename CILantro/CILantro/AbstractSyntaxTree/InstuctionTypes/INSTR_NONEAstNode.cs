@@ -1,4 +1,6 @@
-﻿using CILantro.Utils;
+﻿using CILantro.Instructions;
+using CILantro.Instructions.None;
+using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
 using System;
@@ -8,6 +10,8 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
     [AstNode("INSTR_NONE")]
     public class INSTR_NONEAstNode : AstNodeBase
     {
+        public CilInstructionNone Instruction { get; private set; }
+
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
             // ___("ldarg.0")
@@ -24,7 +28,8 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 .Add("ret");
             if (retChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                Instruction = new RetInstruction();
+
                 return;
             }
 

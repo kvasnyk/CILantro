@@ -8,6 +8,8 @@ namespace CILantro.AbstractSyntaxTree.Other
     [AstNode("classHead")]
     public class ClassHeadAstNode : AstNodeBase
     {
+        public string ClassName { get; private set; }
+
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
             // _(".class") + classAttr + name1 + extendsClause + implClause
@@ -19,7 +21,8 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<ImplClauseAstNode>();
             if (name1Children.PopulateWith(parseNode))
             {
-                // TODO: handle
+                ClassName = name1Children.Child3.Value;
+
                 return;
             }
 

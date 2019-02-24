@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 
-namespace CILantro.ProgramStructure
+namespace CILantro.Structure
 {
-    public class CilProgram
+    public class CilDecls
     {
         public List<CilAssemblyRef> AssemblyRefs { get; set; }
+
+        public List<CilClass> Classes { get; set; }
     }
 }

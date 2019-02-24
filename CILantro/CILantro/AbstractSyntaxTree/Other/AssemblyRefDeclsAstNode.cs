@@ -1,19 +1,16 @@
 ﻿using CILantro.Exceptions;
-using CILantro.ProgramStructure;
+using CILantro.Structure;
 using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
+using System.Collections.Generic;
 
 namespace CILantro.AbstractSyntaxTree.Other
 {
     [AstNode("assemblyRefDecls")]
     public class AssemblyRefDeclsAstNode : AstNodeBase
     {
-        // TODO: is only one value possible or should it be changed to list?
-        public byte[] PublicKeyToken { get; private set; }
-
-        // TODO: is only one value possible or should it be changed to list?
-        public CilAssemblyVersion Version { get; private set; }
+        public CilAssemblyRefDecls AssemblyRefDecls { get; private set; }
 
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
@@ -21,6 +18,12 @@ namespace CILantro.AbstractSyntaxTree.Other
             var emptyChildren = AstChildren.Empty();
             if (emptyChildren.PopulateWith(parseNode))
             {
+                AssemblyRefDecls = new CilAssemblyRefDecls
+                {
+                    PublicKeyTokens = new List<byte[]>(),
+                    Versions = new List<CilAssemblyVersion>()
+                };
+
                 return;
             }
 
@@ -30,8 +33,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<AssemblyRefDeclAstNode>();
             if (assemblyRefDeclsChildren.PopulateWith(parseNode))
             {
-                PublicKeyToken = assemblyRefDeclsChildren.Child1.PublicKeyToken;
-                Version = assemblyRefDeclsChildren.Child1.Version;
+                AssemblyRefDecls = assemblyRefDeclsChildren.Child1.AssemblyRefDecls;
 
                 var declType = assemblyRefDeclsChildren.Child2.DeclType;
 
@@ -41,10 +43,10 @@ namespace CILantro.AbstractSyntaxTree.Other
                 switch (declType.Value)
                 {
                     case AssemblyRefDeclType.PublicKeyToken:
-                        PublicKeyToken = assemblyRefDeclsChildren.Child2.PublicKeyToken;
+                        AssemblyRefDecls.PublicKeyTokens.Add(assemblyRefDeclsChildren.Child2.PublicKeyToken);
                         break;
                     case AssemblyRefDeclType.Ver:
-                        Version = assemblyRefDeclsChildren.Child2.Version;
+                        AssemblyRefDecls.Versions.Add(assemblyRefDeclsChildren.Child2.Version);
                         break;
                     default:
                         throw new AstNodeException($"\"{nameof(declType)}\" cannot be recognized.");

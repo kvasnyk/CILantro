@@ -1,4 +1,4 @@
-﻿using CILantro.ProgramStructure;
+﻿using CILantro.Structure;
 using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
@@ -40,6 +40,11 @@ namespace CILantro.AbstractSyntaxTree.Other
             {
                 DeclType = Other.DeclType.Class;
                 // TODO: handle;
+                ClassDecl = new CilClass
+                {
+                    Name = classChildren.Child1.ClassName,
+                    Methods = classChildren.Child3.ClassDecls.Methods
+                };
 
                 return;
             }
@@ -70,8 +75,8 @@ namespace CILantro.AbstractSyntaxTree.Other
                 AssemblyRefDecl = new CilAssemblyRef
                 {
                     Name = assemblyRefChildren.Child1.AssemblyName,
-                    PublicKeyToken = assemblyRefChildren.Child3.PublicKeyToken,
-                    Version = assemblyRefChildren.Child3.Version
+                    PublicKeyTokens = assemblyRefChildren.Child3.AssemblyRefDecls.PublicKeyTokens,
+                    Versions = assemblyRefChildren.Child3.AssemblyRefDecls.Versions
                 };
 
                 return;

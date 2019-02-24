@@ -1,20 +1,28 @@
 ﻿using CILantro.Exceptions;
+using CILantro.Structure;
 using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
+using System.Collections.Generic;
 
 namespace CILantro.AbstractSyntaxTree.Other
 {
     [AstNode("classDecls")]
     public class ClassDeclsAstNode : AstNodeBase
     {
+        public CilClassDecls ClassDecls { get; private set; }
+
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
             // Empty
             var emptyChildren = AstChildren.Empty();
             if (emptyChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                ClassDecls = new CilClassDecls
+                {
+                    Methods = new List<CilMethod>()
+                };
+
                 return;
             }
 
@@ -24,7 +32,22 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<ClassDeclAstNode>();
             if (classDeclsChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                ClassDecls = classDeclsChildren.Child1.ClassDecls;
+
+                var declType = classDeclsChildren.Child2.DeclType;
+                   
+                if (!declType.HasValue)
+                    throw new AstNodeException($"\"{nameof(declType)}\" is not specified.");
+
+                switch (declType)
+                {
+                    case ClassDeclType.Method:
+                        ClassDecls.Methods.Add(classDeclsChildren.Child2.Method);
+                        break;
+                    default:
+                        throw new AstNodeException($"\"{nameof(declType)}\" cannot be recognized.");
+                }
+
                 return;
             }
 

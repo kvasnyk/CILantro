@@ -1,4 +1,4 @@
-﻿using CILantro.ProgramStructure;
+﻿using CILantro.Structure;
 using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
@@ -18,7 +18,10 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("string");
             if (stringChildren.PopulateWith(parseNode))
             {
-                Type = new CilType(CilTypeType.String);
+                Type = new CilType
+                {
+                    TypeType = CilTypeType.String
+                };
 
                 return;
             }
@@ -39,7 +42,10 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("void");
             if (voidChildren.PopulateWith(parseNode))
             {
-                Type = new CilType(CilTypeType.Void);
+                Type = new CilType
+                {
+                    TypeType = CilTypeType.Void
+                };
 
                 return;
             }
@@ -49,7 +55,10 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("bool");
             if (boolChildren.PopulateWith(parseNode))
             {
-                Type = new CilType(CilTypeType.Bool);
+                Type = new CilType
+                {
+                    TypeType = CilTypeType.Bool
+                };
 
                 return;
             }
@@ -59,7 +68,10 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("int32");
             if (int32Children.PopulateWith(parseNode))
             {
-                Type = new CilType(CilTypeType.Int32);
+                Type = new CilType
+                {
+                    TypeType = CilTypeType.Int32
+                };
 
                 return;
             }

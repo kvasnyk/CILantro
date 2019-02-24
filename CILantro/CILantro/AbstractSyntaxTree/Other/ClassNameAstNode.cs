@@ -1,4 +1,4 @@
-﻿using CILantro.ProgramStructure;
+﻿using CILantro.Structure;
 using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
@@ -21,7 +21,11 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<SlashedNameAstNode>();
             if (children4.PopulateWith(parseNode))
             {
-                ClassName = new CilClassName(children4.Child4.Value, children4.Child2.Value);
+                ClassName = new CilClassName
+                {
+                    AssemblyName = children4.Child4.Value,
+                    ClassName = children4.Child2.Value
+                };
 
                 return;
             }

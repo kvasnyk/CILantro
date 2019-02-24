@@ -1,13 +1,26 @@
-﻿using CILantro.Utils;
+﻿using CILantro.Instructions;
+using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
 using System;
 
 namespace CILantro.AbstractSyntaxTree.Other
 {
+    public enum MethodDeclType
+    {
+        EntryPoint,
+        Instruction,
+        Label,
+        MaxStack
+    }
+
     [AstNode("methodDecl")]
     public class MethodDeclAstNode : AstNodeBase
     {
+        public MethodDeclType? DeclType { get; private set; }
+
+        public CilInstruction Instruction { get; private set; }
+
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
             // _(".maxstack") + int32
@@ -16,7 +29,8 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<Int32AstNode>();
             if (maxstackChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                DeclType = MethodDeclType.MaxStack;
+
                 return;
             }
 
@@ -25,7 +39,8 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add(".entrypoint");
             if (entrypointChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                DeclType = MethodDeclType.EntryPoint;
+
                 return;
             }
 
@@ -34,7 +49,9 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<InstrAstNode>();
             if (instrChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                DeclType = MethodDeclType.Instruction;
+                Instruction = instrChildren.Child1.Instruction;
+
                 return;
             }
 
@@ -44,7 +61,8 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add(":");
             if (idChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                DeclType = MethodDeclType.Label;
+
                 return;
             }
 

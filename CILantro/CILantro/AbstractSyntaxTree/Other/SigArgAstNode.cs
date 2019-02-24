@@ -1,4 +1,4 @@
-﻿using CILantro.ProgramStructure;
+﻿using CILantro.Structure;
 using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
@@ -20,7 +20,10 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<TypeAstNode>();
             if (children2.PopulateWith(parseNode))
             {
-                SigArg = new CilSigArg(children2.Child2.Type);
+                SigArg = new CilSigArg
+                {
+                    Type = children2.Child2.Type
+                };
 
                 return;
             }

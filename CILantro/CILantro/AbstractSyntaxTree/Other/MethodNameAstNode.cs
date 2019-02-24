@@ -8,6 +8,8 @@ namespace CILantro.AbstractSyntaxTree.Other
     [AstNode("methodName")]
     public class MethodNameAstNode : AstNodeBase
     {
+        public string MethodName { get; private set; }
+
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
             // _(".ctor")
@@ -15,7 +17,8 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add(".ctor");
             if (ctorChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                MethodName = ".ctor";
+
                 return;
             }
 
@@ -24,7 +27,8 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<Name1AstNode>();
             if (name1Children.PopulateWith(parseNode))
             {
-                // TODO: handle
+                MethodName = name1Children.Child1.Value;
+
                 return;
             }
 

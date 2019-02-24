@@ -1,5 +1,5 @@
 ﻿using CILantro.Exceptions;
-using CILantro.ProgramStructure;
+using CILantro.Structure;
 using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
@@ -11,7 +11,7 @@ namespace CILantro.AbstractSyntaxTree.Other
     [AstNode("decls")]
     public class DeclsAstNode : AstNodeBase
     {
-        public CilProgram Program { get; private set; }
+        public CilDecls Decls { get; private set; }
 
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
@@ -19,9 +19,10 @@ namespace CILantro.AbstractSyntaxTree.Other
             var emptyChildren = AstChildren.Empty();
             if (emptyChildren.PopulateWith(parseNode))
             {
-                Program = new CilProgram
+                Decls = new CilDecls
                 {
-                    AssemblyRefs = new List<CilAssemblyRef>()
+                    AssemblyRefs = new List<CilAssemblyRef>(),
+                    Classes = new List<CilClass>()
                 };
 
                 return;
@@ -33,7 +34,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<DeclAstNode>();
             if (declsChildren.PopulateWith(parseNode))
             {
-                Program = declsChildren.Child1.Program;
+                Decls = declsChildren.Child1.Decls;
 
                 var declType = declsChildren.Child2.DeclType;
 
@@ -43,7 +44,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 switch (declType.Value)
                 {
                     case DeclType.AssemblyRef:
-                        Program.AssemblyRefs.Add(declsChildren.Child2.AssemblyRefDecl);
+                        Decls.AssemblyRefs.Add(declsChildren.Child2.AssemblyRefDecl);
                         break;
                     case DeclType.Assembly:
                         // TODO: handle
@@ -67,7 +68,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                         // TODO: handle
                         break;
                     case DeclType.Class:
-                        // TODO: handle
+                        Decls.Classes.Add(declsChildren.Child2.ClassDecl);
                         break;
                     default:
                         throw new AstNodeException($"\"{nameof(declType)}\" cannot be recognized.");

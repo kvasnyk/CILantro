@@ -8,6 +8,8 @@ namespace CILantro.AbstractSyntaxTree.Other
     [AstNode("methodHead")]
     public class MethodHeadAstNode : AstNodeBase
     {
+        public string MethodName { get; private set; }
+
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
             // methodHeadPart1 + methAttr + callConv + paramAttr + type + methodName + _("(") + sigArgs0 + _(")") + implAttr + _("{")
@@ -25,7 +27,8 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("{");
             if (shortChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                MethodName = shortChildren.Child6.MethodName;
+
                 return;
             }
 

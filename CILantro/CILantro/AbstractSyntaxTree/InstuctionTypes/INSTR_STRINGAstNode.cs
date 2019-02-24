@@ -1,4 +1,6 @@
 ﻿using CILantro.Exceptions;
+using CILantro.Instructions;
+using CILantro.Instructions.String;
 using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
@@ -8,6 +10,8 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
     [AstNode("INSTR_STRING")]
     public class INSTR_STRINGAstNode : AstNodeBase
     {
+        public CilInstructionString Instruction { get; private set; }
+
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
             // _("ldstr")
@@ -15,7 +19,8 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 .Add("ldstr");
             if (ldstrChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                Instruction = new LoadStringInstruction();
+
                 return;
             }
 

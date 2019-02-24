@@ -1,4 +1,4 @@
-﻿using CILantro.ProgramStructure;
+﻿using CILantro.Structure;
 using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
@@ -25,7 +25,13 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add(")");
             if (typeSpecChildren.PopulateWith(parseNode))
             {
-                CustomType = new CilCustomType(typeSpecChildren.Child1.CallConv, typeSpecChildren.Child2.Type, typeSpecChildren.Child3.TypeSpec, typeSpecChildren.Child7.SigArgs);
+                CustomType = new CilCustomType
+                {
+                    CallConv = typeSpecChildren.Child1.CallConv,
+                    Type = typeSpecChildren.Child2.Type,
+                    TypeSpec = typeSpecChildren.Child3.TypeSpec,
+                    SigArgs = typeSpecChildren.Child7.SigArgs
+                };
 
                 return;
             }

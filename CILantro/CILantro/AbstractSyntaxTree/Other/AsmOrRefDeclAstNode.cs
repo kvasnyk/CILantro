@@ -1,4 +1,4 @@
-﻿using CILantro.ProgramStructure;
+﻿using CILantro.Structure;
 using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
@@ -33,7 +33,13 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (verChildren.PopulateWith(parseNode))
             {
                 DeclType = AsmOrRefDeclType.Ver;
-                Version = new CilAssemblyVersion(verChildren.Child2.Value, verChildren.Child4.Value, verChildren.Child6.Value, verChildren.Child8.Value);
+                Version = new CilAssemblyVersion
+                {
+                    V1 = verChildren.Child2.Value,
+                    V2 = verChildren.Child4.Value,
+                    V3 = verChildren.Child6.Value,
+                    V4 = verChildren.Child8.Value
+                };
 
                 return;
             }

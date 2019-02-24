@@ -1,4 +1,4 @@
-﻿namespace CILantro.ProgramStructure
+﻿namespace CILantro.Structure
 {
     public enum CilCallConv
     {

@@ -1,4 +1,4 @@
-﻿using CILantro.ProgramStructure;
+﻿using CILantro.Structure;
 using System.Collections.Generic;
 
 namespace CILantro.Parsing

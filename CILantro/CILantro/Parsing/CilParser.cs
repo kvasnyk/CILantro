@@ -1,5 +1,6 @@
 ﻿
 using CILantro.AbstractSyntaxTree.Other;
+using CILantro.Structure;
 using Irony;
 using Irony.Parsing;
 using System.Linq;
@@ -28,7 +29,8 @@ namespace CILantro.Parsing
                 };
             }
 
-            var cilProgram = (ironyParseTree.Root.AstNode as DeclsAstNode).Program;
+            var decls = (ironyParseTree.Root.AstNode as DeclsAstNode).Decls;
+            var cilProgram = new CilProgram(decls);
 
             return new CilParserResult
             {
