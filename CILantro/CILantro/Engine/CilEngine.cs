@@ -1,4 +1,6 @@
-﻿using CILantro.Parsing;
+﻿using CILantro.Interpreting;
+using CILantro.Parsing;
+using CILantro.Structure;
 
 namespace CILantro.Engine
 {
@@ -18,6 +20,12 @@ namespace CILantro.Engine
         public CilParserResult Parse()
         {
             return _parser.Parse(_sourceCode);
+        }
+
+        public void Interpret(CilProgram program)
+        {
+            var interpreter = new CilInterpreter(program);
+            interpreter.Interpret();
         }
     }
 }

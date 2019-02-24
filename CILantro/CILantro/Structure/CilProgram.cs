@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace CILantro.Structure
 {
@@ -7,6 +8,8 @@ namespace CILantro.Structure
         public List<CilAssemblyRef> AssemblyRefs { get; }
 
         public List<CilClass> Classes { get; }
+
+        public CilMethod EntryPoint => Classes.Single(c => c.EntryPoint != null).EntryPoint;
 
         public CilProgram(CilDecls decls)
         {

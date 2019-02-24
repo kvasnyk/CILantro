@@ -23,7 +23,11 @@ namespace CILantro
                 {
                     Console.Error.WriteLine(error);
                 }
+
+                return;
             }
+
+            engine.Interpret(parserResult.Program);
         }
     }
 }

@@ -31,7 +31,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 Method = new CilMethod
                 {
                     Name = methodChildren.Child1.MethodName,
-                    EntryPoints = methodChildren.Child2.MethodDecls.EntryPoints,
+                    IsEntryPoint = methodChildren.Child2.MethodDecls.IsEntryPoint,
                     Instructions = methodChildren.Child2.MethodDecls.Instructions
                 };
 

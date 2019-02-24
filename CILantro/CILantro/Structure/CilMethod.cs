@@ -7,7 +7,7 @@ namespace CILantro.Structure
     {
         public string Name { get; set; }
 
-        public List<bool> EntryPoints { get; set; }
+        public bool IsEntryPoint { get; set; }
 
         public List<CilInstruction> Instructions { get; set; }
 

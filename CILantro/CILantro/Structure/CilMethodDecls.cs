@@ -5,7 +5,7 @@ namespace CILantro.Structure
 {
     public class CilMethodDecls
     {
-        public List<bool> EntryPoints { get; set; }
+        public bool IsEntryPoint { get; set; }
 
         public List<CilInstruction> Instructions { get; set; }
     }

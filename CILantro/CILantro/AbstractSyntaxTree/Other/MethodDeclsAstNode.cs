@@ -20,7 +20,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             {
                 MethodDecls = new CilMethodDecls
                 {
-                    EntryPoints = new List<bool>(),
+                    IsEntryPoint = false,
                     Instructions = new List<Instructions.CilInstruction>()
                 };
 
@@ -43,7 +43,9 @@ namespace CILantro.AbstractSyntaxTree.Other
                 switch (declType)
                 {
                     case MethodDeclType.EntryPoint:
-                        MethodDecls.EntryPoints.Add(true);
+                        if (MethodDecls.IsEntryPoint)
+                            throw new ParserException("Multiple .entrypoint declarations.");
+                        MethodDecls.IsEntryPoint = true;
                         break;
                     case MethodDeclType.Instruction:
                         MethodDecls.Instructions.Add(methodDeclsChildren.Child2.Instruction);

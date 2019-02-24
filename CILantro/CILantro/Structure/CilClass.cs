@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace CILantro.Structure
 {
@@ -7,6 +8,8 @@ namespace CILantro.Structure
         public string Name { get; set; }
 
         public List<CilMethod> Methods { get; set; }
+
+        public CilMethod EntryPoint => Methods.SingleOrDefault(m => m.IsEntryPoint);
 
         public override string ToString()
         {
