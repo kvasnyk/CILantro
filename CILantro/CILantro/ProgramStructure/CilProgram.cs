@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CILantro.PorgramStructure
+namespace CILantro.ProgramStructure
 {
     public class CilProgram
     {

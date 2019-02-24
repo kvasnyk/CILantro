@@ -1,4 +1,4 @@
-﻿namespace CILantro.PorgramStructure
+﻿namespace CILantro.ProgramStructure
 {
     public enum CilTypeType
     {

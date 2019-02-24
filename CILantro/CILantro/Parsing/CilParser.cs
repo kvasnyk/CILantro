@@ -28,10 +28,12 @@ namespace CILantro.Parsing
                 };
             }
 
+            var cilProgram = (ironyParseTree.Root.AstNode as DeclsAstNode).Program;
+
             return new CilParserResult
             {
                 Status = CilParserStatus.Success,
-                Program = (ironyParseTree.Root.AstNode as DeclsAstNode).Program
+                Program = cilProgram
             };
         }
 

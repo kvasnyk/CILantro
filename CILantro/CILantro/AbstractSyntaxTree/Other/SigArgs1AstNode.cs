@@ -1,4 +1,4 @@
-﻿using CILantro.PorgramStructure;
+﻿using CILantro.ProgramStructure;
 using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;

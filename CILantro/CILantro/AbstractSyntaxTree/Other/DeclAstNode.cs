@@ -1,4 +1,4 @@
-﻿using CILantro.PorgramStructure;
+﻿using CILantro.ProgramStructure;
 using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
@@ -25,6 +25,8 @@ namespace CILantro.AbstractSyntaxTree.Other
         public DeclType? DeclType { get; private set; }
 
         public CilAssemblyRef AssemblyRefDecl { get; private set; }
+
+        public CilClass ClassDecl { get; private set; }
 
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
