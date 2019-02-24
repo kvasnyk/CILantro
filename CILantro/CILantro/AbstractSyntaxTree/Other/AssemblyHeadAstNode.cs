@@ -1,6 +1,6 @@
 ﻿using CILantro.Exceptions;
-using CILantro.Extensions;
 using CILantro.Model;
+using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
 using System.Collections.Generic;
@@ -16,14 +16,15 @@ namespace CILantro.AbstractSyntaxTree.Other
 
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
-            var asmAttrNode = parseNode.FindChild<AsmAttrAstNode>();
-            var name1Node = parseNode.FindChild<Name1AstNode>();
-
             // _(".assembly") + asmAttr + name1
-            if (asmAttrNode != null && name1Node != null)
+            var children3 = AstChildren.Empty()
+                .Add(".assembly")
+                .Add<AsmAttrAstNode>()
+                .Add<Name1AstNode>();
+            if (children3.PopulateWith(parseNode))
             {
-                AssemblyName = name1Node.Value;
-                AssemblyAttributes = asmAttrNode.Attributes;
+                AssemblyName = children3.Child3.Value;
+                AssemblyAttributes = children3.Child2.Attributes;
 
                 return;
             }

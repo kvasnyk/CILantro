@@ -1,6 +1,6 @@
 ﻿using CILantro.AbstractSyntaxTree.Lexicals;
 using CILantro.Exceptions;
-using CILantro.Extensions;
+using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
 
@@ -13,12 +13,12 @@ namespace CILantro.AbstractSyntaxTree.Other
 
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
-            var astNode = parseNode.FindChild<INT32AstNode>();
-
             // INT32
-            if (astNode != null)
+            var int32Children = AstChildren.Empty()
+                .Add<INT32AstNode>();
+            if (int32Children.PopulateWith(parseNode))
             {
-                Value = astNode.Value;
+                Value = int32Children.Child1.Value;
 
                 return;
             }

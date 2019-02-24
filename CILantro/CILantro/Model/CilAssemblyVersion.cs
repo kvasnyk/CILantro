@@ -20,7 +20,7 @@
 
         public override string ToString()
         {
-            return $"{nameof(CilAssemblyVersion)}-{V1}:{V2}:{V3}:{V4}";
+            return $"{V1}:{V2}:{V3}:{V4}";
         }
     }
 }

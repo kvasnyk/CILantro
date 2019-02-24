@@ -1,4 +1,5 @@
 ﻿using CILantro.Exceptions;
+using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
 
@@ -10,7 +11,11 @@ namespace CILantro.AbstractSyntaxTree.Other
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
             // ___(".publickeytoken") + _("=") + _("(")
-            if (parseNode.ChildNodes.Count == 3)
+            var children = AstChildren.Empty()
+                .Add(".publickeytoken")
+                .Add("=")
+                .Add("(");
+            if (children.PopulateWith(parseNode))
             {
                 return;
             }

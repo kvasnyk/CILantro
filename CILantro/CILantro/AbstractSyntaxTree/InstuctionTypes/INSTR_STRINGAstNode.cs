@@ -1,6 +1,7 @@
-﻿using Irony.Ast;
+﻿using CILantro.Exceptions;
+using CILantro.Utils;
+using Irony.Ast;
 using Irony.Parsing;
-using System;
 
 namespace CILantro.AbstractSyntaxTree.InstuctionTypes
 {
@@ -9,7 +10,16 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
     {
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
-            throw new NotImplementedException();
+            // _("ldstr")
+            var ldstrChildren = AstChildren.Empty()
+                .Add("ldstr");
+            if (ldstrChildren.PopulateWith(parseNode))
+            {
+                // TODO: handle
+                return;
+            }
+
+            throw new InitAstNodeException(nameof(INSTR_STRINGAstNode));
         }
     }
 }

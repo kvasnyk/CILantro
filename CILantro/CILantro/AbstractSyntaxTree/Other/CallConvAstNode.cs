@@ -1,6 +1,6 @@
 ﻿using CILantro.Exceptions;
-using CILantro.Extensions;
 using CILantro.Model;
+using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
 
@@ -17,31 +17,36 @@ namespace CILantro.AbstractSyntaxTree.Other
 
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
-            var callKindNode = parseNode.FindChild<CallKindAstNode>();
-            var callConvNode = parseNode.FindChild<CallConvAstNode>();
-
             // _("instance") + callConv
-            if (parseNode.HasKeyChild("instance"))
+            var instanceChildren = AstChildren.Empty()
+                .Add("instance")
+                .Add<CallConvAstNode>();
+            if (instanceChildren.PopulateWith(parseNode))
             {
                 CallConv = CilCallConv.Instance;
-                CallKind = callConvNode.CallKind;
+                CallKind = instanceChildren.Child2.CallKind;
 
                 return;
             }
 
             // _("explicit") + callConv
-            if (parseNode.HasKeyChild("explicit"))
+            var explicitChildren = AstChildren.Empty()
+                .Add("explicit")
+                .Add<CallConvAstNode>();
+            if (explicitChildren.PopulateWith(parseNode))
             {
                 CallConv = CilCallConv.Explicit;
-                CallKind = callConvNode.CallKind;
+                CallKind = explicitChildren.Child2.CallKind;
 
                 return;
             }
 
             // callKind
-            if (callKindNode != null)
+            var callKindChildren = AstChildren.Empty()
+                .Add<CallKindAstNode>();
+            if (callKindChildren.PopulateWith(parseNode))
             {
-                CallKind = callKindNode.CallKind;
+                CallKind = callKindChildren.Child1.CallKind;
 
                 return;
             }

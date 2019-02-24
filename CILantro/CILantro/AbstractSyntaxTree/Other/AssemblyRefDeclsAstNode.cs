@@ -1,6 +1,6 @@
 ﻿using CILantro.Exceptions;
-using CILantro.Extensions;
 using CILantro.Model;
+using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
 
@@ -17,33 +17,34 @@ namespace CILantro.AbstractSyntaxTree.Other
 
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
-            var assemblyRefDeclsAstNode = parseNode.FindChild<AssemblyRefDeclsAstNode>();
-            var assemblyRefDeclAstNode = parseNode.FindChild<AssemblyRefDeclAstNode>();
-
             // Empty
-            if (parseNode.ChildNodes.IsEmpty())
+            var emptyChildren = AstChildren.Empty();
+            if (emptyChildren.PopulateWith(parseNode))
             {
                 return;
             }
 
             // assemblyRefDecls + assemblyRefDecl
-            if (assemblyRefDeclsAstNode != null && assemblyRefDeclAstNode != null)
+            var assemblyRefDeclsChildren = AstChildren.Empty()
+                .Add<AssemblyRefDeclsAstNode>()
+                .Add<AssemblyRefDeclAstNode>();
+            if (assemblyRefDeclsChildren.PopulateWith(parseNode))
             {
-                PublicKeyToken = assemblyRefDeclsAstNode.PublicKeyToken;
-                Version = assemblyRefDeclsAstNode.Version;
+                PublicKeyToken = assemblyRefDeclsChildren.Child1.PublicKeyToken;
+                Version = assemblyRefDeclsChildren.Child1.Version;
 
-                var declType = assemblyRefDeclAstNode.DeclType;
+                var declType = assemblyRefDeclsChildren.Child2.DeclType;
 
                 if (!declType.HasValue)
-                    throw new AstNodeException($"\"{nameof(declType)}\" is not specified for \"{nameof(assemblyRefDeclAstNode)}\".");
+                    throw new AstNodeException($"\"{nameof(declType)}\" is not specified.");
 
                 switch (declType.Value)
                 {
                     case AssemblyRefDeclType.PublicKeyToken:
-                        PublicKeyToken = assemblyRefDeclAstNode.PublicKeyToken;
+                        PublicKeyToken = assemblyRefDeclsChildren.Child2.PublicKeyToken;
                         break;
                     case AssemblyRefDeclType.Ver:
-                        Version = assemblyRefDeclAstNode.Version;
+                        Version = assemblyRefDeclsChildren.Child2.Version;
                         break;
                     default:
                         throw new AstNodeException($"\"{nameof(declType)}\" cannot be recognized.");

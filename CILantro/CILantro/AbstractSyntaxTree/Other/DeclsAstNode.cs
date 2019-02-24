@@ -1,6 +1,6 @@
 ﻿using CILantro.Exceptions;
-using CILantro.Extensions;
 using CILantro.Model;
+using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
 using System;
@@ -15,11 +15,9 @@ namespace CILantro.AbstractSyntaxTree.Other
 
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
-            var declsNode = parseNode.FindChild<DeclsAstNode>();
-            var declNode = parseNode.FindChild<DeclAstNode>();
-
             // Empty
-            if (parseNode.ChildNodes.IsEmpty())
+            var emptyChildren = AstChildren.Empty();
+            if (emptyChildren.PopulateWith(parseNode))
             {
                 Program = new CilProgram
                 {
@@ -30,19 +28,46 @@ namespace CILantro.AbstractSyntaxTree.Other
             }
 
             // decls + decl
-            if (declsNode != null && declNode != null)
+            var declsChildren = AstChildren.Empty()
+                .Add<DeclsAstNode>()
+                .Add<DeclAstNode>();
+            if (declsChildren.PopulateWith(parseNode))
             {
-                Program = declsNode.Program;
+                Program = declsChildren.Child1.Program;
 
-                var declType = declNode.DeclType;
+                var declType = declsChildren.Child2.DeclType;
 
                 if (!declType.HasValue)
-                    throw new AstNodeException($"\"{nameof(declType)}\" is not specified for \"{nameof(declNode)}\".");
+                    throw new AstNodeException($"\"{nameof(declType)}\" is not specified.");
 
                 switch (declType.Value)
                 {
                     case DeclType.AssemblyRef:
-                        Program.AssemblyRefs.Add(declNode.AssemblyRefDecl);
+                        Program.AssemblyRefs.Add(declsChildren.Child2.AssemblyRefDecl);
+                        break;
+                    case DeclType.Assembly:
+                        // TODO: handle
+                        break;
+                    case DeclType.ImageBase:
+                        // TODO: handle
+                        break;
+                    case DeclType.Module:
+                        // TODO: handle
+                        break;
+                    case DeclType.FileAlignment:
+                        // TODO: handle
+                        break;
+                    case DeclType.StackReserve:
+                        // TODO: handle
+                        break;
+                    case DeclType.Subsystem:
+                        // TODO: handle
+                        break;
+                    case DeclType.CorFlags:
+                        // TODO: handle
+                        break;
+                    case DeclType.Class:
+                        // TODO: handle
                         break;
                     default:
                         throw new AstNodeException($"\"{nameof(declType)}\" cannot be recognized.");

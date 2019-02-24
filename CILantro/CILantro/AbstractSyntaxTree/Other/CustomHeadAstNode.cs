@@ -1,15 +1,32 @@
-﻿using Irony.Ast;
+﻿using CILantro.Exceptions;
+using CILantro.Model;
+using CILantro.Utils;
+using Irony.Ast;
 using Irony.Parsing;
-using System;
 
 namespace CILantro.AbstractSyntaxTree.Other
 {
     [AstNode("customHead")]
     public class CustomHeadAstNode : AstNodeBase
     {
+        public CilCustomType CustomType { get; private set; }
+
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
-            throw new NotImplementedException();
+            // _(".custom") + customType + _("=") + _("(")
+            var children = AstChildren.Empty()
+                .Add(".custom")
+                .Add<CustomTypeAstNode>()
+                .Add("=")
+                .Add("(");
+            if (children.PopulateWith(parseNode))
+            {
+                CustomType = children.Child2.CustomType;
+
+                return;
+            }
+
+            throw new InitAstNodeException(nameof(CustomHeadAstNode));
         }
     }
 }

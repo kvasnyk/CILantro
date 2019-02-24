@@ -1,5 +1,5 @@
 ﻿using CILantro.Exceptions;
-using CILantro.Extensions;
+using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
 
@@ -13,7 +13,8 @@ namespace CILantro.AbstractSyntaxTree.Other
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
             // Empty
-            if (parseNode.ChildNodes.IsEmpty())
+            var emptyChildren = AstChildren.Empty();
+            if (emptyChildren.PopulateWith(parseNode))
             {
                 Value = new byte[0];
 
@@ -21,11 +22,11 @@ namespace CILantro.AbstractSyntaxTree.Other
             }
 
             // hexbytes
-            if (parseNode.ChildNodes.Count == 1)
+            var hexbytesChildren = AstChildren.Empty()
+                .Add<HexbytesAstNode>();
+            if (hexbytesChildren.PopulateWith(parseNode))
             {
-                var hexbytesNode = parseNode.FindChild<HexbytesAstNode>();
-
-                Value = hexbytesNode.Value;
+                Value = hexbytesChildren.Child1.Value;
 
                 return;
             }

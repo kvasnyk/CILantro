@@ -1,6 +1,6 @@
 ﻿using CILantro.Exceptions;
-using CILantro.Extensions;
 using CILantro.Model;
+using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
 using System;
@@ -24,23 +24,21 @@ namespace CILantro.AbstractSyntaxTree.Other
 
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
-            var publicKeyTokenHeadNode = parseNode.FindChild<PublicKeyTokenHeadAstNode>();
-            var bytesNode = parseNode.FindChild<BytesAstNode>();
-            var asmOrRefDeclNode = parseNode.FindChild<AsmOrRefDeclAstNode>();
-
             // asmOrRefDecl
-            if (asmOrRefDeclNode != null)
+            var asmOrRefDeclChildren = AstChildren.Empty()
+                .Add<AsmOrRefDeclAstNode>();
+            if (asmOrRefDeclChildren.PopulateWith(parseNode))
             {
-                var declType = asmOrRefDeclNode.DeclType;
+                var declType = asmOrRefDeclChildren.Child1.DeclType;
 
                 if (!declType.HasValue)
-                    throw new AstNodeException($"\"{nameof(declType)}\" is not specified for \"{nameof(asmOrRefDeclNode)}\".");
+                    throw new AstNodeException($"\"{nameof(declType)}\" is not specified.");
 
                 switch (declType.Value)
                 {
                     case AsmOrRefDeclType.Ver:
                         DeclType = AssemblyRefDeclType.Ver;
-                        Version = asmOrRefDeclNode.Version;
+                        Version = asmOrRefDeclChildren.Child1.Version;
                         break;
                     default:
                         throw new AstNodeException($"\"{nameof(declType)}\" cannot be recognized.");
@@ -50,10 +48,14 @@ namespace CILantro.AbstractSyntaxTree.Other
             }
 
             // publicKeyTokenHead + bytes + _(")")
-            if (publicKeyTokenHeadNode != null)
+            var publicKeyTokenChildren = AstChildren.Empty()
+                .Add<PublicKeyTokenHeadAstNode>()
+                .Add<BytesAstNode>()
+                .Add(")");
+            if (publicKeyTokenChildren.PopulateWith(parseNode))
             {
                 DeclType = AssemblyRefDeclType.PublicKeyToken;
-                PublicKeyToken = bytesNode.Value;
+                PublicKeyToken = publicKeyTokenChildren.Child2.Value;
 
                 return;
             }

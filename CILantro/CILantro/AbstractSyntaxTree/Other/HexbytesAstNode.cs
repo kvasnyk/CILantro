@@ -1,6 +1,6 @@
 ﻿using CILantro.AbstractSyntaxTree.Lexicals;
 using CILantro.Exceptions;
-using CILantro.Extensions;
+using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
 using System;
@@ -14,24 +14,26 @@ namespace CILantro.AbstractSyntaxTree.Other
 
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
-            var HEXBYTENode = parseNode.FindChild<HEXBYTEAstNode>();
-
             // HEXBYTE
-            if (parseNode.ChildNodes.Count == 1)
+            var hexbyteChildren = AstChildren.Empty()
+                .Add<HEXBYTEAstNode>();
+            if (hexbyteChildren.PopulateWith(parseNode))
             {
-                Value = new byte[] { HEXBYTENode.Value };
+                Value = new byte[] { hexbyteChildren.Child1.Value };
 
                 return;
             }
 
             // hexbytes + HEXBYTE
-            if (parseNode.ChildNodes.Count == 2)
+            var hexbytesChildren = AstChildren.Empty()
+                .Add<HexbytesAstNode>()
+                .Add<HEXBYTEAstNode>();
+            if (hexbytesChildren.PopulateWith(parseNode))
             {
-                var hexbytesNode = parseNode.FindChild<HexbytesAstNode>();
-
+                var hexbytesNode = hexbytesChildren.Child1;
                 Value = new byte[hexbytesNode.Value.Length + 1];
                 Array.Copy(hexbytesNode.Value, Value, hexbytesNode.Value.Length);
-                Value[Value.Length - 1] = HEXBYTENode.Value;
+                Value[Value.Length - 1] = hexbytesChildren.Child2.Value;
 
                 return;
             }

@@ -1,4 +1,4 @@
-﻿using CILantro.Extensions;
+﻿using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
 using System;
@@ -13,10 +13,13 @@ namespace CILantro.AbstractSyntaxTree.Other
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
             // ___(".assembly") + _("extern") + name1
-            if (parseNode.ChildNodes.Count == 3)
+            var children3 = AstChildren.Empty()
+                .Add(".assembly")
+                .Add("extern")
+                .Add<Name1AstNode>();
+            if (children3.PopulateWith(parseNode))
             {
-                var name1Node = parseNode.FindChild<Name1AstNode>();
-                AssemblyName = name1Node.Value;
+                AssemblyName = children3.Child3.Value;
 
                 return;
             }
