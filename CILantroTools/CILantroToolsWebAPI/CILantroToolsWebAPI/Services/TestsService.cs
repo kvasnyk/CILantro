@@ -21,6 +21,8 @@ namespace CILantroToolsWebAPI.Services
 
         private const string EXECS_DIRECTORY_NAME = "execs";
 
+        private const string GENERATE_EXE_OUTPUTS_DIRECTORY_NAME = "generate-exe-outputs";
+
         private readonly IOptions<AppSettings> _appSettings;
 
         private readonly AppKeyRepository<Test> _testsRepository;
@@ -146,16 +148,29 @@ namespace CILantroToolsWebAPI.Services
         {
             var testReadModel = _testsRepository.Read<TestReadModel>().Single(t => t.Id == testId);
 
+            ClearTestExecs(testReadModel.Name);
+
+            var testOutputPath = BuildTestGenerateExeOutputsPath(testReadModel.Name);
+            EnsureDirectoryExists(testOutputPath);
+
             var ilSourcePath = BuildTestMainIlSourcePath(testReadModel.Name);
             var exePath = BuildTestExePath(testReadModel.Name);
+            var outputPath = BuildTestGenerateExeOutputPath(testReadModel.Name);
 
             var ilasmArguments = $"\"{ilSourcePath}\" /output=\"{exePath}\"";
             var ilasmProcessStartInfo = new ProcessStartInfo(_appSettings.Value.IlasmExePath, ilasmArguments)
             {
-                WindowStyle = ProcessWindowStyle.Hidden
+                WindowStyle = ProcessWindowStyle.Hidden,
+                RedirectStandardError = true
             };
 
             var ilasmProcess = Process.Start(ilasmProcessStartInfo);
+            using (var reader = ilasmProcess.StandardError)
+            {
+                var result = await reader.ReadToEndAsync();
+                File.WriteAllText(outputPath, result);
+            }
+
             ilasmProcess.WaitForExit();
         }
 
@@ -181,6 +196,12 @@ namespace CILantroToolsWebAPI.Services
                 testReadModel.ExePath = BuildTestExePath(testReadModel.Name, true);
                 testReadModel.ExePathFull = testExePath;
             }
+
+            var generateExeOutputPath = BuildTestGenerateExeOutputPath(testReadModel.Name);
+            if (File.Exists(generateExeOutputPath))
+            {
+                testReadModel.GenerateExeOutput = await File.ReadAllTextAsync(generateExeOutputPath);
+            }
         }
 
         private async Task CompleteTestReadModels(IEnumerable<TestReadModel> testReadModels)
@@ -205,6 +226,11 @@ namespace CILantroToolsWebAPI.Services
             return Path.Combine(_appSettings.Value.TestsDataDirectoryPath, EXECS_DIRECTORY_NAME);
         }
 
+        private string BuildGenerateExeOutputsPath()
+        {
+            return Path.Combine(_appSettings.Value.TestsDataDirectoryPath, GENERATE_EXE_OUTPUTS_DIRECTORY_NAME);
+        }
+
         private string BuildTestOriginalExePath(string testPath)
         {
             return Path.Combine(_appSettings.Value.TestsDirectoryPath, testPath.Substring(1));
@@ -220,6 +246,12 @@ namespace CILantroToolsWebAPI.Services
         {
             var execsPath = BuildExecsPath();
             return Path.Combine(execsPath, testName);
+        }
+
+        private string BuildTestGenerateExeOutputsPath(string testName)
+        {
+            var outputsPath = BuildGenerateExeOutputsPath();
+            return Path.Combine(outputsPath, testName);
         }
 
         private string BuildTestMainIlSourcePath(string testName, bool relative = false)
@@ -242,6 +274,24 @@ namespace CILantroToolsWebAPI.Services
             if (relative) exePath = exePath.Substring(_appSettings.Value.TestsDataDirectoryPath.Length);
 
             return exePath;
+        }
+
+        private string BuildTestGenerateExeOutputPath(string testName, bool relative = false)
+        {
+            var outputFileName = $"{testName}.out";
+            var testOutputsPath = BuildTestGenerateExeOutputsPath(testName);
+            var outputPath = Path.Combine(testOutputsPath, outputFileName);
+
+            if (relative) outputPath = outputPath.Substring(_appSettings.Value.TestsDataDirectoryPath.Length);
+
+            return outputPath;
+        }
+
+        private void ClearTestExecs(string testName)
+        {
+            var testExecsPath = BuildTestExecsPath(testName);
+            Directory.Delete(testExecsPath, true);
+            EnsureDirectoryExists(testExecsPath);
         }
 
         private async Task<string> ReadIlSource(string testName)

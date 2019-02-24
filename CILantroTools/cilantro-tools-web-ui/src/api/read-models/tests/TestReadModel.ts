@@ -14,6 +14,7 @@ interface TestReadModel {
 	mainIlSourcePath: string;
 	mainIlSource: string;
 	exePath: string;
+	generateExeOutput: string;
 	hasEmptyInput: boolean;
 	output?: InputOutput;
 	hasCategory: boolean;

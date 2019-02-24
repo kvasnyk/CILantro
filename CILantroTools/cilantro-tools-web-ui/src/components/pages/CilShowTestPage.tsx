@@ -228,6 +228,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 								<CilGenerateTestExeButton test={test} onExeGenerated={handleExeGenerated} />
 								<CilRunTestExeButton type="icon-button" test={test} />
 							</CilDetailsRow>
+							{test.generateExeOutput ? <CilCodeEditor code={test.generateExeOutput} /> : null}
 						</div>
 					) : null}
 

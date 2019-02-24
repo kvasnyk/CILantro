@@ -34,7 +34,9 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
         public string ExePath { get; set; }
 
         public string ExePathFull { get; set; }
-        
+
+        public string GenerateExeOutput { get; set; }
+
         public bool HasEmptyInput { get; set; }
 
         public InputOutput Output { get; set; }
