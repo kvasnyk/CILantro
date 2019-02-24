@@ -1,4 +1,4 @@
-﻿namespace CILantro.Model
+﻿namespace CILantro.PorgramStructure
 {
     public class CilAssemblyVersion
     {

@@ -1,5 +1,5 @@
 ﻿using CILantro.Exceptions;
-using CILantro.Model;
+using CILantro.PorgramStructure;
 using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;

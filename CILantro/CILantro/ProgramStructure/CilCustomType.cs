@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CILantro.Model
+namespace CILantro.PorgramStructure
 {
     public class CilCustomType
     {
