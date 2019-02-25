@@ -13,6 +13,13 @@ namespace CILantro.Interpreting
 
         public void Interpret()
         {
+            var state = new CilControlState(_program.EntryPoint);
+
+            while (state.CurrentInstruction != null)
+            {
+                state.CurrentInstruction.Execute(state);
+            }
+
             return;
         }
     }

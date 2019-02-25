@@ -23,8 +23,8 @@ namespace CILantro.AbstractSyntaxTree.Other
             {
                 ClassName = new CilClassName
                 {
-                    AssemblyName = children4.Child4.Value,
-                    ClassName = children4.Child2.Value
+                    AssemblyName = children4.Child2.Value,
+                    ClassName = children4.Child4.Value
                 };
 
                 return;

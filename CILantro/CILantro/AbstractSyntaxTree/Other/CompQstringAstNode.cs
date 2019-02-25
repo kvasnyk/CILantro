@@ -9,6 +9,8 @@ namespace CILantro.AbstractSyntaxTree.Other
     [AstNode("compQstring")]
     public class CompQstringAstNode : AstNodeBase
     {
+        public string Value { get; private set; }
+
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
             // QSTRING
@@ -16,7 +18,8 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<QSTRINGAstNode>();
             if (qstringChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                Value = qstringChildren.Child1.Value;
+
                 return;
             }
 

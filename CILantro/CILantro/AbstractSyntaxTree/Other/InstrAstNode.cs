@@ -39,6 +39,10 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (methodTypeSpecChildren.PopulateWith(parseNode))
             {
                 var instructionMethod = methodTypeSpecChildren.Child1.Instruction;
+                instructionMethod.ReturnType = methodTypeSpecChildren.Child3.Type;
+                instructionMethod.TypeSpec = methodTypeSpecChildren.Child4.TypeSpec;
+                instructionMethod.MethodName = methodTypeSpecChildren.Child6.MethodName;
+
                 Instruction = instructionMethod;
 
                 return;
@@ -51,6 +55,8 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (stringQstringChildren.PopulateWith(parseNode))
             {
                 var instructionString = stringQstringChildren.Child1.Instruction;
+                instructionString.StringValue = stringQstringChildren.Child2.Value;
+
                 Instruction = instructionString;
 
                 return;
