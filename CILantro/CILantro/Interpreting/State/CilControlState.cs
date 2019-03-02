@@ -8,27 +8,24 @@ namespace CILantro.Interpreting.State
 {
     public class CilControlState
     {
-        public Stack<CilCallStackItem> CallStack { get; set; }
+        public Stack<CilMethodState> CallStack { get; set; }
 
-        public CilMethod CurrentMethod => CallStack.Peek().Method;
-
-        public CilMethodState CurrentMethodState => CallStack.Peek().MethodState;
+        public CilMethodState CurrentMethodState => CallStack.Peek();
 
         public CilInstruction CurrentInstruction => CurrentMethodState.Instruction;
 
         public Stack<CilObject> CurrentEvaluationStack => CurrentMethodState.EvaluationStack;
 
+        public CilMethodInfo CurrentMethodInfo => CurrentMethodState.MethodInfo;
+
         public CilControlState(CilMethod entryPoint)
         {
-            CallStack = new Stack<CilCallStackItem>();
-            CallStack.Push(new CilCallStackItem
+            CallStack = new Stack<CilMethodState>();
+            CallStack.Push(new CilMethodState
             {
-                Method = entryPoint,
-                MethodState = new CilMethodState
-                {
-                    Instruction = entryPoint.Instructions.First(),
-                    EvaluationStack = new Stack<CilObject>()
-                }
+                Instruction = entryPoint.Instructions.First(),
+                EvaluationStack = new Stack<CilObject>(),
+                MethodInfo = new CilMethodInfo(entryPoint)
             });
         }
     }

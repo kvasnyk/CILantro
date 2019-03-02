@@ -24,7 +24,7 @@ namespace CILantro.Interpreting.Visitors
             var stringRef = new CilReference(stringAddress);
 
             _state.CurrentEvaluationStack.Push(stringRef);
-            _state.CurrentMethodState.Instruction = _state.CurrentMethod.GetNextInstruction(instruction);
+            _state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
         }
     }
 }

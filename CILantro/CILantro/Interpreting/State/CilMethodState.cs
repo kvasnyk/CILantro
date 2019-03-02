@@ -9,5 +9,7 @@ namespace CILantro.Interpreting.State
         public CilInstruction Instruction { get; set; }
 
         public Stack<CilObject> EvaluationStack { get; set; }
+
+        public CilMethodInfo MethodInfo { get; set; }
     }
 }

@@ -34,7 +34,7 @@ namespace CILantro.Interpreting.Visitors
 
             MethodCaller.Call(callConfig);
 
-            _state.CurrentMethodState.Instruction = _state.CurrentMethod.GetNextInstruction(instruction);
+            _state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
         }
     }
 }
