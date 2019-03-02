@@ -1,6 +1,6 @@
 ﻿using CILantro.Structure;
 
-namespace CILantro.Interpreting
+namespace CILantro.Interpreting.State
 {
     public class CilCallStackItem
     {

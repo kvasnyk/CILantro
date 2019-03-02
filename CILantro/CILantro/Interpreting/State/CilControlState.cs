@@ -1,10 +1,10 @@
 ﻿using CILantro.Instructions;
+using CILantro.Interpreting.Objects;
 using CILantro.Structure;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CILantro.Interpreting
+namespace CILantro.Interpreting.State
 {
     public class CilControlState
     {
@@ -16,7 +16,7 @@ namespace CILantro.Interpreting
 
         public CilInstruction CurrentInstruction => CurrentMethodState.Instruction;
 
-        public Stack CurrentEvaluationStack => CurrentMethodState.EvaluationStack;
+        public Stack<CilObject> CurrentEvaluationStack => CurrentMethodState.EvaluationStack;
 
         public CilControlState(CilMethod entryPoint)
         {
@@ -27,7 +27,7 @@ namespace CILantro.Interpreting
                 MethodState = new CilMethodState
                 {
                     Instruction = entryPoint.Instructions.First(),
-                    EvaluationStack = new Stack()
+                    EvaluationStack = new Stack<CilObject>()
                 }
             });
         }

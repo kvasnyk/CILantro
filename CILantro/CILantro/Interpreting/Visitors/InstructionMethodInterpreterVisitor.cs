@@ -1,4 +1,7 @@
 ﻿using CILantro.Instructions.Method;
+using CILantro.Interpreting.Memory;
+using CILantro.Interpreting.Objects;
+using CILantro.Interpreting.State;
 using CILantro.Utils;
 using CILantro.Visitors;
 
@@ -8,14 +11,18 @@ namespace CILantro.Interpreting.Visitors
     {
         private readonly CilControlState _state;
 
-        public InstructionMethodInterpreterVisitor(CilControlState state)
+        private readonly CilHeap _heap;
+
+        public InstructionMethodInterpreterVisitor(CilControlState state, CilHeap heap)
         {
             _state = state;
+            _heap = heap;
         }
 
         public override void VisitCallInstruction(CallInstruction instruction)
         {
-            var methodArgument = _state.CurrentEvaluationStack.Pop();
+            var argument = _state.CurrentEvaluationStack.Pop();
+            var methodArgument = _heap.Load((argument as CilReference).Address);
 
             var callConfig = new MethodCallerConfig
             {
