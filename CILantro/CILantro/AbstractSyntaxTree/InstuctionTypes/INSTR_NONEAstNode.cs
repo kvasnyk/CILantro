@@ -28,7 +28,7 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 .Add("ret");
             if (retChildren.PopulateWith(parseNode))
             {
-                Instruction = new RetInstruction();
+                Instruction = new ReturnInstruction();
 
                 return;
             }

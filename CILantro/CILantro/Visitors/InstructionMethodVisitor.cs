@@ -1,0 +1,19 @@
+﻿using CILantro.Instructions;
+using CILantro.Instructions.Method;
+using System;
+
+namespace CILantro.Visitors
+{
+    public abstract class InstructionMethodVisitor
+    {
+        public void VisitInstructionMethod(CilInstructionMethod instruction)
+        {
+            if (instruction is CallInstruction callInstruction)
+                VisitCallInstruction(callInstruction);
+            else
+                throw new ArgumentException($"CIL instruction method cannot be recognized: '{instruction.ToString()}'.");
+        }
+
+        public abstract void VisitCallInstruction(CallInstruction instruction);
+    }
+}

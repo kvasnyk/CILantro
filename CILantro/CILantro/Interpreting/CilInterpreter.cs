@@ -1,4 +1,5 @@
-﻿using CILantro.Structure;
+﻿using CILantro.Interpreting.Visitors;
+using CILantro.Structure;
 
 namespace CILantro.Interpreting
 {
@@ -13,14 +14,8 @@ namespace CILantro.Interpreting
 
         public void Interpret()
         {
-            var state = new CilControlState(_program.EntryPoint);
-
-            while (state.CurrentInstruction != null)
-            {
-                state.CurrentInstruction.Execute(state);
-            }
-
-            return;
+            var interpreterVisitor = new CilInterpreterInstructionsVisitor(_program);
+            interpreterVisitor.Visit();
         }
     }
 }
