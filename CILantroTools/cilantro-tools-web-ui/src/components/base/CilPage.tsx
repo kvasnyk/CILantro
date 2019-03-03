@@ -17,10 +17,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 		display: 'flex',
 		flexDirection: 'column'
 	},
-	pageWithMenu: {
-		height: '100%',
-		overflow: 'hidden'
-	},
 	pageContent: {
 		height: '100%',
 		overflow: 'auto'
@@ -35,21 +31,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 	},
 	errorIcon: {
 		fontSize: '15rem'
-	},
-	menu: {
-		height: theme.spacing.unit * 10,
-		display: 'flex',
-		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'center',
-		marginTop: theme.spacing.unit + 2
 	}
 }));
 
 interface CilPageProps {
 	state: PageState;
 	centerChildren?: boolean;
-	menu?: React.ReactNode;
 	className?: string;
 }
 
@@ -69,8 +56,6 @@ const CilPage: StatelessComponent<CilPageProps> = props => {
 			{props.state === 'success' ? (
 				<>
 					<div className={pageContentClassName}>{props.children}</div>
-
-					{props.menu ? <div className={classes.menu}>{props.menu}</div> : undefined}
 				</>
 			) : (
 				undefined

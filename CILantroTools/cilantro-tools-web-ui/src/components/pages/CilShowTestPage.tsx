@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { ChangeEvent, FunctionComponent, useEffect, useState } from 'react';
 
-import { AppBar, Tab, Tabs, Theme, Typography } from '@material-ui/core';
+import { AppBar, Tab, Tabs, Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 import CategoriesApiClient from '../../api/clients/CategoriesApiClient';
@@ -22,6 +22,7 @@ import CilTestOutputEditor from '../shared/tests/CilTestOutputEditor';
 import CilCodeEditor from '../utils/CilCodeEditor';
 import CilDetailsRow from '../utils/CilDetailsRow';
 import CilDetailsValue from '../utils/CilDetailsValue';
+import CilPageHeader from '../utils/CilPageHeader';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	tabsAppBar: {
@@ -37,18 +38,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 			flexGrow: 1,
 			flexBasis: 0
 		}
-	},
-	titleWrapper: {
-		display: 'flex',
-		flexDirection: 'row',
-		alignItems: 'center',
-		marginBottom: '10px',
-		'&>*': {
-			marginRight: '10px'
-		}
-	},
-	testNameTypography: {
-		marginBottom: 0
 	}
 }));
 
@@ -160,14 +149,10 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 		<CilPage state={pageState}>
 			{test && categories ? (
 				<>
-					<div className={classes.titleWrapper}>
-						<Typography variant="h1" className={classes.testNameTypography}>
-							{('00000' + test.intId).slice(-5)} | {test.name}
-						</Typography>
+					<CilPageHeader text={`${('00000' + test.intId).slice(-5)} | ${test.name}`} subtext={`...${test.path}`}>
 						<CilRunTestExeButton type="fab" test={test} />
 						<CilRunTestInterpreterButton type="fab" test={test} />
-					</div>
-					<Typography variant="subtitle1">...{test.path}</Typography>
+					</CilPageHeader>
 
 					{!test.isReady ? (
 						<CilTestChecklist

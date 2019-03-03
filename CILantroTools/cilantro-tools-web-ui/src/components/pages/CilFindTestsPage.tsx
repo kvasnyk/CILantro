@@ -2,8 +2,10 @@ import React, { StatelessComponent, useEffect, useState } from 'react';
 
 import TestsApiClient from '../../api/clients/TestsApiClient';
 import TestCandidate from '../../api/models/tests/TestCandidate';
+import translations from '../../translations/translations';
 import CilPage, { PageState } from '../base/CilPage';
 import CilTestCandidatesList from '../shared/tests/CilTestCandidatesList';
+import CilPageHeader from '../utils/CilPageHeader';
 
 const CilFindTestsPage: StatelessComponent = props => {
 	const testsApiClient = new TestsApiClient();
@@ -33,6 +35,7 @@ const CilFindTestsPage: StatelessComponent = props => {
 
 	return (
 		<CilPage state={pageState} centerChildren={centerChildren}>
+			<CilPageHeader text={translations.tests.findTests} />
 			<CilTestCandidatesList testCandidates={testCandidates} onTestCreated={handleTestCreated} />
 		</CilPage>
 	);
