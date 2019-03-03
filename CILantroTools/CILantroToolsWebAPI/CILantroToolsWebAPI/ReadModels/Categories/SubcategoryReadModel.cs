@@ -1,5 +1,6 @@
 ﻿using CILantroToolsWebAPI.DbModels;
 using System;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace CILantroToolsWebAPI.ReadModels.Categories
@@ -11,6 +12,8 @@ namespace CILantroToolsWebAPI.ReadModels.Categories
         public string Name { get; set; }
 
         public Guid CategoryId { get; set; }
+
+        public bool IsAssignedToTest { get; set; }
     }
 
     public class SubcategoryReadModelMapping : ReadModelMappingBase<Subcategory, SubcategoryReadModel>
@@ -19,7 +22,8 @@ namespace CILantroToolsWebAPI.ReadModels.Categories
         {
             Id = subcategory.Id,
             Name = subcategory.Name,
-            CategoryId = subcategory.CategoryId
+            CategoryId = subcategory.CategoryId,
+            IsAssignedToTest = subcategory.Tests.Any()
         };
     }
 }

@@ -76,5 +76,15 @@ namespace CILantroToolsWebAPI.Services
 
             return await _subcategoriesRepository.CreateAsync(newSubcategory);
         }
+
+        public async Task DeleteSubcategoryAsync(Guid subcategoryId)
+        {
+            var subcategoryReadModel = _subcategoriesRepository.Read<SubcategoryReadModel>().SingleOrDefault(s => s.Id == subcategoryId);
+
+            if (subcategoryReadModel.IsAssignedToTest)
+                throw new ToolsException("The subcategory is assigned to a test.");
+
+            await _subcategoriesRepository.DeleteAsync(s => s.Id == subcategoryId);
+        }
     }
 }

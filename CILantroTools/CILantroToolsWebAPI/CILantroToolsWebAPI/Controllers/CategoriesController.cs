@@ -42,5 +42,11 @@ namespace CILantroToolsWebAPI.Controllers
         {
             return await _categoriesService.AddSubcategoryAsync(model);
         }
+
+        [HttpDelete("{categoryId}/subcategories/{subcategoryId}/delete")]
+        public async Task DeleteSubcategoryAsync([FromRoute]Guid categoryId, [FromRoute]Guid subcategoryId)
+        {
+            await _categoriesService.DeleteSubcategoryAsync(subcategoryId);
+        }
     }
 }

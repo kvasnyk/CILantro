@@ -6,10 +6,18 @@ import { makeStyles } from '@material-ui/styles';
 import CategoryReadModel from '../../../api/read-models/categories/CategoryReadModel';
 import CilAddSubcategoryButton from './CilAddSubcategoryButton';
 import CilDeleteCategoryButton from './CilDeleteCategoryButton';
+import CilDeleteSubcategoryButton from './CilDeleteSubcategoryButton';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	cardActions: {
 		justifyContent: 'flex-end'
+	},
+	subcategoryLi: {
+		display: 'flex',
+		alignItems: 'center'
+	},
+	subcategoryTypography: {
+		marginRight: '10px'
 	}
 }));
 
@@ -17,6 +25,7 @@ interface CilCategoryCardProps {
 	category: CategoryReadModel;
 	onSubcategoryAdded: () => void;
 	onCategoryDeleted: () => void;
+	onSubcategoryDeleted: () => void;
 }
 
 const CilCategoryCard: StatelessComponent<CilCategoryCardProps> = props => {
@@ -28,8 +37,9 @@ const CilCategoryCard: StatelessComponent<CilCategoryCardProps> = props => {
 				<Typography variant="h2">{props.category.name}</Typography>
 				<ul>
 					{props.category.subcategories.map(subcategory => (
-						<li key={subcategory.id}>
-							<Typography>{subcategory.name}</Typography>
+						<li key={subcategory.id} className={classes.subcategoryLi}>
+							<Typography className={classes.subcategoryTypography}>{subcategory.name}</Typography>
+							<CilDeleteSubcategoryButton subcategory={subcategory} onSubcategoryDeleted={props.onSubcategoryDeleted} />
 						</li>
 					))}
 				</ul>

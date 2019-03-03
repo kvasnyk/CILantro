@@ -11,6 +11,7 @@ interface CilCategoriesListProps {
 	categories: CategoryReadModel[];
 	onSubcategoryAdded: () => void;
 	onCategoryDeleted: () => void;
+	onSubcategoryDeleted: () => void;
 }
 
 const CilCategoriesList: StatelessComponent<CilCategoriesListProps> = props => {
@@ -22,6 +23,7 @@ const CilCategoriesList: StatelessComponent<CilCategoriesListProps> = props => {
 					category={category}
 					onSubcategoryAdded={props.onSubcategoryAdded}
 					onCategoryDeleted={props.onCategoryDeleted}
+					onSubcategoryDeleted={props.onSubcategoryDeleted}
 				/>
 			))}
 		</CilGridLayout>

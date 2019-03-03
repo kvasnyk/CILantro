@@ -25,6 +25,10 @@ class CategoriesApiClient extends ApiClientBase {
 	public addSubcategory(data: AddSubcategoryBindingModel) {
 		return this.post<AddSubcategoryBindingModel, string>(apiRoutes.categories.addSubcategory, data);
 	}
+
+	public deleteSubcategory(categoryId: string, subcategoryId: string) {
+		return this.delete<{}>(apiRoutes.categories.deleteSubcategory(categoryId, subcategoryId), {});
+	}
 }
 
 export default CategoriesApiClient;
