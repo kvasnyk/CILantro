@@ -4,11 +4,13 @@ using System.Linq.Expressions;
 
 namespace CILantroToolsWebAPI.ReadModels.Categories
 {
-    public class SubcategoryReadModel
+    public class SubcategoryReadModel : IKeyReadModel
     {
         public Guid Id { get; set; }
 
         public string Name { get; set; }
+
+        public Guid CategoryId { get; set; }
     }
 
     public class SubcategoryReadModelMapping : ReadModelMappingBase<Subcategory, SubcategoryReadModel>
@@ -16,7 +18,8 @@ namespace CILantroToolsWebAPI.ReadModels.Categories
         public override Expression<Func<Subcategory, SubcategoryReadModel>> Mapping => subcategory => new SubcategoryReadModel
         {
             Id = subcategory.Id,
-            Name = subcategory.Name
+            Name = subcategory.Name,
+            CategoryId = subcategory.CategoryId
         };
     }
 }
