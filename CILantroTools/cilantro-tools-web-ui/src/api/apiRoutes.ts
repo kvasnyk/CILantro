@@ -2,6 +2,7 @@ const apiRoutes = {
 	categories: {
 		addCategory: '/categories/add',
 		addSubcategory: '/categories/add-subcategory',
+		deleteCategory: (categoryId: string) => `/categories/${categoryId}/delete`,
 		searchCategories: '/categories/search'
 	},
 

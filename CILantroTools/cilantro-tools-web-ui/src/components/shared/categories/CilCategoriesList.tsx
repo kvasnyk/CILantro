@@ -8,26 +8,28 @@ import CilGridLayout from '../../layouts/CilGridLayout';
 import CilCategoryCard from './CilCategoryCard';
 
 interface CilCategoriesListProps {
-  categories: CategoryReadModel[];
-  onSubcategoryAdded: () => void;
+	categories: CategoryReadModel[];
+	onSubcategoryAdded: () => void;
+	onCategoryDeleted: () => void;
 }
 
 const CilCategoriesList: StatelessComponent<CilCategoriesListProps> = props => {
-  return props.categories.length > 0 ? (
-    <CilGridLayout columns={3}>
-      {props.categories.map(category => (
-        <CilCategoryCard
-          key={category.id}
-          category={category}
-          onSubcategoryAdded={props.onSubcategoryAdded}
-        />
-      ))}
-    </CilGridLayout>
-  ) : (
-    <Typography variant="h2" align="center">
-      {translations.categories.noCategories}
-    </Typography>
-  );
+	return props.categories.length > 0 ? (
+		<CilGridLayout columns={3}>
+			{props.categories.map(category => (
+				<CilCategoryCard
+					key={category.id}
+					category={category}
+					onSubcategoryAdded={props.onSubcategoryAdded}
+					onCategoryDeleted={props.onCategoryDeleted}
+				/>
+			))}
+		</CilGridLayout>
+	) : (
+		<Typography variant="h2" align="center">
+			{translations.categories.noCategories}
+		</Typography>
+	);
 };
 
 export default CilCategoriesList;

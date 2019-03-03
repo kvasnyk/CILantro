@@ -32,11 +32,11 @@ namespace CILantroToolsWebAPI.Services
         public async Task<Guid> AddCategoryAsync(AddCategoryBindingModel model)
         {
             if (string.IsNullOrEmpty(model.Name))
-                throw new ToolsException("Category name cannot be empty.");
+                throw new ToolsException("A category name cannot be empty.");
 
             var existingCategory = _categoriesRepository.Read<CategoryReadModel>().FirstOrDefault(c => c.Name == model.Name);
             if (existingCategory != null)
-                throw new ToolsException("Category with the same name already exists.");
+                throw new ToolsException("A category with the same name already exists.");
 
             var newCategory = new Category
             {
@@ -47,15 +47,25 @@ namespace CILantroToolsWebAPI.Services
             return await _categoriesRepository.CreateAsync(newCategory);
         }
 
+        public async Task DeleteCategoryAsync(Guid categoryId)
+        {
+            var categoryReadModel = _categoriesRepository.Read<CategoryReadModel>().SingleOrDefault(c => c.Id == categoryId);
+
+            if (categoryReadModel.IsAssignedToTest)
+                throw new ToolsException("The category is assigned to a test.");
+
+            await _categoriesRepository.DeleteAsync(c => c.Id == categoryId);
+        }
+
         public async Task<Guid> AddSubcategoryAsync(AddSubcategoryBindingModel model)
         {
             if (string.IsNullOrEmpty(model.Name))
-                throw new ToolsException("Subcategory name cannot be empty.");
+                throw new ToolsException("A subcategory name cannot be empty.");
 
             var existingSubcategory = _subcategoriesRepository.Read<SubcategoryReadModel>()
                 .FirstOrDefault(s => s.Name == model.Name && s.CategoryId == model.CategoryId);
             if (existingSubcategory != null)
-                throw new ToolsException("Subcategory with the same name already exists.");
+                throw new ToolsException("A subcategory with the same name already exists.");
 
             var newSubcategory = new Subcategory
             {

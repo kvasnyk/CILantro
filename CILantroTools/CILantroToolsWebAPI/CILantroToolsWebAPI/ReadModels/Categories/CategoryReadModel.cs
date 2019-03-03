@@ -14,6 +14,8 @@ namespace CILantroToolsWebAPI.ReadModels.Categories
         public string Name { get; set; }
 
         public IEnumerable<SubcategoryReadModel> Subcategories { get; set; }
+
+        public bool IsAssignedToTest { get; set; }
     }
 
     public class CategoryReadModelMapping : ReadModelMappingBase<Category, CategoryReadModel>
@@ -24,7 +26,8 @@ namespace CILantroToolsWebAPI.ReadModels.Categories
         {
             Id = category.Id,
             Name = category.Name,
-            Subcategories = category.Subcategories.Select(s => _subcategoryMapping.Invoke(s)).OrderBy(s => s.Name)
+            Subcategories = category.Subcategories.Select(s => _subcategoryMapping.Invoke(s)).OrderBy(s => s.Name),
+            IsAssignedToTest = category.Tests.Any()
         };
     }
 }

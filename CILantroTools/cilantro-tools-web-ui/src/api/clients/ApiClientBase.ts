@@ -23,6 +23,12 @@ abstract class ApiClientBase {
 	protected put<TData, TResult>(url: string, data: TData) {
 		return this.axiosInstance.put<TResult>(url, data);
 	}
+
+	protected delete<TData>(url: string, data: TData) {
+		return this.axiosInstance.delete(url, {
+			data
+		});
+	}
 }
 
 export default ApiClientBase;

@@ -33,6 +33,10 @@ const CilCategoriesPage: StatelessComponent = props => {
 		refreshCategories();
 	};
 
+	const handleCategoryDeleted = () => {
+		refreshCategories();
+	};
+
 	const handleSubcategoryAdded = () => {
 		refreshCategories();
 	};
@@ -44,7 +48,11 @@ const CilCategoriesPage: StatelessComponent = props => {
 			<CilPageHeader text={translations.categories.categories}>
 				<CilAddCategoryButton onCategoryAdded={handleCategoryAdded} />
 			</CilPageHeader>
-			<CilCategoriesList categories={searchResult.data} onSubcategoryAdded={handleSubcategoryAdded} />
+			<CilCategoriesList
+				categories={searchResult.data}
+				onSubcategoryAdded={handleSubcategoryAdded}
+				onCategoryDeleted={handleCategoryDeleted}
+			/>
 		</CilPage>
 	);
 };

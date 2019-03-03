@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/styles';
 
 import CategoryReadModel from '../../../api/read-models/categories/CategoryReadModel';
 import CilAddSubcategoryButton from './CilAddSubcategoryButton';
+import CilDeleteCategoryButton from './CilDeleteCategoryButton';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	cardActions: {
@@ -15,6 +16,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface CilCategoryCardProps {
 	category: CategoryReadModel;
 	onSubcategoryAdded: () => void;
+	onCategoryDeleted: () => void;
 }
 
 const CilCategoryCard: StatelessComponent<CilCategoryCardProps> = props => {
@@ -34,6 +36,7 @@ const CilCategoryCard: StatelessComponent<CilCategoryCardProps> = props => {
 			</CardContent>
 			<CardActions className={classes.cardActions}>
 				<CilAddSubcategoryButton category={props.category} onSubcategoryAdded={props.onSubcategoryAdded} />
+				<CilDeleteCategoryButton category={props.category} onCategoryDeleted={props.onCategoryDeleted} />
 			</CardActions>
 		</Card>
 	);

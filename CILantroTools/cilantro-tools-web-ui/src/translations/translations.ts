@@ -5,10 +5,13 @@ const translations = {
 	categories: {
 		addCategory: 'New category',
 		addSubcategory: 'New subcategory',
+		categoryIsAssingedToTest: 'The category is assigned to a test.',
 		categories: 'Categories',
 		categoryHasBeenAdded: 'The category has been added.',
+		categoryHasBeenDeleted: 'The category has been deleted.',
 		errorOccurredWhileAddingCategory: 'An error occurred while adding the category.',
 		errorOccurredWhileAddingSubcategory: 'An error occurred while adding the subcategory.',
+		errorOccurredWhileDeleteingCategory: 'An error occurred while deleting the category.',
 		name: 'Name',
 		noCategories: 'No categories have been found.',
 		subcategoryHasBeenAdded: 'The subcategory has been added.',

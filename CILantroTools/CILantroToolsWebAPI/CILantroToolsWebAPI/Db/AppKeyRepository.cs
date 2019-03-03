@@ -45,6 +45,15 @@ namespace CILantroToolsWebAPI.Db
             await _context.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            var matchingEntities = _context.Set<TEntity>().Where(predicate);
+
+            _context.Set<TEntity>().RemoveRange(matchingEntities);
+
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<SearchResult<TReadModel>> Search<TReadModel>(SearchParameter searchParameter)
             where TReadModel : class, IKeyReadModel
         {
