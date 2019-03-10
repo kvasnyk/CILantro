@@ -13,6 +13,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 		cursor: 'default',
 		pointerEvents: 'none'
 	},
+	listItem: {
+		paddingTop: 0,
+		paddingBottom: 0
+	},
 	listItemText: {
 		flexBasis: 'auto',
 		flexGrow: 0
@@ -35,7 +39,7 @@ const CilTestChecklist: FunctionComponent<CilTestChecklistProps> = props => {
 
 	return (
 		<List>
-			<ListItem>
+			<ListItem className={classes.listItem}>
 				<Checkbox checked={props.test.hasCategory} readOnly={true} className={classes.checkbox} />
 				<ListItemText primary={translations.tests.selectTestCategory} className={classes.listItemText} />
 				{props.onGoToCategory ? (
@@ -45,7 +49,7 @@ const CilTestChecklist: FunctionComponent<CilTestChecklistProps> = props => {
 				) : null}
 			</ListItem>
 
-			<ListItem>
+			<ListItem className={classes.listItem}>
 				<Checkbox checked={props.test.hasSubcategory} readOnly={true} className={classes.checkbox} />
 				<ListItemText primary={translations.tests.selectTestSubcategory} className={classes.listItemText} />
 				{props.onGoToSubcategory ? (
@@ -55,7 +59,7 @@ const CilTestChecklist: FunctionComponent<CilTestChecklistProps> = props => {
 				) : null}
 			</ListItem>
 
-			<ListItem>
+			<ListItem className={classes.listItem}>
 				<Checkbox checked={props.test.hasIlSources} readOnly={true} className={classes.checkbox} />
 				<ListItemText primary={translations.tests.generateIlSources} className={classes.listItemText} />
 				{props.onGoToIlSources ? (
@@ -65,7 +69,7 @@ const CilTestChecklist: FunctionComponent<CilTestChecklistProps> = props => {
 				) : null}
 			</ListItem>
 
-			<ListItem>
+			<ListItem className={classes.listItem}>
 				<Checkbox checked={props.test.hasExe} readOnly={true} className={classes.checkbox} />
 				<ListItemText primary={translations.tests.generateExe} className={classes.listItemText} />
 				{props.onGoToExe ? (
@@ -75,7 +79,7 @@ const CilTestChecklist: FunctionComponent<CilTestChecklistProps> = props => {
 				) : null}
 			</ListItem>
 
-			<ListItem>
+			<ListItem className={classes.listItem}>
 				<Checkbox checked={props.test.hasInput} readOnly={true} className={classes.checkbox} />
 				<ListItemText primary={translations.tests.configureInput} className={classes.listItemText} />
 				{props.onGoToInput ? (
@@ -85,7 +89,7 @@ const CilTestChecklist: FunctionComponent<CilTestChecklistProps> = props => {
 				) : null}
 			</ListItem>
 
-			<ListItem>
+			<ListItem className={classes.listItem}>
 				<Checkbox checked={props.test.hasOutput} readOnly={true} className={classes.checkbox} />
 				<ListItemText primary={translations.tests.configureOutput} className={classes.listItemText} />
 				{props.onGoToOutput ? (
@@ -95,7 +99,7 @@ const CilTestChecklist: FunctionComponent<CilTestChecklistProps> = props => {
 				) : null}
 			</ListItem>
 
-			<ListItem>
+			<ListItem className={classes.listItem}>
 				<Checkbox checked={props.test.hasIoExample} readOnly={true} className={classes.checkbox} />
 				<ListItemText primary={translations.tests.addIoExample} className={classes.listItemText} />
 				{props.onGoToIoExamples ? (
