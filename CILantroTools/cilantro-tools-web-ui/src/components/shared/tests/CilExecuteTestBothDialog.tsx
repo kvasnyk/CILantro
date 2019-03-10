@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 
 import { AppBar, Dialog, DialogContent, Theme, Toolbar, Typography } from '@material-ui/core';
+import orange from '@material-ui/core/colors/orange';
 import CloseIcon from '@material-ui/icons/CloseRounded';
 import { makeStyles } from '@material-ui/styles';
 
@@ -23,7 +24,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 		height: '100%'
 	},
 	toolbar: {
-		display: 'flex'
+		display: 'flex',
+		background: `linear-gradient(to right, ${theme.palette.primary.main} 0%, ${theme.palette.primary.main} 50%, ${
+			orange[500]
+		} 50%, ${orange[500]} 100%)`,
+		color: theme.palette.common.white
 	},
 	fakeToolbar: theme.mixins.toolbar,
 	toolbarLeft: {

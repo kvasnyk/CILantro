@@ -1,6 +1,8 @@
+import classNames from 'classnames';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 
 import { AppBar, Dialog, DialogContent, Theme, Toolbar, Typography } from '@material-ui/core';
+import orange from '@material-ui/core/colors/orange';
 import CloseIcon from '@material-ui/icons/CloseRounded';
 import { makeStyles } from '@material-ui/styles';
 
@@ -24,6 +26,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 	},
 	toolbar: {
 		display: 'flex'
+	},
+	toolbarInterpreter: {
+		backgroundColor: orange[500]
 	},
 	fakeToolbar: theme.mixins.toolbar,
 	toolbarLeft: {
@@ -144,16 +149,17 @@ const CilExecuteTestDialog: FunctionComponent<CilRunTestExeDialogProps> = props 
 		};
 	}, []);
 
+	const toolbarClassName = classNames(classes.toolbar, {
+		[classes.toolbarInterpreter]: props.executionType === 'cilantro-interpreter'
+	});
+
 	return (
 		<Dialog open={true} fullScreen={true} onClose={handleDialogClose}>
 			<AppBar>
-				<Toolbar className={classes.toolbar}>
+				<Toolbar className={toolbarClassName}>
 					<div className={classes.toolbarLeft}>
 						<Typography variant="h6" color="inherit">
 							{props.test.name}
-						</Typography>
-						<Typography variant="subtitle1" color="inherit" className={classes.runningExeTypography}>
-							{translations.tests.runningExe}
 						</Typography>
 					</div>
 					<div className={classes.toolbarRight}>
