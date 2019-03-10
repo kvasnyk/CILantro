@@ -14,6 +14,7 @@ import CilEditTestCategorySelect from '../shared/tests/CilEditTestCategorySelect
 import CilEditTestSubcategorySelect from '../shared/tests/CilEditTestSubcategorySelect';
 import CilGenerateTestExeButton from '../shared/tests/CilGenerateTestExeButton';
 import CilGenerateTestIlSourcesButton from '../shared/tests/CilGenerateTestIlSourcesButton';
+import CilRunTestBothButton from '../shared/tests/CilRunTestBothButton';
 import CilRunTestExeButton from '../shared/tests/CilRunTestExeButton';
 import CilRunTestInterpreterButton from '../shared/tests/CilRunTestInterpreterButton';
 import CilTestChecklist from '../shared/tests/CilTestChecklist';
@@ -151,6 +152,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 				<>
 					<CilPageHeader text={`${('00000' + test.intId).slice(-5)} | ${test.name}`} subtext={`...${test.path}`}>
 						<CilRunTestExeButton type="fab" test={test} />
+						<CilRunTestBothButton type="fab" test={test} />
 						<CilRunTestInterpreterButton type="fab" test={test} />
 					</CilPageHeader>
 

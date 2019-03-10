@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, { ChangeEvent, FormEvent, FunctionComponent, useRef, useState } from 'react';
 
 import { Theme } from '@material-ui/core';
@@ -67,7 +68,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 		width: '100%',
 		caretColor: 'transparent',
 		margin: 0,
-		padding: 0
+		padding: 0,
+		cursor: 'default'
 	},
 	button: {
 		visibility: 'hidden'
@@ -79,6 +81,8 @@ interface CilConsoleProps {
 	lines: CilConsoleLine[];
 	onLineAdded: (newLine: string) => void;
 	isInputEnabled?: boolean;
+	className?: string;
+	autoFocus?: boolean;
 }
 
 const CilConsole: FunctionComponent<CilConsoleProps> = props => {
@@ -122,8 +126,10 @@ const CilConsole: FunctionComponent<CilConsoleProps> = props => {
 		setInputFocused(false);
 	};
 
+	const consoleClassName = classNames(classes.console, props.className);
+
 	return (
-		<div className={classes.console} onClick={handleConsoleClick}>
+		<div className={consoleClassName} onClick={handleConsoleClick}>
 			<div className={classes.consoleTitle}>{props.title}</div>
 			<div className={classes.content}>
 				{props.lines.map((line, index) => (
@@ -142,7 +148,7 @@ const CilConsole: FunctionComponent<CilConsoleProps> = props => {
 							type="text"
 							value={inputLine}
 							onChange={handleChange}
-							autoFocus={true}
+							autoFocus={props.autoFocus}
 							className={classes.input}
 							style={{ width: inputWidth }}
 							ref={inputElem}
@@ -159,7 +165,8 @@ const CilConsole: FunctionComponent<CilConsoleProps> = props => {
 };
 
 CilConsole.defaultProps = {
-	isInputEnabled: true
+	isInputEnabled: true,
+	autoFocus: true
 };
 
 export default CilConsole;
