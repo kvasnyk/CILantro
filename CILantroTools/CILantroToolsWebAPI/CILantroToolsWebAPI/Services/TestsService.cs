@@ -1,6 +1,7 @@
 ﻿using CILantroToolsWebAPI.BindingModels.Tests;
 using CILantroToolsWebAPI.Db;
 using CILantroToolsWebAPI.DbModels;
+using CILantroToolsWebAPI.Exceptions;
 using CILantroToolsWebAPI.Models.Tests;
 using CILantroToolsWebAPI.ReadModels.Tests;
 using CILantroToolsWebAPI.Search;
@@ -27,10 +28,16 @@ namespace CILantroToolsWebAPI.Services
 
         private readonly AppKeyRepository<Test> _testsRepository;
 
-        public TestsService(IOptions<AppSettings> appSettings, AppKeyRepository<Test> testsRepository)
+        private readonly AppKeyRepository<TestInputOutputExample> _testIoExamplesRepository;
+
+        public TestsService(
+            IOptions<AppSettings> appSettings,
+            AppKeyRepository<Test> testsRepository,
+            AppKeyRepository<TestInputOutputExample> testIoExamplesRepository)
         {
             _appSettings = appSettings;
             _testsRepository = testsRepository;
+            _testIoExamplesRepository = testIoExamplesRepository;
 
             var ilSourcesPath = BuildIlSourcesPath();
             EnsureDirectoryExists(ilSourcesPath);
@@ -193,8 +200,30 @@ namespace CILantroToolsWebAPI.Services
             return output;
         }
 
-        public async Task AddTestInputOutputExaple(Guid testId, AddTestInputOutputExampleBindingModel model)
+        public async Task AddTestInputOutputExample(Guid testId, AddTestInputOutputExampleBindingModel model)
         {
+            if (string.IsNullOrEmpty(model.Name))
+                throw new ToolsException("An example's name cannot be empty.");
+
+            var exampleWithSameName = _testIoExamplesRepository.Read<TestIoExampleReadModel>().SingleOrDefault(e => e.TestId == testId && e.Name == model.Name);
+            if (exampleWithSameName != null)
+                throw new ToolsException("An example with the same name already exists");
+
+            var exampleWithSameInputAndOutput = _testIoExamplesRepository.Read<TestIoExampleReadModel>()
+                .SingleOrDefault(e => e.TestId == testId && e.Input == model.Input && e.Output == model.Output);
+            if (exampleWithSameInputAndOutput != null)
+                throw new ToolsException("An identical example already exists.");
+
+            var newExample = new TestInputOutputExample
+            {
+                Id = Guid.NewGuid(),
+                TestId = testId,
+                Name = model.Name,
+                Input = model.Input,
+                Output = model.Output
+            };
+
+            await _testIoExamplesRepository.CreateAsync(newExample);
         }
 
         private async Task CompleteTestReadModel(TestReadModel testReadModel)

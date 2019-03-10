@@ -14,6 +14,8 @@ namespace CILantroToolsWebAPI.Db
 
         public DbSet<Subcategory> Subcategories { get; set; }
 
+        public DbSet<TestInputOutputExample> TestInputOutputExamples { get; set; }
+
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {
@@ -53,6 +55,14 @@ namespace CILantroToolsWebAPI.Db
                 .HasOne(s => s.Category)
                 .WithMany(c => c.Subcategories)
                 .HasForeignKey(s => s.CategoryId);
+
+            // TestInputOutputExample
+            modelBuilder.Entity<TestInputOutputExample>()
+                .HasKey(e => e.Id);
+            modelBuilder.Entity<TestInputOutputExample>()
+                .HasOne(e => e.Test)
+                .WithMany(t => t.IoExamples)
+                .HasForeignKey(e => e.TestId);
         }
     }
 }

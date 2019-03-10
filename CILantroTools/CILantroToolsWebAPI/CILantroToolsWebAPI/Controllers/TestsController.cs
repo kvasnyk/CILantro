@@ -98,7 +98,7 @@ namespace CILantroToolsWebAPI.Controllers
         [HttpPost("{testId}/add-input-output-example")]
         public async Task AddTestInputOutputExampleAsync([FromRoute]Guid testId, [FromBody]AddTestInputOutputExampleBindingModel model)
         {
-            await _testsService.AddTestInputOutputExaple(testId, model);
+            await _testsService.AddTestInputOutputExample(testId, model);
         }
     }
 }

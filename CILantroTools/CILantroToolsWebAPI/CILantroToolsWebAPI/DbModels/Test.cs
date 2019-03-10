@@ -1,6 +1,7 @@
 ﻿using CILantroToolsWebAPI.Db;
 using CILantroToolsWebAPI.Models.Tests.InputOutput;
 using System;
+using System.Collections.Generic;
 
 namespace CILantroToolsWebAPI.DbModels
 {
@@ -25,5 +26,7 @@ namespace CILantroToolsWebAPI.DbModels
         public Guid? SubcategoryId { get; set; }
 
         public virtual Subcategory Subcategory { get; set; }
+
+        public virtual ICollection<TestInputOutputExample> IoExamples { get; set; }
     }
 }
