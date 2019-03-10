@@ -1,9 +1,11 @@
 import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 
-import { Checkbox, IconButton } from '@material-ui/core';
+import { Checkbox } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/CheckRounded';
 import EditIcon from '@material-ui/icons/EditRounded';
 import NotCheckIcon from '@material-ui/icons/NotInterestedRounded';
+
+import CilIconButton from './CilIconButton';
 
 interface CilEditableCheckboxProps {
 	isChecked: boolean;
@@ -17,6 +19,7 @@ const CilEditableCheckbox: FunctionComponent<CilEditableCheckboxProps> = props =
 	const handleEditButtonClick = () => {
 		setValue(props.isChecked);
 		setIsEditable(true);
+		return Promise.resolve();
 	};
 
 	const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -26,28 +29,30 @@ const CilEditableCheckbox: FunctionComponent<CilEditableCheckboxProps> = props =
 	const handleOkButtonClick = () => {
 		setIsEditable(false);
 		props.onValueChange(value);
+		return Promise.resolve();
 	};
 
 	const handleCancelButtonClick = () => {
 		setIsEditable(false);
+		return Promise.resolve();
 	};
 
 	return isEditable ? (
 		<>
 			<Checkbox checked={value} onChange={handleCheckboxChange} />
-			<IconButton>
-				<CheckIcon fontSize="small" onClick={handleOkButtonClick} />
-			</IconButton>
-			<IconButton>
-				<NotCheckIcon fontSize="small" onClick={handleCancelButtonClick} />
-			</IconButton>
+			<CilIconButton onClick={handleOkButtonClick}>
+				<CheckIcon fontSize="small" />
+			</CilIconButton>
+			<CilIconButton onClick={handleCancelButtonClick}>
+				<NotCheckIcon fontSize="small" />
+			</CilIconButton>
 		</>
 	) : (
 		<>
 			{props.isChecked ? <CheckIcon fontSize="small" /> : <NotCheckIcon fontSize="small" />}
-			<IconButton onClick={handleEditButtonClick}>
+			<CilIconButton onClick={handleEditButtonClick}>
 				<EditIcon fontSize="small" />
-			</IconButton>
+			</CilIconButton>
 		</>
 	);
 };

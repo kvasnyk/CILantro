@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 
-import { AppBar, Dialog, DialogContent, IconButton, Theme, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Dialog, DialogContent, Theme, Toolbar, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/CloseRounded';
 import { makeStyles } from '@material-ui/styles';
 
@@ -9,6 +9,7 @@ import useExecuteTestHub, { TestExecutionType } from '../../../hooks/useExecuteT
 import translations from '../../../translations/translations';
 import CilPage, { PageState } from '../../base/CilPage';
 import CilConsole, { CilConsoleLine } from '../../utils/CilConsole';
+import CilIconButton from '../../utils/CilIconButton';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	appBarIcon: {
@@ -61,6 +62,7 @@ const CilExecuteTestDialog: FunctionComponent<CilRunTestExeDialogProps> = props 
 
 	const handleCloseButtonClick = () => {
 		props.onClose();
+		return Promise.resolve();
 	};
 
 	const handleDialogClose = () => {
@@ -155,9 +157,9 @@ const CilExecuteTestDialog: FunctionComponent<CilRunTestExeDialogProps> = props 
 						</Typography>
 					</div>
 					<div className={classes.toolbarRight}>
-						<IconButton onClick={handleCloseButtonClick}>
+						<CilIconButton onClick={handleCloseButtonClick}>
 							<CloseIcon className={classes.appBarIcon} />
-						</IconButton>
+						</CilIconButton>
 					</div>
 				</Toolbar>
 			</AppBar>

@@ -1,11 +1,12 @@
 import React, { FunctionComponent, useState } from 'react';
 
-import { Fab, IconButton, Theme } from '@material-ui/core';
+import { Fab, Theme } from '@material-ui/core';
 import orange from '@material-ui/core/colors/orange';
 import PlayArrowIcon from '@material-ui/icons/PlayArrowRounded';
 import { makeStyles } from '@material-ui/styles';
 
 import TestReadModel from '../../../api/read-models/tests/TestReadModel';
+import CilIconButton from '../../utils/CilIconButton';
 import CilExecuteTestBothDialog from './CilExecuteTestBothDialog';
 
 type CilRunTestBothButtonType = 'icon-button' | 'fab';
@@ -36,6 +37,7 @@ const CilRunTestBothButton: FunctionComponent<CilRunTestBothButtonProps> = props
 
 	const handleClick = () => {
 		setIsDialogOpen(true);
+		return Promise.resolve();
 	};
 
 	const handleDialogClose = () => {
@@ -45,9 +47,9 @@ const CilRunTestBothButton: FunctionComponent<CilRunTestBothButtonProps> = props
 	return (
 		<>
 			{props.type === 'icon-button' ? (
-				<IconButton onClick={handleClick}>
+				<CilIconButton onClick={handleClick}>
 					<PlayArrowIcon />
-				</IconButton>
+				</CilIconButton>
 			) : (
 				<Fab onClick={handleClick} className={classes.fab}>
 					<PlayArrowIcon />

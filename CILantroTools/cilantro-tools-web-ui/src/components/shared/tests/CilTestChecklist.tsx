@@ -1,11 +1,12 @@
 import React, { FunctionComponent } from 'react';
 
-import { Checkbox, IconButton, List, ListItem, ListItemText, Theme } from '@material-ui/core';
+import { Checkbox, List, ListItem, ListItemText, Theme } from '@material-ui/core';
 import ArrowIcon from '@material-ui/icons/ArrowForwardRounded';
 import { makeStyles } from '@material-ui/styles';
 
 import TestReadModel from '../../../api/read-models/tests/TestReadModel';
 import translations from '../../../translations/translations';
+import CilIconButton from '../../utils/CilIconButton';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	checkbox: {
@@ -25,13 +26,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface CilTestChecklistProps {
 	test: TestReadModel;
-	onGoToCategory?: () => void;
-	onGoToSubcategory?: () => void;
-	onGoToIlSources?: () => void;
-	onGoToExe?: () => void;
-	onGoToInput?: () => void;
-	onGoToOutput?: () => void;
-	onGoToIoExamples?: () => void;
+	onGoToCategory?: () => Promise<unknown>;
+	onGoToSubcategory?: () => Promise<unknown>;
+	onGoToIlSources?: () => Promise<unknown>;
+	onGoToExe?: () => Promise<unknown>;
+	onGoToInput?: () => Promise<unknown>;
+	onGoToOutput?: () => Promise<unknown>;
+	onGoToIoExamples?: () => Promise<unknown>;
 }
 
 const CilTestChecklist: FunctionComponent<CilTestChecklistProps> = props => {
@@ -43,9 +44,9 @@ const CilTestChecklist: FunctionComponent<CilTestChecklistProps> = props => {
 				<Checkbox checked={props.test.hasCategory} readOnly={true} className={classes.checkbox} />
 				<ListItemText primary={translations.tests.selectTestCategory} className={classes.listItemText} />
 				{props.onGoToCategory ? (
-					<IconButton onClick={props.onGoToCategory}>
+					<CilIconButton onClick={props.onGoToCategory}>
 						<ArrowIcon fontSize="small" />
-					</IconButton>
+					</CilIconButton>
 				) : null}
 			</ListItem>
 
@@ -53,9 +54,9 @@ const CilTestChecklist: FunctionComponent<CilTestChecklistProps> = props => {
 				<Checkbox checked={props.test.hasSubcategory} readOnly={true} className={classes.checkbox} />
 				<ListItemText primary={translations.tests.selectTestSubcategory} className={classes.listItemText} />
 				{props.onGoToSubcategory ? (
-					<IconButton onClick={props.onGoToSubcategory}>
+					<CilIconButton onClick={props.onGoToSubcategory}>
 						<ArrowIcon fontSize="small" />
-					</IconButton>
+					</CilIconButton>
 				) : null}
 			</ListItem>
 
@@ -63,9 +64,9 @@ const CilTestChecklist: FunctionComponent<CilTestChecklistProps> = props => {
 				<Checkbox checked={props.test.hasIlSources} readOnly={true} className={classes.checkbox} />
 				<ListItemText primary={translations.tests.generateIlSources} className={classes.listItemText} />
 				{props.onGoToIlSources ? (
-					<IconButton onClick={props.onGoToIlSources}>
+					<CilIconButton onClick={props.onGoToIlSources}>
 						<ArrowIcon fontSize="small" />
-					</IconButton>
+					</CilIconButton>
 				) : null}
 			</ListItem>
 
@@ -73,9 +74,9 @@ const CilTestChecklist: FunctionComponent<CilTestChecklistProps> = props => {
 				<Checkbox checked={props.test.hasExe} readOnly={true} className={classes.checkbox} />
 				<ListItemText primary={translations.tests.generateExe} className={classes.listItemText} />
 				{props.onGoToExe ? (
-					<IconButton onClick={props.onGoToExe}>
+					<CilIconButton onClick={props.onGoToExe}>
 						<ArrowIcon fontSize="small" />
-					</IconButton>
+					</CilIconButton>
 				) : null}
 			</ListItem>
 
@@ -83,9 +84,9 @@ const CilTestChecklist: FunctionComponent<CilTestChecklistProps> = props => {
 				<Checkbox checked={props.test.hasInput} readOnly={true} className={classes.checkbox} />
 				<ListItemText primary={translations.tests.configureInput} className={classes.listItemText} />
 				{props.onGoToInput ? (
-					<IconButton onClick={props.onGoToInput}>
+					<CilIconButton onClick={props.onGoToInput}>
 						<ArrowIcon fontSize="small" />
-					</IconButton>
+					</CilIconButton>
 				) : null}
 			</ListItem>
 
@@ -93,9 +94,9 @@ const CilTestChecklist: FunctionComponent<CilTestChecklistProps> = props => {
 				<Checkbox checked={props.test.hasOutput} readOnly={true} className={classes.checkbox} />
 				<ListItemText primary={translations.tests.configureOutput} className={classes.listItemText} />
 				{props.onGoToOutput ? (
-					<IconButton onClick={props.onGoToOutput}>
+					<CilIconButton onClick={props.onGoToOutput}>
 						<ArrowIcon fontSize="small" />
-					</IconButton>
+					</CilIconButton>
 				) : null}
 			</ListItem>
 
@@ -103,9 +104,9 @@ const CilTestChecklist: FunctionComponent<CilTestChecklistProps> = props => {
 				<Checkbox checked={props.test.hasIoExample} readOnly={true} className={classes.checkbox} />
 				<ListItemText primary={translations.tests.addIoExample} className={classes.listItemText} />
 				{props.onGoToIoExamples ? (
-					<IconButton onClick={props.onGoToIoExamples}>
+					<CilIconButton onClick={props.onGoToIoExamples}>
 						<ArrowIcon fontSize="small" />
-					</IconButton>
+					</CilIconButton>
 				) : null}
 			</ListItem>
 		</List>

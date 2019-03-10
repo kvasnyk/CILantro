@@ -1,7 +1,7 @@
 import { cloneDeep } from 'lodash';
 import React, { FunctionComponent, useState } from 'react';
 
-import { IconButton, Theme, Typography } from '@material-ui/core';
+import { Theme, Typography } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/CheckRounded';
 import EditIcon from '@material-ui/icons/EditRounded';
 import NotCheckIcon from '@material-ui/icons/NotInterestedRounded';
@@ -13,6 +13,7 @@ import InputOutput from '../../../api/models/tests/input-output/InputOutput';
 import TestReadModel from '../../../api/read-models/tests/TestReadModel';
 import useNotistack from '../../../hooks/external/useNotistack';
 import translations from '../../../translations/translations';
+import CilIconButton from '../../utils/CilIconButton';
 import CilInputOutputEditor from '../../utils/CilInputOutputEditor';
 
 const getDefaultOutput = (output?: InputOutput) => {
@@ -70,16 +71,19 @@ const CilTestOutputEditor: FunctionComponent<CilTestOutputEditorProps> = props =
 
 	const handleEditButtonClick = () => {
 		setIsEditable(true);
+		return Promise.resolve();
 	};
 
 	const handleOkButtonClick = () => {
 		editTestOutput();
 		setIsEditable(false);
+		return Promise.resolve();
 	};
 
 	const handleCancelButtonClick = () => {
 		setOutput(getDefaultOutput(props.test.output));
 		setIsEditable(false);
+		return Promise.resolve();
 	};
 
 	const handleElementAdded = (lineIndex: number, element: AbstractInputOutputElement) => {
@@ -96,19 +100,19 @@ const CilTestOutputEditor: FunctionComponent<CilTestOutputEditorProps> = props =
 				</Typography>
 
 				{!isEditable ? (
-					<IconButton onClick={handleEditButtonClick}>
+					<CilIconButton onClick={handleEditButtonClick}>
 						<EditIcon fontSize="small" />
-					</IconButton>
+					</CilIconButton>
 				) : null}
 
 				{isEditable ? (
 					<>
-						<IconButton onClick={handleOkButtonClick}>
+						<CilIconButton onClick={handleOkButtonClick}>
 							<CheckIcon fontSize="small" />
-						</IconButton>
-						<IconButton onClick={handleCancelButtonClick}>
+						</CilIconButton>
+						<CilIconButton onClick={handleCancelButtonClick}>
 							<NotCheckIcon fontSize="small" />
-						</IconButton>
+						</CilIconButton>
 					</>
 				) : null}
 			</div>

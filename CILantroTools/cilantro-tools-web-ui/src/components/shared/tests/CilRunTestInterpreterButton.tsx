@@ -1,11 +1,12 @@
 import React, { FunctionComponent, useState } from 'react';
 
-import { Fab, IconButton, Theme } from '@material-ui/core';
+import { Fab, Theme } from '@material-ui/core';
 import orange from '@material-ui/core/colors/orange';
 import PlayArrowIcon from '@material-ui/icons/PlayArrowRounded';
 import { makeStyles } from '@material-ui/styles';
 
 import TestReadModel from '../../../api/read-models/tests/TestReadModel';
+import CilIconButton from '../../utils/CilIconButton';
 import CilExecuteTestDialog from './CilExecuteTestDialog';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -32,6 +33,7 @@ const CilRunTestInterpreterButton: FunctionComponent<CilRunTestInterpreterButton
 
 	const handleClick = () => {
 		setIsDialogOpen(true);
+		return Promise.resolve();
 	};
 
 	const handleDialogClose = () => {
@@ -41,9 +43,9 @@ const CilRunTestInterpreterButton: FunctionComponent<CilRunTestInterpreterButton
 	return props.test.hasIlSources ? (
 		<>
 			{props.type === 'icon-button' ? (
-				<IconButton onClick={handleClick}>
+				<CilIconButton onClick={handleClick}>
 					<PlayArrowIcon />
-				</IconButton>
+				</CilIconButton>
 			) : (
 				<Fab onClick={handleClick} className={classes.button}>
 					<PlayArrowIcon />

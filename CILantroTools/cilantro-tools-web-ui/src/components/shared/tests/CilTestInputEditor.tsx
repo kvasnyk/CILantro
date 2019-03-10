@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 
-import { Checkbox, IconButton, Theme, Typography } from '@material-ui/core';
+import { Checkbox, Theme, Typography } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/CheckRounded';
 import EditIcon from '@material-ui/icons/EditRounded';
 import NotCheckIcon from '@material-ui/icons/NotInterestedRounded';
@@ -11,6 +11,7 @@ import TestReadModel from '../../../api/read-models/tests/TestReadModel';
 import useNotistack from '../../../hooks/external/useNotistack';
 import translations from '../../../translations/translations';
 import CilDetailsRow from '../../utils/CilDetailsRow';
+import CilIconButton from '../../utils/CilIconButton';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	titleWrapper: {
@@ -53,16 +54,19 @@ const CilTestInputEditor: FunctionComponent<CilTestInputEditorProps> = props => 
 
 	const handleEditButtonClick = () => {
 		setIsEditable(true);
+		return Promise.resolve();
 	};
 
 	const handleOkButtonClick = () => {
 		editTestInput();
 		setIsEditable(false);
+		return Promise.resolve();
 	};
 
 	const handleCancelButtonClick = () => {
 		setHasEmptyInput(props.test.hasEmptyInput);
 		setIsEditable(false);
+		return Promise.resolve();
 	};
 
 	const handleHasEmptyInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -77,19 +81,19 @@ const CilTestInputEditor: FunctionComponent<CilTestInputEditorProps> = props => 
 				</Typography>
 
 				{!isEditable ? (
-					<IconButton onClick={handleEditButtonClick}>
+					<CilIconButton onClick={handleEditButtonClick}>
 						<EditIcon fontSize="small" />
-					</IconButton>
+					</CilIconButton>
 				) : null}
 
 				{isEditable ? (
 					<>
-						<IconButton onClick={handleOkButtonClick}>
+						<CilIconButton onClick={handleOkButtonClick}>
 							<CheckIcon fontSize="small" />
-						</IconButton>
-						<IconButton onClick={handleCancelButtonClick}>
+						</CilIconButton>
+						<CilIconButton onClick={handleCancelButtonClick}>
 							<NotCheckIcon fontSize="small" />
-						</IconButton>
+						</CilIconButton>
 					</>
 				) : null}
 			</div>

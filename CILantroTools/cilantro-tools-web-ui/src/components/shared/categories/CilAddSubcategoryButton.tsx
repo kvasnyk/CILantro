@@ -1,12 +1,13 @@
 import React, { ChangeEvent, FormEvent, FunctionComponent, useState } from 'react';
 
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, TextField } from '@material-ui/core';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/AddRounded';
 
 import CategoriesApiClient from '../../../api/clients/CategoriesApiClient';
 import CategoryReadModel from '../../../api/read-models/categories/CategoryReadModel';
 import useNotistack from '../../../hooks/external/useNotistack';
 import translations from '../../../translations/translations';
+import CilIconButton from '../../utils/CilIconButton';
 
 interface AddSubcategoryData {
 	name: string;
@@ -31,6 +32,7 @@ const CilAddSubcategoryButton: FunctionComponent<CilAddSubcategoryButtonProps> =
 
 	const handleClick = () => {
 		setIsDialogOpen(true);
+		return Promise.resolve();
 	};
 
 	const handleDialogClose = () => {
@@ -63,9 +65,9 @@ const CilAddSubcategoryButton: FunctionComponent<CilAddSubcategoryButtonProps> =
 
 	return (
 		<>
-			<IconButton onClick={handleClick}>
+			<CilIconButton onClick={handleClick}>
 				<AddIcon />
-			</IconButton>
+			</CilIconButton>
 
 			<Dialog open={isDialogOpen} onClose={handleDialogClose} fullWidth={true}>
 				<form onSubmit={handleFormSubmit}>

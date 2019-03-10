@@ -1,12 +1,13 @@
 import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 
-import { FormControl, IconButton, MenuItem, Select, Theme, Typography } from '@material-ui/core';
+import { FormControl, MenuItem, Select, Theme, Typography } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/CheckRounded';
 import EditIcon from '@material-ui/icons/EditRounded';
 import NotCheckIcon from '@material-ui/icons/NotInterestedRounded';
 import { makeStyles } from '@material-ui/styles';
 
 import translations from '../../translations/translations';
+import CilIconButton from './CilIconButton';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	fieldValueTypography: {
@@ -51,6 +52,7 @@ const CilEditableSelect: FunctionComponent<CilEditableSelectProps> = props => {
 	const handleEditButtonClick = () => {
 		setValue(props.selectedValue || '');
 		setIsEditable(true);
+		return Promise.resolve();
 	};
 
 	const handleSelectClose = () => {
@@ -60,10 +62,12 @@ const CilEditableSelect: FunctionComponent<CilEditableSelectProps> = props => {
 	const handleOkButtonClick = () => {
 		props.onValueChange(value);
 		setIsEditable(false);
+		return Promise.resolve();
 	};
 
 	const handleCancelButtonClick = () => {
 		setIsEditable(false);
+		return Promise.resolve();
 	};
 
 	return isEditable ? (
@@ -77,20 +81,20 @@ const CilEditableSelect: FunctionComponent<CilEditableSelectProps> = props => {
 					))}
 				</Select>
 			</FormControl>
-			<IconButton onClick={handleOkButtonClick}>
+			<CilIconButton onClick={handleOkButtonClick}>
 				<CheckIcon fontSize="small" />
-			</IconButton>
-			<IconButton onClick={handleCancelButtonClick}>
+			</CilIconButton>
+			<CilIconButton onClick={handleCancelButtonClick}>
 				<NotCheckIcon fontSize="small" />
-			</IconButton>
+			</CilIconButton>
 		</div>
 	) : (
 		<>
 			<Typography className={classes.fieldValueTypography}>{selectedLabel}</Typography>
 			{props.isEditable ? (
-				<IconButton onClick={handleEditButtonClick}>
+				<CilIconButton onClick={handleEditButtonClick}>
 					<EditIcon fontSize="small" />
-				</IconButton>
+				</CilIconButton>
 			) : null}
 		</>
 	);

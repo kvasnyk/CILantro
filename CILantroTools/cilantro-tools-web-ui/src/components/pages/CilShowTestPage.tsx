@@ -97,30 +97,37 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 
 	const handleGoToCategory = () => {
 		setTabsValue('overview');
+		return Promise.resolve();
 	};
 
 	const handleGoToSubcategory = () => {
 		setTabsValue('overview');
+		return Promise.resolve();
 	};
 
 	const handleGoToIlSources = () => {
 		setTabsValue('il-sources');
+		return Promise.resolve();
 	};
 
 	const handleGoToExe = () => {
 		setTabsValue('exe');
+		return Promise.resolve();
 	};
 
 	const handleGoToInput = () => {
 		setTabsValue('io');
+		return Promise.resolve();
 	};
 
 	const handleGoToOutput = () => {
 		setTabsValue('io');
+		return Promise.resolve();
 	};
 
 	const handleGoToIoExamples = () => {
 		setTabsValue('io');
+		return Promise.resolve();
 	};
 
 	const handleCategoryUpdated = () => {
