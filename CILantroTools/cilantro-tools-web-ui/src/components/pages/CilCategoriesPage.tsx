@@ -1,4 +1,4 @@
-import React, { StatelessComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 
 import CategoriesApiClient from '../../api/clients/CategoriesApiClient';
 import CategoryReadModel from '../../api/read-models/categories/CategoryReadModel';
@@ -9,7 +9,7 @@ import CilAddCategoryButton from '../shared/categories/CilAddCategoryButton';
 import CilCategoriesList from '../shared/categories/CilCategoriesList';
 import CilPageHeader from '../utils/CilPageHeader';
 
-const CilCategoriesPage: StatelessComponent = props => {
+const CilCategoriesPage: FunctionComponent = props => {
 	const categoriesApiClient = new CategoriesApiClient();
 
 	const [pageState, setPageState] = useState<PageState>('loading');

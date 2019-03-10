@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, StatelessComponent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, FunctionComponent, useState } from 'react';
 
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Fab, TextField, Theme } from '@material-ui/core';
 import green from '@material-ui/core/colors/green';
@@ -28,7 +28,7 @@ interface CilAddCategoryButtonProps {
 	onCategoryAdded: () => void;
 }
 
-const CilAddCategoryButton: StatelessComponent<CilAddCategoryButtonProps> = props => {
+const CilAddCategoryButton: FunctionComponent<CilAddCategoryButtonProps> = props => {
 	const classes = useStyles();
 
 	const categoriesApiClient = new CategoriesApiClient();
@@ -77,7 +77,13 @@ const CilAddCategoryButton: StatelessComponent<CilAddCategoryButtonProps> = prop
 				<form onSubmit={handleFormSubmit}>
 					<DialogTitle>{translations.categories.addCategory}</DialogTitle>
 					<DialogContent>
-						<TextField label={translations.categories.name} value={formData.name} onChange={handleNameChange} autoFocus={true} fullWidth={true} />
+						<TextField
+							label={translations.categories.name}
+							value={formData.name}
+							onChange={handleNameChange}
+							autoFocus={true}
+							fullWidth={true}
+						/>
 					</DialogContent>
 					<DialogActions>
 						<Button color="primary" type="submit">

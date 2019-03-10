@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 
 import { Divider, Drawer, List, Theme } from '@material-ui/core';
 import CategoryIcon from '@material-ui/icons/CategoryRounded';
@@ -12,49 +12,41 @@ import translations from '../../translations/translations';
 import CilMenuItem from './CilMenuItem';
 
 const useStyles = makeStyles((theme: Theme) => ({
-  drawerPaper: {
-    position: 'relative',
-    width: styles.menuWidth,
-    zIndex: theme.zIndex.drawer
-  },
-  toolbar: theme.mixins.toolbar
+	drawerPaper: {
+		position: 'relative',
+		width: styles.menuWidth,
+		zIndex: theme.zIndex.drawer
+	},
+	toolbar: theme.mixins.toolbar
 }));
 
-const CilMenu: StatelessComponent = props => {
-  const classes = useStyles();
+const CilMenu: FunctionComponent = props => {
+	const classes = useStyles();
 
-  return (
-    <Drawer
-      variant="permanent"
-      classes={{
-        paper: classes.drawerPaper
-      }}
-    >
-      <div className={classes.toolbar} />
-      <List>
-        <CilMenuItem
-          to={routes.tests.find}
-          label={translations.tests.findTests}
-          icon={<SearchIcon />}
-        />
-      </List>
+	return (
+		<Drawer
+			variant="permanent"
+			classes={{
+				paper: classes.drawerPaper
+			}}
+		>
+			<div className={classes.toolbar} />
+			<List>
+				<CilMenuItem to={routes.tests.find} label={translations.tests.findTests} icon={<SearchIcon />} />
+			</List>
 
-      <Divider />
+			<Divider />
 
-      <List>
-        <CilMenuItem
-          to={routes.tests.tests}
-          label={translations.tests.tests}
-          icon={<CodeIcon />}
-        />
-        <CilMenuItem
-          to={routes.categories.categories}
-          label={translations.categories.categories}
-          icon={<CategoryIcon />}
-        />
-      </List>
-    </Drawer>
-  );
+			<List>
+				<CilMenuItem to={routes.tests.tests} label={translations.tests.tests} icon={<CodeIcon />} />
+				<CilMenuItem
+					to={routes.categories.categories}
+					label={translations.categories.categories}
+					icon={<CategoryIcon />}
+				/>
+			</List>
+		</Drawer>
+	);
 };
 
 export default CilMenu;

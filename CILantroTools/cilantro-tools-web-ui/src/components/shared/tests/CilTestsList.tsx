@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 
 import { Typography } from '@material-ui/core';
 
@@ -8,21 +8,21 @@ import CilGridLayout from '../../layouts/CilGridLayout';
 import CiLTestCard from './CilTestCard';
 
 interface CilTestsListProps {
-  tests: TestReadModel[];
+	tests: TestReadModel[];
 }
 
-const CilTestsList: StatelessComponent<CilTestsListProps> = props => {
-  return props.tests.length > 0 ? (
-    <CilGridLayout columns={3}>
-      {props.tests.map(test => (
-        <CiLTestCard key={test.id} test={test} />
-      ))}
-    </CilGridLayout>
-  ) : (
-    <Typography variant="h2" align="center">
-      {translations.tests.noTests}
-    </Typography>
-  );
+const CilTestsList: FunctionComponent<CilTestsListProps> = props => {
+	return props.tests.length > 0 ? (
+		<CilGridLayout columns={3}>
+			{props.tests.map(test => (
+				<CiLTestCard key={test.id} test={test} />
+			))}
+		</CilGridLayout>
+	) : (
+		<Typography variant="h2" align="center">
+			{translations.tests.noTests}
+		</Typography>
+	);
 };
 
 export default CilTestsList;

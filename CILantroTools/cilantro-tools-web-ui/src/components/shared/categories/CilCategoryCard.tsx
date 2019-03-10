@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 
 import { Card, CardActions, CardContent, Theme, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
@@ -28,7 +28,7 @@ interface CilCategoryCardProps {
 	onSubcategoryDeleted: () => void;
 }
 
-const CilCategoryCard: StatelessComponent<CilCategoryCardProps> = props => {
+const CilCategoryCard: FunctionComponent<CilCategoryCardProps> = props => {
 	const classes = useStyles();
 
 	return (

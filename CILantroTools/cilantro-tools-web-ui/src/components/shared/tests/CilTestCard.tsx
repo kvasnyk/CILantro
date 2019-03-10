@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { StatelessComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 
 import { Card, CardActions, CardContent, Theme, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 	}
 }));
 
-const CiLTestCard: StatelessComponent<CilTestCardProps> = props => {
+const CiLTestCard: FunctionComponent<CilTestCardProps> = props => {
 	const classes = useStyles();
 
 	const cardClassName = classNames({

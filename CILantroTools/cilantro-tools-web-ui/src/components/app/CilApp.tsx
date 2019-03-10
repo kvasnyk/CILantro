@@ -1,5 +1,5 @@
 import { SnackbarProvider } from 'notistack';
-import React, { StatelessComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 
 import { createMuiTheme, Theme } from '@material-ui/core';
 import { makeStyles, ThemeProvider } from '@material-ui/styles';
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 	}
 }));
 
-const CilApp: StatelessComponent = props => {
+const CilApp: FunctionComponent = props => {
 	const classes = useStyles();
 
 	return (

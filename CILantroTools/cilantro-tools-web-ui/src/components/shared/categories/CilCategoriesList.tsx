@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 
 import { Typography } from '@material-ui/core';
 
@@ -14,7 +14,7 @@ interface CilCategoriesListProps {
 	onSubcategoryDeleted: () => void;
 }
 
-const CilCategoriesList: StatelessComponent<CilCategoriesListProps> = props => {
+const CilCategoriesList: FunctionComponent<CilCategoriesListProps> = props => {
 	return props.categories.length > 0 ? (
 		<CilGridLayout columns={3}>
 			{props.categories.map(category => (

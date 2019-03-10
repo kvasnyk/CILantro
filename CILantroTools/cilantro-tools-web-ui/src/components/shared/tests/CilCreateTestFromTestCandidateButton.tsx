@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 
 import { IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/AddRounded';
@@ -13,7 +13,7 @@ interface CilCreateTestFromTestCandidateButtonProps {
 	onTestCreated: () => void;
 }
 
-const CilCreateTestFromTestCandidateButton: StatelessComponent<CilCreateTestFromTestCandidateButtonProps> = props => {
+const CilCreateTestFromTestCandidateButton: FunctionComponent<CilCreateTestFromTestCandidateButtonProps> = props => {
 	const testsApiClient = new TestsApiClient();
 
 	const notistack = useNotistack();

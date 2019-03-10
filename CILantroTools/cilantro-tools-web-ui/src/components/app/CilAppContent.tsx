@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import { Route, Switch } from 'react-router';
 
 import { Theme } from '@material-ui/core';
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 	toolbar: theme.mixins.toolbar
 }));
 
-const CilAppContent: StatelessComponent = props => {
+const CilAppContent: FunctionComponent = props => {
 	const classes = useStyles();
 	return (
 		<main className={classes.main}>
@@ -44,7 +44,11 @@ const CilAppContent: StatelessComponent = props => {
 					<Route exact={true} path={routes.tests.find}>
 						<CilFindTestsPage />
 					</Route>
-					<Route exact={true} path={routes.tests.test({ isTemplate: true })} render={routeProps => <CilShowTestPage testId={routeProps.match.params.testId} />} />
+					<Route
+						exact={true}
+						path={routes.tests.test({ isTemplate: true })}
+						render={routeProps => <CilShowTestPage testId={routeProps.match.params.testId} />}
+					/>
 				</Switch>
 			</div>
 		</main>

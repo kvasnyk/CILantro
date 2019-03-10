@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, StatelessComponent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, FunctionComponent, useState } from 'react';
 
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, TextField } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/AddRounded';
@@ -21,7 +21,7 @@ interface CilAddSubcategoryButtonProps {
 	onSubcategoryAdded: () => void;
 }
 
-const CilAddSubcategoryButton: StatelessComponent<CilAddSubcategoryButtonProps> = props => {
+const CilAddSubcategoryButton: FunctionComponent<CilAddSubcategoryButtonProps> = props => {
 	const categoriesApiClient = new CategoriesApiClient();
 
 	const notistack = useNotistack();
@@ -71,7 +71,13 @@ const CilAddSubcategoryButton: StatelessComponent<CilAddSubcategoryButtonProps> 
 				<form onSubmit={handleFormSubmit}>
 					<DialogTitle>{translations.categories.addSubcategory}</DialogTitle>
 					<DialogContent>
-						<TextField label={translations.categories.subcategoryName} value={formData.name} onChange={handleNameChange} autoFocus={true} fullWidth={true} />
+						<TextField
+							label={translations.categories.subcategoryName}
+							value={formData.name}
+							onChange={handleNameChange}
+							autoFocus={true}
+							fullWidth={true}
+						/>
 					</DialogContent>
 					<DialogActions>
 						<Button color="primary" type="submit">

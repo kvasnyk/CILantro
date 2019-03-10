@@ -1,4 +1,4 @@
-import React, { StatelessComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 
 import { Card, CardActions, CardContent, Theme, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
@@ -17,7 +17,7 @@ interface CilTestCandidateCardProps {
 	onTestCreated: () => void;
 }
 
-const CilTestCandidateCard: StatelessComponent<CilTestCandidateCardProps> = props => {
+const CilTestCandidateCard: FunctionComponent<CilTestCandidateCardProps> = props => {
 	const classes = useStyles();
 
 	return (

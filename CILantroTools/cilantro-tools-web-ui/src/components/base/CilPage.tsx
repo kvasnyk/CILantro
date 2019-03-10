@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { StatelessComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 
 import { Theme, Typography } from '@material-ui/core';
 import ErrorIcon from '@material-ui/icons/ErrorOutlineOutlined';
@@ -40,7 +40,7 @@ interface CilPageProps {
 	className?: string;
 }
 
-const CilPage: StatelessComponent<CilPageProps> = props => {
+const CilPage: FunctionComponent<CilPageProps> = props => {
 	const classes = useStyles();
 
 	const pageClassName = classNames(classes.page, props.className);

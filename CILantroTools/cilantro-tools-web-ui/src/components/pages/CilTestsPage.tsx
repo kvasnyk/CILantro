@@ -1,4 +1,4 @@
-import React, { StatelessComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 
 import TestsApiClient from '../../api/clients/TestsApiClient';
 import TestReadModel from '../../api/read-models/tests/TestReadModel';
@@ -8,7 +8,7 @@ import CilPage, { PageState } from '../base/CilPage';
 import CilTestsList from '../shared/tests/CilTestsList';
 import CilPageHeader from '../utils/CilPageHeader';
 
-const CilTestsPage: StatelessComponent = props => {
+const CilTestsPage: FunctionComponent = props => {
 	const testsApiClient = new TestsApiClient();
 
 	const [pageState, setPageState] = useState<PageState>('loading');
