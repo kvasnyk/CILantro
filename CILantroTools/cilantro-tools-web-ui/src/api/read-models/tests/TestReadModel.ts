@@ -1,6 +1,7 @@
 import InputOutput from '../../models/tests/input-output/InputOutput';
 import CategoryReadModel from '../categories/CategoryReadModel';
 import SubcategoryReadModel from '../categories/SubcategoryReadModel';
+import TestIoExampleReadModel from './TestIoExampleReadModel';
 
 interface TestReadModel {
 	id: string;
@@ -17,6 +18,7 @@ interface TestReadModel {
 	generateExeOutput: string;
 	hasEmptyInput: boolean;
 	output?: InputOutput;
+	ioExamples: TestIoExampleReadModel[];
 	hasCategory: boolean;
 	hasSubcategory: boolean;
 	hasIlSources: boolean;

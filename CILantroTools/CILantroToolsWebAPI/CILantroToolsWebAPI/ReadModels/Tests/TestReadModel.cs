@@ -3,6 +3,8 @@ using CILantroToolsWebAPI.Models.Tests.InputOutput;
 using CILantroToolsWebAPI.ReadModels.Categories;
 using LinqKit;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace CILantroToolsWebAPI.ReadModels.Tests
@@ -41,6 +43,8 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
 
         public InputOutput Output { get; set; }
 
+        public List<TestIoExampleReadModel> IoExamples { get; set; }
+
         public bool HasCategory => Category != null;
 
         public bool HasSubcategory => Subcategory != null;
@@ -68,6 +72,8 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
 
         private readonly Expression<Func<Subcategory, SubcategoryReadModel>> _subcategoryMapping = new SubcategoryReadModelMapping().Mapping.Expand();
 
+        private readonly Expression<Func<TestInputOutputExample, TestIoExampleReadModel>> _ioExampleMapping = new TestIoExampleReadModelMapping().Mapping.Expand();
+
         public override Expression<Func<Test, TestReadModel>> Mapping => test => new TestReadModel
         {
             Id = test.Id,
@@ -79,7 +85,8 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
             CategoryId = test.CategoryId,
             Category = test.CategoryId.HasValue ? _categoryMapping.Invoke(test.Category) : null,
             SubcategoryId = test.SubcategoryId,
-            Subcategory = test.SubcategoryId.HasValue ? _subcategoryMapping.Invoke(test.Subcategory) : null
+            Subcategory = test.SubcategoryId.HasValue ? _subcategoryMapping.Invoke(test.Subcategory) : null,
+            IoExamples = test.IoExamples.AsQueryable().Select(_ioExampleMapping).OrderBy(e => e.Name).ToList()
         };
     }
 }

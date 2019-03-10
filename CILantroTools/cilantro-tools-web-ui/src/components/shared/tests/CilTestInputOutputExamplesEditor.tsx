@@ -65,6 +65,23 @@ const useStyles = makeStyles((theme: Theme) => ({
 	},
 	newExamplePopulate: {
 		margin: '0 10px'
+	},
+	exampleName: {
+		marginBottom: '5px'
+	},
+	exampleInputOutput: {
+		display: 'flex',
+		flexDirection: 'row'
+	},
+	exampleInput: {
+		flexGrow: 1,
+		flexBasis: 0,
+		marginRight: '5px'
+	},
+	exampleOutput: {
+		flexGrow: 1,
+		flexBasis: 0,
+		marginLeft: '5px'
 	}
 }));
 
@@ -167,6 +184,22 @@ const CilTestInputOutputExamplesEditor: FunctionComponent<CilTestInputOutputExam
 					</CilIconButton>
 				) : null}
 			</div>
+
+			{props.test.ioExamples.map(e => (
+				<>
+					<Typography variant="h6" className={classes.exampleName}>
+						{e.name}
+					</Typography>
+					<div className={classes.exampleInputOutput}>
+						<div className={classes.exampleInput}>
+							<CilCodeEditor code={e.input} />
+						</div>
+						<div className={classes.exampleOutput}>
+							<CilCodeEditor code={e.output} />
+						</div>
+					</div>
+				</>
+			))}
 
 			{isNewExampleEditorOpen ? (
 				<>
