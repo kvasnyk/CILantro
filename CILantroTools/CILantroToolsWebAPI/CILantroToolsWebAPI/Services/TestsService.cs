@@ -174,6 +174,29 @@ namespace CILantroToolsWebAPI.Services
             ilasmProcess.WaitForExit();
         }
 
+        public async Task<string> GenerateOutput(Guid testId, GenerateOutputBindingModel model)
+        {
+            var test = await GetTestAsync(testId);
+
+            var processStartInfo = new ProcessStartInfo(test.ExePathFull)
+            {
+                RedirectStandardOutput = true,
+                RedirectStandardInput = true,
+                RedirectStandardError = true,
+                WindowStyle = ProcessWindowStyle.Hidden,
+                CreateNoWindow = true
+            };
+
+            var process = Process.Start(processStartInfo);
+            var output = await process.StandardOutput.ReadToEndAsync();
+
+            return output;
+        }
+
+        public async Task AddTestInputOutputExaple(Guid testId, AddTestInputOutputExampleBindingModel model)
+        {
+        }
+
         private async Task CompleteTestReadModel(TestReadModel testReadModel)
         {
             var testIlSourcesPath = BuildTestIlSourcesPath(testReadModel.Name);

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { ChangeEvent, FunctionComponent, useEffect, useState } from 'react';
 
-import { AppBar, Tab, Tabs, Theme } from '@material-ui/core';
+import { AppBar, Divider, Tab, Tabs, Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 import CategoriesApiClient from '../../api/clients/CategoriesApiClient';
@@ -19,6 +19,7 @@ import CilRunTestExeButton from '../shared/tests/CilRunTestExeButton';
 import CilRunTestInterpreterButton from '../shared/tests/CilRunTestInterpreterButton';
 import CilTestChecklist from '../shared/tests/CilTestChecklist';
 import CilTestInputEditor from '../shared/tests/CilTestInputEditor';
+import CilTestInputOutputExamplesEditor from '../shared/tests/CilTestInputOutputExamplesEditor';
 import CilTestOutputEditor from '../shared/tests/CilTestOutputEditor';
 import CilCodeEditor from '../utils/CilCodeEditor';
 import CilDetailsRow from '../utils/CilDetailsRow';
@@ -34,11 +35,20 @@ const useStyles = makeStyles((theme: Theme) => ({
 	},
 	ioTabContainer: {
 		display: 'flex',
+		flexDirection: 'column'
+	},
+	ioTabIo: {
+		display: 'flex',
 		flexDirection: 'row',
 		'&>*': {
 			flexGrow: 1,
 			flexBasis: 0
 		}
+	},
+	ioTabExamples: {},
+	ioDivider: {
+		marginTop: '15px',
+		marginBottom: '15px'
 	}
 }));
 
@@ -56,7 +66,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 
 	const [pageState, setPageState] = useState<PageState>('loading');
 	const [test, setTest] = useState<TestReadModel | undefined>(undefined);
-	const [tabsValue, setTabsValue] = useState<TabsValue>('overview');
+	const [tabsValue, setTabsValue] = useState<TabsValue>('io');
 	const [categories, setCategories] = useState<CategoryReadModel[] | undefined>(undefined);
 
 	const subcategories = test && test.category ? test.category.subcategories : [];
@@ -130,6 +140,10 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 	};
 
 	const handleExeGenerated = () => {
+		refreshTest();
+	};
+
+	const handleIoExampleAdded = () => {
 		refreshTest();
 	};
 
@@ -221,12 +235,22 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 
 					{tabsValue === 'io' ? (
 						<div className={ioTabContainerClassName}>
-							<div>
-								<CilTestInputEditor test={test} onInputUpdated={handleInputUpdated} />
+							<div className={classes.ioTabIo}>
+								<div>
+									<CilTestInputEditor test={test} onInputUpdated={handleInputUpdated} />
+								</div>
+								<div>
+									<CilTestOutputEditor test={test} onOutputUpdated={handleOutputUpdated} />
+								</div>
 							</div>
-							<div>
-								<CilTestOutputEditor test={test} onOutputUpdated={handleOutputUpdated} />
-							</div>
+							{test.hasInput && test.hasOutput && test.hasExe ? (
+								<>
+									<Divider className={classes.ioDivider} />
+									<div className={classes.ioTabExamples}>
+										<CilTestInputOutputExamplesEditor test={test} onExampleAdded={handleIoExampleAdded} />
+									</div>
+								</>
+							) : null}
 						</div>
 					) : null}
 				</>

@@ -1,10 +1,12 @@
 import apiRoutes from '../apiRoutes';
+import AddTestInputOutputExampleBindingModel from '../binding-models/tests/AddTestInputOutputExampleBindingModel';
 import CreateTestFromCandidateBindingModel from '../binding-models/tests/CreateTestFromCandidateBindingModel';
 import EditTestCategoryBindingModel from '../binding-models/tests/EditTestCategoryBindingModel';
 import EditTestHasEmptyInputBindingModel from '../binding-models/tests/EditTestHasEmptyInputBindingModel';
 import EditTestInputBindingModel from '../binding-models/tests/EditTestInputBindingModel';
 import EditTestOutputBindingModel from '../binding-models/tests/EditTestOutputBindingModel';
 import EditTestSubcategoryBindingModel from '../binding-models/tests/EditTestSubcategoryBindingModel';
+import GenerateOutputBindingModel from '../binding-models/tests/GenerateOutputBindingModel';
 import TestCandidate from '../models/tests/TestCandidate';
 import TestReadModel from '../read-models/tests/TestReadModel';
 import SearchParameter from '../search/SearchParameter';
@@ -54,6 +56,17 @@ class TestsApiClient extends ApiClientBase {
 
 	public generateExe(testId: string) {
 		return this.post<{}, {}>(apiRoutes.tests.generateExe(testId), {});
+	}
+
+	public generateOutput(testId: string, data: GenerateOutputBindingModel) {
+		return this.post<GenerateOutputBindingModel, string>(apiRoutes.tests.generateOutput(testId), data);
+	}
+
+	public addTestInputOutputExample(testId: string, data: AddTestInputOutputExampleBindingModel) {
+		return this.post<AddTestInputOutputExampleBindingModel, {}>(
+			apiRoutes.tests.addTestInputOutputExample(testId),
+			data
+		);
 	}
 }
 

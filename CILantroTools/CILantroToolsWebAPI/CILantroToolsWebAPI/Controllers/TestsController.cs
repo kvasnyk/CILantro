@@ -88,5 +88,17 @@ namespace CILantroToolsWebAPI.Controllers
         {
             await _testsService.GenerateExe(testId);
         }
+
+        [HttpPost("{testId}/generate-output")]
+        public async Task<string> GenerateOutputAsync([FromRoute]Guid testId, [FromBody]GenerateOutputBindingModel model)
+        {
+            return await _testsService.GenerateOutput(testId, model);
+        }
+
+        [HttpPost("{testId}/add-input-output-example")]
+        public async Task AddTestInputOutputExampleAsync([FromRoute]Guid testId, [FromBody]AddTestInputOutputExampleBindingModel model)
+        {
+            await _testsService.AddTestInputOutputExaple(testId, model);
+        }
     }
 }

@@ -19,7 +19,9 @@ const apiRoutes = {
 		editTestInput: (testId: string) => `/tests/${testId}/edit-input`,
 		editTestOutput: (testId: string) => `/tests/${testId}/edit-output`,
 		generateIlSources: (testId: string) => `/tests/${testId}/generate-il-sources`,
-		generateExe: (testId: string) => `/tests/${testId}/generate-exe`
+		generateExe: (testId: string) => `/tests/${testId}/generate-exe`,
+		generateOutput: (testId: string) => `/tests/${testId}/generate-output`,
+		addTestInputOutputExample: (testId: string) => `/tests/${testId}/add-input-output-example`
 	}
 };
 

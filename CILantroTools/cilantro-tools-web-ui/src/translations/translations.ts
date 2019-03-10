@@ -48,7 +48,8 @@ const translations = {
 		runningExe: 'EXE',
 		exeProcessStarted: 'EXE process started',
 		exeProcessEnded: 'EXE process ended',
-		testIO: 'I / O',
+		testIO: 'I/O',
+		testIOExamples: 'Examples',
 		configureInput: 'Configure input',
 		configureOutput: 'Configure output',
 		emptyInput: 'Empty input',
@@ -59,7 +60,13 @@ const translations = {
 		inputHasBeenUpdated: 'The input has been updated.',
 		errorOccurredWhileUpdatingInput: 'An error occurred while updating the input.',
 		outputHasBeenUpdated: 'The output has been updated.',
-		errorOccurredWhileUpdatingOutput: 'An error occurred while updating the output.'
+		errorOccurredWhileUpdatingOutput: 'An error occurred while updating the output.',
+		outputHasBeenGenerated: 'The output has been generated.',
+		errorOccurredWhileGeneratingOutput: 'An error occurred while generating the output.',
+		ioExampleHasBeenAdded: 'The example has been added.',
+		errorOccurredWhileAddingIoExample: 'An error occurred while adding the example.',
+		noOutputGenerated: 'No output has been generated.',
+		exampleNameIsEmpty: 'The example\'s name is empty'
 	},
 	shared: {
 		anErrorOccurred: 'An error occurred. Please try again.',
