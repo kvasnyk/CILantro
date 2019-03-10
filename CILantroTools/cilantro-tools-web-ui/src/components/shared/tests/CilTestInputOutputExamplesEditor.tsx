@@ -140,6 +140,7 @@ const CilTestInputOutputExamplesEditor: FunctionComponent<CilTestInputOutputExam
 			});
 			setIsNewExampleEditorOpen(false);
 			clearNewExample();
+			props.onExampleAdded();
 			notistack.enqueueSuccess(translations.tests.ioExampleHasBeenAdded);
 		} catch (error) {
 			notistack.enqueueError(translations.tests.errorOccurredWhileAddingIoExample);
