@@ -66,7 +66,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 
 	const [pageState, setPageState] = useState<PageState>('loading');
 	const [test, setTest] = useState<TestReadModel | undefined>(undefined);
-	const [tabsValue, setTabsValue] = useState<TabsValue>('io');
+	const [tabsValue, setTabsValue] = useState<TabsValue>('overview');
 	const [categories, setCategories] = useState<CategoryReadModel[] | undefined>(undefined);
 
 	const subcategories = test && test.category ? test.category.subcategories : [];
@@ -116,6 +116,10 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 	};
 
 	const handleGoToOutput = () => {
+		setTabsValue('io');
+	};
+
+	const handleGoToIoExamples = () => {
 		setTabsValue('io');
 	};
 
@@ -179,6 +183,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 							onGoToExe={handleGoToExe}
 							onGoToInput={handleGoToInput}
 							onGoToOutput={handleGoToOutput}
+							onGoToIoExamples={handleGoToIoExamples}
 						/>
 					) : null}
 

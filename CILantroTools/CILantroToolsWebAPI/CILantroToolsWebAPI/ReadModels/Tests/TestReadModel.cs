@@ -57,13 +57,16 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
 
         public bool HasOutput => Output != null && !Output.IsEmpty;
 
+        public bool HasIoExample => IoExamples != null && IoExamples.Count > 0;
+
         public bool IsReady =>
             HasCategory &&
             HasSubcategory &&
             HasIlSources &&
             HasExe &&
             HasInput &&
-            HasOutput;
+            HasOutput &&
+            HasIoExample;
     }
 
     public class TestReadModelMapping : ReadModelMappingBase<Test, TestReadModel>

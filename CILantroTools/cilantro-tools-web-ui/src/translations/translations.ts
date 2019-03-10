@@ -66,7 +66,8 @@ const translations = {
 		ioExampleHasBeenAdded: 'The example has been added.',
 		errorOccurredWhileAddingIoExample: 'An error occurred while adding the example.',
 		noOutputGenerated: 'No output has been generated.',
-		exampleNameIsEmpty: 'The example\'s name is empty'
+		exampleNameIsEmpty: 'The example\'s name is empty',
+		addIoExample: 'Add an I/O example'
 	},
 	shared: {
 		anErrorOccurred: 'An error occurred. Please try again.',

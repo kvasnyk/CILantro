@@ -25,6 +25,7 @@ interface TestReadModel {
 	hasExe: boolean;
 	hasInput: boolean;
 	hasOutput: boolean;
+	hasIoExample: boolean;
 	isReady: boolean;
 }
 
