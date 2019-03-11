@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/styles';
 import routes from '../../routing/routes';
 import CilCategoriesPage from '../pages/CilCategoriesPage';
 import CilFindTestsPage from '../pages/CilFindTestsPage';
+import CilRunsPage from '../pages/CilRunsPage';
 import CilShowTestPage from '../pages/CilShowTestPage';
 import CilTestsPage from '../pages/CilTestsPage';
 
@@ -49,6 +50,9 @@ const CilAppContent: FunctionComponent = props => {
 						path={routes.tests.test({ isTemplate: true })}
 						render={routeProps => <CilShowTestPage testId={routeProps.match.params.testId} />}
 					/>
+					<Route exact={true} path={routes.runs.runs}>
+						<CilRunsPage />
+					</Route>
 				</Switch>
 			</div>
 		</main>

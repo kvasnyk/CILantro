@@ -69,6 +69,9 @@ const translations = {
 		exampleNameIsEmpty: 'The example\'s name is empty',
 		addIoExample: 'Add an I/O example'
 	},
+	runs: {
+		runs: 'Test runs'
+	},
 	shared: {
 		anErrorOccurred: 'An error occurred. Please try again.',
 		save: 'Add',

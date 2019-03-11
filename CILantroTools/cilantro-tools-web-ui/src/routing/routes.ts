@@ -12,6 +12,9 @@ const routes = {
 		find: '/find-tests',
 		tests: '/tests',
 		test: (data: TestRouteData) => (data.isTemplate ? '/tests/:testId' : `/tests/${data.testId}`)
+	},
+	runs: {
+		runs: '/runs'
 	}
 };
 

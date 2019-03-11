@@ -3,6 +3,7 @@ import React, { FunctionComponent } from 'react';
 import { Divider, Drawer, List, Theme } from '@material-ui/core';
 import CategoryIcon from '@material-ui/icons/CategoryRounded';
 import CodeIcon from '@material-ui/icons/CodeRounded';
+import RunIcon from '@material-ui/icons/DirectionsRunRounded';
 import SearchIcon from '@material-ui/icons/SearchRounded';
 import { makeStyles } from '@material-ui/styles';
 
@@ -44,6 +45,12 @@ const CilMenu: FunctionComponent = props => {
 					label={translations.categories.categories}
 					icon={<CategoryIcon />}
 				/>
+			</List>
+
+			<Divider />
+
+			<List>
+				<CilMenuItem to={routes.runs.runs} label={translations.runs.runs} icon={<RunIcon />} />
 			</List>
 		</Drawer>
 	);

@@ -20,7 +20,10 @@ const buildEmptyAddCategoryData = (): AddCategoryData => ({
 const useStyles = makeStyles((theme: Theme) => ({
 	fab: {
 		backgroundColor: green[500],
-		color: theme.palette.primary.contrastText
+		color: theme.palette.primary.contrastText,
+		'&:hover': {
+			backgroundColor: green[700]
+		}
 	}
 }));
 
