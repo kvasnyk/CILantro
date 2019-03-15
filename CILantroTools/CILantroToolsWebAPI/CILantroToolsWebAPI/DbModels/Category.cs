@@ -10,6 +10,8 @@ namespace CILantroToolsWebAPI.DbModels
 
         public string Name { get; set; }
 
+        public DateTime CreatedOn { get; set; }
+
         public virtual ICollection<Subcategory> Subcategories { get; set; }
 
         public virtual ICollection<Test> Tests { get; set; }

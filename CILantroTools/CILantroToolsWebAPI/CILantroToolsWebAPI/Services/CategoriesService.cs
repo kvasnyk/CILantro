@@ -41,7 +41,8 @@ namespace CILantroToolsWebAPI.Services
             var newCategory = new Category
             {
                 Id = Guid.NewGuid(),
-                Name = model.Name
+                Name = model.Name,
+                CreatedOn = DateTime.Now
             };
 
             return await _categoriesRepository.CreateAsync(newCategory);
@@ -71,7 +72,8 @@ namespace CILantroToolsWebAPI.Services
             {
                 Id = Guid.NewGuid(),
                 CategoryId = model.CategoryId,
-                Name = model.Name
+                Name = model.Name,
+                CreatedOn = DateTime.Now
             };
 
             return await _subcategoriesRepository.CreateAsync(newSubcategory);

@@ -10,6 +10,8 @@ namespace CILantroToolsWebAPI.DbModels
 
         public string Name { get; set; }
 
+        public DateTime CreatedOn { get; set; }
+
         public Guid CategoryId { get; set; }
 
         public virtual Category Category { get; set; }
