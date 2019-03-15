@@ -19,6 +19,8 @@ namespace CILantroToolsWebAPI.DbModels
 
         public InputOutput Output { get; set; }
 
+        public DateTime CreatedOn { get; set; }
+
         public Guid? CategoryId { get; set; }
 
         public virtual Category Category { get; set; }

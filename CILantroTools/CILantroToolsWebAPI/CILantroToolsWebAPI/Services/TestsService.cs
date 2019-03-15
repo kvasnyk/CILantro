@@ -72,7 +72,8 @@ namespace CILantroToolsWebAPI.Services
             {
                 Id = Guid.NewGuid(),
                 Name = testCandidate.Name,
-                Path = testCandidate.Path
+                Path = testCandidate.Path,
+                CreatedOn = DateTime.Now
             };
 
             return await _testsRepository.CreateAsync(newTest);
