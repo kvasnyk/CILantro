@@ -70,7 +70,11 @@ const translations = {
 		addIoExample: 'Add an I/O example'
 	},
 	runs: {
-		runs: 'Test runs'
+		runs: 'Test runs',
+		newRun: 'New test run',
+		full: 'Full',
+		quick: 'Quick',
+		type: 'Type'
 	},
 	shared: {
 		anErrorOccurred: 'An error occurred. Please try again.',

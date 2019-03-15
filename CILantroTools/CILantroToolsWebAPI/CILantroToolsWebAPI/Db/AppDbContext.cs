@@ -16,6 +16,8 @@ namespace CILantroToolsWebAPI.Db
 
         public DbSet<TestInputOutputExample> TestInputOutputExamples { get; set; }
 
+        public DbSet<Run> Runs { get; set; }
+
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {
@@ -63,6 +65,10 @@ namespace CILantroToolsWebAPI.Db
                 .HasOne(e => e.Test)
                 .WithMany(t => t.IoExamples)
                 .HasForeignKey(e => e.TestId);
+
+            // Run
+            modelBuilder.Entity<Run>()
+                .HasKey(r => r.Id);
         }
     }
 }
