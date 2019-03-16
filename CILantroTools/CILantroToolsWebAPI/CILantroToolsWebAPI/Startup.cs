@@ -49,9 +49,11 @@ namespace CILantroToolsWebAPI
             services.AddScoped<AppKeyRepository<Test>>();
             services.AddScoped<AppKeyRepository<Subcategory>>();
             services.AddScoped<AppKeyRepository<TestInputOutputExample>>();
+            services.AddScoped<AppKeyRepository<Run>>();
 
             services.AddScoped<CategoriesService>();
             services.AddScoped<TestsService>();
+            services.AddScoped<RunsService>();
 
             services.AddSingleton<HubExeRunner>();
         }

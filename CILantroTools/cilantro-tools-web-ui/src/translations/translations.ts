@@ -74,7 +74,9 @@ const translations = {
 		newRun: 'New test run',
 		full: 'Full',
 		quick: 'Quick',
-		type: 'Type'
+		type: 'Type',
+		runHasBeenAdded: 'The run has been added.',
+		errorOccurredWhileAddingRun: 'An error occurred while adding the run.'
 	},
 	shared: {
 		anErrorOccurred: 'An error occurred. Please try again.',

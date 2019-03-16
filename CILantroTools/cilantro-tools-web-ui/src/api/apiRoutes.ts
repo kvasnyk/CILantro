@@ -22,6 +22,10 @@ const apiRoutes = {
 		generateExe: (testId: string) => `/tests/${testId}/generate-exe`,
 		generateOutput: (testId: string) => `/tests/${testId}/generate-output`,
 		addTestInputOutputExample: (testId: string) => `/tests/${testId}/add-input-output-example`
+	},
+
+	runs: {
+		addRun: '/runs/add'
 	}
 };
 
