@@ -4,7 +4,7 @@ import { Typography } from '@material-ui/core';
 
 import TestCandidate from '../../../api/models/tests/TestCandidate';
 import translations from '../../../translations/translations';
-import CilGridLayout from '../../layouts/CilGridLayout';
+import CilCardList from '../../utils/CilCardList';
 import CilTestCandidateCard from './CilTestCandidateCard';
 
 interface CilTestCandidatesListProps {
@@ -14,11 +14,11 @@ interface CilTestCandidatesListProps {
 
 const CilTestCandidatesList: FunctionComponent<CilTestCandidatesListProps> = props => {
 	return props.testCandidates.length > 0 ? (
-		<CilGridLayout columns={3}>
+		<CilCardList>
 			{props.testCandidates.map(tc => (
 				<CilTestCandidateCard key={tc.name} testCandidate={tc} onTestCreated={props.onTestCreated} />
 			))}
-		</CilGridLayout>
+		</CilCardList>
 	) : (
 		<Typography variant="h2" align="center">
 			{translations.tests.noTestCandidates}
