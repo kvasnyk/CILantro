@@ -25,7 +25,8 @@ const apiRoutes = {
 	},
 
 	runs: {
-		addRun: '/runs/add'
+		addRun: '/runs/add',
+		searchRuns: '/runs/search'
 	}
 };
 

@@ -1,4 +1,6 @@
 ﻿using CILantroToolsWebAPI.BindingModels.Runs;
+using CILantroToolsWebAPI.ReadModels.Runs;
+using CILantroToolsWebAPI.Search;
 using CILantroToolsWebAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,6 +17,12 @@ namespace CILantroToolsWebAPI.Controllers
         public RunsController(RunsService runsService)
         {
             _runsService = runsService;
+        }
+
+        [HttpGet("search")]
+        public async Task<SearchResult<RunReadModel>> SearchRunsAsync([FromBody]SearchParameter searchParameter)
+        {
+            return await _runsService.SearchRunsAsync(searchParameter);
         }
 
         [HttpPost("add")]

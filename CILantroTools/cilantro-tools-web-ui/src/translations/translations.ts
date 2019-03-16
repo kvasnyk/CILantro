@@ -20,6 +20,7 @@ const translations = {
 		subcategoryName: 'Name',
 		subcategoryHasBeenDeleted: 'The subcategory has been deleted.'
 	},
+
 	tests: {
 		errorOccurredWhileAddingTest: 'An error occurred while adding the test.',
 		findTests: 'Find tests',
@@ -69,6 +70,7 @@ const translations = {
 		exampleNameIsEmpty: 'The example\'s name is empty',
 		addIoExample: 'Add an I/O example'
 	},
+
 	runs: {
 		runs: 'Test runs',
 		newRun: 'New test run',
@@ -76,8 +78,10 @@ const translations = {
 		quick: 'Quick',
 		type: 'Type',
 		runHasBeenAdded: 'The run has been added.',
-		errorOccurredWhileAddingRun: 'An error occurred while adding the run.'
+		errorOccurredWhileAddingRun: 'An error occurred while adding the run.',
+		noRuns: 'No runs have been found.'
 	},
+
 	shared: {
 		anErrorOccurred: 'An error occurred. Please try again.',
 		save: 'Add',
