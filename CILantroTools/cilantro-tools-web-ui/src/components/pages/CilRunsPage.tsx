@@ -30,7 +30,7 @@ const CilRunsPage: FunctionComponent = props => {
 	}, []);
 
 	const handleRunAdded = () => {
-		return;
+		refreshRuns();
 	};
 
 	const centerChildren = searchResult.data.length <= 0;
