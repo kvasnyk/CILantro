@@ -22,7 +22,8 @@ namespace CILantroToolsWebAPI.Services
             var newRun = new Run
             {
                 Id = Guid.NewGuid(),
-                Type = model.Type
+                Type = model.Type,
+                CreatedOn = DateTime.Now
             };
 
             return await _runsRepository.CreateAsync(newRun);
