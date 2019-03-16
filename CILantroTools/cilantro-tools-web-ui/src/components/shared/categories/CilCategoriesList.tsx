@@ -4,7 +4,7 @@ import { Typography } from '@material-ui/core';
 
 import CategoryReadModel from '../../../api/read-models/categories/CategoryReadModel';
 import translations from '../../../translations/translations';
-import CilGridLayout from '../../layouts/CilGridLayout';
+import CilCardList from '../../utils/CilCardList';
 import CilCategoryCard from './CilCategoryCard';
 
 interface CilCategoriesListProps {
@@ -16,7 +16,7 @@ interface CilCategoriesListProps {
 
 const CilCategoriesList: FunctionComponent<CilCategoriesListProps> = props => {
 	return props.categories.length > 0 ? (
-		<CilGridLayout columns={3}>
+		<CilCardList>
 			{props.categories.map(category => (
 				<CilCategoryCard
 					key={category.id}
@@ -26,7 +26,7 @@ const CilCategoriesList: FunctionComponent<CilCategoriesListProps> = props => {
 					onSubcategoryDeleted={props.onSubcategoryDeleted}
 				/>
 			))}
-		</CilGridLayout>
+		</CilCardList>
 	) : (
 		<Typography variant="h2" align="center">
 			{translations.categories.noCategories}
