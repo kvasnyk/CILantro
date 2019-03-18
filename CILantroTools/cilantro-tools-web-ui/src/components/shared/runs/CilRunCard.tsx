@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { FunctionComponent, ReactNode } from 'react';
 
-import { Avatar, Card, CardContent, Theme, Typography } from '@material-ui/core';
+import { Avatar, Card, CardActions, CardContent, Theme, Typography } from '@material-ui/core';
 import { orange } from '@material-ui/core/colors';
 import QuickIcon from '@material-ui/icons/DirectionsRunRounded';
 import FullIcon from '@material-ui/icons/HourglassEmptyRounded';
@@ -10,6 +10,7 @@ import { makeStyles } from '@material-ui/styles';
 import RunStatus from '../../../api/enums/RunStatus';
 import RunType from '../../../api/enums/RunType';
 import RunReadModel from '../../../api/read-models/runs/RunReadModel';
+import CilDeleteRunButton from './CilDeleteRunButton';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	cardRunning: {
@@ -42,11 +43,19 @@ const useStyles = makeStyles((theme: Theme) => ({
 	},
 	processedTestsTypographyRunning: {
 		color: theme.palette.common.white
+	},
+	cardActions: {
+		justifyContent: 'flex-end',
+		marginRight: '5px'
+	},
+	deleteIconRunning: {
+		color: theme.palette.common.white
 	}
 }));
 
 interface CilRunCardProps {
 	run: RunReadModel;
+	onRunDeleted: () => void;
 }
 
 const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
@@ -90,6 +99,13 @@ const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
 					</div>
 				</div>
 			</CardContent>
+			<CardActions className={classes.cardActions}>
+				<CilDeleteRunButton
+					run={props.run}
+					iconClassName={classes.deleteIconRunning}
+					onRunDeleted={props.onRunDeleted}
+				/>
+			</CardActions>
 		</Card>
 	);
 };

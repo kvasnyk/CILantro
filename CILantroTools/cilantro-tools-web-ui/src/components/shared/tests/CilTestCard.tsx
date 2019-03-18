@@ -21,7 +21,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 		color: theme.palette.getContrastText(theme.palette.grey[500])
 	},
 	cardActions: {
-		justifyContent: 'flex-end'
+		justifyContent: 'flex-end',
+		marginRight: '5px'
 	}
 }));
 

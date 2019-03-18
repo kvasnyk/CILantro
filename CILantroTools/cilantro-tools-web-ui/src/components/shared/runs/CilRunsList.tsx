@@ -9,13 +9,14 @@ import CilRunCard from './CilRunCard';
 
 interface CilRunsListProps {
 	runs: RunReadModel[];
+	onRunDeleted: () => void;
 }
 
 const CilRunsList: FunctionComponent<CilRunsListProps> = props => {
 	return props.runs.length > 0 ? (
 		<CilCardList>
 			{props.runs.map(run => (
-				<CilRunCard run={run} />
+				<CilRunCard key={run.id} run={run} onRunDeleted={props.onRunDeleted} />
 			))}
 		</CilCardList>
 	) : (

@@ -79,7 +79,9 @@ const translations = {
 		type: 'Type',
 		runHasBeenAdded: 'The run has been added.',
 		errorOccurredWhileAddingRun: 'An error occurred while adding the run.',
-		noRuns: 'No runs have been found.'
+		noRuns: 'No runs have been found.',
+		runHasBeenDeleted: 'The run has been deleted.',
+		errorOccurredWhileDeletingRun: 'An error occurred while deleting the run.'
 	},
 
 	shared: {

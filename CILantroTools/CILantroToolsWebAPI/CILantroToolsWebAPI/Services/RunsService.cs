@@ -1,6 +1,7 @@
 ﻿using CILantroToolsWebAPI.BindingModels.Runs;
 using CILantroToolsWebAPI.Db;
 using CILantroToolsWebAPI.DbModels;
+using CILantroToolsWebAPI.Hubs;
 using CILantroToolsWebAPI.ReadModels.Runs;
 using CILantroToolsWebAPI.ReadModels.Tests;
 using CILantroToolsWebAPI.Search;
@@ -16,13 +17,17 @@ namespace CILantroToolsWebAPI.Services
 
         private readonly AppKeyRepository<Test> _testsRepository;
 
+        private readonly HubRunRunner _runRunner;
+
         public RunsService(
             AppKeyRepository<Run> runsRepository,
-            AppKeyRepository<Test> testsRepository
+            AppKeyRepository<Test> testsRepository,
+            HubRunRunner runRunner
         )
         {
             _runsRepository = runsRepository;
             _testsRepository = testsRepository;
+            _runRunner = runRunner;
         }
 
         public async Task<SearchResult<RunReadModel>> SearchRunsAsync(SearchParameter searchParameter)
@@ -50,7 +55,19 @@ namespace CILantroToolsWebAPI.Services
                 TestRuns = testRuns
             };
 
-            return await _runsRepository.CreateAsync(newRun);
+            var runId = await _runsRepository.CreateAsync(newRun);
+
+            _runRunner.Run(runId);
+
+            return runId;
+        }
+
+        public async Task DeleteRunAsync(Guid runId)
+        {
+            if (_runRunner.ProcessingRun?.Id == runId)
+                await _runRunner.CancelExistingRun();
+
+            await _runsRepository.DeleteAsync(r => r.Id == runId);
         }
     }
 }

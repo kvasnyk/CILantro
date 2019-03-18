@@ -13,6 +13,10 @@ class RunsApiClient extends ApiClientBase {
 	public searchRuns(searchParameter: SearchParameter) {
 		return this.get<SearchParameter, SearchResult<RunReadModel>>(apiRoutes.runs.searchRuns, searchParameter);
 	}
+
+	public deleteRun(runId: string) {
+		return this.delete<{}>(apiRoutes.runs.deleteRun(runId), {});
+	}
 }
 
 export default RunsApiClient;

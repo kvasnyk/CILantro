@@ -33,6 +33,10 @@ const CilRunsPage: FunctionComponent = props => {
 		refreshRuns();
 	};
 
+	const handleRunDeleted = () => {
+		refreshRuns();
+	};
+
 	const centerChildren = searchResult.data.length <= 0;
 
 	return (
@@ -40,7 +44,7 @@ const CilRunsPage: FunctionComponent = props => {
 			<CilPageHeader text={translations.runs.runs}>
 				<CilAddRunButton onRunAdded={handleRunAdded} />
 			</CilPageHeader>
-			<CilRunsList runs={searchResult.data} />
+			<CilRunsList runs={searchResult.data} onRunDeleted={handleRunDeleted} />
 		</CilPage>
 	);
 };

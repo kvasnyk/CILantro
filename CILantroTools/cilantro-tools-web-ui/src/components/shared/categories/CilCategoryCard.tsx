@@ -10,7 +10,8 @@ import CilDeleteSubcategoryButton from './CilDeleteSubcategoryButton';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	cardActions: {
-		justifyContent: 'flex-end'
+		justifyContent: 'flex-end',
+		marginRight: '5px'
 	},
 	subcategoryLi: {
 		display: 'flex',
