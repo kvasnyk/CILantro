@@ -4,6 +4,7 @@ using CILantroToolsWebAPI.DbModels;
 using CILantroToolsWebAPI.ReadModels.Runs;
 using CILantroToolsWebAPI.Search;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CILantroToolsWebAPI.Services
@@ -21,7 +22,9 @@ namespace CILantroToolsWebAPI.Services
 
         public async Task<SearchResult<RunReadModel>> SearchRunsAsync(SearchParameter searchParameter)
         {
-            return await _runsRepository.Search<RunReadModel>(searchParameter);
+            var result = await _runsRepository.Search<RunReadModel>(searchParameter);
+            result.Data = result.Data.OrderByDescending(r => r.CreatedOn);
+            return result;
         }
 
         public async Task<Guid> AddRunAsync(AddRunBindingModel model)
