@@ -18,6 +18,8 @@ namespace CILantroToolsWebAPI.Db
 
         public DbSet<Run> Runs { get; set; }
 
+        public DbSet<TestRun> TestRuns { get; set; }
+
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {
@@ -72,6 +74,18 @@ namespace CILantroToolsWebAPI.Db
             modelBuilder.Entity<Run>()
                 .Property(r => r.IntId)
                 .ValueGeneratedOnAdd();
+
+            // TestRun
+            modelBuilder.Entity<TestRun>()
+                .HasKey(tr => tr.Id);
+            modelBuilder.Entity<TestRun>()
+                .HasOne(tr => tr.Test)
+                .WithMany()
+                .HasForeignKey(tr => tr.TestId);
+            modelBuilder.Entity<TestRun>()
+                .HasOne(tr => tr.Run)
+                .WithMany(r => r.TestRuns)
+                .HasForeignKey(tr => tr.RunId);
         }
     }
 }

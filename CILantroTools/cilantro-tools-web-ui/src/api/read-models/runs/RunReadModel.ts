@@ -7,6 +7,8 @@ interface RunReadModel {
 	type: RunType;
 	status: RunStatus;
 	createdOn: Date;
+	allTestsCount: number;
+	processedTestsCount: number;
 }
 
 export default RunReadModel;

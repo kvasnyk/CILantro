@@ -4,14 +4,16 @@ using CILantroToolsWebAPI.Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CILantroToolsWebAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190318193840_TestRunEntity")]
+    partial class TestRunEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,8 +45,6 @@ namespace CILantroToolsWebAPI.Migrations
                     b.Property<int>("IntId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ProcessedTestsCount");
 
                     b.Property<int>("Status");
 
@@ -130,17 +130,13 @@ namespace CILantroToolsWebAPI.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("RunId");
-
                     b.Property<Guid>("TestId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RunId");
-
                     b.HasIndex("TestId");
 
-                    b.ToTable("TestRuns");
+                    b.ToTable("TestRun");
                 });
 
             modelBuilder.Entity("CILantroToolsWebAPI.DbModels.Subcategory", b =>
@@ -172,11 +168,6 @@ namespace CILantroToolsWebAPI.Migrations
 
             modelBuilder.Entity("CILantroToolsWebAPI.DbModels.TestRun", b =>
                 {
-                    b.HasOne("CILantroToolsWebAPI.DbModels.Run", "Run")
-                        .WithMany("TestRuns")
-                        .HasForeignKey("RunId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("CILantroToolsWebAPI.DbModels.Test", "Test")
                         .WithMany()
                         .HasForeignKey("TestId")

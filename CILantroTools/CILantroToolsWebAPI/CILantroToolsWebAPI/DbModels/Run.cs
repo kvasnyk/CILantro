@@ -1,6 +1,7 @@
 ﻿using CILantroToolsWebAPI.Db;
 using CILantroToolsWebAPI.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace CILantroToolsWebAPI.DbModels
 {
@@ -15,5 +16,9 @@ namespace CILantroToolsWebAPI.DbModels
         public RunStatus Status { get; set; }
 
         public DateTime CreatedOn { get; set; }
+
+        public int ProcessedTestsCount { get; set; }
+
+        public virtual ICollection<TestRun> TestRuns { get; set; }
     }
 }

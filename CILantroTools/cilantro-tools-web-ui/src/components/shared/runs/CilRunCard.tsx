@@ -22,10 +22,27 @@ const useStyles = makeStyles((theme: Theme) => ({
 	runTypeAvatarRunning: {
 		backgroundColor: orange[700]
 	},
-	content1: {
+	cardContent: {
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+	cardContentLeft: {
+		flexGrow: 1,
 		display: 'flex',
 		flexDirection: 'row',
 		alignItems: 'center'
+	},
+	cardContentRight: {
+		flexGrow: 1,
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'flex-end',
+		justifyContent: 'center'
+	},
+	processedTestsTypographyRunning: {
+		color: theme.palette.common.white
 	}
 }));
 
@@ -49,12 +66,19 @@ const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
 
 	return (
 		<Card className={cardClassName}>
-			<CardContent>
-				<div className={classes.content1}>
+			<CardContent className={classes.cardContent}>
+				<div className={classes.cardContentLeft}>
 					<Avatar className={classes.runTypeAvatarRunning}>{runTypeIcon}</Avatar>
 					<Typography variant="h2" className={classes.intIdTypographyRunning}>
 						{('000000' + props.run.intId).slice(-6)}
 					</Typography>
+				</div>
+				<div className={classes.cardContentRight}>
+					<div>
+						<Typography variant="h6" className={classes.processedTestsTypographyRunning}>
+							{props.run.processedTestsCount} / {props.run.allTestsCount}
+						</Typography>
+					</div>
 				</div>
 			</CardContent>
 		</Card>

@@ -1,6 +1,7 @@
 ﻿using CILantroToolsWebAPI.DbModels;
 using CILantroToolsWebAPI.Enums;
 using System;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace CILantroToolsWebAPI.ReadModels.Runs
@@ -16,6 +17,10 @@ namespace CILantroToolsWebAPI.ReadModels.Runs
         public RunStatus Status { get; set; }
 
         public DateTime CreatedOn { get; set; }
+
+        public int AllTestsCount { get; set; }
+
+        public int ProcessedTestsCount { get; set; }
     }
 
     public class RunReadModelMapping : ReadModelMappingBase<Run, RunReadModel>
@@ -26,7 +31,9 @@ namespace CILantroToolsWebAPI.ReadModels.Runs
             IntId = run.IntId,
             Type = run.Type,
             Status = run.Status,
-            CreatedOn = run.CreatedOn
+            CreatedOn = run.CreatedOn,
+            AllTestsCount = run.TestRuns.Count(),
+            ProcessedTestsCount = run.ProcessedTestsCount
         };
     }
 }
