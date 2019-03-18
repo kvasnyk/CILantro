@@ -21,6 +21,8 @@ namespace CILantroToolsWebAPI.ReadModels.Runs
         public int AllTestsCount { get; set; }
 
         public int ProcessedTestsCount { get; set; }
+
+        public int? ProcessedForSeconds { get; set; }
     }
 
     public class RunReadModelMapping : ReadModelMappingBase<Run, RunReadModel>
@@ -33,7 +35,8 @@ namespace CILantroToolsWebAPI.ReadModels.Runs
             Status = run.Status,
             CreatedOn = run.CreatedOn,
             AllTestsCount = run.TestRuns.Count(),
-            ProcessedTestsCount = run.ProcessedTestsCount
+            ProcessedTestsCount = run.ProcessedTestsCount,
+            ProcessedForSeconds = run.ProcessingStartedOn.HasValue && run.ProcessingFinishedOn.HasValue ? (int?)(run.ProcessingFinishedOn - run.ProcessingStartedOn).Value.TotalSeconds : null
         };
     }
 }

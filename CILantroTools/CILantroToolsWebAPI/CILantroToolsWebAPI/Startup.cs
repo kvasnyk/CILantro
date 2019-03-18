@@ -65,7 +65,7 @@ namespace CILantroToolsWebAPI
 
             app.UseCors("AllowEverything");
 
-            //MigrationsHelper.MigrateAndSeed(env, app);
+            MigrationsHelper.MigrateAndSeed(env, app);
 
             app.UseSignalR(options =>
             {

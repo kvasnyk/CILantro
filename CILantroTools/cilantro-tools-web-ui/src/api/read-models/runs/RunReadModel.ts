@@ -9,6 +9,7 @@ interface RunReadModel {
 	createdOn: Date;
 	allTestsCount: number;
 	processedTestsCount: number;
+	processedForSeconds: number;
 }
 
 export default RunReadModel;

@@ -35,10 +35,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 		alignItems: 'center'
 	},
 	cardContentRight: {
-		flexGrow: 1,
 		display: 'flex',
 		flexDirection: 'column',
-		alignItems: 'flex-end',
+		alignItems: 'center',
 		justifyContent: 'center'
 	},
 	processedTestsTypographyRunning: {
@@ -64,6 +63,11 @@ const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
 		[classes.cardRunning]: props.run.status === RunStatus.Running
 	});
 
+	const totalSeconds = props.run.processedForSeconds || 0;
+	const hours = parseInt((totalSeconds / 3600).toString(), 10);
+	const minutes = parseInt(((totalSeconds - hours * 3600) / 60).toString(), 10);
+	const seconds = totalSeconds - hours * 3600 - minutes * 60;
+
 	return (
 		<Card className={cardClassName}>
 			<CardContent className={classes.cardContent}>
@@ -77,6 +81,11 @@ const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
 					<div>
 						<Typography variant="h6" className={classes.processedTestsTypographyRunning}>
 							{props.run.processedTestsCount} / {props.run.allTestsCount}
+						</Typography>
+					</div>
+					<div>
+						<Typography variant="h6" className={classes.processedTestsTypographyRunning}>
+							{('00' + hours).slice(-2)}:{('00' + minutes).slice(-2)}:{('00' + seconds).slice(-2)}
 						</Typography>
 					</div>
 				</div>

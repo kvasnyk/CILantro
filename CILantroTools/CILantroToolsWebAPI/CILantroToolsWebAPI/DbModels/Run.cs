@@ -19,6 +19,10 @@ namespace CILantroToolsWebAPI.DbModels
 
         public int ProcessedTestsCount { get; set; }
 
+        public DateTime? ProcessingStartedOn { get; set; }
+
+        public DateTime? ProcessingFinishedOn { get; set; }
+
         public virtual ICollection<TestRun> TestRuns { get; set; }
     }
 }
