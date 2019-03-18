@@ -8,7 +8,11 @@ namespace CILantroToolsWebAPI.DbModels
     {
         public Guid Id { get; set; }
 
+        public int IntId { get; set; }
+
         public RunType Type { get; set; }
+
+        public RunStatus Status { get; set; }
 
         public DateTime CreatedOn { get; set; }
     }

@@ -69,6 +69,9 @@ namespace CILantroToolsWebAPI.Db
             // Run
             modelBuilder.Entity<Run>()
                 .HasKey(r => r.Id);
+            modelBuilder.Entity<Run>()
+                .Property(r => r.IntId)
+                .ValueGeneratedOnAdd();
         }
     }
 }
