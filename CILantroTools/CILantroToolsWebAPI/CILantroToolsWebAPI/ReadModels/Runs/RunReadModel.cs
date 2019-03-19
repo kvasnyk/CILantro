@@ -1,6 +1,8 @@
 ﻿using CILantroToolsWebAPI.DbModels;
 using CILantroToolsWebAPI.Enums;
+using LinqKit;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -23,10 +25,18 @@ namespace CILantroToolsWebAPI.ReadModels.Runs
         public int ProcessedTestsCount { get; set; }
 
         public int? ProcessedForSeconds { get; set; }
+
+        public DateTime? ProcessingStartedOn { get; set; }
+
+        public DateTime? ProcessingFinishedOn { get; set; }
+
+        public List<TestRunReadModel> TestRuns { get; set; }
     }
 
     public class RunReadModelMapping : ReadModelMappingBase<Run, RunReadModel>
     {
+        private readonly Expression<Func<TestRun, TestRunReadModel>> _testRunMapping = new TestRunReadModelMapping().Mapping.Expand();
+
         public override Expression<Func<Run, RunReadModel>> Mapping => run => new RunReadModel
         {
             Id = run.Id,
@@ -36,7 +46,10 @@ namespace CILantroToolsWebAPI.ReadModels.Runs
             CreatedOn = run.CreatedOn,
             AllTestsCount = run.TestRuns.Count(),
             ProcessedTestsCount = run.ProcessedTestsCount,
-            ProcessedForSeconds = run.ProcessingStartedOn.HasValue && run.ProcessingFinishedOn.HasValue ? (int?)(run.ProcessingFinishedOn - run.ProcessingStartedOn).Value.TotalSeconds : null
+            ProcessingStartedOn = run.ProcessingStartedOn,
+            ProcessingFinishedOn = run.ProcessingFinishedOn,
+            ProcessedForSeconds = run.ProcessingStartedOn.HasValue && run.ProcessingFinishedOn.HasValue ? (int?)(run.ProcessingFinishedOn - run.ProcessingStartedOn).Value.TotalSeconds : null,
+            TestRuns = run.TestRuns.Select(tr => _testRunMapping.Invoke(tr)).ToList()
         };
     }
 }

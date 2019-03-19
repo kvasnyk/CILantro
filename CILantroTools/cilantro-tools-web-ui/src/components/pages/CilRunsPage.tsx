@@ -37,6 +37,10 @@ const CilRunsPage: FunctionComponent = props => {
 		refreshRuns();
 	};
 
+	const handleHubConnectionError = () => {
+		setPageState('error');
+	};
+
 	const centerChildren = searchResult.data.length <= 0;
 
 	return (
@@ -44,7 +48,11 @@ const CilRunsPage: FunctionComponent = props => {
 			<CilPageHeader text={translations.runs.runs}>
 				<CilAddRunButton onRunAdded={handleRunAdded} />
 			</CilPageHeader>
-			<CilRunsList runs={searchResult.data} onRunDeleted={handleRunDeleted} />
+			<CilRunsList
+				runs={searchResult.data}
+				onRunDeleted={handleRunDeleted}
+				onHubConnectionError={handleHubConnectionError}
+			/>
 		</CilPage>
 	);
 };
