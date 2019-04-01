@@ -7,6 +7,8 @@ namespace CILantroToolsWebAPI.DbModels
     {
         public Guid Id { get; set; }
 
+        public bool HasBeenProcessed { get; set; }
+
         public Guid TestId { get; set; }
 
         public virtual Test Test { get; set; }

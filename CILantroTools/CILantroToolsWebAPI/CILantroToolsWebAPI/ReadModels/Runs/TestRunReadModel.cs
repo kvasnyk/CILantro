@@ -8,6 +8,8 @@ namespace CILantroToolsWebAPI.ReadModels.Runs
     {
         public Guid Id { get; set; }
 
+        public bool HasBeenProcessed { get; set; }
+
         public Guid TestId { get; set; }
     }
 
@@ -16,6 +18,7 @@ namespace CILantroToolsWebAPI.ReadModels.Runs
         public override Expression<Func<TestRun, TestRunReadModel>> Mapping => testRun => new TestRunReadModel
         {
             Id = testRun.Id,
+            HasBeenProcessed = testRun.HasBeenProcessed,
             TestId = testRun.TestId
         };
     }

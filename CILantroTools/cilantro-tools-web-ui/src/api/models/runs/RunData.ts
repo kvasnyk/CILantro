@@ -1,4 +1,5 @@
 import RunStatus from '../../enums/RunStatus';
+import TestRunStep from '../../enums/TestRunStep';
 
 interface RunData {
 	status: RunStatus;
@@ -6,6 +7,8 @@ interface RunData {
 	processedForSeconds?: number;
 	currentTestIntId?: number;
 	currentTestName?: string;
+	currentTestStep?: TestRunStep;
+	currentTestStepIndex?: number;
 }
 
 export default RunData;

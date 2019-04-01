@@ -13,6 +13,8 @@ namespace CILantroToolsWebAPI.Services
 {
     public class RunsService
     {
+        private readonly TestsHelper _testsHelper;
+
         private readonly AppKeyRepository<Run> _runsRepository;
 
         private readonly AppKeyRepository<Test> _testsRepository;
@@ -20,11 +22,13 @@ namespace CILantroToolsWebAPI.Services
         private readonly HubRunRunner _runRunner;
 
         public RunsService(
+            TestsHelper testsHelper,
             AppKeyRepository<Run> runsRepository,
             AppKeyRepository<Test> testsRepository,
             HubRunRunner runRunner
         )
         {
+            _testsHelper = testsHelper;
             _runsRepository = runsRepository;
             _testsRepository = testsRepository;
             _runRunner = runRunner;
@@ -39,9 +43,10 @@ namespace CILantroToolsWebAPI.Services
 
         public async Task<Guid> AddRunAsync(AddRunBindingModel model)
         {
-            var allTests = _testsRepository.Read<TestReadModel>();
+            var allTests = _testsRepository.Read<TestReadModel>().ToList();
+            await _testsHelper.CompleteTestReadModels(allTests);
 
-            var testRuns = allTests.Select(t => new TestRun
+            var testRuns = allTests.Where(t => t.IsReady).Select(t => new TestRun
             {
                 Id = Guid.NewGuid(),
                 TestId = t.Id

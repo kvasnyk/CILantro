@@ -33,7 +33,7 @@ namespace CILantroToolsWebAPI.Hubs
             _processes.Add(connectionId, newProcess);
 
             Task
-                .Run(() => { WatchOuput(connectionId); })
+                .Run(() => { WatchOutput(connectionId); })
                 .ContinueWith(ct => { _hubContext.Clients.Group(connectionId).SendAsync("end"); });
 
             Task.Run(() => { WatchError(connectionId); });
@@ -46,7 +46,7 @@ namespace CILantroToolsWebAPI.Hubs
             _processes[connectionId].StandardInput.WriteLineAsync(inputLine);
         }
 
-        private async Task WatchOuput(string connectionId)
+        private async Task WatchOutput(string connectionId)
         {
             var standardOutput = _processes[connectionId].StandardOutput;
 

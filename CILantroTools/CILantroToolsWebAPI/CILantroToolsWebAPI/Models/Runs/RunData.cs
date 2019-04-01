@@ -15,11 +15,18 @@ namespace CILantroToolsWebAPI.Models.Runs
 
         public string CurrentTestName { get; set; }
 
+        public TestRunStep? CurrentTestStep { get; set; }
+
+        public int? CurrentTestStepIndex { get; set; }
+
+        public int TestStepsCount { get; set; }
+
         public RunData(RunReadModel run)
         {
             Status = run.Status;
             ProcessedTestsCount = run.ProcessedTestsCount;
             ProcessedForSeconds = run.ProcessedForSeconds;
+            TestStepsCount = TestRunStepHelper.GetAllSteps().Count;
         }
     }
 }

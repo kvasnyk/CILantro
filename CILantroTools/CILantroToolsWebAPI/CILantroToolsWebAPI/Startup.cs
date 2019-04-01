@@ -5,6 +5,7 @@ using CILantroToolsWebAPI.Migrations;
 using CILantroToolsWebAPI.ReadModels;
 using CILantroToolsWebAPI.Services;
 using CILantroToolsWebAPI.Settings;
+using CILantroToolsWebAPI.Utils;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -48,6 +49,7 @@ namespace CILantroToolsWebAPI
             services.AddScoped<AppKeyRepository<Subcategory>>();
             services.AddScoped<AppKeyRepository<TestInputOutputExample>>();
             services.AddScoped<AppKeyRepository<Run>>();
+            services.AddScoped<AppKeyRepository<TestRun>>();
 
             services.AddScoped<CategoriesService>();
             services.AddScoped<TestsService>();
@@ -55,6 +57,10 @@ namespace CILantroToolsWebAPI
 
             services.AddSingleton<HubExeRunner>();
             services.AddSingleton<HubRunRunner>();
+
+            services.AddSingleton<TestsHelper>();
+
+            services.AddSingleton<Paths>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
