@@ -44,7 +44,7 @@ const CilRunTestBothButton: FunctionComponent<CilRunTestBothButtonProps> = props
 		setIsDialogOpen(false);
 	};
 
-	return (
+	return props.testInfo.test.hasIlSources && props.testInfo.test.hasExe ? (
 		<>
 			{props.type === 'icon-button' ? (
 				<CilIconButton onClick={handleClick}>
@@ -57,7 +57,7 @@ const CilRunTestBothButton: FunctionComponent<CilRunTestBothButtonProps> = props
 			)}
 			{isDialogOpen ? <CilExecuteTestBothDialog onClose={handleDialogClose} testInfo={props.testInfo} /> : null}
 		</>
-	);
+	) : null;
 };
 
 export default CilRunTestBothButton;

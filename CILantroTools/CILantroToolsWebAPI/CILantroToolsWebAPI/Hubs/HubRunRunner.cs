@@ -9,6 +9,7 @@ using CILantroToolsWebAPI.Utils;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -160,36 +161,77 @@ namespace CILantroToolsWebAPI.Hubs
             _processingRunData.CurrentTestStepIndex = TestRunStepHelper.GetStepIndex(step);
             SendRunData();
 
+            var started = DateTime.Now;
+
+            var items = new List<TestRunStepItem>();
+
             switch (step)
             {
                 case TestRunStep.GenerateInputFiles:
-                    await GenerateInputFiles(test, testRun);
-                    return;
+                    items = await GenerateInputFiles(test, testRun);
+                    break;
                 case TestRunStep.GenerateExeOutputFiles:
-                    await GenerateExeOutputFiles(test, testRun);
-                    return;
+                    items = await GenerateExeOutputFiles(test, testRun);
+                    break;
                 case TestRunStep.GenerateCilAntroOutputFiles:
-                    await GenerateCilAntroOutputFiles(test, testRun);
-                    return;
+                    items = await GenerateCilAntroOutputFiles(test, testRun);
+                    break;
+            }
+
+            var finished = DateTime.Now;
+
+            var newStepInfo = new TestRunStepInfo
+            {
+                Id = Guid.NewGuid(),
+                ProcessedForMilliseconds = (int)(finished - started).TotalMilliseconds,
+                Step = step,
+                TestRunId = testRun.Id,
+                Items = items
+            };
+
+            using (var scope = _serviceScopeFactory.CreateScope())
+            {
+                var stepsRepository = scope.ServiceProvider.GetRequiredService<AppKeyRepository<TestRunStepInfo>>();
+                await stepsRepository.CreateAsync(newStepInfo);
             }
         }
 
-        private async Task GenerateInputFiles(TestReadModel test, TestRunReadModel testRun)
+        private async Task<List<TestRunStepItem>> GenerateInputFiles(TestReadModel test, TestRunReadModel testRun)
         {
+            var result = new List<TestRunStepItem>();
+
             foreach (var ioExample in test.IoExamples)
             {
+                var started = DateTime.Now;
+
                 var inputPath = _paths.RunsData[ProcessingRun.Id][testRun.Id].Inputs[ioExample.Name.Replace(' ', '_')].Absolute;
                 await File.WriteAllTextAsync(inputPath, ioExample.Input);
+
+                var finished = DateTime.Now;
+
+                var item = new TestRunStepItem
+                {
+                    Id = Guid.NewGuid(),
+                    Name = Path.GetFileNameWithoutExtension(inputPath),
+                    ProcessedForMilliseconds = (int)(finished - started).TotalMilliseconds
+                };
+                result.Add(item);
             }
+
+            return result;
         }
 
-        private async Task GenerateExeOutputFiles(TestReadModel test, TestRunReadModel testRun)
+        private async Task<List<TestRunStepItem>> GenerateExeOutputFiles(TestReadModel test, TestRunReadModel testRun)
         {
+            var result = new List<TestRunStepItem>();
+
             var testExePath = _paths.TestsData.Execs[test.Name].MainExePaths.Absolute;
             var inputsPath = _paths.RunsData[ProcessingRun.Id][testRun.Id].Inputs;
 
             foreach (var inputFile in Directory.GetFiles(inputsPath.Absolute))
             {
+                var started = DateTime.Now;
+
                 var outputPath = _paths.RunsData[ProcessingRun.Id][testRun.Id].Outputs[Path.GetFileNameWithoutExtension(inputFile)].Absolute;
 
                 var processStartInfo = new ProcessStartInfo(testExePath)
@@ -219,16 +261,32 @@ namespace CILantroToolsWebAPI.Hubs
                 }
 
                 await File.WriteAllTextAsync(outputPath, outputBuilder.ToString());
+
+                var finished = DateTime.Now;
+
+                var item = new TestRunStepItem
+                {
+                    Id = Guid.NewGuid(),
+                    Name = Path.GetFileNameWithoutExtension(inputFile),
+                    ProcessedForMilliseconds = (int)(finished - started).TotalMilliseconds
+                };
+                result.Add(item);
             }
+
+            return result;
         }
 
-        private async Task GenerateCilAntroOutputFiles(TestReadModel test, TestRunReadModel testRun)
+        private async Task<List<TestRunStepItem>> GenerateCilAntroOutputFiles(TestReadModel test, TestRunReadModel testRun)
         {
+            var result = new List<TestRunStepItem>();
+
             var testExePath = _paths.TestsData.Execs[test.Name].MainExePaths.Absolute;
             var inputsPath = _paths.RunsData[ProcessingRun.Id][testRun.Id].Inputs;
 
             foreach (var inputFile in Directory.GetFiles(inputsPath.Absolute))
             {
+                var started = DateTime.Now;
+
                 var outputPath = _paths.RunsData[ProcessingRun.Id][testRun.Id].CilAntroOutputs[Path.GetFileNameWithoutExtension(inputFile)].Absolute;
                 var testIlSourcePath = _paths.TestsData.IlSources[test.Name].MainIlSourcePaths.Absolute;
 
@@ -259,7 +317,19 @@ namespace CILantroToolsWebAPI.Hubs
                 }
 
                 await File.WriteAllTextAsync(outputPath, outputBuilder.ToString());
+
+                var finished = DateTime.Now;
+
+                var item = new TestRunStepItem
+                {
+                    Id = Guid.NewGuid(),
+                    Name = Path.GetFileNameWithoutExtension(inputFile),
+                    ProcessedForMilliseconds = (int)(finished - started).TotalMilliseconds
+                };
+                result.Add(item);
             }
+
+            return result;
         }
 
         private void SendRunData(Action continueWith = null)

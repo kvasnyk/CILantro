@@ -20,6 +20,10 @@ namespace CILantroToolsWebAPI.Db
 
         public DbSet<TestRun> TestRuns { get; set; }
 
+        public DbSet<TestRunStepInfo> TestRunSteps { get; set; }
+
+        public DbSet<TestRunStepItem> TestRunStepItems { get; set; }
+
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {
@@ -86,6 +90,22 @@ namespace CILantroToolsWebAPI.Db
                 .HasOne(tr => tr.Run)
                 .WithMany(r => r.TestRuns)
                 .HasForeignKey(tr => tr.RunId);
+
+            // TestRunStepInfo
+            modelBuilder.Entity<TestRunStepInfo>()
+                .HasKey(trsi => trsi.Id);
+            modelBuilder.Entity<TestRunStepInfo>()
+                .HasOne(trsi => trsi.TestRun)
+                .WithMany(tr => tr.Steps)
+                .HasForeignKey(trsi => trsi.TestRunId);
+
+            // TestRunStepItem
+            modelBuilder.Entity<TestRunStepItem>()
+                .HasKey(trsi => trsi.Id);
+            modelBuilder.Entity<TestRunStepItem>()
+                .HasOne(trsi => trsi.Step)
+                .WithMany(trsi => trsi.Items)
+                .HasForeignKey(trsi => trsi.StepId);
         }
     }
 }

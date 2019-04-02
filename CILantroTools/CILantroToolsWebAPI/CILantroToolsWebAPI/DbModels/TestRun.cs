@@ -1,5 +1,6 @@
 ﻿using CILantroToolsWebAPI.Db;
 using System;
+using System.Collections.Generic;
 
 namespace CILantroToolsWebAPI.DbModels
 {
@@ -16,5 +17,7 @@ namespace CILantroToolsWebAPI.DbModels
         public Guid RunId { get; set; }
 
         public virtual Run Run { get; set; }
+
+        public virtual ICollection<TestRunStepInfo> Steps { get; set; }
     }
 }

@@ -50,6 +50,8 @@ namespace CILantroToolsWebAPI
             services.AddScoped<AppKeyRepository<TestInputOutputExample>>();
             services.AddScoped<AppKeyRepository<Run>>();
             services.AddScoped<AppKeyRepository<TestRun>>();
+            services.AddScoped<AppKeyRepository<TestRunStepInfo>>();
+            services.AddScoped<AppKeyRepository<TestRunStepItem>>();
 
             services.AddScoped<CategoriesService>();
             services.AddScoped<TestsService>();
