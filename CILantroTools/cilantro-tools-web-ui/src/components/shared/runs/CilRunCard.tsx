@@ -2,11 +2,12 @@ import classNames from 'classnames';
 import React, { FunctionComponent, ReactNode, useState } from 'react';
 
 import { Avatar, Card, CardActions, CardContent, LinearProgress, Theme, Typography } from '@material-ui/core';
-import { orange } from '@material-ui/core/colors';
+import { green, orange } from '@material-ui/core/colors';
 import QuickIcon from '@material-ui/icons/DirectionsRunRounded';
 import FullIcon from '@material-ui/icons/HourglassEmptyRounded';
 import { makeStyles } from '@material-ui/styles';
 
+import RunOutcome from '../../../api/enums/RunOutcome';
 import RunStatus from '../../../api/enums/RunStatus';
 import RunType from '../../../api/enums/RunType';
 import { TestRunStepHelper } from '../../../api/enums/TestRunStep';
@@ -75,6 +76,15 @@ const useStyles = makeStyles((theme: Theme) => ({
 	cancelledBackgroundColor2: {
 		backgroundColor: '#777777'
 	},
+	okColor: {
+		color: theme.palette.common.white
+	},
+	okBackgroundColor1: {
+		backgroundColor: green[500]
+	},
+	okBackgroundColor2: {
+		backgroundColor: green[700]
+	},
 	linearProgress: {
 		backgroundColor: orange[300]
 	},
@@ -97,6 +107,7 @@ const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
 
 	const [runData, setRunData] = useState<RunData>({
 		status: props.run.status,
+		outcome: props.run.outcome,
 		processedTestsCount: props.run.processedTestsCount,
 		processedForMilliseconds: props.run.processedForMilliseconds,
 		testStepsCount: 0
@@ -115,6 +126,7 @@ const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
 
 	const isRunning = runData.status === RunStatus.Running;
 	const isCancelled = runData.status === RunStatus.Cancelled;
+	const isOk = runData.status === RunStatus.Finished && runData.outcome === RunOutcome.Ok;
 
 	let runTypeIcon: ReactNode;
 	if (props.run.type === RunType.Full) {
@@ -125,17 +137,20 @@ const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
 
 	const colorClassName = classNames({
 		[classes.runningColor]: isRunning,
-		[classes.cancelledColor]: isCancelled
+		[classes.cancelledColor]: isCancelled,
+		[classes.okColor]: isOk
 	});
 
 	const backgroundColor1ClassName = classNames({
 		[classes.runningBackgroundColor1]: isRunning,
-		[classes.cancelledBackgroundColor1]: isCancelled
+		[classes.cancelledBackgroundColor1]: isCancelled,
+		[classes.okBackgroundColor1]: isOk
 	});
 
 	const backgroundColor2ClassName = classNames({
 		[classes.runningBackgroundColor2]: isRunning,
-		[classes.cancelledBackgroundColor2]: isCancelled
+		[classes.cancelledBackgroundColor2]: isCancelled,
+		[classes.okBackgroundColor2]: isOk
 	});
 
 	const cardClassName = classNames(backgroundColor1ClassName);

@@ -7,6 +7,8 @@ namespace CILantroToolsWebAPI.Models.Runs
     {
         public RunStatus Status { get; set; }
 
+        public RunOutcome Outcome { get; set; }
+
         public int ProcessedTestsCount { get; set; }
 
         public int? ProcessedForMilliseconds { get; set; }
@@ -24,6 +26,7 @@ namespace CILantroToolsWebAPI.Models.Runs
         public RunData(RunReadModel run)
         {
             Status = run.Status;
+            Outcome = run.Outcome;
             ProcessedTestsCount = run.ProcessedTestsCount;
             ProcessedForMilliseconds = run.ProcessedForMilliseconds;
             TestStepsCount = TestRunStepHelper.GetAllSteps().Count;

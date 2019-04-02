@@ -148,8 +148,12 @@ namespace CILantroToolsWebAPI.Hubs
                 var runsRepository = scope.ServiceProvider.GetRequiredService<AppKeyRepository<Run>>();
                 await runsRepository.UpdateAsync(r => r.Id == ProcessingRun.Id, r =>
                 {
+                    var newOutcome = r.Outcome == RunOutcome.Ok && testRunOutcome == RunOutcome.Ok ? RunOutcome.Ok : RunOutcome.Wrong;
+
                     r.ProcessedTestsCount++;
-                    r.Outcome = r.Outcome == RunOutcome.Ok && testRunOutcome == RunOutcome.Ok ? RunOutcome.Ok : RunOutcome.Wrong;
+                    r.Outcome = newOutcome;
+
+                    _processingRunData.Outcome = newOutcome;
                 });
             }
 

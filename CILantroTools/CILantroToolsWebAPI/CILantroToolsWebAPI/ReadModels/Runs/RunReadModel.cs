@@ -18,6 +18,8 @@ namespace CILantroToolsWebAPI.ReadModels.Runs
 
         public RunStatus Status { get; set; }
 
+        public RunOutcome Outcome { get; set; }
+
         public DateTime CreatedOn { get; set; }
 
         public int AllTestsCount { get; set; }
@@ -43,6 +45,7 @@ namespace CILantroToolsWebAPI.ReadModels.Runs
             IntId = run.IntId,
             Type = run.Type,
             Status = run.Status,
+            Outcome = run.Outcome,
             CreatedOn = run.CreatedOn,
             AllTestsCount = run.TestRuns.Count(),
             ProcessedTestsCount = run.ProcessedTestsCount,

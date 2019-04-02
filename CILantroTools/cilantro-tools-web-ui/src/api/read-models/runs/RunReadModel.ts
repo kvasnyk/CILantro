@@ -1,3 +1,4 @@
+import RunOutcome from '../../enums/RunOutcome';
 import RunStatus from '../../enums/RunStatus';
 import RunType from '../../enums/RunType';
 
@@ -6,6 +7,7 @@ interface RunReadModel {
 	intId: number;
 	type: RunType;
 	status: RunStatus;
+	outcome: RunOutcome;
 	createdOn: Date;
 	allTestsCount: number;
 	processedTestsCount: number;

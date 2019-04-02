@@ -1,8 +1,10 @@
+import RunOutcome from '../../enums/RunOutcome';
 import RunStatus from '../../enums/RunStatus';
 import TestRunStep from '../../enums/TestRunStep';
 
 interface RunData {
 	status: RunStatus;
+	outcome: RunOutcome;
 	processedTestsCount: number;
 	processedForMilliseconds?: number;
 	currentTestIntId?: number;
