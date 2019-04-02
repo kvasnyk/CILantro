@@ -1,4 +1,5 @@
 ﻿using CILantroToolsWebAPI.Db;
+using CILantroToolsWebAPI.Enums;
 using System;
 
 namespace CILantroToolsWebAPI.DbModels
@@ -10,6 +11,8 @@ namespace CILantroToolsWebAPI.DbModels
         public int ProcessedForMilliseconds { get; set; }
 
         public string Name { get; set; }
+
+        public RunOutcome Outcome { get; set; }
 
         public Guid StepId { get; set; }
 

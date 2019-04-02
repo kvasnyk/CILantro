@@ -127,10 +127,13 @@ namespace CILantroToolsWebAPI.Hubs
             SendRunData();
 
             var currentStep = TestRunStepHelper.GetFirstStep() as TestRunStep?;
+            var testRunOutcome = RunOutcome.Ok;
             while (currentStep.HasValue)
             {
-                await ProcessTestRunStep(currentStep.Value, test, testRun);
+                var stepOutcome = await ProcessTestRunStep(currentStep.Value, test, testRun);
                 currentStep = TestRunStepHelper.GetNextStep(currentStep.Value);
+
+                testRunOutcome = testRunOutcome == RunOutcome.Ok && stepOutcome == RunOutcome.Ok ? RunOutcome.Ok : RunOutcome.Wrong;
             }
 
             using (var scope = _serviceScopeFactory.CreateScope())
@@ -139,12 +142,14 @@ namespace CILantroToolsWebAPI.Hubs
                 await testRunsRepository.UpdateAsync(tr => tr.Id == testRun.Id, tr =>
                 {
                     tr.HasBeenProcessed = true;
+                    tr.Outcome = testRunOutcome;
                 });
 
                 var runsRepository = scope.ServiceProvider.GetRequiredService<AppKeyRepository<Run>>();
                 await runsRepository.UpdateAsync(r => r.Id == ProcessingRun.Id, r =>
                 {
                     r.ProcessedTestsCount++;
+                    r.Outcome = r.Outcome == RunOutcome.Ok && testRunOutcome == RunOutcome.Ok ? RunOutcome.Ok : RunOutcome.Wrong;
                 });
             }
 
@@ -155,7 +160,7 @@ namespace CILantroToolsWebAPI.Hubs
             SendRunData();
         }
 
-        private async Task ProcessTestRunStep(TestRunStep step, TestReadModel test, TestRunReadModel testRun)
+        private async Task<RunOutcome> ProcessTestRunStep(TestRunStep step, TestReadModel test, TestRunReadModel testRun)
         {
             _processingRunData.CurrentTestStep = step;
             _processingRunData.CurrentTestStepIndex = TestRunStepHelper.GetStepIndex(step);
@@ -176,9 +181,14 @@ namespace CILantroToolsWebAPI.Hubs
                 case TestRunStep.GenerateCilAntroOutputFiles:
                     items = await GenerateCilAntroOutputFiles(test, testRun);
                     break;
+                case TestRunStep.CompareOutputFiles:
+                    items = await CompareOutputs(test, testRun);
+                    break;
             }
 
             var finished = DateTime.Now;
+
+            var outcome = items.All(i => i.Outcome == RunOutcome.Ok) ? RunOutcome.Ok : RunOutcome.Wrong;
 
             var newStepInfo = new TestRunStepInfo
             {
@@ -186,7 +196,8 @@ namespace CILantroToolsWebAPI.Hubs
                 ProcessedForMilliseconds = (int)(finished - started).TotalMilliseconds,
                 Step = step,
                 TestRunId = testRun.Id,
-                Items = items
+                Items = items,
+                Outcome = outcome
             };
 
             using (var scope = _serviceScopeFactory.CreateScope())
@@ -194,6 +205,8 @@ namespace CILantroToolsWebAPI.Hubs
                 var stepsRepository = scope.ServiceProvider.GetRequiredService<AppKeyRepository<TestRunStepInfo>>();
                 await stepsRepository.CreateAsync(newStepInfo);
             }
+
+            return outcome;
         }
 
         private async Task<List<TestRunStepItem>> GenerateInputFiles(TestReadModel test, TestRunReadModel testRun)
@@ -213,7 +226,8 @@ namespace CILantroToolsWebAPI.Hubs
                 {
                     Id = Guid.NewGuid(),
                     Name = Path.GetFileNameWithoutExtension(inputPath),
-                    ProcessedForMilliseconds = (int)(finished - started).TotalMilliseconds
+                    ProcessedForMilliseconds = (int)(finished - started).TotalMilliseconds,
+                    Outcome = RunOutcome.Ok
                 };
                 result.Add(item);
             }
@@ -268,7 +282,8 @@ namespace CILantroToolsWebAPI.Hubs
                 {
                     Id = Guid.NewGuid(),
                     Name = Path.GetFileNameWithoutExtension(inputFile),
-                    ProcessedForMilliseconds = (int)(finished - started).TotalMilliseconds
+                    ProcessedForMilliseconds = (int)(finished - started).TotalMilliseconds,
+                    Outcome = RunOutcome.Ok
                 };
                 result.Add(item);
             }
@@ -324,7 +339,42 @@ namespace CILantroToolsWebAPI.Hubs
                 {
                     Id = Guid.NewGuid(),
                     Name = Path.GetFileNameWithoutExtension(inputFile),
-                    ProcessedForMilliseconds = (int)(finished - started).TotalMilliseconds
+                    ProcessedForMilliseconds = (int)(finished - started).TotalMilliseconds,
+                    Outcome = RunOutcome.Ok
+                };
+                result.Add(item);
+            }
+
+            return result;
+        }
+
+        private async Task<List<TestRunStepItem>> CompareOutputs(TestReadModel test, TestRunReadModel testRun)
+        {
+            var result = new List<TestRunStepItem>();
+
+            var testExePath = _paths.TestsData.Execs[test.Name].MainExePaths.Absolute;
+            var inputsPath = _paths.RunsData[ProcessingRun.Id][testRun.Id].Inputs;
+
+            foreach (var inputFile in Directory.GetFiles(inputsPath.Absolute))
+            {
+                var started = DateTime.Now;
+
+                var exeOutputPath = _paths.RunsData[ProcessingRun.Id][testRun.Id].Outputs[Path.GetFileNameWithoutExtension(inputFile)].Absolute;
+                var cilantroOutputPath = _paths.RunsData[ProcessingRun.Id][testRun.Id].CilAntroOutputs[Path.GetFileNameWithoutExtension(inputFile)].Absolute;
+
+                var exeOutput = await File.ReadAllTextAsync(exeOutputPath);
+                var cilantroOutput = await File.ReadAllTextAsync(cilantroOutputPath);
+
+                var areOutputsIdentical = exeOutput.Equals(cilantroOutput);
+
+                var finished = DateTime.Now;
+
+                var item = new TestRunStepItem
+                {
+                    Id = Guid.NewGuid(),
+                    Name = Path.GetFileNameWithoutExtension(inputFile),
+                    ProcessedForMilliseconds = (int)(finished - started).TotalMilliseconds,
+                    Outcome = areOutputsIdentical ? RunOutcome.Ok : RunOutcome.Wrong
                 };
                 result.Add(item);
             }

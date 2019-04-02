@@ -13,6 +13,8 @@ namespace CILantroToolsWebAPI.DbModels
 
         public TestRunStep Step { get; set; }
 
+        public RunOutcome Outcome { get; set; }
+
         public Guid TestRunId { get; set; }
 
         public virtual TestRun TestRun { get; set; }

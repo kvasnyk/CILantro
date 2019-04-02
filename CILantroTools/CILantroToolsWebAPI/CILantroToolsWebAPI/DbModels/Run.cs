@@ -15,6 +15,8 @@ namespace CILantroToolsWebAPI.DbModels
 
         public RunStatus Status { get; set; }
 
+        public RunOutcome Outcome { get; set; }
+
         public DateTime CreatedOn { get; set; }
 
         public int ProcessedTestsCount { get; set; }
