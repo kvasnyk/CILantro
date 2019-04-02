@@ -6,8 +6,8 @@ import { makeStyles } from '@material-ui/styles';
 
 import CategoriesApiClient from '../../api/clients/CategoriesApiClient';
 import TestsApiClient from '../../api/clients/TestsApiClient';
+import TestInfo from '../../api/models/tests/TestInfo';
 import CategoryReadModel from '../../api/read-models/categories/CategoryReadModel';
-import TestReadModel from '../../api/read-models/tests/TestReadModel';
 import translations from '../../translations/translations';
 import CilPage, { PageState } from '../base/CilPage';
 import CilEditTestCategorySelect from '../shared/tests/CilEditTestCategorySelect';
@@ -65,16 +65,16 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 	const categoriesApiClient = new CategoriesApiClient();
 
 	const [pageState, setPageState] = useState<PageState>('loading');
-	const [test, setTest] = useState<TestReadModel | undefined>(undefined);
+	const [testInfo, setTestInfo] = useState<TestInfo | undefined>(undefined);
 	const [tabsValue, setTabsValue] = useState<TabsValue>('overview');
 	const [categories, setCategories] = useState<CategoryReadModel[] | undefined>(undefined);
 
-	const subcategories = test && test.category ? test.category.subcategories : [];
+	const subcategories = testInfo && testInfo.test.category ? testInfo.test.category.subcategories : [];
 
 	const refreshTest = async () => {
 		try {
-			const getTestResponse = await testsApiClient.getTest(props.testId);
-			setTest(getTestResponse.data);
+			const getTestResponse = await testsApiClient.getTestInfo(props.testId);
+			setTestInfo(getTestResponse.data);
 		} catch (error) {
 			setPageState('error');
 			throw error;
@@ -173,17 +173,20 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 
 	return (
 		<CilPage state={pageState}>
-			{test && categories ? (
+			{testInfo && categories ? (
 				<>
-					<CilPageHeader text={`${('00000' + test.intId).slice(-5)} | ${test.name}`} subtext={`...${test.path}`}>
-						<CilRunTestExeButton type="fab" test={test} />
-						<CilRunTestBothButton type="fab" test={test} />
-						<CilRunTestInterpreterButton type="fab" test={test} />
+					<CilPageHeader
+						text={`${('00000' + testInfo.test.intId).slice(-5)} | ${testInfo.test.name}`}
+						subtext={`...${testInfo.test.path}`}
+					>
+						<CilRunTestExeButton type="fab" testInfo={testInfo} />
+						<CilRunTestBothButton type="fab" testInfo={testInfo} />
+						<CilRunTestInterpreterButton type="fab" testInfo={testInfo} />
 					</CilPageHeader>
 
-					{!test.isReady ? (
+					{!testInfo.test.isReady ? (
 						<CilTestChecklist
-							test={test}
+							test={testInfo.test}
 							onGoToCategory={handleGoToCategory}
 							onGoToSubcategory={handleGoToSubcategory}
 							onGoToIlSources={handleGoToIlSources}
@@ -208,7 +211,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 							<CilDetailsRow label={translations.tests.testCategory}>
 								<CilEditTestCategorySelect
 									categories={categories}
-									test={test}
+									test={testInfo.test}
 									onCategoryUpdated={handleCategoryUpdated}
 									isEditable={categories.length > 0}
 								/>
@@ -216,7 +219,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 							<CilDetailsRow label={translations.tests.testSubcategory}>
 								<CilEditTestSubcategorySelect
 									subcategories={subcategories}
-									test={test}
+									test={testInfo.test}
 									onSubcategoryUpdated={handleSubcategoryUpdated}
 									isEditable={subcategories.length > 0}
 								/>
@@ -227,21 +230,21 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 					{tabsValue === 'il-sources' ? (
 						<div className={classes.tabContainer}>
 							<CilDetailsRow label={translations.tests.testMainIlSource}>
-								<CilDetailsValue value={test.mainIlSourcePath} prefix="..." />
-								<CilGenerateTestIlSourcesButton test={test} onIlSourcesGenerated={handleIlSourcesGenerated} />
+								<CilDetailsValue value={testInfo.mainIlSourcePath} prefix="..." />
+								<CilGenerateTestIlSourcesButton test={testInfo.test} onIlSourcesGenerated={handleIlSourcesGenerated} />
 							</CilDetailsRow>
-							{test.hasIlSources ? <CilCodeEditor code={test.mainIlSource} /> : null}
+							{testInfo.test.hasIlSources ? <CilCodeEditor code={testInfo.mainIlSource} /> : null}
 						</div>
 					) : null}
 
 					{tabsValue === 'exe' ? (
 						<div className={classes.tabContainer}>
 							<CilDetailsRow label={translations.tests.testExe}>
-								<CilDetailsValue value={test.exePath} prefix="..." />
-								<CilGenerateTestExeButton test={test} onExeGenerated={handleExeGenerated} />
-								<CilRunTestExeButton type="icon-button" test={test} />
+								<CilDetailsValue value={testInfo.exePath} prefix="..." />
+								<CilGenerateTestExeButton test={testInfo.test} onExeGenerated={handleExeGenerated} />
+								<CilRunTestExeButton type="icon-button" testInfo={testInfo} />
 							</CilDetailsRow>
-							{test.generateExeOutput ? <CilCodeEditor code={test.generateExeOutput} /> : null}
+							{testInfo.test.generateExeOutput ? <CilCodeEditor code={testInfo.test.generateExeOutput} /> : null}
 						</div>
 					) : null}
 
@@ -249,17 +252,17 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 						<div className={ioTabContainerClassName}>
 							<div className={classes.ioTabIo}>
 								<div>
-									<CilTestInputEditor test={test} onInputUpdated={handleInputUpdated} />
+									<CilTestInputEditor test={testInfo.test} onInputUpdated={handleInputUpdated} />
 								</div>
 								<div>
-									<CilTestOutputEditor test={test} onOutputUpdated={handleOutputUpdated} />
+									<CilTestOutputEditor test={testInfo.test} onOutputUpdated={handleOutputUpdated} />
 								</div>
 							</div>
-							{test.hasInput && test.hasOutput && test.hasExe ? (
+							{testInfo.test.hasInput && testInfo.test.hasOutput && testInfo.test.hasExe ? (
 								<>
 									<Divider className={classes.ioDivider} />
 									<div className={classes.ioTabExamples}>
-										<CilTestInputOutputExamplesEditor test={test} onExampleAdded={handleIoExampleAdded} />
+										<CilTestInputOutputExamplesEditor test={testInfo.test} onExampleAdded={handleIoExampleAdded} />
 									</div>
 								</>
 							) : null}

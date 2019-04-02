@@ -119,7 +119,6 @@ namespace CILantroToolsWebAPI.Hubs
             {
                 var testsRepository = scope.ServiceProvider.GetRequiredService<AppKeyRepository<Test>>();
                 test = testsRepository.Read<TestReadModel>().SingleOrDefault(t => t.Id == testRun.TestId);
-                await _testsHelper.CompleteTestReadModel(test);
             }
 
             _processingRunData.CurrentTestIntId = test.IntId;
@@ -231,8 +230,9 @@ namespace CILantroToolsWebAPI.Hubs
             foreach (var inputFile in Directory.GetFiles(inputsPath.Absolute))
             {
                 var outputPath = _paths.RunsData[ProcessingRun.Id][testRun.Id].CilAntroOutputs[Path.GetFileNameWithoutExtension(inputFile)].Absolute;
+                var testIlSourcePath = _paths.TestsData.IlSources[test.Name].MainIlSourcePaths.Absolute;
 
-                var processStartInfo = new ProcessStartInfo(_paths.CilAntro, $"--fileName \"{test.MainIlSourcePathFull}\"")
+                var processStartInfo = new ProcessStartInfo(_paths.CilAntro, $"--fileName \"{testIlSourcePath}\"")
                 {
                     RedirectStandardOutput = true,
                     RedirectStandardInput = true,

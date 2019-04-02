@@ -6,7 +6,7 @@ import orange from '@material-ui/core/colors/orange';
 import CloseIcon from '@material-ui/icons/CloseRounded';
 import { makeStyles } from '@material-ui/styles';
 
-import TestReadModel from '../../../api/read-models/tests/TestReadModel';
+import TestInfo from '../../../api/models/tests/TestInfo';
 import useExecuteTestHub, { TestExecutionType } from '../../../hooks/useExecuteTestHub';
 import translations from '../../../translations/translations';
 import CilPage, { PageState } from '../../base/CilPage';
@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface CilRunTestExeDialogProps {
 	executionType: TestExecutionType;
-	test: TestReadModel;
+	testInfo: TestInfo;
 	onClose: () => void;
 }
 
@@ -120,7 +120,7 @@ const CilExecuteTestDialog: FunctionComponent<CilRunTestExeDialogProps> = props 
 
 	const executeTestHub = useExecuteTestHub({
 		executionType: props.executionType,
-		testId: props.test.id,
+		testId: props.testInfo.test.id,
 		onConnectionStart: handleHubConnectionStart,
 		onConnectionError: handleHubConnectionError,
 		onExecutionStart: handleTestExecutionStart,
@@ -159,7 +159,7 @@ const CilExecuteTestDialog: FunctionComponent<CilRunTestExeDialogProps> = props 
 				<Toolbar className={toolbarClassName}>
 					<div className={classes.toolbarLeft}>
 						<Typography variant="h6" color="inherit">
-							{props.test.name}
+							{props.testInfo.test.name}
 						</Typography>
 					</div>
 					<div className={classes.toolbarRight}>
@@ -175,7 +175,7 @@ const CilExecuteTestDialog: FunctionComponent<CilRunTestExeDialogProps> = props 
 					<div className={classes.content}>
 						<CilConsole
 							lines={consoleLines}
-							title={'...' + props.test.exePath}
+							title={'...' + props.testInfo.exePath}
 							onLineAdded={handleLineAdded}
 							isInputEnabled={isInputEnabled}
 						/>

@@ -12,9 +12,6 @@ interface TestReadModel {
 	category: CategoryReadModel;
 	subcategoryId?: string;
 	subcategory: SubcategoryReadModel;
-	mainIlSourcePath: string;
-	mainIlSource: string;
-	exePath: string;
 	generateExeOutput: string;
 	hasEmptyInput: boolean;
 	output?: InputOutput;

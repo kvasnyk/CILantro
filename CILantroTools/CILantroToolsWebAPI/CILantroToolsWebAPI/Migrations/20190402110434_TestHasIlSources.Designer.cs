@@ -4,14 +4,16 @@ using CILantroToolsWebAPI.Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CILantroToolsWebAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190402110434_TestHasIlSources")]
+    partial class TestHasIlSources
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,8 +89,6 @@ namespace CILantroToolsWebAPI.Migrations
                     b.Property<DateTime>("CreatedOn");
 
                     b.Property<bool>("HasEmptyInput");
-
-                    b.Property<bool>("HasExe");
 
                     b.Property<bool>("HasIlSources");
 

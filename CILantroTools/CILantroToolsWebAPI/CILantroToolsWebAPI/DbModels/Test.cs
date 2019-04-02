@@ -21,6 +21,10 @@ namespace CILantroToolsWebAPI.DbModels
 
         public DateTime CreatedOn { get; set; }
 
+        public bool HasIlSources { get; set; }
+
+        public bool HasExe { get; set; }
+
         public Guid? CategoryId { get; set; }
 
         public virtual Category Category { get; set; }

@@ -5,7 +5,7 @@ import orange from '@material-ui/core/colors/orange';
 import PlayArrowIcon from '@material-ui/icons/PlayArrowRounded';
 import { makeStyles } from '@material-ui/styles';
 
-import TestReadModel from '../../../api/read-models/tests/TestReadModel';
+import TestInfo from '../../../api/models/tests/TestInfo';
 import CilIconButton from '../../utils/CilIconButton';
 import CilExecuteTestBothDialog from './CilExecuteTestBothDialog';
 
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 interface CilRunTestBothButtonProps {
-	test: TestReadModel;
+	testInfo: TestInfo;
 	type: CilRunTestBothButtonType;
 }
 
@@ -55,7 +55,7 @@ const CilRunTestBothButton: FunctionComponent<CilRunTestBothButtonProps> = props
 					<PlayArrowIcon />
 				</Fab>
 			)}
-			{isDialogOpen ? <CilExecuteTestBothDialog onClose={handleDialogClose} test={props.test} /> : null}
+			{isDialogOpen ? <CilExecuteTestBothDialog onClose={handleDialogClose} testInfo={props.testInfo} /> : null}
 		</>
 	);
 };

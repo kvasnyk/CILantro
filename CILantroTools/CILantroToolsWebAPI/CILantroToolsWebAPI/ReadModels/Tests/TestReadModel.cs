@@ -27,17 +27,9 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
 
         public SubcategoryReadModel Subcategory { get; set; }
 
-        public string MainIlSourcePath { get; set; }
+        public bool HasIlSources { get; set; }
 
-        public string MainIlSourcePathFull { get; set; }
-
-        public string MainIlSource { get; set; }
-
-        public string ExePath { get; set; }
-
-        public string ExePathFull { get; set; }
-
-        public string GenerateExeOutput { get; set; }
+        public bool HasExe { get; set; }
 
         public bool HasEmptyInput { get; set; }
 
@@ -48,10 +40,6 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
         public bool HasCategory => Category != null;
 
         public bool HasSubcategory => Subcategory != null;
-
-        public bool HasIlSources => !string.IsNullOrEmpty(MainIlSource);
-
-        public bool HasExe => !string.IsNullOrEmpty(ExePath) && !string.IsNullOrEmpty(ExePathFull);
 
         public bool HasInput => HasEmptyInput;
 
@@ -89,7 +77,9 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
             Category = test.CategoryId.HasValue ? _categoryMapping.Invoke(test.Category) : null,
             SubcategoryId = test.SubcategoryId,
             Subcategory = test.SubcategoryId.HasValue ? _subcategoryMapping.Invoke(test.Subcategory) : null,
-            IoExamples = test.IoExamples.AsQueryable().Select(_ioExampleMapping).OrderBy(e => e.Name).ToList()
+            IoExamples = test.IoExamples.AsQueryable().Select(_ioExampleMapping).OrderBy(e => e.Name).ToList(),
+            HasIlSources = test.HasIlSources,
+            HasExe = test.HasExe
         };
     }
 }

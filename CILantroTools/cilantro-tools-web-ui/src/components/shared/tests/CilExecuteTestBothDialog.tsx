@@ -5,7 +5,7 @@ import orange from '@material-ui/core/colors/orange';
 import CloseIcon from '@material-ui/icons/CloseRounded';
 import { makeStyles } from '@material-ui/styles';
 
-import TestReadModel from '../../../api/read-models/tests/TestReadModel';
+import TestInfo from '../../../api/models/tests/TestInfo';
 import useExecuteTestHub from '../../../hooks/useExecuteTestHub';
 import translations from '../../../translations/translations';
 import CilPage, { PageState } from '../../base/CilPage';
@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 interface CilExecuteTestBothDialogProps {
-	test: TestReadModel;
+	testInfo: TestInfo;
 	onClose: () => void;
 }
 
@@ -102,7 +102,7 @@ const CilExecuteTestBothDialog: FunctionComponent<CilExecuteTestBothDialogProps>
 
 	const exeHub = useExecuteTestHub({
 		executionType: 'exe',
-		testId: props.test.id,
+		testId: props.testInfo.test.id,
 		onConnectionStart: () => {
 			setExePageState('success');
 		},
@@ -140,7 +140,7 @@ const CilExecuteTestBothDialog: FunctionComponent<CilExecuteTestBothDialogProps>
 
 	const interpreterHub = useExecuteTestHub({
 		executionType: 'cilantro-interpreter',
-		testId: props.test.id,
+		testId: props.testInfo.test.id,
 		onConnectionStart: () => {
 			setInterpreterPageState('success');
 		},
@@ -216,7 +216,7 @@ const CilExecuteTestBothDialog: FunctionComponent<CilExecuteTestBothDialogProps>
 				<Toolbar className={classes.toolbar}>
 					<div className={classes.toolbarLeft}>
 						<Typography variant="h6" color="inherit">
-							{props.test.name}
+							{props.testInfo.test.name}
 						</Typography>
 					</div>
 					<div className={classes.toolbarRight}>
@@ -233,7 +233,7 @@ const CilExecuteTestBothDialog: FunctionComponent<CilExecuteTestBothDialogProps>
 						<CilConsole
 							className={classes.exeConsole}
 							lines={exeConsoleLines}
-							title={'...' + props.test.exePath}
+							title={'...' + props.testInfo.exePath}
 							onLineAdded={handleLineAdded}
 							isInputEnabled={isExeInputEnabled}
 							autoFocus={true}
@@ -241,7 +241,7 @@ const CilExecuteTestBothDialog: FunctionComponent<CilExecuteTestBothDialogProps>
 						<CilConsole
 							className={classes.interpreterConsole}
 							lines={interpreterConsoleLines}
-							title={'...' + props.test.exePath}
+							title={'...' + props.testInfo.exePath}
 							onLineAdded={handleLineAdded}
 							isInputEnabled={isInterpreterInputEnabled}
 							autoFocus={false}

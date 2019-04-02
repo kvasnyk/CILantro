@@ -76,14 +76,30 @@ namespace CILantroToolsWebAPI.Services
         public async Task<TestReadModel> GetTestAsync(Guid testId)
         {
             var result = _testsRepository.Read<TestReadModel>().Single(t => t.Id == testId);
-            await _testsHelper.CompleteTestReadModel(result);
+            return result;
+        }
+
+        public async Task<TestInfo> GetTestInfoAsync(Guid testId)
+        {
+            var testReadModel = _testsRepository.Read<TestReadModel>().Single(t => t.Id == testId);
+
+            var generateExeOutputPath = _paths.TestsData.GenerateExeOutputs[testReadModel.Name].MainOutputPaths.Absolute;
+
+            var result = new TestInfo
+            {
+                Test = testReadModel,
+                MainIlSource = await _testsHelper.ReadIlSource(testReadModel.Name),
+                MainIlSourcePath = _paths.TestsData.IlSources[testReadModel.Name].MainIlSourcePaths.Relative,
+                ExePath = _paths.TestsData.Execs[testReadModel.Name].MainExePaths.Relative,
+                GenerateExeOutput = await File.ReadAllTextAsync(generateExeOutputPath)
+            };
+
             return result;
         }
 
         public async Task<SearchResult<TestReadModel>> SearchTestsAsync(SearchParameter searchParameter)
         {
             var searchResult = await _testsRepository.Search<TestReadModel>(searchParameter);
-            await _testsHelper.CompleteTestReadModels(searchResult.Data);
             return searchResult;
         }
 
@@ -144,6 +160,11 @@ namespace CILantroToolsWebAPI.Services
 
             var ildasmProcess = Process.Start(ildasmProcessStartInfo);
             ildasmProcess.WaitForExit();
+
+            await _testsRepository.UpdateAsync(t => t.Id == testId, t =>
+            {
+                t.HasIlSources = true;
+            });
         }
 
         public async Task GenerateExe(Guid testId)
@@ -154,7 +175,7 @@ namespace CILantroToolsWebAPI.Services
 
             var ilSourcePath = _paths.TestsData.IlSources[testReadModel.Name].MainIlSourcePaths.Absolute;
             var exePath = _paths.TestsData.Execs[testReadModel.Name].MainExePaths.Absolute;
-            var outputPath = _paths.TestsData.GenerateExeOutputs[testReadModel.Name].Absolute;
+            var outputPath = _paths.TestsData.GenerateExeOutputs[testReadModel.Name].MainOutputPaths.Absolute;
 
             var ilasmArguments = $"\"{ilSourcePath}\" /output=\"{exePath}\"";
             var ilasmProcessStartInfo = new ProcessStartInfo(_paths.Ilasm, ilasmArguments)
@@ -171,13 +192,20 @@ namespace CILantroToolsWebAPI.Services
             }
 
             ilasmProcess.WaitForExit();
+
+            await _testsRepository.UpdateAsync(t => t.Id == testId, t =>
+            {
+                t.HasExe = true;
+            });
         }
 
         public async Task<string> GenerateOutput(Guid testId, GenerateOutputBindingModel model)
         {
             var test = await GetTestAsync(testId);
 
-            var processStartInfo = new ProcessStartInfo(test.ExePathFull)
+            var testExePath = _paths.TestsData.Execs[test.Name].MainExePaths.Absolute;
+
+            var processStartInfo = new ProcessStartInfo(testExePath)
             {
                 RedirectStandardOutput = true,
                 RedirectStandardInput = true,

@@ -36,9 +36,9 @@ namespace CILantroToolsWebAPI.Controllers
         }
 
         [HttpGet("{testId}")]
-        public async Task<TestReadModel> GetTestAsync([FromRoute]Guid testId)
+        public async Task<TestInfo> GetTestInfoAsync([FromRoute]Guid testId)
         {
-            return await _testsService.GetTestAsync(testId);
+            return await _testsService.GetTestInfoAsync(testId);
         }
 
         [HttpGet("search")]

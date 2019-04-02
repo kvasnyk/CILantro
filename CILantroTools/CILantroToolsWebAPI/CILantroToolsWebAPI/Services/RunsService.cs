@@ -44,7 +44,6 @@ namespace CILantroToolsWebAPI.Services
         public async Task<Guid> AddRunAsync(AddRunBindingModel model)
         {
             var allTests = _testsRepository.Read<TestReadModel>().ToList();
-            await _testsHelper.CompleteTestReadModels(allTests);
 
             var testRuns = allTests.Where(t => t.IsReady).Select(t => new TestRun
             {

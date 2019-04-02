@@ -3,14 +3,14 @@ import React, { FunctionComponent, useState } from 'react';
 import { Fab } from '@material-ui/core';
 import PlayArrowIcon from '@material-ui/icons/PlayArrowRounded';
 
-import TestReadModel from '../../../api/read-models/tests/TestReadModel';
+import TestInfo from '../../../api/models/tests/TestInfo';
 import CilIconButton from '../../utils/CilIconButton';
 import CilExecuteTestDialog from './CilExecuteTestDialog';
 
 type CilRunTestExeButtonType = 'icon-button' | 'fab';
 
 interface CilRunTestExeButtonProps {
-	test: TestReadModel;
+	testInfo: TestInfo;
 	type: CilRunTestExeButtonType;
 }
 
@@ -26,7 +26,7 @@ const CilRunTestExeButton: FunctionComponent<CilRunTestExeButtonProps> = props =
 		setIsDialogOpen(false);
 	};
 
-	return props.test.hasExe ? (
+	return props.testInfo.test.hasExe ? (
 		<>
 			{props.type === 'icon-button' ? (
 				<CilIconButton onClick={handleClick}>
@@ -37,7 +37,9 @@ const CilRunTestExeButton: FunctionComponent<CilRunTestExeButtonProps> = props =
 					<PlayArrowIcon />
 				</Fab>
 			)}
-			{isDialogOpen ? <CilExecuteTestDialog executionType="exe" onClose={handleDialogClose} test={props.test} /> : null}
+			{isDialogOpen ? (
+				<CilExecuteTestDialog executionType="exe" onClose={handleDialogClose} testInfo={props.testInfo} />
+			) : null}
 		</>
 	) : null;
 };

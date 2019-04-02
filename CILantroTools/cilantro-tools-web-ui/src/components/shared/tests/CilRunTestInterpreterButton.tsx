@@ -5,7 +5,7 @@ import orange from '@material-ui/core/colors/orange';
 import PlayArrowIcon from '@material-ui/icons/PlayArrowRounded';
 import { makeStyles } from '@material-ui/styles';
 
-import TestReadModel from '../../../api/read-models/tests/TestReadModel';
+import TestInfo from '../../../api/models/tests/TestInfo';
 import CilIconButton from '../../utils/CilIconButton';
 import CilExecuteTestDialog from './CilExecuteTestDialog';
 
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 type CilRunTestInterpreterButtonType = 'icon-button' | 'fab';
 
 interface CilRunTestInterpreterButtonProps {
-	test: TestReadModel;
+	testInfo: TestInfo;
 	type: CilRunTestInterpreterButtonType;
 }
 
@@ -40,7 +40,7 @@ const CilRunTestInterpreterButton: FunctionComponent<CilRunTestInterpreterButton
 		setIsDialogOpen(false);
 	};
 
-	return props.test.hasIlSources ? (
+	return props.testInfo.test.hasIlSources ? (
 		<>
 			{props.type === 'icon-button' ? (
 				<CilIconButton onClick={handleClick}>
@@ -52,7 +52,11 @@ const CilRunTestInterpreterButton: FunctionComponent<CilRunTestInterpreterButton
 				</Fab>
 			)}
 			{isDialogOpen ? (
-				<CilExecuteTestDialog executionType="cilantro-interpreter" onClose={handleDialogClose} test={props.test} />
+				<CilExecuteTestDialog
+					executionType="cilantro-interpreter"
+					onClose={handleDialogClose}
+					testInfo={props.testInfo}
+				/>
 			) : null}
 		</>
 	) : null;
