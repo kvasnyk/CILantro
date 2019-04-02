@@ -133,6 +133,7 @@ namespace CILantroToolsWebAPI.Services
             await _testsRepository.UpdateAsync(t => t.Id == testId, test =>
             {
                 test.HasEmptyInput = model.HasEmptyInput;
+                test.Input = model.Input;
             });
         }
 

@@ -33,6 +33,8 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
 
         public bool HasEmptyInput { get; set; }
 
+        public InputOutput Input { get; set; }
+
         public InputOutput Output { get; set; }
 
         public List<TestIoExampleReadModel> IoExamples { get; set; }
@@ -41,7 +43,7 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
 
         public bool HasSubcategory => Subcategory != null;
 
-        public bool HasInput => HasEmptyInput;
+        public bool HasInput => HasEmptyInput || Input != null;
 
         public bool HasOutput => Output != null && !Output.IsEmpty;
 
@@ -72,6 +74,7 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
             Name = test.Name,
             Path = test.Path,
             HasEmptyInput = test.HasEmptyInput,
+            Input = test.Input,
             Output = test.Output,
             CategoryId = test.CategoryId,
             Category = test.CategoryId.HasValue ? _categoryMapping.Invoke(test.Category) : null,

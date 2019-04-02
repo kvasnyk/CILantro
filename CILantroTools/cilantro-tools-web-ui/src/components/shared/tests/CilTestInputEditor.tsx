@@ -1,3 +1,4 @@
+import { cloneDeep } from 'lodash';
 import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 
 import { Checkbox, Theme, Typography } from '@material-ui/core';
@@ -7,11 +8,28 @@ import NotCheckIcon from '@material-ui/icons/NotInterestedRounded';
 import { makeStyles } from '@material-ui/styles';
 
 import TestsApiClient from '../../../api/clients/TestsApiClient';
+import AbstractInputOutputElement from '../../../api/models/tests/input-output/elements/AbstractInputOutputElement';
+import InputOutput from '../../../api/models/tests/input-output/InputOutput';
 import TestReadModel from '../../../api/read-models/tests/TestReadModel';
 import useNotistack from '../../../hooks/external/useNotistack';
 import translations from '../../../translations/translations';
 import CilDetailsRow from '../../utils/CilDetailsRow';
 import CilIconButton from '../../utils/CilIconButton';
+import CilInputOutputEditor from '../../utils/CilInputOutputEditor';
+
+const getDefaultInput = (output?: InputOutput) => {
+	if (output) {
+		return cloneDeep(output);
+	}
+
+	return {
+		lines: [
+			{
+				elements: []
+			}
+		]
+	};
+};
 
 const useStyles = makeStyles((theme: Theme) => ({
 	titleWrapper: {
@@ -39,11 +57,13 @@ const CilTestInputEditor: FunctionComponent<CilTestInputEditorProps> = props => 
 
 	const [isEditable, setIsEditable] = useState<boolean>(false);
 	const [hasEmptyInput, setHasEmptyInput] = useState<boolean>(props.test.hasEmptyInput);
+	const [input, setInput] = useState<InputOutput>(getDefaultInput(props.test.input));
 
 	const editTestInput = async () => {
 		try {
 			await testsApiClient.editTestInput(props.test.id, {
-				hasEmptyInput
+				hasEmptyInput,
+				input
 			});
 			notistack.enqueueSuccess(translations.tests.inputHasBeenUpdated);
 			props.onInputUpdated();
@@ -71,6 +91,12 @@ const CilTestInputEditor: FunctionComponent<CilTestInputEditorProps> = props => 
 
 	const handleHasEmptyInputChange = (event: ChangeEvent<HTMLInputElement>) => {
 		setHasEmptyInput(event.target.checked);
+	};
+
+	const handleElementAdded = (lineIndex: number, element: AbstractInputOutputElement) => {
+		const newInput = cloneDeep(input);
+		newInput.lines[lineIndex].elements.push(element);
+		setInput(newInput);
 	};
 
 	return (
@@ -108,6 +134,10 @@ const CilTestInputEditor: FunctionComponent<CilTestInputEditorProps> = props => 
 					)
 				) : null}
 			</CilDetailsRow>
+
+			{!hasEmptyInput ? (
+				<CilInputOutputEditor inputOutput={input} onElementAdded={handleElementAdded} isReadonly={!isEditable} />
+			) : null}
 		</>
 	);
 };

@@ -17,6 +17,8 @@ namespace CILantroToolsWebAPI.DbModels
 
         public bool HasEmptyInput { get; set; }
 
+        public InputOutput Input { get; set; }
+
         public InputOutput Output { get; set; }
 
         public DateTime CreatedOn { get; set; }

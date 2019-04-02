@@ -2,10 +2,12 @@ import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
 import { Theme } from '@material-ui/core';
+import { blue } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/styles';
 
 import AbstractInputOutputElement from '../../api/models/tests/input-output/elements/AbstractInputOutputElement';
 import ConstStringElement from '../../api/models/tests/input-output/elements/ConstStringElement';
+import StringElement from '../../api/models/tests/input-output/elements/StringElement';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	element: {
@@ -15,9 +17,15 @@ const useStyles = makeStyles((theme: Theme) => ({
 		fontFamily: 'Consolas',
 		textAlign: 'center'
 	},
+	arguments: {
+		fontSize: '0.5rem'
+	},
 	constElement: {
 		backgroundColor: 'lightgrey',
-		fontStyle: 'italic'
+		whiteSpace: 'pre'
+	},
+	stringElement: {
+		backgroundColor: blue[500]
 	}
 }));
 
@@ -31,11 +39,26 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 	const isConstStringElement = props.element.type === 'ConstString';
 	const constStringElement = isConstStringElement ? (props.element as ConstStringElement) : null;
 
+	const isStringElement = props.element.type === 'String';
+	const stringElement = isStringElement ? (props.element as StringElement) : null;
+
 	const elementClassName = classNames(classes.element, {
-		[classes.constElement]: isConstStringElement
+		[classes.constElement]: isConstStringElement,
+		[classes.stringElement]: isStringElement
 	});
 
-	return <div className={elementClassName}>{constStringElement ? <span>{constStringElement.value}</span> : null}</div>;
+	return (
+		<div className={elementClassName}>
+			{constStringElement ? <span>{constStringElement.value}</span> : null}
+
+			{stringElement ? (
+				<>
+					<span>{stringElement.name}</span>
+					<span className={classes.arguments}>{stringElement.minLength}</span>
+				</>
+			) : null}
+		</div>
+	);
 };
 
 export default CilInputOutputElement;

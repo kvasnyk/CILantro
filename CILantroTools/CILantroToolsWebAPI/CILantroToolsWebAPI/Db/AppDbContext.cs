@@ -51,6 +51,12 @@ namespace CILantroToolsWebAPI.Db
                     o => JsonConvert.SerializeObject(o, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() } ),
                     o => JsonConvert.DeserializeObject<InputOutput>(o, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() })
                 );
+            modelBuilder.Entity<Test>()
+                .Property(t => t.Input)
+                .HasConversion(
+                    o => JsonConvert.SerializeObject(o, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() }),
+                    o => JsonConvert.DeserializeObject<InputOutput>(o, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() })
+                );
 
             // Category
             modelBuilder.Entity<Category>()

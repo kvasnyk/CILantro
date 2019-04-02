@@ -14,6 +14,7 @@ interface TestReadModel {
 	subcategory: SubcategoryReadModel;
 	generateExeOutput: string;
 	hasEmptyInput: boolean;
+	input?: InputOutput;
 	output?: InputOutput;
 	ioExamples: TestIoExampleReadModel[];
 	hasCategory: boolean;
