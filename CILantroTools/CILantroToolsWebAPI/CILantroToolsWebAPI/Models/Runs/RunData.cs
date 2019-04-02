@@ -9,7 +9,7 @@ namespace CILantroToolsWebAPI.Models.Runs
 
         public int ProcessedTestsCount { get; set; }
 
-        public int? ProcessedForSeconds { get; set; }
+        public int? ProcessedForMilliseconds { get; set; }
 
         public int? CurrentTestIntId { get; set; }
 
@@ -25,7 +25,7 @@ namespace CILantroToolsWebAPI.Models.Runs
         {
             Status = run.Status;
             ProcessedTestsCount = run.ProcessedTestsCount;
-            ProcessedForSeconds = run.ProcessedForSeconds;
+            ProcessedForMilliseconds = run.ProcessedForMilliseconds;
             TestStepsCount = TestRunStepHelper.GetAllSteps().Count;
         }
     }

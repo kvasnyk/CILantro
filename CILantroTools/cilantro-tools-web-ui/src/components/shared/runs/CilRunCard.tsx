@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { FunctionComponent, ReactNode, useState } from 'react';
 
-import { Avatar, Card, CardActions, CardContent, Theme, Typography } from '@material-ui/core';
+import { Avatar, Card, CardActions, CardContent, LinearProgress, Theme, Typography } from '@material-ui/core';
 import { orange } from '@material-ui/core/colors';
 import QuickIcon from '@material-ui/icons/DirectionsRunRounded';
 import FullIcon from '@material-ui/icons/HourglassEmptyRounded';
@@ -9,9 +9,12 @@ import { makeStyles } from '@material-ui/styles';
 
 import RunStatus from '../../../api/enums/RunStatus';
 import RunType from '../../../api/enums/RunType';
+import { TestRunStepHelper } from '../../../api/enums/TestRunStep';
 import RunData from '../../../api/models/runs/RunData';
 import RunReadModel from '../../../api/read-models/runs/RunReadModel';
 import useRunningRunHub from '../../../hooks/useRunningRunHub';
+import translations from '../../../translations/translations';
+import CilTimeSpanDisplayer from '../../utils/CilTimeSpanDisplayer';
 import CilDeleteRunButton from './CilDeleteRunButton';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -30,10 +33,19 @@ const useStyles = makeStyles((theme: Theme) => ({
 		alignItems: 'center'
 	},
 	cardContentMiddle: {
+		paddingLeft: '50px',
+		paddingRight: '50px',
 		flexGrow: 1,
 		display: 'flex',
+		flexDirection: 'column',
 		alignItems: 'center',
-		justifyContent: 'center'
+		justifyContent: 'center',
+		'&>*': {
+			width: '100%',
+			display: 'flex',
+			alignItems: 'center',
+			justifyContent: 'center'
+		}
 	},
 	cardContentRight: {
 		display: 'flex',
@@ -62,6 +74,15 @@ const useStyles = makeStyles((theme: Theme) => ({
 	},
 	cancelledBackgroundColor2: {
 		backgroundColor: '#777777'
+	},
+	linearProgress: {
+		backgroundColor: orange[300]
+	},
+	linearProgressBar: {
+		backgroundColor: orange[700]
+	},
+	testNameTypography: {
+		marginBottom: '20px'
 	}
 }));
 
@@ -77,7 +98,8 @@ const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
 	const [runData, setRunData] = useState<RunData>({
 		status: props.run.status,
 		processedTestsCount: props.run.processedTestsCount,
-		processedForSeconds: props.run.processedForSeconds
+		processedForMilliseconds: props.run.processedForMilliseconds,
+		testStepsCount: 0
 	});
 
 	useRunningRunHub({
@@ -100,11 +122,6 @@ const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
 	} else if (props.run.type === RunType.Quick) {
 		runTypeIcon = <QuickIcon />;
 	}
-
-	const totalSeconds = runData.processedForSeconds || 0;
-	const hours = parseInt((totalSeconds / 3600).toString(), 10);
-	const minutes = parseInt(((totalSeconds - hours * 3600) / 60).toString(), 10);
-	const seconds = totalSeconds - hours * 3600 - minutes * 60;
 
 	const colorClassName = classNames({
 		[classes.runningColor]: isRunning,
@@ -131,6 +148,8 @@ const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
 
 	const intIdTypographyClassName = classNames(classes.intIdTypography, typographyClassName);
 
+	const testNameTypographyClassName = classNames(typographyClassName, classes.testNameTypography);
+
 	return (
 		<Card className={cardClassName}>
 			<CardContent className={classes.cardContent}>
@@ -143,9 +162,28 @@ const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
 
 				<div className={classes.cardContentMiddle}>
 					{runData.currentTestIntId && runData.currentTestName ? (
-						<Typography variant="h6" className={typographyClassName}>
+						<Typography variant="h6" className={testNameTypographyClassName}>
 							{('000000' + runData.currentTestIntId).slice(-5)} | {runData.currentTestName}
 						</Typography>
+					) : null}
+
+					{runData.currentTestStep && runData.currentTestStepIndex ? (
+						<>
+							<Typography className={typographyClassName} variant="overline">
+								{translations.runs.step + ' ' + (runData.currentTestStepIndex + 1) + ' / ' + runData.testStepsCount}
+								{' - '}
+								{TestRunStepHelper.getName(runData.currentTestStep)}
+							</Typography>
+
+							<LinearProgress
+								className={classes.linearProgress}
+								classes={{
+									bar: classes.linearProgressBar
+								}}
+								value={((runData.currentTestStepIndex + 1) / runData.testStepsCount) * 100.0}
+								variant="determinate"
+							/>
+						</>
 					) : null}
 				</div>
 
@@ -157,7 +195,9 @@ const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
 					</div>
 					<div>
 						<Typography variant="h6" className={typographyClassName}>
-							{('00' + hours).slice(-2)}:{('00' + minutes).slice(-2)}:{('00' + seconds).slice(-2)}
+							{runData.processedForMilliseconds ? (
+								<CilTimeSpanDisplayer milliseconds={runData.processedForMilliseconds} precision="milliseconds" />
+							) : null}
 						</Typography>
 					</div>
 				</div>

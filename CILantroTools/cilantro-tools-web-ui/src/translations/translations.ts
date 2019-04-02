@@ -81,7 +81,12 @@ const translations = {
 		errorOccurredWhileAddingRun: 'An error occurred while adding the run.',
 		noRuns: 'No runs have been found.',
 		runHasBeenDeleted: 'The run has been deleted.',
-		errorOccurredWhileDeletingRun: 'An error occurred while deleting the run.'
+		errorOccurredWhileDeletingRun: 'An error occurred while deleting the run.',
+		step: 'Step',
+		testRunStep_GenerateInputFiles: 'Generating input files',
+		testRunStep_GenerateExeOutputFiles: 'Generating EXE output files',
+		testRunStep_GenerateCilAntroOutputFiles: 'Generating CILantro output files',
+		testRunStep_CompareOutputFiles: 'Comparing output files'
 	},
 
 	shared: {

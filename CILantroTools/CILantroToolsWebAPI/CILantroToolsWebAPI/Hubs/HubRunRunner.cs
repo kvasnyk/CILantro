@@ -265,9 +265,9 @@ namespace CILantroToolsWebAPI.Hubs
         private void SendRunData(Action continueWith = null)
         {
             if (_processingStartedOn.HasValue && _processingFinishedOn.HasValue)
-                _processingRunData.ProcessedForSeconds = (int?)(_processingFinishedOn - _processingStartedOn).Value.TotalSeconds;
+                _processingRunData.ProcessedForMilliseconds = (int?)(_processingFinishedOn - _processingStartedOn).Value.TotalMilliseconds;
             else if (_processingStartedOn.HasValue)
-                _processingRunData.ProcessedForSeconds = (int?)(DateTime.Now - _processingStartedOn).Value.TotalSeconds;
+                _processingRunData.ProcessedForMilliseconds = (int?)(DateTime.Now - _processingStartedOn).Value.TotalMilliseconds;
 
             var task = Task.Run(() =>
             {

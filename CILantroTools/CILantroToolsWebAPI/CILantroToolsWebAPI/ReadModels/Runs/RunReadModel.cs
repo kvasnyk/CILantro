@@ -24,7 +24,7 @@ namespace CILantroToolsWebAPI.ReadModels.Runs
 
         public int ProcessedTestsCount { get; set; }
 
-        public int? ProcessedForSeconds { get; set; }
+        public int? ProcessedForMilliseconds { get; set; }
 
         public DateTime? ProcessingStartedOn { get; set; }
 
@@ -48,7 +48,7 @@ namespace CILantroToolsWebAPI.ReadModels.Runs
             ProcessedTestsCount = run.ProcessedTestsCount,
             ProcessingStartedOn = run.ProcessingStartedOn,
             ProcessingFinishedOn = run.ProcessingFinishedOn,
-            ProcessedForSeconds = run.ProcessingStartedOn.HasValue && run.ProcessingFinishedOn.HasValue ? (int?)(run.ProcessingFinishedOn - run.ProcessingStartedOn).Value.TotalSeconds : null,
+            ProcessedForMilliseconds = run.ProcessingStartedOn.HasValue && run.ProcessingFinishedOn.HasValue ? (int?)(run.ProcessingFinishedOn - run.ProcessingStartedOn).Value.TotalMilliseconds : null,
             TestRuns = run.TestRuns.Select(tr => _testRunMapping.Invoke(tr)).ToList()
         };
     }

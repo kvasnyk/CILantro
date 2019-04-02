@@ -4,11 +4,12 @@ import TestRunStep from '../../enums/TestRunStep';
 interface RunData {
 	status: RunStatus;
 	processedTestsCount: number;
-	processedForSeconds?: number;
+	processedForMilliseconds?: number;
 	currentTestIntId?: number;
 	currentTestName?: string;
 	currentTestStep?: TestRunStep;
 	currentTestStepIndex?: number;
+	testStepsCount: number;
 }
 
 export default RunData;

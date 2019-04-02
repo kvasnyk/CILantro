@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import * as SignalR from '@aspnet/signalr';
 
+import RunStatus from '../api/enums/RunStatus';
 import RunData from '../api/models/runs/RunData';
 
 const appSettings = require('appSettings');
@@ -27,6 +28,11 @@ const useRunningRunHub = (hubConfig: RunningRunHubConfig) => {
 
 			hubConnection.on('update-run-data', (runData: RunData) => {
 				hubConfig.onRunDataUpdated(runData);
+
+				if (runData.status !== RunStatus.Running) {
+					hubConnection.stop();
+					setConnection(undefined);
+				}
 			});
 
 			hubConnection
