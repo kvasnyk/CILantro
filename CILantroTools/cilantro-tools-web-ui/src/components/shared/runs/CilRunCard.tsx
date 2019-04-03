@@ -231,7 +231,9 @@ const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
 				</div>
 			</CardContent>
 			<CardActions className={classes.cardActions}>
-				<CilDeleteRunButton run={props.run} iconClassName={iconClassName} onRunDeleted={props.onRunDeleted} />
+				{runData.status !== RunStatus.Finished ? (
+					<CilDeleteRunButton run={props.run} iconClassName={iconClassName} onRunDeleted={props.onRunDeleted} />
+				) : null}
 			</CardActions>
 		</Card>
 	);
