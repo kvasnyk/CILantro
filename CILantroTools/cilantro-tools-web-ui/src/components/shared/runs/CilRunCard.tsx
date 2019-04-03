@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 	cardContent: {
 		display: 'flex',
 		flexDirection: 'row',
-		alignItems: 'center',
+		alignItems: 'flex-start',
 		justifyContent: 'center'
 	},
 	cardContentLeft: {
@@ -34,13 +34,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 		alignItems: 'center'
 	},
 	cardContentMiddle: {
+		minHeight: '142px',
 		paddingLeft: '50px',
 		paddingRight: '50px',
 		flexGrow: 1,
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
-		justifyContent: 'center',
 		'&>*': {
 			width: '100%',
 			display: 'flex',
@@ -55,6 +55,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 		justifyContent: 'center'
 	},
 	cardActions: {
+		minHeight: '64px',
 		justifyContent: 'flex-end',
 		marginRight: '5px'
 	},
@@ -102,6 +103,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 	},
 	testNameTypography: {
 		marginBottom: '20px'
+	},
+	itemsProgress: {
+		marginTop: '20px'
 	}
 }));
 
@@ -209,6 +213,25 @@ const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
 									bar: classes.linearProgressBar
 								}}
 								value={((runData.currentTestStepIndex + 1) / runData.testStepsCount) * 100.0}
+								variant="determinate"
+							/>
+						</>
+					) : null}
+
+					{runData.currentItemIndex && runData.currentItemName && runData.allItemsCount ? (
+						<>
+							<Typography className={classNames(typographyClassName, classes.itemsProgress)} variant="overline">
+								{translations.runs.item + ' ' + (runData.currentItemIndex + 1) + ' / ' + runData.allItemsCount}
+								{' - '}
+								{runData.currentItemName}
+							</Typography>
+
+							<LinearProgress
+								className={classes.linearProgress}
+								classes={{
+									bar: classes.linearProgressBar
+								}}
+								value={((runData.currentItemIndex + 1) / runData.allItemsCount) * 100.0}
 								variant="determinate"
 							/>
 						</>

@@ -85,6 +85,7 @@ const translations = {
 		runHasBeenDeleted: 'The run has been deleted.',
 		errorOccurredWhileDeletingRun: 'An error occurred while deleting the run.',
 		step: 'Step',
+		item: 'Item',
 		testRunStep_GenerateInputFiles: 'Generating input files',
 		testRunStep_GenerateExeOutputFiles: 'Generating EXE output files',
 		testRunStep_GenerateCilAntroOutputFiles: 'Generating CILantro output files',

@@ -191,6 +191,10 @@ namespace CILantroToolsWebAPI.Hubs
                     break;
             }
 
+            _processingRunData.CurrentItemIndex = null;
+            _processingRunData.CurrentItemName = null;
+            SendRunData();
+
             var finished = DateTime.Now;
 
             var outcome = items.All(i => i.Outcome == RunOutcome.Ok) ? RunOutcome.Ok : RunOutcome.Wrong;
@@ -218,11 +222,19 @@ namespace CILantroToolsWebAPI.Hubs
         {
             var result = new List<TestRunStepItem>();
 
+            _processingRunData.AllItemsCount = test.IoExamples.Count;
+            _processingRunData.CurrentItemIndex = 0;
+
             foreach (var ioExample in test.IoExamples)
             {
                 var started = DateTime.Now;
 
-                var inputPath = _paths.RunsData[ProcessingRun.Id][testRun.Id].Inputs[ioExample.Name.Replace(' ', '_')].Absolute;
+                var inputName = ioExample.Name.Replace(' ', '_');
+
+                _processingRunData.CurrentItemName = inputName;
+                SendRunData();
+
+                var inputPath = _paths.RunsData[ProcessingRun.Id][testRun.Id].Inputs[inputName].Absolute;
                 await File.WriteAllTextAsync(inputPath, ioExample.Input);
 
                 var finished = DateTime.Now;
@@ -235,6 +247,8 @@ namespace CILantroToolsWebAPI.Hubs
                     Outcome = RunOutcome.Ok
                 };
                 result.Add(item);
+
+                _processingRunData.CurrentItemIndex++;
             }
 
             return result;
@@ -242,6 +256,8 @@ namespace CILantroToolsWebAPI.Hubs
 
         private async Task<List<TestRunStepItem>> GenerateExeOutputFiles(TestReadModel test, TestRunReadModel testRun)
         {
+            _processingRunData.CurrentItemIndex = 0;
+
             var result = new List<TestRunStepItem>();
 
             var testExePath = _paths.TestsData.Execs[test.Name].MainExePaths.Absolute;
@@ -251,7 +267,12 @@ namespace CILantroToolsWebAPI.Hubs
             {
                 var started = DateTime.Now;
 
-                var outputPath = _paths.RunsData[ProcessingRun.Id][testRun.Id].Outputs[Path.GetFileNameWithoutExtension(inputFile)].Absolute;
+                var inputName = Path.GetFileNameWithoutExtension(inputFile);
+
+                _processingRunData.CurrentItemName = inputName;
+                SendRunData();
+
+                var outputPath = _paths.RunsData[ProcessingRun.Id][testRun.Id].Outputs[inputName].Absolute;
 
                 var processStartInfo = new ProcessStartInfo(testExePath)
                 {
@@ -291,6 +312,8 @@ namespace CILantroToolsWebAPI.Hubs
                     Outcome = RunOutcome.Ok
                 };
                 result.Add(item);
+
+                _processingRunData.CurrentItemIndex++;
             }
 
             return result;
@@ -303,11 +326,18 @@ namespace CILantroToolsWebAPI.Hubs
             var testExePath = _paths.TestsData.Execs[test.Name].MainExePaths.Absolute;
             var inputsPath = _paths.RunsData[ProcessingRun.Id][testRun.Id].Inputs;
 
+            _processingRunData.CurrentItemIndex = 0;
+
             foreach (var inputFile in Directory.GetFiles(inputsPath.Absolute))
             {
                 var started = DateTime.Now;
 
-                var outputPath = _paths.RunsData[ProcessingRun.Id][testRun.Id].CilAntroOutputs[Path.GetFileNameWithoutExtension(inputFile)].Absolute;
+                var inputName = Path.GetFileNameWithoutExtension(inputFile);
+
+                _processingRunData.CurrentItemName = inputName;
+                SendRunData();
+
+                var outputPath = _paths.RunsData[ProcessingRun.Id][testRun.Id].CilAntroOutputs[inputName].Absolute;
                 var testIlSourcePath = _paths.TestsData.IlSources[test.Name].MainIlSourcePaths.Absolute;
 
                 var processStartInfo = new ProcessStartInfo(_paths.CilAntro, $"--fileName \"{testIlSourcePath}\"")
@@ -372,6 +402,8 @@ namespace CILantroToolsWebAPI.Hubs
                     Outcome = RunOutcome.Ok
                 };
                 result.Add(item);
+
+                _processingRunData.CurrentItemIndex++;
             }
 
             return result;
@@ -384,11 +416,18 @@ namespace CILantroToolsWebAPI.Hubs
             var testExePath = _paths.TestsData.Execs[test.Name].MainExePaths.Absolute;
             var inputsPath = _paths.RunsData[ProcessingRun.Id][testRun.Id].Inputs;
 
+            _processingRunData.CurrentItemIndex = 0;
+
             foreach (var inputFile in Directory.GetFiles(inputsPath.Absolute))
             {
                 var started = DateTime.Now;
 
-                var exeOutputPath = _paths.RunsData[ProcessingRun.Id][testRun.Id].Outputs[Path.GetFileNameWithoutExtension(inputFile)].Absolute;
+                var inputName = Path.GetFileNameWithoutExtension(inputFile);
+
+                _processingRunData.CurrentItemName = inputName;
+                SendRunData();
+
+                var exeOutputPath = _paths.RunsData[ProcessingRun.Id][testRun.Id].Outputs[inputName].Absolute;
                 var cilantroOutputPath = _paths.RunsData[ProcessingRun.Id][testRun.Id].CilAntroOutputs[Path.GetFileNameWithoutExtension(inputFile)].Absolute;
 
                 var exeOutput = await File.ReadAllTextAsync(exeOutputPath);
@@ -406,6 +445,8 @@ namespace CILantroToolsWebAPI.Hubs
                     Outcome = areOutputsIdentical ? RunOutcome.Ok : RunOutcome.Wrong
                 };
                 result.Add(item);
+
+                _processingRunData.CurrentItemIndex++;
             }
 
             return result;

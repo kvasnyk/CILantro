@@ -23,6 +23,12 @@ namespace CILantroToolsWebAPI.Models.Runs
 
         public int TestStepsCount { get; set; }
 
+        public int? CurrentItemIndex { get; set; }
+
+        public string CurrentItemName { get; set; }
+
+        public int AllItemsCount { get; set; }
+
         public RunData(RunReadModel run)
         {
             Status = run.Status;

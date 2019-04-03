@@ -27,7 +27,7 @@ interface AddRunData {
 }
 
 const buildEmptyAddRunData = (): AddRunData => ({
-	type: RunType.Full
+	type: RunType.Quick
 });
 
 const useStyles = makeStyles((theme: Theme) => ({

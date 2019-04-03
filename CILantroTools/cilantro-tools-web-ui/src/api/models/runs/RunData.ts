@@ -12,6 +12,9 @@ interface RunData {
 	currentTestStep?: TestRunStep;
 	currentTestStepIndex?: number;
 	testStepsCount: number;
+	currentItemIndex?: number;
+	currentItemName?: string;
+	allItemsCount?: number;
 }
 
 export default RunData;
