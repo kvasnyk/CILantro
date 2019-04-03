@@ -1,8 +1,8 @@
 ﻿using CILantro.AbstractSyntaxTree.Lexicals;
+using CILantro.Exceptions;
 using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
-using System;
 
 namespace CILantro.AbstractSyntaxTree.Other
 {
@@ -23,7 +23,17 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
-            throw new NotImplementedException();
+            // SQSTRING
+            var SQSTRINGChildren = AstChildren.Empty()
+                .Add<SQSTRINGAstNode>();
+            if (SQSTRINGChildren.PopulateWith(parseNode))
+            {
+                Value = SQSTRINGChildren.Child1.Value;
+
+                return;
+            }
+
+            throw new InitAstNodeException(nameof(IdAstNode));
         }
     }
 }

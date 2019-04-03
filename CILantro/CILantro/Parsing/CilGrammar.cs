@@ -34,6 +34,7 @@ namespace CILantro.Parsing
 
             // TODO: specify
             var ID = new IdentifierTerminal("ID");
+            ID.AddPrefix("$", IdOptions.None); // DOCS: ECMA page 110
             ConfigureAstNode(ID);
 
             // TODO: specify
@@ -139,7 +140,9 @@ namespace CILantro.Parsing
             var exportHead = CreateNonTerminal("exportHead");
             var comtypeDecls = CreateNonTerminal("comtypeDecls");
             var manifestResHead = CreateNonTerminal("manifestResHead");
+            var manresAttr = CreateNonTerminal("manresAttr");
             var manifestResDecls = CreateNonTerminal("manifestResDecls");
+            var manifestResDecl = CreateNonTerminal("manifestResDecl");
 
             // instructions
 
@@ -815,11 +818,22 @@ namespace CILantro.Parsing
             // TODO: comtypeDecls
             comtypeDecls.Rule = _("TODO: comtypeDecls");
 
-            // TODO: manifestResHead
-            manifestResHead.Rule = _("TODO: manifestResHead");
+            manifestResHead.Rule =
+                _(".mresource") + manresAttr + name1;
 
-            // TODO: manifestResDecls
-            manifestResDecls.Rule = _("TODO: manifestResDecls");
+            manresAttr.Rule =
+                Empty |
+                manresAttr + _("public") |
+                manresAttr + _("private");
+
+            manifestResDecls.Rule =
+                Empty |
+                manifestResDecls + manifestResDecl;
+
+            manifestResDecl.Rule =
+                _(".file") + name1 + _("at") + int32 |
+                _(".assembly") + _("extern") + name1 |
+                customAttrDecl;
         }
 
         private KeyTerm _(string s)

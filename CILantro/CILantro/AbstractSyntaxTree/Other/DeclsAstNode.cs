@@ -70,6 +70,9 @@ namespace CILantro.AbstractSyntaxTree.Other
                     case DeclType.Class:
                         Decls.Classes.Add(declsChildren.Child2.ClassDecl);
                         break;
+                    case DeclType.ManifestRes:
+                        // TODO: handle
+                        break;
                     default:
                         throw new AstNodeException($"\"{nameof(declType)}\" cannot be recognized.");
                 }

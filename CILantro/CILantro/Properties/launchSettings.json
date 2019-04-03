@@ -2,7 +2,7 @@
   "profiles": {
     "CILantro": {
       "commandName": "Project",
-      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\CSF_Basics_Hello\\CSF_Basics_Hello.il\""
+      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\FSF_Basics_HelloWorld\\FSF_Basics_HelloWorld.il\""
     }
   }
 }

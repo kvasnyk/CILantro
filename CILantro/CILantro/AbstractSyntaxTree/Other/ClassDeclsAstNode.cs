@@ -44,6 +44,9 @@ namespace CILantro.AbstractSyntaxTree.Other
                     case ClassDeclType.Method:
                         ClassDecls.Methods.Add(classDeclsChildren.Child2.Method);
                         break;
+                    case ClassDeclType.CustomAttr:
+                        // TODO: handle
+                        break;
                     default:
                         throw new AstNodeException($"\"{nameof(declType)}\" cannot be recognized.");
                 }

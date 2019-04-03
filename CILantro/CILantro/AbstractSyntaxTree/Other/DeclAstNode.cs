@@ -16,7 +16,8 @@ namespace CILantro.AbstractSyntaxTree.Other
         ImageBase,
         Module,
         StackReserve,
-        Subsystem
+        Subsystem,
+        ManifestRes
     }
 
     [AstNode("decl")]
@@ -149,6 +150,20 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (stackReserveChildren.PopulateWith(parseNode))
             {
                 DeclType = Other.DeclType.StackReserve;
+                // TODO: handle
+
+                return;
+            }
+
+            // manifestResHead + _("{") + manifestResDecls + _("}")
+            var manifestResChildren = AstChildren.Empty()
+                .Add<ManifestResHeadAstNode>()
+                .Add("{")
+                .Add<ManifestResDeclsAstNode>()
+                .Add("}");
+            if (manifestResChildren.PopulateWith(parseNode))
+            {
+                DeclType = Other.DeclType.ManifestRes;
                 // TODO: handle
 
                 return;

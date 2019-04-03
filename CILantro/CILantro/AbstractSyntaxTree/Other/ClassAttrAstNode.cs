@@ -58,6 +58,36 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // classAttr + _("public")
+            var publicChildren = AstChildren.Empty()
+                .Add<ClassAttrAstNode>()
+                .Add("public");
+            if (publicChildren.PopulateWith(parseNode))
+            {
+                // TODO: handle
+                return;
+            }
+
+            // classAttr + _("abstract")
+            var abstractChildren = AstChildren.Empty()
+                .Add<ClassAttrAstNode>()
+                .Add("abstract");
+            if (abstractChildren.PopulateWith(parseNode))
+            {
+                // TODO: handle
+                return;
+            }
+
+            // classAttr + _("sealed")
+            var sealedChildren = AstChildren.Empty()
+                .Add<ClassAttrAstNode>()
+                .Add("sealed");
+            if (sealedChildren.PopulateWith(parseNode))
+            {
+                // TODO: handle
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

@@ -76,6 +76,17 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // _("valuetype") + className
+            var valueTypeClassNameChildren = AstChildren.Empty()
+                .Add("valuetype")
+                .Add<ClassNameAstNode>();
+            if (valueTypeClassNameChildren.PopulateWith(parseNode))
+            {
+                // TODO: implement
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

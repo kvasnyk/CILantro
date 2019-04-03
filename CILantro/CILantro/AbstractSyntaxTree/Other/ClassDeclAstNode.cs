@@ -8,7 +8,8 @@ namespace CILantro.AbstractSyntaxTree.Other
 {
     public enum ClassDeclType
     {
-        Method
+        Method,
+        CustomAttr
     }
 
     [AstNode("classDecl")]
@@ -34,6 +35,17 @@ namespace CILantro.AbstractSyntaxTree.Other
                     IsEntryPoint = methodChildren.Child2.MethodDecls.IsEntryPoint,
                     Instructions = methodChildren.Child2.MethodDecls.Instructions
                 };
+
+                return;
+            }
+
+            // customAttrDecl
+            var customAttrChildren = AstChildren.Empty()
+                .Add<CustomAttrDeclAstNode>();
+            if (customAttrChildren.PopulateWith(parseNode))
+            {
+                DeclType = ClassDeclType.CustomAttr;
+                // TODO: handle
 
                 return;
             }

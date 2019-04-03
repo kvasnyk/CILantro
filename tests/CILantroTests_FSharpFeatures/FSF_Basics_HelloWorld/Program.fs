@@ -1,4 +1,6 @@
-﻿[<EntryPoint>]
+﻿open System
+
+[<EntryPoint>]
 let main argv =
-    printfn "Hello, world!"
+    Console.WriteLine("Hello, world!")
     0

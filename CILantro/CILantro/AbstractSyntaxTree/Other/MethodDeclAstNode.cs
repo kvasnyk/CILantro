@@ -11,7 +11,8 @@ namespace CILantro.AbstractSyntaxTree.Other
         EntryPoint,
         Instruction,
         Label,
-        MaxStack
+        MaxStack,
+        CustomAttr
     }
 
     [AstNode("methodDecl")]
@@ -62,6 +63,16 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (idChildren.PopulateWith(parseNode))
             {
                 DeclType = MethodDeclType.Label;
+
+                return;
+            }
+
+            // customAttrDecl
+            var customAttrChildren = AstChildren.Empty()
+                .Add<CustomAttrDeclAstNode>();
+            if (customAttrChildren.PopulateWith(parseNode))
+            {
+                DeclType = MethodDeclType.CustomAttr;
 
                 return;
             }
