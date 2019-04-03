@@ -62,6 +62,10 @@ namespace CILantroToolsWebAPI.Services
             var testCandidates = await FindTestCandidatesAsync();
             var testCandidate = testCandidates.SingleOrDefault(tc => tc.Name == model.TestCandidateName && tc.Path == model.TestCandidatePath);
 
+            var existingTest = _testsRepository.Read<TestReadModel>().SingleOrDefault(t => t.Name == testCandidate.Name);
+            if (existingTest != null)
+                throw new ToolsException("A test with the same name already exists.");
+
             var newTest = new Test
             {
                 Id = Guid.NewGuid(),
