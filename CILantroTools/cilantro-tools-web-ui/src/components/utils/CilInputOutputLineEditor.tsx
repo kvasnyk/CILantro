@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 interface CilInputOutputLineEditorProps {
+	variant: 'input' | 'output';
 	lineIndex: number;
 	line: InputOutputLine;
 	onElementAdded: (lineIndex: number, element: AbstractInputOutputElement) => void;
@@ -35,10 +36,12 @@ const CilInputOutputLineEditor: FunctionComponent<CilInputOutputLineEditorProps>
 	return (
 		<div className={classes.inputOutputLine}>
 			{props.line.elements.map((element, index) => (
-				<CilInputOutputElement key={index} element={element} />
+				<CilInputOutputElement key={index} variant={props.variant} element={element} />
 			))}
 
-			{!props.isReadonly ? <CilAddInputOutputElementButton onElementAdded={handleElementAdded} /> : null}
+			{!props.isReadonly ? (
+				<CilAddInputOutputElementButton variant={props.variant} onElementAdded={handleElementAdded} />
+			) : null}
 		</div>
 	);
 };

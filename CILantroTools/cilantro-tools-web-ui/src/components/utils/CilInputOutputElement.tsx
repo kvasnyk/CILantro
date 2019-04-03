@@ -2,38 +2,61 @@ import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
 import { Theme } from '@material-ui/core';
-import { blue } from '@material-ui/core/colors';
+import { blue, grey } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/styles';
 
 import AbstractInputOutputElement from '../../api/models/tests/input-output/elements/AbstractInputOutputElement';
 import ConstStringElement from '../../api/models/tests/input-output/elements/ConstStringElement';
 import StringElement from '../../api/models/tests/input-output/elements/StringElement';
+import translations from '../../translations/translations';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	element: {
-		padding: '5px 10px',
 		marginRight: '5px',
 		borderRadius: '5px',
-		fontFamily: 'Consolas',
+		fontFamily: 'monospace',
 		textAlign: 'center',
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
-		minHeight: '34px'
+		minHeight: '44px'
 	},
-	arguments: {
-		fontSize: '0.5rem'
+	elementName: {
+		padding: '0 20px',
+		fontSize: '1rem',
+		boxSizing: 'border-box',
+		height: '100%',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+	elementInfo: {
+		padding: '0 10px',
+		borderRadius: '0 5px 5px 0',
+		fontSize: '0.8rem',
+		boxSizing: 'border-box',
+		height: '100%',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		whiteSpace: 'pre'
 	},
 	constElement: {
-		backgroundColor: 'lightgrey',
+		backgroundColor: grey[800],
+		color: theme.palette.common.white,
 		whiteSpace: 'pre'
 	},
 	stringElement: {
+		backgroundColor: blue[800],
+		color: theme.palette.common.white
+	},
+	stringElementInfo: {
 		backgroundColor: blue[500]
 	}
 }));
 
 interface CilInputOutputElementProps {
+	variant: 'input' | 'output';
 	element: AbstractInputOutputElement;
 }
 
@@ -51,13 +74,35 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 		[classes.stringElement]: isStringElement
 	});
 
+	const elementInfoClassName = classNames(classes.elementInfo, {
+		[classes.stringElementInfo]: isStringElement
+	});
+
 	return (
 		<div className={elementClassName}>
-			{constStringElement ? <span>{constStringElement.value}</span> : null}
+			{constStringElement ? <div className={classes.elementName}>{constStringElement.value}</div> : null}
 
 			{stringElement ? (
 				<>
-					<span>{stringElement.name}</span>
+					<div className={classes.elementName}>{stringElement.name}</div>
+					{props.variant === 'input' ? (
+						<div className={elementInfoClassName}>
+							<span>
+								|{stringElement.name}| &#8714; [{stringElement.minLength}; {stringElement.maxLength}]
+							</span>
+
+							<span>
+								, {stringElement.name}
+								<sub>chars</sub> &#8714;
+							</span>
+
+							{' ['}
+							{stringElement.hasBigLetters ? <span>{translations.shared.bigLetters}</span> : null}
+							{stringElement.hasSmallLetters ? <span>{translations.shared.smallLetters}</span> : null}
+							{stringElement.hasDigits ? <span>{translations.shared.digits}</span> : null}
+							{']'}
+						</div>
+					) : null}
 				</>
 			) : null}
 		</div>

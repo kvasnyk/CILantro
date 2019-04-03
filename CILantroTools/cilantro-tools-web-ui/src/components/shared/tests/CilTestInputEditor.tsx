@@ -136,7 +136,12 @@ const CilTestInputEditor: FunctionComponent<CilTestInputEditorProps> = props => 
 			</CilDetailsRow>
 
 			{!hasEmptyInput ? (
-				<CilInputOutputEditor inputOutput={input} onElementAdded={handleElementAdded} isReadonly={!isEditable} />
+				<CilInputOutputEditor
+					variant="input"
+					inputOutput={input}
+					onElementAdded={handleElementAdded}
+					isReadonly={!isEditable}
+				/>
 			) : null}
 		</>
 	);

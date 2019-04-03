@@ -30,6 +30,8 @@ namespace CILantroToolsWebAPI.JsonConverters
             {
                 case "ConstString":
                     return JsonConvert.DeserializeObject<ConstStringElement>(jObject.ToString(), jsonSerializerSettings);
+                case "String":
+                    return JsonConvert.DeserializeObject<StringElement>(jObject.ToString(), jsonSerializerSettings);
                 default:
                     throw new ArgumentException();
             }

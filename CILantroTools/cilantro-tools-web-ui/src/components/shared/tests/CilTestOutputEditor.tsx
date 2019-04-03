@@ -117,7 +117,12 @@ const CilTestOutputEditor: FunctionComponent<CilTestOutputEditorProps> = props =
 				) : null}
 			</div>
 
-			<CilInputOutputEditor inputOutput={output} onElementAdded={handleElementAdded} isReadonly={!isEditable} />
+			<CilInputOutputEditor
+				variant="output"
+				inputOutput={output}
+				onElementAdded={handleElementAdded}
+				isReadonly={!isEditable}
+			/>
 		</>
 	);
 };

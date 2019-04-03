@@ -100,9 +100,9 @@ const translations = {
 		minLength: 'Min length',
 		maxLength: 'Max length',
 		symbols: 'Symbols',
-		smallLetters: 'a-z',
-		bigLetters: 'A-Z',
-		digits: '0-9',
+		smallLetters: 'az',
+		bigLetters: 'AZ',
+		digits: '09',
 		name: 'Name'
 	}
 };

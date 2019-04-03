@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 interface CilInputOutputEditorProps {
+	variant: 'input' | 'output';
 	inputOutput: InputOutput;
 	onElementAdded: (lineIndex: number, element: AbstractInputOutputElement) => void;
 	isReadonly?: boolean;
@@ -25,6 +26,7 @@ const CilInputOutputEditor: FunctionComponent<CilInputOutputEditorProps> = props
 			{props.inputOutput.lines.map((inputOutputLine, index) => (
 				<CilInputOutputLineEditor
 					key={index}
+					variant={props.variant}
 					lineIndex={index}
 					line={inputOutputLine}
 					onElementAdded={props.onElementAdded}

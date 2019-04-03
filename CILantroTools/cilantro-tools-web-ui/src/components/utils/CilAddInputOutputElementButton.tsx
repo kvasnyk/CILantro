@@ -46,9 +46,11 @@ const buildEmptyAddInputOutputElementData = (): AddInputOutputElementData => ({
 	type: 'ConstString'
 });
 
-const validateAddInputOutputElementData = (formData: AddInputOutputElementData) => {
+const validateAddInputOutputElementData = (formData: AddInputOutputElementData, variant: 'input' | 'output') => {
 	const isConstString = formData.type === 'ConstString';
 	const isString = formData.type === 'String';
+
+	const isInput = variant === 'input';
 
 	const hasMinMaxLengthError =
 		formData.stringMinLength !== undefined &&
@@ -62,13 +64,15 @@ const validateAddInputOutputElementData = (formData: AddInputOutputElementData) 
 	return {
 		constString: isConstString && !formData.constString,
 		varName: isString && !hasVarName,
-		stringMinLength: isString && (!formData.stringMinLength || hasMinMaxLengthError || formData.stringMinLength < 1),
-		stringMaxLength: isString && (!formData.stringMaxLength || hasMinMaxLengthError),
-		stringSymbols: isString && !hasAnySymbols
+		stringMinLength:
+			isString && isInput && (!formData.stringMinLength || hasMinMaxLengthError || formData.stringMinLength < 1),
+		stringMaxLength: isString && isInput && (!formData.stringMaxLength || hasMinMaxLengthError),
+		stringSymbols: isString && isInput && !hasAnySymbols
 	};
 };
 
 interface CilAddInputOutputElementButtonProps {
+	variant: 'input' | 'output';
 	onElementAdded: (element: AbstractInputOutputElement) => void;
 }
 
@@ -78,7 +82,7 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 	const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 	const [formData, setFormData] = useState<AddInputOutputElementData>(buildEmptyAddInputOutputElementData());
 
-	const formErrors = validateAddInputOutputElementData(formData);
+	const formErrors = validateAddInputOutputElementData(formData, props.variant);
 
 	const handleDialogClose = () => {
 		setFormData(buildEmptyAddInputOutputElementData());
@@ -224,54 +228,57 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 									onChange={handleVarNameChange}
 									error={formErrors.varName}
 								/>
-
-								<TextField
-									label={translations.shared.minLength}
-									value={formData.stringMinLength}
-									fullWidth={true}
-									onChange={handleStringMinLengthChange}
-									error={formErrors.stringMinLength}
-									type="number"
-								/>
-
-								<TextField
-									label={translations.shared.maxLength}
-									value={formData.stringMaxLength}
-									fullWidth={true}
-									onChange={handleStringMaxLengthChange}
-									error={formErrors.stringMaxLength}
-									type="number"
-								/>
-
-								<FormControl fullWidth={true} error={formErrors.stringSymbols}>
-									<FormLabel>{translations.shared.symbols}</FormLabel>
-									<FormGroup>
-										<FormControlLabel
-											control={
-												<Checkbox checked={formData.stringBigLetters} onChange={handleStringBigLettersChange}>
-													{translations.shared.bigLetters}
-												</Checkbox>
-											}
-											label={translations.shared.bigLetters}
+								{props.variant === 'input' ? (
+									<>
+										<TextField
+											label={translations.shared.minLength}
+											value={formData.stringMinLength}
+											fullWidth={true}
+											onChange={handleStringMinLengthChange}
+											error={formErrors.stringMinLength}
+											type="number"
 										/>
-										<FormControlLabel
-											control={
-												<Checkbox checked={formData.stringSmallLetters} onChange={handleStringSmallLettersChange}>
-													{translations.shared.smallLetters}
-												</Checkbox>
-											}
-											label={translations.shared.smallLetters}
+
+										<TextField
+											label={translations.shared.maxLength}
+											value={formData.stringMaxLength}
+											fullWidth={true}
+											onChange={handleStringMaxLengthChange}
+											error={formErrors.stringMaxLength}
+											type="number"
 										/>
-										<FormControlLabel
-											control={
-												<Checkbox checked={formData.stringDigits} onChange={handleStringDigitsChange}>
-													{translations.shared.digits}
-												</Checkbox>
-											}
-											label={translations.shared.digits}
-										/>
-									</FormGroup>
-								</FormControl>
+
+										<FormControl fullWidth={true} error={formErrors.stringSymbols}>
+											<FormLabel>{translations.shared.symbols}</FormLabel>
+											<FormGroup>
+												<FormControlLabel
+													control={
+														<Checkbox checked={formData.stringBigLetters} onChange={handleStringBigLettersChange}>
+															{translations.shared.bigLetters}
+														</Checkbox>
+													}
+													label={translations.shared.bigLetters}
+												/>
+												<FormControlLabel
+													control={
+														<Checkbox checked={formData.stringSmallLetters} onChange={handleStringSmallLettersChange}>
+															{translations.shared.smallLetters}
+														</Checkbox>
+													}
+													label={translations.shared.smallLetters}
+												/>
+												<FormControlLabel
+													control={
+														<Checkbox checked={formData.stringDigits} onChange={handleStringDigitsChange}>
+															{translations.shared.digits}
+														</Checkbox>
+													}
+													label={translations.shared.digits}
+												/>
+											</FormGroup>
+										</FormControl>
+									</>
+								) : null}
 							</>
 						) : null}
 					</DialogContent>
