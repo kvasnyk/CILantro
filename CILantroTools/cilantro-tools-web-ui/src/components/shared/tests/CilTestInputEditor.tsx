@@ -102,6 +102,14 @@ const CilTestInputEditor: FunctionComponent<CilTestInputEditorProps> = props => 
 		setInput(newInput);
 	};
 
+	const handleElementDeleted = (lineIndex: number, elementIndex: number) => {
+		const newInput = cloneDeep(input);
+		newInput.lines[lineIndex].elements = newInput.lines[lineIndex].elements.filter(
+			(el, elIndex) => elIndex !== elementIndex
+		);
+		setInput(newInput);
+	};
+
 	return (
 		<>
 			<div className={classes.titleWrapper}>
@@ -145,6 +153,7 @@ const CilTestInputEditor: FunctionComponent<CilTestInputEditorProps> = props => 
 					variant="input"
 					inputOutput={input}
 					onElementAdded={handleElementAdded}
+					onElementDeleted={handleElementDeleted}
 					isReadonly={!isEditable}
 				/>
 			) : null}

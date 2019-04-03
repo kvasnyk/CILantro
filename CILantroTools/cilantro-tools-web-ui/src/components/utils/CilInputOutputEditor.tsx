@@ -15,6 +15,7 @@ interface CilInputOutputEditorProps {
 	variant: 'input' | 'output';
 	inputOutput: InputOutput;
 	onElementAdded: (lineIndex: number, element: AbstractInputOutputElement) => void;
+	onElementDeleted?: (lineIndex: number, elementIndex: number) => void;
 	isReadonly?: boolean;
 }
 
@@ -31,6 +32,7 @@ const CilInputOutputEditor: FunctionComponent<CilInputOutputEditorProps> = props
 					line={inputOutputLine}
 					onElementAdded={props.onElementAdded}
 					isReadonly={props.isReadonly}
+					onElementDeleted={props.onElementDeleted}
 				/>
 			))}
 		</div>

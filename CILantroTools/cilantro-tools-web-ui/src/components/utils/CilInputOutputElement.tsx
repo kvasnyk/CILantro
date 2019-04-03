@@ -1,8 +1,9 @@
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
-import { Theme } from '@material-ui/core';
+import { IconButton, Theme } from '@material-ui/core';
 import { blue, grey } from '@material-ui/core/colors';
+import DeleteIcon from '@material-ui/icons/DeleteRounded';
 import { makeStyles } from '@material-ui/styles';
 
 import AbstractInputOutputElement from '../../api/models/tests/input-output/elements/AbstractInputOutputElement';
@@ -52,12 +53,27 @@ const useStyles = makeStyles((theme: Theme) => ({
 	},
 	stringElementInfo: {
 		backgroundColor: blue[500]
+	},
+	deleteButton: {
+		marginLeft: '5px'
+	},
+	deleteIcon: {
+		width: '0.8rem',
+		height: '0.8rem'
+	},
+	constElementDeleteIcon: {
+		color: theme.palette.common.white
+	},
+	stringElementDeleteIcon: {
+		color: theme.palette.common.white
 	}
 }));
 
 interface CilInputOutputElementProps {
 	variant: 'input' | 'output' | 'custom';
 	element: AbstractInputOutputElement;
+	isEditable?: boolean;
+	onElementDeleted?: () => void;
 }
 
 const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = props => {
@@ -78,13 +94,38 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 		[classes.stringElementInfo]: isStringElement
 	});
 
+	const deleteIconClassName = classNames(classes.deleteIcon, {
+		[classes.constElementDeleteIcon]: isConstStringElement,
+		[classes.stringElementDeleteIcon]: isStringElement
+	});
+
+	const handleDeleteButtonClick = () => {
+		if (props.onElementDeleted) {
+			props.onElementDeleted();
+		}
+	};
+
+	const deleteButton = props.isEditable ? (
+		<IconButton className={classes.deleteButton} onClick={handleDeleteButtonClick}>
+			<DeleteIcon fontSize="small" className={deleteIconClassName} />
+		</IconButton>
+	) : null;
+
 	return (
 		<div className={elementClassName}>
-			{constStringElement ? <div className={classes.elementName}>{constStringElement.value}</div> : null}
+			{constStringElement ? (
+				<div className={classes.elementName}>
+					{constStringElement.value}
+					{deleteButton}
+				</div>
+			) : null}
 
 			{stringElement ? (
 				<>
-					<div className={classes.elementName}>{stringElement.name}</div>
+					<div className={classes.elementName}>
+						{stringElement.name}
+						{deleteButton}
+					</div>
 					{props.variant === 'input' ? (
 						<div className={elementInfoClassName}>
 							<span>
