@@ -216,6 +216,10 @@ namespace CILantroToolsWebAPI.Services
             };
 
             var process = Process.Start(processStartInfo);
+
+            await process.StandardInput.WriteAsync(model.Input);
+            await process.StandardInput.FlushAsync();
+
             var output = await process.StandardOutput.ReadToEndAsync();
 
             return output;

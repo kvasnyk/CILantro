@@ -40,6 +40,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 	},
 	titleTypography: {
 		marginRight: '10px'
+	},
+	emptyInputContainer: {
+		marginLeft: '50px'
 	}
 }));
 
@@ -122,18 +125,20 @@ const CilTestInputEditor: FunctionComponent<CilTestInputEditorProps> = props => 
 						</CilIconButton>
 					</>
 				) : null}
-			</div>
 
-			<CilDetailsRow label={translations.tests.emptyInput}>
-				{isEditable ? <Checkbox checked={hasEmptyInput} onChange={handleHasEmptyInputChange} /> : null}
-				{!isEditable ? (
-					props.test.hasEmptyInput ? (
-						<CheckIcon fontSize="small" />
-					) : (
-						<NotCheckIcon fontSize="small" />
-					)
-				) : null}
-			</CilDetailsRow>
+				<div className={classes.emptyInputContainer}>
+					<CilDetailsRow label={translations.tests.emptyInput}>
+						{isEditable ? <Checkbox checked={hasEmptyInput} onChange={handleHasEmptyInputChange} /> : null}
+						{!isEditable ? (
+							props.test.hasEmptyInput ? (
+								<CheckIcon fontSize="small" />
+							) : (
+								<NotCheckIcon fontSize="small" />
+							)
+						) : null}
+					</CilDetailsRow>
+				</div>
+			</div>
 
 			{!hasEmptyInput ? (
 				<CilInputOutputEditor

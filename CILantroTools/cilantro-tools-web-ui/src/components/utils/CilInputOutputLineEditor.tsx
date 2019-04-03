@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 	inputOutputLine: {
 		display: 'flex',
 		flexDirection: 'row',
-		backgroundColor: '#eaeaea',
 		padding: '5px',
 		borderRadius: '5px'
 	}

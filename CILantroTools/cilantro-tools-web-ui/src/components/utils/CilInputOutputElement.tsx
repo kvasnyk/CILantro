@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 interface CilInputOutputElementProps {
-	variant: 'input' | 'output';
+	variant: 'input' | 'output' | 'custom';
 	element: AbstractInputOutputElement;
 }
 
@@ -103,6 +103,7 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 							{']'}
 						</div>
 					) : null}
+					{props.variant === 'custom' ? <div className={elementInfoClassName}>{props.children}</div> : null}
 				</>
 			) : null}
 		</div>

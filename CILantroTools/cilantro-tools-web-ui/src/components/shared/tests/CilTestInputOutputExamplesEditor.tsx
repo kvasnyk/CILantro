@@ -13,6 +13,7 @@ import useNotistack from '../../../hooks/external/useNotistack';
 import translations from '../../../translations/translations';
 import CilCodeEditor from '../../utils/CilCodeEditor';
 import CilIconButton from '../../utils/CilIconButton';
+import CilInputOutputElement from '../../utils/CilInputOutputElement';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	titleWrapper: {
@@ -40,8 +41,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 		flexBasis: 0,
 		display: 'flex',
 		alignItems: 'center',
-		justifyContent: 'center',
-		backgroundColor: '#eaeaea',
 		borderRadius: '5px',
 		padding: '5px',
 		fontFamily: 'Consolas',
@@ -71,17 +70,30 @@ const useStyles = makeStyles((theme: Theme) => ({
 	},
 	exampleInputOutput: {
 		display: 'flex',
-		flexDirection: 'row'
+		flexDirection: 'row',
+		marginBottom: '25px'
 	},
 	exampleInput: {
 		flexGrow: 1,
 		flexBasis: 0,
 		marginRight: '5px'
 	},
+	exampleInputLine: {
+		display: 'flex',
+		flexDirection: 'row'
+	},
 	exampleOutput: {
 		flexGrow: 1,
 		flexBasis: 0,
 		marginLeft: '5px'
+	},
+	elementInput: {
+		color: theme.palette.common.white,
+		fontSize: '0.8rem',
+		background: 'inherit',
+		border: 'none',
+		outline: 'none',
+		width: '100px'
 	}
 }));
 
@@ -92,6 +104,10 @@ interface CilTestInputOutputExamplesEditorProps {
 
 const CilTestInputOutputExamplesEditor: FunctionComponent<CilTestInputOutputExamplesEditorProps> = props => {
 	const testsApiClient = new TestsApiClient();
+
+	const [inputs, setInputs] = useState<string[][]>(
+		props.test.hasEmptyInput ? [] : props.test.input!.lines.map(inputLine => inputLine.elements.map(element => ''))
+	);
 
 	const classes = useStyles();
 
@@ -113,7 +129,29 @@ const CilTestInputOutputExamplesEditor: FunctionComponent<CilTestInputOutputExam
 			return '';
 		}
 
-		throw new Error('An error occurred while building input.');
+		let result = '';
+		for (const line of inputs) {
+			for (const elementValue of line) {
+				result += elementValue;
+			}
+			result += '\n';
+		}
+		return result;
+	};
+
+	const handleInputsChange = (
+		i: number,
+		j: number,
+		e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+	) => {
+		const newValue = e.target.value;
+
+		setInputs(prevInputs => {
+			const result = [...prevInputs];
+			result[i][j] = newValue;
+			return result;
+		});
+		setIsNewOutputPopulated(false);
 	};
 
 	const clearNewExample = () => {
@@ -224,7 +262,22 @@ const CilTestInputOutputExamplesEditor: FunctionComponent<CilTestInputOutputExam
 							{props.test.hasEmptyInput ? (
 								<div className={classes.newExampleEmptyInput}>{translations.tests.emptyInput}</div>
 							) : (
-								<>not empty input!</>
+								<>
+									{props.test.input!.lines.map((inputLine, index) => (
+										<div key={index} className={classes.exampleInputLine}>
+											{inputLine.elements.map((element, elementIndex) => (
+												<CilInputOutputElement key={elementIndex} variant="custom" element={element}>
+													<input
+														type="text"
+														className={classes.elementInput}
+														value={inputs[index][elementIndex]}
+														onChange={e => handleInputsChange(index, elementIndex, e)}
+													/>
+												</CilInputOutputElement>
+											))}
+										</div>
+									))}
+								</>
 							)}
 						</div>
 						<div className={classes.newExampleOutput}>
