@@ -1,4 +1,5 @@
 ﻿using CILantro.Structure;
+using System.Collections.Generic;
 
 namespace CILantro.Instructions
 {
@@ -9,5 +10,7 @@ namespace CILantro.Instructions
         public CilTypeSpec TypeSpec { get; set; }
 
         public string MethodName { get; set; }
+
+        public List<CilSigArg> SigArgs { get; set; }
     }
 }

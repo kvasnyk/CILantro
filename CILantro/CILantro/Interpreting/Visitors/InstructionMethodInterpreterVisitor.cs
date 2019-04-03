@@ -2,8 +2,11 @@
 using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.State;
+using CILantro.Structure;
 using CILantro.Utils;
 using CILantro.Visitors;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CILantro.Interpreting.Visitors
 {
@@ -21,18 +24,33 @@ namespace CILantro.Interpreting.Visitors
 
         public override void VisitCallInstruction(CallInstruction instruction)
         {
-            var argument = _state.CurrentEvaluationStack.Pop();
-            var methodArgument = _heap.Load((argument as CilReference).Address);
+            var methodArguments = new List<object>();
+            for (int i = 0; i < instruction.SigArgs.Count; i++)
+            {
+                var argument = _state.CurrentEvaluationStack.Pop();
+                var methodArgument = _heap.Load((argument as CilReference).Address);
+                methodArguments.Add(methodArgument);
+            }
+            methodArguments.Reverse();
 
             var callConfig = new MethodCallerConfig
             {
                 AssemblyName = instruction.TypeSpec.ClassName.AssemblyName,
                 ClassName = instruction.TypeSpec.ClassName.ClassName,
                 MethodName = instruction.MethodName,
-                Arguments = new object[] { methodArgument }
+                Arguments = methodArguments.ToArray(),
+                Types = instruction.SigArgs.Select(sa => sa.Type.GetRuntimeType()).ToArray()
             };
 
-            MethodCaller.Call(callConfig);
+            var result = MethodCaller.Call(callConfig);
+
+            if (instruction.ReturnType.TypeType != CilTypeType.Void)
+            {
+                var resultAddress = _heap.Store(result);
+                var resultRef = new CilReference(resultAddress);
+
+                _state.CurrentEvaluationStack.Push(resultRef);
+            }
 
             _state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
         }

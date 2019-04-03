@@ -24,6 +24,21 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // sigArgs1 + _(",") + sigArg
+            var sigArgs1Children = AstChildren.Empty()
+                .Add<SigArgs1AstNode>()
+                .Add(",")
+                .Add<SigArgAstNode>();
+            if (sigArgs1Children.PopulateWith(parseNode))
+            {
+                var sigArgs = sigArgs1Children.Child1.SigArgs;
+                sigArgs.Add(sigArgs1Children.Child3.SigArg);
+
+                SigArgs = sigArgs;
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

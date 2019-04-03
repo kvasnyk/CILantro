@@ -42,6 +42,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 instructionMethod.ReturnType = methodTypeSpecChildren.Child3.Type;
                 instructionMethod.TypeSpec = methodTypeSpecChildren.Child4.TypeSpec;
                 instructionMethod.MethodName = methodTypeSpecChildren.Child6.MethodName;
+                instructionMethod.SigArgs = methodTypeSpecChildren.Child8.SigArgs;
 
                 Instruction = instructionMethod;
 
