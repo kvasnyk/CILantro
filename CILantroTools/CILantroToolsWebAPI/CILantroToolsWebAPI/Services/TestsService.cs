@@ -91,7 +91,7 @@ namespace CILantroToolsWebAPI.Services
                 MainIlSource = await _testsHelper.ReadIlSource(testReadModel.Name),
                 MainIlSourcePath = _paths.TestsData.IlSources[testReadModel.Name].MainIlSourcePaths.Relative,
                 ExePath = _paths.TestsData.Execs[testReadModel.Name].MainExePaths.Relative,
-                GenerateExeOutput = await File.ReadAllTextAsync(generateExeOutputPath)
+                GenerateExeOutput = File.Exists(generateExeOutputPath) ? await File.ReadAllTextAsync(generateExeOutputPath) : null
             };
 
             return result;
