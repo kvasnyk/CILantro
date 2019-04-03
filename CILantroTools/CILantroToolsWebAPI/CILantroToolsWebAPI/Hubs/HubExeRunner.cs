@@ -34,7 +34,11 @@ namespace CILantroToolsWebAPI.Hubs
 
             Task
                 .Run(() => { WatchOutput(connectionId); })
-                .ContinueWith(ct => { _hubContext.Clients.Group(connectionId).SendAsync("end"); });
+                .ContinueWith(async ct =>
+                {
+                    await Task.Delay(300);
+                    _hubContext.Clients.Group(connectionId).SendAsync("end");
+                });
 
             Task.Run(() => { WatchError(connectionId); });
 

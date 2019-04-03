@@ -153,6 +153,8 @@ namespace CILantroToolsWebAPI.Services
         {
             var testReadModel = _testsRepository.Read<TestReadModel>().Single(t => t.Id == testId);
 
+            _paths.TestsData.IlSources[testReadModel.Name].ClearDirectory();
+
             var testExePath = _paths.Tests.GetDeepestPath(testReadModel.Path).Absolute;
             var testMainIlSourcePath = _paths.TestsData.IlSources[testReadModel.Name].MainIlSourcePaths.Absolute;
 
@@ -165,6 +167,14 @@ namespace CILantroToolsWebAPI.Services
 
             var ildasmProcess = Process.Start(ildasmProcessStartInfo);
             ildasmProcess.WaitForExit();
+
+            var testDirectoryPath = Path.GetDirectoryName(_paths.Tests.GetDeepestPath(testReadModel.Path).Absolute);
+            var dlls = Directory.GetFiles(testDirectoryPath, "*.dll");
+            foreach (var dll in dlls)
+            {
+                var newPath = Path.Combine(Path.GetDirectoryName(testMainIlSourcePath), Path.GetFileName(dll));
+                File.Copy(dll, newPath);
+            }
 
             await _testsRepository.UpdateAsync(t => t.Id == testId, t =>
             {
@@ -197,6 +207,14 @@ namespace CILantroToolsWebAPI.Services
             }
 
             ilasmProcess.WaitForExit();
+
+            var testDirectoryPath = Path.GetDirectoryName(_paths.Tests.GetDeepestPath(testReadModel.Path).Absolute);
+            var dlls = Directory.GetFiles(testDirectoryPath, "*.dll");
+            foreach (var dll in dlls)
+            {
+                var newPath = Path.Combine(Path.GetDirectoryName(exePath), Path.GetFileName(dll));
+                File.Copy(dll, newPath);
+            }
 
             await _testsRepository.UpdateAsync(t => t.Id == testId, t =>
             {
