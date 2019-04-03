@@ -68,7 +68,9 @@ const translations = {
 		errorOccurredWhileAddingIoExample: 'An error occurred while adding the example.',
 		noOutputGenerated: 'No output has been generated.',
 		exampleNameIsEmpty: 'The example\'s name is empty',
-		addIoExample: 'Add an I/O example'
+		addIoExample: 'Add an I/O example',
+		ioElement_ConstString: 'Constant string',
+		ioElement_String: 'String'
 	},
 
 	runs: {
@@ -92,7 +94,16 @@ const translations = {
 	shared: {
 		anErrorOccurred: 'An error occurred. Please try again.',
 		save: 'Add',
-		noInfo: '---'
+		noInfo: '---',
+		type: 'Type',
+		value: 'Value',
+		minLength: 'Min length',
+		maxLength: 'Max length',
+		symbols: 'Symbols',
+		smallLetters: 'a-z',
+		bigLetters: 'A-Z',
+		digits: '0-9',
+		name: 'Name'
 	}
 };
 

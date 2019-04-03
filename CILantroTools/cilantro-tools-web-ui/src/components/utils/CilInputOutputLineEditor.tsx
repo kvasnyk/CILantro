@@ -5,8 +5,8 @@ import { makeStyles } from '@material-ui/styles';
 
 import AbstractInputOutputElement from '../../api/models/tests/input-output/elements/AbstractInputOutputElement';
 import InputOutputLine from '../../api/models/tests/input-output/InputOutputLine';
+import CilAddInputOutputElementButton from './CilAddInputOutputElementButton';
 import CilInputOutputElement from './CilInputOutputElement';
-import CilInputOutputElementInput from './CilInputOutputElementInput';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	inputOutputLine: {
@@ -38,7 +38,7 @@ const CilInputOutputLineEditor: FunctionComponent<CilInputOutputLineEditorProps>
 				<CilInputOutputElement key={index} element={element} />
 			))}
 
-			{!props.isReadonly ? <CilInputOutputElementInput onElementAdded={handleElementAdded} /> : null}
+			{!props.isReadonly ? <CilAddInputOutputElementButton onElementAdded={handleElementAdded} /> : null}
 		</div>
 	);
 };

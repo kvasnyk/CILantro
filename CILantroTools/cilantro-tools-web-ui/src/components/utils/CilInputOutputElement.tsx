@@ -15,7 +15,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 		marginRight: '5px',
 		borderRadius: '5px',
 		fontFamily: 'Consolas',
-		textAlign: 'center'
+		textAlign: 'center',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		minHeight: '34px'
 	},
 	arguments: {
 		fontSize: '0.5rem'
@@ -54,7 +58,6 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 			{stringElement ? (
 				<>
 					<span>{stringElement.name}</span>
-					<span className={classes.arguments}>{stringElement.minLength}</span>
 				</>
 			) : null}
 		</div>

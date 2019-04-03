@@ -3,7 +3,9 @@ interface StringElement {
 	name: string;
 	minLength: number;
 	maxLength: number;
-	isAlpha?: boolean;
+	hasBigLetters: boolean;
+	hasSmallLetters: boolean;
+	hasDigits: boolean;
 }
 
 export default StringElement;
