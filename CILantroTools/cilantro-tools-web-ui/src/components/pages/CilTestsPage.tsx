@@ -37,6 +37,10 @@ const CilTestsPage: FunctionComponent = props => {
 			property: 'name',
 			direction: SearchDirection.Asc
 		},
+		orderBy2: {
+			property: 'name',
+			direction: SearchDirection.Asc
+		},
 		pageSize: 10,
 		pageNumber: 1
 	});
