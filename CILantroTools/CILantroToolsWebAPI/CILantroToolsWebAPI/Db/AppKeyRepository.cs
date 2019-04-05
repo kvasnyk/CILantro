@@ -1,6 +1,8 @@
-﻿using CILantroToolsWebAPI.ReadModels;
+﻿using CILantroToolsWebAPI.Extensions;
+using CILantroToolsWebAPI.ReadModels;
 using CILantroToolsWebAPI.Search;
 using LinqKit;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -13,9 +15,12 @@ namespace CILantroToolsWebAPI.Db
     {
         private readonly AppDbContext _context;
 
-        public AppKeyRepository(AppDbContext context)
+        private readonly IServiceProvider _serviceProvider;
+
+        public AppKeyRepository(AppDbContext context, IServiceProvider serviceProvider)
         {
             _context = context;
+            _serviceProvider = serviceProvider;
         }
 
         public async Task<Guid> CreateAsync(TEntity entity)
@@ -57,13 +62,23 @@ namespace CILantroToolsWebAPI.Db
         public async Task<SearchResult<TReadModel>> Search<TReadModel>(SearchParameter searchParameter)
             where TReadModel : class, IKeyReadModel
         {
-            var mapping = ReadModelMappingsFactory.CreateMapping<TEntity, TReadModel>();
+            var searchMapper = _serviceProvider.GetRequiredService<SearchMapper<TReadModel>>();
 
-            var data = _context.Set<TEntity>().AsExpandable().Select(mapping);
+            var baseData = Read<TReadModel>()
+                .OrderBy(searchMapper.BuildOrderByExpression(searchParameter.OrderBy.Property), searchParameter.OrderBy.Direction)
+                .ThenBy(searchMapper.BuildThenByExpression(searchParameter.OrderBy2?.Property), searchParameter.OrderBy2?.Direction)
+                .ThenBy(searchMapper.BuildThenByExpression(searchParameter.OrderBy3?.Property), searchParameter.OrderBy3?.Direction);
+
+            var count = baseData.Count();
+
+            var data = baseData
+                .Skip(searchParameter.PageSize * (searchParameter.PageNumber - 1))
+                .Take(searchParameter.PageSize);
 
             var result = new SearchResult<TReadModel>
             {
-                Data = data.ToList()
+                Data = data.ToList(),
+                Count = count
             };
 
             return result;

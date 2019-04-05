@@ -10,8 +10,11 @@ class RunsApiClient extends ApiClientBase {
 		return this.post<AddRunBindingModel, string>(apiRoutes.runs.addRun, data);
 	}
 
-	public searchRuns(searchParameter: SearchParameter) {
-		return this.get<SearchParameter, SearchResult<RunReadModel>>(apiRoutes.runs.searchRuns, searchParameter);
+	public searchRuns(searchParameter: SearchParameter<RunReadModel>) {
+		return this.post<SearchParameter<RunReadModel>, SearchResult<RunReadModel>>(
+			apiRoutes.runs.searchRuns,
+			searchParameter
+		);
 	}
 
 	public deleteRun(runId: string) {

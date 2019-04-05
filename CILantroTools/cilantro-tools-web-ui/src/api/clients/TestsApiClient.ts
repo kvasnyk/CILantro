@@ -27,8 +27,11 @@ class TestsApiClient extends ApiClientBase {
 		return this.get<{}, TestInfo>(apiRoutes.tests.getTest(testId), {});
 	}
 
-	public searchTests(searchParameter: SearchParameter) {
-		return this.get<SearchParameter, SearchResult<TestReadModel>>(apiRoutes.tests.searchTests, searchParameter);
+	public searchTests(searchParameter: SearchParameter<TestReadModel>) {
+		return this.post<SearchParameter<TestReadModel>, SearchResult<TestReadModel>>(
+			apiRoutes.tests.searchTests,
+			searchParameter
+		);
 	}
 
 	public editTestCategory(testId: string, data: EditTestCategoryBindingModel) {

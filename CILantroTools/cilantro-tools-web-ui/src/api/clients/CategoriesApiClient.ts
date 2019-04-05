@@ -7,8 +7,8 @@ import SearchResult from '../search/SearchResult';
 import ApiClientBase from './ApiClientBase';
 
 class CategoriesApiClient extends ApiClientBase {
-	public searchCategories(searchParameter: SearchParameter) {
-		return this.get<SearchParameter, SearchResult<CategoryReadModel>>(
+	public searchCategories(searchParameter: SearchParameter<CategoryReadModel>) {
+		return this.post<SearchParameter<CategoryReadModel>, SearchResult<CategoryReadModel>>(
 			apiRoutes.categories.searchCategories,
 			searchParameter
 		);

@@ -19,7 +19,7 @@ namespace CILantroToolsWebAPI.Controllers
             _categoriesService = categoriesService;
         }
 
-        [HttpGet("search")]
+        [HttpPost("search")]
         public async Task<SearchResult<CategoryReadModel>> SearchCategoriesAsync([FromBody]SearchParameter searchParameter)
         {
             return await _categoriesService.SearchCategoriesAsync(searchParameter);

@@ -19,7 +19,7 @@ namespace CILantroToolsWebAPI.Controllers
             _runsService = runsService;
         }
 
-        [HttpGet("search")]
+        [HttpPost("search")]
         public async Task<SearchResult<RunReadModel>> SearchRunsAsync([FromBody]SearchParameter searchParameter)
         {
             return await _runsService.SearchRunsAsync(searchParameter);

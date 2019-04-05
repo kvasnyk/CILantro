@@ -3,6 +3,11 @@ using CILantroToolsWebAPI.DbModels;
 using CILantroToolsWebAPI.Hubs;
 using CILantroToolsWebAPI.Migrations;
 using CILantroToolsWebAPI.ReadModels;
+using CILantroToolsWebAPI.ReadModels.Categories;
+using CILantroToolsWebAPI.ReadModels.Runs;
+using CILantroToolsWebAPI.ReadModels.Tests;
+using CILantroToolsWebAPI.Search;
+using CILantroToolsWebAPI.Search.Mappers;
 using CILantroToolsWebAPI.Services;
 using CILantroToolsWebAPI.Settings;
 using CILantroToolsWebAPI.Utils;
@@ -63,6 +68,10 @@ namespace CILantroToolsWebAPI
             services.AddSingleton<TestsHelper>();
 
             services.AddSingleton<Paths>();
+
+            services.AddSingleton<SearchMapper<TestReadModel>, TestSearchMapper>();
+            services.AddSingleton<SearchMapper<CategoryReadModel>, CategorySearchMapper>();
+            services.AddSingleton<SearchMapper<RunReadModel>, RunSearchMapper>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

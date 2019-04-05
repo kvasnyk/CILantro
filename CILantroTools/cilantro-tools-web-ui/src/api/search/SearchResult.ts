@@ -1,5 +1,6 @@
 interface SearchResult<TReadModel> {
-  data: TReadModel[];
+	data: TReadModel[];
+	count: number;
 }
 
 export default SearchResult;

@@ -8,6 +8,7 @@ import CategoriesApiClient from '../../api/clients/CategoriesApiClient';
 import TestsApiClient from '../../api/clients/TestsApiClient';
 import TestInfo from '../../api/models/tests/TestInfo';
 import CategoryReadModel from '../../api/read-models/categories/CategoryReadModel';
+import SearchDirection from '../../api/search/SearchDirection';
 import translations from '../../translations/translations';
 import CilPage, { PageState } from '../base/CilPage';
 import CilEditTestCategorySelect from '../shared/tests/CilEditTestCategorySelect';
@@ -83,7 +84,14 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 
 	const refreshCategories = async () => {
 		try {
-			const searchCategoriesResponse = await categoriesApiClient.searchCategories({});
+			const searchCategoriesResponse = await categoriesApiClient.searchCategories({
+				orderBy: {
+					property: 'name',
+					direction: SearchDirection.Asc
+				},
+				pageSize: 1000000,
+				pageNumber: 1
+			});
 			setCategories(searchCategoriesResponse.data.data);
 		} catch (error) {
 			setPageState('error');

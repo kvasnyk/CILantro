@@ -104,7 +104,8 @@ const translations = {
 		smallLetters: 'az',
 		bigLetters: 'AZ',
 		digits: '09',
-		name: 'Name'
+		name: 'Name',
+		resultsPerPage: 'Results per page:'
 	}
 };
 

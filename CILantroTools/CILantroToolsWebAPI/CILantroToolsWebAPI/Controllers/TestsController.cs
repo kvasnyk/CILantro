@@ -41,7 +41,7 @@ namespace CILantroToolsWebAPI.Controllers
             return await _testsService.GetTestInfoAsync(testId);
         }
 
-        [HttpGet("search")]
+        [HttpPost("search")]
         public async Task<SearchResult<TestReadModel>> SearchTestsAsync([FromBody]SearchParameter searchParameter)
         {
             return await _testsService.SearchTestsAsync(searchParameter);
