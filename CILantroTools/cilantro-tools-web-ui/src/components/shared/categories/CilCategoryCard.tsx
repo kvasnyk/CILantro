@@ -1,6 +1,8 @@
-import React, { FunctionComponent } from 'react';
+import classNames from 'classnames';
+import React, { FunctionComponent, useState } from 'react';
 
-import { Card, CardActions, CardContent, Theme, Typography } from '@material-ui/core';
+import { Card, CardActions, CardContent, Collapse, IconButton, Theme, Typography } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMoreRounded';
 import { makeStyles } from '@material-ui/styles';
 
 import CategoryReadModel from '../../../api/read-models/categories/CategoryReadModel';
@@ -19,6 +21,17 @@ const useStyles = makeStyles((theme: Theme) => ({
 	},
 	subcategoryTypography: {
 		marginRight: '10px'
+	},
+	expand: {
+		marginLeft: 0,
+		marginRight: 0,
+		transform: 'rotate(0deg)',
+		transition: theme.transitions.create('transform', {
+			duration: theme.transitions.duration.shortest
+		})
+	},
+	expandOpen: {
+		transform: 'rotate(180deg)'
 	}
 }));
 
@@ -32,10 +45,30 @@ interface CilCategoryCardProps {
 const CilCategoryCard: FunctionComponent<CilCategoryCardProps> = props => {
 	const classes = useStyles();
 
+	const [isExpanded, setIsExpanded] = useState<boolean>(false);
+
+	const handleExpandButtonClick = () => {
+		setIsExpanded(prev => !prev);
+	};
+
 	return (
 		<Card>
 			<CardContent>
 				<Typography variant="h2">{props.category.name}</Typography>
+			</CardContent>
+			<CardActions className={classes.cardActions}>
+				<CilAddSubcategoryButton category={props.category} onSubcategoryAdded={props.onSubcategoryAdded} />
+				<CilDeleteCategoryButton category={props.category} onCategoryDeleted={props.onCategoryDeleted} />
+				<IconButton
+					className={classNames(classes.expand, {
+						[classes.expandOpen]: isExpanded
+					})}
+					onClick={handleExpandButtonClick}
+				>
+					<ExpandMoreIcon />
+				</IconButton>
+			</CardActions>
+			<Collapse in={isExpanded} timeout="auto" unmountOnExit={false}>
 				<ul>
 					{props.category.subcategories.map(subcategory => (
 						<li key={subcategory.id} className={classes.subcategoryLi}>
@@ -44,11 +77,7 @@ const CilCategoryCard: FunctionComponent<CilCategoryCardProps> = props => {
 						</li>
 					))}
 				</ul>
-			</CardContent>
-			<CardActions className={classes.cardActions}>
-				<CilAddSubcategoryButton category={props.category} onSubcategoryAdded={props.onSubcategoryAdded} />
-				<CilDeleteCategoryButton category={props.category} onCategoryDeleted={props.onCategoryDeleted} />
-			</CardActions>
+			</Collapse>
 		</Card>
 	);
 };
