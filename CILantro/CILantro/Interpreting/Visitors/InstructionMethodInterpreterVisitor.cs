@@ -28,7 +28,11 @@ namespace CILantro.Interpreting.Visitors
             for (int i = 0; i < instruction.SigArgs.Count; i++)
             {
                 var argument = _state.CurrentEvaluationStack.Pop();
-                var methodArgument = _heap.Load((argument as CilReference).Address);
+
+                var methodArgument = argument is CilReference referenceArgument ?
+                    _heap.Load(referenceArgument.Address) :
+                    (argument as CilValue).GetValue();
+
                 methodArguments.Add(methodArgument);
             }
             methodArguments.Reverse();

@@ -1,12 +1,17 @@
 ﻿namespace CILantro.Interpreting.Objects
 {
-    public class CilInt32Value : CilObject
+    public class CilInt32Value : CilValue
     {
         public int Value { get; }
 
         public CilInt32Value(int value)
         {
             Value = value;
+        }
+
+        public override object GetValue()
+        {
+            return Value;
         }
     }
 }
