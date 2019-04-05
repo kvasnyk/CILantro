@@ -1,24 +1,29 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 
-import { TablePagination, Theme } from '@material-ui/core';
+import { MenuItem, Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 import CategoriesApiClient from '../../api/clients/CategoriesApiClient';
 import CategoryReadModel from '../../api/read-models/categories/CategoryReadModel';
 import SearchDirection from '../../api/search/SearchDirection';
-import SearchParameter from '../../api/search/SearchParameter';
-import SearchResult from '../../api/search/SearchResult';
+import useSearch from '../../hooks/useSearch';
 import translations from '../../translations/translations';
 import CilPage, { PageState } from '../base/CilPage';
 import CilAddCategoryButton from '../shared/categories/CilAddCategoryButton';
 import CilCategoriesList from '../shared/categories/CilCategoriesList';
+import CilOrderByDropDown from '../utils/CilOrderByDropDown';
 import CilPageHeader from '../utils/CilPageHeader';
+import CilPagination from '../utils/CilPagination';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	pageHeaderLeft: {
 		flexGrow: 1
 	},
-	pageHeaderRight: {}
+	pageHeaderRight: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center'
+	}
 }));
 
 const CilCategoriesPage: FunctionComponent = props => {
@@ -27,8 +32,8 @@ const CilCategoriesPage: FunctionComponent = props => {
 	const categoriesApiClient = new CategoriesApiClient();
 
 	const [pageState, setPageState] = useState<PageState>('loading');
-	const [searchResult, setSearchResult] = useState<SearchResult<CategoryReadModel>>({ data: [], count: 0 });
-	const [searchParameter, setSearchParameter] = useState<SearchParameter<CategoryReadModel>>({
+
+	const search = useSearch<CategoryReadModel>({
 		orderBy: {
 			property: 'name',
 			direction: SearchDirection.Asc
@@ -40,8 +45,8 @@ const CilCategoriesPage: FunctionComponent = props => {
 	const refreshCategories = async () => {
 		try {
 			setPageState('loading');
-			const searchCategoriesResponse = await categoriesApiClient.searchCategories(searchParameter);
-			setSearchResult(searchCategoriesResponse.data);
+			const searchCategoriesResponse = await categoriesApiClient.searchCategories(search.parameter);
+			search.setResult(searchCategoriesResponse.data);
 			setPageState('success');
 		} catch (error) {
 			setPageState('error');
@@ -52,7 +57,7 @@ const CilCategoriesPage: FunctionComponent = props => {
 		() => {
 			refreshCategories();
 		},
-		[searchParameter]
+		[search.parameter]
 	);
 
 	const handleCategoryAdded = () => {
@@ -71,22 +76,7 @@ const CilCategoriesPage: FunctionComponent = props => {
 		refreshCategories();
 	};
 
-	const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
-		setSearchParameter(prevSearchParameter => ({
-			...prevSearchParameter,
-			pageNumber: page + 1
-		}));
-	};
-
-	const handleChangeRowsPerChange: React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement> = e => {
-		const newPageSize = parseInt(e.target.value, 10);
-		setSearchParameter(prevSearchParameter => ({
-			...prevSearchParameter,
-			pageSize: newPageSize
-		}));
-	};
-
-	const centerChildren = searchResult.data.length <= 0;
+	const centerChildren = search.result.data.length <= 0;
 
 	return (
 		<CilPage state={pageState} centerChildren={centerChildren}>
@@ -95,18 +85,14 @@ const CilCategoriesPage: FunctionComponent = props => {
 					<CilAddCategoryButton onCategoryAdded={handleCategoryAdded} />
 				</div>
 				<div className={classes.pageHeaderRight}>
-					<TablePagination
-						count={searchResult.count}
-						page={searchParameter.pageNumber - 1}
-						rowsPerPage={searchParameter.pageSize}
-						onChangePage={handleChangePage}
-						onChangeRowsPerPage={handleChangeRowsPerChange}
-						labelRowsPerPage={translations.shared.resultsPerPage}
-					/>
+					<CilOrderByDropDown search={search}>
+						<MenuItem value="name">{translations.categories.name}</MenuItem>
+					</CilOrderByDropDown>
+					<CilPagination search={search} />
 				</div>
 			</CilPageHeader>
 			<CilCategoriesList
-				categories={searchResult.data}
+				categories={search.result.data}
 				onSubcategoryAdded={handleSubcategoryAdded}
 				onCategoryDeleted={handleCategoryDeleted}
 				onSubcategoryDeleted={handleSubcategoryDeleted}

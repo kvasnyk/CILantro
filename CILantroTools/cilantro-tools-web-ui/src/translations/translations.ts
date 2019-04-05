@@ -86,6 +86,7 @@ const translations = {
 		errorOccurredWhileDeletingRun: 'An error occurred while deleting the run.',
 		step: 'Step',
 		item: 'Item',
+		createdOn: 'Created on',
 		testRunStep_GenerateInputFiles: 'Generating input files',
 		testRunStep_GenerateExeOutputFiles: 'Generating EXE output files',
 		testRunStep_GenerateCilAntroOutputFiles: 'Generating CILantro output files',
@@ -105,7 +106,10 @@ const translations = {
 		bigLetters: 'AZ',
 		digits: '09',
 		name: 'Name',
-		resultsPerPage: 'Results per page:'
+		resultsPerPage: 'Results per page:',
+		ascending: 'Asc',
+		descending: 'Desc',
+		orderBy: 'Order by:'
 	}
 };
 

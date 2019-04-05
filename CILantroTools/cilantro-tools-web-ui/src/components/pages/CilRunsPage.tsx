@@ -1,24 +1,29 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 
-import { TablePagination, Theme } from '@material-ui/core';
+import { MenuItem, Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 import RunsApiClient from '../../api/clients/RunsApiClient';
 import RunReadModel from '../../api/read-models/runs/RunReadModel';
 import SearchDirection from '../../api/search/SearchDirection';
-import SearchParameter from '../../api/search/SearchParameter';
-import SearchResult from '../../api/search/SearchResult';
+import useSearch from '../../hooks/useSearch';
 import translations from '../../translations/translations';
 import CilPage, { PageState } from '../base/CilPage';
 import CilAddRunButton from '../shared/runs/CilAddRunButton';
 import CilRunsList from '../shared/runs/CilRunsList';
+import CilOrderByDropDown from '../utils/CilOrderByDropDown';
 import CilPageHeader from '../utils/CilPageHeader';
+import CilPagination from '../utils/CilPagination';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	pageHeaderLeft: {
 		flexGrow: 1
 	},
-	pageHeaderRight: {}
+	pageHeaderRight: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center'
+	}
 }));
 
 const CilRunsPage: FunctionComponent = props => {
@@ -27,8 +32,8 @@ const CilRunsPage: FunctionComponent = props => {
 	const runsApiClient = new RunsApiClient();
 
 	const [pageState, setPageState] = useState<PageState>('loading');
-	const [searchResult, setSearchResult] = useState<SearchResult<RunReadModel>>({ data: [], count: 0 });
-	const [searchParameter, setSearchParameter] = useState<SearchParameter<RunReadModel>>({
+
+	const search = useSearch<RunReadModel>({
 		orderBy: {
 			property: 'createdOn',
 			direction: SearchDirection.Desc
@@ -40,8 +45,8 @@ const CilRunsPage: FunctionComponent = props => {
 	const refreshRuns = async () => {
 		try {
 			setPageState('loading');
-			const searchRunsResponse = await runsApiClient.searchRuns(searchParameter);
-			setSearchResult(searchRunsResponse.data);
+			const searchRunsResponse = await runsApiClient.searchRuns(search.parameter);
+			search.setResult(searchRunsResponse.data);
 			setPageState('success');
 		} catch (error) {
 			setPageState('error');
@@ -52,7 +57,7 @@ const CilRunsPage: FunctionComponent = props => {
 		() => {
 			refreshRuns();
 		},
-		[searchParameter]
+		[search.parameter]
 	);
 
 	const handleRunAdded = () => {
@@ -67,22 +72,7 @@ const CilRunsPage: FunctionComponent = props => {
 		setPageState('error');
 	};
 
-	const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
-		setSearchParameter(prevSearchParameter => ({
-			...prevSearchParameter,
-			pageNumber: page + 1
-		}));
-	};
-
-	const handleChangeRowsPerChange: React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement> = e => {
-		const newPageSize = parseInt(e.target.value, 10);
-		setSearchParameter(prevSearchParameter => ({
-			...prevSearchParameter,
-			pageSize: newPageSize
-		}));
-	};
-
-	const centerChildren = searchResult.data.length <= 0;
+	const centerChildren = search.result.data.length <= 0;
 
 	return (
 		<CilPage state={pageState} centerChildren={centerChildren}>
@@ -91,18 +81,14 @@ const CilRunsPage: FunctionComponent = props => {
 					<CilAddRunButton onRunAdded={handleRunAdded} />
 				</div>
 				<div className={classes.pageHeaderRight}>
-					<TablePagination
-						count={searchResult.count}
-						page={searchParameter.pageNumber - 1}
-						rowsPerPage={searchParameter.pageSize}
-						onChangePage={handleChangePage}
-						onChangeRowsPerPage={handleChangeRowsPerChange}
-						labelRowsPerPage={translations.shared.resultsPerPage}
-					/>
+					<CilOrderByDropDown search={search}>
+						<MenuItem value="createdOn">{translations.runs.createdOn}</MenuItem>
+					</CilOrderByDropDown>
+					<CilPagination search={search} />
 				</div>
 			</CilPageHeader>
 			<CilRunsList
-				runs={searchResult.data}
+				runs={search.result.data}
 				onRunDeleted={handleRunDeleted}
 				onHubConnectionError={handleHubConnectionError}
 			/>

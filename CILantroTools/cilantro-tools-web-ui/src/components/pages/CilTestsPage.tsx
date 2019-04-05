@@ -1,23 +1,28 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 
-import { TablePagination, Theme } from '@material-ui/core';
+import { MenuItem, Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 import TestsApiClient from '../../api/clients/TestsApiClient';
 import TestReadModel from '../../api/read-models/tests/TestReadModel';
 import SearchDirection from '../../api/search/SearchDirection';
-import SearchParameter from '../../api/search/SearchParameter';
-import SearchResult from '../../api/search/SearchResult';
+import useSearch from '../../hooks/useSearch';
 import translations from '../../translations/translations';
 import CilPage, { PageState } from '../base/CilPage';
 import CilTestsList from '../shared/tests/CilTestsList';
+import CilOrderByDropDown from '../utils/CilOrderByDropDown';
 import CilPageHeader from '../utils/CilPageHeader';
+import CilPagination from '../utils/CilPagination';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	pageHeaderLeft: {
 		flexGrow: 1
 	},
-	pageHeaderRight: {}
+	pageHeaderRight: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center'
+	}
 }));
 
 const CilTestsPage: FunctionComponent = props => {
@@ -26,8 +31,8 @@ const CilTestsPage: FunctionComponent = props => {
 	const testsApiClient = new TestsApiClient();
 
 	const [pageState, setPageState] = useState<PageState>('loading');
-	const [searchResult, setSearchResult] = useState<SearchResult<TestReadModel>>({ data: [], count: 0 });
-	const [searchParameter, setSearchParameter] = useState<SearchParameter<TestReadModel>>({
+
+	const search = useSearch<TestReadModel>({
 		orderBy: {
 			property: 'name',
 			direction: SearchDirection.Asc
@@ -39,8 +44,8 @@ const CilTestsPage: FunctionComponent = props => {
 	const refreshTests = async () => {
 		try {
 			setPageState('loading');
-			const searchTestsResponse = await testsApiClient.searchTests(searchParameter);
-			setSearchResult(searchTestsResponse.data);
+			const searchTestsResponse = await testsApiClient.searchTests(search.parameter);
+			search.setResult(searchTestsResponse.data);
 			setPageState('success');
 		} catch (error) {
 			setPageState('error');
@@ -51,42 +56,23 @@ const CilTestsPage: FunctionComponent = props => {
 		() => {
 			refreshTests();
 		},
-		[searchParameter]
+		[search.parameter]
 	);
 
-	const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
-		setSearchParameter(prevSearchParameter => ({
-			...prevSearchParameter,
-			pageNumber: page + 1
-		}));
-	};
-
-	const handleChangeRowsPerChange: React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement> = e => {
-		const newPageSize = parseInt(e.target.value, 10);
-		setSearchParameter(prevSearchParameter => ({
-			...prevSearchParameter,
-			pageSize: newPageSize
-		}));
-	};
-
-	const centerChildren = searchResult.data.length <= 0;
+	const centerChildren = search.result.data.length <= 0;
 
 	return (
 		<CilPage state={pageState} centerChildren={centerChildren}>
 			<CilPageHeader text={translations.tests.tests}>
 				<div className={classes.pageHeaderLeft} />
 				<div className={classes.pageHeaderRight}>
-					<TablePagination
-						count={searchResult.count}
-						page={searchParameter.pageNumber - 1}
-						rowsPerPage={searchParameter.pageSize}
-						onChangePage={handleChangePage}
-						onChangeRowsPerPage={handleChangeRowsPerChange}
-						labelRowsPerPage={translations.shared.resultsPerPage}
-					/>
+					<CilOrderByDropDown search={search}>
+						<MenuItem value="name">{translations.shared.name}</MenuItem>
+					</CilOrderByDropDown>
+					<CilPagination search={search} />
 				</div>
 			</CilPageHeader>
-			<CilTestsList tests={searchResult.data} />
+			<CilTestsList tests={search.result.data} />
 		</CilPage>
 	);
 };
