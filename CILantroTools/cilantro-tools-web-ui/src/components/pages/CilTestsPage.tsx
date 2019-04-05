@@ -34,8 +34,8 @@ const CilTestsPage: FunctionComponent = props => {
 
 	const search = useSearch<TestReadModel>({
 		orderBy: {
-			property: 'name',
-			direction: SearchDirection.Asc
+			property: 'lastOpenedOn',
+			direction: SearchDirection.Desc
 		},
 		orderBy2: {
 			property: 'name',
@@ -71,7 +71,9 @@ const CilTestsPage: FunctionComponent = props => {
 				<div className={classes.pageHeaderLeft} />
 				<div className={classes.pageHeaderRight}>
 					<CilOrderByDropDown search={search}>
+						<MenuItem value="createdOn">{translations.tests.createdOn}</MenuItem>
 						<MenuItem value="name">{translations.shared.name}</MenuItem>
+						<MenuItem value="lastOpenedOn">{translations.tests.lastOpenedOn}</MenuItem>
 					</CilOrderByDropDown>
 					<CilPagination search={search} />
 				</div>

@@ -85,6 +85,11 @@ namespace CILantroToolsWebAPI.Services
 
         public async Task<TestInfo> GetTestInfoAsync(Guid testId)
         {
+            await _testsRepository.UpdateAsync(t => t.Id == testId, t =>
+            {
+                t.LastOpenedOn = DateTime.Now;
+            });
+
             var testReadModel = _testsRepository.Read<TestReadModel>().Single(t => t.Id == testId);
 
             var generateExeOutputPath = _paths.TestsData.GenerateExeOutputs[testReadModel.Name].MainOutputPaths.Absolute;

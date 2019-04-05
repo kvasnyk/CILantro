@@ -23,6 +23,8 @@ namespace CILantroToolsWebAPI.DbModels
 
         public DateTime CreatedOn { get; set; }
 
+        public DateTime LastOpenedOn { get; set; }
+
         public bool HasIlSources { get; set; }
 
         public bool HasExe { get; set; }

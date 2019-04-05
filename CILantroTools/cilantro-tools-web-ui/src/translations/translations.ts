@@ -70,7 +70,9 @@ const translations = {
 		exampleNameIsEmpty: 'The example\'s name is empty',
 		addIoExample: 'Add an I/O example',
 		ioElement_ConstString: 'Constant string',
-		ioElement_String: 'String'
+		ioElement_String: 'String',
+		createdOn: 'Created',
+		lastOpenedOn: 'Recently opened'
 	},
 
 	runs: {

@@ -19,6 +19,10 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
 
         public string Path { get; set; }
 
+        public DateTime CreatedOn { get; set; }
+
+        public DateTime LastOpenedOn { get; set; }
+
         public Guid? CategoryId { get; set; }
 
         public CategoryReadModel Category { get; set; }
@@ -82,7 +86,9 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
             Subcategory = test.SubcategoryId.HasValue ? _subcategoryMapping.Invoke(test.Subcategory) : null,
             IoExamples = test.IoExamples.AsQueryable().Select(_ioExampleMapping).OrderBy(e => e.Name).ToList(),
             HasIlSources = test.HasIlSources,
-            HasExe = test.HasExe
+            HasExe = test.HasExe,
+            CreatedOn = test.CreatedOn,
+            LastOpenedOn = test.LastOpenedOn
         };
     }
 }

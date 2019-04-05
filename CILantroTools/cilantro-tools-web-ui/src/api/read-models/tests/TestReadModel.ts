@@ -8,6 +8,8 @@ interface TestReadModel {
 	intId: number;
 	name: string;
 	path: string;
+	createdOn: Date;
+	lastOpenedOn: Date;
 	categoryId?: string;
 	category: CategoryReadModel;
 	subcategoryId?: string;
