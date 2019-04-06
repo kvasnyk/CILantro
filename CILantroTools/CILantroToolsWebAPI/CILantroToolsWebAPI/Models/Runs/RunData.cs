@@ -13,8 +13,6 @@ namespace CILantroToolsWebAPI.Models.Runs
 
         public int? ProcessedForMilliseconds { get; set; }
 
-        public int? CurrentTestIntId { get; set; }
-
         public string CurrentTestName { get; set; }
 
         public TestRunStep? CurrentTestStep { get; set; }

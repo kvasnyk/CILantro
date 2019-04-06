@@ -47,6 +47,7 @@
     "jest-resolve": "23.6.0",
     "lodash": "^4.17.11",
     "mini-css-extract-plugin": "0.4.3",
+    "moment": "^2.24.0",
     "notistack": "^0.4.1",
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "pnp-webpack-plugin": "1.1.0",

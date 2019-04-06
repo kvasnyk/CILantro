@@ -7,7 +7,11 @@ import CilPageSubheader from './CilPageSubheader';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	pageHeader: {
-		marginBottom: '1.5rem'
+		marginBottom: '1.5rem',
+		position: 'sticky',
+		top: 0,
+		backgroundColor: theme.palette.background.default,
+		zIndex: theme.zIndex.appBar
 	},
 	headerWrapper: {
 		display: 'flex',

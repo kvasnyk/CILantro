@@ -5,7 +5,6 @@ import TestIoExampleReadModel from './TestIoExampleReadModel';
 
 interface TestReadModel {
 	id: string;
-	intId: number;
 	name: string;
 	path: string;
 	createdOn: Date;

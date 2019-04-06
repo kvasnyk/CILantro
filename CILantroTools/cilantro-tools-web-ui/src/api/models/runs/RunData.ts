@@ -7,7 +7,6 @@ interface RunData {
 	outcome: RunOutcome;
 	processedTestsCount: number;
 	processedForMilliseconds?: number;
-	currentTestIntId?: number;
 	currentTestName?: string;
 	currentTestStep?: TestRunStep;
 	currentTestStepIndex?: number;

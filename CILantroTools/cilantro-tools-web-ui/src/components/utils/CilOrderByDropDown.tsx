@@ -29,7 +29,7 @@ const CilOrderByDropDown = <TReadModel extends {}>(
 		const newProperty = e.target.value as keyof TReadModel;
 		props.search.handleOrderByChange({
 			property: newProperty,
-			direction: props.search.parameter.orderBy.direction
+			direction: SearchDirection.Asc
 		});
 	};
 

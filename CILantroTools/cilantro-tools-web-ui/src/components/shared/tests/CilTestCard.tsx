@@ -41,7 +41,7 @@ const CiLTestCard: FunctionComponent<CilTestCardProps> = props => {
 		<Card className={cardClassName}>
 			<CardContent>
 				<Typography variant="h2" className={typographyClassName}>
-					{('00000' + props.test.intId).slice(-5)} | {props.test.name}
+					{props.test.name}
 				</Typography>
 				<Typography variant="subtitle1" className={typographyClassName}>
 					...{props.test.path}

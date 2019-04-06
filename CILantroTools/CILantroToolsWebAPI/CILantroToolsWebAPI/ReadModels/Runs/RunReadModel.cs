@@ -12,8 +12,6 @@ namespace CILantroToolsWebAPI.ReadModels.Runs
     {
         public Guid Id { get; set; }
 
-        public int IntId { get; set; }
-
         public RunType Type { get; set; }
 
         public RunStatus Status { get; set; }
@@ -42,7 +40,6 @@ namespace CILantroToolsWebAPI.ReadModels.Runs
         public override Expression<Func<Run, RunReadModel>> Mapping => run => new RunReadModel
         {
             Id = run.Id,
-            IntId = run.IntId,
             Type = run.Type,
             Status = run.Status,
             Outcome = run.Outcome,

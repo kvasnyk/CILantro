@@ -13,8 +13,6 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
     {
         public Guid Id { get; set; }
 
-        public int IntId { get; set; }
-
         public string Name { get; set; }
 
         public string Path { get; set; }
@@ -74,7 +72,6 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
         public override Expression<Func<Test, TestReadModel>> Mapping => test => new TestReadModel
         {
             Id = test.Id,
-            IntId = test.IntId,
             Name = test.Name,
             Path = test.Path,
             HasEmptyInput = test.HasEmptyInput,

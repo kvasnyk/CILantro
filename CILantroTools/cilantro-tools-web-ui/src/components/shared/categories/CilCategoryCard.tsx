@@ -55,6 +55,19 @@ const CilCategoryCard: FunctionComponent<CilCategoryCardProps> = props => {
 		<Card>
 			<CardContent>
 				<Typography variant="h2">{props.category.name}</Typography>
+				<Collapse in={isExpanded} timeout="auto" unmountOnExit={false}>
+					<ul>
+						{props.category.subcategories.map(subcategory => (
+							<li key={subcategory.id} className={classes.subcategoryLi}>
+								<Typography className={classes.subcategoryTypography}>{subcategory.name}</Typography>
+								<CilDeleteSubcategoryButton
+									subcategory={subcategory}
+									onSubcategoryDeleted={props.onSubcategoryDeleted}
+								/>
+							</li>
+						))}
+					</ul>
+				</Collapse>
 			</CardContent>
 			<CardActions className={classes.cardActions}>
 				<CilAddSubcategoryButton category={props.category} onSubcategoryAdded={props.onSubcategoryAdded} />
@@ -68,16 +81,6 @@ const CilCategoryCard: FunctionComponent<CilCategoryCardProps> = props => {
 					<ExpandMoreIcon />
 				</IconButton>
 			</CardActions>
-			<Collapse in={isExpanded} timeout="auto" unmountOnExit={false}>
-				<ul>
-					{props.category.subcategories.map(subcategory => (
-						<li key={subcategory.id} className={classes.subcategoryLi}>
-							<Typography className={classes.subcategoryTypography}>{subcategory.name}</Typography>
-							<CilDeleteSubcategoryButton subcategory={subcategory} onSubcategoryDeleted={props.onSubcategoryDeleted} />
-						</li>
-					))}
-				</ul>
-			</Collapse>
 		</Card>
 	);
 };

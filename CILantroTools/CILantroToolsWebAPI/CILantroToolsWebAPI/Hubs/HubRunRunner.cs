@@ -123,7 +123,6 @@ namespace CILantroToolsWebAPI.Hubs
                 test = testsRepository.Read<TestReadModel>().SingleOrDefault(t => t.Id == testRun.TestId);
             }
 
-            _processingRunData.CurrentTestIntId = test.IntId;
             _processingRunData.CurrentTestName = test.Name;
             SendRunData();
 
@@ -158,7 +157,6 @@ namespace CILantroToolsWebAPI.Hubs
                 });
             }
 
-            _processingRunData.CurrentTestIntId = null;
             _processingRunData.CurrentTestName = null;
             _processingRunData.ProcessedTestsCount++;
             _processingRunData.CurrentTestStepIndex = null;

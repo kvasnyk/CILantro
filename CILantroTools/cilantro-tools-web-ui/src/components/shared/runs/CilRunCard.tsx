@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import moment from 'moment';
 import React, { FunctionComponent, ReactNode, useState } from 'react';
 
 import { Avatar, Card, CardActions, CardContent, LinearProgress, Theme, Typography } from '@material-ui/core';
@@ -188,14 +189,14 @@ const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
 				<div className={classes.cardContentLeft}>
 					<Avatar className={runTypeAvatarClassName}>{runTypeIcon}</Avatar>
 					<Typography variant="h2" className={intIdTypographyClassName}>
-						{('000000' + props.run.intId).slice(-6)}
+						{moment(props.run.createdOn).format('YYYY-MM-DD hh:mm:ss')}
 					</Typography>
 				</div>
 
 				<div className={classes.cardContentMiddle}>
-					{runData.currentTestIntId && runData.currentTestName ? (
+					{runData.currentTestName ? (
 						<Typography variant="h6" className={testNameTypographyClassName}>
-							{('000000' + runData.currentTestIntId).slice(-5)} | {runData.currentTestName}
+							{runData.currentTestName}
 						</Typography>
 					) : null}
 

@@ -183,10 +183,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 		<CilPage state={pageState}>
 			{testInfo && categories ? (
 				<>
-					<CilPageHeader
-						text={`${('00000' + testInfo.test.intId).slice(-5)} | ${testInfo.test.name}`}
-						subtext={`...${testInfo.test.path}`}
-					>
+					<CilPageHeader text={testInfo.test.name} subtext={`...${testInfo.test.path}`}>
 						<CilRunTestExeButton type="fab" testInfo={testInfo} />
 						<CilRunTestBothButton type="fab" testInfo={testInfo} />
 						<CilRunTestInterpreterButton type="fab" testInfo={testInfo} />

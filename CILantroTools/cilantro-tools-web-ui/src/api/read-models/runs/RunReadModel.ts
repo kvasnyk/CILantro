@@ -4,7 +4,6 @@ import RunType from '../../enums/RunType';
 
 interface RunReadModel {
 	id: string;
-	intId: number;
 	type: RunType;
 	status: RunStatus;
 	outcome: RunOutcome;
