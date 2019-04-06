@@ -229,6 +229,7 @@ namespace CILantro.Parsing
                 ___("ldc.i4.7") |
                 ___("ldc.i4.8") |
                 ___("ldc.i4.M1") |
+                ___("ldc.i4.m1") | // DOCS: non present in ECMA grammar
                 ___("ldelem.i") |
                 ___("ldelem.i1") |
                 ___("ldelem.i2") |
@@ -305,8 +306,10 @@ namespace CILantro.Parsing
             // TODO: INSTR_VAR
             INSTR_VAR.Rule = _("TODO: INSTR_VAR");
 
-            // TODO: INSTR_I
-            INSTR_I.Rule = _("TODO: INSTR_I");
+            INSTR_I.Rule =
+                ___("ldc.i4") |
+                ___("ldc.i4.s") |
+                _("unaligned.");
 
             // TODO: INSTR_I8
             INSTR_I8.Rule = _("TODO: INSTR_I8");

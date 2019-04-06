@@ -63,6 +63,20 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // INSTR_I + int32
+            var iChildren = AstChildren.Empty()
+                .Add<INSTR_IAstNode>()
+                .Add<Int32AstNode>();
+            if (iChildren.PopulateWith(parseNode))
+            {
+                var instructionI = iChildren.Child1.Instruction;
+                instructionI.Value = iChildren.Child2.Value;
+
+                Instruction = instructionI;
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }
