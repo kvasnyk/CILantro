@@ -69,10 +69,12 @@ const translations = {
 		noOutputGenerated: 'No output has been generated.',
 		exampleNameIsEmpty: 'The example\'s name is empty',
 		addIoExample: 'Add an I/O example',
-		ioElement_ConstString: 'Constant string',
+		ioElement_ConstString: 'Const',
 		ioElement_String: 'String',
+		ioElement_Bool: 'Bool',
 		createdOn: 'Created',
-		lastOpenedOn: 'Recently opened'
+		lastOpenedOn: 'Recently opened',
+		chars: 'chars'
 	},
 
 	runs: {

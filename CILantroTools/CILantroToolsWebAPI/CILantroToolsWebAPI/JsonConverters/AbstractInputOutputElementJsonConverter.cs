@@ -32,6 +32,8 @@ namespace CILantroToolsWebAPI.JsonConverters
                     return JsonConvert.DeserializeObject<ConstStringElement>(jObject.ToString(), jsonSerializerSettings);
                 case "String":
                     return JsonConvert.DeserializeObject<StringElement>(jObject.ToString(), jsonSerializerSettings);
+                case "Bool":
+                    return JsonConvert.DeserializeObject<BoolElement>(jObject.ToString(), jsonSerializerSettings);
                 default:
                     throw new ArgumentException();
             }

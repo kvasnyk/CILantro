@@ -2,11 +2,12 @@ import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
 import { IconButton, Theme } from '@material-ui/core';
-import { blue, grey } from '@material-ui/core/colors';
+import { blue, grey, purple } from '@material-ui/core/colors';
 import DeleteIcon from '@material-ui/icons/DeleteRounded';
 import { makeStyles } from '@material-ui/styles';
 
 import AbstractInputOutputElement from '../../api/models/tests/input-output/elements/AbstractInputOutputElement';
+import BoolElement from '../../api/models/tests/input-output/elements/BoolElement';
 import ConstStringElement from '../../api/models/tests/input-output/elements/ConstStringElement';
 import StringElement from '../../api/models/tests/input-output/elements/StringElement';
 import translations from '../../translations/translations';
@@ -51,8 +52,15 @@ const useStyles = makeStyles((theme: Theme) => ({
 		backgroundColor: blue[800],
 		color: theme.palette.common.white
 	},
+	boolElement: {
+		backgroundColor: purple[800],
+		color: theme.palette.common.white
+	},
 	stringElementInfo: {
 		backgroundColor: blue[500]
+	},
+	boolElementInfo: {
+		backgroundColor: purple[500]
 	},
 	deleteButton: {
 		marginLeft: '5px'
@@ -65,6 +73,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 		color: theme.palette.common.white
 	},
 	stringElementDeleteIcon: {
+		color: theme.palette.common.white
+	},
+	boolElementDeleteIcon: {
 		color: theme.palette.common.white
 	}
 }));
@@ -85,18 +96,24 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 	const isStringElement = props.element.type === 'String';
 	const stringElement = isStringElement ? (props.element as StringElement) : null;
 
+	const isBoolElement = props.element.type === 'Bool';
+	const boolElement = isBoolElement ? (props.element as BoolElement) : null;
+
 	const elementClassName = classNames(classes.element, {
 		[classes.constElement]: isConstStringElement,
-		[classes.stringElement]: isStringElement
+		[classes.stringElement]: isStringElement,
+		[classes.boolElement]: isBoolElement
 	});
 
 	const elementInfoClassName = classNames(classes.elementInfo, {
-		[classes.stringElementInfo]: isStringElement
+		[classes.stringElementInfo]: isStringElement,
+		[classes.boolElementInfo]: isBoolElement
 	});
 
 	const deleteIconClassName = classNames(classes.deleteIcon, {
 		[classes.constElementDeleteIcon]: isConstStringElement,
-		[classes.stringElementDeleteIcon]: isStringElement
+		[classes.stringElementDeleteIcon]: isStringElement,
+		[classes.boolElementDeleteIcon]: isBoolElement
 	});
 
 	const handleDeleteButtonClick = () => {
@@ -134,7 +151,7 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 
 							<span>
 								, {stringElement.name}
-								<sub>chars</sub> &#8714;
+								<sub>{translations.tests.chars}</sub> &#8714;
 							</span>
 
 							{' ['}
@@ -144,6 +161,17 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 							{']'}
 						</div>
 					) : null}
+					{props.variant === 'custom' ? <div className={elementInfoClassName}>{props.children}</div> : null}
+				</>
+			) : null}
+
+			{boolElement ? (
+				<>
+					<div className={classes.elementName}>
+						{boolElement.name}
+						{deleteButton}
+					</div>
+
 					{props.variant === 'custom' ? <div className={elementInfoClassName}>{props.children}</div> : null}
 				</>
 			) : null}

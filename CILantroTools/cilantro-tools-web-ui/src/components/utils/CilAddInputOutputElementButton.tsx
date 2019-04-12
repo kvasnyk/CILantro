@@ -43,12 +43,13 @@ interface AddInputOutputElementData {
 }
 
 const buildEmptyAddInputOutputElementData = (): AddInputOutputElementData => ({
-	type: 'ConstString'
+	type: 'Bool'
 });
 
 const validateAddInputOutputElementData = (formData: AddInputOutputElementData, variant: 'input' | 'output') => {
 	const isConstString = formData.type === 'ConstString';
 	const isString = formData.type === 'String';
+	const isBool = formData.type === 'Bool';
 
 	const isInput = variant === 'input';
 
@@ -63,7 +64,7 @@ const validateAddInputOutputElementData = (formData: AddInputOutputElementData, 
 
 	return {
 		constString: isConstString && !formData.constString,
-		varName: isString && !hasVarName,
+		varName: (isString || isBool) && !hasVarName,
 		stringMinLength:
 			isString && isInput && (!formData.stringMinLength || hasMinMaxLengthError || formData.stringMinLength < 1),
 		stringMaxLength: isString && isInput && (!formData.stringMaxLength || hasMinMaxLengthError),
@@ -184,6 +185,11 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 				hasSmallLetters: formData.stringSmallLetters!,
 				hasDigits: formData.stringDigits!
 			});
+		} else if (formData.type === 'Bool') {
+			addElement({
+				type: 'Bool',
+				name: formData.varName!
+			});
 		}
 	};
 
@@ -204,6 +210,7 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 								autoFocus={true}
 								onChange={handleTypeChange}
 							>
+								<MenuItem value="Bool">{translations.tests.ioElement_Bool}</MenuItem>
 								<MenuItem value="ConstString">{translations.tests.ioElement_ConstString}</MenuItem>
 								<MenuItem value="String">{translations.tests.ioElement_String}</MenuItem>
 							</Select>
@@ -228,6 +235,7 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 									onChange={handleVarNameChange}
 									error={formErrors.varName}
 								/>
+
 								{props.variant === 'input' ? (
 									<>
 										<TextField
@@ -280,6 +288,16 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 									</>
 								) : null}
 							</>
+						) : null}
+
+						{formData.type === 'Bool' ? (
+							<TextField
+								label={translations.shared.name}
+								value={formData.varName}
+								fullWidth={true}
+								onChange={handleVarNameChange}
+								error={formErrors.varName}
+							/>
 						) : null}
 					</DialogContent>
 					<DialogActions>
