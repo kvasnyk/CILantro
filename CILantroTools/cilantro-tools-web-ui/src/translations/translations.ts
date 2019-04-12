@@ -69,9 +69,6 @@ const translations = {
 		noOutputGenerated: 'No output has been generated.',
 		exampleNameIsEmpty: 'The example\'s name is empty',
 		addIoExample: 'Add an I/O example',
-		ioElement_ConstString: 'Const',
-		ioElement_String: 'String',
-		ioElement_Bool: 'Bool',
 		createdOn: 'Created',
 		lastOpenedOn: 'Recently opened',
 		chars: 'chars'
@@ -113,7 +110,14 @@ const translations = {
 		resultsPerPage: 'Results per page:',
 		ascending: 'Asc',
 		descending: 'Desc',
-		orderBy: 'Order by:'
+		orderBy: 'Order by:',
+		minValue: 'Min value',
+		maxValue: 'Max value',
+		type_byte: 'byte',
+		type_short: 'short',
+		type_bool: 'bool',
+		type_string: 'string',
+		type_const: 'const'
 	}
 };
 

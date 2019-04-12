@@ -40,16 +40,44 @@ interface AddInputOutputElementData {
 	stringBigLetters?: boolean;
 	stringSmallLetters?: boolean;
 	stringDigits?: boolean;
+	minValue: number;
+	maxValue: number;
 }
 
 const buildEmptyAddInputOutputElementData = (): AddInputOutputElementData => ({
-	type: 'Bool'
+	type: 'Bool',
+	minValue: 0,
+	maxValue: 0
 });
+
+const getMinValue = (type: string) => {
+	switch (type) {
+		case 'Byte':
+			return 0;
+		case 'Short':
+			return -32768;
+		default:
+			return 0;
+	}
+};
+
+const getMaxValue = (type: string) => {
+	switch (type) {
+		case 'Byte':
+			return 255;
+		case 'Short':
+			return 32767;
+		default:
+			return 0;
+	}
+};
 
 const validateAddInputOutputElementData = (formData: AddInputOutputElementData, variant: 'input' | 'output') => {
 	const isConstString = formData.type === 'ConstString';
 	const isString = formData.type === 'String';
 	const isBool = formData.type === 'Bool';
+	const isByte = formData.type === 'Byte';
+	const isShort = formData.type === 'Short';
 
 	const isInput = variant === 'input';
 
@@ -64,11 +92,13 @@ const validateAddInputOutputElementData = (formData: AddInputOutputElementData, 
 
 	return {
 		constString: isConstString && !formData.constString,
-		varName: (isString || isBool) && !hasVarName,
+		varName: (isString || isBool || isByte || isShort) && !hasVarName,
 		stringMinLength:
 			isString && isInput && (!formData.stringMinLength || hasMinMaxLengthError || formData.stringMinLength < 1),
 		stringMaxLength: isString && isInput && (!formData.stringMaxLength || hasMinMaxLengthError),
-		stringSymbols: isString && isInput && !hasAnySymbols
+		stringSymbols: isString && isInput && !hasAnySymbols,
+		minValue: formData.minValue > formData.maxValue,
+		maxValue: formData.minValue > formData.maxValue
 	};
 };
 
@@ -97,7 +127,9 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 	const handleTypeChange = (e: ChangeEvent<HTMLSelectElement>) => {
 		setFormData(prevFormData => ({
 			...prevFormData,
-			type: e.target.value
+			type: e.target.value,
+			minValue: getMinValue(e.target.value),
+			maxValue: getMaxValue(e.target.value)
 		}));
 	};
 
@@ -130,6 +162,22 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 		setFormData(prevFormData => ({
 			...prevFormData,
 			stringMaxLength: newMaxLength
+		}));
+	};
+
+	const handleMinValueChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const newMinValue = parseInt(e.target.value, 10);
+		setFormData(prevFormData => ({
+			...prevFormData,
+			minValue: Math.min(Math.max(newMinValue, getMinValue(prevFormData.type)), getMaxValue(prevFormData.type))
+		}));
+	};
+
+	const handleMaxValueChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const newMaxValue = parseInt(e.target.value, 10);
+		setFormData(prevFormData => ({
+			...prevFormData,
+			maxValue: Math.min(Math.max(newMaxValue, getMinValue(prevFormData.type)), getMaxValue(prevFormData.type))
 		}));
 	};
 
@@ -190,6 +238,20 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 				type: 'Bool',
 				name: formData.varName!
 			});
+		} else if (formData.type === 'Byte') {
+			addElement({
+				type: 'Byte',
+				name: formData.varName!,
+				minValue: formData.minValue,
+				maxValue: formData.maxValue
+			});
+		} else if (formData.type === 'Short') {
+			addElement({
+				type: 'Short',
+				name: formData.varName!,
+				minValue: formData.minValue,
+				maxValue: formData.maxValue
+			});
 		}
 	};
 
@@ -210,9 +272,11 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 								autoFocus={true}
 								onChange={handleTypeChange}
 							>
-								<MenuItem value="Bool">{translations.tests.ioElement_Bool}</MenuItem>
-								<MenuItem value="ConstString">{translations.tests.ioElement_ConstString}</MenuItem>
-								<MenuItem value="String">{translations.tests.ioElement_String}</MenuItem>
+								<MenuItem value="Bool">{translations.shared.type_bool}</MenuItem>
+								<MenuItem value="Byte">{translations.shared.type_byte}</MenuItem>
+								<MenuItem value="ConstString">{translations.shared.type_const}</MenuItem>
+								<MenuItem value="Short">{translations.shared.type_short}</MenuItem>
+								<MenuItem value="String">{translations.shared.type_string}</MenuItem>
 							</Select>
 						</FormControl>
 
@@ -298,6 +362,40 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 								onChange={handleVarNameChange}
 								error={formErrors.varName}
 							/>
+						) : null}
+
+						{formData.type === 'Byte' || formData.type === 'Short' ? (
+							<>
+								<TextField
+									label={translations.shared.name}
+									value={formData.varName}
+									fullWidth={true}
+									onChange={handleVarNameChange}
+									error={formErrors.varName}
+								/>
+
+								{props.variant === 'input' ? (
+									<>
+										<TextField
+											label={translations.shared.minValue}
+											value={formData.minValue}
+											fullWidth={true}
+											onChange={handleMinValueChange}
+											error={formErrors.minValue}
+											type="number"
+										/>
+
+										<TextField
+											label={translations.shared.maxValue}
+											value={formData.maxValue}
+											fullWidth={true}
+											onChange={handleMaxValueChange}
+											error={formErrors.maxValue}
+											type="number"
+										/>
+									</>
+								) : null}
+							</>
 						) : null}
 					</DialogContent>
 					<DialogActions>

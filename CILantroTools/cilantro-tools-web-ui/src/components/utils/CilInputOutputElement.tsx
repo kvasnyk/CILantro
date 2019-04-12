@@ -2,15 +2,25 @@ import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
 import { IconButton, Theme } from '@material-ui/core';
-import { blue, grey, purple } from '@material-ui/core/colors';
+import { blue, green, grey, purple } from '@material-ui/core/colors';
 import DeleteIcon from '@material-ui/icons/DeleteRounded';
 import { makeStyles } from '@material-ui/styles';
 
 import AbstractInputOutputElement from '../../api/models/tests/input-output/elements/AbstractInputOutputElement';
 import BoolElement from '../../api/models/tests/input-output/elements/BoolElement';
 import ConstStringElement from '../../api/models/tests/input-output/elements/ConstStringElement';
+import IntElement from '../../api/models/tests/input-output/elements/IntElement';
 import StringElement from '../../api/models/tests/input-output/elements/StringElement';
 import translations from '../../translations/translations';
+
+const getIntElementTypeName = (intElement: IntElement) => {
+	switch (intElement.type) {
+		case 'Byte':
+			return translations.shared.type_byte;
+		case 'Short':
+			return translations.shared.type_short;
+	}
+};
 
 const useStyles = makeStyles((theme: Theme) => ({
 	element: {
@@ -56,11 +66,18 @@ const useStyles = makeStyles((theme: Theme) => ({
 		backgroundColor: purple[800],
 		color: theme.palette.common.white
 	},
+	intElement: {
+		backgroundColor: green[800],
+		color: theme.palette.common.white
+	},
 	stringElementInfo: {
 		backgroundColor: blue[500]
 	},
 	boolElementInfo: {
 		backgroundColor: purple[500]
+	},
+	intElementInfo: {
+		backgroundColor: green[500]
 	},
 	deleteButton: {
 		marginLeft: '5px'
@@ -76,6 +93,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 		color: theme.palette.common.white
 	},
 	boolElementDeleteIcon: {
+		color: theme.palette.common.white
+	},
+	intElementDeleteIcon: {
 		color: theme.palette.common.white
 	}
 }));
@@ -99,21 +119,30 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 	const isBoolElement = props.element.type === 'Bool';
 	const boolElement = isBoolElement ? (props.element as BoolElement) : null;
 
+	const isByteElement = props.element.type === 'Byte';
+	const isShortElement = props.element.type === 'Short';
+
+	const isAnyIntElement = isByteElement || isShortElement;
+	const intElement = isAnyIntElement ? (props.element as IntElement) : null;
+
 	const elementClassName = classNames(classes.element, {
 		[classes.constElement]: isConstStringElement,
 		[classes.stringElement]: isStringElement,
-		[classes.boolElement]: isBoolElement
+		[classes.boolElement]: isBoolElement,
+		[classes.intElement]: isAnyIntElement
 	});
 
 	const elementInfoClassName = classNames(classes.elementInfo, {
 		[classes.stringElementInfo]: isStringElement,
-		[classes.boolElementInfo]: isBoolElement
+		[classes.boolElementInfo]: isBoolElement,
+		[classes.intElementInfo]: isAnyIntElement
 	});
 
 	const deleteIconClassName = classNames(classes.deleteIcon, {
 		[classes.constElementDeleteIcon]: isConstStringElement,
 		[classes.stringElementDeleteIcon]: isStringElement,
-		[classes.boolElementDeleteIcon]: isBoolElement
+		[classes.boolElementDeleteIcon]: isBoolElement,
+		[classes.intElementDeleteIcon]: isAnyIntElement
 	});
 
 	const handleDeleteButtonClick = () => {
@@ -171,6 +200,26 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 						{boolElement.name}
 						{deleteButton}
 					</div>
+
+					{props.variant === 'custom' ? <div className={elementInfoClassName}>{props.children}</div> : null}
+				</>
+			) : null}
+
+			{intElement ? (
+				<>
+					<div className={classes.elementName}>
+						{intElement.name}
+						{deleteButton}
+					</div>
+
+					{props.variant === 'input' ? (
+						<div className={elementInfoClassName}>
+							<span>
+								{getIntElementTypeName(intElement)}, {intElement.name} &#8714; [{intElement.minValue},{' '}
+								{intElement.maxValue}]
+							</span>
+						</div>
+					) : null}
 
 					{props.variant === 'custom' ? <div className={elementInfoClassName}>{props.children}</div> : null}
 				</>
