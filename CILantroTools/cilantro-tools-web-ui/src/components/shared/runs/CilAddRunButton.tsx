@@ -97,6 +97,7 @@ const CilAddRunButton: FunctionComponent<CilAddRunButtonProps> = props => {
 							<InputLabel htmlFor="type-select">{translations.runs.type}</InputLabel>
 							<Select fullWidth={true} value={formData.type} autoFocus={true} onChange={handleTypeSelectValueChange}>
 								<MenuItem value={RunType.Quick}>{translations.runs.quick}</MenuItem>
+								<MenuItem value={RunType.Full}>{translations.runs.full}</MenuItem>
 							</Select>
 						</FormControl>
 					</DialogContent>

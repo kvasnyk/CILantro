@@ -51,10 +51,10 @@ namespace CILantroToolsWebAPI.ReadModels.Runs
             Outcome = testRun.Outcome,
             TestName = testRun.Test.Name,
             RunId = testRun.RunId,
-            Items = testRun.Steps.First().Items.Select(i => new TestRunStepItemInfoReadModel
+            Items = testRun.Steps.Single(s => s.Step == TestRunStep.GenerateInputFiles).Items.Select(i => new TestRunStepItemInfoReadModel
             {
                 ItemName = i.Name,
-                Steps = testRun.Steps.Select(s => s.Items.Single(it => it.Name == i.Name)).Select(stepItem => new TestRunStepInfoReadModel
+                Steps = testRun.Steps.Select(s => s.Items.SingleOrDefault(it => it.Name == i.Name)).Where(x => x != null).Select(stepItem => new TestRunStepInfoReadModel
                 {
                     Step = stepItem.Step.Step,
                     ProcessedForMilliseconds = stepItem.ProcessedForMilliseconds,

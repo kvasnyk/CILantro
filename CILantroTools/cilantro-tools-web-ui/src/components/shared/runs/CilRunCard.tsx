@@ -210,7 +210,8 @@ const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
 						</Typography>
 					) : null}
 
-					{runData.currentTestStep && runData.currentTestStepIndex ? (
+					{(runData.currentTestStep || runData.currentTestStep === 0) &&
+					(runData.currentTestStepIndex || runData.currentTestStepIndex === 0) ? (
 						<>
 							<Typography className={typographyClassName} variant="overline">
 								{translations.runs.step + ' ' + (runData.currentTestStepIndex + 1) + ' / ' + runData.testStepsCount}
@@ -229,7 +230,9 @@ const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
 						</>
 					) : null}
 
-					{runData.currentItemIndex && runData.currentItemName && runData.allItemsCount ? (
+					{(runData.currentItemIndex || runData.currentItemIndex === 0) &&
+					runData.currentItemName &&
+					runData.allItemsCount ? (
 						<>
 							<Typography className={classNames(typographyClassName, classes.itemsProgress)} variant="overline">
 								{translations.runs.item + ' ' + (runData.currentItemIndex + 1) + ' / ' + runData.allItemsCount}

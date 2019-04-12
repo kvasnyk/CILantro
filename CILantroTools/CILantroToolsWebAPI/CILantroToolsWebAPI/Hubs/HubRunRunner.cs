@@ -220,7 +220,7 @@ namespace CILantroToolsWebAPI.Hubs
         {
             var result = new List<TestRunStepItem>();
 
-            _processingRunData.AllItemsCount = test.IoExamples.Count;
+            _processingRunData.AllItemsCount = ProcessingRun.Type == RunType.Quick ? test.IoExamples.Count + 3 : test.IoExamples.Count + 100;
             _processingRunData.CurrentItemIndex = 0;
 
             foreach (var ioExample in test.IoExamples)
@@ -247,6 +247,41 @@ namespace CILantroToolsWebAPI.Hubs
                 result.Add(item);
 
                 _processingRunData.CurrentItemIndex++;
+            }
+
+            var randomInputsToGenerate = ProcessingRun.Type == RunType.Full ? 100 : 3;
+
+            {
+                var inputFactory = new InputFactory(test.Input);
+
+                for (int i = 1; i <= randomInputsToGenerate; i++)
+                {
+                    var started = DateTime.Now;
+
+                    var inputName = $"Random_{i.ToString("D3")}";
+
+                    _processingRunData.CurrentItemName = inputName;
+                    SendRunData();
+
+                    var inputPath = _paths.RunsData[ProcessingRun.Id][testRun.Id].Inputs[inputName].Absolute;
+                    var input = inputFactory.GenerateRandomInput();
+
+                    if (input != null)
+                        await File.WriteAllTextAsync(inputPath, input);
+
+                    var finished = DateTime.Now;
+
+                    var item = new TestRunStepItem
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = Path.GetFileNameWithoutExtension(inputPath),
+                        ProcessedForMilliseconds = (int)(finished - started).TotalMilliseconds,
+                        Outcome = input != null ? RunOutcome.Ok : RunOutcome.Wrong
+                    };
+                    result.Add(item);
+
+                    _processingRunData.CurrentItemIndex++;
+                }
             }
 
             return result;
