@@ -59,12 +59,16 @@ namespace CILantroToolsWebAPI.Db
             await _context.SaveChangesAsync();
         }
 
-        public async Task<SearchResult<TReadModel>> Search<TReadModel>(SearchParameter searchParameter)
+        public async Task<SearchResult<TReadModel>> Search<TReadModel>(SearchParameter searchParameter, Expression<Func<TReadModel, bool>> predicate = null)
             where TReadModel : class, IKeyReadModel
         {
             var searchMapper = _serviceProvider.GetRequiredService<SearchMapper<TReadModel>>();
 
+            if (predicate == null)
+                predicate = rm => true;
+
             var baseData = Read<TReadModel>()
+                .Where(predicate)
                 .OrderBy(searchMapper.BuildOrderByExpression(searchParameter.OrderBy.Property), searchParameter.OrderBy.Direction)
                 .ThenBy(searchMapper.BuildThenByExpression(searchParameter.OrderBy2?.Property), searchParameter.OrderBy2?.Direction)
                 .ThenBy(searchMapper.BuildThenByExpression(searchParameter.OrderBy3?.Property), searchParameter.OrderBy3?.Direction);

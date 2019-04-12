@@ -19,25 +19,34 @@ namespace CILantroToolsWebAPI.Services
 
         private readonly AppKeyRepository<Test> _testsRepository;
 
+        private readonly AppKeyRepository<TestRun> _testRunsRepository;
+
         private readonly HubRunRunner _runRunner;
 
         public RunsService(
             TestsHelper testsHelper,
             AppKeyRepository<Run> runsRepository,
             AppKeyRepository<Test> testsRepository,
+            AppKeyRepository<TestRun> testRunsRepository,
             HubRunRunner runRunner
         )
         {
             _testsHelper = testsHelper;
             _runsRepository = runsRepository;
             _testsRepository = testsRepository;
+            _testRunsRepository = testRunsRepository;
             _runRunner = runRunner;
         }
 
         public async Task<SearchResult<RunReadModel>> SearchRunsAsync(SearchParameter searchParameter)
         {
             var result = await _runsRepository.Search<RunReadModel>(searchParameter);
-            result.Data = result.Data.OrderByDescending(r => r.CreatedOn);
+            return result;
+        }
+
+        public async Task<SearchResult<TestRunReadModel>> SearchTestRunsAsync(Guid runId, SearchParameter searchParameter)
+        {
+            var result = await _testRunsRepository.Search<TestRunReadModel>(searchParameter, tr => tr.RunId == runId);
             return result;
         }
 
@@ -77,6 +86,12 @@ namespace CILantroToolsWebAPI.Services
         public async Task<RunReadModel> GetRunAsync(Guid runId)
         {
             var result = _runsRepository.Read<RunReadModel>().Single(r => r.Id == runId);
+            return result;
+        }
+
+        public async Task<TestRunFullReadModel> GetFullTestRunAsync(Guid runId, Guid testRunId)
+        {
+            var result = _testRunsRepository.Read<TestRunFullReadModel>().Single(tr => tr.Id == testRunId && tr.RunId == runId);
             return result;
         }
     }

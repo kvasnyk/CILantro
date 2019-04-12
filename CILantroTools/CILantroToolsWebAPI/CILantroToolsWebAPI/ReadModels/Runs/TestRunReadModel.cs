@@ -1,4 +1,5 @@
 ﻿using CILantroToolsWebAPI.DbModels;
+using CILantroToolsWebAPI.Enums;
 using System;
 using System.Linq.Expressions;
 
@@ -8,9 +9,15 @@ namespace CILantroToolsWebAPI.ReadModels.Runs
     {
         public Guid Id { get; set; }
 
+        public Guid RunId { get; set; }
+
         public bool HasBeenProcessed { get; set; }
 
         public Guid TestId { get; set; }
+
+        public RunOutcome Outcome { get; set; }
+
+        public string TestName { get; set; }
     }
 
     public class TestRunReadModelMapping : ReadModelMappingBase<TestRun, TestRunReadModel>
@@ -19,7 +26,10 @@ namespace CILantroToolsWebAPI.ReadModels.Runs
         {
             Id = testRun.Id,
             HasBeenProcessed = testRun.HasBeenProcessed,
-            TestId = testRun.TestId
+            TestId = testRun.TestId,
+            Outcome = testRun.Outcome,
+            TestName = testRun.Test.Name,
+            RunId = testRun.RunId
         };
     }
 }

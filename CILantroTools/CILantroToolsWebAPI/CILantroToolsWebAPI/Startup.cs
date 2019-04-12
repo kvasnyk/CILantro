@@ -72,6 +72,7 @@ namespace CILantroToolsWebAPI
             services.AddSingleton<SearchMapper<TestReadModel>, TestSearchMapper>();
             services.AddSingleton<SearchMapper<CategoryReadModel>, CategorySearchMapper>();
             services.AddSingleton<SearchMapper<RunReadModel>, RunSearchMapper>();
+            services.AddSingleton<SearchMapper<TestRunReadModel>, TestRunSearchMapper>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

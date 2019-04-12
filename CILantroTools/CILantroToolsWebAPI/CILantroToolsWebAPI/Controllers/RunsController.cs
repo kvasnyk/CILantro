@@ -25,6 +25,12 @@ namespace CILantroToolsWebAPI.Controllers
             return await _runsService.SearchRunsAsync(searchParameter);
         }
 
+        [HttpPost("{runId}/test-runs/search")]
+        public async Task<SearchResult<TestRunReadModel>> SearchTestRunsAsync([FromRoute]Guid runId, [FromBody]SearchParameter searchParameter)
+        {
+            return await _runsService.SearchTestRunsAsync(runId, searchParameter);
+        }
+
         [HttpPost("add")]
         public async Task<Guid> AddRunAsync([FromBody]AddRunBindingModel model)
         {
@@ -41,6 +47,12 @@ namespace CILantroToolsWebAPI.Controllers
         public async Task<RunReadModel> GetRunAsync([FromRoute]Guid runId)
         {
             return await _runsService.GetRunAsync(runId);
+        }
+
+        [HttpGet("{runId}/test-runs/{testRunId}")]
+        public async Task<TestRunFullReadModel> GetFullTestRunAsync([FromRoute]Guid runId, [FromRoute]Guid testRunId)
+        {
+            return await _runsService.GetFullTestRunAsync(runId, testRunId);
         }
     }
 }
