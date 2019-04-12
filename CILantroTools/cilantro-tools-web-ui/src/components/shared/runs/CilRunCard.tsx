@@ -34,6 +34,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 		flexDirection: 'row',
 		alignItems: 'center'
 	},
+	runCreatedOnContainer: {
+		display: 'flex',
+		flexDirection: 'column'
+	},
 	cardContentMiddle: {
 		minHeight: '142px',
 		paddingLeft: '50px',
@@ -188,9 +192,14 @@ const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
 			<CardContent className={classes.cardContent}>
 				<div className={classes.cardContentLeft}>
 					<Avatar className={runTypeAvatarClassName}>{runTypeIcon}</Avatar>
-					<Typography variant="h2" className={intIdTypographyClassName}>
-						{moment(props.run.createdOn).format('YYYY-MM-DD hh:mm:ss')}
-					</Typography>
+					<div className={classes.runCreatedOnContainer}>
+						<Typography variant="h2" className={intIdTypographyClassName}>
+							{moment(props.run.createdOn).format('YYYY-MM-DD')}
+						</Typography>
+						<Typography variant="h2" className={intIdTypographyClassName}>
+							{moment(props.run.createdOn).format('hh:mm:ss')}
+						</Typography>
+					</div>
 				</div>
 
 				<div className={classes.cardContentMiddle}>
