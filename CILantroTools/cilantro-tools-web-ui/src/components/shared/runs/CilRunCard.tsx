@@ -18,6 +18,7 @@ import useRunningRunHub from '../../../hooks/useRunningRunHub';
 import translations from '../../../translations/translations';
 import CilTimeSpanDisplayer from '../../utils/CilTimeSpanDisplayer';
 import CilDeleteRunButton from './CilDeleteRunButton';
+import CilShowRunButton from './CilShowRunButton';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	intIdTypography: {
@@ -197,7 +198,7 @@ const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
 							{moment(props.run.createdOn).format('YYYY-MM-DD')}
 						</Typography>
 						<Typography variant="h2" className={intIdTypographyClassName}>
-							{moment(props.run.createdOn).format('hh:mm:ss')}
+							{moment(props.run.createdOn).format('HH:mm:ss')}
 						</Typography>
 					</div>
 				</div>
@@ -266,6 +267,9 @@ const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
 			<CardActions className={classes.cardActions}>
 				{runData.status !== RunStatus.Finished ? (
 					<CilDeleteRunButton run={props.run} iconClassName={iconClassName} onRunDeleted={props.onRunDeleted} />
+				) : null}
+				{runData.status === RunStatus.Finished ? (
+					<CilShowRunButton run={props.run} iconClassName={iconClassName} />
 				) : null}
 			</CardActions>
 		</Card>

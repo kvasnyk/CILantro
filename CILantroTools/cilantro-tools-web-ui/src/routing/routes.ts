@@ -3,6 +3,11 @@ export interface TestRouteData {
 	testId?: string;
 }
 
+export interface RunRouteData {
+	isTemplate?: boolean;
+	runId?: string;
+}
+
 const routes = {
 	root: '/',
 	categories: {
@@ -14,7 +19,8 @@ const routes = {
 		test: (data: TestRouteData) => (data.isTemplate ? '/tests/:testId' : `/tests/${data.testId}`)
 	},
 	runs: {
-		runs: '/runs'
+		runs: '/runs',
+		run: (data: RunRouteData) => (data.isTemplate ? '/runs/:runId' : `/runs/${data.runId}`)
 	}
 };
 

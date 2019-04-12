@@ -73,5 +73,11 @@ namespace CILantroToolsWebAPI.Services
 
             await _runsRepository.DeleteAsync(r => r.Id == runId);
         }
+
+        public async Task<RunReadModel> GetRunAsync(Guid runId)
+        {
+            var result = _runsRepository.Read<RunReadModel>().Single(r => r.Id == runId);
+            return result;
+        }
     }
 }

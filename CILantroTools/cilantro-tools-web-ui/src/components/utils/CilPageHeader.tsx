@@ -1,6 +1,7 @@
-import React, { FunctionComponent } from 'react';
+import classNames from 'classnames';
+import React, { FunctionComponent, ReactNode } from 'react';
 
-import { Theme, Typography } from '@material-ui/core';
+import { Avatar, Theme, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 import CilPageSubheader from './CilPageSubheader';
@@ -29,15 +30,20 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface CilPageHeaderProps {
 	text: string;
 	subtext?: string;
+	textClassName?: string;
+	avatarIcon?: ReactNode;
 }
 
 const CilPageHeader: FunctionComponent<CilPageHeaderProps> = props => {
 	const classes = useStyles();
 
+	const textClassName = classNames(classes.textTypography, props.textClassName);
+
 	return (
 		<div className={classes.pageHeader}>
 			<div className={classes.headerWrapper}>
-				<Typography variant="h1" className={classes.textTypography}>
+				{props.avatarIcon ? <Avatar>{props.avatarIcon}</Avatar> : null}
+				<Typography variant="h1" className={textClassName}>
 					{props.text}
 				</Typography>
 				{props.children}

@@ -8,6 +8,7 @@ import routes from '../../routing/routes';
 import CilCategoriesPage from '../pages/CilCategoriesPage';
 import CilFindTestsPage from '../pages/CilFindTestsPage';
 import CilRunsPage from '../pages/CilRunsPage';
+import CilShowRunPage from '../pages/CilShowRunPage';
 import CilShowTestPage from '../pages/CilShowTestPage';
 import CilTestsPage from '../pages/CilTestsPage';
 
@@ -53,6 +54,11 @@ const CilAppContent: FunctionComponent = props => {
 					<Route exact={true} path={routes.runs.runs}>
 						<CilRunsPage />
 					</Route>
+					<Route
+						exact={true}
+						path={routes.runs.run({ isTemplate: true })}
+						render={routeProps => <CilShowRunPage runId={routeProps.match.params.runId} />}
+					/>
 				</Switch>
 			</div>
 		</main>

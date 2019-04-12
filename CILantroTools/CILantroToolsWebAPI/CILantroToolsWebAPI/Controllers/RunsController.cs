@@ -36,5 +36,11 @@ namespace CILantroToolsWebAPI.Controllers
         {
             await _runsService.DeleteRunAsync(runId);
         }
+
+        [HttpGet("{runId}")]
+        public async Task<RunReadModel> GetRunAsync([FromRoute]Guid runId)
+        {
+            return await _runsService.GetRunAsync(runId);
+        }
     }
 }
