@@ -120,30 +120,32 @@ const CilTestRunCard: FunctionComponent<CilTestRunCardProps> = props => {
 
 	const testRunItems =
 		testRun &&
-		testRun.items.map(item => {
-			const generateInputFilesStep = item.steps.find(s => s.step === TestRunStep.GenerateInputFiles)!;
-			const generateExeOutputsStep = item.steps.find(s => s.step === TestRunStep.GenerateExeOutputFiles)!;
-			const generateAntroOutputsStep = item.steps.find(s => s.step === TestRunStep.GenerateCilAntroOutputFiles)!;
-			const compareOutputsStep = item.steps.find(s => s.step === TestRunStep.CompareOutputFiles)!;
+		testRun.items
+			.sort((ia, ib) => ia.itemName.localeCompare(ib.itemName))
+			.map(item => {
+				const generateInputFilesStep = item.steps.find(s => s.step === TestRunStep.GenerateInputFiles)!;
+				const generateExeOutputsStep = item.steps.find(s => s.step === TestRunStep.GenerateExeOutputFiles)!;
+				const generateAntroOutputsStep = item.steps.find(s => s.step === TestRunStep.GenerateCilAntroOutputFiles)!;
+				const compareOutputsStep = item.steps.find(s => s.step === TestRunStep.CompareOutputFiles)!;
 
-			const overallOutcome = [
-				generateInputFilesStep,
-				generateExeOutputsStep,
-				generateAntroOutputsStep,
-				compareOutputsStep
-			].some(s => s.outcome === RunOutcome.Wrong)
-				? RunOutcome.Wrong
-				: RunOutcome.Ok;
+				const overallOutcome = [
+					generateInputFilesStep,
+					generateExeOutputsStep,
+					generateAntroOutputsStep,
+					compareOutputsStep
+				].some(s => s.outcome === RunOutcome.Wrong)
+					? RunOutcome.Wrong
+					: RunOutcome.Ok;
 
-			return {
-				itemName: item.itemName,
-				overallOutcome,
-				inputsOutcome: generateInputFilesStep.outcome,
-				exeOutputsOutcome: generateExeOutputsStep.outcome,
-				antroOutputsOutcome: generateAntroOutputsStep.outcome,
-				compareOutcome: compareOutputsStep.outcome
-			};
-		});
+				return {
+					itemName: item.itemName,
+					overallOutcome,
+					inputsOutcome: generateInputFilesStep.outcome,
+					exeOutputsOutcome: generateExeOutputsStep.outcome,
+					antroOutputsOutcome: generateAntroOutputsStep.outcome,
+					compareOutcome: compareOutputsStep.outcome
+				};
+			});
 
 	const okIcon = (fontSize: 'small' | 'large' | 'default') => (
 		<CheckIcon fontSize={fontSize} className={classes.okIcon} />
