@@ -20,6 +20,16 @@ namespace CILantro.Structure
                     return typeof(string);
                 case CilSimpleTypeKind.UInt8:
                     return typeof(byte);
+                case CilSimpleTypeKind.Float64:
+                    return typeof(double);
+                case CilSimpleTypeKind.Float32:
+                    return typeof(float);
+                case CilSimpleTypeKind.Int64:
+                    return typeof(long);
+                case CilSimpleTypeKind.UInt64:
+                    return typeof(ulong);
+                case CilSimpleTypeKind.UInt32:
+                    return typeof(uint);
                 default:
                     throw new NotImplementedException("Cannot recognize runtime type.");
             }
