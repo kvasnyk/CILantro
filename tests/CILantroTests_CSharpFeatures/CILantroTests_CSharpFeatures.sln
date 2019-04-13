@@ -59,6 +59,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_DataTypes_Double", "CSF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_DataTypes_Decimal", "CSF_DataTypes_Decimal\CSF_DataTypes_Decimal.csproj", "{6729C15B-F5C6-4A96-B172-24365AF59512}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_DataTypes_Char", "CSF_DataTypes_Char\CSF_DataTypes_Char.csproj", "{0EA0E81E-C5C1-4CAF-8766-63861DB6D78A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -169,6 +171,10 @@ Global
 		{6729C15B-F5C6-4A96-B172-24365AF59512}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6729C15B-F5C6-4A96-B172-24365AF59512}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6729C15B-F5C6-4A96-B172-24365AF59512}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EA0E81E-C5C1-4CAF-8766-63861DB6D78A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EA0E81E-C5C1-4CAF-8766-63861DB6D78A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EA0E81E-C5C1-4CAF-8766-63861DB6D78A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EA0E81E-C5C1-4CAF-8766-63861DB6D78A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -200,6 +206,7 @@ Global
 		{BA09F3BA-4FDE-4A34-8589-11645E2633F5} = {58ECE409-0952-431D-BA56-4F7AD7A83A92}
 		{C9B59AC3-9360-42CD-9D38-2F2932D19E9A} = {58ECE409-0952-431D-BA56-4F7AD7A83A92}
 		{6729C15B-F5C6-4A96-B172-24365AF59512} = {58ECE409-0952-431D-BA56-4F7AD7A83A92}
+		{0EA0E81E-C5C1-4CAF-8766-63861DB6D78A} = {58ECE409-0952-431D-BA56-4F7AD7A83A92}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4EA075C6-7843-4D56-B83E-4B4E8D1AA025}

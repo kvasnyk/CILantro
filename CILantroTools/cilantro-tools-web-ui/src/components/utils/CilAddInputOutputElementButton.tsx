@@ -40,6 +40,7 @@ interface AddInputOutputElementData {
 	stringBigLetters?: boolean;
 	stringSmallLetters?: boolean;
 	stringDigits?: boolean;
+	stringSymbols?: boolean;
 	minValue: number;
 	maxValue: number;
 	hasMinValueMinus: boolean;
@@ -127,6 +128,7 @@ const validateAddInputOutputElementData = (formData: AddInputOutputElementData, 
 	const isFloat = formData.type === 'Float';
 	const isDouble = formData.type === 'Double';
 	const isDecimal = formData.type === 'Decimal';
+	const isChar = formData.type === 'Char';
 
 	const isInput = variant === 'input';
 
@@ -135,7 +137,8 @@ const validateAddInputOutputElementData = (formData: AddInputOutputElementData, 
 		formData.stringMaxLength !== undefined &&
 		formData.stringMinLength > formData.stringMaxLength;
 
-	const hasAnySymbols = formData.stringBigLetters || formData.stringSmallLetters || formData.stringDigits;
+	const hasAnySymbols =
+		formData.stringBigLetters || formData.stringSmallLetters || formData.stringDigits || formData.stringSymbols;
 
 	const hasVarName = formData.varName !== undefined && formData.varName !== ' ';
 
@@ -154,12 +157,13 @@ const validateAddInputOutputElementData = (formData: AddInputOutputElementData, 
 				isUShort ||
 				isFloat ||
 				isDouble ||
-				isDecimal) &&
+				isDecimal ||
+				isChar) &&
 			!hasVarName,
 		stringMinLength:
 			isString && isInput && (!formData.stringMinLength || hasMinMaxLengthError || formData.stringMinLength < 1),
 		stringMaxLength: isString && isInput && (!formData.stringMaxLength || hasMinMaxLengthError),
-		stringSymbols: isString && isInput && !hasAnySymbols,
+		stringSymbols: (isString || isChar) && isInput && !hasAnySymbols,
 		minValue: formData.minValue > formData.maxValue,
 		maxValue: formData.minValue > formData.maxValue
 	};
@@ -356,6 +360,14 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 		}));
 	};
 
+	const handleStringSymbolsChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const newSymbols = e.target.checked;
+		setFormData(prevFormData => ({
+			...prevFormData,
+			stringSymbols: newSymbols
+		}));
+	};
+
 	const addElement = (element: AbstractInputOutputElement) => {
 		props.onElementAdded(element);
 		setFormData(buildEmptyAddInputOutputElementData());
@@ -374,15 +386,16 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 				type: 'ConstString',
 				value: formData.constString!
 			});
-		} else if (formData.type === 'String') {
+		} else if (formData.type === 'String' || formData.type === 'Char') {
 			addElement({
-				type: 'String',
+				type: formData.type,
 				name: formData.varName!,
 				minLength: formData.stringMinLength!,
 				maxLength: formData.stringMaxLength!,
 				hasBigLetters: formData.stringBigLetters!,
 				hasSmallLetters: formData.stringSmallLetters!,
-				hasDigits: formData.stringDigits!
+				hasDigits: formData.stringDigits!,
+				hasSymbols: formData.stringSymbols!
 			});
 		} else if (formData.type === 'Bool') {
 			addElement({
@@ -434,6 +447,7 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 							>
 								<MenuItem value="Bool">{translations.shared.type_bool}</MenuItem>
 								<MenuItem value="Byte">{translations.shared.type_byte}</MenuItem>
+								<MenuItem value="Char">{translations.shared.type_char}</MenuItem>
 								<MenuItem value="ConstString">{translations.shared.type_const}</MenuItem>
 								<MenuItem value="Decimal">{translations.shared.type_decimal}</MenuItem>
 								<MenuItem value="Double">{translations.shared.type_double}</MenuItem>
@@ -459,7 +473,7 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 							/>
 						) : null}
 
-						{formData.type === 'String' ? (
+						{formData.type === 'String' || formData.type === 'Char' ? (
 							<>
 								<TextField
 									label={translations.shared.name}
@@ -471,23 +485,27 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 
 								{props.variant === 'input' ? (
 									<>
-										<TextField
-											label={translations.shared.minLength}
-											value={formData.stringMinLength}
-											fullWidth={true}
-											onChange={handleStringMinLengthChange}
-											error={formErrors.stringMinLength}
-											type="number"
-										/>
+										{formData.type === 'String' ? (
+											<>
+												<TextField
+													label={translations.shared.minLength}
+													value={formData.stringMinLength}
+													fullWidth={true}
+													onChange={handleStringMinLengthChange}
+													error={formErrors.stringMinLength}
+													type="number"
+												/>
 
-										<TextField
-											label={translations.shared.maxLength}
-											value={formData.stringMaxLength}
-											fullWidth={true}
-											onChange={handleStringMaxLengthChange}
-											error={formErrors.stringMaxLength}
-											type="number"
-										/>
+												<TextField
+													label={translations.shared.maxLength}
+													value={formData.stringMaxLength}
+													fullWidth={true}
+													onChange={handleStringMaxLengthChange}
+													error={formErrors.stringMaxLength}
+													type="number"
+												/>
+											</>
+										) : null}
 
 										<FormControl fullWidth={true} error={formErrors.stringSymbols}>
 											<FormLabel>{translations.shared.symbols}</FormLabel>
@@ -515,6 +533,14 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 														</Checkbox>
 													}
 													label={translations.shared.digits}
+												/>
+												<FormControlLabel
+													control={
+														<Checkbox checked={formData.stringSymbols} onChange={handleStringSymbolsChange}>
+															{translations.shared.otherSymbols}
+														</Checkbox>
+													}
+													label={translations.shared.otherSymbols}
 												/>
 											</FormGroup>
 										</FormControl>

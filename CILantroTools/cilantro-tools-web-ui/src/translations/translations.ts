@@ -106,6 +106,7 @@ const translations = {
 		smallLetters: 'az',
 		bigLetters: 'AZ',
 		digits: '09',
+		otherSymbols: '#%',
 		name: 'Name',
 		resultsPerPage: 'Results per page:',
 		ascending: 'Asc',

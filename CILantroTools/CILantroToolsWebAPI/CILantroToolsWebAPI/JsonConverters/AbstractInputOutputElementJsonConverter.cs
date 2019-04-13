@@ -56,6 +56,8 @@ namespace CILantroToolsWebAPI.JsonConverters
                     return JsonConvert.DeserializeObject<DoubleElement>(jObject.ToString(), jsonSerializerSettings);
                 case "Decimal":
                     return JsonConvert.DeserializeObject<DecimalElement>(jObject.ToString(), jsonSerializerSettings);
+                case "Char":
+                    return JsonConvert.DeserializeObject<CharElement>(jObject.ToString(), jsonSerializerSettings);
                 default:
                     throw new ArgumentException();
             }

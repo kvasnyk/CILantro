@@ -94,6 +94,11 @@ namespace CILantroToolsWebAPI.Utils
                         var @decimal = GenerateDecimal(decimalElement);
                         builder.Append(@decimal.ToString());
                     }
+                    else if (inputElement is CharElement charElement)
+                    {
+                        var @char = GenerateChar(charElement);
+                        builder.Append(@char.ToString());
+                    }
                     else
                     {
                         return null;
@@ -121,10 +126,29 @@ namespace CILantroToolsWebAPI.Utils
                 possibleChars += "abcdefghijklmnopqrstuvwxyz";
             if (stringElement.HasDigits)
                 possibleChars += "0123456789";
+            if (stringElement.HasSymbols)
+                possibleChars += "!@#$%^&*()-_=+[]{}\\|;:'\"/?.>,<`~";
 
             var length = _random.Next(stringElement.MinLength, stringElement.MaxLength + 1);
 
             return new string(Enumerable.Repeat(0, length).Select(x => possibleChars[_random.Next(0, possibleChars.Length)]).ToArray());
+        }
+
+        private char GenerateChar(CharElement charElement)
+        {
+            var stringElement = new StringElement
+            {
+                Type = "String",
+                Name = charElement.Name,
+                MinLength = 1,
+                MaxLength = 1,
+                HasBigLetters = charElement.HasBigLetters,
+                HasDigits = charElement.HasDigits,
+                HasSmallLetters = charElement.HasSmallLetters,
+                HasSymbols = charElement.HasSymbols
+            };
+
+            return GenerateString(stringElement)[0];
         }
 
         private byte GenerateByte(ByteElement byteElement)

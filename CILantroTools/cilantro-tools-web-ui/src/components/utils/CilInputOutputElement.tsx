@@ -147,7 +147,7 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 	const isConstStringElement = props.element.type === 'ConstString';
 	const constStringElement = isConstStringElement ? (props.element as ConstStringElement) : null;
 
-	const isStringElement = props.element.type === 'String';
+	const isStringElement = props.element.type === 'String' || props.element.type === 'Char';
 	const stringElement = isStringElement ? (props.element as StringElement) : null;
 
 	const isBoolElement = props.element.type === 'Bool';
@@ -232,19 +232,22 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 					</div>
 					{props.variant === 'input' ? (
 						<div className={elementInfoClassName}>
-							<span>
-								|{stringElement.name}| &#8714; [{stringElement.minLength}; {stringElement.maxLength}]
-							</span>
+							{stringElement.type === 'String' ? (
+								<span>
+									|{stringElement.name}| &#8714; [{stringElement.minLength}; {stringElement.maxLength}],{' '}
+								</span>
+							) : null}
 
 							<span>
-								, {stringElement.name}
-								<sub>{translations.tests.chars}</sub> &#8714;
+								{stringElement.name}
+								{stringElement.type === 'String' ? <sub>{translations.tests.chars}</sub> : null} &#8714;
 							</span>
 
 							{' ['}
 							{stringElement.hasBigLetters ? <span>{translations.shared.bigLetters}</span> : null}
 							{stringElement.hasSmallLetters ? <span>{translations.shared.smallLetters}</span> : null}
 							{stringElement.hasDigits ? <span>{translations.shared.digits}</span> : null}
+							{stringElement.hasSymbols ? <span>{translations.shared.otherSymbols}</span> : null}
 							{']'}
 						</div>
 					) : null}

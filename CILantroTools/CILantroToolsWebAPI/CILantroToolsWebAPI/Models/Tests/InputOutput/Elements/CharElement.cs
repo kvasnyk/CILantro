@@ -1,12 +1,8 @@
 ﻿namespace CILantroToolsWebAPI.Models.Tests.InputOutput.Elements
 {
-    public class StringElement : AbstractInputOutputElement
+    public class CharElement : AbstractInputOutputElement
     {
         public string Name { get; set; }
-
-        public int MinLength { get; set; }
-
-        public int MaxLength { get; set; }
 
         public bool HasBigLetters { get; set; }
 
