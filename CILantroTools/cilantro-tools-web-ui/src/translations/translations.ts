@@ -117,7 +117,17 @@ const translations = {
 		type_short: 'short',
 		type_bool: 'bool',
 		type_string: 'string',
-		type_const: 'const'
+		type_const: 'const',
+		type_int: 'int',
+		type_char: 'char',
+		type_decimal: 'decimal',
+		type_double: 'double',
+		type_float: 'float',
+		type_long: 'long',
+		type_sbyte: 'sbyte',
+		type_uint: 'uint',
+		type_ulong: 'ulong',
+		type_ushort: 'ushort'
 	}
 };
 

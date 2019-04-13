@@ -19,6 +19,18 @@ const getIntElementTypeName = (intElement: IntElement) => {
 			return translations.shared.type_byte;
 		case 'Short':
 			return translations.shared.type_short;
+		case 'Int':
+			return translations.shared.type_int;
+		case 'Long':
+			return translations.shared.type_long;
+		case 'Sbyte':
+			return translations.shared.type_sbyte;
+		case 'Uint':
+			return translations.shared.type_uint;
+		case 'Ulong':
+			return translations.shared.type_ulong;
+		case 'Ushort':
+			return translations.shared.type_ushort;
 	}
 };
 
@@ -121,8 +133,22 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 
 	const isByteElement = props.element.type === 'Byte';
 	const isShortElement = props.element.type === 'Short';
+	const isIntElement = props.element.type === 'Int';
+	const isLongElement = props.element.type === 'Long';
+	const isSbyteElement = props.element.type === 'Sbyte';
+	const isUintElement = props.element.type === 'Uint';
+	const isUlongElement = props.element.type === 'Ulong';
+	const isUshortElement = props.element.type === 'Ushort';
 
-	const isAnyIntElement = isByteElement || isShortElement;
+	const isAnyIntElement =
+		isByteElement ||
+		isShortElement ||
+		isIntElement ||
+		isLongElement ||
+		isSbyteElement ||
+		isUintElement ||
+		isUlongElement ||
+		isUshortElement;
 	const intElement = isAnyIntElement ? (props.element as IntElement) : null;
 
 	const elementClassName = classNames(classes.element, {

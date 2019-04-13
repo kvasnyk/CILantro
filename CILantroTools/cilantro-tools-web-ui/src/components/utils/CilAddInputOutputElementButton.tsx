@@ -56,6 +56,8 @@ const getMinValue = (type: string) => {
 			return 0;
 		case 'Short':
 			return -32768;
+		case 'Int':
+			return -2147483648;
 		default:
 			return 0;
 	}
@@ -67,6 +69,8 @@ const getMaxValue = (type: string) => {
 			return 255;
 		case 'Short':
 			return 32767;
+		case 'Int':
+			return 2147483647;
 		default:
 			return 0;
 	}
@@ -78,6 +82,12 @@ const validateAddInputOutputElementData = (formData: AddInputOutputElementData, 
 	const isBool = formData.type === 'Bool';
 	const isByte = formData.type === 'Byte';
 	const isShort = formData.type === 'Short';
+	const isInt = formData.type === 'Int';
+	const isLong = formData.type === 'Long';
+	const isSbyte = formData.type === 'Sbyte';
+	const isUint = formData.type === 'Uint';
+	const isUlong = formData.type === 'Ulong';
+	const isUShort = formData.type === 'Ushort';
 
 	const isInput = variant === 'input';
 
@@ -92,7 +102,9 @@ const validateAddInputOutputElementData = (formData: AddInputOutputElementData, 
 
 	return {
 		constString: isConstString && !formData.constString,
-		varName: (isString || isBool || isByte || isShort) && !hasVarName,
+		varName:
+			(isString || isBool || isByte || isShort || isInt || isLong || isSbyte || isUint || isUlong || isUShort) &&
+			!hasVarName,
 		stringMinLength:
 			isString && isInput && (!formData.stringMinLength || hasMinMaxLengthError || formData.stringMinLength < 1),
 		stringMaxLength: isString && isInput && (!formData.stringMaxLength || hasMinMaxLengthError),
@@ -252,6 +264,13 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 				minValue: formData.minValue,
 				maxValue: formData.maxValue
 			});
+		} else if (formData.type === 'Int') {
+			addElement({
+				type: 'Int',
+				name: formData.varName!,
+				minValue: formData.minValue,
+				maxValue: formData.maxValue
+			});
 		}
 	};
 
@@ -275,8 +294,14 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 								<MenuItem value="Bool">{translations.shared.type_bool}</MenuItem>
 								<MenuItem value="Byte">{translations.shared.type_byte}</MenuItem>
 								<MenuItem value="ConstString">{translations.shared.type_const}</MenuItem>
+								<MenuItem value="Int">{translations.shared.type_int}</MenuItem>
+								<MenuItem value="Long">{translations.shared.type_long}</MenuItem>
+								<MenuItem value="Sbyte">{translations.shared.type_sbyte}</MenuItem>
 								<MenuItem value="Short">{translations.shared.type_short}</MenuItem>
 								<MenuItem value="String">{translations.shared.type_string}</MenuItem>
+								<MenuItem value="Uint">{translations.shared.type_uint}</MenuItem>
+								<MenuItem value="Ulong">{translations.shared.type_ulong}</MenuItem>
+								<MenuItem value="Ushort">{translations.shared.type_ushort}</MenuItem>
 							</Select>
 						</FormControl>
 
@@ -364,7 +389,14 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 							/>
 						) : null}
 
-						{formData.type === 'Byte' || formData.type === 'Short' ? (
+						{formData.type === 'Byte' ||
+						formData.type === 'Short' ||
+						formData.type === 'Int' ||
+						formData.type === 'Long' ||
+						formData.type === 'Sbyte' ||
+						formData.type === 'Uint' ||
+						formData.type === 'Ulong' ||
+						formData.type === 'Ushort' ? (
 							<>
 								<TextField
 									label={translations.shared.name}

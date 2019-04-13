@@ -44,6 +44,11 @@ namespace CILantroToolsWebAPI.Utils
                         var @byte = GenerateByte(byteElement);
                         builder.Append(@byte.ToString());
                     }
+                    else if (inputElement is IntElement intElement)
+                    {
+                        var @int = GenerateInt(intElement);
+                        builder.Append(@int.ToString());
+                    }
                     else
                     {
                         return null;
@@ -81,6 +86,13 @@ namespace CILantroToolsWebAPI.Utils
         {
             var result = _random.Next(byteElement.MinValue, byteElement.MaxValue + 1);
             return (byte)result;
+        }
+
+        private int GenerateInt(IntElement intElement)
+        {
+            var result = _random.Next(intElement.MinValue, intElement.MaxValue);
+            var addOne = _random.Next(0, 2) == 0;
+            return addOne ? result + 1 : result;
         }
     }
 }
