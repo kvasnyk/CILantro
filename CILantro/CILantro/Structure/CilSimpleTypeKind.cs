@@ -1,10 +1,11 @@
 ﻿namespace CILantro.Structure
 {
-    public enum CilTypeType
+    public enum CilSimpleTypeKind
     {
         Bool,
+        Char,
         Int32,
         String,
-        Void
+        UInt8
     }
 }

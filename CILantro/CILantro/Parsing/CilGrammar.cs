@@ -729,7 +729,8 @@ namespace CILantro.Parsing
                 _("unsigned") + _("int64") |
                 _("native") + _("int") |
                 _("native") + _("unsigned") + _("int") |
-                _("native") + _("float");
+                _("native") + _("float") |
+                _("uint8"); // DOCS: not present in ECMA grammar
 
             // TODO: bounds1
             bounds1.Rule = _("TODO: bounds1");

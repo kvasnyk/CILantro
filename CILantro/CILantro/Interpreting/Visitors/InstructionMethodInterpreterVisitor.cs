@@ -48,7 +48,7 @@ namespace CILantro.Interpreting.Visitors
 
             var result = MethodCaller.Call(callConfig);
 
-            if (instruction.ReturnType.TypeType != CilTypeType.Void)
+            if (!(instruction.ReturnType is CilTypeVoid))
             {
                 var resultAddress = _heap.Store(result);
                 var resultRef = new CilReference(resultAddress);

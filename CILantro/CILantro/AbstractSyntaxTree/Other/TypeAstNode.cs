@@ -18,9 +18,9 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("string");
             if (stringChildren.PopulateWith(parseNode))
             {
-                Type = new CilType
+                Type = new CilTypeSimple
                 {
-                    TypeType = CilTypeType.String
+                    Kind = CilSimpleTypeKind.String
                 };
 
                 return;
@@ -42,10 +42,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("void");
             if (voidChildren.PopulateWith(parseNode))
             {
-                Type = new CilType
-                {
-                    TypeType = CilTypeType.Void
-                };
+                Type = new CilTypeVoid();
 
                 return;
             }
@@ -55,9 +52,9 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("bool");
             if (boolChildren.PopulateWith(parseNode))
             {
-                Type = new CilType
+                Type = new CilTypeSimple
                 {
-                    TypeType = CilTypeType.Bool
+                    Kind = CilSimpleTypeKind.Bool
                 };
 
                 return;
@@ -68,9 +65,9 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("int32");
             if (int32Children.PopulateWith(parseNode))
             {
-                Type = new CilType
+                Type = new CilTypeSimple
                 {
-                    TypeType = CilTypeType.Int32
+                    Kind = CilSimpleTypeKind.Int32
                 };
 
                 return;
@@ -82,7 +79,36 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<ClassNameAstNode>();
             if (valueTypeClassNameChildren.PopulateWith(parseNode))
             {
-                // TODO: implement
+                Type = new CilTypeValue
+                {
+                    ClassName = valueTypeClassNameChildren.Child2.ClassName
+                };
+
+                return;
+            }
+
+            // _("uint8")
+            var uint8Children = AstChildren.Empty()
+                .Add("uint8");
+            if (uint8Children.PopulateWith(parseNode))
+            {
+                Type = new CilTypeSimple
+                {
+                    Kind = CilSimpleTypeKind.UInt8
+                };
+
+                return;
+            }
+
+            // _("char")
+            var charChildren = AstChildren.Empty()
+                .Add("char");
+            if (charChildren.PopulateWith(parseNode))
+            {
+                Type = new CilTypeSimple
+                {
+                    Kind = CilSimpleTypeKind.Char
+                };
 
                 return;
             }
