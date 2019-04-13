@@ -7,5 +7,7 @@ namespace CILantroToolsWebAPI.Models.Tests.InputOutput.Elements
     public abstract class AbstractInputOutputElement
     {
         public string Type { get; set; }
+
+        public string Description { get; set; }
     }
 }

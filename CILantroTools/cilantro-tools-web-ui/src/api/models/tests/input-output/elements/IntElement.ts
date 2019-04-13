@@ -3,6 +3,7 @@ interface IntElement {
 	name: string;
 	minValue: number;
 	maxValue: number;
+	description?: string;
 }
 
 export default IntElement;

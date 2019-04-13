@@ -7,6 +7,7 @@ interface StringElement {
 	hasSmallLetters: boolean;
 	hasDigits: boolean;
 	hasSymbols: boolean;
+	description?: string;
 }
 
 export default StringElement;

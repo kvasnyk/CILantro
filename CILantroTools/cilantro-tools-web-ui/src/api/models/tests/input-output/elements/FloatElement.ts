@@ -3,6 +3,7 @@ interface FloatElement {
 	name: string;
 	minValue: number;
 	maxValue: number;
+	description?: string;
 }
 
 export default FloatElement;

@@ -128,7 +128,8 @@ const translations = {
 		type_sbyte: 'sbyte',
 		type_uint: 'uint',
 		type_ulong: 'ulong',
-		type_ushort: 'ushort'
+		type_ushort: 'ushort',
+		description: 'Description'
 	}
 };
 

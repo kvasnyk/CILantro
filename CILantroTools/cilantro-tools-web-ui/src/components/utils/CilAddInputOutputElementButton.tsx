@@ -47,6 +47,7 @@ interface AddInputOutputElementData {
 	hasMaxValueMinus: boolean;
 	hasMinValueComma: boolean;
 	hasMaxValueComma: boolean;
+	description?: string;
 }
 
 const buildEmptyAddInputOutputElementData = (): AddInputOutputElementData => ({
@@ -205,6 +206,14 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 		setFormData(prevFormData => ({
 			...prevFormData,
 			varName: newVarName
+		}));
+	};
+
+	const handleDescriptionChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const newDescription = e.target.value;
+		setFormData(prevFormData => ({
+			...prevFormData,
+			description: newDescription
 		}));
 	};
 
@@ -384,7 +393,8 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 		if (formData.type === 'ConstString') {
 			addElement({
 				type: 'ConstString',
-				value: formData.constString!
+				value: formData.constString!,
+				description: formData.description
 			});
 		} else if (formData.type === 'String' || formData.type === 'Char') {
 			addElement({
@@ -395,12 +405,14 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 				hasBigLetters: formData.stringBigLetters!,
 				hasSmallLetters: formData.stringSmallLetters!,
 				hasDigits: formData.stringDigits!,
-				hasSymbols: formData.stringSymbols!
+				hasSymbols: formData.stringSymbols!,
+				description: formData.description
 			});
 		} else if (formData.type === 'Bool') {
 			addElement({
 				type: 'Bool',
-				name: formData.varName!
+				name: formData.varName!,
+				description: formData.description
 			});
 		} else if (
 			formData.type === 'Byte' ||
@@ -416,14 +428,16 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 				type: formData.type,
 				name: formData.varName!,
 				minValue: formData.minValue,
-				maxValue: formData.maxValue
+				maxValue: formData.maxValue,
+				description: formData.description
 			});
 		} else if (formData.type === 'Float' || formData.type === 'Double' || formData.type === 'Decimal') {
 			addElement({
 				type: formData.type,
 				name: formData.varName!,
 				minValue: formData.minValue,
-				maxValue: formData.maxValue
+				maxValue: formData.maxValue,
+				description: formData.description
 			});
 		}
 	};
@@ -611,6 +625,15 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 									</>
 								) : null}
 							</>
+						) : null}
+
+						{props.variant === 'output' ? (
+							<TextField
+								label={translations.shared.description}
+								value={formData.description}
+								fullWidth={true}
+								onChange={handleDescriptionChange}
+							/>
 						) : null}
 					</DialogContent>
 					<DialogActions>

@@ -251,7 +251,6 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 							{']'}
 						</div>
 					) : null}
-					{props.variant === 'custom' ? <div className={elementInfoClassName}>{props.children}</div> : null}
 				</>
 			) : null}
 
@@ -261,8 +260,6 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 						{boolElement.name}
 						{deleteButton}
 					</div>
-
-					{props.variant === 'custom' ? <div className={elementInfoClassName}>{props.children}</div> : null}
 				</>
 			) : null}
 
@@ -281,8 +278,6 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 							</span>
 						</div>
 					) : null}
-
-					{props.variant === 'custom' ? <div className={elementInfoClassName}>{props.children}</div> : null}
 				</>
 			) : null}
 
@@ -301,10 +296,14 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 							</span>
 						</div>
 					) : null}
-
-					{props.variant === 'custom' ? <div className={elementInfoClassName}>{props.children}</div> : null}
 				</>
 			) : null}
+
+			{props.variant === 'output' && props.element.description ? (
+				<div className={elementInfoClassName}>{props.element.description}</div>
+			) : null}
+
+			{props.variant === 'custom' ? <div className={elementInfoClassName}>{props.children}</div> : null}
 		</div>
 	);
 };
