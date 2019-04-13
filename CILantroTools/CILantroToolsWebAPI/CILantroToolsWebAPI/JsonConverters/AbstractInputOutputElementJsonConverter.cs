@@ -50,6 +50,12 @@ namespace CILantroToolsWebAPI.JsonConverters
                     return JsonConvert.DeserializeObject<UlongElement>(jObject.ToString(), jsonSerializerSettings);
                 case "Ushort":
                     return JsonConvert.DeserializeObject<UshortElement>(jObject.ToString(), jsonSerializerSettings);
+                case "Float":
+                    return JsonConvert.DeserializeObject<FloatElement>(jObject.ToString(), jsonSerializerSettings);
+                case "Double":
+                    return JsonConvert.DeserializeObject<DoubleElement>(jObject.ToString(), jsonSerializerSettings);
+                case "Decimal":
+                    return JsonConvert.DeserializeObject<DecimalElement>(jObject.ToString(), jsonSerializerSettings);
                 default:
                     throw new ArgumentException();
             }

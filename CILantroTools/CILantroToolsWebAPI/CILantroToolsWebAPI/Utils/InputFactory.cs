@@ -79,6 +79,21 @@ namespace CILantroToolsWebAPI.Utils
                         var @ushort = GenerateUshort(ushortElement);
                         builder.Append(@ushort.ToString());
                     }
+                    else if (inputElement is FloatElement floatElement)
+                    {
+                        var @float = GenerateFloat(floatElement);
+                        builder.Append(@float.ToString());
+                    }
+                    else if (inputElement is DoubleElement doubleElement)
+                    {
+                        var @double = GenerateDouble(doubleElement);
+                        builder.Append(@double.ToString());
+                    }
+                    else if (inputElement is DecimalElement decimalElement)
+                    {
+                        var @decimal = GenerateDecimal(decimalElement);
+                        builder.Append(@decimal.ToString());
+                    }
                     else
                     {
                         return null;
@@ -170,6 +185,33 @@ namespace CILantroToolsWebAPI.Utils
         {
             var result = _random.Next(shortElement.MinValue, shortElement.MaxValue + 1);
             return (short)result;
+        }
+
+        private float GenerateFloat(FloatElement floatElement)
+        {
+            var buf = new byte[sizeof(float)];
+            _random.NextBytes(buf);
+            var randFloat = BitConverter.ToSingle(buf, 0);
+            var result = (Math.Abs(randFloat % (floatElement.MaxValue - floatElement.MinValue)) + floatElement.MinValue);
+            return result;
+        }
+
+        private double GenerateDouble(DoubleElement doubleElement)
+        {
+            var buf = new byte[sizeof(double)];
+            _random.NextBytes(buf);
+            var randDouble = BitConverter.ToDouble(buf, 0);
+            var result = (Math.Abs(randDouble % (doubleElement.MaxValue - doubleElement.MinValue)) + doubleElement.MinValue);
+            return result;
+        }
+
+        private decimal GenerateDecimal(DecimalElement decimalElement)
+        {
+            var buf = new byte[sizeof(double)];
+            _random.NextBytes(buf);
+            var randDouble = BitConverter.ToDouble(buf, 0);
+            var result = (Math.Abs(randDouble % ((double)decimalElement.MaxValue - (double)decimalElement.MinValue)) + (double)decimalElement.MinValue);
+            return (decimal)result;
         }
     }
 }

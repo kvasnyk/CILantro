@@ -2,13 +2,14 @@ import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
 import { IconButton, Theme } from '@material-ui/core';
-import { blue, green, grey, purple } from '@material-ui/core/colors';
+import { amber, blue, green, grey, purple } from '@material-ui/core/colors';
 import DeleteIcon from '@material-ui/icons/DeleteRounded';
 import { makeStyles } from '@material-ui/styles';
 
 import AbstractInputOutputElement from '../../api/models/tests/input-output/elements/AbstractInputOutputElement';
 import BoolElement from '../../api/models/tests/input-output/elements/BoolElement';
 import ConstStringElement from '../../api/models/tests/input-output/elements/ConstStringElement';
+import FloatElement from '../../api/models/tests/input-output/elements/FloatElement';
 import IntElement from '../../api/models/tests/input-output/elements/IntElement';
 import StringElement from '../../api/models/tests/input-output/elements/StringElement';
 import translations from '../../translations/translations';
@@ -31,6 +32,17 @@ const getIntElementTypeName = (intElement: IntElement) => {
 			return translations.shared.type_ulong;
 		case 'Ushort':
 			return translations.shared.type_ushort;
+	}
+};
+
+const getFloatElementTypeName = (floatElement: FloatElement) => {
+	switch (floatElement.type) {
+		case 'Float':
+			return translations.shared.type_float;
+		case 'Double':
+			return translations.shared.type_double;
+		case 'Decimal':
+			return translations.shared.type_decimal;
 	}
 };
 
@@ -82,6 +94,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 		backgroundColor: green[800],
 		color: theme.palette.common.white
 	},
+	floatElement: {
+		backgroundColor: amber[800],
+		color: theme.palette.common.white
+	},
 	stringElementInfo: {
 		backgroundColor: blue[500]
 	},
@@ -90,6 +106,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 	},
 	intElementInfo: {
 		backgroundColor: green[500]
+	},
+	floatElementInfo: {
+		backgroundColor: amber[500]
 	},
 	deleteButton: {
 		marginLeft: '5px'
@@ -108,6 +127,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 		color: theme.palette.common.white
 	},
 	intElementDeleteIcon: {
+		color: theme.palette.common.white
+	},
+	floatElementDeleteIcon: {
 		color: theme.palette.common.white
 	}
 }));
@@ -151,24 +173,34 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 		isUshortElement;
 	const intElement = isAnyIntElement ? (props.element as IntElement) : null;
 
+	const isFloatElement = props.element.type === 'Float';
+	const isDoubleElement = props.element.type === 'Double';
+	const isDecimalElement = props.element.type === 'Decimal';
+
+	const isAnyFloatElement = isFloatElement || isDoubleElement || isDecimalElement;
+	const floatElement = isAnyFloatElement ? (props.element as FloatElement) : null;
+
 	const elementClassName = classNames(classes.element, {
 		[classes.constElement]: isConstStringElement,
 		[classes.stringElement]: isStringElement,
 		[classes.boolElement]: isBoolElement,
-		[classes.intElement]: isAnyIntElement
+		[classes.intElement]: isAnyIntElement,
+		[classes.floatElement]: isAnyFloatElement
 	});
 
 	const elementInfoClassName = classNames(classes.elementInfo, {
 		[classes.stringElementInfo]: isStringElement,
 		[classes.boolElementInfo]: isBoolElement,
-		[classes.intElementInfo]: isAnyIntElement
+		[classes.intElementInfo]: isAnyIntElement,
+		[classes.floatElementInfo]: isAnyFloatElement
 	});
 
 	const deleteIconClassName = classNames(classes.deleteIcon, {
 		[classes.constElementDeleteIcon]: isConstStringElement,
 		[classes.stringElementDeleteIcon]: isStringElement,
 		[classes.boolElementDeleteIcon]: isBoolElement,
-		[classes.intElementDeleteIcon]: isAnyIntElement
+		[classes.intElementDeleteIcon]: isAnyIntElement,
+		[classes.floatElementDeleteIcon]: isAnyFloatElement
 	});
 
 	const handleDeleteButtonClick = () => {
@@ -243,6 +275,26 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 							<span>
 								{getIntElementTypeName(intElement)}, {intElement.name} &#8714; [{intElement.minValue},{' '}
 								{intElement.maxValue}]
+							</span>
+						</div>
+					) : null}
+
+					{props.variant === 'custom' ? <div className={elementInfoClassName}>{props.children}</div> : null}
+				</>
+			) : null}
+
+			{floatElement ? (
+				<>
+					<div className={classes.elementName}>
+						{floatElement.name}
+						{deleteButton}
+					</div>
+
+					{props.variant === 'input' ? (
+						<div className={elementInfoClassName}>
+							<span>
+								{getFloatElementTypeName(floatElement)}, {floatElement.name} &#8714; [{floatElement.minValue},{' '}
+								{floatElement.maxValue}]
 							</span>
 						</div>
 					) : null}

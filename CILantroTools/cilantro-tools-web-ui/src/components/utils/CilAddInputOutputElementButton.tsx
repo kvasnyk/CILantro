@@ -42,12 +42,20 @@ interface AddInputOutputElementData {
 	stringDigits?: boolean;
 	minValue: number;
 	maxValue: number;
+	hasMinValueMinus: boolean;
+	hasMaxValueMinus: boolean;
+	hasMinValueComma: boolean;
+	hasMaxValueComma: boolean;
 }
 
 const buildEmptyAddInputOutputElementData = (): AddInputOutputElementData => ({
 	type: 'Bool',
 	minValue: 0,
-	maxValue: 0
+	maxValue: 0,
+	hasMinValueMinus: false,
+	hasMaxValueMinus: false,
+	hasMinValueComma: false,
+	hasMaxValueComma: false
 });
 
 const getMinValue = (type: string) => {
@@ -221,34 +229,106 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 	};
 
 	const handleMinValueChange = (e: ChangeEvent<HTMLInputElement>) => {
+		if (e.target.value === '-') {
+			setFormData(prevFormData => ({
+				...prevFormData,
+				hasMinValueMinus: true
+			}));
+			return;
+		}
+
+		if (e.target.value[e.target.value.length - 1] === ',') {
+			setFormData(prevFormData => ({
+				...prevFormData,
+				hasMinValueComma: true
+			}));
+			return;
+		}
+
 		const newMinValue = parseInt(e.target.value, 10);
 		setFormData(prevFormData => ({
 			...prevFormData,
-			minValue: Math.min(Math.max(newMinValue, getMinValue(prevFormData.type)), getMaxValue(prevFormData.type))
+			minValue: Math.min(Math.max(newMinValue, getMinValue(prevFormData.type)), getMaxValue(prevFormData.type)),
+			hasMinValueMinus: false,
+			hasMinValueComma: false
 		}));
 	};
 
 	const handleMaxValueChange = (e: ChangeEvent<HTMLInputElement>) => {
+		if (e.target.value === '-') {
+			setFormData(prevFormData => ({
+				...prevFormData,
+				hasMaxValueMinus: true
+			}));
+			return;
+		}
+
+		if (e.target.value[e.target.value.length - 1] === ',') {
+			setFormData(prevFormData => ({
+				...prevFormData,
+				hasMaxValueComma: true
+			}));
+			return;
+		}
+
 		const newMaxValue = parseInt(e.target.value, 10);
 		setFormData(prevFormData => ({
 			...prevFormData,
-			maxValue: Math.min(Math.max(newMaxValue, getMinValue(prevFormData.type)), getMaxValue(prevFormData.type))
+			maxValue: Math.min(Math.max(newMaxValue, getMinValue(prevFormData.type)), getMaxValue(prevFormData.type)),
+			hasMaxValueMinus: false,
+			hasMaxValueComma: false
 		}));
 	};
 
 	const handleFloatMinValueChange = (e: ChangeEvent<HTMLInputElement>) => {
-		const newMinValue = parseFloat(e.target.value);
+		if (e.target.value === '-') {
+			setFormData(prevFormData => ({
+				...prevFormData,
+				hasMinValueMinus: true
+			}));
+			return;
+		}
+
+		if (e.target.value[e.target.value.length - 1] === ',') {
+			setFormData(prevFormData => ({
+				...prevFormData,
+				hasMinValueComma: true
+			}));
+			return;
+		}
+
+		const newMinValue = parseFloat(e.target.value.replace(',', '.'));
 		setFormData(prevFormData => ({
 			...prevFormData,
-			minValue: Math.min(Math.max(newMinValue, getMinValue(prevFormData.type)), getMaxValue(prevFormData.type))
+			minValue: Math.min(Math.max(newMinValue, getMinValue(prevFormData.type)), getMaxValue(prevFormData.type)),
+			hasMinValueMinus: false,
+			hasMinValueComma: false
 		}));
 	};
 
 	const handleFloatMaxValueChange = (e: ChangeEvent<HTMLInputElement>) => {
-		const newMaxValue = parseFloat(e.target.value);
+		if (e.target.value === '-') {
+			setFormData(prevFormData => ({
+				...prevFormData,
+				hasMaxValueMinus: true
+			}));
+			return;
+		}
+
+		if (e.target.value[e.target.value.length - 1] === ',') {
+			setFormData(prevFormData => ({
+				...prevFormData,
+				hasMaxValueComma: true
+			}));
+			return;
+		}
+
+		const newMaxValue = parseFloat(e.target.value.replace(',', '.'));
 		setFormData(prevFormData => ({
 			...prevFormData,
-			maxValue: Math.min(Math.max(newMaxValue, getMinValue(prevFormData.type)), getMaxValue(prevFormData.type))
+			maxValue: Math.min(Math.max(newMaxValue, getMinValue(prevFormData.type)), getMaxValue(prevFormData.type)),
+			hasMaxValueMinus: false,
+			hasMaxValueComma: false
 		}));
 	};
 
@@ -477,7 +557,9 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 									<>
 										<TextField
 											label={translations.shared.minValue}
-											value={formData.minValue}
+											value={
+												formData.hasMinValueMinus ? '-' : `${formData.minValue}${formData.hasMinValueComma ? ',' : ''}`
+											}
 											fullWidth={true}
 											onChange={
 												formData.type === 'Float' || formData.type === 'Double' || formData.type === 'Decimal'
@@ -485,12 +567,13 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 													: handleMinValueChange
 											}
 											error={formErrors.minValue}
-											type="number"
 										/>
 
 										<TextField
 											label={translations.shared.maxValue}
-											value={formData.maxValue}
+											value={
+												formData.hasMaxValueMinus ? '-' : `${formData.maxValue}${formData.hasMaxValueComma ? ',' : ''}`
+											}
 											fullWidth={true}
 											onChange={
 												formData.type === 'Float' || formData.type === 'Double' || formData.type === 'Decimal'
@@ -498,7 +581,6 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 													: handleMaxValueChange
 											}
 											error={formErrors.maxValue}
-											type="number"
 										/>
 									</>
 								) : null}
