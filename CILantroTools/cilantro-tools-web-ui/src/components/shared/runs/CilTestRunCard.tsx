@@ -27,6 +27,7 @@ import RunOutcome from '../../../api/enums/RunOutcome';
 import TestRunStep from '../../../api/enums/TestRunStep';
 import TestRunFullReadModel from '../../../api/read-models/runs/TestRunFullReadModel';
 import TestRunReadModel from '../../../api/read-models/runs/TestRunReadModel';
+import CilShowTestButton from '../tests/CilShowTestButton';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	tablePaper: {
@@ -195,6 +196,7 @@ const CilTestRunCard: FunctionComponent<CilTestRunCardProps> = props => {
 				</Collapse>
 			</CardContent>
 			<CardActions className={classes.cardActions}>
+				<CilShowTestButton testId={props.testRun.testId} iconClassName={colorClassName} />
 				<IconButton
 					className={classNames(classes.expand, colorClassName, {
 						[classes.expandOpen]: isExpanded

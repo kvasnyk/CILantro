@@ -133,6 +133,7 @@ const CilTestInputOutputExamplesEditor: FunctionComponent<CilTestInputOutputExam
 		for (const line of inputs) {
 			for (const elementValue of line) {
 				result += elementValue;
+				result += ' ';
 			}
 			result += '\n';
 		}

@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 
 import ShowIcon from '@material-ui/icons/RemoveRedEyeRounded';
 
-import TestReadModel from '../../../api/read-models/tests/TestReadModel';
 import routes from '../../../routing/routes';
 import CilIconButton from '../../utils/CilIconButton';
 
 interface CilShowTestButtonProps {
-	test: TestReadModel;
+	testId: string;
+	iconClassName?: string;
 }
 
 const CilShowTestButton: FunctionComponent<CilShowTestButtonProps> = props => {
@@ -17,9 +17,9 @@ const CilShowTestButton: FunctionComponent<CilShowTestButtonProps> = props => {
 	};
 
 	return (
-		<Link to={routes.tests.test({ testId: props.test.id })}>
+		<Link to={routes.tests.test({ testId: props.testId })}>
 			<CilIconButton onClick={handleClick}>
-				<ShowIcon />
+				<ShowIcon className={props.iconClassName} />
 			</CilIconButton>
 		</Link>
 	);

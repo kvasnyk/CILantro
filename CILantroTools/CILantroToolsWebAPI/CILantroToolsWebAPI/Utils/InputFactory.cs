@@ -103,6 +103,8 @@ namespace CILantroToolsWebAPI.Utils
                     {
                         return null;
                     }
+
+                    builder.Append(' ');
                 }
 
                 builder.AppendLine();

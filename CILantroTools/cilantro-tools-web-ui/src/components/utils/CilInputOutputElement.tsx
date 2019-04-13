@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 
 import { IconButton, Theme } from '@material-ui/core';
 import { amber, blue, green, grey, purple } from '@material-ui/core/colors';
@@ -64,7 +64,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 		height: '100%',
 		display: 'flex',
 		alignItems: 'center',
-		justifyContent: 'center'
+		justifyContent: 'center',
+		borderRadius: '5px'
 	},
 	elementInfo: {
 		padding: '0 10px',
@@ -82,21 +83,51 @@ const useStyles = makeStyles((theme: Theme) => ({
 		color: theme.palette.common.white,
 		whiteSpace: 'pre'
 	},
+	constElementNameHover: {
+		'&:hover': {
+			backgroundColor: grey[900],
+			cursor: 'pointer'
+		}
+	},
 	stringElement: {
 		backgroundColor: blue[800],
 		color: theme.palette.common.white
+	},
+	stringElementNameHover: {
+		'&:hover': {
+			backgroundColor: blue[900],
+			cursor: 'pointer'
+		}
 	},
 	boolElement: {
 		backgroundColor: purple[800],
 		color: theme.palette.common.white
 	},
+	boolElementNameHover: {
+		'&:hover': {
+			backgroundColor: purple[900],
+			cursor: 'pointer'
+		}
+	},
 	intElement: {
 		backgroundColor: green[800],
 		color: theme.palette.common.white
 	},
+	intElementNameHover: {
+		'&:hover': {
+			backgroundColor: green[900],
+			cursor: 'pointer'
+		}
+	},
 	floatElement: {
 		backgroundColor: amber[800],
 		color: theme.palette.common.white
+	},
+	floatElementNameHover: {
+		'&:hover': {
+			backgroundColor: amber[900],
+			cursor: 'pointer'
+		}
 	},
 	stringElementInfo: {
 		backgroundColor: blue[500]
@@ -143,6 +174,8 @@ interface CilInputOutputElementProps {
 
 const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = props => {
 	const classes = useStyles();
+
+	const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
 	const isConstStringElement = props.element.type === 'ConstString';
 	const constStringElement = isConstStringElement ? (props.element as ConstStringElement) : null;
@@ -203,10 +236,24 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 		[classes.floatElementDeleteIcon]: isAnyFloatElement
 	});
 
+	const shouldHover = props.variant === 'input' && !isConstStringElement && !isBoolElement;
+
+	const elementNameClassName = classNames(classes.elementName, {
+		[classes.constElementNameHover]: isConstStringElement && shouldHover,
+		[classes.stringElementNameHover]: isStringElement && shouldHover,
+		[classes.boolElementNameHover]: isBoolElement && shouldHover,
+		[classes.intElementNameHover]: isAnyIntElement && shouldHover,
+		[classes.floatElementNameHover]: isAnyFloatElement && shouldHover
+	});
+
 	const handleDeleteButtonClick = () => {
 		if (props.onElementDeleted) {
 			props.onElementDeleted();
 		}
+	};
+
+	const handleElementClick = () => {
+		setIsExpanded(prev => !prev);
 	};
 
 	const deleteButton = props.isEditable ? (
@@ -216,9 +263,9 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 	) : null;
 
 	return (
-		<div className={elementClassName}>
+		<div className={elementClassName} onClick={handleElementClick}>
 			{constStringElement ? (
-				<div className={classes.elementName}>
+				<div className={elementNameClassName}>
 					{constStringElement.value}
 					{deleteButton}
 				</div>
@@ -226,11 +273,11 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 
 			{stringElement ? (
 				<>
-					<div className={classes.elementName}>
+					<div className={elementNameClassName}>
 						{stringElement.name}
 						{deleteButton}
 					</div>
-					{props.variant === 'input' ? (
+					{props.variant === 'input' && isExpanded ? (
 						<div className={elementInfoClassName}>
 							{stringElement.type === 'String' ? (
 								<span>
@@ -256,7 +303,7 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 
 			{boolElement ? (
 				<>
-					<div className={classes.elementName}>
+					<div className={elementNameClassName}>
 						{boolElement.name}
 						{deleteButton}
 					</div>
@@ -265,12 +312,12 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 
 			{intElement ? (
 				<>
-					<div className={classes.elementName}>
+					<div className={elementNameClassName}>
 						{intElement.name}
 						{deleteButton}
 					</div>
 
-					{props.variant === 'input' ? (
+					{props.variant === 'input' && isExpanded ? (
 						<div className={elementInfoClassName}>
 							<span>
 								{getIntElementTypeName(intElement)}, {intElement.name} &#8714; [{intElement.minValue},{' '}
@@ -283,12 +330,12 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 
 			{floatElement ? (
 				<>
-					<div className={classes.elementName}>
+					<div className={elementNameClassName}>
 						{floatElement.name}
 						{deleteButton}
 					</div>
 
-					{props.variant === 'input' ? (
+					{props.variant === 'input' && isExpanded ? (
 						<div className={elementInfoClassName}>
 							<span>
 								{getFloatElementTypeName(floatElement)}, {floatElement.name} &#8714; [{floatElement.minValue},{' '}
