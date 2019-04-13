@@ -30,9 +30,31 @@ namespace CILantro.Visitors
                 VisitLoadConstI4M1Instruction(loadConstI4M1Instruction);
             else if (instruction is ReturnInstruction returnInstruction)
                 VisitReturnInstruction(returnInstruction);
+            else if (instruction is DuplicateInstruction duplicateInstruction)
+                VisitDuplicateInstruction(duplicateInstruction);
+            else if (instruction is StoreArrayElementI2Instruction storeArrayElementI2Instruction)
+                VisitStoreArrayElementI2Instruction(storeArrayElementI2Instruction);
+            else if (instruction is LoadArrayElementRefInstruction loadArrayElementRefInstruction)
+                VisitLoadArrayElementRefInstruction(loadArrayElementRefInstruction);
+            else if (instruction is StoreLocal0Instruction storeLocal0Instruction)
+                VisitStoreLocal0Instruction(storeLocal0Instruction);
+            else if (instruction is StoreLocal1Instruction storeLocal1Instruction)
+                VisitStoreLocal1Instruction(storeLocal1Instruction);
+            else if (instruction is LoadLocal0Instruction loadLocal0Instruction)
+                VisitLoadLocal0Instruction(loadLocal0Instruction);
+            else if (instruction is LoadLocal1Instruction loadLocal1Instruction)
+                VisitLoadLocal1Instruction(loadLocal1Instruction);
+            else if (instruction is AddInstruction addInstruction)
+                VisitAddInstruction(addInstruction);
             else
                 throw new ArgumentException($"CIL instruction none cannot be recognized: '{instruction.ToString()}'.");
         }
+
+        protected abstract void VisitAddInstruction(AddInstruction instruction);
+
+        protected abstract void VisitDuplicateInstruction(DuplicateInstruction instruction);
+
+        protected abstract void VisitLoadArrayElementRefInstruction(LoadArrayElementRefInstruction instruction);
 
         protected abstract void VisitLoadConstI40Intruction(LoadConstI40Instruction instruction);
 
@@ -54,6 +76,16 @@ namespace CILantro.Visitors
 
         protected abstract void VisitLoadConstI4M1Instruction(LoadConstI4M1Instruction instruction);
 
+        protected abstract void VisitLoadLocal0Instruction(LoadLocal0Instruction instruction);
+
+        protected abstract void VisitLoadLocal1Instruction(LoadLocal1Instruction instruction);
+
         protected abstract void VisitReturnInstruction(ReturnInstruction instruction);
+
+        protected abstract void VisitStoreArrayElementI2Instruction(StoreArrayElementI2Instruction instruction);
+
+        protected abstract void VisitStoreLocal0Instruction(StoreLocal0Instruction instruction);
+
+        protected abstract void VisitStoreLocal1Instruction(StoreLocal1Instruction instruction);
     }
 }

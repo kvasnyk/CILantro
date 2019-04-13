@@ -11,5 +11,7 @@ namespace CILantro.Interpreting.State
         public Stack<CilObject> EvaluationStack { get; set; }
 
         public CilMethodInfo MethodInfo { get; set; }
+
+        public CilMethodLocals Locals { get; set; }
     }
 }

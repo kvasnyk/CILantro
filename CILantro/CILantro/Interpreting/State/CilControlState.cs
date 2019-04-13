@@ -18,6 +18,8 @@ namespace CILantro.Interpreting.State
 
         public CilMethodInfo CurrentMethodInfo => CurrentMethodState.MethodInfo;
 
+        public CilMethodLocals CurrentLocals => CurrentMethodState.Locals;
+
         public CilControlState(CilMethod entryPoint)
         {
             CallStack = new Stack<CilMethodState>();
@@ -25,7 +27,8 @@ namespace CILantro.Interpreting.State
             {
                 Instruction = entryPoint.Instructions.First(),
                 EvaluationStack = new Stack<CilObject>(),
-                MethodInfo = new CilMethodInfo(entryPoint)
+                MethodInfo = new CilMethodInfo(entryPoint),
+                Locals = new CilMethodLocals()
             });
         }
     }

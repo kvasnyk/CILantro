@@ -14,22 +14,24 @@ namespace CILantro.Utils
         public object[] Arguments { get; set; }
 
         public Type[] Types { get; set; }
+
+        public object Instance { get; set; }
     }
 
     public static class MethodCaller
     {
         public static object Call(MethodCallerConfig config)
         {
-            return CallBase(config, true);
+            return CallBase(config);
         }
 
-        private static object CallBase(MethodCallerConfig config, bool isVoid)
+        private static object CallBase(MethodCallerConfig config)
         {
             var assembly = Assembly.Load(config.AssemblyName);
             var @class = assembly.GetType(config.ClassName);
             var method = @class.GetMethod(config.MethodName, config.Types);
 
-            var result = method.Invoke(null, config.Arguments);
+            var result = method.Invoke(config.Instance, config.Arguments);
             return result;
         }
     }

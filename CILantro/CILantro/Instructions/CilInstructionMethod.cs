@@ -12,5 +12,9 @@ namespace CILantro.Instructions
         public string MethodName { get; set; }
 
         public List<CilSigArg> SigArgs { get; set; }
+
+        public CilCallConv CallConv { get; set; }
+
+        public CilCallKind CallKind { get; set; }
     }
 }

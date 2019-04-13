@@ -1,8 +1,9 @@
 ﻿namespace CILantro.Structure
 {
-    public enum CilCallConv
+    public class CilCallConv
     {
-        Instance,
-        Explicit
+        public bool IsExplicit { get; set; }
+
+        public bool IsInstance { get; set; }
     }
 }

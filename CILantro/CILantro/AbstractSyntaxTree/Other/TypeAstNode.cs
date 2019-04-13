@@ -30,7 +30,10 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("]");
             if (typeArrayChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                var elementType = typeArrayChildren.Child1.Type;
+
+                Type = new CilTypeArray(elementType);
+
                 return;
             }
 

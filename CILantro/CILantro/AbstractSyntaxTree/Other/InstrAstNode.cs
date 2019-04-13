@@ -43,6 +43,8 @@ namespace CILantro.AbstractSyntaxTree.Other
                 instructionMethod.TypeSpec = methodTypeSpecChildren.Child4.TypeSpec;
                 instructionMethod.MethodName = methodTypeSpecChildren.Child6.MethodName;
                 instructionMethod.SigArgs = methodTypeSpecChildren.Child8.SigArgs;
+                instructionMethod.CallConv = methodTypeSpecChildren.Child2.CallConv;
+                instructionMethod.CallKind = methodTypeSpecChildren.Child2.CallKind;
 
                 Instruction = instructionMethod;
 
@@ -73,6 +75,20 @@ namespace CILantro.AbstractSyntaxTree.Other
                 instructionI.Value = iChildren.Child2.Value;
 
                 Instruction = instructionI;
+
+                return;
+            }
+
+            // INSTR_TYPE + typeSpec
+            var typeChildren = AstChildren.Empty()
+                .Add<INSTR_TYPEAstNode>()
+                .Add<TypeSpecAstNode>();
+            if (typeChildren.PopulateWith(parseNode))
+            {
+                var instructionType = typeChildren.Child1.Instruction;
+                instructionType.TypeSpec = typeChildren.Child2.TypeSpec;
+
+                Instruction = instructionType;
 
                 return;
             }

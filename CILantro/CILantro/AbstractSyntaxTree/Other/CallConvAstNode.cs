@@ -12,7 +12,6 @@ namespace CILantro.AbstractSyntaxTree.Other
         // TODO: is only one value possible or should it be changed to list?
         public CilCallKind CallKind { get; private set; }
 
-        // TODO: is only one value possible or should it be changed to list?
         public CilCallConv CallConv { get; private set; }
 
         public override void Init(AstContext context, ParseTreeNode parseNode)
@@ -23,7 +22,9 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<CallConvAstNode>();
             if (instanceChildren.PopulateWith(parseNode))
             {
-                CallConv = CilCallConv.Instance;
+                CallConv = instanceChildren.Child2.CallConv;
+                CallConv.IsInstance = true;
+
                 CallKind = instanceChildren.Child2.CallKind;
 
                 return;
@@ -35,7 +36,9 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<CallConvAstNode>();
             if (explicitChildren.PopulateWith(parseNode))
             {
-                CallConv = CilCallConv.Explicit;
+                CallConv = explicitChildren.Child2.CallConv;
+                CallConv.IsExplicit = true;
+
                 CallKind = explicitChildren.Child2.CallKind;
 
                 return;
@@ -47,6 +50,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (callKindChildren.PopulateWith(parseNode))
             {
                 CallKind = callKindChildren.Child1.CallKind;
+                CallConv = new CilCallConv();
 
                 return;
             }

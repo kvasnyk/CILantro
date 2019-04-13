@@ -59,6 +59,9 @@ namespace CILantro.AbstractSyntaxTree.Other
                     case MethodDeclType.CustomAttr:
                         // TODO: handle
                         break;
+                    case MethodDeclType.Locals:
+                        // TODO: handle
+                        break;
                     default:
                         throw new AstNodeException($"\"{nameof(declType)}\" cannot be recognized.");
                 }

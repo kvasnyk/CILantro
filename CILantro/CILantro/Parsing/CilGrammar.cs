@@ -332,7 +332,20 @@ namespace CILantro.Parsing
             INSTR_FIELD.Rule = _("TODO: INSTR_FIELD");
 
             // TODO: INSTR_TYPE
-            INSTR_TYPE.Rule = _("TODO: INSTR_TYPE");
+            INSTR_TYPE.Rule =
+                _("box") |
+                _("castclass") |
+                _("cpobj") |
+                _("initobj") |
+                _("isinst") |
+                _("ldelema") |
+                _("ldobj") |
+                _("mkrefany") |
+                _("newarr") |
+                _("refanyval") |
+                _("sizeof") |
+                _("stobj") |
+                _("unbox");
 
             INSTR_STRING.Rule =
                 _("ldstr");

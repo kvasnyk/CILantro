@@ -3,6 +3,7 @@ using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.State;
 using CILantro.Visitors;
+using System;
 
 namespace CILantro.Interpreting.Visitors
 {
@@ -16,6 +17,45 @@ namespace CILantro.Interpreting.Visitors
         {
             _state = state;
             _heap = heap;
+        }
+
+        protected override void VisitAddInstruction(AddInstruction instruction)
+        {
+            var value2 = _state.CurrentEvaluationStack.Pop() as CilInt32Value;
+            var value1 = _state.CurrentEvaluationStack.Pop() as CilInt32Value;
+
+            var result = new CilInt32Value(value1.Value + value2.Value);
+
+            _state.CurrentEvaluationStack.Push(result);
+
+            _state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
+        }
+
+        protected override void VisitDuplicateInstruction(DuplicateInstruction instruction)
+        {
+            var obj = _state.CurrentEvaluationStack.Peek();
+            var objDuplicate = obj.Duplicate();
+
+            _state.CurrentEvaluationStack.Push(objDuplicate);
+
+            _state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
+        }
+
+        protected override void VisitLoadArrayElementRefInstruction(LoadArrayElementRefInstruction instruction)
+        {
+            var index = _state.CurrentEvaluationStack.Pop() as CilInt32Value;
+
+            var arrayRef = _state.CurrentEvaluationStack.Pop() as CilReference;
+            var array = _heap.Load(arrayRef.Address) as Array;
+
+            var elem = array.GetValue(index.Value);
+
+            var elemRef = _heap.Store(elem);
+            var result = new CilReference(elemRef);
+
+            _state.CurrentEvaluationStack.Push(result);
+
+            _state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
         }
 
         protected override void VisitLoadConstI40Intruction(LoadConstI40Instruction instruction)
@@ -98,9 +138,57 @@ namespace CILantro.Interpreting.Visitors
             _state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
         }
 
+        protected override void VisitLoadLocal0Instruction(LoadLocal0Instruction instruction)
+        {
+            var value = _state.CurrentLocals.Load(0);
+
+            _state.CurrentEvaluationStack.Push(value);
+
+            _state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
+        }
+
+        protected override void VisitLoadLocal1Instruction(LoadLocal1Instruction instruction)
+        {
+            var value = _state.CurrentLocals.Load(1);
+
+            _state.CurrentEvaluationStack.Push(value);
+
+            _state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
+        }
+
         protected override void VisitReturnInstruction(ReturnInstruction instruction)
         {
             _state.CurrentMethodState.Instruction = null;
+        }
+
+        protected override void VisitStoreArrayElementI2Instruction(StoreArrayElementI2Instruction instruction)
+        {
+            var value = _state.CurrentEvaluationStack.Pop() as CilInt16Value;
+            var index = _state.CurrentEvaluationStack.Pop() as CilInt32Value;
+            var arrayRef = _state.CurrentEvaluationStack.Pop() as CilReference;
+            var array = _heap.Load(arrayRef.Address) as Array;
+            var arrayElem = Convert.ChangeType(value.Value, array.GetType().GetElementType());
+            array.SetValue(arrayElem, index.Value);
+
+            _state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
+        }
+
+        protected override void VisitStoreLocal0Instruction(StoreLocal0Instruction instruction)
+        {
+            var value = _state.CurrentEvaluationStack.Pop();
+
+            _state.CurrentLocals.Store(0, value);
+
+            _state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
+        }
+
+        protected override void VisitStoreLocal1Instruction(StoreLocal1Instruction instruction)
+        {
+            var value = _state.CurrentEvaluationStack.Pop();
+
+            _state.CurrentLocals.Store(1, value);
+
+            _state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
         }
     }
 }

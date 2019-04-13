@@ -143,6 +143,86 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // _("dup")
+            var dupChildren = AstChildren.Empty()
+                .Add("dup");
+            if (dupChildren.PopulateWith(parseNode))
+            {
+                Instruction = new DuplicateInstruction();
+
+                return;
+            }
+
+            // ___("stelem.i2")
+            var stelemi2Children = AstChildren.Empty()
+                .Add("stelem.i2");
+            if (stelemi2Children.PopulateWith(parseNode))
+            {
+                Instruction = new StoreArrayElementI2Instruction();
+
+                return;
+            }
+
+            // ___("ldelem.ref")
+            var ldelemrefChildren = AstChildren.Empty()
+                .Add("ldelem.ref");
+            if (ldelemrefChildren.PopulateWith(parseNode))
+            {
+                Instruction = new LoadArrayElementRefInstruction();
+
+                return;
+            }
+
+            // ___("stloc.0")
+            var stloc0Children = AstChildren.Empty()
+                .Add("stloc.0");
+            if (stloc0Children.PopulateWith(parseNode))
+            {
+                Instruction = new StoreLocal0Instruction();
+
+                return;
+            }
+
+            // ___("stloc.1")
+            var stloc1Children = AstChildren.Empty()
+                .Add("stloc.1");
+            if (stloc1Children.PopulateWith(parseNode))
+            {
+                Instruction = new StoreLocal1Instruction();
+
+                return;
+            }
+
+            // ___("ldloc.0")
+            var ldloc0Children = AstChildren.Empty()
+                .Add("ldloc.0");
+            if (ldloc0Children.PopulateWith(parseNode))
+            {
+                Instruction = new LoadLocal0Instruction();
+
+                return;
+            }
+
+            // ___("ldloc.1")
+            var ldloc1Children = AstChildren.Empty()
+                .Add("ldloc.1");
+            if (ldloc1Children.PopulateWith(parseNode))
+            {
+                Instruction = new LoadLocal1Instruction();
+
+                return;
+            }
+
+            // _("add")
+            var addChildren = AstChildren.Empty()
+                .Add("add");
+            if (addChildren.PopulateWith(parseNode))
+            {
+                Instruction = new AddInstruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

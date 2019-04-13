@@ -1,4 +1,5 @@
-﻿using CILantro.Instructions.Method;
+﻿using CILantro.Instructions;
+using CILantro.Instructions.Method;
 using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.State;
@@ -25,30 +26,26 @@ namespace CILantro.Interpreting.Visitors
 
         public override void VisitCallInstruction(CallInstruction instruction)
         {
-            var methodArguments = new List<object>();
-            for (int i = 0; i < instruction.SigArgs.Count; i++)
-            {
-                var argument = _state.CurrentEvaluationStack.Pop();
-
-                var methodArgument = argument is CilReference referenceArgument ?
-                    _heap.Load(referenceArgument.Address) :
-                    (argument as CilValue).GetValue();
-
-                methodArguments.Add(methodArgument);
-            }
-            methodArguments.Reverse();
-
-            var callConfig = new MethodCallerConfig
-            {
-                AssemblyName = instruction.TypeSpec.ClassName.AssemblyName,
-                ClassName = instruction.TypeSpec.ClassName.ClassName,
-                MethodName = instruction.MethodName,
-                Arguments = methodArguments.ToArray(),
-                Types = instruction.SigArgs.Select(sa => sa.Type.GetRuntimeType()).ToArray()
-            };
+            var callConfig = BuildCallerConfigBase(instruction);
 
             var result = MethodCaller.Call(callConfig);
+            StoreResult(result, instruction);
 
+            _state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
+        }
+
+        public override void VisitCallVirtualInstruction(CallVirtualInstruction instruction)
+        {
+            var callConfig = BuildCallerConfigBase(instruction);
+
+            var result = MethodCaller.Call(callConfig);
+            StoreResult(result, instruction);
+
+            _state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
+        }
+
+        private void StoreResult(object result, CilInstructionMethod instruction)
+        {
             if (!(instruction.ReturnType is CilTypeVoid))
             {
                 CilObject obj = null;
@@ -66,6 +63,11 @@ namespace CILantro.Interpreting.Visitors
                 {
                     obj = new CilValueTypeValue(result);
                 }
+                else if (instruction.ReturnType is CilTypeArray arrayType)
+                {
+                    var resultAddress = _heap.Store(result);
+                    obj = new CilReference(resultAddress);
+                }
                 else
                 {
                     throw new NotImplementedException();
@@ -73,8 +75,44 @@ namespace CILantro.Interpreting.Visitors
 
                 _state.CurrentEvaluationStack.Push(obj);
             }
+        }
 
-            _state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
+        private object[] PopMethodArguments(CilInstructionMethod instruction)
+        {
+            var methodArguments = new List<object>();
+            for (int i = 0; i < instruction.SigArgs.Count; i++)
+            {
+                var argument = _state.CurrentEvaluationStack.Pop();
+
+                var methodArgument = argument is CilReference referenceArgument ?
+                    _heap.Load(referenceArgument.Address) :
+                    (argument as CilValue).GetValue();
+
+                methodArguments.Add(methodArgument);
+            }
+            methodArguments.Reverse();
+            return methodArguments.ToArray();
+        }
+
+        private MethodCallerConfig BuildCallerConfigBase(CilInstructionMethod instruction)
+        {
+            var methodArguments = PopMethodArguments(instruction);
+
+            var objRef = instruction.CallConv.IsInstance ? _state.CurrentEvaluationStack.Pop() as CilReference : null;
+
+            object obj = null;
+            if (objRef != null)
+                obj = _heap.Load(objRef.Address);
+
+            return new MethodCallerConfig
+            {
+                AssemblyName = instruction.TypeSpec.ClassName.AssemblyName,
+                ClassName = instruction.TypeSpec.ClassName.ClassName,
+                MethodName = instruction.MethodName,
+                Arguments = methodArguments,
+                Types = instruction.SigArgs.Select(sa => sa.Type.GetRuntimeType()).ToArray(),
+                Instance = obj
+            };
         }
     }
 }

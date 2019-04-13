@@ -24,6 +24,16 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // _("callvirt")
+            var callvirtChildren = AstChildren.Empty()
+                .Add("callvirt");
+            if (callvirtChildren.PopulateWith(parseNode))
+            {
+                Instruction = new CallVirtualInstruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

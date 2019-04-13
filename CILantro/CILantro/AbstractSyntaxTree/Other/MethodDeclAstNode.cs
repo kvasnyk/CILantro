@@ -12,7 +12,8 @@ namespace CILantro.AbstractSyntaxTree.Other
         Instruction,
         Label,
         MaxStack,
-        CustomAttr
+        CustomAttr,
+        Locals
     }
 
     [AstNode("methodDecl")]
@@ -73,6 +74,20 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (customAttrChildren.PopulateWith(parseNode))
             {
                 DeclType = MethodDeclType.CustomAttr;
+
+                return;
+            }
+
+            // localsHead + _("init") + _("(") + sigArgs0 + _(")")
+            var localsInitChildren = AstChildren.Empty()
+                .Add<LocalsHeadAstNode>()
+                .Add("init")
+                .Add("(")
+                .Add<SigArgs0AstNode>()
+                .Add(")");
+            if (localsInitChildren.PopulateWith(parseNode))
+            {
+                DeclType = MethodDeclType.Locals;
 
                 return;
             }

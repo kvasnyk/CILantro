@@ -8,5 +8,10 @@
         {
             Address = address;
         }
+
+        public override CilObject Duplicate()
+        {
+            return new CilReference(Address);
+        }
     }
 }

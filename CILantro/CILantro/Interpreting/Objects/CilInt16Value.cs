@@ -13,5 +13,10 @@
         {
             return Value;
         }
+
+        public override CilObject Duplicate()
+        {
+            return new CilInt16Value(Value);
+        }
     }
 }

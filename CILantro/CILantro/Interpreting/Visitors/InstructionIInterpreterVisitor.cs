@@ -20,7 +20,7 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadConstI4ShortInstruction(LoadConstI4ShortInstruction instruction)
         {
-            var intValue = new CilInt32Value(instruction.Value);
+            var intValue = new CilInt16Value((short)instruction.Value);
             _state.CurrentEvaluationStack.Push(intValue);
 
             _state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);

@@ -10,10 +10,14 @@ namespace CILantro.Visitors
         {
             if (instruction is CallInstruction callInstruction)
                 VisitCallInstruction(callInstruction);
+            else if (instruction is CallVirtualInstruction callVirtualInstruction)
+                VisitCallVirtualInstruction(callVirtualInstruction);
             else
                 throw new ArgumentException($"CIL instruction method cannot be recognized: '{instruction.ToString()}'.");
         }
 
         public abstract void VisitCallInstruction(CallInstruction instruction);
+
+        public abstract void VisitCallVirtualInstruction(CallVirtualInstruction instruction);
     }
 }
