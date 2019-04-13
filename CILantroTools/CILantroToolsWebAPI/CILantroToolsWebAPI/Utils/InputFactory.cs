@@ -49,6 +49,11 @@ namespace CILantroToolsWebAPI.Utils
                         var @int = GenerateInt(intElement);
                         builder.Append(@int.ToString());
                     }
+                    else if (inputElement is LongElement longElement)
+                    {
+                        var @long = GenerateLong(longElement);
+                        builder.Append(@long.ToString());
+                    }
                     else
                     {
                         return null;
@@ -90,9 +95,20 @@ namespace CILantroToolsWebAPI.Utils
 
         private int GenerateInt(IntElement intElement)
         {
-            var result = _random.Next(intElement.MinValue, intElement.MaxValue);
-            var addOne = _random.Next(0, 2) == 0;
-            return addOne ? result + 1 : result;
+            var buf = new byte[4];
+            _random.NextBytes(buf);
+            var randInt = BitConverter.ToInt32(buf, 0);
+            var result = (Math.Abs(randInt % (intElement.MaxValue - intElement.MinValue)) + intElement.MinValue);
+            return result;
+        }
+
+        private long GenerateLong(LongElement longElement)
+        {
+            var buf = new byte[8];
+            _random.NextBytes(buf);
+            var randLong = BitConverter.ToInt64(buf, 0);
+            var result = (Math.Abs(randLong % (longElement.MaxValue - longElement.MinValue)) + longElement.MinValue);
+            return result;
         }
     }
 }

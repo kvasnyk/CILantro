@@ -58,6 +58,8 @@ const getMinValue = (type: string) => {
 			return -32768;
 		case 'Int':
 			return -2147483648;
+		case 'Long':
+			return Number.MIN_SAFE_INTEGER;
 		default:
 			return 0;
 	}
@@ -71,6 +73,8 @@ const getMaxValue = (type: string) => {
 			return 32767;
 		case 'Int':
 			return 2147483647;
+		case 'Long':
+			return Number.MAX_SAFE_INTEGER;
 		default:
 			return 0;
 	}
@@ -250,23 +254,18 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 				type: 'Bool',
 				name: formData.varName!
 			});
-		} else if (formData.type === 'Byte') {
+		} else if (
+			formData.type === 'Byte' ||
+			formData.type === 'Short' ||
+			formData.type === 'Int' ||
+			formData.type === 'Long' ||
+			formData.type === 'Sbyte' ||
+			formData.type === 'Uint' ||
+			formData.type === 'Ulong' ||
+			formData.type === 'Ushort'
+		) {
 			addElement({
-				type: 'Byte',
-				name: formData.varName!,
-				minValue: formData.minValue,
-				maxValue: formData.maxValue
-			});
-		} else if (formData.type === 'Short') {
-			addElement({
-				type: 'Short',
-				name: formData.varName!,
-				minValue: formData.minValue,
-				maxValue: formData.maxValue
-			});
-		} else if (formData.type === 'Int') {
-			addElement({
-				type: 'Int',
+				type: formData.type,
 				name: formData.varName!,
 				minValue: formData.minValue,
 				maxValue: formData.maxValue
