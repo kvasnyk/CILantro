@@ -68,6 +68,10 @@ const getMinValue = (type: string) => {
 			return 0;
 		case 'Ushort':
 			return 0;
+		case 'Float':
+		case 'Double':
+		case 'Decimal':
+			return Number.MIN_SAFE_INTEGER;
 		default:
 			return 0;
 	}
@@ -91,6 +95,10 @@ const getMaxValue = (type: string) => {
 			return Number.MAX_SAFE_INTEGER;
 		case 'Ushort':
 			return 65535;
+		case 'Float':
+		case 'Double':
+		case 'Decimal':
+			return Number.MAX_SAFE_INTEGER;
 		default:
 			return 0;
 	}
@@ -108,6 +116,9 @@ const validateAddInputOutputElementData = (formData: AddInputOutputElementData, 
 	const isUint = formData.type === 'Uint';
 	const isUlong = formData.type === 'Ulong';
 	const isUShort = formData.type === 'Ushort';
+	const isFloat = formData.type === 'Float';
+	const isDouble = formData.type === 'Double';
+	const isDecimal = formData.type === 'Decimal';
 
 	const isInput = variant === 'input';
 
@@ -123,7 +134,19 @@ const validateAddInputOutputElementData = (formData: AddInputOutputElementData, 
 	return {
 		constString: isConstString && !formData.constString,
 		varName:
-			(isString || isBool || isByte || isShort || isInt || isLong || isSbyte || isUint || isUlong || isUShort) &&
+			(isString ||
+				isBool ||
+				isByte ||
+				isShort ||
+				isInt ||
+				isLong ||
+				isSbyte ||
+				isUint ||
+				isUlong ||
+				isUShort ||
+				isFloat ||
+				isDouble ||
+				isDecimal) &&
 			!hasVarName,
 		stringMinLength:
 			isString && isInput && (!formData.stringMinLength || hasMinMaxLengthError || formData.stringMinLength < 1),
@@ -213,6 +236,22 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 		}));
 	};
 
+	const handleFloatMinValueChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const newMinValue = parseFloat(e.target.value);
+		setFormData(prevFormData => ({
+			...prevFormData,
+			minValue: Math.min(Math.max(newMinValue, getMinValue(prevFormData.type)), getMaxValue(prevFormData.type))
+		}));
+	};
+
+	const handleFloatMaxValueChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const newMaxValue = parseFloat(e.target.value);
+		setFormData(prevFormData => ({
+			...prevFormData,
+			maxValue: Math.min(Math.max(newMaxValue, getMinValue(prevFormData.type)), getMaxValue(prevFormData.type))
+		}));
+	};
+
 	const handleStringBigLettersChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const newBigLetters = e.target.checked;
 		setFormData(prevFormData => ({
@@ -286,6 +325,13 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 				minValue: formData.minValue,
 				maxValue: formData.maxValue
 			});
+		} else if (formData.type === 'Float' || formData.type === 'Double' || formData.type === 'Decimal') {
+			addElement({
+				type: formData.type,
+				name: formData.varName!,
+				minValue: formData.minValue,
+				maxValue: formData.maxValue
+			});
 		}
 	};
 
@@ -309,6 +355,9 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 								<MenuItem value="Bool">{translations.shared.type_bool}</MenuItem>
 								<MenuItem value="Byte">{translations.shared.type_byte}</MenuItem>
 								<MenuItem value="ConstString">{translations.shared.type_const}</MenuItem>
+								<MenuItem value="Decimal">{translations.shared.type_decimal}</MenuItem>
+								<MenuItem value="Double">{translations.shared.type_double}</MenuItem>
+								<MenuItem value="Float">{translations.shared.type_float}</MenuItem>
 								<MenuItem value="Int">{translations.shared.type_int}</MenuItem>
 								<MenuItem value="Long">{translations.shared.type_long}</MenuItem>
 								<MenuItem value="Sbyte">{translations.shared.type_sbyte}</MenuItem>
@@ -411,7 +460,10 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 						formData.type === 'Sbyte' ||
 						formData.type === 'Uint' ||
 						formData.type === 'Ulong' ||
-						formData.type === 'Ushort' ? (
+						formData.type === 'Ushort' ||
+						formData.type === 'Float' ||
+						formData.type === 'Double' ||
+						formData.type === 'Decimal' ? (
 							<>
 								<TextField
 									label={translations.shared.name}
@@ -427,7 +479,11 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 											label={translations.shared.minValue}
 											value={formData.minValue}
 											fullWidth={true}
-											onChange={handleMinValueChange}
+											onChange={
+												formData.type === 'Float' || formData.type === 'Double' || formData.type === 'Decimal'
+													? handleFloatMinValueChange
+													: handleMinValueChange
+											}
 											error={formErrors.minValue}
 											type="number"
 										/>
@@ -436,7 +492,11 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 											label={translations.shared.maxValue}
 											value={formData.maxValue}
 											fullWidth={true}
-											onChange={handleMaxValueChange}
+											onChange={
+												formData.type === 'Float' || formData.type === 'Double' || formData.type === 'Decimal'
+													? handleFloatMaxValueChange
+													: handleMaxValueChange
+											}
 											error={formErrors.maxValue}
 											type="number"
 										/>
