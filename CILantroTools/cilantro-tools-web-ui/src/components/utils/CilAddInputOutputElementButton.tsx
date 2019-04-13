@@ -60,6 +60,14 @@ const getMinValue = (type: string) => {
 			return -2147483648;
 		case 'Long':
 			return Number.MIN_SAFE_INTEGER;
+		case 'Sbyte':
+			return -128;
+		case 'Uint':
+			return 0;
+		case 'Ulong':
+			return 0;
+		case 'Ushort':
+			return 0;
 		default:
 			return 0;
 	}
@@ -75,6 +83,14 @@ const getMaxValue = (type: string) => {
 			return 2147483647;
 		case 'Long':
 			return Number.MAX_SAFE_INTEGER;
+		case 'Sbyte':
+			return 127;
+		case 'Uint':
+			return 4294967295;
+		case 'Ulong':
+			return Number.MAX_SAFE_INTEGER;
+		case 'Ushort':
+			return 65535;
 		default:
 			return 0;
 	}

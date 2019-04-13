@@ -42,6 +42,14 @@ namespace CILantroToolsWebAPI.JsonConverters
                     return JsonConvert.DeserializeObject<IntElement>(jObject.ToString(), jsonSerializerSettings);
                 case "Long":
                     return JsonConvert.DeserializeObject<LongElement>(jObject.ToString(), jsonSerializerSettings);
+                case "Sbyte":
+                    return JsonConvert.DeserializeObject<SbyteElement>(jObject.ToString(), jsonSerializerSettings);
+                case "Uint":
+                    return JsonConvert.DeserializeObject<UintElement>(jObject.ToString(), jsonSerializerSettings);
+                case "Ulong":
+                    return JsonConvert.DeserializeObject<UlongElement>(jObject.ToString(), jsonSerializerSettings);
+                case "Ushort":
+                    return JsonConvert.DeserializeObject<UshortElement>(jObject.ToString(), jsonSerializerSettings);
                 default:
                     throw new ArgumentException();
             }
