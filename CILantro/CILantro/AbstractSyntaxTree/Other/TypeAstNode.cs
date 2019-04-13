@@ -18,10 +18,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("string");
             if (stringChildren.PopulateWith(parseNode))
             {
-                Type = new CilTypeSimple
-                {
-                    Kind = CilSimpleTypeKind.String
-                };
+                Type = new CilTypeString();
 
                 return;
             }

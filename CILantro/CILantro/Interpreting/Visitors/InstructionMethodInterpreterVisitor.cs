@@ -5,6 +5,7 @@ using CILantro.Interpreting.State;
 using CILantro.Structure;
 using CILantro.Utils;
 using CILantro.Visitors;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -50,10 +51,27 @@ namespace CILantro.Interpreting.Visitors
 
             if (!(instruction.ReturnType is CilTypeVoid))
             {
-                var resultAddress = _heap.Store(result);
-                var resultRef = new CilReference(resultAddress);
+                CilObject obj = null;
 
-                _state.CurrentEvaluationStack.Push(resultRef);
+                if (instruction.ReturnType is CilTypeSimple simpleType)
+                {
+                    obj = simpleType.BuildValue(result);
+                }
+                else if (instruction.ReturnType is CilTypeString stringType)
+                {
+                    var resultAddress = _heap.Store(result);
+                    obj = new CilReference(resultAddress);
+                }
+                else if (instruction.ReturnType is CilTypeValue valueType)
+                {
+                    obj = new CilValueTypeValue(result);
+                }
+                else
+                {
+                    throw new NotImplementedException();
+                }
+
+                _state.CurrentEvaluationStack.Push(obj);
             }
 
             _state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);

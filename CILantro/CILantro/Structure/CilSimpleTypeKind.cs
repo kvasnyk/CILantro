@@ -10,7 +10,6 @@
         Int16,
         Int32,
         Int64,
-        String,
         UInt8,
         UInt16,
         UInt32,
