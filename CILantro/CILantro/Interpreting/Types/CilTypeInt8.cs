@@ -1,15 +1,17 @@
 ﻿using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.StackObjects;
+using CILantro.Interpreting.Values;
 using CILantro.Structure;
 using System;
 
 namespace CILantro.Interpreting.Types
 {
-    public class CilTypeVoid : CilType
+    public class CilTypeInt8 : CilType
     {
         public override IStackObject CreateInstanceFromRuntime(object obj, CilManagedMemory managedMemory, CilProgram program)
         {
-            throw new ArgumentException("Cannot create an instance of type void.");
+            var value = new CilValueInt8((sbyte)obj);
+            return value;
         }
 
         public override Type GetRuntimeType()

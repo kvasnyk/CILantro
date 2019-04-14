@@ -18,12 +18,15 @@ namespace CILantro.Structure
             Classes = decls.Classes;
         }
 
+        public bool IsExternalType(CilClassName className)
+        {
+            return AssemblyRefs.Any(ar => ar.Name == className.AssemblyName);
+        }
+
         public bool IsExternalType(CilTypeSpec typeSpec)
         {
             if (typeSpec.ClassName != null)
-            {
-                return AssemblyRefs.Any(ar => ar.Name == typeSpec.ClassName.AssemblyName);
-            }
+                return IsExternalType(typeSpec.ClassName);
 
             throw new NotImplementedException();
         }

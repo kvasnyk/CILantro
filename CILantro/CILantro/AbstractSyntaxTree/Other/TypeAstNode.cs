@@ -73,14 +73,10 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<ClassNameAstNode>();
             if (valueTypeClassNameChildren.PopulateWith(parseNode))
             {
-                //Type = new CilTypeValue
-                //{
-                //    ClassName = valueTypeClassNameChildren.Child2.ClassName
-                //};
+                var className = valueTypeClassNameChildren.Child2.ClassName;
+                Type = new CilTypeValueType(className);
 
-                //return;
-
-                throw new NotImplementedException();
+                return;
             }
 
             // _("uint8")
@@ -88,14 +84,9 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("uint8");
             if (uint8Children.PopulateWith(parseNode))
             {
-                //Type = new CilTypeSimple
-                //{
-                //    Kind = CilSimpleTypeKind.UInt8
-                //};
+                Type = new CilTypeUInt8();
 
-                //return;
-
-                throw new NotImplementedException();
+                return;
             }
 
             // _("char")
@@ -113,14 +104,9 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("float64");
             if (float64Children.PopulateWith(parseNode))
             {
-                //Type = new CilTypeSimple
-                //{
-                //    Kind = CilSimpleTypeKind.Float64
-                //};
+                Type = new CilTypeFloat64();
 
-                //return;
-
-                throw new NotImplementedException();
+                return;
             }
 
             // _("float32")
@@ -128,14 +114,9 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("float32");
             if (float32Children.PopulateWith(parseNode))
             {
-                //Type = new CilTypeSimple
-                //{
-                //    Kind = CilSimpleTypeKind.Float32
-                //};
+                Type = new CilTypeFloat32();
 
-                //return;
-
-                throw new NotImplementedException();
+                return;
             }
 
             // _("int64")
@@ -143,14 +124,9 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("int64");
             if (int64Children.PopulateWith(parseNode))
             {
-                //Type = new CilTypeSimple
-                //{
-                //    Kind = CilSimpleTypeKind.Int64
-                //};
+                Type = new CilTypeInt64();
 
-                //return;
-
-                throw new NotImplementedException();
+                return;
             }
 
             // _("int8")
@@ -158,14 +134,9 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("int8");
             if (int8Children.PopulateWith(parseNode))
             {
-                //Type = new CilTypeSimple
-                //{
-                //    Kind = CilSimpleTypeKind.Int8
-                //};
+                Type = new CilTypeInt8();
 
-                //return;
-
-                throw new NotImplementedException();
+                return;
             }
 
             // _("uint16")
@@ -173,14 +144,9 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("uint16");
             if (uint16Children.PopulateWith(parseNode))
             {
-                //Type = new CilTypeSimple
-                //{
-                //    Kind = CilSimpleTypeKind.UInt16
-                //};
+                Type = new CilTypeUInt16();
 
-                //return;
-
-                throw new NotImplementedException();
+                return;
             }
 
             // _("uint64")
@@ -188,14 +154,9 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("uint64");
             if (uint64Children.PopulateWith(parseNode))
             {
-                //Type = new CilTypeSimple
-                //{
-                //    Kind = CilSimpleTypeKind.UInt64
-                //};
+                Type = new CilTypeUInt64();
 
-                //return;
-
-                throw new NotImplementedException();
+                return;
             }
 
             // _("uint32")
@@ -203,14 +164,9 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("uint32");
             if (uint32Children.PopulateWith(parseNode))
             {
-                //Type = new CilTypeSimple
-                //{
-                //    Kind = CilSimpleTypeKind.UInt32
-                //};
+                Type = new CilTypeUInt32();
 
-                //return;
-
-                throw new NotImplementedException();
+                return;
             }
 
             // _("int16")
@@ -218,14 +174,9 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("int16");
             if (int16Children.PopulateWith(parseNode))
             {
-                //Type = new CilTypeSimple
-                //{
-                //    Kind = CilSimpleTypeKind.Int16
-                //};
+                Type = new CilTypeInt16();
 
-                //return;
-
-                throw new NotImplementedException();
+                return;
             }
 
             throw new NotImplementedException();

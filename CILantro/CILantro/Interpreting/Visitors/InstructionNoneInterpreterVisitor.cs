@@ -5,7 +5,6 @@ using CILantro.Interpreting.StackObjects;
 using CILantro.Interpreting.State;
 using CILantro.Interpreting.Values;
 using CILantro.Visitors;
-using System;
 
 namespace CILantro.Interpreting.Visitors
 {
@@ -80,98 +79,82 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadConstI42Instruction(LoadConstI42Instruction instruction)
         {
-            // TODO: correct implementation
+            // TODO: finish implementation
 
-            //var intValue = new CilInt32Value(2);
-            //_state.CurrentEvaluationStack.Push(intValue);
+            var value = new CilValueInt32(2);
+            _state.EvaluationStack.Push(value);
 
-            //_state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
-
-            throw new NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitLoadConstI43Instruction(LoadConstI43Instruction instruction)
         {
-            // TODO: correct implementation
+            // TODO: finish implementation
 
-            //var intValue = new CilInt32Value(3);
-            //_state.CurrentEvaluationStack.Push(intValue);
+            var value = new CilValueInt32(3);
+            _state.EvaluationStack.Push(value);
 
-            //_state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
-
-            throw new NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitLoadConstI44Instruction(LoadConstI44Instruction instruction)
         {
-            // TODO: correct implementation
+            // TODO: finish implementation
 
-            //var intValue = new CilInt32Value(4);
-            //_state.CurrentEvaluationStack.Push(intValue);
+            var value = new CilValueInt32(4);
+            _state.EvaluationStack.Push(value);
 
-            //_state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
-
-            throw new NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitLoadConstI45Instruction(LoadConstI45Instruction instruction)
         {
-            // TODO: correct implementation
+            // TODO: finish implementation
 
-            //var intValue = new CilInt32Value(5);
-            //_state.CurrentEvaluationStack.Push(intValue);
+            var value = new CilValueInt32(5);
+            _state.EvaluationStack.Push(value);
 
-            //_state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
-
-            throw new NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitLoadConstI46Instruction(LoadConstI46Instruction instruction)
         {
-            // TODO: correct implementation
+            // TODO: finish implementation
 
-            //var intValue = new CilInt32Value(6);
-            //_state.CurrentEvaluationStack.Push(intValue);
+            var value = new CilValueInt32(6);
+            _state.EvaluationStack.Push(value);
 
-            //_state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
-
-            throw new NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitLoadConstI47Instruction(LoadConstI47Instruction instruction)
         {
-            // TODO: correct implementation
+            // TODO: finish implementation
 
-            //var intValue = new CilInt32Value(7);
-            //_state.CurrentEvaluationStack.Push(intValue);
+            var value = new CilValueInt32(7);
+            _state.EvaluationStack.Push(value);
 
-            //_state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
-
-            throw new NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitLoadConstI48Instruction(LoadConstI48Instruction instruction)
         {
-            // TODO: correct implementation
+            // TODO: finish implementation
 
-            //var intValue = new CilInt32Value(8);
-            //_state.CurrentEvaluationStack.Push(intValue);
+            var value = new CilValueInt32(8);
+            _state.EvaluationStack.Push(value);
 
-            //_state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
-
-            throw new NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitLoadConstI4M1Instruction(LoadConstI4M1Instruction instruction)
         {
-            // TODO: correct implementation
+            // TODO: finish implementation
 
-            //var intValue = new CilInt32Value(-1);
-            //_state.CurrentEvaluationStack.Push(intValue);
+            var value = new CilValueInt32(-1);
+            _state.EvaluationStack.Push(value);
 
-            //_state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
-
-            throw new NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitLoadLocal0Instruction(LoadLocal0Instruction instruction)
@@ -179,7 +162,6 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             var value = _state.Locals.Load(0);
-
             _state.EvaluationStack.Push(value);
 
             _state.MoveToNextInstruction();

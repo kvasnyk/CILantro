@@ -1,15 +1,12 @@
 ﻿using CILantro.Instructions;
 using CILantro.Instructions.Method;
 using CILantro.Interpreting.Memory;
-using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.StackObjects;
 using CILantro.Interpreting.State;
 using CILantro.Interpreting.Types;
-using CILantro.Interpreting.Values;
 using CILantro.Structure;
 using CILantro.Utils;
 using CILantro.Visitors;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -87,38 +84,11 @@ namespace CILantro.Interpreting.Visitors
 
         private void StoreExternalResult(object result, CilType returnType)
         {
-            if (returnType is CilTypeString)
+            if (!(returnType is CilTypeVoid))
             {
-                var cilString = new CilString(result as string);
-                var stringRef = _managedMemory.Store(cilString);
-                _state.EvaluationStack.Push(stringRef);
-
-                return;
+                var stackObject = returnType.CreateInstanceFromRuntime(result, _managedMemory, _program);
+                _state.EvaluationStack.Push(stackObject);
             }
-            
-            if (returnType is CilTypeArray typeArray)
-            {
-                var cilArray = new CilArray(result as Array, typeArray.ElementType);
-                var arrayRef = _managedMemory.Store(cilArray);
-                _state.EvaluationStack.Push(arrayRef);
-
-                return;
-            }
-
-            if (returnType is CilTypeInt32)
-            {
-                var value = new CilValueInt32((int)result);
-                _state.EvaluationStack.Push(value);
-
-                return;
-            }
-
-            if (returnType is CilTypeVoid)
-            {
-                return;
-            }
-
-            throw new NotImplementedException();
         }
 
         private object[] PopMethodArguments(CilInstructionMethod instruction)

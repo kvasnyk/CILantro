@@ -5,11 +5,11 @@ using System;
 
 namespace CILantro.Interpreting.Values
 {
-    public struct CilValueChar : IStackObject
+    public struct CilValueExternal : IStackObject
     {
-        public char Value { get; }
+        public object Value { get; }
 
-        public CilValueChar(char value)
+        public CilValueExternal(object value)
         {
             Value = value;
         }
@@ -21,7 +21,7 @@ namespace CILantro.Interpreting.Values
 
         public object AsRuntime(CilType type, CilManagedMemory managedMemory)
         {
-            if (type is CilTypeChar)
+            if (type is CilTypeValueType)
                 return Value;
 
             throw new NotImplementedException();

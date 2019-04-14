@@ -1,32 +1,30 @@
 ﻿using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.StackObjects;
 using CILantro.Interpreting.Types;
+using System;
 
 namespace CILantro.Interpreting.Values
 {
-    public struct CilValueInt16 : IStackObject
+    public struct CilValueUInt16 : IStackObject
     {
-        public short Value { get; }
+        public ushort Value { get; }
 
-        public CilValueInt16(short value)
+        public CilValueUInt16(ushort value)
         {
             Value = value;
         }
 
-        public T? As<T>()
-            where T : struct, IStackObject
+        public T? As<T>() where T : struct, IStackObject
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public object AsRuntime(CilType type, CilManagedMemory managedMemory)
         {
-            if (type is CilTypeChar)
-                return (char)Value;
             if (type is CilTypeInt32)
                 return (int)Value;
 
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

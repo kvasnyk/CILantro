@@ -1,8 +1,8 @@
 ﻿using CILantro.Instructions.String;
 using CILantro.Interpreting.Memory;
+using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.State;
 using CILantro.Visitors;
-using System;
 
 namespace CILantro.Interpreting.Visitors
 {
@@ -20,15 +20,14 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadStringInstruction(LoadStringInstruction instruction)
         {
-            // TODO: correct implementation
+            // TODO: finish implementation
 
-            //var stringAddress = _heap.Store(instruction.StringValue);
-            //var stringRef = new CilReference(stringAddress);
+            var cilString = new CilString(instruction.StringValue);
 
-            //_state.CurrentEvaluationStack.Push(stringRef);
-            //_state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
+            var reference = _managedMemory.Store(cilString);
+            _state.EvaluationStack.Push(reference);
 
-            throw new NotImplementedException();
+            _state.MoveToNextInstruction();
         }
     }
 }

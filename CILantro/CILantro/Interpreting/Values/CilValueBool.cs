@@ -4,27 +4,24 @@ using CILantro.Interpreting.Types;
 
 namespace CILantro.Interpreting.Values
 {
-    public struct CilValueInt16 : IStackObject
+    public struct CilValueBool : IStackObject
     {
-        public short Value { get; }
+        public bool Value { get; }
 
-        public CilValueInt16(short value)
+        public CilValueBool(bool value)
         {
             Value = value;
         }
 
-        public T? As<T>()
-            where T : struct, IStackObject
+        public T? As<T>() where T : struct, IStackObject
         {
             throw new System.NotImplementedException();
         }
 
         public object AsRuntime(CilType type, CilManagedMemory managedMemory)
         {
-            if (type is CilTypeChar)
-                return (char)Value;
-            if (type is CilTypeInt32)
-                return (int)Value;
+            if (type is CilTypeBool)
+                return Value;
 
             throw new System.NotImplementedException();
         }
