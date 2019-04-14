@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CILantro.Interpreting.Types;
+using System;
 using System.Reflection;
 
 namespace CILantro.Structure
@@ -7,11 +8,22 @@ namespace CILantro.Structure
     {
         public CilClassName ClassName { get; set; }
 
-        public Type GetRuntimeType()
+        public CilType GetCilType()
         {
-            var assembly = Assembly.Load(ClassName.AssemblyName);
-            var type = assembly.GetType(ClassName.ClassName);
-            return type;
+            if (ClassName != null)
+            {
+                var assembly = Assembly.Load(ClassName.AssemblyName);
+                var type = assembly.GetType(ClassName.ClassName);
+
+                if (type == typeof(char))
+                    return new CilTypeChar();
+                if (type == typeof(string))
+                    return new CilTypeString();
+                else
+                    throw new NotImplementedException();
+            }
+
+            throw new NotImplementedException();
         }
     }
 }

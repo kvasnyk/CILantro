@@ -1,6 +1,4 @@
 ﻿using CILantro.Instructions;
-using CILantro.Interpreting.Objects;
-using System.Collections.Generic;
 
 namespace CILantro.Interpreting.State
 {
@@ -8,10 +6,10 @@ namespace CILantro.Interpreting.State
     {
         public CilInstruction Instruction { get; set; }
 
-        public Stack<CilObject> EvaluationStack { get; set; }
+        public CilEvaluationStack EvaluationStack { get; set; }
 
         public CilMethodInfo MethodInfo { get; set; }
 
-        public CilMethodLocals Locals { get; set; }
+        public CilLocals Locals { get; set; }
     }
 }

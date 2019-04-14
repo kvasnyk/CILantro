@@ -1,7 +1,9 @@
-﻿namespace CILantro.Interpreting.Objects
+﻿using CILantro.Interpreting.Types;
+
+namespace CILantro.Interpreting.Objects
 {
     public abstract class CilObject
     {
-        public abstract CilObject Duplicate();
+        public abstract object AsRuntime(CilType type);
     }
 }

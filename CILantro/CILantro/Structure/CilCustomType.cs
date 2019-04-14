@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CILantro.Interpreting.Types;
+using System.Collections.Generic;
 
 namespace CILantro.Structure
 {

@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace CILantro.Structure
+namespace CILantro.Interpreting.Types
 {
     public class CilTypeVoid : CilType
     {
         public override Type GetRuntimeType()
         {
-            return typeof(void);
+            throw new NotImplementedException();
         }
     }
 }

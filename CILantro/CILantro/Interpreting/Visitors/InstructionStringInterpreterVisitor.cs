@@ -1,8 +1,8 @@
 ﻿using CILantro.Instructions.String;
 using CILantro.Interpreting.Memory;
-using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.State;
 using CILantro.Visitors;
+using System;
 
 namespace CILantro.Interpreting.Visitors
 {
@@ -10,21 +10,25 @@ namespace CILantro.Interpreting.Visitors
     {
         private readonly CilControlState _state;
 
-        private readonly CilHeap _heap;
+        private readonly CilManagedMemory _managedMemory;
 
-        public InstructionStringInterpreterVisitor(CilControlState state, CilHeap heap)
+        public InstructionStringInterpreterVisitor(CilControlState state, CilManagedMemory managedMemory)
         {
             _state = state;
-            _heap = heap;
+            _managedMemory = managedMemory;
         }
 
         protected override void VisitLoadStringInstruction(LoadStringInstruction instruction)
         {
-            var stringAddress = _heap.Store(instruction.StringValue);
-            var stringRef = new CilReference(stringAddress);
+            // TODO: correct implementation
 
-            _state.CurrentEvaluationStack.Push(stringRef);
-            _state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
+            //var stringAddress = _heap.Store(instruction.StringValue);
+            //var stringRef = new CilReference(stringAddress);
+
+            //_state.CurrentEvaluationStack.Push(stringRef);
+            //_state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
+
+            throw new NotImplementedException();
         }
     }
 }

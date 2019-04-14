@@ -1,5 +1,4 @@
 ﻿using CILantro.Instructions;
-using CILantro.Interpreting.Objects;
 using CILantro.Structure;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +9,15 @@ namespace CILantro.Interpreting.State
     {
         public Stack<CilMethodState> CallStack { get; set; }
 
-        public CilMethodState CurrentMethodState => CallStack.Peek();
+        public CilMethodState MethodState => CallStack.Peek();
 
-        public CilInstruction CurrentInstruction => CurrentMethodState.Instruction;
+        public CilInstruction Instruction => MethodState.Instruction;
 
-        public Stack<CilObject> CurrentEvaluationStack => CurrentMethodState.EvaluationStack;
+        public CilEvaluationStack EvaluationStack => MethodState.EvaluationStack;
 
-        public CilMethodInfo CurrentMethodInfo => CurrentMethodState.MethodInfo;
+        public CilMethodInfo MethodInfo => MethodState.MethodInfo;
 
-        public CilMethodLocals CurrentLocals => CurrentMethodState.Locals;
+        public CilLocals Locals => MethodState.Locals;
 
         public CilControlState(CilMethod entryPoint)
         {
@@ -26,10 +25,15 @@ namespace CILantro.Interpreting.State
             CallStack.Push(new CilMethodState
             {
                 Instruction = entryPoint.Instructions.First(),
-                EvaluationStack = new Stack<CilObject>(),
+                EvaluationStack = new CilEvaluationStack(),
                 MethodInfo = new CilMethodInfo(entryPoint),
-                Locals = new CilMethodLocals()
+                Locals = new CilLocals()
             });
+        }
+
+        public void MoveToNextInstruction()
+        {
+            MethodState.Instruction = MethodInfo.GetNextInstruction(Instruction);
         }
     }
 }

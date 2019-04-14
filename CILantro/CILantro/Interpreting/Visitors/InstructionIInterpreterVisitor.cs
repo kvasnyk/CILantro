@@ -1,7 +1,7 @@
 ﻿using CILantro.Instructions.I;
 using CILantro.Interpreting.Memory;
-using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.State;
+using CILantro.Interpreting.Values;
 using CILantro.Visitors;
 
 namespace CILantro.Interpreting.Visitors
@@ -10,9 +10,9 @@ namespace CILantro.Interpreting.Visitors
     {
         private readonly CilControlState _state;
 
-        private readonly CilHeap _heap;
+        private readonly CilManagedMemory _heap;
 
-        public InstructionIInterpreterVisitor(CilControlState state, CilHeap heap)
+        public InstructionIInterpreterVisitor(CilControlState state, CilManagedMemory heap)
         {
             _state = state;
             _heap = heap;
@@ -20,10 +20,12 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadConstI4ShortInstruction(LoadConstI4ShortInstruction instruction)
         {
-            var intValue = new CilInt16Value((short)instruction.Value);
-            _state.CurrentEvaluationStack.Push(intValue);
+            // TODO: finish implementation
 
-            _state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
+            var value = new CilValueInt32(instruction.Value);
+            _state.EvaluationStack.Push(value);
+
+            _state.MoveToNextInstruction();
         }
     }
 }

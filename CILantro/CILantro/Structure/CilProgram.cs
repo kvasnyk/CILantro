@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CILantro.Structure
@@ -15,6 +16,16 @@ namespace CILantro.Structure
         {
             AssemblyRefs = decls.AssemblyRefs;
             Classes = decls.Classes;
+        }
+
+        public bool IsExternalType(CilTypeSpec typeSpec)
+        {
+            if (typeSpec.ClassName != null)
+            {
+                return AssemblyRefs.Any(ar => ar.Name == typeSpec.ClassName.AssemblyName);
+            }
+
+            throw new NotImplementedException();
         }
     }
 }

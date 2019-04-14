@@ -10,7 +10,7 @@ namespace CILantro.Interpreting.Visitors
     {
         private readonly CilControlState _state;
 
-        private readonly CilHeap _heap;
+        private readonly CilManagedMemory _managedMemory;
 
         private readonly InstructionNoneInterpreterVisitor _instructionNoneVisitor;
 
@@ -35,18 +35,18 @@ namespace CILantro.Interpreting.Visitors
         public CilInterpreterInstructionsVisitor(CilProgram program)
         {
             _state = new CilControlState(program.EntryPoint);
-            _heap = new CilDictionaryHeap();
+            _managedMemory = new CilDictionaryManagedMemory();
 
-            _instructionNoneVisitor = new InstructionNoneInterpreterVisitor(_state, _heap);
-            _instructionMethodVisitor = new InstructionMethodInterpreterVisitor(_state, _heap);
-            _instructionStringVisitor = new InstructionStringInterpreterVisitor(_state, _heap);
-            _instructionIVisitor = new InstructionIInterpreterVisitor(_state, _heap);
-            _instructionTypeVisitor = new InstructionTypeInterpreterVisitor(_state, _heap);
+            _instructionNoneVisitor = new InstructionNoneInterpreterVisitor(_state, _managedMemory);
+            _instructionMethodVisitor = new InstructionMethodInterpreterVisitor(program, _state, _managedMemory);
+            _instructionStringVisitor = new InstructionStringInterpreterVisitor(_state, _managedMemory);
+            _instructionIVisitor = new InstructionIInterpreterVisitor(_state, _managedMemory);
+            _instructionTypeVisitor = new InstructionTypeInterpreterVisitor(_state, _managedMemory);
         }
 
         protected override CilInstruction GetNextInstruction()
         {
-            return _state.CurrentInstruction;
+            return _state.Instruction;
         }
     }
 }

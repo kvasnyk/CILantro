@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace CILantro.Utils
 {
-    public class MethodCallerConfig
+    public class ExternalMethodCallerConfig
     {
         public string AssemblyName { get; set; }
 
@@ -18,14 +18,14 @@ namespace CILantro.Utils
         public object Instance { get; set; }
     }
 
-    public static class MethodCaller
+    public static class ExternalMetodCaller
     {
-        public static object Call(MethodCallerConfig config)
+        public static object Call(ExternalMethodCallerConfig config)
         {
             return CallBase(config);
         }
 
-        private static object CallBase(MethodCallerConfig config)
+        private static object CallBase(ExternalMethodCallerConfig config)
         {
             var assembly = Assembly.Load(config.AssemblyName);
             var @class = assembly.GetType(config.ClassName);

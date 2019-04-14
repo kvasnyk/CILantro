@@ -2,9 +2,8 @@
 using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.State;
+using CILantro.Interpreting.Values;
 using CILantro.Visitors;
-using System;
-using System.Reflection;
 
 namespace CILantro.Interpreting.Visitors
 {
@@ -12,29 +11,26 @@ namespace CILantro.Interpreting.Visitors
     {
         private readonly CilControlState _state;
 
-        private readonly CilHeap _heap;
+        private readonly CilManagedMemory _managedMemory;
 
-        public InstructionTypeInterpreterVisitor(CilControlState state, CilHeap heap)
+        public InstructionTypeInterpreterVisitor(CilControlState state, CilManagedMemory managedMemory)
         {
             _state = state;
-            _heap = heap;
+            _managedMemory = managedMemory;
         }
 
         public override void VisitNewArrayInstruction(NewArrayInstruction instruction)
         {
-            var numElems = _state.CurrentEvaluationStack.Pop() as CilInt32Value;
+            // TODO: finish implementation
 
-            var assembly = Assembly.Load(instruction.TypeSpec.ClassName.AssemblyName);
-            var type = assembly.GetType(instruction.TypeSpec.ClassName.ClassName);
+            _state.EvaluationStack.Pop(out CilValueInt32 numElems);
 
-            var array = Array.CreateInstance(type, numElems.Value);
+            var newArr = new CilArray(instruction.TypeSpec.GetCilType(), numElems.Value);
+            var arrRef = _managedMemory.Store(newArr);
 
-            var arrAddress = _heap.Store(array);
-            var arrRef = new CilReference(arrAddress);
+            _state.EvaluationStack.Push(arrRef);
 
-            _state.CurrentEvaluationStack.Push(arrRef);
-
-            _state.CurrentMethodState.Instruction = _state.CurrentMethodInfo.GetNextInstruction(instruction);
+            _state.MoveToNextInstruction();
         }
     }
 }

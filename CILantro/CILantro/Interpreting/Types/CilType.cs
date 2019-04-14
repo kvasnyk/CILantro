@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CILantro.Structure
+namespace CILantro.Interpreting.Types
 {
     public abstract class CilType
     {

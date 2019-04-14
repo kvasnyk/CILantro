@@ -1,4 +1,6 @@
-﻿namespace CILantro.Structure
+﻿using CILantro.Interpreting.Types;
+
+namespace CILantro.Structure
 {
     public class CilSigArg
     {
