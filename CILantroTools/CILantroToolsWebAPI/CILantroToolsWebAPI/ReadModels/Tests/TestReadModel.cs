@@ -81,7 +81,7 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
             Category = test.CategoryId.HasValue ? _categoryMapping.Invoke(test.Category) : null,
             SubcategoryId = test.SubcategoryId,
             Subcategory = test.SubcategoryId.HasValue ? _subcategoryMapping.Invoke(test.Subcategory) : null,
-            IoExamples = test.IoExamples.AsQueryable().Select(_ioExampleMapping).OrderBy(e => e.Name).ToList(),
+            IoExamples = test.IoExamples.AsQueryable().Select(_ioExampleMapping).OrderByDescending(e => e.Name.Split(new char[] { ' ' })[0]).ThenBy(e => e.Name.Split(new char[] { ' ' })[1]).ToList(),
             HasIlSources = test.HasIlSources,
             HasExe = test.HasExe,
             CreatedOn = test.CreatedOn,

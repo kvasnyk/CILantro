@@ -214,22 +214,6 @@ const CilTestInputOutputExamplesEditor: FunctionComponent<CilTestInputOutputExam
 				) : null}
 			</div>
 
-			{props.test.ioExamples.map(e => (
-				<>
-					<Typography variant="h6" className={classes.exampleName}>
-						{e.name}
-					</Typography>
-					<div className={classes.exampleInputOutput}>
-						<div className={classes.exampleInput}>
-							<CilCodeEditor code={e.input} />
-						</div>
-						<div className={classes.exampleOutput}>
-							<CilCodeEditor code={e.output} />
-						</div>
-					</div>
-				</>
-			))}
-
 			{isNewExampleEditorOpen ? (
 				<>
 					<div className={classes.newExampleName}>
@@ -279,6 +263,22 @@ const CilTestInputOutputExamplesEditor: FunctionComponent<CilTestInputOutputExam
 					</div>
 				</>
 			) : null}
+
+			{props.test.ioExamples.map(e => (
+				<>
+					<Typography variant="h6" className={classes.exampleName}>
+						{e.name}
+					</Typography>
+					<div className={classes.exampleInputOutput}>
+						<div className={classes.exampleInput}>
+							<CilCodeEditor code={e.input} />
+						</div>
+						<div className={classes.exampleOutput}>
+							<CilCodeEditor code={e.output} />
+						</div>
+					</div>
+				</>
+			))}
 		</>
 	);
 };
