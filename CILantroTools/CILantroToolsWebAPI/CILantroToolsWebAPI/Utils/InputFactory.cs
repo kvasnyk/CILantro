@@ -107,6 +107,7 @@ namespace CILantroToolsWebAPI.Utils
                     builder.Append(' ');
                 }
 
+                builder.Remove(builder.Length - 1, 1);
                 builder.AppendLine();
             }
 
