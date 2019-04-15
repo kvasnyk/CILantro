@@ -155,6 +155,15 @@ const CilTestInputOutputExamplesEditor: FunctionComponent<CilTestInputOutputExam
 	const clearNewExample = () => {
 		setIsNewOutputPopulated(false);
 		setNewExampleOutput('');
+		setInputs(prevInputs => {
+			const newInputs = [...prevInputs];
+			for (const line of newInputs) {
+				for (let i = 0; i < line.length; i++) {
+					line[i] = '';
+				}
+			}
+			return newInputs;
+		});
 	};
 
 	const handleAddButtonClick = () => {
