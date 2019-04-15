@@ -22,6 +22,12 @@ namespace CILantroToolsWebAPI.ReadModels.Runs
         public string ItemName { get; set; }
 
         public List<TestRunStepInfoReadModel> Steps { get; set; }
+
+        public string Input { get; set; }
+
+        public string ExeOutput { get; set; }
+        
+        public string AntroOutput { get; set; }
     }
 
     public class TestRunFullReadModel : IKeyReadModel

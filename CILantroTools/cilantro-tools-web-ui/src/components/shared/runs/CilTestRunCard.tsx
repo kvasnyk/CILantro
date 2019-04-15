@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { Fragment, FunctionComponent, useEffect, useState } from 'react';
 
 import {
 	Card,
@@ -27,6 +27,7 @@ import RunOutcome from '../../../api/enums/RunOutcome';
 import TestRunStep from '../../../api/enums/TestRunStep';
 import TestRunFullReadModel from '../../../api/read-models/runs/TestRunFullReadModel';
 import TestRunReadModel from '../../../api/read-models/runs/TestRunReadModel';
+import CilCodeEditor from '../../utils/CilCodeEditor';
 import CilShowTestButton from '../tests/CilShowTestButton';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -72,6 +73,18 @@ const useStyles = makeStyles((theme: Theme) => ({
 	},
 	noIcon: {
 		color: grey[500]
+	},
+	expandedItemExpandButton: {
+		transform: 'rotate(180deg)'
+	},
+	itemIo: {
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'space-around',
+		'&>*': {
+			width: '30%'
+		}
 	}
 }));
 
@@ -86,9 +99,11 @@ const CilTestRunCard: FunctionComponent<CilTestRunCardProps> = props => {
 
 	const [isExpanded, setIsExpanded] = useState<boolean>(false);
 	const [testRun, setTestRun] = useState<TestRunFullReadModel | undefined>(undefined);
+	const [expandedItem, setExpandedItem] = useState<string | undefined>(undefined);
 
 	const handleExpandButtonClick = () => {
 		setIsExpanded(prev => !prev);
+		setExpandedItem(undefined);
 	};
 
 	const backgroundColor1ClassName = classNames({
@@ -123,6 +138,10 @@ const CilTestRunCard: FunctionComponent<CilTestRunCardProps> = props => {
 		[isExpanded]
 	);
 
+	const handleExpandItemButtonClick = (itemName: string) => {
+		setExpandedItem(prev => (prev === itemName ? undefined : itemName));
+	};
+
 	const testRunItems =
 		testRun &&
 		testRun.items
@@ -148,7 +167,10 @@ const CilTestRunCard: FunctionComponent<CilTestRunCardProps> = props => {
 					inputsOutcome: generateInputFilesStep ? generateInputFilesStep.outcome : undefined,
 					exeOutputsOutcome: generateExeOutputsStep ? generateExeOutputsStep.outcome : undefined,
 					antroOutputsOutcome: generateAntroOutputsStep ? generateAntroOutputsStep.outcome : undefined,
-					compareOutcome: compareOutputsStep ? compareOutputsStep.outcome : undefined
+					compareOutcome: compareOutputsStep ? compareOutputsStep.outcome : undefined,
+					input: item.input,
+					exeOutput: item.exeOutput,
+					antroOutput: item.antroOutput
 				};
 			});
 
@@ -180,14 +202,41 @@ const CilTestRunCard: FunctionComponent<CilTestRunCardProps> = props => {
 							<Table>
 								<TableBody>
 									{testRunItems.map(item => (
-										<TableRow key={item.itemName}>
-											<TableCell>{item.itemName}</TableCell>
-											<TableCell>{getIcon(item.inputsOutcome)}</TableCell>
-											<TableCell>{getIcon(item.exeOutputsOutcome)}</TableCell>
-											<TableCell>{getIcon(item.antroOutputsOutcome)}</TableCell>
-											<TableCell>{getIcon(item.compareOutcome)}</TableCell>
-											<TableCell>{getIcon(item.compareOutcome, 'default')}</TableCell>
-										</TableRow>
+										<Fragment key={item.itemName}>
+											<TableRow>
+												<TableCell>{item.itemName}</TableCell>
+												<TableCell align="center">{getIcon(item.inputsOutcome)}</TableCell>
+												<TableCell align="center">{getIcon(item.exeOutputsOutcome)}</TableCell>
+												<TableCell align="center">{getIcon(item.antroOutputsOutcome)}</TableCell>
+												<TableCell align="center">{getIcon(item.compareOutcome)}</TableCell>
+												<TableCell align="center">{getIcon(item.compareOutcome, 'default')}</TableCell>
+												<TableCell align="right">
+													<IconButton
+														onClick={() => handleExpandItemButtonClick(item.itemName)}
+														className={expandedItem === item.itemName ? classes.expandedItemExpandButton : undefined}
+													>
+														<ExpandMoreIcon fontSize="small" />
+													</IconButton>
+												</TableCell>
+											</TableRow>
+											{expandedItem === item.itemName ? (
+												<TableRow>
+													<TableCell colSpan={7}>
+														<div className={classes.itemIo}>
+															<div>
+																<CilCodeEditor code={item.input} />
+															</div>
+															<div>
+																<CilCodeEditor code={item.exeOutput} />
+															</div>
+															<div>
+																<CilCodeEditor code={item.antroOutput} />
+															</div>
+														</div>
+													</TableCell>
+												</TableRow>
+											) : null}
+										</Fragment>
 									))}
 								</TableBody>
 							</Table>

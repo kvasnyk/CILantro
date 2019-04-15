@@ -5,7 +5,9 @@ using CILantroToolsWebAPI.Hubs;
 using CILantroToolsWebAPI.ReadModels.Runs;
 using CILantroToolsWebAPI.ReadModels.Tests;
 using CILantroToolsWebAPI.Search;
+using CILantroToolsWebAPI.Utils;
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,12 +25,15 @@ namespace CILantroToolsWebAPI.Services
 
         private readonly HubRunRunner _runRunner;
 
+        private readonly Paths _paths;
+
         public RunsService(
             TestsHelper testsHelper,
             AppKeyRepository<Run> runsRepository,
             AppKeyRepository<Test> testsRepository,
             AppKeyRepository<TestRun> testRunsRepository,
-            HubRunRunner runRunner
+            HubRunRunner runRunner,
+            Paths paths
         )
         {
             _testsHelper = testsHelper;
@@ -36,6 +41,7 @@ namespace CILantroToolsWebAPI.Services
             _testsRepository = testsRepository;
             _testRunsRepository = testRunsRepository;
             _runRunner = runRunner;
+            _paths = paths;
         }
 
         public async Task<SearchResult<RunReadModel>> SearchRunsAsync(SearchParameter searchParameter)
@@ -92,6 +98,14 @@ namespace CILantroToolsWebAPI.Services
         public async Task<TestRunFullReadModel> GetFullTestRunAsync(Guid runId, Guid testRunId)
         {
             var result = _testRunsRepository.Read<TestRunFullReadModel>().Single(tr => tr.Id == testRunId && tr.RunId == runId);
+
+            foreach (var resultItem in result.Items)
+            {
+                resultItem.Input = await File.ReadAllTextAsync(_paths.RunsData[runId][testRunId].Inputs[resultItem.ItemName].Absolute);
+                resultItem.ExeOutput = await File.ReadAllTextAsync(_paths.RunsData[runId][testRunId].Outputs[resultItem.ItemName].Absolute);
+                resultItem.AntroOutput = await File.ReadAllTextAsync(_paths.RunsData[runId][testRunId].CilAntroOutputs[resultItem.ItemName].Absolute);
+            }
+            
             return result;
         }
     }

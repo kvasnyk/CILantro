@@ -10,6 +10,9 @@ interface TestRunStepInfoReadModel {
 interface TestRunStepItemInfoReadModel {
 	itemName: string;
 	steps: TestRunStepInfoReadModel[];
+	input: string;
+	exeOutput: string;
+	antroOutput: string;
 }
 
 interface TestRunFullReadModel {
