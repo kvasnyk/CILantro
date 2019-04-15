@@ -113,7 +113,7 @@ const CilTestInputOutputExamplesEditor: FunctionComponent<CilTestInputOutputExam
 
 	const notistack = useNotistack();
 
-	const nextExampleNumber = props.test.ioExamples.length + 1;
+	const nextExampleNumber = props.test.ioExamples.filter(ioe => !ioe.name.startsWith('Difficult')).length + 1;
 
 	const [isNewExampleEditorOpen, setIsNewExampleEditorOpen] = useState<boolean>(false);
 	const [isNewOutputPopulated, setIsNewOutputPopulated] = useState<boolean>(false);
@@ -130,6 +130,8 @@ const CilTestInputOutputExamplesEditor: FunctionComponent<CilTestInputOutputExam
 				result += elementValue;
 				result += ' ';
 			}
+
+			result = result.slice(0, result.length - 1);
 			result += '\n';
 		}
 		return result;
