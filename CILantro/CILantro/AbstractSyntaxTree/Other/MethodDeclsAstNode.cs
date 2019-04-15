@@ -21,7 +21,8 @@ namespace CILantro.AbstractSyntaxTree.Other
                 MethodDecls = new CilMethodDecls
                 {
                     IsEntryPoint = false,
-                    Instructions = new List<Instructions.CilInstruction>()
+                    Instructions = new List<Instructions.CilInstruction>(),
+                    Locals = new List<CilSigArg>()
                 };
 
                 return;
