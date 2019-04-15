@@ -165,7 +165,8 @@ const CilTestInputOutputExamplesEditor: FunctionComponent<CilTestInputOutputExam
 			await testsApiClient.addTestInputOutputExample(props.test.id, {
 				name: `Example ${nextExampleNumber}`,
 				input: buildNewInput(),
-				output: newExampleOutput
+				output: newExampleOutput,
+				isDifficult: false
 			});
 			setIsNewExampleEditorOpen(false);
 			clearNewExample();

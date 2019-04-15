@@ -2,6 +2,7 @@
 using CILantroToolsWebAPI.Models.Tests.InputOutput.Elements;
 using System;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 
 namespace CILantroToolsWebAPI.Utils
@@ -15,7 +16,7 @@ namespace CILantroToolsWebAPI.Utils
         public InputFactory(InputOutput input)
         {
             _input = input;
-            _random = new Random();
+            _random = new Random(Guid.NewGuid().GetHashCode());
         }
 
         public string GenerateRandomInput()
@@ -156,89 +157,134 @@ namespace CILantroToolsWebAPI.Utils
 
         private byte GenerateByte(ByteElement byteElement)
         {
-            var result = _random.Next(byteElement.MinValue, byteElement.MaxValue + 1);
-            return (byte)result;
+            var min = (BigInteger)byteElement.MinValue;
+            var max = (BigInteger)byteElement.MaxValue;
+
+            var b = RandomBigIntegerBelow(max - min + 1);
+            b += byteElement.MinValue;
+
+            return (byte)b;
         }
 
         private int GenerateInt(IntElement intElement)
         {
-            var buf = new byte[4];
-            _random.NextBytes(buf);
-            var randInt = BitConverter.ToInt32(buf, 0);
-            var result = (Math.Abs(randInt % (intElement.MaxValue - intElement.MinValue)) + intElement.MinValue);
-            return result;
+            var min = (BigInteger)intElement.MinValue;
+            var max = (BigInteger)intElement.MaxValue;
+
+            var b = RandomBigIntegerBelow(max - min + 1);
+            b += intElement.MinValue;
+
+            return (int)b;
         }
 
         private long GenerateLong(LongElement longElement)
         {
-            var buf = new byte[8];
-            _random.NextBytes(buf);
-            var randLong = BitConverter.ToInt64(buf, 0);
-            var result = (Math.Abs(randLong % (longElement.MaxValue - longElement.MinValue)) + longElement.MinValue);
-            return result;
+            var min = (BigInteger)longElement.MinValue;
+            var max = (BigInteger)longElement.MaxValue;
+
+            var b = RandomBigIntegerBelow(max - min + 1);
+            b += longElement.MinValue;
+
+            return (long)b;
         }
 
         private sbyte GenerateSbyte(SbyteElement sbyteElement)
         {
-            var result = _random.Next(sbyteElement.MinValue, sbyteElement.MaxValue + 1);
-            return (sbyte)result;
+            var min = (BigInteger)sbyteElement.MinValue;
+            var max = (BigInteger)sbyteElement.MaxValue;
+
+            var b = RandomBigIntegerBelow(max - min + 1);
+            b += sbyteElement.MinValue;
+
+            return (sbyte)b;
         }
 
         private uint GenerateUint(UintElement uintElement)
         {
-            var buf = new byte[4];
-            _random.NextBytes(buf);
-            var randUint = BitConverter.ToUInt32(buf, 0);
-            var result = (randUint % (uintElement.MaxValue - uintElement.MinValue)) + uintElement.MinValue;
-            return result;
+            var min = (BigInteger)uintElement.MinValue;
+            var max = (BigInteger)uintElement.MaxValue;
+
+            var b = RandomBigIntegerBelow(max - min + 1);
+            b += uintElement.MinValue;
+
+            return (uint)b;
         }
 
         private ulong GenerateUlong(UlongElement ulongElement)
         {
-            var buf = new byte[8];
-            _random.NextBytes(buf);
-            var randUlong = BitConverter.ToUInt64(buf, 0);
-            var result = (randUlong % (ulongElement.MaxValue - ulongElement.MinValue)) + ulongElement.MinValue;
-            return result;
+            var min = (BigInteger)ulongElement.MinValue;
+            var max = (BigInteger)ulongElement.MaxValue;
+
+            var b = RandomBigIntegerBelow(max - min + 1);
+            b += ulongElement.MinValue;
+
+            return (ulong)b;
         }
 
         private ushort GenerateUshort(UshortElement ushortElement)
         {
-            var result = _random.Next(ushortElement.MinValue, ushortElement.MaxValue + 1);
-            return (ushort)result;
+            var min = (BigInteger)ushortElement.MinValue;
+            var max = (BigInteger)ushortElement.MaxValue;
+
+            var b = RandomBigIntegerBelow(max - min + 1);
+            b += ushortElement.MinValue;
+
+            return (ushort)b;
         }
 
         private short GenerateShort(ShortElement shortElement)
         {
-            var result = _random.Next(shortElement.MinValue, shortElement.MaxValue + 1);
-            return (short)result;
+            var min = (BigInteger)shortElement.MinValue;
+            var max = (BigInteger)shortElement.MaxValue;
+
+            var b = RandomBigIntegerBelow(max - min + 1);
+            b += shortElement.MinValue;
+
+            return (short)b;
         }
 
         private float GenerateFloat(FloatElement floatElement)
         {
-            var buf = new byte[sizeof(float)];
-            _random.NextBytes(buf);
-            var randFloat = BitConverter.ToSingle(buf, 0);
-            var result = (Math.Abs(randFloat % (floatElement.MaxValue - floatElement.MinValue)) + floatElement.MinValue);
-            return result;
+            var randDouble = GenerateDouble(new DoubleElement
+            {
+                Type = "Double",
+                MinValue = (double)floatElement.MinValue,
+                MaxValue = (double)floatElement.MaxValue
+            });
+
+            return (float)randDouble;
         }
 
         private double GenerateDouble(DoubleElement doubleElement)
         {
-            var buf = new byte[sizeof(double)];
-            _random.NextBytes(buf);
-            var randDouble = BitConverter.ToDouble(buf, 0);
-            var result = (Math.Abs(randDouble % (doubleElement.MaxValue - doubleElement.MinValue)) + doubleElement.MinValue);
-            return result;
+            return _random.NextDouble() * (doubleElement.MaxValue - doubleElement.MinValue) + doubleElement.MinValue;
         }
 
         private decimal GenerateDecimal(DecimalElement decimalElement)
         {
-            var buf = new byte[sizeof(double)];
-            _random.NextBytes(buf);
-            var randDouble = BitConverter.ToDouble(buf, 0);
-            var result = (Math.Abs(randDouble % ((double)decimalElement.MaxValue - (double)decimalElement.MinValue)) + (double)decimalElement.MinValue);
-            return (decimal)result;
+            var randDouble = GenerateDouble(new DoubleElement
+            {
+                Type = "Double",
+                MinValue = (double)decimalElement.MinValue,
+                MaxValue = (double)decimalElement.MaxValue
+            });
+
+            return (decimal)randDouble;
+        }
+
+        private BigInteger RandomBigIntegerBelow(BigInteger n)
+        {
+            byte[] bytes = n.ToByteArray();
+            BigInteger r;
+
+            do
+            {
+                _random.NextBytes(bytes);
+                bytes[bytes.Length - 1] &= (byte)0x7F;
+                r = new BigInteger(bytes);
+            } while (r >= n);
+
+            return r;
         }
     }
 }

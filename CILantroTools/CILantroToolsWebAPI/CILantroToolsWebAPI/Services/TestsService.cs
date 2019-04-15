@@ -254,6 +254,11 @@ namespace CILantroToolsWebAPI.Services
 
         public async Task AddTestInputOutputExample(Guid testId, AddTestInputOutputExampleBindingModel model)
         {
+            var test = _testsRepository.Read<TestReadModel>().Single(t => t.Id == testId);
+
+            if (model.IsDifficult)
+                model.Name = $"Difficult {test.IoExamples.Count + 1}";
+
             if (string.IsNullOrEmpty(model.Name))
                 throw new ToolsException("An example's name cannot be empty.");
 

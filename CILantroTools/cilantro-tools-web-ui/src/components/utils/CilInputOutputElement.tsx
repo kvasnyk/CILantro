@@ -263,9 +263,9 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 	) : null;
 
 	return (
-		<div className={elementClassName} onClick={handleElementClick}>
+		<div className={elementClassName}>
 			{constStringElement ? (
-				<div className={elementNameClassName}>
+				<div className={elementNameClassName} onClick={handleElementClick}>
 					{constStringElement.value}
 					{deleteButton}
 				</div>
@@ -273,7 +273,7 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 
 			{stringElement ? (
 				<>
-					<div className={elementNameClassName}>
+					<div className={elementNameClassName} onClick={handleElementClick}>
 						{stringElement.name}
 						{deleteButton}
 					</div>
@@ -303,7 +303,7 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 
 			{boolElement ? (
 				<>
-					<div className={elementNameClassName}>
+					<div className={elementNameClassName} onClick={handleElementClick}>
 						{boolElement.name}
 						{deleteButton}
 					</div>
@@ -312,7 +312,7 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 
 			{intElement ? (
 				<>
-					<div className={elementNameClassName}>
+					<div className={elementNameClassName} onClick={handleElementClick}>
 						{intElement.name}
 						{deleteButton}
 					</div>
@@ -330,7 +330,7 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 
 			{floatElement ? (
 				<>
-					<div className={elementNameClassName}>
+					<div className={elementNameClassName} onClick={handleElementClick}>
 						{floatElement.name}
 						{deleteButton}
 					</div>

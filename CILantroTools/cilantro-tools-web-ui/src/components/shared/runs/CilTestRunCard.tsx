@@ -16,6 +16,7 @@ import {
 	Typography
 } from '@material-ui/core';
 import { green, grey, red } from '@material-ui/core/colors';
+import AddIcon from '@material-ui/icons/AddRounded';
 import CheckIcon from '@material-ui/icons/CheckRounded';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMoreRounded';
 import NotCheckIcon from '@material-ui/icons/NotInterestedRounded';
@@ -23,10 +24,13 @@ import NoIcon from '@material-ui/icons/RemoveRounded';
 import { makeStyles } from '@material-ui/styles';
 
 import RunsApiClient from '../../../api/clients/RunsApiClient';
+import TestsApiClient from '../../../api/clients/TestsApiClient';
 import RunOutcome from '../../../api/enums/RunOutcome';
 import TestRunStep from '../../../api/enums/TestRunStep';
 import TestRunFullReadModel from '../../../api/read-models/runs/TestRunFullReadModel';
 import TestRunReadModel from '../../../api/read-models/runs/TestRunReadModel';
+import useNotistack from '../../../hooks/external/useNotistack';
+import translations from '../../../translations/translations';
 import CilCodeEditor from '../../utils/CilCodeEditor';
 import CilShowTestButton from '../tests/CilShowTestButton';
 
@@ -98,6 +102,9 @@ const CilTestRunCard: FunctionComponent<CilTestRunCardProps> = props => {
 	const classes = useStyles();
 
 	const runsApiClient = new RunsApiClient();
+	const testsApiClient = new TestsApiClient();
+
+	const notistack = useNotistack();
 
 	const [testRun, setTestRun] = useState<TestRunFullReadModel | undefined>(undefined);
 	const [expandedItem, setExpandedItem] = useState<string | undefined>(undefined);
@@ -175,6 +182,21 @@ const CilTestRunCard: FunctionComponent<CilTestRunCardProps> = props => {
 				};
 			});
 
+	const handleAddDifficultExampleButtonClick = async (itemName: string) => {
+		try {
+			const item = testRunItems!.find(i => i.itemName === itemName)!;
+			await testsApiClient.addTestInputOutputExample(props.testRun.testId, {
+				name: 'NOT IMPORTANT',
+				input: item.input,
+				output: item.exeOutput,
+				isDifficult: true
+			});
+			notistack.enqueueSuccess(translations.tests.ioExampleHasBeenAdded);
+		} catch (error) {
+			notistack.enqueueError(translations.tests.errorOccurredWhileAddingIoExample);
+		}
+	};
+
 	const okIcon = (fontSize: 'small' | 'large' | 'default') => (
 		<CheckIcon fontSize={fontSize} className={classes.okIcon} />
 	);
@@ -212,6 +234,9 @@ const CilTestRunCard: FunctionComponent<CilTestRunCardProps> = props => {
 												<TableCell align="center">{getIcon(item.compareOutcome)}</TableCell>
 												<TableCell align="center">{getIcon(item.compareOutcome, 'default')}</TableCell>
 												<TableCell align="right">
+													<IconButton onClick={() => handleAddDifficultExampleButtonClick(item.itemName)}>
+														<AddIcon fontSize="small" />
+													</IconButton>
 													<IconButton
 														onClick={() => handleExpandItemButtonClick(item.itemName)}
 														className={expandedItem === item.itemName ? classes.expandedItemExpandButton : undefined}
