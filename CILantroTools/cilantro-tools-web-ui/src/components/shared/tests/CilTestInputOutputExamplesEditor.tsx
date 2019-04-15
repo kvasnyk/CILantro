@@ -252,6 +252,7 @@ const CilTestInputOutputExamplesEditor: FunctionComponent<CilTestInputOutputExam
 														className={classes.elementInput}
 														value={inputs[index][elementIndex]}
 														onChange={e => handleInputsChange(index, elementIndex, e)}
+														autoFocus={elementIndex === 0}
 													/>
 												</CilInputOutputElement>
 											))}
