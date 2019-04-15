@@ -235,7 +235,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 					{tabsValue === 'il-sources' ? (
 						<div className={classes.tabContainer}>
 							<CilDetailsRow label={translations.tests.testMainIlSource}>
-								<CilDetailsValue value={testInfo.mainIlSourcePath} prefix="..." />
+								{testInfo.test.hasIlSources ? <CilDetailsValue value={testInfo.mainIlSourcePath} prefix="..." /> : null}
 								<CilGenerateTestIlSourcesButton test={testInfo.test} onIlSourcesGenerated={handleIlSourcesGenerated} />
 							</CilDetailsRow>
 							{testInfo.test.hasIlSources ? <CilCodeEditor code={testInfo.mainIlSource} /> : null}
@@ -245,7 +245,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 					{tabsValue === 'exe' ? (
 						<div className={classes.tabContainer}>
 							<CilDetailsRow label={translations.tests.testExe}>
-								<CilDetailsValue value={testInfo.exePath} prefix="..." />
+								{testInfo.test.hasExe ? <CilDetailsValue value={testInfo.exePath} prefix="..." /> : null}
 								<CilGenerateTestExeButton test={testInfo.test} onExeGenerated={handleExeGenerated} />
 								<CilRunTestExeButton type="icon-button" testInfo={testInfo} />
 							</CilDetailsRow>
