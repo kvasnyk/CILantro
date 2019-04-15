@@ -90,6 +90,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface CilTestRunCardProps {
 	testRun: TestRunReadModel;
+	isExpanded: boolean;
+	onExpandButtonClick: (testRunId: string) => void;
 }
 
 const CilTestRunCard: FunctionComponent<CilTestRunCardProps> = props => {
@@ -97,12 +99,11 @@ const CilTestRunCard: FunctionComponent<CilTestRunCardProps> = props => {
 
 	const runsApiClient = new RunsApiClient();
 
-	const [isExpanded, setIsExpanded] = useState<boolean>(false);
 	const [testRun, setTestRun] = useState<TestRunFullReadModel | undefined>(undefined);
 	const [expandedItem, setExpandedItem] = useState<string | undefined>(undefined);
 
 	const handleExpandButtonClick = () => {
-		setIsExpanded(prev => !prev);
+		props.onExpandButtonClick(props.testRun.id);
 		setExpandedItem(undefined);
 	};
 
@@ -117,7 +118,7 @@ const CilTestRunCard: FunctionComponent<CilTestRunCardProps> = props => {
 	});
 
 	const cardClassName = classNames(backgroundColor1ClassName, colorClassName, {
-		[classes.cardExpanded]: isExpanded
+		[classes.cardExpanded]: props.isExpanded
 	});
 
 	const refreshTestRun = async () => {
@@ -131,11 +132,11 @@ const CilTestRunCard: FunctionComponent<CilTestRunCardProps> = props => {
 
 	useEffect(
 		() => {
-			if (isExpanded && !testRun) {
+			if (props.isExpanded && !testRun) {
 				refreshTestRun();
 			}
 		},
-		[isExpanded]
+		[props.isExpanded]
 	);
 
 	const handleExpandItemButtonClick = (itemName: string) => {
@@ -196,7 +197,7 @@ const CilTestRunCard: FunctionComponent<CilTestRunCardProps> = props => {
 				<Typography variant="h2" className={colorClassName}>
 					{props.testRun.testName}
 				</Typography>
-				<Collapse in={isExpanded} timeout="auto" unmountOnExit={false}>
+				<Collapse in={props.isExpanded} timeout="auto" unmountOnExit={false}>
 					{testRun && testRunItems ? (
 						<Paper className={classes.tablePaper}>
 							<Table>
@@ -248,7 +249,7 @@ const CilTestRunCard: FunctionComponent<CilTestRunCardProps> = props => {
 				<CilShowTestButton testId={props.testRun.testId} iconClassName={colorClassName} />
 				<IconButton
 					className={classNames(classes.expand, colorClassName, {
-						[classes.expandOpen]: isExpanded
+						[classes.expandOpen]: props.isExpanded
 					})}
 					onClick={handleExpandButtonClick}
 				>
