@@ -271,7 +271,7 @@ const CilTestRunCard: FunctionComponent<CilTestRunCardProps> = props => {
 				</Collapse>
 			</CardContent>
 			<CardActions className={classes.cardActions}>
-				<CilShowTestButton testId={props.testRun.testId} iconClassName={colorClassName} />
+				<CilShowTestButton testId={props.testRun.testId} iconClassName={colorClassName} icon="code" />
 				<IconButton
 					className={classNames(classes.expand, colorClassName, {
 						[classes.expandOpen]: props.isExpanded

@@ -49,7 +49,7 @@ const CiLTestCard: FunctionComponent<CilTestCardProps> = props => {
 				{!props.test.isReady ? <CilTestChecklist test={props.test} /> : null}
 			</CardContent>
 			<CardActions className={classes.cardActions}>
-				<CilShowTestButton testId={props.test.id} />
+				<CilShowTestButton testId={props.test.id} icon="show" />
 			</CardActions>
 		</Card>
 	);
