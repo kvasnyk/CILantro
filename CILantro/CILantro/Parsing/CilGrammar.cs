@@ -304,7 +304,19 @@ namespace CILantro.Parsing
                 _("xor");
 
             // TODO: INSTR_VAR
-            INSTR_VAR.Rule = _("TODO: INSTR_VAR");
+            INSTR_VAR.Rule =
+                _("ladrg") |
+                ___("ldarg.s") |
+                _("ldarga") |
+                ___("ldarga.s") |
+                _("ldloc") |
+                ___("ldloc.s") |
+                _("ldloca") |
+                ___("ldloca.s") |
+                _("starg") |
+                ___("starg.s") |
+                _("stloc") |
+                ___("stloc.s");
 
             INSTR_I.Rule =
                 ___("ldc.i4") |

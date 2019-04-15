@@ -24,10 +24,63 @@ namespace CILantro.Interpreting.Visitors
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out CilValueInt32 value1, out CilValueInt32 value2);
+            _state.EvaluationStack.Pop(out var value1, out var value2);
+            var result = value1.Add(value2);
+            _state.EvaluationStack.Push(result);
 
-            var result = new CilValueInt32(value1.Value + value2.Value);
+            _state.MoveToNextInstruction();
+        }
 
+        protected override void VisitConvertI8Instruction(ConvertI8Instruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var value);
+            var result = value.Convert<CilValueInt64>();
+            _state.EvaluationStack.Push(result);
+
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitConvertR4Instruction(ConvertR4Instruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var value);
+            var result = value.Convert<CilValueFloat32>();
+            _state.EvaluationStack.Push(result);
+
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitConvertR8Instruction(ConvertR8Instruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var value);
+            var result = value.Convert<CilValueFloat64>();
+            _state.EvaluationStack.Push(result);
+
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitConvertRUnsignedInstruction(ConvertRUnsignedInstruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var value);
+            var result = value.Convert<CilValueFloat64>();
+            _state.EvaluationStack.Push(result);
+
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitConvertU8Instruction(ConvertU8Instruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var value);
+            var result = value.Convert<CilValueUInt64>();
             _state.EvaluationStack.Push(result);
 
             _state.MoveToNextInstruction();
@@ -35,7 +88,7 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitDuplicateInstruction(DuplicateInstruction instruction)
         {
-            var value = _state.EvaluationStack.Pop();
+            _state.EvaluationStack.Pop(out var value);
 
             _state.EvaluationStack.Push(value);
             _state.EvaluationStack.Push(value);
@@ -172,7 +225,26 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             var value = _state.Locals.Load(1);
+            _state.EvaluationStack.Push(value);
 
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitLoadLocal2Instruction(LoadLocal2Instruction instruction)
+        {
+            // TODO: finish implementation
+
+            var value = _state.Locals.Load(2);
+            _state.EvaluationStack.Push(value);
+
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitLoadLocal3Instruction(LoadLocal3Instruction instruction)
+        {
+            // TODO: finish implementation
+
+            var value = _state.Locals.Load(3);
             _state.EvaluationStack.Push(value);
 
             _state.MoveToNextInstruction();
@@ -201,8 +273,7 @@ namespace CILantro.Interpreting.Visitors
         {
             // TODO: finish implementation
 
-            var value = _state.EvaluationStack.Pop();
-
+            _state.EvaluationStack.Pop(out var value);
             _state.Locals.Store(0, value);
 
             _state.MoveToNextInstruction();
@@ -212,9 +283,28 @@ namespace CILantro.Interpreting.Visitors
         {
             // TODO: finish implementation
 
-            var value = _state.EvaluationStack.Pop();
-
+            _state.EvaluationStack.Pop(out var value);
             _state.Locals.Store(1, value);
+
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitStoreLocal2Instruction(StoreLocal2Instruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var value);
+            _state.Locals.Store(2, value);
+
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitStoreLocal3Instruction(StoreLocal3Instruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var value);
+            _state.Locals.Store(3, value);
 
             _state.MoveToNextInstruction();
         }

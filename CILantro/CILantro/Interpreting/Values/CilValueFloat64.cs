@@ -26,5 +26,23 @@ namespace CILantro.Interpreting.Values
 
             throw new NotImplementedException();
         }
+
+        public IStackObject Add(IStackObject value2)
+        {
+            if (value2 is CilValueFloat64 float64)
+                return new CilValueFloat64(Value + float64.Value);
+
+            throw new NotImplementedException();
+        }
+
+        public IStackObject Convert<T>() where T : struct, IStackObject
+        {
+            if (typeof(T) == typeof(CilValueFloat32))
+                return new CilValueFloat32((float)Value);
+            if (typeof(T) == typeof(CilValueFloat64))
+                return new CilValueFloat64(Value);
+
+            throw new NotImplementedException();
+        }
     }
 }

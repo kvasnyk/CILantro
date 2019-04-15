@@ -11,6 +11,8 @@ namespace CILantro.Structure
 
         public List<CilInstruction> Instructions { get; set; }
 
+        public List<CilSigArg> Locals { get; set; }
+
         public override string ToString()
         {
             return Name;

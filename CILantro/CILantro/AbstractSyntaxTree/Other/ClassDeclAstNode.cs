@@ -33,7 +33,8 @@ namespace CILantro.AbstractSyntaxTree.Other
                 {
                     Name = methodChildren.Child1.MethodName,
                     IsEntryPoint = methodChildren.Child2.MethodDecls.IsEntryPoint,
-                    Instructions = methodChildren.Child2.MethodDecls.Instructions
+                    Instructions = methodChildren.Child2.MethodDecls.Instructions,
+                    Locals = methodChildren.Child2.MethodDecls.Locals
                 };
 
                 return;

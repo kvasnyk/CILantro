@@ -40,17 +40,45 @@ namespace CILantro.Visitors
                 VisitStoreLocal0Instruction(storeLocal0Instruction);
             else if (instruction is StoreLocal1Instruction storeLocal1Instruction)
                 VisitStoreLocal1Instruction(storeLocal1Instruction);
+            else if (instruction is StoreLocal2Instruction storeLocal2Instruction)
+                VisitStoreLocal2Instruction(storeLocal2Instruction);
+            else if (instruction is StoreLocal3Instruction storeLocal3Instruction)
+                VisitStoreLocal3Instruction(storeLocal3Instruction);
             else if (instruction is LoadLocal0Instruction loadLocal0Instruction)
                 VisitLoadLocal0Instruction(loadLocal0Instruction);
             else if (instruction is LoadLocal1Instruction loadLocal1Instruction)
                 VisitLoadLocal1Instruction(loadLocal1Instruction);
+            else if (instruction is LoadLocal2Instruction loadLocal2Instruction)
+                VisitLoadLocal2Instruction(loadLocal2Instruction);
+            else if (instruction is LoadLocal3Instruction loadLocal3Instruction)
+                VisitLoadLocal3Instruction(loadLocal3Instruction);
             else if (instruction is AddInstruction addInstruction)
                 VisitAddInstruction(addInstruction);
+            else if (instruction is ConvertI8Instruction convertI8Instruction)
+                VisitConvertI8Instruction(convertI8Instruction);
+            else if (instruction is ConvertU8Instruction convertU8Instruction)
+                VisitConvertU8Instruction(convertU8Instruction);
+            else if (instruction is ConvertR4Instruction convertR4Instruction)
+                VisitConvertR4Instruction(convertR4Instruction);
+            else if (instruction is ConvertR8Instruction convertR8Instruction)
+                VisitConvertR8Instruction(convertR8Instruction);
+            else if (instruction is ConvertRUnsignedInstruction convertRUnsignedInstruction)
+                VisitConvertRUnsignedInstruction(convertRUnsignedInstruction);
             else
                 throw new ArgumentException($"CIL instruction none cannot be recognized: '{instruction.ToString()}'.");
         }
 
         protected abstract void VisitAddInstruction(AddInstruction instruction);
+
+        protected abstract void VisitConvertI8Instruction(ConvertI8Instruction instruction);
+
+        protected abstract void VisitConvertR4Instruction(ConvertR4Instruction instruction);
+
+        protected abstract void VisitConvertR8Instruction(ConvertR8Instruction instruction);
+
+        protected abstract void VisitConvertRUnsignedInstruction(ConvertRUnsignedInstruction instruction);
+
+        protected abstract void VisitConvertU8Instruction(ConvertU8Instruction instruction);
 
         protected abstract void VisitDuplicateInstruction(DuplicateInstruction instruction);
 
@@ -80,6 +108,10 @@ namespace CILantro.Visitors
 
         protected abstract void VisitLoadLocal1Instruction(LoadLocal1Instruction instruction);
 
+        protected abstract void VisitLoadLocal2Instruction(LoadLocal2Instruction instruction);
+
+        protected abstract void VisitLoadLocal3Instruction(LoadLocal3Instruction instruction);
+
         protected abstract void VisitReturnInstruction(ReturnInstruction instruction);
 
         protected abstract void VisitStoreArrayElementI2Instruction(StoreArrayElementI2Instruction instruction);
@@ -87,5 +119,9 @@ namespace CILantro.Visitors
         protected abstract void VisitStoreLocal0Instruction(StoreLocal0Instruction instruction);
 
         protected abstract void VisitStoreLocal1Instruction(StoreLocal1Instruction instruction);
+
+        protected abstract void VisitStoreLocal2Instruction(StoreLocal2Instruction instruction);
+
+        protected abstract void VisitStoreLocal3Instruction(StoreLocal3Instruction instruction);
     }
 }

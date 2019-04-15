@@ -1,8 +1,10 @@
 ﻿using CILantro.Instructions;
+using CILantro.Structure;
 using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
 using System;
+using System.Collections.Generic;
 
 namespace CILantro.AbstractSyntaxTree.Other
 {
@@ -22,6 +24,8 @@ namespace CILantro.AbstractSyntaxTree.Other
         public MethodDeclType? DeclType { get; private set; }
 
         public CilInstruction Instruction { get; private set; }
+
+        public List<CilSigArg> LocalsSigArgs { get; private set; }
 
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
@@ -88,6 +92,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (localsInitChildren.PopulateWith(parseNode))
             {
                 DeclType = MethodDeclType.Locals;
+                LocalsSigArgs = localsInitChildren.Child4.SigArgs;
 
                 return;
             }

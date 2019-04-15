@@ -22,6 +22,8 @@ namespace CILantro.Interpreting.Visitors
 
         private readonly InstructionTypeInterpreterVisitor _instructionTypeVisitor;
 
+        private readonly InstructionVarInterpreterVisitor _instructionVarVisitor;
+
         protected override InstructionNoneVisitor InstructionNoneVisitor => _instructionNoneVisitor;
 
         protected override InstructionMethodVisitor InstructionMethodVisitor => _instructionMethodVisitor;
@@ -31,6 +33,8 @@ namespace CILantro.Interpreting.Visitors
         protected override InstructionIVisitor InstructionIVisitor => _instructionIVisitor;
 
         protected override InstructionTypeVisitor InstructionTypeVisitor => _instructionTypeVisitor;
+
+        protected override InstructionVarVisitor InstructionVarVisitor => _instructionVarVisitor;
 
         public CilInterpreterInstructionsVisitor(CilProgram program)
         {
@@ -42,6 +46,7 @@ namespace CILantro.Interpreting.Visitors
             _instructionStringVisitor = new InstructionStringInterpreterVisitor(_state, _managedMemory);
             _instructionIVisitor = new InstructionIInterpreterVisitor(_state, _managedMemory);
             _instructionTypeVisitor = new InstructionTypeInterpreterVisitor(_state, _managedMemory);
+            _instructionVarVisitor = new InstructionVarInterpreterVisitor(_state, _managedMemory);
         }
 
         protected override CilInstruction GetNextInstruction()

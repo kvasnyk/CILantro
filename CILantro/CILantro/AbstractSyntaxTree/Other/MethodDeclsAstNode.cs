@@ -60,7 +60,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                         // TODO: handle
                         break;
                     case MethodDeclType.Locals:
-                        // TODO: handle
+                        MethodDecls.Locals = methodDeclsChildren.Child2.LocalsSigArgs;
                         break;
                     default:
                         throw new AstNodeException($"\"{nameof(declType)}\" cannot be recognized.");

@@ -93,6 +93,20 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // INSTR_VAR + id
+            var varIdChildren = AstChildren.Empty()
+                .Add<INSTR_VARAstNode>()
+                .Add<IdAstNode>();
+            if (varIdChildren.PopulateWith(parseNode))
+            {
+                var instructionVar = varIdChildren.Child1.Instruction;
+                instructionVar.Id = varIdChildren.Child2.Value;
+
+                Instruction = instructionVar;
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

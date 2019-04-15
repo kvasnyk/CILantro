@@ -8,5 +8,7 @@ namespace CILantro.Structure
         public bool IsEntryPoint { get; set; }
 
         public List<CilInstruction> Instructions { get; set; }
+
+        public List<CilSigArg> Locals { get; set; }
     }
 }

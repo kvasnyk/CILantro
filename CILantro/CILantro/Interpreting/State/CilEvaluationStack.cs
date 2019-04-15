@@ -18,11 +18,6 @@ namespace CILantro.Interpreting.State
             _stack.Push(obj);
         }
 
-        public IStackObject Pop()
-        {
-            return _stack.Pop();
-        }
-
         public void Pop<T>(out T elem)
             where T : struct, IStackObject
         {
@@ -59,6 +54,20 @@ namespace CILantro.Interpreting.State
             where T3 : struct, IStackObject
         {
             Pop(out elem2, out elem3);
+            Pop(out elem1);
+        }
+
+        public void Pop(out IStackObject elem)
+        {
+            if (_stack.Count == 0)
+                throw new ArgumentException($"Cannot pop from empty evaluation stack.");
+
+            elem = _stack.Pop();
+        }
+
+        public void Pop(out IStackObject elem1, out IStackObject elem2)
+        {
+            Pop(out elem2);
             Pop(out elem1);
         }
     }

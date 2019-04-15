@@ -9,5 +9,10 @@ namespace CILantro.Interpreting.StackObjects
             where T : struct, IStackObject;
 
         object AsRuntime(CilType type, CilManagedMemory managedMemory);
+
+        IStackObject Add(IStackObject value2);
+
+        IStackObject Convert<T>()
+            where T : struct, IStackObject;
     }
 }

@@ -26,5 +26,15 @@ namespace CILantro.Interpreting.StackObjects
             var result = managedMemory.Load(this);
             return result.AsRuntime(type);
         }
+
+        public IStackObject Add(IStackObject value2)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IStackObject Convert<T>() where T : struct, IStackObject
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

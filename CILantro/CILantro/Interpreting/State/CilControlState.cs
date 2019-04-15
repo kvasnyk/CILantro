@@ -1,7 +1,6 @@
 ﻿using CILantro.Instructions;
 using CILantro.Structure;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace CILantro.Interpreting.State
 {
@@ -22,13 +21,7 @@ namespace CILantro.Interpreting.State
         public CilControlState(CilMethod entryPoint)
         {
             CallStack = new Stack<CilMethodState>();
-            CallStack.Push(new CilMethodState
-            {
-                Instruction = entryPoint.Instructions.First(),
-                EvaluationStack = new CilEvaluationStack(),
-                MethodInfo = new CilMethodInfo(entryPoint),
-                Locals = new CilLocals()
-            });
+            CallStack.Push(new CilMethodState(entryPoint));
         }
 
         public void MoveToNextInstruction()

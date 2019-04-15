@@ -16,7 +16,7 @@ namespace CILantro.Interpreting.Types
 
         public override Type GetRuntimeType()
         {
-            throw new NotImplementedException();
+            return typeof(byte);
         }
     }
 }

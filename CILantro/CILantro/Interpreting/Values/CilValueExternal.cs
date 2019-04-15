@@ -26,5 +26,15 @@ namespace CILantro.Interpreting.Values
 
             throw new NotImplementedException();
         }
+
+        public IStackObject Add(IStackObject value2)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IStackObject Convert<T>() where T : struct, IStackObject
+        {
+            throw new NotImplementedException();
+        }
     }
 }

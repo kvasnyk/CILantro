@@ -20,6 +20,8 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<TypeAstNode>();
             if (children2.PopulateWith(parseNode))
             {
+                // TODO: handle paramattr
+
                 SigArg = new CilSigArg
                 {
                     Type = children2.Child2.Type
@@ -35,7 +37,14 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<IdAstNode>();
             if (idChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                // TODO: handle paramattr
+
+                SigArg = new CilSigArg
+                {
+                    Type = idChildren.Child2.Type,
+                    Id = idChildren.Child3.Value
+                };
+
                 return;
             }
 

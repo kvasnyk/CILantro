@@ -223,6 +223,96 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // ___("stloc.2")
+            var stloc2Children = AstChildren.Empty()
+                .Add("stloc.2");
+            if (stloc2Children.PopulateWith(parseNode))
+            {
+                Instruction = new StoreLocal2Instruction();
+
+                return;
+            }
+
+            // ___("stloc.3")
+            var stloc3Children = AstChildren.Empty()
+                .Add("stloc.3");
+            if (stloc3Children.PopulateWith(parseNode))
+            {
+                Instruction = new StoreLocal3Instruction();
+
+                return;
+            }
+
+            // ___("ldloc.2")
+            var ldloc2Children = AstChildren.Empty()
+                .Add("ldloc.2");
+            if (ldloc2Children.PopulateWith(parseNode))
+            {
+                Instruction = new LoadLocal2Instruction();
+
+                return;
+            }
+
+            // ___("conv.i8")
+            var convi8Children = AstChildren.Empty()
+                .Add("conv.i8");
+            if (convi8Children.PopulateWith(parseNode))
+            {
+                Instruction = new ConvertI8Instruction();
+
+                return;
+            }
+
+            // ___("ldloc.3")
+            var ldloc3Children = AstChildren.Empty()
+                .Add("ldloc.3");
+            if (ldloc3Children.PopulateWith(parseNode))
+            {
+                Instruction = new LoadLocal3Instruction();
+
+                return;
+            }
+
+            // ___("conv.u8")
+            var convu8Children = AstChildren.Empty()
+                .Add("conv.u8");
+            if (convu8Children.PopulateWith(parseNode))
+            {
+                Instruction = new ConvertU8Instruction();
+
+                return;
+            }
+
+            // ___("conv.r4")
+            var convr4Children = AstChildren.Empty()
+                .Add("conv.r4");
+            if (convr4Children.PopulateWith(parseNode))
+            {
+                Instruction = new ConvertR4Instruction();
+
+                return;
+            }
+
+            // ___("conv.r8")
+            var convr8Children = AstChildren.Empty()
+                .Add("conv.r8");
+            if (convr8Children.PopulateWith(parseNode))
+            {
+                Instruction = new ConvertR8Instruction();
+
+                return;
+            }
+
+            // ___("conv.r.un")
+            var convrunChildren = AstChildren.Empty()
+                .Add("conv.r.un");
+            if (convrunChildren.PopulateWith(parseNode))
+            {
+                Instruction = new ConvertRUnsignedInstruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }
