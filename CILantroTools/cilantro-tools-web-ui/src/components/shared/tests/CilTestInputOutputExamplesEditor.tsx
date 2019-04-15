@@ -113,14 +113,9 @@ const CilTestInputOutputExamplesEditor: FunctionComponent<CilTestInputOutputExam
 
 	const notistack = useNotistack();
 
-	const nextExampleNumber = 1;
-
-	const getNextExampleName = () => {
-		return `Example ${nextExampleNumber}`;
-	};
+	const nextExampleNumber = props.test.ioExamples.length + 1;
 
 	const [isNewExampleEditorOpen, setIsNewExampleEditorOpen] = useState<boolean>(false);
-	const [newExampleName, setNewExampleName] = useState<string>(getNextExampleName());
 	const [isNewOutputPopulated, setIsNewOutputPopulated] = useState<boolean>(false);
 	const [newExampleOutput, setNewExampleOutput] = useState<string>('');
 
@@ -158,7 +153,6 @@ const CilTestInputOutputExamplesEditor: FunctionComponent<CilTestInputOutputExam
 	const clearNewExample = () => {
 		setIsNewOutputPopulated(false);
 		setNewExampleOutput('');
-		setNewExampleName(getNextExampleName());
 	};
 
 	const handleAddButtonClick = () => {
@@ -166,14 +160,10 @@ const CilTestInputOutputExamplesEditor: FunctionComponent<CilTestInputOutputExam
 		return Promise.resolve();
 	};
 
-	const handleNewExampleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-		setNewExampleName(e.target.value);
-	};
-
 	const handleNewExampleOkButtonClick = async () => {
 		try {
 			await testsApiClient.addTestInputOutputExample(props.test.id, {
-				name: newExampleName,
+				name: `Example ${nextExampleNumber}`,
 				input: buildNewInput(),
 				output: newExampleOutput
 			});
@@ -206,9 +196,7 @@ const CilTestInputOutputExamplesEditor: FunctionComponent<CilTestInputOutputExam
 	};
 
 	let newExampleOkButtonDisabledReason;
-	if (newExampleName === '') {
-		newExampleOkButtonDisabledReason = translations.tests.exampleNameIsEmpty;
-	} else if (!isNewOutputPopulated) {
+	if (!isNewOutputPopulated) {
 		newExampleOkButtonDisabledReason = translations.tests.noOutputGenerated;
 	}
 
@@ -244,12 +232,7 @@ const CilTestInputOutputExamplesEditor: FunctionComponent<CilTestInputOutputExam
 			{isNewExampleEditorOpen ? (
 				<>
 					<div className={classes.newExampleName}>
-						<TextField
-							value={newExampleName}
-							onChange={handleNewExampleNameChange}
-							autoFocus={true}
-							className={classes.newExampleNameField}
-						/>
+						<TextField value={`Example ${nextExampleNumber}`} className={classes.newExampleNameField} disabled={true} />
 						<CilIconButton onClick={handleNewExampleOkButtonClick} disabledReason={newExampleOkButtonDisabledReason}>
 							<CheckIcon fontSize="small" />
 						</CilIconButton>
