@@ -72,8 +72,8 @@ namespace CILantro.Interpreting.Values
             //    return new CilValueInt64(Value + int8.Value);
             //if (value2 is CilValueInt16 int16)
             //    return new CilValueInt64(Value + int16.Value);
-            //if (value2 is CilValueInt32 int32)
-            //    return new CilValueInt64(Value + int32.Value);
+            if (value2 is CilValueInt32 int32)
+                return new CilValueInt64(Value - int32.Value);
             //if (value2 is CilValueInt64 int64)
             //    return new CilValueInt64(Value + int64.Value);
 

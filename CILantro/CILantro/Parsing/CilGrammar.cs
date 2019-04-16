@@ -46,14 +46,18 @@ namespace CILantro.Parsing
             ConfigureAstNode(SQSTRING);
 
             // TODO: specify
-            var INT32 = new NumberLiteral("INT32");
+            var INT32 = new NumberLiteral("INT32", NumberOptions.NoDotAfterInt);
             INT32.AddPrefix("0x", NumberOptions.Hex);
             ConfigureAstNode(INT32);
 
             // TODO: specify
-            var INT64 = new NumberLiteral("INT64");
+            var INT64 = new NumberLiteral("INT64", NumberOptions.NoDotAfterInt);
             INT64.AddPrefix("0x", NumberOptions.Hex);
             ConfigureAstNode(INT64);
+
+            // TODO: specify
+            var FLOAT64 = new NumberLiteral("FLOAT64", NumberOptions.AllowStartEndDot);
+            ConfigureAstNode(FLOAT64);
 
             // non-terminals
 
@@ -326,8 +330,9 @@ namespace CILantro.Parsing
             // TODO: INSTR_I8
             INSTR_I8.Rule = _("TODO: INSTR_I8");
 
-            // TODO: INSTR_R
-            INSTR_R.Rule = _("TODO: INSTR_R");
+            INSTR_R.Rule =
+                ___("ldc.r4") |
+                ___("ldc.r8");
 
             // TODO: INSTR_BRTARGET
             INSTR_BRTARGET.Rule = _("TODO: INSTR_BRTARGET");
@@ -779,8 +784,10 @@ namespace CILantro.Parsing
             int64.Rule =
                 INT64;
 
-            // TODO: float64
-            float64.Rule = _("TODO: float64");
+            float64.Rule =
+                FLOAT64 |
+                _("float32") + _("(") + int32 + _(")") |
+                _("float64") + _("(") + int64 + _(")");
 
             // TODO: secDecl
             secDecl.Rule = _("TODO: secDecl");

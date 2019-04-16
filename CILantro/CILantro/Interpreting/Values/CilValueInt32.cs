@@ -68,6 +68,14 @@ namespace CILantro.Interpreting.Values
                 return new CilValueFloat32(Value);
             if (typeof(T) == typeof(CilValueFloat64))
                 return new CilValueFloat64(Value);
+            if (typeof(T) == typeof(CilValueInt8))
+                return new CilValueInt8((sbyte)Value);
+            if (typeof(T) == typeof(CilValueInt16))
+                return new CilValueInt16((short)Value);
+            if (typeof(T) == typeof(CilValueUInt16))
+                return new CilValueUInt16((ushort)Value);
+            if (typeof(T) == typeof(CilValueUInt8))
+                return new CilValueUInt8((byte)Value);
 
             throw new System.NotImplementedException();
         }

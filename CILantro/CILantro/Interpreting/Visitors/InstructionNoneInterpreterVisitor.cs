@@ -31,6 +31,28 @@ namespace CILantro.Interpreting.Visitors
             _state.MoveToNextInstruction();
         }
 
+        protected override void VisitConvertI1Instruction(ConvertI1Instruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var value);
+            var result = value.Convert<CilValueInt8>();
+            _state.EvaluationStack.Push(result);
+
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitConvertI2Instruction(ConvertI2Instruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var value);
+            var result = value.Convert<CilValueInt16>();
+            _state.EvaluationStack.Push(result);
+
+            _state.MoveToNextInstruction();
+        }
+
         protected override void VisitConvertI8Instruction(ConvertI8Instruction instruction)
         {
             // TODO: finish implementation
@@ -70,6 +92,28 @@ namespace CILantro.Interpreting.Visitors
 
             _state.EvaluationStack.Pop(out var value);
             var result = value.Convert<CilValueFloat64>();
+            _state.EvaluationStack.Push(result);
+
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitConvertU1Instruction(ConvertU1Instruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var value);
+            var result = value.Convert<CilValueUInt8>();
+            _state.EvaluationStack.Push(result);
+
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitConvertU2Instruction(ConvertU2Instruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var value);
+            var result = value.Convert<CilValueUInt16>();
             _state.EvaluationStack.Push(result);
 
             _state.MoveToNextInstruction();

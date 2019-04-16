@@ -66,11 +66,23 @@ namespace CILantro.Visitors
                 VisitConvertRUnsignedInstruction(convertRUnsignedInstruction);
             else if (instruction is SubtractInstruction subtractInstruction)
                 VisitSubtractInstruction(subtractInstruction);
+            else if (instruction is ConvertI1Instruction convertI1Instruction)
+                VisitConvertI1Instruction(convertI1Instruction);
+            else if (instruction is ConvertI2Instruction convertI2Instruction)
+                VisitConvertI2Instruction(convertI2Instruction);
+            else if (instruction is ConvertU1Instruction convertU1Instruction)
+                VisitConvertU1Instruction(convertU1Instruction);
+            else if (instruction is ConvertU2Instruction convertU2Instruction)
+                VisitConvertU2Instruction(convertU2Instruction);
             else
                 throw new ArgumentException($"CIL instruction none cannot be recognized: '{instruction.ToString()}'.");
         }
 
         protected abstract void VisitAddInstruction(AddInstruction instruction);
+
+        protected abstract void VisitConvertI1Instruction(ConvertI1Instruction instruction);
+
+        protected abstract void VisitConvertI2Instruction(ConvertI2Instruction instruction);
 
         protected abstract void VisitConvertI8Instruction(ConvertI8Instruction instruction);
 
@@ -79,6 +91,10 @@ namespace CILantro.Visitors
         protected abstract void VisitConvertR8Instruction(ConvertR8Instruction instruction);
 
         protected abstract void VisitConvertRUnsignedInstruction(ConvertRUnsignedInstruction instruction);
+
+        protected abstract void VisitConvertU1Instruction(ConvertU1Instruction instruction);
+
+        protected abstract void VisitConvertU2Instruction(ConvertU2Instruction instruction);
 
         protected abstract void VisitConvertU8Instruction(ConvertU8Instruction instruction);
 

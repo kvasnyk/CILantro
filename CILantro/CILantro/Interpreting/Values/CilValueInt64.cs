@@ -24,6 +24,8 @@ namespace CILantro.Interpreting.Values
         {
             if (type is CilTypeInt64)
                 return Value;
+            if (type is CilTypeUInt32)
+                return (ulong)Value;
 
             throw new NotImplementedException();
         }

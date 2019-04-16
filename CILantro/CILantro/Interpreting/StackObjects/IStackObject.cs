@@ -14,7 +14,6 @@ namespace CILantro.Interpreting.StackObjects
 
         IStackObject Sub(IStackObject value2);
 
-        IStackObject Convert<T>()
-            where T : struct, IStackObject;
+        IStackObject Convert(CilType type);
     }
 }
