@@ -93,6 +93,8 @@ namespace CILantro.Interpreting.Values
                 return new CilValueFloat64(Value);
             if (type is CilTypeInt32)
                 return new CilValueInt32(Value);
+            if (type is CilTypeInt16)
+                return new CilValueInt16(Value);
 
             throw new System.NotImplementedException();
         }

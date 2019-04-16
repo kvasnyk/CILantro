@@ -65,6 +65,8 @@ namespace CILantro.Interpreting.Values
                 return new CilValueUInt32((uint)Value);
             if (type is CilTypeUInt64)
                 return new CilValueUInt64(Value);
+            if (type is CilTypeInt64)
+                return new CilValueInt64((long)Value);
 
             throw new NotImplementedException();
         }

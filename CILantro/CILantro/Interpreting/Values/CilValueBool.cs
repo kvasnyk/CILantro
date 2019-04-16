@@ -38,6 +38,9 @@ namespace CILantro.Interpreting.Values
 
         public IStackObject Convert(CilType type)
         {
+            if (type is CilTypeBool)
+                return new CilValueBool(Value);
+
             throw new System.NotImplementedException();
         }
     }
