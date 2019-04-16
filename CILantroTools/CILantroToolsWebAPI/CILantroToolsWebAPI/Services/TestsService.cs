@@ -154,6 +154,18 @@ namespace CILantroToolsWebAPI.Services
             });
         }
 
+        public async Task CopyTestInput(Guid testId, CopyTestInputBindingModel model)
+        {
+            var test = _testsRepository.Read<TestReadModel>().Single(t => t.Id == testId);
+            var sourceTest = _testsRepository.Read<TestReadModel>().Single(t => t.Id == model.SourceTestId);
+
+            await _testsRepository.UpdateAsync(t => t.Id == testId, t =>
+            {
+                t.HasEmptyInput = sourceTest.HasEmptyInput;
+                t.Input = sourceTest.Input;
+            });
+        }
+
         public async Task GenerateIlSources(Guid testId)
         {
             var testReadModel = _testsRepository.Read<TestReadModel>().Single(t => t.Id == testId);

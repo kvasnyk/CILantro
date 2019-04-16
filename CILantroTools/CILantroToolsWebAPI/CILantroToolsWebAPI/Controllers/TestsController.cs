@@ -100,5 +100,11 @@ namespace CILantroToolsWebAPI.Controllers
         {
             await _testsService.AddTestInputOutputExample(testId, model);
         }
+
+        [HttpPost("{testId}/copy-input")]
+        public async Task CopyTestInputAsync([FromRoute]Guid testId, [FromBody]CopyTestInputBindingModel model)
+        {
+            await _testsService.CopyTestInput(testId, model);
+        }
     }
 }

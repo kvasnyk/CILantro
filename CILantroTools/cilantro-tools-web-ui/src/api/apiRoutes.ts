@@ -18,6 +18,7 @@ const apiRoutes = {
 		editTestHasEmptyInput: (testId: string) => `/tests/${testId}/edit-has-empty-input`,
 		editTestInput: (testId: string) => `/tests/${testId}/edit-input`,
 		editTestOutput: (testId: string) => `/tests/${testId}/edit-output`,
+		copyTestInput: (testId: string) => `/tests/${testId}/copy-input`,
 		generateIlSources: (testId: string) => `/tests/${testId}/generate-il-sources`,
 		generateExe: (testId: string) => `/tests/${testId}/generate-exe`,
 		generateOutput: (testId: string) => `/tests/${testId}/generate-output`,

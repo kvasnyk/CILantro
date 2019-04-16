@@ -57,7 +57,7 @@ const CilInputOutputLineEditor: FunctionComponent<CilInputOutputLineEditorProps>
 
 	return (
 		<div className={classes.inputOutputLine}>
-			<div className={classes.lineIndex}>{props.lineIndex}</div>
+			<div className={classes.lineIndex}>{props.lineIndex + 1}</div>
 			{props.line.elements.map((element, index) => (
 				<CilInputOutputElement
 					key={index}
