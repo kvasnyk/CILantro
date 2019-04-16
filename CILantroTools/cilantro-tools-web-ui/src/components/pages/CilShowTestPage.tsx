@@ -257,7 +257,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 									<CilTestInputEditor test={testInfo.test} onInputUpdated={handleInputUpdated} />
 								</div>
 							</div>
-							{testInfo.test.hasInput && testInfo.test.hasOutput && testInfo.test.hasExe ? (
+							{testInfo.test.hasInput && testInfo.test.hasExe ? (
 								<>
 									<Divider className={classes.ioDivider} />
 									<div className={classes.ioTabExamples}>
