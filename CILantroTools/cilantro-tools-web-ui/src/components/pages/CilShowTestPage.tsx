@@ -18,6 +18,7 @@ import CilGenerateTestIlSourcesButton from '../shared/tests/CilGenerateTestIlSou
 import CilRunTestBothButton from '../shared/tests/CilRunTestBothButton';
 import CilRunTestExeButton from '../shared/tests/CilRunTestExeButton';
 import CilRunTestInterpreterButton from '../shared/tests/CilRunTestInterpreterButton';
+import CilShowIlSourcesButton from '../shared/tests/CilShowIlSourcesButton';
 import CilTestChecklist from '../shared/tests/CilTestChecklist';
 import CilTestInputEditor from '../shared/tests/CilTestInputEditor';
 import CilTestInputOutputExamplesEditor from '../shared/tests/CilTestInputOutputExamplesEditor';
@@ -237,6 +238,7 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 							<CilDetailsRow label={translations.tests.testMainIlSource}>
 								{testInfo.test.hasIlSources ? <CilDetailsValue value={testInfo.mainIlSourcePath} prefix="..." /> : null}
 								<CilGenerateTestIlSourcesButton test={testInfo.test} onIlSourcesGenerated={handleIlSourcesGenerated} />
+								{testInfo.test.hasIlSources ? <CilShowIlSourcesButton testInfo={testInfo} /> : null}
 							</CilDetailsRow>
 							{testInfo.test.hasIlSources ? <CilCodeEditor code={testInfo.mainIlSource} /> : null}
 						</div>
