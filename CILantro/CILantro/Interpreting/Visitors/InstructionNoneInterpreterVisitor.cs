@@ -3,6 +3,7 @@ using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.StackObjects;
 using CILantro.Interpreting.State;
+using CILantro.Interpreting.Types;
 using CILantro.Interpreting.Values;
 using CILantro.Visitors;
 
@@ -36,7 +37,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var value);
-            var result = value.Convert<CilValueInt8>();
+            var result = value.Convert(new CilTypeInt8());
             _state.EvaluationStack.Push(result);
 
             _state.MoveToNextInstruction();
@@ -47,7 +48,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var value);
-            var result = value.Convert<CilValueInt16>();
+            var result = value.Convert(new CilTypeInt16());
             _state.EvaluationStack.Push(result);
 
             _state.MoveToNextInstruction();
@@ -58,7 +59,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var value);
-            var result = value.Convert<CilValueInt64>();
+            var result = value.Convert(new CilTypeInt64());
             _state.EvaluationStack.Push(result);
 
             _state.MoveToNextInstruction();
@@ -69,7 +70,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var value);
-            var result = value.Convert<CilValueFloat32>();
+            var result = value.Convert(new CilTypeFloat32());
             _state.EvaluationStack.Push(result);
 
             _state.MoveToNextInstruction();
@@ -80,7 +81,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var value);
-            var result = value.Convert<CilValueFloat64>();
+            var result = value.Convert(new CilTypeFloat64());
             _state.EvaluationStack.Push(result);
 
             _state.MoveToNextInstruction();
@@ -91,7 +92,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var value);
-            var result = value.Convert<CilValueFloat64>();
+            var result = value.Convert(new CilTypeFloat64());
             _state.EvaluationStack.Push(result);
 
             _state.MoveToNextInstruction();
@@ -102,7 +103,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var value);
-            var result = value.Convert<CilValueUInt8>();
+            var result = value.Convert(new CilTypeUInt8());
             _state.EvaluationStack.Push(result);
 
             _state.MoveToNextInstruction();
@@ -113,7 +114,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var value);
-            var result = value.Convert<CilValueUInt16>();
+            var result = value.Convert(new CilTypeUInt16());
             _state.EvaluationStack.Push(result);
 
             _state.MoveToNextInstruction();
@@ -124,7 +125,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var value);
-            var result = value.Convert<CilValueUInt64>();
+            var result = value.Convert(new CilTypeUInt64());
             _state.EvaluationStack.Push(result);
 
             _state.MoveToNextInstruction();

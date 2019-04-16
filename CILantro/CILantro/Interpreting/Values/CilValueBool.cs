@@ -31,12 +31,12 @@ namespace CILantro.Interpreting.Values
             throw new System.NotImplementedException();
         }
 
-        public IStackObject Convert<T>() where T : struct, IStackObject
+        public IStackObject Sub(IStackObject value2)
         {
             throw new System.NotImplementedException();
         }
 
-        public IStackObject Sub(IStackObject value2)
+        public IStackObject Convert(CilType type)
         {
             throw new System.NotImplementedException();
         }

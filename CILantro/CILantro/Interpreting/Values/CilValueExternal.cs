@@ -32,13 +32,15 @@ namespace CILantro.Interpreting.Values
             throw new NotImplementedException();
         }
 
-        public IStackObject Convert<T>() where T : struct, IStackObject
+        public IStackObject Sub(IStackObject value2)
         {
             throw new NotImplementedException();
         }
 
-        public IStackObject Sub(IStackObject value2)
+        public IStackObject Convert(CilType type)
         {
+            return this; // TODO: is this really correct?
+
             throw new NotImplementedException();
         }
     }

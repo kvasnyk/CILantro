@@ -97,8 +97,8 @@ namespace CILantro.Interpreting.Visitors
             for (int i = 0; i < instruction.SigArgs.Count; i++)
             {
                 _state.EvaluationStack.Pop(out var stackObject);
-                var convertedStackObject = stackObject.Convert
-                var argument = stackObject.AsRuntime(instruction.SigArgs[i].Type, _managedMemory);
+                var convertedObject = stackObject.Convert(instruction.SigArgs[i].Type);
+                var argument = convertedObject.AsRuntime(instruction.SigArgs[i].Type, _managedMemory);
                 methodArguments.Add(argument);
             }
             methodArguments.Reverse();

@@ -57,18 +57,14 @@ namespace CILantro.Interpreting.Values
 
         public IStackObject Convert(CilType type)
         {
-            
-        }
-
-        public IStackObject Convert<T>()
-            where T : struct, IStackObject
-        {
-            if (typeof(T) == typeof(CilValueFloat32))
+            if (type is CilTypeFloat32)
                 return new CilValueFloat32(Value);
-            if (typeof(T) == typeof(CilValueFloat64))
+            if (type is CilTypeFloat64)
                 return new CilValueFloat64(Value);
-            if (typeof(T) == typeof(CilValueUInt32))
+            if (type is CilTypeUInt32)
                 return new CilValueUInt32((uint)Value);
+            if (type is CilTypeUInt64)
+                return new CilValueUInt64(Value);
 
             throw new NotImplementedException();
         }

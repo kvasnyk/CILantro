@@ -59,27 +59,6 @@ namespace CILantro.Interpreting.Values
             throw new System.NotImplementedException();
         }
 
-        public IStackObject Convert<T>()
-            where T : struct, IStackObject
-        {
-            if (typeof(T) == typeof(CilValueInt64))
-                return new CilValueInt64(Value);
-            if (typeof(T) == typeof(CilValueFloat32))
-                return new CilValueFloat32(Value);
-            if (typeof(T) == typeof(CilValueFloat64))
-                return new CilValueFloat64(Value);
-            if (typeof(T) == typeof(CilValueInt8))
-                return new CilValueInt8((sbyte)Value);
-            if (typeof(T) == typeof(CilValueInt16))
-                return new CilValueInt16((short)Value);
-            if (typeof(T) == typeof(CilValueUInt16))
-                return new CilValueUInt16((ushort)Value);
-            if (typeof(T) == typeof(CilValueUInt8))
-                return new CilValueUInt8((byte)Value);
-
-            throw new System.NotImplementedException();
-        }
-
         public IStackObject Sub(IStackObject value2)
         {
             if (value2 is CilValueInt8 int8)
@@ -102,6 +81,28 @@ namespace CILantro.Interpreting.Values
 
             if (value2 is CilValueChar @char)
                 return new CilValueInt32(Value - @char.Value);
+
+            throw new System.NotImplementedException();
+        }
+
+        public IStackObject Convert(CilType type)
+        {
+            if (type is CilTypeInt64)
+                return new CilValueInt64(Value);
+            if (type is CilTypeFloat32)
+                return new CilValueFloat32(Value);
+            if (type is CilTypeFloat64)
+                return new CilValueFloat64(Value);
+            if (type is CilTypeInt8)
+                return new CilValueInt8((sbyte)Value);
+            if (type is CilTypeInt16)
+                return new CilValueInt16((short)Value);
+            if (type is CilTypeUInt16)
+                return new CilValueUInt16((ushort)Value);
+            if (type is CilTypeUInt8)
+                return new CilValueUInt8((byte)Value);
+            if (type is CilTypeInt32)
+                return new CilValueInt32(Value);
 
             throw new System.NotImplementedException();
         }

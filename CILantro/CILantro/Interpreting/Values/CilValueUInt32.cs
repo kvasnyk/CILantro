@@ -53,19 +53,6 @@ namespace CILantro.Interpreting.Values
             throw new NotImplementedException();
         }
 
-        public IStackObject Convert<T>()
-            where T : struct, IStackObject
-        {
-            if (typeof(T) == typeof(CilValueUInt64))
-                return new CilValueUInt64(Value);
-            if (typeof(T) == typeof(CilValueFloat32))
-                return new CilValueFloat32(Value);
-            if (typeof(T) == typeof(CilValueFloat64))
-                return new CilValueFloat64(Value);
-
-            throw new NotImplementedException();
-        }
-
         public IStackObject Sub(IStackObject value2)
         {
             //if (value2 is CilValueInt8 int8)
@@ -88,6 +75,20 @@ namespace CILantro.Interpreting.Values
 
             if (value2 is CilValueChar @char)
                 return new CilValueUInt32(Value - @char.Value);
+
+            throw new NotImplementedException();
+        }
+
+        public IStackObject Convert(CilType type)
+        {
+            if (type is CilTypeUInt64)
+                return new CilValueUInt64(Value);
+            if (type is CilTypeFloat32)
+                return new CilValueFloat32(Value);
+            if (type is CilTypeFloat64)
+                return new CilValueFloat64(Value);
+            if (type is CilTypeUInt32)
+                return new CilValueUInt32(Value);
 
             throw new NotImplementedException();
         }

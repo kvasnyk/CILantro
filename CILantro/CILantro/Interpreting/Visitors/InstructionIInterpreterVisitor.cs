@@ -10,12 +10,12 @@ namespace CILantro.Interpreting.Visitors
     {
         private readonly CilControlState _state;
 
-        private readonly CilManagedMemory _heap;
+        private readonly CilManagedMemory _managedMemory;
 
-        public InstructionIInterpreterVisitor(CilControlState state, CilManagedMemory heap)
+        public InstructionIInterpreterVisitor(CilControlState state, CilManagedMemory managedMemory)
         {
             _state = state;
-            _heap = heap;
+            _managedMemory = managedMemory;
         }
 
         protected override void VisitLoadConstI4ShortInstruction(LoadConstI4ShortInstruction instruction)
