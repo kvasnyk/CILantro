@@ -375,7 +375,7 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 						<div className={elementInfoClassName}>
 							<span>
 								{getFloatElementTypeName(floatElement)}, {floatElement.name} &#8714; [{floatElement.minValue},{' '}
-								{floatElement.maxValue}]
+								{floatElement.maxValue}]{floatElement.excludeZero ? <>, {floatElement.name} &#8800; 0</> : null}
 							</span>
 						</div>
 					) : null}
