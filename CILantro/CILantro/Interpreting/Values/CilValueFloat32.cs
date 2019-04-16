@@ -45,5 +45,13 @@ namespace CILantro.Interpreting.Values
 
             throw new NotImplementedException();
         }
+
+        public IStackObject Sub(IStackObject value2)
+        {
+            if (value2 is CilValueFloat32 float32)
+                return new CilValueFloat32(Value - float32.Value);
+
+            throw new NotImplementedException();
+        }
     }
 }

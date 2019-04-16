@@ -64,6 +64,8 @@ namespace CILantro.Visitors
                 VisitConvertR8Instruction(convertR8Instruction);
             else if (instruction is ConvertRUnsignedInstruction convertRUnsignedInstruction)
                 VisitConvertRUnsignedInstruction(convertRUnsignedInstruction);
+            else if (instruction is SubtractInstruction subtractInstruction)
+                VisitSubtractInstruction(subtractInstruction);
             else
                 throw new ArgumentException($"CIL instruction none cannot be recognized: '{instruction.ToString()}'.");
         }
@@ -123,5 +125,7 @@ namespace CILantro.Visitors
         protected abstract void VisitStoreLocal2Instruction(StoreLocal2Instruction instruction);
 
         protected abstract void VisitStoreLocal3Instruction(StoreLocal3Instruction instruction);
+
+        protected abstract void VisitSubtractInstruction(SubtractInstruction instruction);
     }
 }

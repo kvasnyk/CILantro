@@ -36,5 +36,10 @@ namespace CILantro.Interpreting.StackObjects
         {
             throw new System.NotImplementedException();
         }
+
+        public IStackObject Sub(IStackObject value2)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

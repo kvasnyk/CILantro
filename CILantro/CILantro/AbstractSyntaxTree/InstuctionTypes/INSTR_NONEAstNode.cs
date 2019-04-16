@@ -313,6 +313,16 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // _("sub")
+            var subChildren = AstChildren.Empty()
+                .Add("sub");
+            if (subChildren.PopulateWith(parseNode))
+            {
+                Instruction = new SubtractInstruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

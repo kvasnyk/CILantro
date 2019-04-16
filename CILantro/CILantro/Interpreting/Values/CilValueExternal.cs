@@ -36,5 +36,10 @@ namespace CILantro.Interpreting.Values
         {
             throw new NotImplementedException();
         }
+
+        public IStackObject Sub(IStackObject value2)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
