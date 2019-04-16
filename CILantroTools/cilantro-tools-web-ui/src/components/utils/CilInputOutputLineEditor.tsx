@@ -45,6 +45,7 @@ interface CilInputOutputLineEditorProps {
 	line: InputOutputLine;
 	onElementAdded: (lineIndex: number, element: AbstractInputOutputElement) => void;
 	onElementDeleted?: (lineIndex: number, elementIndex: number) => void;
+	onElementEdited?: (lineIndex: number, elementIndex: number, element: AbstractInputOutputElement) => void;
 	isReadonly?: boolean;
 }
 
@@ -65,6 +66,7 @@ const CilInputOutputLineEditor: FunctionComponent<CilInputOutputLineEditorProps>
 					element={element}
 					isEditable={!props.isReadonly}
 					onElementDeleted={() => props.onElementDeleted && props.onElementDeleted(props.lineIndex, index)}
+					onElementEdited={e => props.onElementEdited && props.onElementEdited(props.lineIndex, index, e)}
 				/>
 			))}
 
@@ -73,7 +75,7 @@ const CilInputOutputLineEditor: FunctionComponent<CilInputOutputLineEditorProps>
 			) : null}
 
 			{!props.isReadonly ? (
-				<CilAddInputOutputElementButton variant={props.variant} onElementAdded={handleElementAdded} />
+				<CilAddInputOutputElementButton action="add" variant={props.variant} onElementAdded={handleElementAdded} />
 			) : null}
 		</div>
 	);

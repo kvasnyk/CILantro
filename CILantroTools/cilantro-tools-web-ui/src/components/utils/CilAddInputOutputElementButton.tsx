@@ -18,6 +18,7 @@ import {
 	Theme
 } from '@material-ui/core';
 import PlusIcon from '@material-ui/icons/AddRounded';
+import EditIcon from '@material-ui/icons/EditRounded';
 import { makeStyles } from '@material-ui/styles';
 
 import AbstractInputOutputElement from '../../api/models/tests/input-output/elements/AbstractInputOutputElement';
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 	}
 }));
 
-interface AddInputOutputElementData {
+export interface AddInputOutputElementData {
 	type: string;
 	varName?: string;
 	constString?: string;
@@ -50,7 +51,7 @@ interface AddInputOutputElementData {
 	description?: string;
 }
 
-const buildEmptyAddInputOutputElementData = (): AddInputOutputElementData => ({
+export const buildEmptyAddInputOutputElementData = (): AddInputOutputElementData => ({
 	type: 'Bool',
 	minValue: 0,
 	maxValue: 0,
@@ -172,19 +173,28 @@ const validateAddInputOutputElementData = (formData: AddInputOutputElementData, 
 
 interface CilAddInputOutputElementButtonProps {
 	variant: 'input' | 'output';
-	onElementAdded: (element: AbstractInputOutputElement) => void;
+	onElementAdded?: (element: AbstractInputOutputElement) => void;
+	onElementEdited?: (element: AbstractInputOutputElement) => void;
+	existingData?: AddInputOutputElementData;
+	action: 'add' | 'edit';
+	className?: string;
+	iconClassName?: string;
 }
 
 const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElementButtonProps> = props => {
 	const classes = useStyles();
 
 	const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
-	const [formData, setFormData] = useState<AddInputOutputElementData>(buildEmptyAddInputOutputElementData());
+	const [formData, setFormData] = useState<AddInputOutputElementData>(
+		props.existingData ? props.existingData : buildEmptyAddInputOutputElementData()
+	);
 
 	const formErrors = validateAddInputOutputElementData(formData, props.variant);
 
 	const handleDialogClose = () => {
-		setFormData(buildEmptyAddInputOutputElementData());
+		if (props.action === 'add') {
+			setFormData(buildEmptyAddInputOutputElementData());
+		}
 		setIsDialogOpen(false);
 	};
 
@@ -378,8 +388,12 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 	};
 
 	const addElement = (element: AbstractInputOutputElement) => {
-		props.onElementAdded(element);
-		setFormData(buildEmptyAddInputOutputElementData());
+		if (props.action === 'add' && props.onElementAdded) {
+			props.onElementAdded(element);
+			setFormData(buildEmptyAddInputOutputElementData());
+		} else if (props.action === 'edit' && props.onElementEdited) {
+			props.onElementEdited(element);
+		}
 		setIsDialogOpen(false);
 	};
 
@@ -444,8 +458,12 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 
 	return (
 		<>
-			<IconButton onClick={handleClick}>
-				<PlusIcon fontSize="small" />
+			<IconButton onClick={handleClick} className={props.className}>
+				{props.action === 'add' ? (
+					<PlusIcon fontSize="small" className={props.iconClassName} />
+				) : (
+					<EditIcon fontSize="small" className={props.iconClassName} />
+				)}
 			</IconButton>
 			<Dialog open={isDialogOpen} onClose={handleDialogClose} fullWidth={true}>
 				<form onSubmit={handleFormSubmit}>

@@ -13,6 +13,7 @@ import FloatElement from '../../api/models/tests/input-output/elements/FloatElem
 import IntElement from '../../api/models/tests/input-output/elements/IntElement';
 import StringElement from '../../api/models/tests/input-output/elements/StringElement';
 import translations from '../../translations/translations';
+import CilAddInputOutputElementButton, { buildEmptyAddInputOutputElementData } from './CilAddInputOutputElementButton';
 
 const getIntElementTypeName = (intElement: IntElement) => {
 	switch (intElement.type) {
@@ -169,6 +170,7 @@ interface CilInputOutputElementProps {
 	variant: 'input' | 'output' | 'custom';
 	element: AbstractInputOutputElement;
 	isEditable?: boolean;
+	onElementEdited?: (element: AbstractInputOutputElement) => void;
 	onElementDeleted?: () => void;
 }
 
@@ -262,12 +264,48 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 		</IconButton>
 	) : null;
 
+	const data = buildEmptyAddInputOutputElementData();
+	data.type = props.element.type;
+	data.description = props.element.description;
+
+	if (constStringElement) {
+		data.constString = constStringElement.value;
+	} else if (stringElement) {
+		data.varName = stringElement.name;
+		data.stringMinLength = stringElement.minLength;
+		data.stringMaxLength = stringElement.maxLength;
+		data.stringBigLetters = stringElement.hasBigLetters;
+		data.stringSmallLetters = stringElement.hasSmallLetters;
+		data.stringDigits = stringElement.hasDigits;
+		data.stringSymbols = stringElement.hasSymbols;
+	} else if (boolElement) {
+		data.varName = boolElement.name;
+	} else if (intElement) {
+		data.varName = intElement.name;
+		data.minValue = intElement.minValue;
+		data.maxValue = intElement.maxValue;
+	} else if (floatElement) {
+		data.varName = floatElement.name;
+		data.minValue = floatElement.minValue;
+		data.maxValue = floatElement.maxValue;
+	}
+
+	const editButton = props.isEditable ? (
+		<CilAddInputOutputElementButton
+			className={classes.deleteButton}
+			iconClassName={deleteIconClassName}
+			action="edit"
+			variant={props.variant as 'input' | 'output'}
+			existingData={data}
+			onElementEdited={props.onElementEdited}
+		/>
+	) : null;
+
 	return (
 		<div className={elementClassName}>
 			{constStringElement ? (
 				<div className={elementNameClassName} onClick={handleElementClick}>
 					{constStringElement.value}
-					{deleteButton}
 				</div>
 			) : null}
 
@@ -275,7 +313,6 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 				<>
 					<div className={elementNameClassName} onClick={handleElementClick}>
 						{stringElement.name}
-						{deleteButton}
 					</div>
 					{props.variant === 'input' && isExpanded ? (
 						<div className={elementInfoClassName}>
@@ -305,7 +342,6 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 				<>
 					<div className={elementNameClassName} onClick={handleElementClick}>
 						{boolElement.name}
-						{deleteButton}
 					</div>
 				</>
 			) : null}
@@ -314,7 +350,6 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 				<>
 					<div className={elementNameClassName} onClick={handleElementClick}>
 						{intElement.name}
-						{deleteButton}
 					</div>
 
 					{props.variant === 'input' && isExpanded ? (
@@ -332,7 +367,6 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 				<>
 					<div className={elementNameClassName} onClick={handleElementClick}>
 						{floatElement.name}
-						{deleteButton}
 					</div>
 
 					{props.variant === 'input' && isExpanded ? (
@@ -344,6 +378,13 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 						</div>
 					) : null}
 				</>
+			) : null}
+
+			{editButton && deleteButton ? (
+				<div className={elementInfoClassName}>
+					{editButton}
+					{deleteButton}
+				</div>
 			) : null}
 
 			{props.variant === 'output' && props.element.description ? (

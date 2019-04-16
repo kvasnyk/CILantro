@@ -125,6 +125,7 @@ const CilTestInputEditor: FunctionComponent<CilTestInputEditorProps> = props => 
 	const handleCancelButtonClick = () => {
 		setHasEmptyInput(props.test.hasEmptyInput);
 		setIsEditable(false);
+		props.onInputUpdated();
 		return Promise.resolve();
 	};
 
@@ -143,6 +144,13 @@ const CilTestInputEditor: FunctionComponent<CilTestInputEditorProps> = props => 
 		newInput.lines[lineIndex].elements = newInput.lines[lineIndex].elements.filter(
 			(el, elIndex) => elIndex !== elementIndex
 		);
+		setInput(newInput);
+	};
+
+	const handleElementEdited = (lineIndex: number, elementIndex: number, element: AbstractInputOutputElement) => {
+		const newInput = cloneDeep(input);
+		const newElement = cloneDeep(element);
+		newInput.lines[lineIndex].elements[elementIndex] = newElement;
 		setInput(newInput);
 	};
 
@@ -242,6 +250,7 @@ const CilTestInputEditor: FunctionComponent<CilTestInputEditorProps> = props => 
 					variant="input"
 					inputOutput={input}
 					onElementAdded={handleElementAdded}
+					onElementEdited={handleElementEdited}
 					onElementDeleted={handleElementDeleted}
 					onLineAdded={handleLineAdded}
 					isReadonly={!isEditable}
