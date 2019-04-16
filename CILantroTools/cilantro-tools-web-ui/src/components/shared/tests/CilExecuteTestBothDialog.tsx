@@ -172,7 +172,6 @@ const CilExecuteTestBothDialog: FunctionComponent<CilExecuteTestBothDialogProps>
 			setInterpreterConsoleLines(prevConsoleLines => [...prevConsoleLines, { type: 'output', content: line }]);
 		},
 		onExecutionError: line => {
-			alert(JSON.stringify(line, null, 4));
 			setInterpreterConsoleLines(prevConsoleLines => [...prevConsoleLines, { type: 'error', content: line }]);
 		}
 	});
