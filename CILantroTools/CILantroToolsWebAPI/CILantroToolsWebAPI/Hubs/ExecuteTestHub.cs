@@ -51,6 +51,11 @@ namespace CILantroToolsWebAPI.Hubs
             _exeRunner.Input(Context.ConnectionId, inputLine);
         }
 
+        public void Kill()
+        {
+            _exeRunner.Kill(Context.ConnectionId);
+        }
+
         public override Task OnConnectedAsync()
         {
             Groups.AddToGroupAsync(Context.ConnectionId, Context.ConnectionId);

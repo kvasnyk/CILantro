@@ -317,20 +317,50 @@ namespace CILantroToolsWebAPI.Hubs
                 };
 
                 var newProcess = Process.Start(processStartInfo);
-
-                using (var streamReader = new StreamReader(inputFile))
-                {
-                    await newProcess.StandardInput.WriteAsync(await streamReader.ReadToEndAsync());
-                    await newProcess.StandardInput.FlushAsync();
-                }
-
                 var outputBuilder = new StringBuilder();
+                var errorBuilder = new StringBuilder();
 
-                var exeOutput = newProcess.StandardOutput;
-                while (!exeOutput.EndOfStream)
+                using (var cancelTokenSource = new CancellationTokenSource())
                 {
-                    var outputLine = await exeOutput.ReadLineAsync();
-                    outputBuilder.AppendLine(outputLine);
+                    var token = cancelTokenSource.Token;
+
+                    var inputTask = Task.Run(async () =>
+                    {
+                        using (var streamReader = new StreamReader(inputFile))
+                        {
+                            await newProcess.StandardInput.WriteAsync(await streamReader.ReadToEndAsync());
+                            await newProcess.StandardInput.FlushAsync();
+                        }
+                    }, token);
+
+                    var errorOutputTask = Task.Run(async () =>
+                    {
+                        var errorOutput = newProcess.StandardError;
+                        while (!errorOutput.EndOfStream)
+                        {
+                            var errorLine = await newProcess.StandardError.ReadLineAsync();
+                            errorBuilder.AppendLine(errorLine);
+                        }
+                    }, token);
+
+                    var exeOutputTask = Task.Run(async () =>
+                    {
+                        var exeOutput = newProcess.StandardOutput;
+                        while (!exeOutput.EndOfStream)
+                        {
+                            var outputLine = await exeOutput.ReadLineAsync();
+                            outputBuilder.AppendLine(outputLine);
+                        }
+                    }, token);
+
+                    Task.WaitAny(errorOutputTask, exeOutputTask);
+
+                    if (!newProcess.HasExited)
+                    {
+                        newProcess.Kill();
+                    }
+
+                    cancelTokenSource.Cancel();
                 }
 
                 await File.WriteAllTextAsync(outputPath, outputBuilder.ToString());
@@ -342,7 +372,7 @@ namespace CILantroToolsWebAPI.Hubs
                     Id = Guid.NewGuid(),
                     Name = Path.GetFileNameWithoutExtension(inputFile),
                     ProcessedForMilliseconds = (int)(finished - started).TotalMilliseconds,
-                    Outcome = RunOutcome.Ok
+                    Outcome = string.IsNullOrEmpty(errorBuilder.ToString()) ? RunOutcome.Ok : RunOutcome.Wrong
                 };
                 result.Add(item);
 
@@ -384,6 +414,7 @@ namespace CILantroToolsWebAPI.Hubs
 
                 var newProcess = Process.Start(processStartInfo);
                 var outputBuilder = new StringBuilder();
+                var errorBuilder = new StringBuilder();
 
                 using (var cancelTokenSource = new CancellationTokenSource())
                 {
@@ -400,7 +431,12 @@ namespace CILantroToolsWebAPI.Hubs
 
                     var errorOutputTask = Task.Run(async () =>
                     {
-                        var errorLine = await newProcess.StandardError.ReadLineAsync();
+                        var errorOutput = newProcess.StandardError;
+                        while (!errorOutput.EndOfStream)
+                        {
+                            var errorLine = await newProcess.StandardError.ReadLineAsync();
+                            errorBuilder.AppendLine(errorLine);
+                        }
                     }, token);
 
                     var exeOutputTask = Task.Run(async () =>
@@ -432,7 +468,7 @@ namespace CILantroToolsWebAPI.Hubs
                     Id = Guid.NewGuid(),
                     Name = Path.GetFileNameWithoutExtension(inputFile),
                     ProcessedForMilliseconds = (int)(finished - started).TotalMilliseconds,
-                    Outcome = RunOutcome.Ok
+                    Outcome = string.IsNullOrEmpty(errorBuilder.ToString()) ? RunOutcome.Ok : RunOutcome.Wrong
                 };
                 result.Add(item);
 

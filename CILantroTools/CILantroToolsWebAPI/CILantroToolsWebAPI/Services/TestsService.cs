@@ -261,6 +261,11 @@ namespace CILantroToolsWebAPI.Services
 
             var output = await process.StandardOutput.ReadToEndAsync();
 
+            if (!process.HasExited)
+            {
+                process.Kill();
+            }
+
             return output;
         }
 

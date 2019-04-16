@@ -75,6 +75,7 @@ const useExecuteTestHub = (hubConfig: ExecuteTestHubConfig) => {
 
 		return () => {
 			if (hubConnection) {
+				hubConnection.send('kill');
 				hubConnection.stop();
 				setConnection(undefined);
 			}

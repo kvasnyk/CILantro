@@ -32,15 +32,15 @@ namespace CILantroToolsWebAPI.Hubs
             var newProcess = Process.Start(processStartInfo);
             _processes.Add(connectionId, newProcess);
 
-            Task
-                .Run(() => { WatchOutput(connectionId); })
+            var outputTask = Task.Run(() => { WatchOutput(connectionId); });
+            var errorTask = Task.Run(() => { WatchError(connectionId); });
+
+            Task.WhenAll(outputTask, errorTask)
                 .ContinueWith(async ct =>
                 {
-                    await Task.Delay(300);
+                    await Task.Delay(1000);
                     _hubContext.Clients.Group(connectionId).SendAsync("end");
                 });
-
-            Task.Run(() => { WatchError(connectionId); });
 
             _hubContext.Clients.Group(connectionId).SendAsync("start");
         }
@@ -48,6 +48,15 @@ namespace CILantroToolsWebAPI.Hubs
         public void Input(string connectionId, string inputLine)
         {
             _processes[connectionId].StandardInput.WriteLineAsync(inputLine);
+        }
+
+        public void Kill(string connectionId)
+        {
+            if (!_processes[connectionId].HasExited)
+            {
+                _processes[connectionId].Kill();
+                _processes.Remove(connectionId);
+            }
         }
 
         private async Task WatchOutput(string connectionId)
