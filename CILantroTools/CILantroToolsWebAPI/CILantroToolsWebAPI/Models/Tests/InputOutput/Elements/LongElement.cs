@@ -7,5 +7,7 @@
         public long MinValue { get; set; }
 
         public long MaxValue { get; set; }
+
+        public bool ExcludeZero { get; set; }
     }
 }

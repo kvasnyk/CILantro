@@ -7,5 +7,7 @@
         public ulong MinValue { get; set; }
 
         public ulong MaxValue { get; set; }
+
+        public bool ExcludeZero { get; set; }
     }
 }

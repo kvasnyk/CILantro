@@ -7,5 +7,7 @@
         public ushort MinValue { get; set; }
 
         public ushort MaxValue { get; set; }
+
+        public bool ExcludeZero { get; set; }
     }
 }

@@ -4,6 +4,7 @@ interface IntElement {
 	minValue: number;
 	maxValue: number;
 	description?: string;
+	excludeZero?: boolean;
 }
 
 export default IntElement;

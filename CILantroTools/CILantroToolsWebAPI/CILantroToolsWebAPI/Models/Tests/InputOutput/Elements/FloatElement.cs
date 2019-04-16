@@ -7,5 +7,7 @@
         public float MinValue { get; set; }
 
         public float MaxValue { get; set; }
+
+        public bool ExcludeZero { get; set; }
     }
 }

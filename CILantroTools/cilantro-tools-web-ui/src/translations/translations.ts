@@ -74,7 +74,8 @@ const translations = {
 		lastOpenedOn: 'Recently opened',
 		chars: 'chars',
 		errorOccurredWhileSearchingTests: 'An error occurred while searching tests.',
-		errorOccurredWhileCopyingInput: 'An error occurred while copying the input.'
+		errorOccurredWhileCopyingInput: 'An error occurred while copying the input.',
+		excludeZero: 'Exclude zero'
 	},
 
 	runs: {

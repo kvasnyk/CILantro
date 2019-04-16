@@ -7,5 +7,7 @@
         public decimal MinValue { get; set; }
 
         public decimal MaxValue { get; set; }
+
+        public bool ExcludeZero { get; set; }
     }
 }

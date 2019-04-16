@@ -4,6 +4,7 @@ interface FloatElement {
 	minValue: number;
 	maxValue: number;
 	description?: string;
+	excludeZero?: boolean;
 }
 
 export default FloatElement;

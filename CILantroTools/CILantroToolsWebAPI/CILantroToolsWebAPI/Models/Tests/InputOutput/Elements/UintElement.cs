@@ -7,5 +7,7 @@
         public uint MinValue { get; set; }
 
         public uint MaxValue { get; set; }
+
+        public bool ExcludeZero { get; set; }
     }
 }

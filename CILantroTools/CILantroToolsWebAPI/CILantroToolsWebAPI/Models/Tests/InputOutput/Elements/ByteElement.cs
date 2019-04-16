@@ -7,5 +7,7 @@
         public byte MinValue { get; set; }
 
         public byte MaxValue { get; set; }
+
+        public bool ExcludeZero { get; set; }
     }
 }

@@ -160,7 +160,7 @@ namespace CILantroToolsWebAPI.Utils
             var min = (BigInteger)byteElement.MinValue;
             var max = (BigInteger)byteElement.MaxValue;
 
-            var b = RandomBigIntegerBelow(max - min + 1);
+            var b = RandomBigIntegerBelow(max - min + 1, byteElement.ExcludeZero);
             b += byteElement.MinValue;
 
             return (byte)b;
@@ -171,7 +171,7 @@ namespace CILantroToolsWebAPI.Utils
             var min = (BigInteger)intElement.MinValue;
             var max = (BigInteger)intElement.MaxValue;
 
-            var b = RandomBigIntegerBelow(max - min + 1);
+            var b = RandomBigIntegerBelow(max - min + 1, intElement.ExcludeZero);
             b += intElement.MinValue;
 
             return (int)b;
@@ -182,7 +182,7 @@ namespace CILantroToolsWebAPI.Utils
             var min = (BigInteger)longElement.MinValue;
             var max = (BigInteger)longElement.MaxValue;
 
-            var b = RandomBigIntegerBelow(max - min + 1);
+            var b = RandomBigIntegerBelow(max - min + 1, longElement.ExcludeZero);
             b += longElement.MinValue;
 
             return (long)b;
@@ -193,7 +193,7 @@ namespace CILantroToolsWebAPI.Utils
             var min = (BigInteger)sbyteElement.MinValue;
             var max = (BigInteger)sbyteElement.MaxValue;
 
-            var b = RandomBigIntegerBelow(max - min + 1);
+            var b = RandomBigIntegerBelow(max - min + 1, sbyteElement.ExcludeZero);
             b += sbyteElement.MinValue;
 
             return (sbyte)b;
@@ -204,7 +204,7 @@ namespace CILantroToolsWebAPI.Utils
             var min = (BigInteger)uintElement.MinValue;
             var max = (BigInteger)uintElement.MaxValue;
 
-            var b = RandomBigIntegerBelow(max - min + 1);
+            var b = RandomBigIntegerBelow(max - min + 1, uintElement.ExcludeZero);
             b += uintElement.MinValue;
 
             return (uint)b;
@@ -215,7 +215,7 @@ namespace CILantroToolsWebAPI.Utils
             var min = (BigInteger)ulongElement.MinValue;
             var max = (BigInteger)ulongElement.MaxValue;
 
-            var b = RandomBigIntegerBelow(max - min + 1);
+            var b = RandomBigIntegerBelow(max - min + 1, ulongElement.ExcludeZero);
             b += ulongElement.MinValue;
 
             return (ulong)b;
@@ -226,7 +226,7 @@ namespace CILantroToolsWebAPI.Utils
             var min = (BigInteger)ushortElement.MinValue;
             var max = (BigInteger)ushortElement.MaxValue;
 
-            var b = RandomBigIntegerBelow(max - min + 1);
+            var b = RandomBigIntegerBelow(max - min + 1, ushortElement.ExcludeZero);
             b += ushortElement.MinValue;
 
             return (ushort)b;
@@ -237,7 +237,7 @@ namespace CILantroToolsWebAPI.Utils
             var min = (BigInteger)shortElement.MinValue;
             var max = (BigInteger)shortElement.MaxValue;
 
-            var b = RandomBigIntegerBelow(max - min + 1);
+            var b = RandomBigIntegerBelow(max - min + 1, shortElement.ExcludeZero);
             b += shortElement.MinValue;
 
             return (short)b;
@@ -249,7 +249,8 @@ namespace CILantroToolsWebAPI.Utils
             {
                 Type = "Double",
                 MinValue = (double)floatElement.MinValue,
-                MaxValue = (double)floatElement.MaxValue
+                MaxValue = (double)floatElement.MaxValue,
+                ExcludeZero = floatElement.ExcludeZero
             });
 
             return (float)randDouble;
@@ -257,7 +258,13 @@ namespace CILantroToolsWebAPI.Utils
 
         private double GenerateDouble(DoubleElement doubleElement)
         {
-            return _random.NextDouble() * (doubleElement.MaxValue - doubleElement.MinValue) + doubleElement.MinValue;
+            double result = 0;
+            do
+            {
+                result = _random.NextDouble() * (doubleElement.MaxValue - doubleElement.MinValue) + doubleElement.MinValue;
+            } while (result == 0 && doubleElement.ExcludeZero);
+
+            return result;
         }
 
         private decimal GenerateDecimal(DecimalElement decimalElement)
@@ -266,13 +273,14 @@ namespace CILantroToolsWebAPI.Utils
             {
                 Type = "Double",
                 MinValue = (double)decimalElement.MinValue,
-                MaxValue = (double)decimalElement.MaxValue
+                MaxValue = (double)decimalElement.MaxValue,
+                ExcludeZero = decimalElement.ExcludeZero
             });
 
             return (decimal)randDouble;
         }
 
-        private BigInteger RandomBigIntegerBelow(BigInteger n)
+        private BigInteger RandomBigIntegerBelow(BigInteger n, bool excludeZero)
         {
             byte[] bytes = n.ToByteArray();
             BigInteger r;
@@ -282,7 +290,7 @@ namespace CILantroToolsWebAPI.Utils
                 _random.NextBytes(bytes);
                 bytes[bytes.Length - 1] &= (byte)0x7F;
                 r = new BigInteger(bytes);
-            } while (r >= n);
+            } while (r >= n || (excludeZero && r == 0));
 
             return r;
         }

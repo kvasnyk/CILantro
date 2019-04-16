@@ -284,10 +284,12 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 		data.varName = intElement.name;
 		data.minValue = intElement.minValue;
 		data.maxValue = intElement.maxValue;
+		data.excludeZero = intElement.excludeZero;
 	} else if (floatElement) {
 		data.varName = floatElement.name;
 		data.minValue = floatElement.minValue;
 		data.maxValue = floatElement.maxValue;
+		data.excludeZero = floatElement.excludeZero;
 	}
 
 	const editButton = props.isEditable ? (
@@ -356,7 +358,7 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 						<div className={elementInfoClassName}>
 							<span>
 								{getIntElementTypeName(intElement)}, {intElement.name} &#8714; [{intElement.minValue},{' '}
-								{intElement.maxValue}]
+								{intElement.maxValue}]{intElement.excludeZero ? <>, {intElement.name} &#8800; 0</> : null}
 							</span>
 						</div>
 					) : null}

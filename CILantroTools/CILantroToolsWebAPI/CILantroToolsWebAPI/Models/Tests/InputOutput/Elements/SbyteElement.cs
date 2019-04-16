@@ -7,5 +7,7 @@
         public sbyte MinValue { get; set; }
 
         public sbyte MaxValue { get; set; }
+
+        public bool ExcludeZero { get; set; }
     }
 }

@@ -48,6 +48,7 @@ export interface AddInputOutputElementData {
 	hasMaxValueMinus: boolean;
 	hasMinValueComma: boolean;
 	hasMaxValueComma: boolean;
+	excludeZero?: boolean;
 	description?: string;
 }
 
@@ -355,6 +356,14 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 		}));
 	};
 
+	const handleExcludeZeroChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const newExcludeZero = e.target.checked;
+		setFormData(prevFormData => ({
+			...prevFormData,
+			excludeZero: newExcludeZero
+		}));
+	};
+
 	const handleStringBigLettersChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const newBigLetters = e.target.checked;
 		setFormData(prevFormData => ({
@@ -443,6 +452,7 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 				name: formData.varName!,
 				minValue: formData.minValue,
 				maxValue: formData.maxValue,
+				excludeZero: formData.excludeZero,
 				description: formData.description
 			});
 		} else if (formData.type === 'Float' || formData.type === 'Double' || formData.type === 'Decimal') {
@@ -451,6 +461,7 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 				name: formData.varName!,
 				minValue: formData.minValue,
 				maxValue: formData.maxValue,
+				excludeZero: formData.excludeZero,
 				description: formData.description
 			});
 		}
@@ -639,6 +650,15 @@ const CilAddInputOutputElementButton: FunctionComponent<CilAddInputOutputElement
 													: handleMaxValueChange
 											}
 											error={formErrors.maxValue}
+										/>
+
+										<FormControlLabel
+											control={
+												<Checkbox checked={formData.excludeZero} onChange={handleExcludeZeroChange}>
+													{translations.tests.excludeZero}
+												</Checkbox>
+											}
+											label={translations.tests.excludeZero}
 										/>
 									</>
 								) : null}
