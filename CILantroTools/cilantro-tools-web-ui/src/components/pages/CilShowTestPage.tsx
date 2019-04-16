@@ -22,7 +22,6 @@ import CilShowIlSourcesButton from '../shared/tests/CilShowIlSourcesButton';
 import CilTestChecklist from '../shared/tests/CilTestChecklist';
 import CilTestInputEditor from '../shared/tests/CilTestInputEditor';
 import CilTestInputOutputExamplesEditor from '../shared/tests/CilTestInputOutputExamplesEditor';
-import CilTestOutputEditor from '../shared/tests/CilTestOutputEditor';
 import CilCodeEditor from '../utils/CilCodeEditor';
 import CilDetailsRow from '../utils/CilDetailsRow';
 import CilDetailsValue from '../utils/CilDetailsValue';
@@ -148,10 +147,6 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 	};
 
 	const handleInputUpdated = () => {
-		refreshTest();
-	};
-
-	const handleOutputUpdated = () => {
 		refreshTest();
 	};
 
