@@ -100,6 +100,14 @@ const CilTestOutputEditor: FunctionComponent<CilTestOutputEditorProps> = props =
 		setOutput(newOutput);
 	};
 
+	const handleLineAdded = () => {
+		const newOutput = cloneDeep(output);
+		newOutput.lines.push({
+			elements: []
+		});
+		setOutput(newOutput);
+	};
+
 	return (
 		<>
 			<div className={classes.titleWrapper}>
@@ -131,6 +139,7 @@ const CilTestOutputEditor: FunctionComponent<CilTestOutputEditorProps> = props =
 				onElementAdded={handleElementAdded}
 				isReadonly={!isEditable}
 				onElementDeleted={handleElementDeleted}
+				onLineAdded={handleLineAdded}
 			/>
 		</>
 	);

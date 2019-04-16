@@ -40,13 +40,16 @@ const useStyles = makeStyles((theme: Theme) => ({
 		flexGrow: 1,
 		flexBasis: 0,
 		display: 'flex',
-		alignItems: 'center',
+		flexDirection: 'column',
 		borderRadius: '5px',
 		padding: '5px',
 		fontFamily: 'Consolas',
 		fontSize: '1rem',
-		marginRight: '5px',
-		minHeight: '50px'
+		marginRight: '20px',
+		minHeight: '50px',
+		'&>*': {
+			marginBottom: '5px'
+		}
 	},
 	newExampleEmptyInput: {
 		display: 'flex',
@@ -60,7 +63,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
-		marginLeft: '5px'
+		marginLeft: '20px'
 	},
 	newExamplePopulate: {
 		margin: '0 10px'
@@ -252,7 +255,7 @@ const CilTestInputOutputExamplesEditor: FunctionComponent<CilTestInputOutputExam
 														className={classes.elementInput}
 														value={inputs[index][elementIndex]}
 														onChange={e => handleInputsChange(index, elementIndex, e)}
-														autoFocus={elementIndex === 0}
+														autoFocus={elementIndex === 0 && index === 0}
 													/>
 												</CilInputOutputElement>
 											))}

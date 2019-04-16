@@ -54,6 +54,7 @@ const translations = {
 		configureInput: 'Configure input',
 		configureOutput: 'Configure output',
 		emptyInput: 'Empty input',
+		emptyLine: 'Empty line',
 		emptyInputHasBeenUpdated: 'The empty input value has been updated.',
 		errorOccurredWhileUpdatingEmptyInput: 'An error occurred while updating the empty input value.',
 		testInput: 'Input',
