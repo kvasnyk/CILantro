@@ -88,7 +88,7 @@ namespace CILantro.Interpreting.Values
             //    return new CilValueUInt64(Value + uint64.Value);
 
             if (value2 is CilValueChar @char)
-                return new CilValueInt32(Value + @char.Value);
+                return new CilValueInt32(Value - @char.Value);
 
             throw new NotImplementedException();
         }
