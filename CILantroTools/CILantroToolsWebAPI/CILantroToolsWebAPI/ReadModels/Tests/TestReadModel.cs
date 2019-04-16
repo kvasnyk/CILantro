@@ -57,7 +57,6 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
             HasIlSources &&
             HasExe &&
             HasInput &&
-            HasOutput &&
             HasIoExample;
     }
 
