@@ -373,6 +373,46 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // _("div")
+            var divChildren = AstChildren.Empty()
+                .Add("div");
+            if (divChildren.PopulateWith(parseNode))
+            {
+                Instruction = new DivideInstruction();
+
+                return;
+            }
+
+            // ___("div.un")
+            var divunChildren = AstChildren.Empty()
+                .Add("div.un");
+            if (divunChildren.PopulateWith(parseNode))
+            {
+                Instruction = new DivideUnsignedInstruction();
+
+                return;
+            }
+
+            // _("rem")
+            var remChildren = AstChildren.Empty()
+                .Add("rem");
+            if (remChildren.PopulateWith(parseNode))
+            {
+                Instruction = new RemainderInstruction();
+
+                return;
+            }
+
+            // ___("rem.un")
+            var remunChildren = AstChildren.Empty()
+                .Add("rem.un");
+            if (remunChildren.PopulateWith(parseNode))
+            {
+                Instruction = new RemainderUnsignedInstruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

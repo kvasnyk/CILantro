@@ -131,6 +131,28 @@ namespace CILantro.Interpreting.Visitors
             _state.MoveToNextInstruction();
         }
 
+        protected override void VisitDivideInstruction(DivideInstruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var value1, out var value2);
+            var result = value1.Div(value2);
+            _state.EvaluationStack.Push(result);
+
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitDivideUnsignedInstruction(DivideUnsignedInstruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var value1, out var value2);
+            var result = value1.Div(value2);
+            _state.EvaluationStack.Push(result);
+
+            _state.MoveToNextInstruction();
+        }
+
         protected override void VisitDuplicateInstruction(DuplicateInstruction instruction)
         {
             _state.EvaluationStack.Pop(out var value);
@@ -301,6 +323,28 @@ namespace CILantro.Interpreting.Visitors
 
             _state.EvaluationStack.Pop(out var value1, out var value2);
             var result = value1.Mul(value2);
+            _state.EvaluationStack.Push(result);
+
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitRemainderInstruction(RemainderInstruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var value1, out var value2);
+            var result = value1.Mod(value2);
+            _state.EvaluationStack.Push(result);
+
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitRemainderUnsignedInstruction(RemainderUnsignedInstruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var value1, out var value2);
+            var result = value1.Mod(value2);
             _state.EvaluationStack.Push(result);
 
             _state.MoveToNextInstruction();

@@ -63,11 +63,17 @@ namespace CILantro.Interpreting.Values
 
         public IStackObject Div(IStackObject value2)
         {
+            if (value2 is CilValueFloat64 float64)
+                return new CilValueFloat64(Value / float64.Value);
+
             throw new NotImplementedException();
         }
 
         public IStackObject Mod(IStackObject value2)
         {
+            if (value2 is CilValueFloat64 float64)
+                return new CilValueFloat64(Value % float64.Value);
+
             throw new NotImplementedException();
         }
     }

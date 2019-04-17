@@ -76,6 +76,14 @@ namespace CILantro.Visitors
                 VisitConvertU2Instruction(convertU2Instruction);
             else if (instruction is MultiplyInstruction multiplyInstruction)
                 VisitMultiplyInstruction(multiplyInstruction);
+            else if (instruction is DivideInstruction divideInstruction)
+                VisitDivideInstruction(divideInstruction);
+            else if (instruction is DivideUnsignedInstruction divideUnsignedInstruction)
+                VisitDivideUnsignedInstruction(divideUnsignedInstruction);
+            else if (instruction is RemainderInstruction remainderInstruction)
+                VisitRemainderInstruction(remainderInstruction);
+            else if (instruction is RemainderUnsignedInstruction remainderUnsignedInstruction)
+                VisitRemainderUnsignedInstruction(remainderUnsignedInstruction);
             else
                 throw new ArgumentException($"CIL instruction none cannot be recognized: '{instruction.ToString()}'.");
         }
@@ -99,6 +107,10 @@ namespace CILantro.Visitors
         protected abstract void VisitConvertU2Instruction(ConvertU2Instruction instruction);
 
         protected abstract void VisitConvertU8Instruction(ConvertU8Instruction instruction);
+
+        protected abstract void VisitDivideInstruction(DivideInstruction instruction);
+
+        protected abstract void VisitDivideUnsignedInstruction(DivideUnsignedInstruction instruction);
 
         protected abstract void VisitDuplicateInstruction(DuplicateInstruction instruction);
 
@@ -133,6 +145,10 @@ namespace CILantro.Visitors
         protected abstract void VisitLoadLocal3Instruction(LoadLocal3Instruction instruction);
 
         protected abstract void VisitMultiplyInstruction(MultiplyInstruction instruction);
+
+        protected abstract void VisitRemainderInstruction(RemainderInstruction instruction);
+
+        protected abstract void VisitRemainderUnsignedInstruction(RemainderUnsignedInstruction instruction);
 
         protected abstract void VisitReturnInstruction(ReturnInstruction instruction);
 
