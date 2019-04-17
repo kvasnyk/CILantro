@@ -43,5 +43,20 @@ namespace CILantro.Interpreting.Values
 
             throw new System.NotImplementedException();
         }
+
+        public IStackObject Mul(IStackObject value2)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IStackObject Div(IStackObject value2)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IStackObject Mod(IStackObject value2)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

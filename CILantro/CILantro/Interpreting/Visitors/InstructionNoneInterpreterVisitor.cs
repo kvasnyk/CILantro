@@ -295,6 +295,17 @@ namespace CILantro.Interpreting.Visitors
             _state.MoveToNextInstruction();
         }
 
+        protected override void VisitMultiplyInstruction(MultiplyInstruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var value1, out var value2);
+            var result = value1.Mul(value2);
+            _state.EvaluationStack.Push(result);
+
+            _state.MoveToNextInstruction();
+        }
+
         protected override void VisitReturnInstruction(ReturnInstruction instruction)
         {
             // TODO: finish implementation

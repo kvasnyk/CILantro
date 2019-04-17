@@ -363,6 +363,16 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // _("mul")
+            var mulChildren = AstChildren.Empty()
+                .Add("mul");
+            if (mulChildren.PopulateWith(parseNode))
+            {
+                Instruction = new MultiplyInstruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

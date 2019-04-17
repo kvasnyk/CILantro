@@ -74,6 +74,8 @@ namespace CILantro.Visitors
                 VisitConvertU1Instruction(convertU1Instruction);
             else if (instruction is ConvertU2Instruction convertU2Instruction)
                 VisitConvertU2Instruction(convertU2Instruction);
+            else if (instruction is MultiplyInstruction multiplyInstruction)
+                VisitMultiplyInstruction(multiplyInstruction);
             else
                 throw new ArgumentException($"CIL instruction none cannot be recognized: '{instruction.ToString()}'.");
         }
@@ -129,6 +131,8 @@ namespace CILantro.Visitors
         protected abstract void VisitLoadLocal2Instruction(LoadLocal2Instruction instruction);
 
         protected abstract void VisitLoadLocal3Instruction(LoadLocal3Instruction instruction);
+
+        protected abstract void VisitMultiplyInstruction(MultiplyInstruction instruction);
 
         protected abstract void VisitReturnInstruction(ReturnInstruction instruction);
 

@@ -14,6 +14,12 @@ namespace CILantro.Interpreting.StackObjects
 
         IStackObject Sub(IStackObject value2);
 
+        IStackObject Mul(IStackObject value2);
+
+        IStackObject Div(IStackObject value2);
+
+        IStackObject Mod(IStackObject value2);
+
         IStackObject Convert(CilType type);
     }
 }
