@@ -2,6 +2,7 @@
 using CILantro.Interpreting.StackObjects;
 using CILantro.Interpreting.Types;
 using System;
+using System.Numerics;
 
 namespace CILantro.Interpreting.Values
 {
@@ -38,7 +39,7 @@ namespace CILantro.Interpreting.Values
             //if (value2 is CilValueInt32 int32)
             //    throw new ArgumentException();
             if (value2 is CilValueInt64 int64)
-                return new CilValueUInt64(Value + (ulong)int64.Value);
+                return new CilValueInt64((long)(new BigInteger(Value) + new BigInteger(int64.Value)));
 
             //if (value2 is CilValueUInt8 uint8)
             //    return new CilValueUInt64(Value + uint8.Value);
@@ -80,7 +81,7 @@ namespace CILantro.Interpreting.Values
             //if (value2 is CilValueInt32 int32)
             //    throw new ArgumentException();
             if (value2 is CilValueInt64 int64)
-                return new CilValueUInt64(Value - (ulong)int64.Value);
+                return new CilValueInt64((long)(new BigInteger(Value) - new BigInteger(int64.Value)));
 
             //if (value2 is CilValueUInt8 uint8)
             //    return new CilValueUInt64(Value + uint8.Value);
@@ -106,7 +107,7 @@ namespace CILantro.Interpreting.Values
             //if (value2 is CilValueInt32 int32)
             //    throw new ArgumentException();
             if (value2 is CilValueInt64 int64)
-                return new CilValueUInt64(Value * (ulong)int64.Value);
+                return new CilValueInt64((long)(new BigInteger(Value) * new BigInteger(int64.Value)));
 
             //if (value2 is CilValueUInt8 uint8)
             //    return new CilValueUInt64(Value * uint8.Value);
@@ -132,7 +133,7 @@ namespace CILantro.Interpreting.Values
             //if (value2 is CilValueInt32 int32)
             //    throw new ArgumentException();
             if (value2 is CilValueInt64 int64)
-                return new CilValueUInt64(Value / (ulong)int64.Value);
+                return new CilValueInt64((long)(new BigInteger(Value) / new BigInteger(int64.Value)));
 
             //if (value2 is CilValueUInt8 uint8)
             //    return new CilValueUInt64(Value / uint8.Value);
@@ -158,7 +159,7 @@ namespace CILantro.Interpreting.Values
             //if (value2 is CilValueInt32 int32)
             //    throw new ArgumentException();
             if (value2 is CilValueInt64 int64)
-                return new CilValueUInt64(Value % (ulong)int64.Value);
+                return new CilValueInt64((long)(new BigInteger(Value) % new BigInteger(int64.Value)));
 
             //if (value2 is CilValueUInt8 uint8)
             //    return new CilValueUInt64(Value % uint8.Value);

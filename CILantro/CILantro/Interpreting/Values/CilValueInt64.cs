@@ -2,6 +2,7 @@
 using CILantro.Interpreting.StackObjects;
 using CILantro.Interpreting.Types;
 using System;
+using System.Numerics;
 
 namespace CILantro.Interpreting.Values
 {
@@ -48,7 +49,7 @@ namespace CILantro.Interpreting.Values
             //if (value2 is CilValueUInt32 uint32)
             //    return new CilValueInt64(Value + uint32.Value);
             if (value2 is CilValueUInt64 uint64)
-                return new CilValueInt64(Value + (long)uint64.Value);
+                return new CilValueInt64((long)(new BigInteger(Value) + new BigInteger(uint64.Value)));
 
             throw new NotImplementedException();
         }
@@ -71,7 +72,7 @@ namespace CILantro.Interpreting.Values
             //if (value2 is CilValueUInt32 uint32)
             //    return new CilValueInt64(Value + uint32.Value);
             if (value2 is CilValueUInt64 uint64)
-                return new CilValueInt64(Value - (long)uint64.Value);
+                return new CilValueInt64((long)(new BigInteger(Value) - new BigInteger(uint64.Value)));
 
             throw new NotImplementedException();
         }
@@ -108,7 +109,7 @@ namespace CILantro.Interpreting.Values
             //if (value2 is CilValueUInt32 uint32)
             //    return new CilValueInt64(Value * uint32.Value);
             if (value2 is CilValueUInt64 uint64)
-                return new CilValueInt64(Value * (long)uint64.Value);
+                return new CilValueInt64((long)(new BigInteger(Value) * new BigInteger(uint64.Value)));
 
             throw new NotImplementedException();
         }
@@ -131,7 +132,7 @@ namespace CILantro.Interpreting.Values
             //if (value2 is CilValueUInt32 uint32)
             //    return new CilValueInt64(Value / uint32.Value);
             if (value2 is CilValueUInt64 uint64)
-                return new CilValueInt64(Value / (long)uint64.Value);
+                return new CilValueInt64((long)(new BigInteger(Value) / new BigInteger(uint64.Value)));
 
             throw new NotImplementedException();
         }
@@ -154,7 +155,7 @@ namespace CILantro.Interpreting.Values
             //if (value2 is CilValueUInt32 uint32)
             //    return new CilValueInt64(Value % uint32.Value);
             if (value2 is CilValueUInt64 uint64)
-                return new CilValueInt64(Value % (long)uint64.Value);
+                return new CilValueInt64((long)(new BigInteger(Value) % new BigInteger(uint64.Value)));
 
             throw new NotImplementedException();
         }
