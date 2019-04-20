@@ -1,6 +1,5 @@
 ﻿using CILantro.Instructions.String;
 using CILantro.Interpreting.Memory;
-using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.State;
 using CILantro.Visitors;
 
@@ -22,12 +21,13 @@ namespace CILantro.Interpreting.Visitors
         {
             // TODO: finish implementation
 
-            var cilString = new CilString(instruction.StringValue);
+            //var cilString = new CilString(instruction.StringValue);
 
-            var reference = _managedMemory.Store(cilString);
-            _state.EvaluationStack.Push(reference);
+            //var reference = _managedMemory.Store(cilString);
+            //_state.EvaluationStack.Push(reference);
 
-            _state.MoveToNextInstruction();
+            //_state.MoveToNextInstruction();
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using CILantro.Interpreting.Memory;
-using CILantro.Interpreting.StackObjects;
 using CILantro.Interpreting.Types;
 using CILantro.Interpreting.Values;
 using System;
@@ -29,13 +28,13 @@ namespace CILantro.Interpreting.Objects
             return _array;
         }
 
-        public void SetValue(IStackObject stackObject, CilValueInt32 indexVal)
+        public void SetValue(IValue value, CilValueInt32 indexVal)
         {
-            var arrayElem = stackObject.AsRuntime(_type, null);
+            var arrayElem = value.AsRuntime(_type, null);
             _array.SetValue(arrayElem, indexVal.Value);
         }
 
-        public IStackObject GetValue(CilValueInt32 indexVal, CilManagedMemory managedMemory)
+        public IValue GetValue(CilValueInt32 indexVal, CilManagedMemory managedMemory)
         {
             var arrayElem = _array.GetValue(indexVal.Value);
 

@@ -1,4 +1,5 @@
-﻿using CILantro.Interpreting.StackObjects;
+﻿using CILantro.Interpreting.Types;
+using CILantro.Interpreting.Values;
 using CILantro.Structure;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -7,36 +8,44 @@ namespace CILantro.Interpreting.State
 {
     public class CilLocals
     {
+        private OrderedDictionary _typesDict { get; }
+
         private OrderedDictionary _dict;
 
         public CilLocals(List<CilSigArg> localsSigArgs)
         {
             _dict = new OrderedDictionary(localsSigArgs.Count);
+            _typesDict = new OrderedDictionary(localsSigArgs.Count);
 
             foreach (var sigArg in localsSigArgs)
             {
                 _dict.Add(sigArg.Id, null);
+                _typesDict.Add(sigArg.Id, sigArg.Type);
             }
         }
 
-        public void Store(string id, IStackObject value)
+        public void Store(string id, int index, IValue value)
         {
-            _dict[id] = value;
+            if (!string.IsNullOrEmpty(id))
+                _dict[id] = value;
+            else
+                _dict[index] = value;
         }
 
-        public void Store(short index, IStackObject value)
+        public IValue Load(string id, int index)
         {
-            _dict[index] = value;
+            if (!string.IsNullOrEmpty(id))
+                return _dict[id] as IValue;
+            else
+                return _dict[index] as IValue;
         }
 
-        public IStackObject Load(short index)
+        public CilType GetLocalType(string id, int index)
         {
-            return _dict[index] as IStackObject;
-        }
-
-        public IStackObject Load(string id)
-        {
-            return _dict[id] as IStackObject;
+            if (!string.IsNullOrEmpty(id))
+                return _typesDict[id] as CilType;
+            else
+                return _typesDict[index] as CilType;
         }
     }
 }

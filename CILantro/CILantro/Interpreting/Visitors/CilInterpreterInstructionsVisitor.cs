@@ -45,12 +45,12 @@ namespace CILantro.Interpreting.Visitors
             _state = new CilControlState(program.EntryPoint);
             _managedMemory = new CilDictionaryManagedMemory();
 
-            _instructionNoneVisitor = new InstructionNoneInterpreterVisitor(_state, _managedMemory);
+            _instructionNoneVisitor = new InstructionNoneInterpreterVisitor(program, _state, _managedMemory);
             _instructionMethodVisitor = new InstructionMethodInterpreterVisitor(program, _state, _managedMemory);
             _instructionStringVisitor = new InstructionStringInterpreterVisitor(_state, _managedMemory);
             _instructionIVisitor = new InstructionIInterpreterVisitor(_state, _managedMemory);
             _instructionTypeVisitor = new InstructionTypeInterpreterVisitor(_state, _managedMemory);
-            _instructionVarVisitor = new InstructionVarInterpreterVisitor(_state, _managedMemory);
+            _instructionVarVisitor = new InstructionVarInterpreterVisitor(program, _state, _managedMemory);
             _instructionRVisitor = new InstructionRInterpreterVisitor(_state, _managedMemory);
         }
 

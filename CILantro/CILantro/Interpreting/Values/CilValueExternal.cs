@@ -1,11 +1,9 @@
 ﻿using CILantro.Interpreting.Memory;
-using CILantro.Interpreting.StackObjects;
 using CILantro.Interpreting.Types;
-using System;
 
 namespace CILantro.Interpreting.Values
 {
-    public struct CilValueExternal : IStackObject
+    public struct CilValueExternal : IValue
     {
         public object Value { get; }
 
@@ -14,49 +12,9 @@ namespace CILantro.Interpreting.Values
             Value = value;
         }
 
-        public T? As<T>() where T : struct, IStackObject
+        public object AsRuntime(CilType cilType, CilManagedMemory managedMemory)
         {
-            throw new NotImplementedException();
-        }
-
-        public object AsRuntime(CilType type, CilManagedMemory managedMemory)
-        {
-            if (type is CilTypeValueType)
-                return Value;
-
-            throw new NotImplementedException();
-        }
-
-        public IStackObject Add(IStackObject value2)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IStackObject Sub(IStackObject value2)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IStackObject Convert(CilType type)
-        {
-            return this; // TODO: is this really correct?
-
-            throw new NotImplementedException();
-        }
-
-        public IStackObject Mul(IStackObject value2)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IStackObject Div(IStackObject value2)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IStackObject Mod(IStackObject value2)
-        {
-            throw new NotImplementedException();
+            throw new System.NotImplementedException();
         }
     }
 }

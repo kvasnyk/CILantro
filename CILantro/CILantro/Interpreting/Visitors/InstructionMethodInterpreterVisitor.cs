@@ -1,9 +1,9 @@
 ﻿using CILantro.Instructions;
 using CILantro.Instructions.Method;
 using CILantro.Interpreting.Memory;
-using CILantro.Interpreting.StackObjects;
 using CILantro.Interpreting.State;
 using CILantro.Interpreting.Types;
+using CILantro.Interpreting.Values;
 using CILantro.Structure;
 using CILantro.Utils;
 using CILantro.Visitors;
@@ -30,6 +30,7 @@ namespace CILantro.Interpreting.Visitors
         public override void VisitCallInstruction(CallInstruction instruction)
         {
             // TODO: finish implementation
+            // TODO: handle non-external types
 
             var isExternalType = _program.IsExternalType(instruction.TypeSpec);
 
@@ -45,6 +46,8 @@ namespace CILantro.Interpreting.Visitors
         public override void VisitCallVirtualInstruction(CallVirtualInstruction instruction)
         {
             // TODO: finish implementation
+            // TODO: handle non-external types
+            // TODO: handle really virtual methods
 
             var isExternalType = _program.IsExternalType(instruction.TypeSpec);
 
@@ -64,7 +67,7 @@ namespace CILantro.Interpreting.Visitors
             object instance = null;
             if (instruction.CallConv.IsInstance)
             {
-                _state.EvaluationStack.Pop(out CilReference instanceRef);
+                _state.EvaluationStack.PopValue(out CilValueReference instanceRef);
                 instance = _managedMemory.Load(instanceRef).AsRuntime(instruction.ReturnType);
             }
             
@@ -86,8 +89,8 @@ namespace CILantro.Interpreting.Visitors
         {
             if (!(returnType is CilTypeVoid))
             {
-                var stackObject = returnType.CreateInstanceFromRuntime(result, _managedMemory, _program);
-                _state.EvaluationStack.Push(stackObject);
+                var value = returnType.CreateValueFromRuntime(result, _managedMemory, _program);
+                _state.EvaluationStack.PushValue(value);
             }
         }
 
@@ -96,9 +99,8 @@ namespace CILantro.Interpreting.Visitors
             var methodArguments = new List<object>();
             for (int i = 0; i < instruction.SigArgs.Count; i++)
             {
-                _state.EvaluationStack.Pop(out var stackObject);
-                var convertedObject = stackObject.Convert(instruction.SigArgs[i].Type);
-                var argument = convertedObject.AsRuntime(instruction.SigArgs[i].Type, _managedMemory);
+                _state.EvaluationStack.PopValue(_program, instruction.SigArgs[i].Type, out var value);
+                var argument = value.AsRuntime(instruction.SigArgs[i].Type, _managedMemory);
                 methodArguments.Add(argument);
             }
             methodArguments.Reverse();

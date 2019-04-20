@@ -1,5 +1,5 @@
 ﻿using CILantro.Interpreting.Objects;
-using CILantro.Interpreting.StackObjects;
+using CILantro.Interpreting.Values;
 using System;
 using System.Collections.Generic;
 
@@ -16,22 +16,22 @@ namespace CILantro.Interpreting.Memory
             _dictionary = new Dictionary<int, object>();
         }
 
-        public override void Delete(CilReference reference)
+        public override void Delete(CilValueReference reference)
         {
             throw new NotImplementedException();
         }
 
-        public override CilObject Load(CilReference reference)
+        public override CilObject Load(CilValueReference reference)
         {
             return _dictionary[reference.Address] as CilObject;
         }
 
-        public override CilReference Store(CilObject obj)
+        public override CilValueReference Store(CilObject obj)
         {
             var address = _nextAddress;
             _dictionary[address] = obj;
             _nextAddress++;
-            return new CilReference(address);
+            return new CilValueReference(address);
         }
     }
 }

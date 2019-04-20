@@ -22,13 +22,15 @@ namespace CILantro.Interpreting.Visitors
         public override void VisitNewArrayInstruction(NewArrayInstruction instruction)
         {
             // TODO: finish implementation
+            // TODO: can we really use Array class?
+            // TODO: and do we really need to use Array class?
 
-            _state.EvaluationStack.Pop(out CilValueInt32 numElems);
+            _state.EvaluationStack.PopValue(out CilValueInt32 numElems);
 
             var newArr = new CilArray(instruction.TypeSpec.GetCilType(), numElems.Value);
             var arrRef = _managedMemory.Store(newArr);
 
-            _state.EvaluationStack.Push(arrRef);
+            _state.EvaluationStack.PushValue(arrRef);
 
             _state.MoveToNextInstruction();
         }

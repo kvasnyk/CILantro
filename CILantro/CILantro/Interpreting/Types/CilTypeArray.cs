@@ -1,6 +1,6 @@
 ﻿using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.Objects;
-using CILantro.Interpreting.StackObjects;
+using CILantro.Interpreting.Values;
 using CILantro.Structure;
 using System;
 
@@ -21,7 +21,12 @@ namespace CILantro.Interpreting.Types
             return fakeArray.GetType();
         }
 
-        public override IStackObject CreateInstanceFromRuntime(object obj, CilManagedMemory managedMemory, CilProgram program)
+        public override Type GetValueType(CilProgram program)
+        {
+            return typeof(CilValueReference);
+        }
+
+        public override IValue CreateValueFromRuntime(object obj, CilManagedMemory managedMemory, CilProgram program)
         {
             var cilArray = new CilArray(obj as Array, ElementType);
             var arrayRef = managedMemory.Store(cilArray);

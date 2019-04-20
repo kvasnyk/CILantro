@@ -1,7 +1,6 @@
 ﻿using CILantro.Instructions.R;
 using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.State;
-using CILantro.Interpreting.Values;
 using CILantro.Visitors;
 
 namespace CILantro.Interpreting.Visitors
@@ -22,20 +21,22 @@ namespace CILantro.Interpreting.Visitors
         {
             // TODO: finish implementation
 
-            var value = new CilValueFloat32((float)instruction.Value);
-            _state.EvaluationStack.Push(value);
+            //var value = new CilValueFloat32((float)instruction.Value);
+            //_state.EvaluationStack.Push(value);
 
-            _state.MoveToNextInstruction();
+            //_state.MoveToNextInstruction();
+            throw new System.NotImplementedException();
         }
 
         protected override void VisitLoadConstR8Instruction(LoadConstR8Instruction instruction)
         {
             // TODO: finish implementation
 
-            var value = new CilValueFloat64(instruction.Value);
-            _state.EvaluationStack.Push(value);
+            //var value = new CilValueFloat64(instruction.Value);
+            //_state.EvaluationStack.Push(value);
 
-            _state.MoveToNextInstruction();
+            //_state.MoveToNextInstruction();
+            throw new System.NotImplementedException();
         }
     }
 }

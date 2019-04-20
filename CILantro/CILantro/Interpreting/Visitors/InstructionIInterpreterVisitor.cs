@@ -1,7 +1,7 @@
 ﻿using CILantro.Instructions.I;
 using CILantro.Interpreting.Memory;
+using CILantro.Interpreting.StackValues;
 using CILantro.Interpreting.State;
-using CILantro.Interpreting.Values;
 using CILantro.Visitors;
 
 namespace CILantro.Interpreting.Visitors
@@ -20,10 +20,8 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadConstI4ShortInstruction(LoadConstI4ShortInstruction instruction)
         {
-            // TODO: finish implementation
-
-            var value = new CilValueInt32(instruction.Value);
-            _state.EvaluationStack.Push(value);
+            var stackVal = new CilStackValueInt32(instruction.Value);
+            _state.EvaluationStack.Push(stackVal);
 
             _state.MoveToNextInstruction();
         }

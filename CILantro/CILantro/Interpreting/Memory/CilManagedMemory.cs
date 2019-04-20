@@ -1,14 +1,14 @@
 ﻿using CILantro.Interpreting.Objects;
-using CILantro.Interpreting.StackObjects;
+using CILantro.Interpreting.Values;
 
 namespace CILantro.Interpreting.Memory
 {
     public abstract class CilManagedMemory
     {
-        public abstract CilReference Store(CilObject obj);
+        public abstract CilValueReference Store(CilObject obj);
 
-        public abstract CilObject Load(CilReference reference);
+        public abstract CilObject Load(CilValueReference reference);
 
-        public abstract void Delete(CilReference reference);
+        public abstract void Delete(CilValueReference reference);
     }
 }
