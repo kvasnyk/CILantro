@@ -25,11 +25,10 @@ namespace CILantro.Interpreting.Visitors
         {
             // TODO: finish implementation
 
-            //var value = _state.Locals.Load(instruction.Id);
-            //_state.EvaluationStack.Push(value);
+            var value = _state.Locals.Load(instruction.Id, instruction.Index);
+            _state.EvaluationStack.PushValue(value);
 
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitStoreLocalShortInstruction(StoreLocalShortInstruction instruction)

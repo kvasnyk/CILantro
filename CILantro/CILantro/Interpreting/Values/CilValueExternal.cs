@@ -14,6 +14,9 @@ namespace CILantro.Interpreting.Values
 
         public object AsRuntime(CilType cilType, CilManagedMemory managedMemory)
         {
+            if (cilType is CilTypeValueType)
+                return Value;
+
             throw new System.NotImplementedException();
         }
     }

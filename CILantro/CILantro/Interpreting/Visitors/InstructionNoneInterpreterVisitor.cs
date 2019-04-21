@@ -6,6 +6,7 @@ using CILantro.Interpreting.State;
 using CILantro.Interpreting.Values;
 using CILantro.Structure;
 using CILantro.Visitors;
+using System;
 
 namespace CILantro.Interpreting.Visitors
 {
@@ -28,12 +29,17 @@ namespace CILantro.Interpreting.Visitors
         {
             // TODO: finish implementation
 
-            //_state.EvaluationStack.Pop(out var value1, out var value2);
-            //var result = value1.Add(value2);
-            //_state.EvaluationStack.Push(result);
+            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            var resultStackVal = ComputeBinaryNumericInstruction(
+                stackVal1,
+                stackVal2,
+                (int32a, int32b) => int32a + int32b,
+                (int64a, int64b) => int64a + int64b,
+                (f1, f2) => f1 + f2
+            );
+            _state.EvaluationStack.Push(resultStackVal);
 
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitConvertI1Instruction(ConvertI1Instruction instruction)
@@ -64,48 +70,65 @@ namespace CILantro.Interpreting.Visitors
         {
             // TODO: finish implementation
 
-            //_state.EvaluationStack.Pop(out var value);
-            //var result = value.Convert(new CilTypeInt64());
-            //_state.EvaluationStack.Push(result);
+            _state.EvaluationStack.Pop(out var stackVal);
+            var newStackVal = ComputeConversionInstruction(
+                stackVal,
+                int32 => new CilStackValueInt64(int32),
+                int64 => { throw new NotImplementedException(); },
+                f => { throw new NotImplementedException(); }
+            );
+            _state.EvaluationStack.Push(newStackVal);
 
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitConvertR4Instruction(ConvertR4Instruction instruction)
         {
             // TODO: finish implementation
 
-            //_state.EvaluationStack.Pop(out var value);
-            //var result = value.Convert(new CilTypeFloat32());
-            //_state.EvaluationStack.Push(result);
+            _state.EvaluationStack.Pop(out var stackVal);
+            var newStackVal = ComputeConversionInstruction(
+                stackVal,
+                int32 => new CilStackValueFloat((float)int32),
+                int64 => new CilStackValueFloat((float)int64),
+                f => new CilStackValueFloat((double)f)
+            );
+            _state.EvaluationStack.Push(newStackVal);
 
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitConvertR8Instruction(ConvertR8Instruction instruction)
         {
             // TODO: finish implementation
 
-            //_state.EvaluationStack.Pop(out var value);
-            //var result = value.Convert(new CilTypeFloat64());
-            //_state.EvaluationStack.Push(result);
+            _state.EvaluationStack.Pop(out var stackVal);
+            var newStackVal = ComputeConversionInstruction(
+                stackVal,
+                int32 => new CilStackValueFloat((double)int32),
+                int64 => new CilStackValueFloat((double)int64),
+                f => new CilStackValueFloat(f)
+            );
+            _state.EvaluationStack.Push(newStackVal);
 
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitConvertRUnsignedInstruction(ConvertRUnsignedInstruction instruction)
         {
             // TODO: finish implementation
+            // TODO: should we deal with the fact it is unsigned instruction?
 
-            //_state.EvaluationStack.Pop(out var value);
-            //var result = value.Convert(new CilTypeFloat64());
-            //_state.EvaluationStack.Push(result);
+            _state.EvaluationStack.Pop(out var stackVal);
+            var newStackVal = ComputeConversionInstruction(
+                stackVal,
+                int32 => new CilStackValueFloat((double)int32),
+                int64 => new CilStackValueFloat((double)int64),
+                f => { throw new NotImplementedException(); }
+            );
+            _state.EvaluationStack.Push(newStackVal);
 
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitConvertU1Instruction(ConvertU1Instruction instruction)
@@ -136,12 +159,16 @@ namespace CILantro.Interpreting.Visitors
         {
             // TODO: finish implementation
 
-            //_state.EvaluationStack.Pop(out var value);
-            //var result = value.Convert(new CilTypeUInt64());
-            //_state.EvaluationStack.Push(result);
+            _state.EvaluationStack.Pop(out var stackVal);
+            var newStackVal = ComputeConversionInstruction(
+                stackVal,
+                int32 => new CilStackValueInt64((long)(ulong)int32),
+                int64 => { throw new NotImplementedException(); },
+                f => { throw new NotImplementedException(); }
+            );
+            _state.EvaluationStack.Push(newStackVal);
 
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitDivideInstruction(DivideInstruction instruction)
@@ -300,44 +327,40 @@ namespace CILantro.Interpreting.Visitors
         {
             // TODO: finish implementation
 
-            //var value = _state.Locals.Load(0);
-            //_state.EvaluationStack.Push(value);
+            var value = _state.Locals.Load(null, 0);
+            _state.EvaluationStack.PushValue(value);
 
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitLoadLocal1Instruction(LoadLocal1Instruction instruction)
         {
             // TODO: finish implementation
 
-            //var value = _state.Locals.Load(1);
-            //_state.EvaluationStack.Push(value);
+            var value = _state.Locals.Load(null, 1);
+            _state.EvaluationStack.PushValue(value);
 
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitLoadLocal2Instruction(LoadLocal2Instruction instruction)
         {
             // TODO: finish implementation
 
-            //var value = _state.Locals.Load(2);
-            //_state.EvaluationStack.Push(value);
+            var value = _state.Locals.Load(null, 2);
+            _state.EvaluationStack.PushValue(value);
 
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitLoadLocal3Instruction(LoadLocal3Instruction instruction)
         {
             // TODO: finish implementation
 
-            //var value = _state.Locals.Load(3);
-            //_state.EvaluationStack.Push(value);
+            var value = _state.Locals.Load(null, 3);
+            _state.EvaluationStack.PushValue(value);
 
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitMultiplyInstruction(MultiplyInstruction instruction)
@@ -380,8 +403,7 @@ namespace CILantro.Interpreting.Visitors
         {
             // TODO: finish implementation
 
-            //_state.MethodState.Instruction = null;
-            throw new System.NotImplementedException();
+            _state.MethodState.Instruction = null;
         }
 
         protected override void VisitStoreArrayElementI2Instruction(StoreArrayElementI2Instruction instruction)
@@ -441,6 +463,45 @@ namespace CILantro.Interpreting.Visitors
             //_state.EvaluationStack.Push(result);
 
             //_state.MoveToNextInstruction();
+            throw new System.NotImplementedException();
+        }
+
+        private IStackValue ComputeBinaryNumericInstruction(
+            IStackValue stackVal1,
+            IStackValue stackVal2,
+            Func<int, int, int> computeInt32Int32,
+            Func<long, long, long> computeInt64Int64,
+            Func<double, double, double> computeFloatFloat
+        )
+        {
+            // TODO: cover all cases
+
+            if (stackVal1 is CilStackValueInt32 stackVal1Int32 && stackVal2 is CilStackValueInt32 stackVal2Int32)
+                return new CilStackValueInt32(computeInt32Int32(stackVal1Int32.Value, stackVal2Int32.Value));
+            if (stackVal1 is CilStackValueInt64 stackVal1Int64 && stackVal2 is CilStackValueInt64 stackVal2Int64)
+                return new CilStackValueInt64(computeInt64Int64(stackVal1Int64.Value, stackVal2Int64.Value));
+            if (stackVal1 is CilStackValueFloat stackVal1Float && stackVal2 is CilStackValueFloat stackVal2Float)
+                return new CilStackValueFloat(computeFloatFloat(stackVal1Float.Value, stackVal2Float.Value));
+
+            throw new System.NotImplementedException();
+        }
+
+        private IStackValue ComputeConversionInstruction(
+            IStackValue stackVal,
+            Func<int, IStackValue> computeInt32,
+            Func<long, IStackValue> computeInt64,
+            Func<double, IStackValue> computeFloat
+        )
+        {
+            // TODO: cover all cases
+
+            if (stackVal is CilStackValueInt32 stackValInt32)
+                return computeInt32(stackValInt32.Value);
+            if (stackVal is CilStackValueInt64 stackValInt64)
+                return computeInt64(stackValInt64.Value);
+            if (stackVal is CilStackValueFloat stackValFloat)
+                return computeFloat(stackValFloat.Value);
+
             throw new System.NotImplementedException();
         }
     }

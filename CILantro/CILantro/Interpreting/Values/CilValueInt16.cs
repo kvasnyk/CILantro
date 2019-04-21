@@ -16,6 +16,8 @@ namespace CILantro.Interpreting.Values
         {
             if (cilType is CilTypeChar)
                 return (char)Value;
+            if (cilType is CilTypeInt16)
+                return Value;
 
             throw new System.NotImplementedException();
         }
