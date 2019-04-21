@@ -116,6 +116,9 @@ namespace CILantro.Interpreting.State
             if (val is CilValueExternal valExternal)
                 return new CilStackValueExternal(valExternal.Value);
 
+            if (val is CilValueBool valBool)
+                return new CilStackValueInt32(valBool.Value ? 1 : 0);
+
             throw new NotImplementedException();
         }
 
@@ -197,6 +200,12 @@ namespace CILantro.Interpreting.State
             {
                 if (stackVal is CilStackValueExternal stackValExternal)
                     return new CilValueExternal(stackValExternal.ExternalValue);
+            }
+
+            if (valType == typeof(CilValueBool))
+            {
+                if (stackVal is CilStackValueInt32 stackValInt32)
+                    return new CilValueBool(stackValInt32.Value != 0);
             }
 
             throw new NotImplementedException();

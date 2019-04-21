@@ -46,24 +46,32 @@ namespace CILantro.Interpreting.Visitors
         {
             // TODO: finish implementation
 
-            //_state.EvaluationStack.Pop(out var value);
-            //var result = value.Convert(new CilTypeInt8());
-            //_state.EvaluationStack.Push(result);
+            _state.EvaluationStack.Pop(out var stackVal);
+            var newStackVal = ComputeConversionInstruction(
+                stackVal,
+                x => new CilStackValueInt32((sbyte)x.Value),
+                x => { throw new NotImplementedException(); },
+                x => { throw new NotImplementedException(); }
+            );
+            _state.EvaluationStack.Push(newStackVal);
 
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitConvertI2Instruction(ConvertI2Instruction instruction)
         {
             // TODO: finish implementation
 
-            //_state.EvaluationStack.Pop(out var value);
-            //var result = value.Convert(new CilTypeInt16());
-            //_state.EvaluationStack.Push(result);
+            _state.EvaluationStack.Pop(out var stackVal);
+            var newStackVal = ComputeConversionInstruction(
+                stackVal,
+                x => new CilStackValueInt32((short)x.Value),
+                x => { throw new NotImplementedException(); },
+                x => { throw new NotImplementedException(); }
+            );
+            _state.EvaluationStack.Push(newStackVal);
 
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitConvertI8Instruction(ConvertI8Instruction instruction)
@@ -91,7 +99,7 @@ namespace CILantro.Interpreting.Visitors
                 stackVal,
                 x => new CilStackValueFloat((float)x.Value),
                 x => new CilStackValueFloat((float)x.Value),
-                x => new CilStackValueFloat((double)x.Value)
+                x => new CilStackValueFloat((float)x.Value)
             );
             _state.EvaluationStack.Push(newStackVal);
 
@@ -135,24 +143,32 @@ namespace CILantro.Interpreting.Visitors
         {
             // TODO: finish implementation
 
-            //_state.EvaluationStack.Pop(out var value);
-            //var result = value.Convert(new CilTypeUInt8());
-            //_state.EvaluationStack.Push(result);
+            _state.EvaluationStack.Pop(out var stackVal);
+            var newStackVal = ComputeConversionInstruction(
+                stackVal,
+                x => new CilStackValueInt32((byte)x.ValueUnsigned),
+                x => { throw new NotImplementedException(); },
+                x => { throw new NotImplementedException(); }
+            );
+            _state.EvaluationStack.Push(newStackVal);
 
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitConvertU2Instruction(ConvertU2Instruction instruction)
         {
             // TODO: finish implementation
 
-            //_state.EvaluationStack.Pop(out var value);
-            //var result = value.Convert(new CilTypeUInt16());
-            //_state.EvaluationStack.Push(result);
+            _state.EvaluationStack.Pop(out var stackVal);
+            var newStackVal = ComputeConversionInstruction(
+                stackVal,
+                x => new CilStackValueInt32((ushort)x.ValueUnsigned),
+                x => { throw new NotImplementedException(); },
+                x => { throw new NotImplementedException(); }
+            );
+            _state.EvaluationStack.Push(newStackVal);
 
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction(); ;
         }
 
         protected override void VisitConvertU8Instruction(ConvertU8Instruction instruction)
@@ -162,7 +178,7 @@ namespace CILantro.Interpreting.Visitors
             _state.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionInstruction(
                 stackVal,
-                x => new CilStackValueInt64((long)x.ValueUnsigned),
+                x => new CilStackValueInt64((long)(ulong)x.ValueUnsigned),
                 x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); }
             );
@@ -175,24 +191,34 @@ namespace CILantro.Interpreting.Visitors
         {
             // TODO: finish implementation
 
-            //_state.EvaluationStack.Pop(out var value1, out var value2);
-            //var result = value1.Div(value2);
-            //_state.EvaluationStack.Push(result);
+            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            var resultStackVal = ComputeBinaryNumericInstruction(
+                stackVal1,
+                stackVal2,
+                (a, b) => new CilStackValueInt32(a.Value / b.Value),
+                (a, b) => new CilStackValueInt64(a.Value / b.Value),
+                (a, b) => new CilStackValueFloat(a.Value / b.Value)
+            );
+            _state.EvaluationStack.Push(resultStackVal);
 
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitDivideUnsignedInstruction(DivideUnsignedInstruction instruction)
         {
             // TODO: finish implementation
 
-            //_state.EvaluationStack.Pop(out var value1, out var value2);
-            //var result = value1.Div(value2);
-            //_state.EvaluationStack.Push(result);
+            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            var resultStackVal = ComputeBinaryNumericInstruction(
+                stackVal1,
+                stackVal2,
+                (a, b) => new CilStackValueInt32((int)(a.ValueUnsigned / b.ValueUnsigned)),
+                (a, b) => new CilStackValueInt64((long)(a.ValueUnsigned / b.ValueUnsigned)),
+                (a, b) => new CilStackValueFloat(a.Value / b.Value)
+            );
+            _state.EvaluationStack.Push(resultStackVal);
 
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitDuplicateInstruction(DuplicateInstruction instruction)
@@ -237,90 +263,66 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadConstI42Instruction(LoadConstI42Instruction instruction)
         {
-            // TODO: finish implementation
+            var stackVal = new CilStackValueInt32(2);
+            _state.EvaluationStack.Push(stackVal);
 
-            //var value = new CilValueInt32(2);
-            //_state.EvaluationStack.Push(value);
-
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitLoadConstI43Instruction(LoadConstI43Instruction instruction)
         {
-            // TODO: finish implementation
+            var stackVal = new CilStackValueInt32(3);
+            _state.EvaluationStack.Push(stackVal);
 
-            //var value = new CilValueInt32(3);
-            //_state.EvaluationStack.Push(value);
-
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitLoadConstI44Instruction(LoadConstI44Instruction instruction)
         {
-            // TODO: finish implementation
+            var stackVal = new CilStackValueInt32(4);
+            _state.EvaluationStack.Push(stackVal);
 
-            //var value = new CilValueInt32(4);
-            //_state.EvaluationStack.Push(value);
-
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitLoadConstI45Instruction(LoadConstI45Instruction instruction)
         {
-            // TODO: finish implementation
+            var stackVal = new CilStackValueInt32(5);
+            _state.EvaluationStack.Push(stackVal);
 
-            //var value = new CilValueInt32(5);
-            //_state.EvaluationStack.Push(value);
-
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitLoadConstI46Instruction(LoadConstI46Instruction instruction)
         {
-            // TODO: finish implementation
+            var stackVal = new CilStackValueInt32(6);
+            _state.EvaluationStack.Push(stackVal);
 
-            //var value = new CilValueInt32(6);
-            //_state.EvaluationStack.Push(value);
-
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitLoadConstI47Instruction(LoadConstI47Instruction instruction)
         {
-            // TODO: finish implementation
+            var stackVal = new CilStackValueInt32(7);
+            _state.EvaluationStack.Push(stackVal);
 
-            //var value = new CilValueInt32(7);
-            //_state.EvaluationStack.Push(value);
-
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitLoadConstI48Instruction(LoadConstI48Instruction instruction)
         {
-            // TODO: finish implementation
+            var stackVal = new CilStackValueInt32(8);
+            _state.EvaluationStack.Push(stackVal);
 
-            //var value = new CilValueInt32(8);
-            //_state.EvaluationStack.Push(value);
-
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitLoadConstI4M1Instruction(LoadConstI4M1Instruction instruction)
         {
-            // TODO: finish implementation
+            var stackVal = new CilStackValueInt32(-1);
+            _state.EvaluationStack.Push(stackVal);
 
-            //var value = new CilValueInt32(-1);
-            //_state.EvaluationStack.Push(value);
-
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitLoadLocal0Instruction(LoadLocal0Instruction instruction)
@@ -367,36 +369,51 @@ namespace CILantro.Interpreting.Visitors
         {
             // TODO: finish implementation
 
-            //_state.EvaluationStack.Pop(out var value1, out var value2);
-            //var result = value1.Mul(value2);
-            //_state.EvaluationStack.Push(result);
+            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            var resultStackVal = ComputeBinaryNumericInstruction(
+                stackVal1,
+                stackVal2,
+                (a, b) => new CilStackValueInt32(a.Value * b.Value),
+                (a, b) => new CilStackValueInt64(a.Value * b.Value),
+                (a, b) => new CilStackValueFloat(a.Value * b.Value)
+            );
+            _state.EvaluationStack.Push(resultStackVal);
 
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitRemainderInstruction(RemainderInstruction instruction)
         {
             // TODO: finish implementation
 
-            //_state.EvaluationStack.Pop(out var value1, out var value2);
-            //var result = value1.Mod(value2);
-            //_state.EvaluationStack.Push(result);
+            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            var resultStackVal = ComputeBinaryNumericInstruction(
+                stackVal1,
+                stackVal2,
+                (a, b) => new CilStackValueInt32(a.Value % b.Value),
+                (a, b) => new CilStackValueInt64(a.Value % b.Value),
+                (a, b) => new CilStackValueFloat(a.Value % b.Value)
+            );
+            _state.EvaluationStack.Push(resultStackVal);
 
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitRemainderUnsignedInstruction(RemainderUnsignedInstruction instruction)
         {
             // TODO: finish implementation
 
-            //_state.EvaluationStack.Pop(out var value1, out var value2);
-            //var result = value1.Mod(value2);
-            //_state.EvaluationStack.Push(result);
+            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            var resultStackVal = ComputeBinaryNumericInstruction(
+                stackVal1,
+                stackVal2,
+                (a, b) => new CilStackValueInt32((int)(a.ValueUnsigned % b.ValueUnsigned)),
+                (a, b) => new CilStackValueInt64((long)(a.ValueUnsigned % b.ValueUnsigned)),
+                (a, b) => new CilStackValueFloat(a.Value % b.Value)
+            );
+            _state.EvaluationStack.Push(resultStackVal);
 
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitReturnInstruction(ReturnInstruction instruction)
@@ -458,12 +475,17 @@ namespace CILantro.Interpreting.Visitors
         {
             // TODO: finish implementation
 
-            //_state.EvaluationStack.Pop(out var value1, out var value2);
-            //var result = value1.Sub(value2);
-            //_state.EvaluationStack.Push(result);
+            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            var resultStackVal = ComputeBinaryNumericInstruction(
+                stackVal1,
+                stackVal2,
+                (a, b) => new CilStackValueInt32(a.Value - b.Value),
+                (a, b) => new CilStackValueInt64(a.Value - b.Value),
+                (a, b) => new CilStackValueFloat(a.Value - b.Value)
+            );
+            _state.EvaluationStack.Push(resultStackVal);
 
-            //_state.MoveToNextInstruction();
-            throw new System.NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         private IStackValue ComputeBinaryNumericInstruction(

@@ -14,7 +14,7 @@ namespace CILantro.Interpreting.Types
 
         public override Type GetValueType(CilProgram program)
         {
-            throw new NotImplementedException();
+            return typeof(CilValueBool);
         }
 
         public override IValue CreateValueFromRuntime(object obj, CilManagedMemory managedMemory, CilProgram program)
