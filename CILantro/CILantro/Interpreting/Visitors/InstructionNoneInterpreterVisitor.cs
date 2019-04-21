@@ -33,9 +33,9 @@ namespace CILantro.Interpreting.Visitors
             var resultStackVal = ComputeBinaryNumericInstruction(
                 stackVal1,
                 stackVal2,
-                (int32a, int32b) => int32a + int32b,
-                (int64a, int64b) => int64a + int64b,
-                (f1, f2) => f1 + f2
+                (a, b) => new CilStackValueInt32(a.Value + b.Value),
+                (a, b) => new CilStackValueInt64(a.Value + b.Value),
+                (a, b) => new CilStackValueFloat(a.Value + b.Value)
             );
             _state.EvaluationStack.Push(resultStackVal);
 
@@ -73,9 +73,9 @@ namespace CILantro.Interpreting.Visitors
             _state.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionInstruction(
                 stackVal,
-                int32 => new CilStackValueInt64(int32),
-                int64 => { throw new NotImplementedException(); },
-                f => { throw new NotImplementedException(); }
+                x => new CilStackValueInt64(x.Value),
+                x => { throw new NotImplementedException(); },
+                x => { throw new NotImplementedException(); }
             );
             _state.EvaluationStack.Push(newStackVal);
 
@@ -89,9 +89,9 @@ namespace CILantro.Interpreting.Visitors
             _state.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionInstruction(
                 stackVal,
-                int32 => new CilStackValueFloat((float)int32),
-                int64 => new CilStackValueFloat((float)int64),
-                f => new CilStackValueFloat((double)f)
+                x => new CilStackValueFloat((float)x.Value),
+                x => new CilStackValueFloat((float)x.Value),
+                x => new CilStackValueFloat((double)x.Value)
             );
             _state.EvaluationStack.Push(newStackVal);
 
@@ -105,9 +105,9 @@ namespace CILantro.Interpreting.Visitors
             _state.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionInstruction(
                 stackVal,
-                int32 => new CilStackValueFloat((double)int32),
-                int64 => new CilStackValueFloat((double)int64),
-                f => new CilStackValueFloat(f)
+                x => new CilStackValueFloat((double)x.Value),
+                x => new CilStackValueFloat((double)x.Value),
+                x => new CilStackValueFloat(x.Value)
             );
             _state.EvaluationStack.Push(newStackVal);
 
@@ -122,9 +122,9 @@ namespace CILantro.Interpreting.Visitors
             _state.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionInstruction(
                 stackVal,
-                int32 => new CilStackValueFloat((double)int32),
-                int64 => new CilStackValueFloat((double)int64),
-                f => { throw new NotImplementedException(); }
+                x => new CilStackValueFloat((double)x.ValueUnsigned),
+                x => new CilStackValueFloat((double)x.ValueUnsigned),
+                x => { throw new NotImplementedException(); }
             );
             _state.EvaluationStack.Push(newStackVal);
 
@@ -162,9 +162,9 @@ namespace CILantro.Interpreting.Visitors
             _state.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionInstruction(
                 stackVal,
-                int32 => new CilStackValueInt64((long)(ulong)int32),
-                int64 => { throw new NotImplementedException(); },
-                f => { throw new NotImplementedException(); }
+                x => new CilStackValueInt64((long)x.ValueUnsigned),
+                x => { throw new NotImplementedException(); },
+                x => { throw new NotImplementedException(); }
             );
             _state.EvaluationStack.Push(newStackVal);
 
@@ -469,38 +469,38 @@ namespace CILantro.Interpreting.Visitors
         private IStackValue ComputeBinaryNumericInstruction(
             IStackValue stackVal1,
             IStackValue stackVal2,
-            Func<int, int, int> computeInt32Int32,
-            Func<long, long, long> computeInt64Int64,
-            Func<double, double, double> computeFloatFloat
+            Func<CilStackValueInt32, CilStackValueInt32, CilStackValueInt32> computeInt32Int32,
+            Func<CilStackValueInt64, CilStackValueInt64, CilStackValueInt64> computeInt64Int64,
+            Func<CilStackValueFloat, CilStackValueFloat, CilStackValueFloat> computeFloatFloat
         )
         {
             // TODO: cover all cases
 
             if (stackVal1 is CilStackValueInt32 stackVal1Int32 && stackVal2 is CilStackValueInt32 stackVal2Int32)
-                return new CilStackValueInt32(computeInt32Int32(stackVal1Int32.Value, stackVal2Int32.Value));
+                return computeInt32Int32(stackVal1Int32, stackVal2Int32);
             if (stackVal1 is CilStackValueInt64 stackVal1Int64 && stackVal2 is CilStackValueInt64 stackVal2Int64)
-                return new CilStackValueInt64(computeInt64Int64(stackVal1Int64.Value, stackVal2Int64.Value));
+                return computeInt64Int64(stackVal1Int64, stackVal2Int64);
             if (stackVal1 is CilStackValueFloat stackVal1Float && stackVal2 is CilStackValueFloat stackVal2Float)
-                return new CilStackValueFloat(computeFloatFloat(stackVal1Float.Value, stackVal2Float.Value));
+                return computeFloatFloat(stackVal1Float, stackVal2Float);
 
             throw new System.NotImplementedException();
         }
 
         private IStackValue ComputeConversionInstruction(
             IStackValue stackVal,
-            Func<int, IStackValue> computeInt32,
-            Func<long, IStackValue> computeInt64,
-            Func<double, IStackValue> computeFloat
+            Func<CilStackValueInt32, IStackValue> computeInt32,
+            Func<CilStackValueInt64, IStackValue> computeInt64,
+            Func<CilStackValueFloat, IStackValue> computeFloat
         )
         {
             // TODO: cover all cases
 
             if (stackVal is CilStackValueInt32 stackValInt32)
-                return computeInt32(stackValInt32.Value);
+                return computeInt32(stackValInt32);
             if (stackVal is CilStackValueInt64 stackValInt64)
-                return computeInt64(stackValInt64.Value);
+                return computeInt64(stackValInt64);
             if (stackVal is CilStackValueFloat stackValFloat)
-                return computeFloat(stackValFloat.Value);
+                return computeFloat(stackValFloat);
 
             throw new System.NotImplementedException();
         }
