@@ -1,4 +1,5 @@
 ﻿using CILantro.Interpreting.Memory;
+using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.Types;
 
 namespace CILantro.Interpreting.Values
@@ -16,6 +17,11 @@ namespace CILantro.Interpreting.Values
         {
             var result = managedMemory.Load(this);
             return result.AsRuntime(cilType);
+        }
+
+        public CilValueType Box()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CILantro.Interpreting.Memory;
+using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.Types;
 
 namespace CILantro.Interpreting.Values
@@ -17,6 +18,11 @@ namespace CILantro.Interpreting.Values
             if (cilType is CilTypeUInt8)
                 return Value;
 
+            throw new System.NotImplementedException();
+        }
+
+        public CilValueType Box()
+        {
             throw new System.NotImplementedException();
         }
     }

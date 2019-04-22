@@ -2,7 +2,7 @@
   "profiles": {
     "CILantro": {
       "commandName": "Project",
-      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\CSF_Operators_Mul\\CSF_Operators_Mul.il\""
+      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\OperatorsAppl\\OperatorsAppl.il\""
     }
   }
 }

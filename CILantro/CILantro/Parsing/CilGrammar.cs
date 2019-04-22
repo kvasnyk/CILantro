@@ -348,7 +348,6 @@ namespace CILantro.Parsing
             // TODO: INSTR_FIELD
             INSTR_FIELD.Rule = _("TODO: INSTR_FIELD");
 
-            // TODO: INSTR_TYPE
             INSTR_TYPE.Rule =
                 _("box") |
                 _("castclass") |

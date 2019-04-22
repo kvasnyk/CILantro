@@ -7,6 +7,10 @@ namespace CILantro.Interpreting.Types
 {
     public class CilTypeFloat32 : CilType
     {
+        public override bool IsValueType => throw new NotImplementedException();
+
+        public override bool IsNullable => throw new NotImplementedException();
+
         public override Type GetRuntimeType()
         {
             return typeof(float);

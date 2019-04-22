@@ -1,4 +1,5 @@
 ﻿using CILantro.Interpreting.Memory;
+using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.Types;
 
 namespace CILantro.Interpreting.Values
@@ -18,6 +19,11 @@ namespace CILantro.Interpreting.Values
                 return Value;
 
             throw new System.NotImplementedException();
+        }
+
+        public CilValueType Box()
+        {
+            return new CilInt32(this);
         }
     }
 }

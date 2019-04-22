@@ -24,6 +24,16 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // _("box")
+            var boxChildren = AstChildren.Empty()
+                .Add("box");
+            if (boxChildren.PopulateWith(parseNode))
+            {
+                Instruction = new BoxInstruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

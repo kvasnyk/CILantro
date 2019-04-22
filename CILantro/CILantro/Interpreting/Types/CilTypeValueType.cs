@@ -10,6 +10,10 @@ namespace CILantro.Interpreting.Types
     {
         public CilClassName ClassName { get; }
 
+        public override bool IsValueType => throw new NotImplementedException();
+
+        public override bool IsNullable => throw new NotImplementedException();
+
         public CilTypeValueType(CilClassName className)
         {
             ClassName = className;

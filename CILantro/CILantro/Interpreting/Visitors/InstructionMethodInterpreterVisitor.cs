@@ -100,7 +100,7 @@ namespace CILantro.Interpreting.Visitors
             for (int i = 0; i < instruction.SigArgs.Count; i++)
             {
                 _state.EvaluationStack.PopValue(_program, instruction.SigArgs[i].Type, out var value);
-                var argument = value.AsRuntime(instruction.SigArgs[i].Type, _managedMemory);
+                var argument = value.AsRuntime(instruction.SigArgs[instruction.SigArgs.Count - i - 1].Type, _managedMemory);
                 methodArguments.Add(argument);
             }
             methodArguments.Reverse();

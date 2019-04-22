@@ -10,6 +10,10 @@ namespace CILantro.Interpreting.Types
     {
         public CilType ElementType { get; }
 
+        public override bool IsValueType => throw new NotImplementedException();
+
+        public override bool IsNullable => throw new NotImplementedException();
+
         public CilTypeArray(CilType elementType)
         {
             ElementType = elementType;

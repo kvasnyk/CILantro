@@ -5,25 +5,25 @@ using System;
 
 namespace CILantro.Interpreting.Types
 {
-    public class CilTypeVoid : CilType
+    public class CilTypeObject : CilType
     {
         public override bool IsValueType => throw new NotImplementedException();
 
         public override bool IsNullable => throw new NotImplementedException();
 
-        public override Type GetRuntimeType()
+        public override IValue CreateValueFromRuntime(object obj, CilManagedMemory managedMemory, CilProgram program)
         {
             throw new NotImplementedException();
+        }
+
+        public override Type GetRuntimeType()
+        {
+            return typeof(object);
         }
 
         public override Type GetValueType(CilProgram program)
         {
-            throw new NotImplementedException();
-        }
-
-        public override IValue CreateValueFromRuntime(object obj, CilManagedMemory managedMemory, CilProgram program)
-        {
-            throw new ArgumentException("Cannot create an instance of type void.");
+            return typeof(CilValueReference);
         }
     }
 }

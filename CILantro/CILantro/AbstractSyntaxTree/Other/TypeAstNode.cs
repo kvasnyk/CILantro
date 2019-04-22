@@ -179,6 +179,16 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // _("object")
+            var objectChildren = AstChildren.Empty()
+                .Add("object");
+            if (objectChildren.PopulateWith(parseNode))
+            {
+                Type = new CilTypeObject();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

@@ -49,7 +49,7 @@ namespace CILantro.Interpreting.Visitors
             _instructionMethodVisitor = new InstructionMethodInterpreterVisitor(program, _state, _managedMemory);
             _instructionStringVisitor = new InstructionStringInterpreterVisitor(_state, _managedMemory);
             _instructionIVisitor = new InstructionIInterpreterVisitor(_state, _managedMemory);
-            _instructionTypeVisitor = new InstructionTypeInterpreterVisitor(_state, _managedMemory);
+            _instructionTypeVisitor = new InstructionTypeInterpreterVisitor(program, _state, _managedMemory);
             _instructionVarVisitor = new InstructionVarInterpreterVisitor(program, _state, _managedMemory);
             _instructionRVisitor = new InstructionRInterpreterVisitor(_state, _managedMemory);
         }

@@ -19,6 +19,8 @@ namespace CILantro.Structure
                     return new CilTypeChar();
                 if (type == typeof(string))
                     return new CilTypeString();
+                if (type == typeof(int))
+                    return new CilTypeInt32();
                 else
                     throw new NotImplementedException();
             }
