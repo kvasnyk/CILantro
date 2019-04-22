@@ -84,11 +84,15 @@ namespace CILantro.Visitors
                 VisitRemainderInstruction(remainderInstruction);
             else if (instruction is RemainderUnsignedInstruction remainderUnsignedInstruction)
                 VisitRemainderUnsignedInstruction(remainderUnsignedInstruction);
+            else if (instruction is CompareEqualInstruction compareEqualInstruction)
+                VisitCompareEqualInstruction(compareEqualInstruction);
             else
                 throw new ArgumentException($"CIL instruction none cannot be recognized: '{instruction.ToString()}'.");
         }
 
         protected abstract void VisitAddInstruction(AddInstruction instruction);
+
+        protected abstract void VisitCompareEqualInstruction(CompareEqualInstruction instruction);
 
         protected abstract void VisitConvertI1Instruction(ConvertI1Instruction instruction);
 

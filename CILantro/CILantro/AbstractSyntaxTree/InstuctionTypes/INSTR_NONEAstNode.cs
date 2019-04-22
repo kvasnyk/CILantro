@@ -413,6 +413,16 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // _("ceq")
+            var ceqChildren = AstChildren.Empty()
+                .Add("ceq");
+            if (ceqChildren.PopulateWith(parseNode))
+            {
+                Instruction = new CompareEqualInstruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

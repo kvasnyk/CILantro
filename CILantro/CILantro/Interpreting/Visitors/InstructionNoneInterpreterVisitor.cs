@@ -42,6 +42,23 @@ namespace CILantro.Interpreting.Visitors
             _state.MoveToNextInstruction();
         }
 
+        protected override void VisitCompareEqualInstruction(CompareEqualInstruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            var resultStackVal = ComputeBinaryComparisonOrBranchOperation(
+                stackVal1,
+                stackVal2,
+                (a, b) => a.Value == b.Value,
+                (a, b) => a.Value == b.Value,
+                (a, b) => a.Value == b.Value
+            );
+            _state.EvaluationStack.Push(resultStackVal);
+
+            _state.MoveToNextInstruction();
+        }
+
         protected override void VisitConvertI1Instruction(ConvertI1Instruction instruction)
         {
             // TODO: finish implementation
@@ -506,6 +523,31 @@ namespace CILantro.Interpreting.Visitors
                 return computeFloatFloat(stackVal1Float, stackVal2Float);
 
             throw new System.NotImplementedException();
+        }
+
+        private CilStackValueInt32 ComputeBinaryComparisonOrBranchOperation(
+            IStackValue stackVal1,
+            IStackValue stackVal2,
+            Func<CilStackValueInt32, CilStackValueInt32, bool> computeInt32Int32,
+            Func<CilStackValueInt64, CilStackValueInt64, bool> computeInt64Int64,
+            Func<CilStackValueFloat, CilStackValueFloat, bool> computeFloatFloat
+        )
+        {
+            // TODO: cover all cases
+
+            bool result;
+
+            if (stackVal1 is CilStackValueInt32 stackVal1Int32 && stackVal2 is CilStackValueInt32 stackVal2Int32)
+                result = computeInt32Int32(stackVal1Int32, stackVal2Int32);
+            else if (stackVal1 is CilStackValueInt64 stackVal1Int64 && stackVal2 is CilStackValueInt64 stackVal2Int64)
+                result = computeInt64Int64(stackVal1Int64, stackVal2Int64);
+            else if (stackVal1 is CilStackValueFloat stackVal1Float && stackVal2 is CilStackValueFloat stackVal2Float)
+                result = computeFloatFloat(stackVal1Float, stackVal2Float);
+            else
+                throw new System.NotImplementedException();
+
+            if (result) return new CilStackValueInt32(1);
+            else return new CilStackValueInt32(0);
         }
 
         private IStackValue ComputeConversionInstruction(
