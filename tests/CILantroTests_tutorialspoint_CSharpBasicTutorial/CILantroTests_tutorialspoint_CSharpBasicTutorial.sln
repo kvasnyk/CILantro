@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorldApplication", "He
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OperatorsAppl", "OperatorsAppl\OperatorsAppl.csproj", "{C3FC92D6-EDB7-4EE6-A930-107729FA8814}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RelationalOperatorsAppl", "RelationalOperatorsAppl\RelationalOperatorsAppl.csproj", "{D1F71D3F-3C1F-4F10-8829-F0365EF829D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C3FC92D6-EDB7-4EE6-A930-107729FA8814}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3FC92D6-EDB7-4EE6-A930-107729FA8814}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3FC92D6-EDB7-4EE6-A930-107729FA8814}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1F71D3F-3C1F-4F10-8829-F0365EF829D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1F71D3F-3C1F-4F10-8829-F0365EF829D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1F71D3F-3C1F-4F10-8829-F0365EF829D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1F71D3F-3C1F-4F10-8829-F0365EF829D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

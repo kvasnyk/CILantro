@@ -86,6 +86,14 @@ namespace CILantro.Visitors
                 VisitRemainderUnsignedInstruction(remainderUnsignedInstruction);
             else if (instruction is CompareEqualInstruction compareEqualInstruction)
                 VisitCompareEqualInstruction(compareEqualInstruction);
+            else if (instruction is CompareGreaterThanInstruction compareGreaterThanInstruction)
+                VisitCompareGreaterThanInstruction(compareGreaterThanInstruction);
+            else if (instruction is CompareGreaterThanUnsignedInstruction compareGreaterThanUnsignedInstruction)
+                VisitCompareGreaterThanUnsignedInstruction(compareGreaterThanUnsignedInstruction);
+            else if (instruction is CompareLessThanInstruction compareLessThanInstruction)
+                VisitCompareLessThanInstruction(compareLessThanInstruction);
+            else if (instruction is CompareLessThanUnsignedInstruction compareLessThanUnsignedInstruction)
+                VisitCompareLessThanUnsignedInstruction(compareLessThanUnsignedInstruction);
             else
                 throw new ArgumentException($"CIL instruction none cannot be recognized: '{instruction.ToString()}'.");
         }
@@ -93,6 +101,14 @@ namespace CILantro.Visitors
         protected abstract void VisitAddInstruction(AddInstruction instruction);
 
         protected abstract void VisitCompareEqualInstruction(CompareEqualInstruction instruction);
+
+        protected abstract void VisitCompareGreaterThanInstruction(CompareGreaterThanInstruction instruction);
+
+        protected abstract void VisitCompareGreaterThanUnsignedInstruction(CompareGreaterThanUnsignedInstruction instruction);
+
+        protected abstract void VisitCompareLessThanInstruction(CompareLessThanInstruction instruction);
+
+        protected abstract void VisitCompareLessThanUnsignedInstruction(CompareLessThanUnsignedInstruction instruction);
 
         protected abstract void VisitConvertI1Instruction(ConvertI1Instruction instruction);
 

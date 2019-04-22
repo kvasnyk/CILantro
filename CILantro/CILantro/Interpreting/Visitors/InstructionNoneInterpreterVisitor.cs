@@ -59,6 +59,74 @@ namespace CILantro.Interpreting.Visitors
             _state.MoveToNextInstruction();
         }
 
+        protected override void VisitCompareGreaterThanInstruction(CompareGreaterThanInstruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            var resultStackVal = ComputeBinaryComparisonOrBranchOperation(
+                stackVal1,
+                stackVal2,
+                (a, b) => a.Value > b.Value,
+                (a, b) => a.Value > b.Value,
+                (a, b) => a.Value > b.Value
+            );
+            _state.EvaluationStack.Push(resultStackVal);
+
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitCompareGreaterThanUnsignedInstruction(CompareGreaterThanUnsignedInstruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            var resultStackVal = ComputeBinaryComparisonOrBranchOperation(
+                stackVal1,
+                stackVal2,
+                (a, b) => a.ValueUnsigned > b.ValueUnsigned,
+                (a, b) => a.ValueUnsigned > b.ValueUnsigned,
+                (a, b) => a.Value > b.Value
+            );
+            _state.EvaluationStack.Push(resultStackVal);
+
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitCompareLessThanInstruction(CompareLessThanInstruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            var resultStackVal = ComputeBinaryComparisonOrBranchOperation(
+                stackVal1,
+                stackVal2,
+                (a, b) => a.Value < b.Value,
+                (a, b) => a.Value < b.Value,
+                (a, b) => a.Value < b.Value
+            );
+            _state.EvaluationStack.Push(resultStackVal);
+
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitCompareLessThanUnsignedInstruction(CompareLessThanUnsignedInstruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            var resultStackVal = ComputeBinaryComparisonOrBranchOperation(
+                stackVal1,
+                stackVal2,
+                (a, b) => a.ValueUnsigned < b.ValueUnsigned,
+                (a, b) => a.ValueUnsigned < b.ValueUnsigned,
+                (a, b) => a.Value < b.Value
+            );
+            _state.EvaluationStack.Push(resultStackVal);
+
+            _state.MoveToNextInstruction();
+        }
+
         protected override void VisitConvertI1Instruction(ConvertI1Instruction instruction)
         {
             // TODO: finish implementation

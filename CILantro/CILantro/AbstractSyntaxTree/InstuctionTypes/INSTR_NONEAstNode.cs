@@ -423,6 +423,46 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // _("cgt")
+            var cgtChildren = AstChildren.Empty()
+                .Add("cgt");
+            if (cgtChildren.PopulateWith(parseNode))
+            {
+                Instruction = new CompareGreaterThanInstruction();
+
+                return;
+            }
+
+            // ___("cgt.un")
+            var cgtunChildren = AstChildren.Empty()
+                .Add("cgt.un");
+            if (cgtunChildren.PopulateWith(parseNode))
+            {
+                Instruction = new CompareGreaterThanUnsignedInstruction();
+
+                return;
+            }
+
+            // _("clt")
+            var cltChildren = AstChildren.Empty()
+                .Add("clt");
+            if (cltChildren.PopulateWith(parseNode))
+            {
+                Instruction = new CompareLessThanInstruction();
+
+                return;
+            }
+
+            // ___("clt.un")
+            var cltunChildren = AstChildren.Empty()
+                .Add("clt.un");
+            if (cltunChildren.PopulateWith(parseNode))
+            {
+                Instruction = new CompareLessThanUnsignedInstruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }
