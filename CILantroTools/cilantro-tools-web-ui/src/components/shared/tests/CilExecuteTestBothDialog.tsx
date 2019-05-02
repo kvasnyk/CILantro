@@ -47,16 +47,15 @@ const useStyles = makeStyles((theme: Theme) => ({
 		padding: '15px',
 		paddingTop: '30px',
 		display: 'flex',
-		flexDirection: 'row'
+		flexDirection: 'row',
+		minHeight: 'calc(100% - 45px)'
 	},
 	exeConsole: {
-		flexGrow: 1,
-		flexBasis: 0,
-		marginRight: '15px'
+		marginRight: '20px',
+		width: 'calc(50% - 10px)'
 	},
 	interpreterConsole: {
-		flexGrow: 1,
-		flexBasis: 0
+		width: 'calc(50% - 10px)'
 	}
 }));
 

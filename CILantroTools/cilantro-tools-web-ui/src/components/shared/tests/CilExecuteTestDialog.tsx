@@ -48,7 +48,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 	},
 	content: {
 		padding: '15px',
-		paddingTop: '30px'
+		paddingTop: '30px',
+		minHeight: 'calc(100% - 45px)',
+		display: 'flex',
+		flexDirection: 'row'
+	},
+	console: {
+		width: '100%'
 	}
 }));
 
@@ -174,10 +180,12 @@ const CilExecuteTestDialog: FunctionComponent<CilRunTestExeDialogProps> = props 
 				<CilPage state={pageState} className={classes.page}>
 					<div className={classes.content}>
 						<CilConsole
+							className={classes.console}
 							lines={consoleLines}
 							title={'...' + props.testInfo.exePath}
 							onLineAdded={handleLineAdded}
 							isInputEnabled={isInputEnabled}
+							autoFocus={true}
 						/>
 					</div>
 				</CilPage>

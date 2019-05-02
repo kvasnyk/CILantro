@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 	content: {
 		padding: '10px'
 	},
+	consoleLine: {
+		wordBreak: 'break-all'
+	},
 	consoleInLine: {
 		color: 'white'
 	},
@@ -128,17 +131,23 @@ const CilConsole: FunctionComponent<CilConsoleProps> = props => {
 
 	const consoleClassName = classNames(classes.console, props.className);
 
+	const inLineClassName = classNames(classes.consoleLine, classes.consoleInLine);
+	const outLineClassName = classNames(classes.consoleLine, classes.consoleOutLine);
+	const startLineClassName = classNames(classes.consoleLine, classes.consoleStartLine);
+	const endLineClassName = classNames(classes.consoleLine, classes.consoleEndLine);
+	const errorLineClassName = classNames(classes.consoleLine, classes.consoleErrorLine);
+
 	return (
 		<div className={consoleClassName} onClick={handleConsoleClick}>
 			<div className={classes.consoleTitle}>{props.title}</div>
 			<div className={classes.content}>
 				{props.lines.map((line, index) => (
 					<React.Fragment key={index}>
-						{line.type === 'input' ? <div className={classes.consoleInLine}>{line.content}</div> : null}
-						{line.type === 'output' ? <div className={classes.consoleOutLine}>{line.content}</div> : null}
-						{line.type === 'start' ? <div className={classes.consoleStartLine}>{line.content}</div> : null}
-						{line.type === 'end' ? <div className={classes.consoleEndLine}>{line.content}</div> : null}
-						{line.type === 'error' ? <div className={classes.consoleErrorLine}>{line.content}</div> : null}
+						{line.type === 'input' ? <div className={inLineClassName}>{line.content}</div> : null}
+						{line.type === 'output' ? <div className={outLineClassName}>{line.content}</div> : null}
+						{line.type === 'start' ? <div className={startLineClassName}>{line.content}</div> : null}
+						{line.type === 'end' ? <div className={endLineClassName}>{line.content}</div> : null}
+						{line.type === 'error' ? <div className={errorLineClassName}>{line.content}</div> : null}
 					</React.Fragment>
 				))}
 
