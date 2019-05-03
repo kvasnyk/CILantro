@@ -98,8 +98,8 @@ const translations = {
 		testRunStep_CompareOutputFiles: 'Comparing output files',
 		passed: 'passed',
 		failed: 'failed',
-		testsPassed: 'tests passed',
-		testsFailed: 'tests failed'
+		testsPassed: 'test(s) passed',
+		testsFailed: 'test(s) failed'
 	},
 
 	shared: {
