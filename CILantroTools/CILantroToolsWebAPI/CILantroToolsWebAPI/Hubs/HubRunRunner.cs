@@ -340,8 +340,14 @@ namespace CILantroToolsWebAPI.Hubs
                         var errorOutputTask = Task.Run(async () =>
                         {
                             var errorOutput = newProcess.StandardError;
-                            while (!errorOutput.EndOfStream)
+                            while (true)
                             {
+                                if (errorOutput.EndOfStream)
+                                {
+                                    await Task.Delay(200);
+                                    continue;
+                                }
+
                                 var errorLine = await newProcess.StandardError.ReadLineAsync();
                                 errorBuilder.AppendLine(errorLine);
                             }
@@ -350,14 +356,21 @@ namespace CILantroToolsWebAPI.Hubs
                         var exeOutputTask = Task.Run(async () =>
                         {
                             var exeOutput = newProcess.StandardOutput;
-                            while (!exeOutput.EndOfStream)
+                            while (true)
                             {
+                                if (exeOutput.EndOfStream)
+                                {
+                                    await Task.Delay(200);
+                                    continue;
+                                }
+
                                 var outputLine = await exeOutput.ReadLineAsync();
                                 outputBuilder.AppendLine(outputLine);
                             }
                         }, token);
 
-                        Task.WaitAny(errorOutputTask, exeOutputTask);
+                        // Task.WaitAny(errorOutputTask, exeOutputTask);
+                        newProcess.WaitForExit();
 
                         if (!newProcess.HasExited)
                         {
@@ -457,8 +470,14 @@ namespace CILantroToolsWebAPI.Hubs
                         var errorOutputTask = Task.Run(async () =>
                         {
                             var errorOutput = newProcess.StandardError;
-                            while (!errorOutput.EndOfStream)
+                            while (true)
                             {
+                                if (errorOutput.EndOfStream)
+                                {
+                                    await Task.Delay(200);
+                                    continue;
+                                }                                    
+
                                 var errorLine = await newProcess.StandardError.ReadLineAsync();
                                 errorBuilder.AppendLine(errorLine);
                             }
@@ -467,14 +486,21 @@ namespace CILantroToolsWebAPI.Hubs
                         var exeOutputTask = Task.Run(async () =>
                         {
                             var exeOutput = newProcess.StandardOutput;
-                            while (!exeOutput.EndOfStream)
+                            while (true)
                             {
+                                if (exeOutput.EndOfStream)
+                                {
+                                    await Task.Delay(200);
+                                    continue;
+                                }
+
                                 var outputLine = await exeOutput.ReadLineAsync();
                                 outputBuilder.AppendLine(outputLine);
                             }
                         }, token);
 
-                        Task.WaitAny(errorOutputTask, exeOutputTask);
+                        // Task.WaitAny(errorOutputTask, exeOutputTask);
+                        newProcess.WaitForExit();
 
                         if (!newProcess.HasExited)
                         {
