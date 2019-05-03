@@ -38,5 +38,7 @@ namespace CILantroToolsWebAPI.DbModels
         public virtual Subcategory Subcategory { get; set; }
 
         public virtual ICollection<TestInputOutputExample> IoExamples { get; set; }
+
+        public virtual ICollection<TestRun> TestRuns { get; set; }
     }
 }

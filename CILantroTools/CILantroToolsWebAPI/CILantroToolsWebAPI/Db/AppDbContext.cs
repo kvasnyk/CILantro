@@ -90,7 +90,7 @@ namespace CILantroToolsWebAPI.Db
                 .HasKey(tr => tr.Id);
             modelBuilder.Entity<TestRun>()
                 .HasOne(tr => tr.Test)
-                .WithMany()
+                .WithMany(t => t.TestRuns)
                 .HasForeignKey(tr => tr.TestId);
             modelBuilder.Entity<TestRun>()
                 .HasOne(tr => tr.Run)

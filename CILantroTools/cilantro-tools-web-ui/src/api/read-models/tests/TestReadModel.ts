@@ -1,3 +1,4 @@
+import RunOutcome from '../../enums/RunOutcome';
 import InputOutput from '../../models/tests/input-output/InputOutput';
 import CategoryReadModel from '../categories/CategoryReadModel';
 import SubcategoryReadModel from '../categories/SubcategoryReadModel';
@@ -18,6 +19,7 @@ interface TestReadModel {
 	input?: InputOutput;
 	output?: InputOutput;
 	ioExamples: TestIoExampleReadModel[];
+	lastRunOutcome: RunOutcome;
 	hasCategory: boolean;
 	hasSubcategory: boolean;
 	hasIlSources: boolean;

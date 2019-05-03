@@ -1,4 +1,5 @@
 ﻿using CILantroToolsWebAPI.DbModels;
+using CILantroToolsWebAPI.Enums;
 using CILantroToolsWebAPI.Models.Tests.InputOutput;
 using CILantroToolsWebAPI.ReadModels.Categories;
 using LinqKit;
@@ -40,6 +41,8 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
         public InputOutput Output { get; set; }
 
         public List<TestIoExampleReadModel> IoExamples { get; set; }
+
+        public RunOutcome LastRunOutcome { get; set; }
 
         public bool HasCategory => Category != null;
 
@@ -84,7 +87,8 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
             HasIlSources = test.HasIlSources,
             HasExe = test.HasExe,
             CreatedOn = test.CreatedOn,
-            LastOpenedOn = test.LastOpenedOn
+            LastOpenedOn = test.LastOpenedOn,
+            LastRunOutcome = test.TestRuns.OrderByDescending(tr => tr.Run.CreatedOn).First().Outcome
         };
     }
 }

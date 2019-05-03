@@ -2,10 +2,14 @@ import classNames from 'classnames';
 import React, { ChangeEvent, FunctionComponent, useEffect, useState } from 'react';
 
 import { AppBar, Divider, Tab, Tabs, Theme } from '@material-ui/core';
+import { green, red } from '@material-ui/core/colors';
+import CheckIcon from '@material-ui/icons/CheckRounded';
+import NotCheckIcon from '@material-ui/icons/NotInterestedRounded';
 import { makeStyles } from '@material-ui/styles';
 
 import CategoriesApiClient from '../../api/clients/CategoriesApiClient';
 import TestsApiClient from '../../api/clients/TestsApiClient';
+import RunOutcome from '../../api/enums/RunOutcome';
 import TestInfo from '../../api/models/tests/TestInfo';
 import CategoryReadModel from '../../api/read-models/categories/CategoryReadModel';
 import SearchDirection from '../../api/search/SearchDirection';
@@ -28,6 +32,14 @@ import CilDetailsValue from '../utils/CilDetailsValue';
 import CilPageHeader from '../utils/CilPageHeader';
 
 const useStyles = makeStyles((theme: Theme) => ({
+	lastRunOkIcon: {
+		color: green[700],
+		fontSize: '4rem'
+	},
+	lastRunWrongIcon: {
+		color: red[700],
+		fontSize: '4rem'
+	},
 	tabsAppBar: {
 		marginTop: '20px'
 	},
@@ -180,6 +192,10 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 			{testInfo && categories ? (
 				<>
 					<CilPageHeader text={testInfo.test.name} subtext={`...${testInfo.test.path}`}>
+						{testInfo.test.lastRunOutcome === RunOutcome.Ok ? <CheckIcon className={classes.lastRunOkIcon} /> : null}
+						{testInfo.test.lastRunOutcome === RunOutcome.Wrong ? (
+							<NotCheckIcon className={classes.lastRunWrongIcon} />
+						) : null}
 						<CilRunTestExeButton type="fab" testInfo={testInfo} />
 						<CilRunTestBothButton type="fab" testInfo={testInfo} />
 						<CilRunTestInterpreterButton type="fab" testInfo={testInfo} />
