@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React, { FunctionComponent, ReactNode, useEffect, useState } from 'react';
 
-import { Theme } from '@material-ui/core';
+import { Theme, Typography } from '@material-ui/core';
 import { green, red } from '@material-ui/core/colors';
 import CheckIcon from '@material-ui/icons/CheckRounded';
 import QuickIcon from '@material-ui/icons/DirectionsRunRounded';
@@ -16,6 +16,7 @@ import RunReadModel from '../../api/read-models/runs/RunReadModel';
 import TestRunReadModel from '../../api/read-models/runs/TestRunReadModel';
 import SearchDirection from '../../api/search/SearchDirection';
 import useSearch from '../../hooks/useSearch';
+import translations from '../../translations/translations';
 import CilPage, { PageState } from '../base/CilPage';
 import CilTestRunsList from '../shared/runs/CilTestRunsList';
 import CilPageHeader from '../utils/CilPageHeader';
@@ -30,13 +31,36 @@ const useStyles = makeStyles((theme: Theme) => ({
 		color: red[700],
 		fontSize: '4em'
 	},
-	pageHeaderLeft: {
+	listHeader: {
+		display: 'flex',
+		flexDirection: 'row'
+	},
+	listHeaderLeft: {
 		flexGrow: 1
 	},
-	pageHeaderRight: {
+	listHeaderRight: {
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center'
+	},
+	details: {
+		display: 'flex',
+		flexDirection: 'row',
+		'&>*': {
+			flexGrow: 1,
+			flexBasis: 0,
+			padding: '10px',
+			display: 'flex',
+			flexDirection: 'column',
+			alignItems: 'center',
+			justifyContent: 'center'
+		}
+	},
+	passedTypography: {
+		color: green[700]
+	},
+	failedTypography: {
+		color: red[700]
 	}
 }));
 
@@ -124,16 +148,32 @@ const CilShowRunPage: FunctionComponent<CilShowRunPageProps> = props => {
 			{run ? (
 				<>
 					<CilPageHeader text={moment(run.createdOn).format('YYYY-MM-DD HH:mm:ss')} avatarIcon={runTypeIcon}>
-						<div className={classes.pageHeaderLeft}>
-							{run.outcome === RunOutcome.Ok ? <CheckIcon className={classes.okHeaderTypography} /> : null}
-							{run.outcome === RunOutcome.Wrong ? <NotCheckIcon className={classes.wrongHeaderTypography} /> : null}
-						</div>
-						<div className={classes.pageHeaderRight}>
-							<CilPagination search={testRunsSearch} />
-						</div>
+						{run.outcome === RunOutcome.Ok ? <CheckIcon className={classes.okHeaderTypography} /> : null}
+						{run.outcome === RunOutcome.Wrong ? <NotCheckIcon className={classes.wrongHeaderTypography} /> : null}
 					</CilPageHeader>
 
-					<CilTestRunsList testRuns={testRunsSearch.result.data} />
+					<div className={classes.details}>
+						<div>
+							<Typography variant="h2" className={classes.passedTypography}>
+								{run.okTestsCount} {translations.runs.testsPassed} (
+								{((run.okTestsCount / run.allTestsCount) * 100).toFixed(2)} %)
+							</Typography>
+							<Typography variant="h2" className={classes.failedTypography}>
+								{run.wrongTestsCount} {translations.runs.testsFailed} (
+								{((run.wrongTestsCount / run.allTestsCount) * 100).toFixed(2)} %)
+							</Typography>
+						</div>
+					</div>
+
+					<div>
+						<div className={classes.listHeader}>
+							<div className={classes.listHeaderLeft} />
+							<div className={classes.listHeaderRight}>
+								<CilPagination search={testRunsSearch} />
+							</div>
+						</div>
+						<CilTestRunsList testRuns={testRunsSearch.result.data} />
+					</div>
 				</>
 			) : null}
 		</CilPage>

@@ -97,7 +97,9 @@ const translations = {
 		testRunStep_GenerateCilAntroOutputFiles: 'Generating CILantro output files',
 		testRunStep_CompareOutputFiles: 'Comparing output files',
 		passed: 'passed',
-		failed: 'failed'
+		failed: 'failed',
+		testsPassed: 'tests passed',
+		testsFailed: 'tests failed'
 	},
 
 	shared: {
