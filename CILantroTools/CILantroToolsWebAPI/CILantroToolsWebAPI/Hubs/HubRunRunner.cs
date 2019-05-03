@@ -306,6 +306,7 @@ namespace CILantroToolsWebAPI.Hubs
                 SendRunData();
 
                 var outputPath = _paths.RunsData[ProcessingRun.Id][testRun.Id].Outputs[inputName].Absolute;
+                var errorPath = _paths.RunsData[ProcessingRun.Id][testRun.Id].Errors[inputName].Absolute;
 
                 var processStartInfo = new ProcessStartInfo(testExePath)
                 {
@@ -363,7 +364,11 @@ namespace CILantroToolsWebAPI.Hubs
                     cancelTokenSource.Cancel();
                 }
 
+                var errorText = errorBuilder.ToString();
+                var hasErrors = !string.IsNullOrEmpty(errorText);
+
                 await File.WriteAllTextAsync(outputPath, outputBuilder.ToString());
+                await File.WriteAllTextAsync(errorPath, errorText);
 
                 var finished = DateTime.Now;
 
@@ -372,7 +377,7 @@ namespace CILantroToolsWebAPI.Hubs
                     Id = Guid.NewGuid(),
                     Name = Path.GetFileNameWithoutExtension(inputFile),
                     ProcessedForMilliseconds = (int)(finished - started).TotalMilliseconds,
-                    Outcome = string.IsNullOrEmpty(errorBuilder.ToString()) ? RunOutcome.Ok : RunOutcome.Wrong
+                    Outcome = !hasErrors ? RunOutcome.Ok : RunOutcome.Wrong
                 };
                 result.Add(item);
 
@@ -401,6 +406,7 @@ namespace CILantroToolsWebAPI.Hubs
                 SendRunData();
 
                 var outputPath = _paths.RunsData[ProcessingRun.Id][testRun.Id].CilAntroOutputs[inputName].Absolute;
+                var errorPath = _paths.RunsData[ProcessingRun.Id][testRun.Id].CilAntroErrors[inputName].Absolute;
                 var testIlSourcePath = _paths.TestsData.IlSources[test.Name].MainIlSourcePaths.Absolute;
 
                 var processStartInfo = new ProcessStartInfo(_paths.CilAntro, $"--fileName \"{testIlSourcePath}\"")
@@ -459,7 +465,11 @@ namespace CILantroToolsWebAPI.Hubs
                     cancelTokenSource.Cancel();
                 }
 
+                var errorText = errorBuilder.ToString();
+                var hasErrors = !string.IsNullOrEmpty(errorText);
+
                 await File.WriteAllTextAsync(outputPath, outputBuilder.ToString());
+                await File.WriteAllTextAsync(errorPath, errorText);
 
                 var finished = DateTime.Now;
 
@@ -468,7 +478,7 @@ namespace CILantroToolsWebAPI.Hubs
                     Id = Guid.NewGuid(),
                     Name = Path.GetFileNameWithoutExtension(inputFile),
                     ProcessedForMilliseconds = (int)(finished - started).TotalMilliseconds,
-                    Outcome = string.IsNullOrEmpty(errorBuilder.ToString()) ? RunOutcome.Ok : RunOutcome.Wrong
+                    Outcome = !hasErrors ? RunOutcome.Ok : RunOutcome.Wrong
                 };
                 result.Add(item);
 

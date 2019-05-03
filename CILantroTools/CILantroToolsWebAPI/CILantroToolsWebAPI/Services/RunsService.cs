@@ -125,12 +125,22 @@ namespace CILantroToolsWebAPI.Services
 
             foreach (var resultItem in result.Items)
             {
-                resultItem.Input = await File.ReadAllTextAsync(_paths.RunsData[runId][testRunId].Inputs[resultItem.ItemName].Absolute);
-                resultItem.ExeOutput = await File.ReadAllTextAsync(_paths.RunsData[runId][testRunId].Outputs[resultItem.ItemName].Absolute);
-                resultItem.AntroOutput = await File.ReadAllTextAsync(_paths.RunsData[runId][testRunId].CilAntroOutputs[resultItem.ItemName].Absolute);
+                resultItem.Input = await ReadAllFileTextIfExists(_paths.RunsData[runId][testRunId].Inputs[resultItem.ItemName].Absolute);
+                resultItem.ExeOutput = await ReadAllFileTextIfExists(_paths.RunsData[runId][testRunId].Outputs[resultItem.ItemName].Absolute);
+                resultItem.ExeError = await ReadAllFileTextIfExists(_paths.RunsData[runId][testRunId].Errors[resultItem.ItemName].Absolute);
+                resultItem.AntroOutput = await ReadAllFileTextIfExists(_paths.RunsData[runId][testRunId].CilAntroOutputs[resultItem.ItemName].Absolute);
+                resultItem.AntroError = await ReadAllFileTextIfExists(_paths.RunsData[runId][testRunId].CilAntroErrors[resultItem.ItemName].Absolute);
             }
             
             return result;
+        }
+
+        private async Task<string> ReadAllFileTextIfExists(string filePath)
+        {
+            if (!File.Exists(filePath))
+                return string.Empty;
+
+            return await File.ReadAllTextAsync(filePath);
         }
     }
 }

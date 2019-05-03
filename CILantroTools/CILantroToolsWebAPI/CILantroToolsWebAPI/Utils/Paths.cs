@@ -216,7 +216,11 @@ namespace CILantroToolsWebAPI.Utils
 
         public TestRunOutputsPaths Outputs => new TestRunOutputsPaths(this);
 
+        public TestRunErrorsPaths Errors => new TestRunErrorsPaths(this);
+
         public TestRunCilAntroOutputsPaths CilAntroOutputs => new TestRunCilAntroOutputsPaths(this);
+
+        public TestRunCilAntroErrorsPaths CilAntroErrors => new TestRunCilAntroErrorsPaths(this);
 
         public TestRunDataPaths(RunDataPaths runDataPaths, Guid testRunId)
             : base(runDataPaths, testRunId.ToString())
@@ -245,12 +249,32 @@ namespace CILantroToolsWebAPI.Utils
         }
     }
 
+    public class TestRunErrorsPaths : CilAntroPath
+    {
+        public CilAntroPath this[string errorName] => new CilAntroPath(this, $"{errorName}.err");
+
+        public TestRunErrorsPaths(TestRunDataPaths testRunDataPaths)
+            : base(testRunDataPaths, "errors")
+        {
+        }
+    }
+
     public class TestRunCilAntroOutputsPaths : CilAntroPath
     {
         public CilAntroPath this[string outputName] => new CilAntroPath(this, $"{outputName}.out");
 
         public TestRunCilAntroOutputsPaths(TestRunDataPaths testRunDataPaths)
             : base(testRunDataPaths, "cilantro-outputs")
+        {
+        }
+    }
+
+    public class TestRunCilAntroErrorsPaths : CilAntroPath
+    {
+        public CilAntroPath this[string errorName] => new CilAntroPath(this, $"{errorName}.err");
+
+        public TestRunCilAntroErrorsPaths(TestRunDataPaths testRunDataPaths)
+            : base(testRunDataPaths, "cilantro-errors")
         {
         }
     }

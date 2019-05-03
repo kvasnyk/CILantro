@@ -89,6 +89,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 		'&>*': {
 			width: '30%'
 		}
+	},
+	itemErrorTypography: {
+		fontSize: '0.75rem',
+		color: red[700],
+		wordBreak: 'break-all',
+		whiteSpace: 'pre-wrap'
 	}
 }));
 
@@ -178,7 +184,9 @@ const CilTestRunCard: FunctionComponent<CilTestRunCardProps> = props => {
 					compareOutcome: compareOutputsStep ? compareOutputsStep.outcome : undefined,
 					input: item.input,
 					exeOutput: item.exeOutput,
-					antroOutput: item.antroOutput
+					antroOutput: item.antroOutput,
+					exeError: item.exeError,
+					antroError: item.antroError
 				};
 			});
 
@@ -188,7 +196,7 @@ const CilTestRunCard: FunctionComponent<CilTestRunCardProps> = props => {
 			await testsApiClient.addTestInputOutputExample(props.testRun.testId, {
 				name: 'NOT IMPORTANT',
 				input: item.input,
-				output: item.exeOutput,
+				output: item.exeOutput!,
 				isDifficult: true
 			});
 			notistack.enqueueSuccess(translations.tests.ioExampleHasBeenAdded);
@@ -253,10 +261,16 @@ const CilTestRunCard: FunctionComponent<CilTestRunCardProps> = props => {
 																<CilCodeEditor code={item.input} />
 															</div>
 															<div>
-																<CilCodeEditor code={item.exeOutput} />
+																{item.exeOutput ? <CilCodeEditor code={item.exeOutput} /> : null}
+																{item.exeError ? (
+																	<Typography className={classes.itemErrorTypography}>{item.exeError}</Typography>
+																) : null}
 															</div>
 															<div>
-																<CilCodeEditor code={item.antroOutput} />
+																{item.antroOutput ? <CilCodeEditor code={item.antroOutput} /> : null}
+																{item.antroError ? (
+																	<Typography className={classes.itemErrorTypography}>{item.antroError}</Typography>
+																) : null}
 															</div>
 														</div>
 													</TableCell>
