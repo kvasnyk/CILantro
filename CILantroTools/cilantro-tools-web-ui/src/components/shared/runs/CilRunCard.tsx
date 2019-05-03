@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
+		justifyContent: 'center',
 		'&>*': {
 			width: '100%',
 			display: 'flex',
@@ -112,6 +113,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 	},
 	itemsProgress: {
 		marginTop: '20px'
+	},
+	passedFailedTypography: {
+		fontSize: '2.5rem'
 	}
 }));
 
@@ -188,6 +192,8 @@ const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
 
 	const testNameTypographyClassName = classNames(typographyClassName, classes.testNameTypography);
 
+	const passedFailedTypographyClassName = classNames(typographyClassName, classes.passedFailedTypography);
+
 	return (
 		<Card className={cardClassName}>
 			<CardContent className={classes.cardContent}>
@@ -248,6 +254,17 @@ const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
 								value={((runData.currentItemIndex + 1) / runData.allItemsCount) * 100.0}
 								variant="determinate"
 							/>
+						</>
+					) : null}
+
+					{runData.status === RunStatus.Finished && runData.outcome === RunOutcome.Wrong ? (
+						<>
+							<Typography className={passedFailedTypographyClassName}>
+								{props.run.okTestsCount} {translations.runs.passed}
+							</Typography>
+							<Typography className={passedFailedTypographyClassName}>
+								{props.run.wrongTestsCount} {translations.runs.failed}
+							</Typography>
 						</>
 					) : null}
 				</div>

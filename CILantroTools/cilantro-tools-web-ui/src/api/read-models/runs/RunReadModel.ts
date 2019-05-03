@@ -10,6 +10,8 @@ interface RunReadModel {
 	outcome: RunOutcome;
 	createdOn: Date;
 	allTestsCount: number;
+	okTestsCount: number;
+	wrongTestsCount: number;
 	processedTestsCount: number;
 	processedForMilliseconds: number;
 	testRuns: TestRunReadModel[];
