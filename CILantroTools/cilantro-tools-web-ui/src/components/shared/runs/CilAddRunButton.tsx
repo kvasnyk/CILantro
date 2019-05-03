@@ -1,20 +1,9 @@
-import React, { ChangeEvent, FormEvent, FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 
-import {
-	Button,
-	Dialog,
-	DialogActions,
-	DialogContent,
-	DialogTitle,
-	Fab,
-	FormControl,
-	InputLabel,
-	MenuItem,
-	Select,
-	Theme
-} from '@material-ui/core';
+import { Fab, Theme } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
-import AddIcon from '@material-ui/icons/AddRounded';
+import QuickIcon from '@material-ui/icons/DirectionsRunRounded';
+import FullIcon from '@material-ui/icons/HourglassEmptyRounded';
 import { makeStyles } from '@material-ui/styles';
 
 import RunsApiClient from '../../../api/clients/RunsApiClient';
@@ -26,8 +15,8 @@ interface AddRunData {
 	type: RunType;
 }
 
-const buildEmptyAddRunData = (): AddRunData => ({
-	type: RunType.Quick
+const buildEmptyAddRunData = (type: RunType): AddRunData => ({
+	type
 });
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -41,7 +30,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 interface CilAddRunButtonProps {
+	type: RunType;
 	onRunAdded: () => void;
+	testId?: string;
 }
 
 const CilAddRunButton: FunctionComponent<CilAddRunButtonProps> = props => {
@@ -51,32 +42,46 @@ const CilAddRunButton: FunctionComponent<CilAddRunButtonProps> = props => {
 
 	const notistack = useNotistack();
 
-	const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
-	const [formData, setFormData] = useState<AddRunData>(buildEmptyAddRunData());
+	// const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+	const [formData, setFormData] = useState<AddRunData>(buildEmptyAddRunData(props.type));
 
 	const handleButtonClick = () => {
-		setIsDialogOpen(true);
+		if (props.testId) {
+			addSingleRun();
+		} else {
+			addRun();
+		}
 	};
 
-	const handleDialogClose = () => {
-		setIsDialogOpen(false);
-	};
+	// const handleDialogClose = () => {
+	// 	setIsDialogOpen(false);
+	// };
 
-	const handleTypeSelectValueChange = (e: ChangeEvent<HTMLSelectElement>) => {
-		setFormData(prevFormData => ({
-			...prevFormData,
-			type: parseInt(e.target.value, 10)
-		}));
-	};
+	// const handleTypeSelectValueChange = (e: ChangeEvent<HTMLSelectElement>) => {
+	// 	setFormData(prevFormData => ({
+	// 		...prevFormData,
+	// 		type: parseInt(e.target.value, 10)
+	// 	}));
+	// };
 
-	const handleFormSubmit = async (e: FormEvent) => {
-		e.preventDefault();
-
+	const addRun = async () => {
 		try {
 			await runsApiClient.addRun(formData);
 			notistack.enqueueSuccess(translations.runs.runHasBeenAdded);
-			setIsDialogOpen(false);
-			setFormData(buildEmptyAddRunData());
+			// setIsDialogOpen(false);
+			setFormData(buildEmptyAddRunData(props.type));
+			props.onRunAdded();
+		} catch (error) {
+			notistack.enqueueError(translations.runs.errorOccurredWhileAddingRun);
+		}
+	};
+
+	const addSingleRun = async () => {
+		try {
+			await runsApiClient.addSingleTestRun({ ...formData, testId: props.testId! });
+			notistack.enqueueSuccess(translations.runs.runHasBeenAdded);
+			// setIsDialogOpen(false);
+			setFormData(buildEmptyAddRunData(props.type));
 			props.onRunAdded();
 		} catch (error) {
 			notistack.enqueueError(translations.runs.errorOccurredWhileAddingRun);
@@ -86,10 +91,11 @@ const CilAddRunButton: FunctionComponent<CilAddRunButtonProps> = props => {
 	return (
 		<>
 			<Fab className={classes.fab} onClick={handleButtonClick}>
-				<AddIcon />
+				{props.type === RunType.Quick ? <QuickIcon /> : null}
+				{props.type === RunType.Full ? <FullIcon /> : null}
 			</Fab>
 
-			<Dialog open={isDialogOpen} onClose={handleDialogClose} fullWidth={true}>
+			{/* <Dialog open={isDialogOpen} onClose={handleDialogClose} fullWidth={true}>
 				<form onSubmit={handleFormSubmit}>
 					<DialogTitle>{translations.runs.newRun}</DialogTitle>
 					<DialogContent>
@@ -107,7 +113,7 @@ const CilAddRunButton: FunctionComponent<CilAddRunButtonProps> = props => {
 						</Button>
 					</DialogActions>
 				</form>
-			</Dialog>
+			</Dialog> */}
 		</>
 	);
 };

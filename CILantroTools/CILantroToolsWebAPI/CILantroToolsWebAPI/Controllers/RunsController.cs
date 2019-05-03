@@ -37,6 +37,12 @@ namespace CILantroToolsWebAPI.Controllers
             return await _runsService.AddRunAsync(model);
         }
 
+        [HttpPost("add-single")]
+        public async Task<Guid> AddSingleTestRunAsync([FromBody]AddSingleTestRunBindingModel model)
+        {
+            return await _runsService.AddSingleTestRunAsync(model);
+        }
+
         [HttpDelete("{runId}/delete")]
         public async Task DeleteRunAsync([FromRoute]Guid runId)
         {

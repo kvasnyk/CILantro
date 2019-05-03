@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import React, { ChangeEvent, FunctionComponent, useEffect, useState } from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import { AppBar, Divider, Tab, Tabs, Theme } from '@material-ui/core';
 import { green, red } from '@material-ui/core/colors';
@@ -10,11 +11,14 @@ import { makeStyles } from '@material-ui/styles';
 import CategoriesApiClient from '../../api/clients/CategoriesApiClient';
 import TestsApiClient from '../../api/clients/TestsApiClient';
 import RunOutcome from '../../api/enums/RunOutcome';
+import RunType from '../../api/enums/RunType';
 import TestInfo from '../../api/models/tests/TestInfo';
 import CategoryReadModel from '../../api/read-models/categories/CategoryReadModel';
 import SearchDirection from '../../api/search/SearchDirection';
+import routes from '../../routing/routes';
 import translations from '../../translations/translations';
 import CilPage, { PageState } from '../base/CilPage';
+import CilAddRunButton from '../shared/runs/CilAddRunButton';
 import CilEditTestCategorySelect from '../shared/tests/CilEditTestCategorySelect';
 import CilEditTestSubcategorySelect from '../shared/tests/CilEditTestSubcategorySelect';
 import CilGenerateTestExeButton from '../shared/tests/CilGenerateTestExeButton';
@@ -65,11 +69,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 	}
 }));
 
-interface CilShowTestPageProps {
+interface CilShowTestPageOwnProps {
 	testId: string;
 }
 
 type TabsValue = 'overview' | 'il-sources' | 'exe' | 'io';
+
+type CilShowTestPageProps = CilShowTestPageOwnProps & RouteComponentProps<{}>;
 
 const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 	const classes = useStyles();
@@ -187,6 +193,10 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 
 	const ioTabContainerClassName = classNames(classes.tabContainer, classes.ioTabContainer);
 
+	const handleRunAdded = () => {
+		props.history.push(routes.runs.runs);
+	};
+
 	return (
 		<CilPage state={pageState}>
 			{testInfo && categories ? (
@@ -199,6 +209,8 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 						<CilRunTestExeButton type="fab" testInfo={testInfo} />
 						<CilRunTestBothButton type="fab" testInfo={testInfo} />
 						<CilRunTestInterpreterButton type="fab" testInfo={testInfo} />
+						<CilAddRunButton type={RunType.Quick} testId={props.testId} onRunAdded={handleRunAdded} />
+						<CilAddRunButton type={RunType.Full} testId={props.testId} onRunAdded={handleRunAdded} />
 					</CilPageHeader>
 
 					{!testInfo.test.isReady ? (
@@ -289,4 +301,4 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 	);
 };
 
-export default CilShowTestPage;
+export default withRouter(CilShowTestPage);

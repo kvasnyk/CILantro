@@ -4,6 +4,7 @@ import { MenuItem, Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 import RunsApiClient from '../../api/clients/RunsApiClient';
+import RunType from '../../api/enums/RunType';
 import RunReadModel from '../../api/read-models/runs/RunReadModel';
 import SearchDirection from '../../api/search/SearchDirection';
 import useSearch from '../../hooks/useSearch';
@@ -17,7 +18,10 @@ import CilPagination from '../utils/CilPagination';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	pageHeaderLeft: {
-		flexGrow: 1
+		flexGrow: 1,
+		'&>*': {
+			marginRight: '10px'
+		}
 	},
 	pageHeaderRight: {
 		display: 'flex',
@@ -78,7 +82,8 @@ const CilRunsPage: FunctionComponent = props => {
 		<CilPage state={pageState} centerChildren={centerChildren}>
 			<CilPageHeader text={translations.runs.runs}>
 				<div className={classes.pageHeaderLeft}>
-					<CilAddRunButton onRunAdded={handleRunAdded} />
+					<CilAddRunButton type={RunType.Quick} onRunAdded={handleRunAdded} />
+					<CilAddRunButton type={RunType.Full} onRunAdded={handleRunAdded} />
 				</div>
 				<div className={classes.pageHeaderRight}>
 					<CilOrderByDropDown search={search}>

@@ -1,5 +1,6 @@
 import apiRoutes from '../apiRoutes';
 import AddRunBindingModel from '../binding-models/runs/AddRunBindingModel';
+import AddSingleTestRunBindingModel from '../binding-models/runs/AddSingleTestRunBindingModel';
 import RunReadModel from '../read-models/runs/RunReadModel';
 import TestRunFullReadModel from '../read-models/runs/TestRunFullReadModel';
 import TestRunReadModel from '../read-models/runs/TestRunReadModel';
@@ -10,6 +11,10 @@ import ApiClientBase from './ApiClientBase';
 class RunsApiClient extends ApiClientBase {
 	public addRun(data: AddRunBindingModel) {
 		return this.post<AddRunBindingModel, string>(apiRoutes.runs.addRun, data);
+	}
+
+	public addSingleTestRun(data: AddSingleTestRunBindingModel) {
+		return this.post<AddSingleTestRunBindingModel, string>(apiRoutes.runs.addSingleTestRun, data);
 	}
 
 	public searchRuns(searchParameter: SearchParameter<RunReadModel>) {

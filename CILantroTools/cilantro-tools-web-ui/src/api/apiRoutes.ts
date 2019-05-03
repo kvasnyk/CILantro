@@ -27,6 +27,7 @@ const apiRoutes = {
 
 	runs: {
 		addRun: '/runs/add',
+		addSingleTestRun: '/runs/add-single',
 		searchRuns: '/runs/search',
 		deleteRun: (runId: string) => `/runs/${runId}/delete`,
 		getRun: (runId: string) => `/runs/${runId}`,

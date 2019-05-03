@@ -7,6 +7,7 @@ using CILantroToolsWebAPI.ReadModels.Tests;
 using CILantroToolsWebAPI.Search;
 using CILantroToolsWebAPI.Utils;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -72,6 +73,29 @@ namespace CILantroToolsWebAPI.Services
                 Type = model.Type,
                 CreatedOn = DateTime.Now,
                 TestRuns = testRuns
+            };
+
+            var runId = await _runsRepository.CreateAsync(newRun);
+
+            _runRunner.Run(runId);
+
+            return runId;
+        }
+
+        public async Task<Guid> AddSingleTestRunAsync(AddSingleTestRunBindingModel model)
+        {
+            var testRun = new TestRun
+            {
+                Id = Guid.NewGuid(),
+                TestId = model.TestId
+            };
+
+            var newRun = new Run
+            {
+                Id = Guid.NewGuid(),
+                Type = model.Type,
+                CreatedOn = DateTime.Now,
+                TestRuns = new List<TestRun> { testRun }
             };
 
             var runId = await _runsRepository.CreateAsync(newRun);
