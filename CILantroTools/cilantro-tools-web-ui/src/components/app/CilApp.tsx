@@ -22,6 +22,12 @@ const appTheme = createMuiTheme({
 			wordBreak: 'break-all',
 			marginBottom: '10px'
 		},
+		h3: {
+			fontSize: '1.5rem'
+		},
+		h4: {
+			fontSize: '1rem'
+		},
 		subtitle1: {
 			fontSize: '0.8rem',
 			fontStyle: 'italic',

@@ -17,6 +17,20 @@ interface CilTestCardProps {
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
+	headerWrapper: {
+		display: 'flex',
+		flexDirection: 'row'
+	},
+	headerLeft: {
+		flexGrow: 1,
+		flexBasis: 0
+	},
+	headerRight: {
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		justifyContent: 'space-around'
+	},
 	header: {
 		display: 'flex',
 		flexDirection: 'row',
@@ -64,16 +78,33 @@ const CiLTestCard: FunctionComponent<CilTestCardProps> = props => {
 	return (
 		<Card className={cardClassName}>
 			<CardContent>
-				<div className={classes.header}>
-					<Typography variant="h2" className={headerTypohraphyClassName}>
-						{props.test.name}
-					</Typography>
-					{props.test.lastRunOutcome === RunOutcome.Ok ? <CheckIcon className={classes.okIcon} /> : null}
-					{props.test.lastRunOutcome === RunOutcome.Wrong ? <NotCheckIcon className={classes.wrongIcon} /> : null}
+				<div className={classes.headerWrapper}>
+					<div className={classes.headerLeft}>
+						<div className={classes.header}>
+							<Typography variant="h2" className={headerTypohraphyClassName}>
+								{props.test.name}
+							</Typography>
+							{props.test.lastRunOutcome === RunOutcome.Ok ? <CheckIcon className={classes.okIcon} /> : null}
+							{props.test.lastRunOutcome === RunOutcome.Wrong ? <NotCheckIcon className={classes.wrongIcon} /> : null}
+						</div>
+						<Typography variant="subtitle1" className={typographyClassName}>
+							...{props.test.path}
+						</Typography>
+					</div>
+
+					<div className={classes.headerRight}>
+						{props.test.hasCategory && props.test.hasSubcategory ? (
+							<>
+								<Typography variant="h4" className={typographyClassName}>
+									{props.test.category.name}
+								</Typography>
+								<Typography variant="h4" className={typographyClassName}>
+									{props.test.subcategory.name}
+								</Typography>
+							</>
+						) : null}
+					</div>
 				</div>
-				<Typography variant="subtitle1" className={typographyClassName}>
-					...{props.test.path}
-				</Typography>
 				{!props.test.isReady ? <CilTestChecklist test={props.test} /> : null}
 			</CardContent>
 			<CardActions className={classes.cardActions}>
