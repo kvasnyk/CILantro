@@ -320,7 +320,6 @@ namespace CILantroToolsWebAPI.Hubs
                         CreateNoWindow = true
                     };
 
-                    var newProcess = Process.Start(processStartInfo);
                     var outputBuilder = new StringBuilder();
                     var errorBuilder = new StringBuilder();
 
@@ -328,14 +327,7 @@ namespace CILantroToolsWebAPI.Hubs
                     {
                         var token = cancelTokenSource.Token;
 
-                        var inputTask = Task.Run(async () =>
-                        {
-                            using (var streamReader = new StreamReader(inputFile))
-                            {
-                                await newProcess.StandardInput.WriteAsync(await streamReader.ReadToEndAsync());
-                                await newProcess.StandardInput.FlushAsync();
-                            }
-                        }, token);
+                        var newProcess = Process.Start(processStartInfo);
 
                         var errorOutputTask = Task.Run(async () =>
                         {
@@ -369,7 +361,15 @@ namespace CILantroToolsWebAPI.Hubs
                             }
                         }, token);
 
-                        // Task.WaitAny(errorOutputTask, exeOutputTask);
+                        var inputTask = Task.Run(async () =>
+                        {
+                            using (var streamReader = new StreamReader(inputFile))
+                            {
+                                await newProcess.StandardInput.WriteAsync(await streamReader.ReadToEndAsync());
+                                await newProcess.StandardInput.FlushAsync();
+                            }
+                        }, token);
+
                         newProcess.WaitForExit();
 
                         if (!newProcess.HasExited)
@@ -450,7 +450,6 @@ namespace CILantroToolsWebAPI.Hubs
                         CreateNoWindow = true
                     };
 
-                    var newProcess = Process.Start(processStartInfo);
                     var outputBuilder = new StringBuilder();
                     var errorBuilder = new StringBuilder();
 
@@ -458,14 +457,7 @@ namespace CILantroToolsWebAPI.Hubs
                     {
                         var token = cancelTokenSource.Token;
 
-                        var inputTask = Task.Run(async () =>
-                        {
-                            using (var streamReader = new StreamReader(inputFile))
-                            {
-                                await newProcess.StandardInput.WriteAsync(await streamReader.ReadToEndAsync());
-                                await newProcess.StandardInput.FlushAsync();
-                            }
-                        }, token);
+                        var newProcess = Process.Start(processStartInfo);
 
                         var errorOutputTask = Task.Run(async () =>
                         {
@@ -474,9 +466,9 @@ namespace CILantroToolsWebAPI.Hubs
                             {
                                 if (errorOutput.EndOfStream)
                                 {
-                                    await Task.Delay(200);
+                                    await Task.Delay(100);
                                     continue;
-                                }                                    
+                                }
 
                                 var errorLine = await newProcess.StandardError.ReadLineAsync();
                                 errorBuilder.AppendLine(errorLine);
@@ -490,7 +482,7 @@ namespace CILantroToolsWebAPI.Hubs
                             {
                                 if (exeOutput.EndOfStream)
                                 {
-                                    await Task.Delay(200);
+                                    await Task.Delay(100);
                                     continue;
                                 }
 
@@ -499,7 +491,15 @@ namespace CILantroToolsWebAPI.Hubs
                             }
                         }, token);
 
-                        // Task.WaitAny(errorOutputTask, exeOutputTask);
+                        var inputTask = Task.Run(async () =>
+                        {
+                            using (var streamReader = new StreamReader(inputFile))
+                            {
+                                await newProcess.StandardInput.WriteAsync(await streamReader.ReadToEndAsync());
+                                await newProcess.StandardInput.FlushAsync();
+                            }
+                        }, token);
+
                         newProcess.WaitForExit();
 
                         if (!newProcess.HasExited)
