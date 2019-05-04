@@ -160,8 +160,7 @@ namespace CILantroToolsWebAPI.Utils
             var min = (BigInteger)byteElement.MinValue;
             var max = (BigInteger)byteElement.MaxValue;
 
-            var b = RandomBigIntegerBelow(max - min + 1, byteElement.ExcludeZero);
-            b += byteElement.MinValue;
+            var b = RandomBigIntegerBetween(min, max, byteElement.ExcludeZero);
 
             return (byte)b;
         }
@@ -171,8 +170,7 @@ namespace CILantroToolsWebAPI.Utils
             var min = (BigInteger)intElement.MinValue;
             var max = (BigInteger)intElement.MaxValue;
 
-            var b = RandomBigIntegerBelow(max - min + 1, intElement.ExcludeZero);
-            b += intElement.MinValue;
+            var b = RandomBigIntegerBetween(min, max, intElement.ExcludeZero);
 
             return (int)b;
         }
@@ -182,8 +180,7 @@ namespace CILantroToolsWebAPI.Utils
             var min = (BigInteger)longElement.MinValue;
             var max = (BigInteger)longElement.MaxValue;
 
-            var b = RandomBigIntegerBelow(max - min + 1, longElement.ExcludeZero);
-            b += longElement.MinValue;
+            var b = RandomBigIntegerBetween(min, max, longElement.ExcludeZero);
 
             return (long)b;
         }
@@ -193,8 +190,7 @@ namespace CILantroToolsWebAPI.Utils
             var min = (BigInteger)sbyteElement.MinValue;
             var max = (BigInteger)sbyteElement.MaxValue;
 
-            var b = RandomBigIntegerBelow(max - min + 1, sbyteElement.ExcludeZero);
-            b += sbyteElement.MinValue;
+            var b = RandomBigIntegerBetween(min, max, sbyteElement.ExcludeZero);
 
             return (sbyte)b;
         }
@@ -204,8 +200,7 @@ namespace CILantroToolsWebAPI.Utils
             var min = (BigInteger)uintElement.MinValue;
             var max = (BigInteger)uintElement.MaxValue;
 
-            var b = RandomBigIntegerBelow(max - min + 1, uintElement.ExcludeZero);
-            b += uintElement.MinValue;
+            var b = RandomBigIntegerBetween(min, max, uintElement.ExcludeZero);
 
             return (uint)b;
         }
@@ -215,8 +210,7 @@ namespace CILantroToolsWebAPI.Utils
             var min = (BigInteger)ulongElement.MinValue;
             var max = (BigInteger)ulongElement.MaxValue;
 
-            var b = RandomBigIntegerBelow(max - min + 1, ulongElement.ExcludeZero);
-            b += ulongElement.MinValue;
+            var b = RandomBigIntegerBetween(min, max, ulongElement.ExcludeZero);
 
             return (ulong)b;
         }
@@ -226,8 +220,7 @@ namespace CILantroToolsWebAPI.Utils
             var min = (BigInteger)ushortElement.MinValue;
             var max = (BigInteger)ushortElement.MaxValue;
 
-            var b = RandomBigIntegerBelow(max - min + 1, ushortElement.ExcludeZero);
-            b += ushortElement.MinValue;
+            var b = RandomBigIntegerBetween(min, max, ushortElement.ExcludeZero);
 
             return (ushort)b;
         }
@@ -237,8 +230,7 @@ namespace CILantroToolsWebAPI.Utils
             var min = (BigInteger)shortElement.MinValue;
             var max = (BigInteger)shortElement.MaxValue;
 
-            var b = RandomBigIntegerBelow(max - min + 1, shortElement.ExcludeZero);
-            b += shortElement.MinValue;
+            var b = RandomBigIntegerBetween(min, max, shortElement.ExcludeZero);
 
             return (short)b;
         }
@@ -280,9 +272,10 @@ namespace CILantroToolsWebAPI.Utils
             return (decimal)randDouble;
         }
 
-        private BigInteger RandomBigIntegerBelow(BigInteger n, bool excludeZero)
+        private BigInteger RandomBigIntegerBetween(BigInteger a, BigInteger b, bool excludeZero)
         {
-            byte[] bytes = n.ToByteArray();
+            var diff = b - a + 1;
+            byte[] bytes = diff.ToByteArray();
             BigInteger r;
 
             do
@@ -290,9 +283,9 @@ namespace CILantroToolsWebAPI.Utils
                 _random.NextBytes(bytes);
                 bytes[bytes.Length - 1] &= (byte)0x7F;
                 r = new BigInteger(bytes);
-            } while (r >= n || (excludeZero && r == 0));
+            } while (r >= diff || (excludeZero && r + a == 0));
 
-            return r;
+            return r + a;
         }
     }
 }

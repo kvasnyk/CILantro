@@ -42,7 +42,7 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
 
         public List<TestIoExampleReadModel> IoExamples { get; set; }
 
-        public RunOutcome LastRunOutcome { get; set; }
+        public RunOutcome? LastRunOutcome { get; set; }
 
         public bool HasCategory => Category != null;
 
@@ -88,7 +88,7 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
             HasExe = test.HasExe,
             CreatedOn = test.CreatedOn,
             LastOpenedOn = test.LastOpenedOn,
-            LastRunOutcome = test.TestRuns.OrderByDescending(tr => tr.Run.CreatedOn).First().Outcome
+            LastRunOutcome = test.TestRuns.Any() ? test.TestRuns.OrderByDescending(tr => tr.Run.CreatedOn).First().Outcome : (RunOutcome?)null
         };
     }
 }
