@@ -22,7 +22,8 @@ namespace CILantro.AbstractSyntaxTree.Other
                 Decls = new CilDecls
                 {
                     AssemblyRefs = new List<CilAssemblyRef>(),
-                    Classes = new List<CilClass>()
+                    Classes = new List<CilClass>(),
+                    Methods = new List<CilMethod>()
                 };
 
                 return;
@@ -72,6 +73,9 @@ namespace CILantro.AbstractSyntaxTree.Other
                         break;
                     case DeclType.ManifestRes:
                         // TODO: handle
+                        break;
+                    case DeclType.Method:
+                        Decls.Methods.Add(declsChildren.Child2.MethodDecl);
                         break;
                     default:
                         throw new AstNodeException($"\"{nameof(declType)}\" cannot be recognized.");

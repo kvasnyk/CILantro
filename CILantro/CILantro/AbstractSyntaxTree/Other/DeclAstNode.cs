@@ -17,7 +17,8 @@ namespace CILantro.AbstractSyntaxTree.Other
         Module,
         StackReserve,
         Subsystem,
-        ManifestRes
+        ManifestRes,
+        Method
     }
 
     [AstNode("decl")]
@@ -28,6 +29,8 @@ namespace CILantro.AbstractSyntaxTree.Other
         public CilAssemblyRef AssemblyRefDecl { get; private set; }
 
         public CilClass ClassDecl { get; private set; }
+
+        public CilMethod MethodDecl { get; private set; }
 
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
@@ -165,6 +168,26 @@ namespace CILantro.AbstractSyntaxTree.Other
             {
                 DeclType = Other.DeclType.ManifestRes;
                 // TODO: handle
+
+                return;
+            }
+
+            // methodHead + methodDecls + _("}")
+            var methodChildren = AstChildren.Empty()
+                .Add<MethodHeadAstNode>()
+                .Add<MethodDeclsAstNode>()
+                .Add("}");
+            if (methodChildren.PopulateWith(parseNode))
+            {
+                DeclType = Other.DeclType.Method;
+
+                MethodDecl = new CilMethod
+                {
+                    Name = methodChildren.Child1.MethodName,
+                    IsEntryPoint = methodChildren.Child2.MethodDecls.IsEntryPoint,
+                    Instructions = methodChildren.Child2.MethodDecls.Instructions,
+                    Locals = methodChildren.Child2.MethodDecls.Locals
+                };
 
                 return;
             }

@@ -10,12 +10,17 @@ namespace CILantro.Structure
 
         public List<CilClass> Classes { get; }
 
-        public CilMethod EntryPoint => Classes.Single(c => c.EntryPoint != null).EntryPoint;
+        public List<CilMethod> Methods { get; }
+
+        public List<CilMethod> AllMethods => Methods.Union(Classes.SelectMany(c => c.Methods)).ToList();
+
+        public CilMethod EntryPoint => AllMethods.Single(m => m.IsEntryPoint);
 
         public CilProgram(CilDecls decls)
         {
             AssemblyRefs = decls.AssemblyRefs;
             Classes = decls.Classes;
+            Methods = decls.Methods;
         }
 
         public bool IsExternalType(CilClassName className)

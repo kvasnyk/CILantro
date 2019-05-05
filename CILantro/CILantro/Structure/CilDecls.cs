@@ -7,5 +7,7 @@ namespace CILantro.Structure
         public List<CilAssemblyRef> AssemblyRefs { get; set; }
 
         public List<CilClass> Classes { get; set; }
+
+        public List<CilMethod> Methods { get; set; }
     }
 }
