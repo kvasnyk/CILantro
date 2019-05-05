@@ -209,8 +209,12 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 						<CilRunTestExeButton type="fab" testInfo={testInfo} />
 						<CilRunTestBothButton type="fab" testInfo={testInfo} />
 						<CilRunTestInterpreterButton type="fab" testInfo={testInfo} />
-						<CilAddRunButton type={RunType.Quick} testId={props.testId} onRunAdded={handleRunAdded} />
-						<CilAddRunButton type={RunType.Full} testId={props.testId} onRunAdded={handleRunAdded} />
+						{testInfo.test.isReady ? (
+							<CilAddRunButton type={RunType.Quick} testId={props.testId} onRunAdded={handleRunAdded} />
+						) : null}
+						{testInfo.test.isReady ? (
+							<CilAddRunButton type={RunType.Full} testId={props.testId} onRunAdded={handleRunAdded} />
+						) : null}
 					</CilPageHeader>
 
 					{!testInfo.test.isReady ? (

@@ -47,10 +47,16 @@ namespace CILantroToolsWebAPI.Services
                 .Where(path => !path.Contains(@"\obj\"))
                 .OrderBy(path => Path.GetFileNameWithoutExtension(path));
 
-            var testCandidates = testExecs.Select(testExecPath => new TestCandidate
+            var cilTests = Directory
+                .GetFiles(_paths.Tests.Absolute, "*.il", SearchOption.AllDirectories)
+                .OrderBy(path => Path.GetFileNameWithoutExtension(path));
+
+            var allTests = testExecs.Union(cilTests);
+
+            var testCandidates = allTests.Select(testPath => new TestCandidate
             {
-                Name = Path.GetFileNameWithoutExtension(testExecPath),
-                Path = _paths.Tests.GetSimilarPath(testExecPath).Relative
+                Name = Path.GetFileNameWithoutExtension(testPath),
+                Path = _paths.Tests.GetSimilarPath(testPath).Relative
             })
             .Where(tc => !existingTests.Any(et => et.Name == tc.Name && et.Path == tc.Path));
 
@@ -172,18 +178,25 @@ namespace CILantroToolsWebAPI.Services
 
             _paths.TestsData.IlSources[testReadModel.Name].ClearDirectory();
 
-            var testExePath = _paths.Tests.GetDeepestPath(testReadModel.Path).Absolute;
+            var testPath = _paths.Tests.GetDeepestPath(testReadModel.Path).Absolute;
             var testMainIlSourcePath = _paths.TestsData.IlSources[testReadModel.Name].MainIlSourcePaths.Absolute;
 
-            var ildasmArguments = $"\"{testExePath}\" /output=\"{testMainIlSourcePath}\"";
-            var ildasmProcessStartInfo = new ProcessStartInfo(_paths.Ildasm, ildasmArguments)
+            if (Path.GetExtension(testPath) == ".exe")
             {
-                WindowStyle = ProcessWindowStyle.Hidden,
-                CreateNoWindow = true
-            };
+                var ildasmArguments = $"\"{testPath}\" /output=\"{testMainIlSourcePath}\"";
+                var ildasmProcessStartInfo = new ProcessStartInfo(_paths.Ildasm, ildasmArguments)
+                {
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    CreateNoWindow = true
+                };
 
-            var ildasmProcess = Process.Start(ildasmProcessStartInfo);
-            ildasmProcess.WaitForExit();
+                var ildasmProcess = Process.Start(ildasmProcessStartInfo);
+                ildasmProcess.WaitForExit();
+            }
+            else if (Path.GetExtension(testPath) == ".il")
+            {
+                File.Copy(testPath, testMainIlSourcePath);
+            }
 
             var testDirectoryPath = Path.GetDirectoryName(_paths.Tests.GetDeepestPath(testReadModel.Path).Absolute);
             var dlls = Directory.GetFiles(testDirectoryPath, "*.dll");
@@ -196,6 +209,7 @@ namespace CILantroToolsWebAPI.Services
             await _testsRepository.UpdateAsync(t => t.Id == testId, t =>
             {
                 t.HasIlSources = true;
+                t.HasExe = false;
             });
         }
 
