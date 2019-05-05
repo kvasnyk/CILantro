@@ -588,7 +588,7 @@ namespace CILantro.Interpreting.Visitors
                 stackVal1,
                 stackVal2,
                 (a, b) => new CilStackValueInt32((int)(a.ValueUnsigned >> b.Value)),
-                (a, b) => new CilStackValueInt64((uint)(a.ValueUnsigned >> b.Value))
+                (a, b) => new CilStackValueInt64((long)(a.ValueUnsigned >> b.Value))
             );
             _state.EvaluationStack.Push(resultStackVal);
 
