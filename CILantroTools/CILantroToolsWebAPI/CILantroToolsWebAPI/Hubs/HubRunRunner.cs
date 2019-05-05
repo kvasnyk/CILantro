@@ -327,65 +327,84 @@ namespace CILantroToolsWebAPI.Hubs
                     {
                         var token = cancelTokenSource.Token;
 
-                        var newProcess = Process.Start(processStartInfo);
-
-                        var errorOutputTask = Task.Run(async () =>
+                        var newProcess = new Process
                         {
-                            var errorOutput = newProcess.StandardError;
-                            while (true)
-                            {
-                                if (errorOutput.EndOfStream)
-                                {
-                                    await Task.Delay(200);
-                                    continue;
-                                }
+                            StartInfo = processStartInfo
+                        };
 
-                                var errorLine = await newProcess.StandardError.ReadLineAsync();
-                                errorBuilder.AppendLine(errorLine);
-                            }
-                        }, token);
-
-                        var exeOutputTask = Task.Run(async () =>
+                        var hasStarted = false;
+                        var attempts = 0;
+                        while (!hasStarted && attempts < 10)
                         {
-                            var exeOutput = newProcess.StandardOutput;
-                            while (true)
-                            {
-                                if (exeOutput.EndOfStream)
-                                {
-                                    await Task.Delay(200);
-                                    continue;
-                                }
-
-                                var outputLine = await exeOutput.ReadLineAsync();
-                                outputBuilder.AppendLine(outputLine);
-                            }
-                        }, token);
-
-                        var inputTask = Task.Run(async () =>
-                        {
-                            using (var streamReader = new StreamReader(inputFile))
-                            {
-                                await newProcess.StandardInput.WriteAsync(await streamReader.ReadToEndAsync());
-                                await newProcess.StandardInput.FlushAsync();
-                            }
-                        }, token);
-
-                        newProcess.WaitForExit();
-
-                        if (!newProcess.HasExited)
-                        {
-                            newProcess.Kill();
+                            hasStarted = newProcess.Start();
+                            attempts++;
                         }
 
-                        cancelTokenSource.Cancel();
+                        if (hasStarted)
+                        {
 
-                        errorText = errorBuilder.ToString();
-                        if (inputTask.IsFaulted)
-                            errorText = $"INPUT TASK ERROR\n\n{inputTask.Exception.Message}";
-                        else if (exeOutputTask.IsFaulted)
-                            errorText = $"EXE OUTPUT TASK ERROR\n\n{exeOutputTask.Exception.Message}";
-                        else if (errorOutputTask.IsFaulted)
-                            errorText = $"ERROR OUTPUT TASK ERROR\n\n{errorOutputTask.Exception.Message}";
+                            var errorOutputTask = Task.Run(async () =>
+                            {
+                                var errorOutput = newProcess.StandardError;
+                                while (true)
+                                {
+                                    if (errorOutput.EndOfStream)
+                                    {
+                                        await Task.Delay(200);
+                                        continue;
+                                    }
+
+                                    var errorLine = await newProcess.StandardError.ReadLineAsync();
+                                    errorBuilder.AppendLine(errorLine);
+                                }
+                            }, token);
+
+                            var exeOutputTask = Task.Run(async () =>
+                            {
+                                var exeOutput = newProcess.StandardOutput;
+                                while (true)
+                                {
+                                    if (exeOutput.EndOfStream)
+                                    {
+                                        await Task.Delay(200);
+                                        continue;
+                                    }
+
+                                    var outputLine = await exeOutput.ReadLineAsync();
+                                    outputBuilder.AppendLine(outputLine);
+                                }
+                            }, token);
+
+                            var inputTask = Task.Run(async () =>
+                            {
+                                using (var streamReader = new StreamReader(inputFile))
+                                {
+                                    await newProcess.StandardInput.WriteAsync(await streamReader.ReadToEndAsync());
+                                    await newProcess.StandardInput.FlushAsync();
+                                }
+                            }, token);
+
+                            newProcess.WaitForExit();
+
+                            if (!newProcess.HasExited)
+                            {
+                                newProcess.Kill();
+                            }
+
+                            cancelTokenSource.Cancel();
+
+                            errorText = errorBuilder.ToString();
+                            if (inputTask.IsFaulted)
+                                errorText = $"INPUT TASK ERROR\n\n{inputTask.Exception.Message}";
+                            else if (exeOutputTask.IsFaulted)
+                                errorText = $"EXE OUTPUT TASK ERROR\n\n{exeOutputTask.Exception.Message}";
+                            else if (errorOutputTask.IsFaulted)
+                                errorText = $"ERROR OUTPUT TASK ERROR\n\n{errorOutputTask.Exception.Message}";
+                        }
+                        else
+                        {
+                            errorText = "AFTER 10 ATTEMPTS THE PROCESS HAS NOT BEEN STARTED";
+                        }
                     }
 
                     await File.WriteAllTextAsync(outputPath, outputBuilder.ToString());
@@ -457,65 +476,83 @@ namespace CILantroToolsWebAPI.Hubs
                     {
                         var token = cancelTokenSource.Token;
 
-                        var newProcess = Process.Start(processStartInfo);
-
-                        var errorOutputTask = Task.Run(async () =>
+                        var newProcess = new Process
                         {
-                            var errorOutput = newProcess.StandardError;
-                            while (true)
-                            {
-                                if (errorOutput.EndOfStream)
-                                {
-                                    await Task.Delay(100);
-                                    continue;
-                                }
+                            StartInfo = processStartInfo
+                        };
 
-                                var errorLine = await newProcess.StandardError.ReadLineAsync();
-                                errorBuilder.AppendLine(errorLine);
-                            }
-                        }, token);
-
-                        var exeOutputTask = Task.Run(async () =>
+                        var hasStarted = false;
+                        var attempts = 0;
+                        while (!hasStarted && attempts < 10)
                         {
-                            var exeOutput = newProcess.StandardOutput;
-                            while (true)
-                            {
-                                if (exeOutput.EndOfStream)
-                                {
-                                    await Task.Delay(100);
-                                    continue;
-                                }
-
-                                var outputLine = await exeOutput.ReadLineAsync();
-                                outputBuilder.AppendLine(outputLine);
-                            }
-                        }, token);
-
-                        var inputTask = Task.Run(async () =>
-                        {
-                            using (var streamReader = new StreamReader(inputFile))
-                            {
-                                await newProcess.StandardInput.WriteAsync(await streamReader.ReadToEndAsync());
-                                await newProcess.StandardInput.FlushAsync();
-                            }
-                        }, token);
-
-                        newProcess.WaitForExit();
-
-                        if (!newProcess.HasExited)
-                        {
-                            newProcess.Kill();
+                            hasStarted = newProcess.Start();
+                            attempts++;
                         }
 
-                        cancelTokenSource.Cancel();
+                        if (hasStarted)
+                        {
+                            var errorOutputTask = Task.Run(async () =>
+                            {
+                                var errorOutput = newProcess.StandardError;
+                                while (true)
+                                {
+                                    if (errorOutput.EndOfStream)
+                                    {
+                                        await Task.Delay(100);
+                                        continue;
+                                    }
 
-                        errorText = errorBuilder.ToString();
-                        if (inputTask.IsFaulted)
-                            errorText = $"INPUT TASK ERROR\n\n{inputTask.Exception.Message}";
-                        else if (exeOutputTask.IsFaulted)
-                            errorText = $"EXE OUTPUT TASK ERROR\n\n{exeOutputTask.Exception.Message}";
-                        else if (errorOutputTask.IsFaulted)
-                            errorText = $"ERROR OUTPUT TASK ERROR\n\n{errorOutputTask.Exception.Message}";
+                                    var errorLine = await newProcess.StandardError.ReadLineAsync();
+                                    errorBuilder.AppendLine(errorLine);
+                                }
+                            }, token);
+
+                            var exeOutputTask = Task.Run(async () =>
+                            {
+                                var exeOutput = newProcess.StandardOutput;
+                                while (true)
+                                {
+                                    if (exeOutput.EndOfStream)
+                                    {
+                                        await Task.Delay(100);
+                                        continue;
+                                    }
+
+                                    var outputLine = await exeOutput.ReadLineAsync();
+                                    outputBuilder.AppendLine(outputLine);
+                                }
+                            }, token);
+
+                            var inputTask = Task.Run(async () =>
+                            {
+                                using (var streamReader = new StreamReader(inputFile))
+                                {
+                                    await newProcess.StandardInput.WriteAsync(await streamReader.ReadToEndAsync());
+                                    await newProcess.StandardInput.FlushAsync();
+                                }
+                            }, token);
+
+                            newProcess.WaitForExit();
+
+                            if (!newProcess.HasExited)
+                            {
+                                newProcess.Kill();
+                            }
+
+                            cancelTokenSource.Cancel();
+
+                            errorText = errorBuilder.ToString();
+                            if (inputTask.IsFaulted)
+                                errorText = $"INPUT TASK ERROR\n\n{inputTask.Exception.Message}";
+                            else if (exeOutputTask.IsFaulted)
+                                errorText = $"EXE OUTPUT TASK ERROR\n\n{exeOutputTask.Exception.Message}";
+                            else if (errorOutputTask.IsFaulted)
+                                errorText = $"ERROR OUTPUT TASK ERROR\n\n{errorOutputTask.Exception.Message}";
+                        }
+                        else
+                        {
+                            errorText = "AFTER 10 ATTEMPTS THE PROCESS HAS NOT BEEN STARTED";
+                        }
                     }
 
                     await File.WriteAllTextAsync(outputPath, outputBuilder.ToString());
