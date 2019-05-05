@@ -310,12 +310,11 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
-            var resultStackVal = ComputeBinaryNumericOperation(
+            var resultStackVal = ComputeIntegerOperation(
                 stackVal1,
                 stackVal2,
                 (a, b) => new CilStackValueInt32((int)(a.ValueUnsigned / b.ValueUnsigned)),
-                (a, b) => new CilStackValueInt64((long)(a.ValueUnsigned / b.ValueUnsigned)),
-                (a, b) => new CilStackValueFloat(a.Value / b.Value)
+                (a, b) => new CilStackValueInt64((long)(a.ValueUnsigned / b.ValueUnsigned))
             );
             _state.EvaluationStack.Push(resultStackVal);
 
@@ -528,12 +527,11 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
-            var resultStackVal = ComputeBinaryNumericOperation(
+            var resultStackVal = ComputeIntegerOperation(
                 stackVal1,
                 stackVal2,
                 (a, b) => new CilStackValueInt32((int)(a.ValueUnsigned % b.ValueUnsigned)),
-                (a, b) => new CilStackValueInt64((long)(a.ValueUnsigned % b.ValueUnsigned)),
-                (a, b) => new CilStackValueFloat(a.Value % b.Value)
+                (a, b) => new CilStackValueInt64((long)(a.ValueUnsigned % b.ValueUnsigned))
             );
             _state.EvaluationStack.Push(resultStackVal);
 
