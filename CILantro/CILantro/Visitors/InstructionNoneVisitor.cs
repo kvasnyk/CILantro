@@ -106,6 +106,8 @@ namespace CILantro.Visitors
                 VisitShiftLeftInstruction(shiftLeftInstruction);
             else if (instruction is ShiftRightInstruction shiftRightInstruction)
                 VisitShiftRightInstruction(shiftRightInstruction);
+            else if (instruction is ShiftRightUnsignedInstruction shiftRightUnsignedInstruction)
+                VisitShiftRightUnsignedInstruction(shiftRightUnsignedInstruction);
             else
                 throw new ArgumentException($"CIL instruction none cannot be recognized: '{instruction.ToString()}'.");
         }
@@ -193,6 +195,8 @@ namespace CILantro.Visitors
         protected abstract void VisitShiftLeftInstruction(ShiftLeftInstruction instruction);
 
         protected abstract void VisitShiftRightInstruction(ShiftRightInstruction instruction);
+
+        protected abstract void VisitShiftRightUnsignedInstruction(ShiftRightUnsignedInstruction instruction);
 
         protected abstract void VisitStoreArrayElementI2Instruction(StoreArrayElementI2Instruction instruction);
 

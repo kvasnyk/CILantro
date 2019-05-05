@@ -564,7 +564,8 @@ namespace CILantro.Interpreting.Visitors
         }
 
         protected override void VisitShiftRightInstruction(ShiftRightInstruction instruction)
-        {// TODO: finish implementation
+        {
+            // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeShiftOperation(
@@ -572,6 +573,22 @@ namespace CILantro.Interpreting.Visitors
                 stackVal2,
                 (a, b) => new CilStackValueInt32(a.Value >> b.Value),
                 (a, b) => new CilStackValueInt64(a.Value >> b.Value)
+            );
+            _state.EvaluationStack.Push(resultStackVal);
+
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitShiftRightUnsignedInstruction(ShiftRightUnsignedInstruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            var resultStackVal = ComputeShiftOperation(
+                stackVal1,
+                stackVal2,
+                (a, b) => new CilStackValueInt32((int)(a.ValueUnsigned >> b.Value)),
+                (a, b) => new CilStackValueInt64((uint)(a.ValueUnsigned >> b.Value))
             );
             _state.EvaluationStack.Push(resultStackVal);
 

@@ -523,6 +523,16 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // ___("shr.un")
+            var shrunChildren = AstChildren.Empty()
+                .Add("shr.un");
+            if (shrunChildren.PopulateWith(parseNode))
+            {
+                Instruction = new ShiftRightUnsignedInstruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }
