@@ -94,11 +94,17 @@ namespace CILantro.Visitors
                 VisitCompareLessThanInstruction(compareLessThanInstruction);
             else if (instruction is CompareLessThanUnsignedInstruction compareLessThanUnsignedInstruction)
                 VisitCompareLessThanUnsignedInstruction(compareLessThanUnsignedInstruction);
+            else if (instruction is AndInstruction andInstruction)
+                VisitAndInstruction(andInstruction);
+            else if (instruction is OrInstruction orInstruction)
+                VisitOrInstruction(orInstruction);
             else
                 throw new ArgumentException($"CIL instruction none cannot be recognized: '{instruction.ToString()}'.");
         }
 
         protected abstract void VisitAddInstruction(AddInstruction instruction);
+
+        protected abstract void VisitAndInstruction(AndInstruction instruction);
 
         protected abstract void VisitCompareEqualInstruction(CompareEqualInstruction instruction);
 
@@ -165,6 +171,8 @@ namespace CILantro.Visitors
         protected abstract void VisitLoadLocal3Instruction(LoadLocal3Instruction instruction);
 
         protected abstract void VisitMultiplyInstruction(MultiplyInstruction instruction);
+
+        protected abstract void VisitOrInstruction(OrInstruction instruction);
 
         protected abstract void VisitRemainderInstruction(RemainderInstruction instruction);
 

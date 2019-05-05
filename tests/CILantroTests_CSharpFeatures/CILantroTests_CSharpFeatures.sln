@@ -119,6 +119,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_Operators_LessOrEqual",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_Operators_Logical", "CSF_Operators_Logical\CSF_Operators_Logical.csproj", "{4E2D7D08-CB4A-4A4D-8BE7-651B2721C30A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_Operators_Logical2", "CSF_Operators_Logical2\CSF_Operators_Logical2.csproj", "{7C1F2E4C-5D86-496F-9156-8D3A05D584E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -345,6 +347,10 @@ Global
 		{4E2D7D08-CB4A-4A4D-8BE7-651B2721C30A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E2D7D08-CB4A-4A4D-8BE7-651B2721C30A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E2D7D08-CB4A-4A4D-8BE7-651B2721C30A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C1F2E4C-5D86-496F-9156-8D3A05D584E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C1F2E4C-5D86-496F-9156-8D3A05D584E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C1F2E4C-5D86-496F-9156-8D3A05D584E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C1F2E4C-5D86-496F-9156-8D3A05D584E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -405,6 +411,7 @@ Global
 		{B0B3D3A8-0606-48FB-9B32-F0B59CF124D6} = {C4C35060-EE61-4701-A968-2495676AD250}
 		{9A0E9D6C-F37D-4932-B329-9D41BDABE186} = {C4C35060-EE61-4701-A968-2495676AD250}
 		{4E2D7D08-CB4A-4A4D-8BE7-651B2721C30A} = {C4C35060-EE61-4701-A968-2495676AD250}
+		{7C1F2E4C-5D86-496F-9156-8D3A05D584E1} = {C4C35060-EE61-4701-A968-2495676AD250}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4EA075C6-7843-4D56-B83E-4B4E8D1AA025}

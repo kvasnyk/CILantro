@@ -30,12 +30,28 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
-            var resultStackVal = ComputeBinaryNumericInstruction(
+            var resultStackVal = ComputeBinaryNumericOperation(
                 stackVal1,
                 stackVal2,
                 (a, b) => new CilStackValueInt32(a.Value + b.Value),
                 (a, b) => new CilStackValueInt64(a.Value + b.Value),
                 (a, b) => new CilStackValueFloat(a.Value + b.Value)
+            );
+            _state.EvaluationStack.Push(resultStackVal);
+
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitAndInstruction(AndInstruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            var resultStackVal = ComputeIntegerOperation(
+                stackVal1,
+                stackVal2,
+                (a, b) => new CilStackValueInt32(a.Value & b.Value),
+                (a, b) => new CilStackValueInt64(a.Value & b.Value)
             );
             _state.EvaluationStack.Push(resultStackVal);
 
@@ -132,7 +148,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var stackVal);
-            var newStackVal = ComputeConversionInstruction(
+            var newStackVal = ComputeConversionOperation(
                 stackVal,
                 x => new CilStackValueInt32((sbyte)x.Value),
                 x => { throw new NotImplementedException(); },
@@ -148,7 +164,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var stackVal);
-            var newStackVal = ComputeConversionInstruction(
+            var newStackVal = ComputeConversionOperation(
                 stackVal,
                 x => new CilStackValueInt32((short)x.Value),
                 x => { throw new NotImplementedException(); },
@@ -164,7 +180,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var stackVal);
-            var newStackVal = ComputeConversionInstruction(
+            var newStackVal = ComputeConversionOperation(
                 stackVal,
                 x => new CilStackValueInt64(x.Value),
                 x => { throw new NotImplementedException(); },
@@ -180,7 +196,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var stackVal);
-            var newStackVal = ComputeConversionInstruction(
+            var newStackVal = ComputeConversionOperation(
                 stackVal,
                 x => new CilStackValueFloat((float)x.Value),
                 x => new CilStackValueFloat((float)x.Value),
@@ -196,7 +212,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var stackVal);
-            var newStackVal = ComputeConversionInstruction(
+            var newStackVal = ComputeConversionOperation(
                 stackVal,
                 x => new CilStackValueFloat((double)x.Value),
                 x => new CilStackValueFloat((double)x.Value),
@@ -213,7 +229,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: should we deal with the fact it is unsigned instruction?
 
             _state.EvaluationStack.Pop(out var stackVal);
-            var newStackVal = ComputeConversionInstruction(
+            var newStackVal = ComputeConversionOperation(
                 stackVal,
                 x => new CilStackValueFloat((double)x.ValueUnsigned),
                 x => new CilStackValueFloat((double)x.ValueUnsigned),
@@ -229,7 +245,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var stackVal);
-            var newStackVal = ComputeConversionInstruction(
+            var newStackVal = ComputeConversionOperation(
                 stackVal,
                 x => new CilStackValueInt32((byte)x.ValueUnsigned),
                 x => { throw new NotImplementedException(); },
@@ -245,7 +261,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var stackVal);
-            var newStackVal = ComputeConversionInstruction(
+            var newStackVal = ComputeConversionOperation(
                 stackVal,
                 x => new CilStackValueInt32((ushort)x.ValueUnsigned),
                 x => { throw new NotImplementedException(); },
@@ -261,7 +277,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var stackVal);
-            var newStackVal = ComputeConversionInstruction(
+            var newStackVal = ComputeConversionOperation(
                 stackVal,
                 x => new CilStackValueInt64((long)(ulong)x.ValueUnsigned),
                 x => { throw new NotImplementedException(); },
@@ -277,7 +293,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
-            var resultStackVal = ComputeBinaryNumericInstruction(
+            var resultStackVal = ComputeBinaryNumericOperation(
                 stackVal1,
                 stackVal2,
                 (a, b) => new CilStackValueInt32(a.Value / b.Value),
@@ -294,7 +310,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
-            var resultStackVal = ComputeBinaryNumericInstruction(
+            var resultStackVal = ComputeBinaryNumericOperation(
                 stackVal1,
                 stackVal2,
                 (a, b) => new CilStackValueInt32((int)(a.ValueUnsigned / b.ValueUnsigned)),
@@ -455,7 +471,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
-            var resultStackVal = ComputeBinaryNumericInstruction(
+            var resultStackVal = ComputeBinaryNumericOperation(
                 stackVal1,
                 stackVal2,
                 (a, b) => new CilStackValueInt32(a.Value * b.Value),
@@ -467,12 +483,28 @@ namespace CILantro.Interpreting.Visitors
             _state.MoveToNextInstruction();
         }
 
+        protected override void VisitOrInstruction(OrInstruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            var resultStackVal = ComputeIntegerOperation(
+                stackVal1,
+                stackVal2,
+                (a, b) => new CilStackValueInt32(a.Value | b.Value),
+                (a, b) => new CilStackValueInt64(a.Value | b.Value)
+            );
+            _state.EvaluationStack.Push(resultStackVal);
+
+            _state.MoveToNextInstruction();
+        }
+
         protected override void VisitRemainderInstruction(RemainderInstruction instruction)
         {
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
-            var resultStackVal = ComputeBinaryNumericInstruction(
+            var resultStackVal = ComputeBinaryNumericOperation(
                 stackVal1,
                 stackVal2,
                 (a, b) => new CilStackValueInt32(a.Value % b.Value),
@@ -489,7 +521,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
-            var resultStackVal = ComputeBinaryNumericInstruction(
+            var resultStackVal = ComputeBinaryNumericOperation(
                 stackVal1,
                 stackVal2,
                 (a, b) => new CilStackValueInt32((int)(a.ValueUnsigned % b.ValueUnsigned)),
@@ -561,7 +593,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
-            var resultStackVal = ComputeBinaryNumericInstruction(
+            var resultStackVal = ComputeBinaryNumericOperation(
                 stackVal1,
                 stackVal2,
                 (a, b) => new CilStackValueInt32(a.Value - b.Value),
@@ -573,7 +605,7 @@ namespace CILantro.Interpreting.Visitors
             _state.MoveToNextInstruction();
         }
 
-        private IStackValue ComputeBinaryNumericInstruction(
+        private IStackValue ComputeBinaryNumericOperation(
             IStackValue stackVal1,
             IStackValue stackVal2,
             Func<CilStackValueInt32, CilStackValueInt32, CilStackValueInt32> computeInt32Int32,
@@ -618,7 +650,7 @@ namespace CILantro.Interpreting.Visitors
             else return new CilStackValueInt32(0);
         }
 
-        private IStackValue ComputeConversionInstruction(
+        private IStackValue ComputeConversionOperation(
             IStackValue stackVal,
             Func<CilStackValueInt32, IStackValue> computeInt32,
             Func<CilStackValueInt64, IStackValue> computeInt64,
@@ -633,6 +665,23 @@ namespace CILantro.Interpreting.Visitors
                 return computeInt64(stackValInt64);
             if (stackVal is CilStackValueFloat stackValFloat)
                 return computeFloat(stackValFloat);
+
+            throw new System.NotImplementedException();
+        }
+
+        private IStackValue ComputeIntegerOperation(
+            IStackValue stackVal1,
+            IStackValue stackVal2,
+            Func<CilStackValueInt32, CilStackValueInt32, CilStackValueInt32> computeInt32Int32,
+            Func<CilStackValueInt64, CilStackValueInt64, CilStackValueInt64> computeInt64Int64
+        )
+        {
+            // TODO: cover all cases
+
+            if (stackVal1 is CilStackValueInt32 stackVal1Int32 && stackVal2 is CilStackValueInt32 stackVal2Int32)
+                return computeInt32Int32(stackVal1Int32, stackVal2Int32);
+            if (stackVal1 is CilStackValueInt64 stackVal1Int64 && stackVal2 is CilStackValueInt64 stackVal2Int64)
+                return computeInt64Int64(stackVal1Int64, stackVal2Int64);
 
             throw new System.NotImplementedException();
         }

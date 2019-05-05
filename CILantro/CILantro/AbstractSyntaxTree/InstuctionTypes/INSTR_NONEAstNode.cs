@@ -463,6 +463,26 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // _("and")
+            var andChildren = AstChildren.Empty()
+                .Add("and");
+            if (andChildren.PopulateWith(parseNode))
+            {
+                Instruction = new AndInstruction();
+
+                return;
+            }
+
+            // _("or")
+            var orChildren = AstChildren.Empty()
+                .Add("or");
+            if (orChildren.PopulateWith(parseNode))
+            {
+                Instruction = new OrInstruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }
