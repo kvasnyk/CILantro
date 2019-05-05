@@ -100,6 +100,8 @@ namespace CILantro.Visitors
                 VisitOrInstruction(orInstruction);
             else if (instruction is PopInstruction popInstruction)
                 VisitPopInstruction(popInstruction);
+            else if (instruction is XorInstruction xorInstruction)
+                VisitXorInstruction(xorInstruction);
             else
                 throw new ArgumentException($"CIL instruction none cannot be recognized: '{instruction.ToString()}'.");
         }
@@ -195,5 +197,7 @@ namespace CILantro.Visitors
         protected abstract void VisitStoreLocal3Instruction(StoreLocal3Instruction instruction);
 
         protected abstract void VisitSubtractInstruction(SubtractInstruction instruction);
+
+        protected abstract void VisitXorInstruction(XorInstruction instruction);
     }
 }

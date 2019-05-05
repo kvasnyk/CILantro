@@ -612,6 +612,22 @@ namespace CILantro.Interpreting.Visitors
             _state.MoveToNextInstruction();
         }
 
+        protected override void VisitXorInstruction(XorInstruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            var resultStackVal = ComputeIntegerOperation(
+                stackVal1,
+                stackVal2,
+                (a, b) => new CilStackValueInt32(a.Value ^ b.Value),
+                (a, b) => new CilStackValueInt64(a.Value ^ b.Value)
+            );
+            _state.EvaluationStack.Push(resultStackVal);
+
+            _state.MoveToNextInstruction();
+        }
+
         private IStackValue ComputeBinaryNumericOperation(
             IStackValue stackVal1,
             IStackValue stackVal2,

@@ -493,6 +493,16 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // _("xor")
+            var xorChildren = AstChildren.Empty()
+                .Add("xor");
+            if (xorChildren.PopulateWith(parseNode))
+            {
+                Instruction = new XorInstruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }
