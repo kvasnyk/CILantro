@@ -503,6 +503,26 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // _("shl")
+            var shlChildren = AstChildren.Empty()
+                .Add("shl");
+            if (shlChildren.PopulateWith(parseNode))
+            {
+                Instruction = new ShiftLeftInstruction();
+
+                return;
+            }
+
+            // _("shr")
+            var shrChildren = AstChildren.Empty()
+                .Add("shr");
+            if (shrChildren.PopulateWith(parseNode))
+            {
+                Instruction = new ShiftRightInstruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

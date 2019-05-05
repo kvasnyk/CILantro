@@ -547,6 +547,37 @@ namespace CILantro.Interpreting.Visitors
             _state.MethodState.Instruction = null;
         }
 
+        protected override void VisitShiftLeftInstruction(ShiftLeftInstruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            var resultStackVal = ComputeShiftOperation(
+                stackVal1,
+                stackVal2,
+                (a, b) => new CilStackValueInt32(a.Value << b.Value),
+                (a, b) => new CilStackValueInt64(a.Value << b.Value)
+            );
+            _state.EvaluationStack.Push(resultStackVal);
+
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitShiftRightInstruction(ShiftRightInstruction instruction)
+        {// TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            var resultStackVal = ComputeShiftOperation(
+                stackVal1,
+                stackVal2,
+                (a, b) => new CilStackValueInt32(a.Value >> b.Value),
+                (a, b) => new CilStackValueInt64(a.Value >> b.Value)
+            );
+            _state.EvaluationStack.Push(resultStackVal);
+
+            _state.MoveToNextInstruction();
+        }
+
         protected override void VisitStoreArrayElementI2Instruction(StoreArrayElementI2Instruction instruction)
         {
             // TODO: finish implementation
@@ -705,6 +736,23 @@ namespace CILantro.Interpreting.Visitors
                 return computeInt32Int32(stackVal1Int32, stackVal2Int32);
             if (stackVal1 is CilStackValueInt64 stackVal1Int64 && stackVal2 is CilStackValueInt64 stackVal2Int64)
                 return computeInt64Int64(stackVal1Int64, stackVal2Int64);
+
+            throw new System.NotImplementedException();
+        }
+
+        private IStackValue ComputeShiftOperation(
+            IStackValue stackVal1,
+            IStackValue stackVal2,
+            Func<CilStackValueInt32, CilStackValueInt32, CilStackValueInt32> computeInt32Int32,
+            Func<CilStackValueInt64, CilStackValueInt32, CilStackValueInt64> computeInt64Int32
+        )
+        {
+            // TODO: cover all cases
+
+            if (stackVal1 is CilStackValueInt32 stackVal1Int32 && stackVal2 is CilStackValueInt32 stackVal2Int32)
+                return computeInt32Int32(stackVal1Int32, stackVal2Int32);
+            if (stackVal1 is CilStackValueInt64 stackVal1Int64 && stackVal2 is CilStackValueInt32 stackVal2Int32_2)
+                return computeInt64Int32(stackVal1Int64, stackVal2Int32_2);
 
             throw new System.NotImplementedException();
         }
