@@ -483,6 +483,16 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // _("pop")
+            var popChildren = AstChildren.Empty()
+                .Add("pop");
+            if (popChildren.PopulateWith(parseNode))
+            {
+                Instruction = new PopInstruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

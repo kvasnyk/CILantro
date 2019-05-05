@@ -499,6 +499,13 @@ namespace CILantro.Interpreting.Visitors
             _state.MoveToNextInstruction();
         }
 
+        protected override void VisitPopInstruction(PopInstruction instruction)
+        {
+            var stackValue = _state.EvaluationStack.Pop();
+
+            _state.MoveToNextInstruction();
+        }
+
         protected override void VisitRemainderInstruction(RemainderInstruction instruction)
         {
             // TODO: finish implementation
