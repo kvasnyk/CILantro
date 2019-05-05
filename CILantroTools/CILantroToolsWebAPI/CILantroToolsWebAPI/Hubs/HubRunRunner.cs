@@ -333,6 +333,7 @@ namespace CILantroToolsWebAPI.Hubs
                         };
 
                         var hasStarted = false;
+                        var hasFinished = false;
                         var attempts = 0;
                         while (!hasStarted && attempts < 10)
                         {
@@ -348,10 +349,14 @@ namespace CILantroToolsWebAPI.Hubs
                                 var errorOutput = newProcess.StandardError;
                                 while (true)
                                 {
-                                    if (errorOutput.EndOfStream)
+                                    if (errorOutput.EndOfStream && !hasFinished)
                                     {
                                         await Task.Delay(200);
                                         continue;
+                                    }
+                                    else if (errorOutput.EndOfStream)
+                                    {
+                                        break;
                                     }
 
                                     var errorLine = await newProcess.StandardError.ReadLineAsync();
@@ -364,10 +369,14 @@ namespace CILantroToolsWebAPI.Hubs
                                 var exeOutput = newProcess.StandardOutput;
                                 while (true)
                                 {
-                                    if (exeOutput.EndOfStream)
+                                    if (exeOutput.EndOfStream && !hasFinished)
                                     {
                                         await Task.Delay(200);
                                         continue;
+                                    }
+                                    else if (exeOutput.EndOfStream)
+                                    {
+                                        break;
                                     }
 
                                     var outputLine = await exeOutput.ReadLineAsync();
@@ -386,12 +395,15 @@ namespace CILantroToolsWebAPI.Hubs
 
                             newProcess.WaitForExit();
 
-                            if (!newProcess.HasExited)
-                            {
-                                newProcess.Kill();
-                            }
+                            //if (!newProcess.HasExited)
+                            //{
+                            //    newProcess.Kill();
+                            //}
 
-                            cancelTokenSource.Cancel();
+                            hasFinished = true;
+                            Task.WaitAll(errorOutputTask, exeOutputTask);
+
+                            //cancelTokenSource.Cancel();
 
                             errorText = errorBuilder.ToString();
                             if (inputTask.IsFaulted)
@@ -482,6 +494,7 @@ namespace CILantroToolsWebAPI.Hubs
                         };
 
                         var hasStarted = false;
+                        var hasFinished = false;
                         var attempts = 0;
                         while (!hasStarted && attempts < 10)
                         {
@@ -496,10 +509,14 @@ namespace CILantroToolsWebAPI.Hubs
                                 var errorOutput = newProcess.StandardError;
                                 while (true)
                                 {
-                                    if (errorOutput.EndOfStream)
+                                    if (errorOutput.EndOfStream && !hasFinished)
                                     {
                                         await Task.Delay(100);
                                         continue;
+                                    }
+                                    else if (errorOutput.EndOfStream)
+                                    {
+                                        break;
                                     }
 
                                     var errorLine = await newProcess.StandardError.ReadLineAsync();
@@ -512,10 +529,14 @@ namespace CILantroToolsWebAPI.Hubs
                                 var exeOutput = newProcess.StandardOutput;
                                 while (true)
                                 {
-                                    if (exeOutput.EndOfStream)
+                                    if (exeOutput.EndOfStream && !hasFinished)
                                     {
                                         await Task.Delay(100);
                                         continue;
+                                    }
+                                    else if (exeOutput.EndOfStream)
+                                    {
+                                        break;
                                     }
 
                                     var outputLine = await exeOutput.ReadLineAsync();
@@ -534,12 +555,15 @@ namespace CILantroToolsWebAPI.Hubs
 
                             newProcess.WaitForExit();
 
-                            if (!newProcess.HasExited)
-                            {
-                                newProcess.Kill();
-                            }
+                            //if (!newProcess.HasExited)
+                            //{
+                            //    newProcess.Kill();
+                            //}
 
-                            cancelTokenSource.Cancel();
+                            hasFinished = true;
+                            Task.WaitAll(errorOutputTask, exeOutputTask);
+
+                            //cancelTokenSource.Cancel();
 
                             errorText = errorBuilder.ToString();
                             if (inputTask.IsFaulted)
