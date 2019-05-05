@@ -2,7 +2,7 @@
   "profiles": {
     "CILantro": {
       "commandName": "Project",
-      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\CSF_Operators_BitRightShift\\CSF_Operators_BitRightShift.il\""
+      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\CSF_Operators_BitNot\\CSF_Operators_BitNot.il\""
     }
   }
 }

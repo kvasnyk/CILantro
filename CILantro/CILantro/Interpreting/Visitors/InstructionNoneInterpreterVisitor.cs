@@ -482,6 +482,21 @@ namespace CILantro.Interpreting.Visitors
             _state.MoveToNextInstruction();
         }
 
+        protected override void VisitNotInstruction(NotInstruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var stackVal);
+            var resultStackVal = ComputeUnaryIntegerOperation(
+                stackVal,
+                a => new CilStackValueInt32(~a.Value),
+                a => new CilStackValueInt64(~a.Value)
+            );
+            _state.EvaluationStack.Push(resultStackVal);
+
+            _state.MoveToNextInstruction();
+        }
+
         protected override void VisitOrInstruction(OrInstruction instruction)
         {
             // TODO: finish implementation
@@ -734,6 +749,22 @@ namespace CILantro.Interpreting.Visitors
                 return computeInt64(stackValInt64);
             if (stackVal is CilStackValueFloat stackValFloat)
                 return computeFloat(stackValFloat);
+
+            throw new System.NotImplementedException();
+        }
+
+        private IStackValue ComputeUnaryIntegerOperation(
+            IStackValue stackVal,
+            Func<CilStackValueInt32, CilStackValueInt32> computeInt32,
+            Func<CilStackValueInt64, CilStackValueInt64> computeInt64
+        )
+        {
+            // TODO: cover all cases
+
+            if (stackVal is CilStackValueInt32 stackValInt32)
+                return computeInt32(stackValInt32);
+            if (stackVal is CilStackValueInt64 stackValInt64)
+                return computeInt64(stackValInt64);
 
             throw new System.NotImplementedException();
         }

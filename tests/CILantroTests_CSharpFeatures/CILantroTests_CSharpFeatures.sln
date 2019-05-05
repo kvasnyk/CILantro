@@ -131,6 +131,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_Operators_BitLeftShift"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_Operators_BitRightShift", "CSF_Operators_BitRightShift\CSF_Operators_BitRightShift.csproj", "{37ADD849-8D85-48C9-8C6B-58EDD045ACAF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_Operators_BitNot", "CSF_Operators_BitNot\CSF_Operators_BitNot.csproj", "{9FA2223C-60C7-4532-BEC4-06803FCD5622}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -381,6 +383,10 @@ Global
 		{37ADD849-8D85-48C9-8C6B-58EDD045ACAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37ADD849-8D85-48C9-8C6B-58EDD045ACAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37ADD849-8D85-48C9-8C6B-58EDD045ACAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FA2223C-60C7-4532-BEC4-06803FCD5622}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FA2223C-60C7-4532-BEC4-06803FCD5622}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FA2223C-60C7-4532-BEC4-06803FCD5622}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FA2223C-60C7-4532-BEC4-06803FCD5622}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -447,6 +453,7 @@ Global
 		{BCFD1919-660B-426E-A493-04609A3BBEEE} = {C4C35060-EE61-4701-A968-2495676AD250}
 		{21272019-7708-4B2B-8152-63DA130C944C} = {C4C35060-EE61-4701-A968-2495676AD250}
 		{37ADD849-8D85-48C9-8C6B-58EDD045ACAF} = {C4C35060-EE61-4701-A968-2495676AD250}
+		{9FA2223C-60C7-4532-BEC4-06803FCD5622} = {C4C35060-EE61-4701-A968-2495676AD250}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4EA075C6-7843-4D56-B83E-4B4E8D1AA025}

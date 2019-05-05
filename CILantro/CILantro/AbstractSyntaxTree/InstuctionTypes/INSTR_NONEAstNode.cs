@@ -533,6 +533,16 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // _("not")
+            var notChildren = AstChildren.Empty()
+                .Add("not");
+            if (notChildren.PopulateWith(parseNode))
+            {
+                Instruction = new NotInstruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }
