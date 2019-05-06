@@ -135,6 +135,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_Operators_BitNot", "CSF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_Operators_Neg", "CSF_Operators_Neg\CSF_Operators_Neg.csproj", "{043EEAAB-71BC-4ED9-8553-FAEDEB7CE9BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_Operators_Assign", "CSF_Operators_Assign\CSF_Operators_Assign.csproj", "{F64F7B13-FCC8-426B-A542-FAB613322FEC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -393,6 +395,10 @@ Global
 		{043EEAAB-71BC-4ED9-8553-FAEDEB7CE9BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{043EEAAB-71BC-4ED9-8553-FAEDEB7CE9BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{043EEAAB-71BC-4ED9-8553-FAEDEB7CE9BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F64F7B13-FCC8-426B-A542-FAB613322FEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F64F7B13-FCC8-426B-A542-FAB613322FEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F64F7B13-FCC8-426B-A542-FAB613322FEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F64F7B13-FCC8-426B-A542-FAB613322FEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -461,6 +467,7 @@ Global
 		{37ADD849-8D85-48C9-8C6B-58EDD045ACAF} = {C4C35060-EE61-4701-A968-2495676AD250}
 		{9FA2223C-60C7-4532-BEC4-06803FCD5622} = {C4C35060-EE61-4701-A968-2495676AD250}
 		{043EEAAB-71BC-4ED9-8553-FAEDEB7CE9BA} = {C4C35060-EE61-4701-A968-2495676AD250}
+		{F64F7B13-FCC8-426B-A542-FAB613322FEC} = {C4C35060-EE61-4701-A968-2495676AD250}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4EA075C6-7843-4D56-B83E-4B4E8D1AA025}
