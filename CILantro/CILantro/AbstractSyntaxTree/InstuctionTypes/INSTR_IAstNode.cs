@@ -24,6 +24,16 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // ___("ldc.i4")
+            var ldci4Children = AstChildren.Empty()
+                .Add("ldc.i4");
+            if (ldci4Children.PopulateWith(parseNode))
+            {
+                Instruction = new LoadConstI4Instruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

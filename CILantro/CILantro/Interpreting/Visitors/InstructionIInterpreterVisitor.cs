@@ -18,6 +18,14 @@ namespace CILantro.Interpreting.Visitors
             _managedMemory = managedMemory;
         }
 
+        protected override void VisitLoadConstI4Instruction(LoadConstI4Instruction instruction)
+        {
+            var stackVal = new CilStackValueInt32(instruction.Value);
+            _state.EvaluationStack.Push(stackVal);
+
+            _state.MoveToNextInstruction();
+        }
+
         protected override void VisitLoadConstI4ShortInstruction(LoadConstI4ShortInstruction instruction)
         {
             var stackVal = new CilStackValueInt32(instruction.Value);
