@@ -110,6 +110,8 @@ namespace CILantro.Visitors
                 VisitShiftRightUnsignedInstruction(shiftRightUnsignedInstruction);
             else if (instruction is NotInstruction notInstruction)
                 VisitNotInstruction(notInstruction);
+            else if (instruction is NegateInstruction negateInstruction)
+                VisitNegateInstruction(negateInstruction);
             else
                 throw new ArgumentException($"CIL instruction none cannot be recognized: '{instruction.ToString()}'.");
         }
@@ -183,6 +185,8 @@ namespace CILantro.Visitors
         protected abstract void VisitLoadLocal3Instruction(LoadLocal3Instruction instruction);
 
         protected abstract void VisitMultiplyInstruction(MultiplyInstruction instruction);
+
+        protected abstract void VisitNegateInstruction(NegateInstruction instruction);
 
         protected abstract void VisitNotInstruction(NotInstruction instruction);
 
