@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicalOperatorsAppl", "Log
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitwiseOperatorsAppl", "BitwiseOperatorsAppl\BitwiseOperatorsAppl.csproj", "{1040B8E8-3671-44BB-90A2-4686DEB161B2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssignmentOperatorsAppl", "AssignmentOperatorsAppl\AssignmentOperatorsAppl.csproj", "{8D636959-CDE2-4BAE-9BFB-3D63CD2AEBB0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{1040B8E8-3671-44BB-90A2-4686DEB161B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1040B8E8-3671-44BB-90A2-4686DEB161B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1040B8E8-3671-44BB-90A2-4686DEB161B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D636959-CDE2-4BAE-9BFB-3D63CD2AEBB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D636959-CDE2-4BAE-9BFB-3D63CD2AEBB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D636959-CDE2-4BAE-9BFB-3D63CD2AEBB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D636959-CDE2-4BAE-9BFB-3D63CD2AEBB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
