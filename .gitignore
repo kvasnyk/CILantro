@@ -9,6 +9,7 @@ packages/
 bibliography/
 tests-data/
 runs-data/
+backups/
 
 CILantroTools/tests/
 CILantroTools/tests-data/
