@@ -19,6 +19,22 @@ namespace CILantro.Interpreting.Visitors
             _managedMemory = managedMemory;
         }
 
+        protected override void VisitBranchOnFalseShortInstruction(BranchOnFalseShortInstruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var stackVal);
+            var branch = ComputeUnaryBranchOperation(
+                stackVal,
+                a => a.Value == 0
+            );
+
+            if (branch)
+                _state.Move(instruction.Offset, instruction.Label);
+            else
+                _state.MoveToNextInstruction();
+        }
+
         protected override void VisitBranchOnTrueShortInstruction(BranchOnTrueShortInstruction instruction)
         {
             // TODO: finish implementation
