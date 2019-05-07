@@ -157,6 +157,11 @@ namespace CILantroToolsWebAPI.Hubs
                 });
             }
 
+            if (testRunOutcome == RunOutcome.Ok)
+                _processingRunData.OkTestsCount++;
+            else
+                _processingRunData.WrongTestsCount++;
+
             _processingRunData.CurrentTestName = null;
             _processingRunData.ProcessedTestsCount++;
             _processingRunData.CurrentTestStepIndex = null;

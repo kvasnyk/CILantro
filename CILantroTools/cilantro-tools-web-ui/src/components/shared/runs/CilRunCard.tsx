@@ -133,7 +133,9 @@ const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
 		outcome: props.run.outcome,
 		processedTestsCount: props.run.processedTestsCount,
 		processedForMilliseconds: props.run.processedForMilliseconds,
-		testStepsCount: 0
+		testStepsCount: 0,
+		okTestsCount: 0,
+		wrongTestsCount: 0
 	});
 
 	useRunningRunHub({
@@ -260,10 +262,10 @@ const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
 					{runData.status === RunStatus.Finished && runData.outcome === RunOutcome.Wrong ? (
 						<>
 							<Typography className={passedFailedTypographyClassName}>
-								{props.run.okTestsCount} {translations.runs.passed}
+								{runData.okTestsCount} {translations.runs.passed}
 							</Typography>
 							<Typography className={passedFailedTypographyClassName}>
-								{props.run.wrongTestsCount} {translations.runs.failed}
+								{runData.wrongTestsCount} {translations.runs.failed}
 							</Typography>
 						</>
 					) : null}

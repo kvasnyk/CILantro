@@ -11,6 +11,10 @@ namespace CILantroToolsWebAPI.Models.Runs
 
         public int ProcessedTestsCount { get; set; }
 
+        public int OkTestsCount { get; set; }
+
+        public int WrongTestsCount { get; set; }
+
         public int? ProcessedForMilliseconds { get; set; }
 
         public string CurrentTestName { get; set; }
