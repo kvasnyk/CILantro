@@ -65,7 +65,7 @@ const CilTestOutputEditor: FunctionComponent<CilTestOutputEditorProps> = props =
 			notistack.enqueueSuccess(translations.tests.outputHasBeenUpdated);
 			props.onOutputUpdated();
 		} catch (error) {
-			notistack.enqueueError(translations.tests.errorOccurredWhileUpdatingOutput);
+			notistack.enqueueError(translations.tests.errorOccurredWhileUpdatingOutput, error);
 		}
 	};
 

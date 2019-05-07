@@ -25,7 +25,7 @@ const CilEditTestSubcategorySelect: FunctionComponent<CilEditTestSubcategorySele
 			notistack.enqueueSuccess(translations.tests.subcategoryHasBeenUpdated);
 			props.onSubcategoryUpdated();
 		} catch (error) {
-			notistack.enqueueError(translations.tests.errorOccurredWhileUpdatingSubcategory);
+			notistack.enqueueError(translations.tests.errorOccurredWhileUpdatingSubcategory, error);
 		}
 	};
 

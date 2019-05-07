@@ -25,7 +25,7 @@ const CilGenerateTestIlSourcesButton: FunctionComponent<CilGenerateTestIlSources
 			notistack.enqueueSuccess(translations.tests.ilSourcesHasBeenGenerated);
 			props.onIlSourcesGenerated();
 		} catch (error) {
-			notistack.enqueueError(translations.tests.errorOccurredWhileGeneratingIlSources);
+			notistack.enqueueError(translations.tests.errorOccurredWhileGeneratingIlSources, error);
 		}
 	};
 

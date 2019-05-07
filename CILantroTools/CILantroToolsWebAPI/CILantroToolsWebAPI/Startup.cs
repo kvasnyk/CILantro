@@ -1,6 +1,7 @@
 ﻿using CILantroToolsWebAPI.Db;
 using CILantroToolsWebAPI.DbModels;
 using CILantroToolsWebAPI.Hubs;
+using CILantroToolsWebAPI.Middlewares;
 using CILantroToolsWebAPI.Migrations;
 using CILantroToolsWebAPI.ReadModels;
 using CILantroToolsWebAPI.ReadModels.Categories;
@@ -83,6 +84,7 @@ namespace CILantroToolsWebAPI
             }
 
             app.UseCors("AllowEverything");
+            app.UseMiddleware<ExceptionMiddleware>();
 
             MigrationsHelper.MigrateAndSeed(env, app);
 

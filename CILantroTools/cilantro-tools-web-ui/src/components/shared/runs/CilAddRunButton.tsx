@@ -72,7 +72,7 @@ const CilAddRunButton: FunctionComponent<CilAddRunButtonProps> = props => {
 			setFormData(buildEmptyAddRunData(props.type));
 			props.onRunAdded();
 		} catch (error) {
-			notistack.enqueueError(translations.runs.errorOccurredWhileAddingRun);
+			notistack.enqueueError(translations.runs.errorOccurredWhileAddingRun, error);
 		}
 	};
 
@@ -84,7 +84,7 @@ const CilAddRunButton: FunctionComponent<CilAddRunButtonProps> = props => {
 			setFormData(buildEmptyAddRunData(props.type));
 			props.onRunAdded();
 		} catch (error) {
-			notistack.enqueueError(translations.runs.errorOccurredWhileAddingRun);
+			notistack.enqueueError(translations.runs.errorOccurredWhileAddingRun, error);
 		}
 	};
 

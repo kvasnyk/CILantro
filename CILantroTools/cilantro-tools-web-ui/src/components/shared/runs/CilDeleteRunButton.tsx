@@ -25,7 +25,7 @@ const CilDeleteRunButton: FunctionComponent<CilDeleteRunButtonProps> = props => 
 			notistack.enqueueSuccess(translations.runs.runHasBeenDeleted);
 			props.onRunDeleted();
 		} catch (error) {
-			notistack.enqueueError(translations.runs.errorOccurredWhileDeletingRun);
+			notistack.enqueueError(translations.runs.errorOccurredWhileDeletingRun, error);
 		}
 	};
 

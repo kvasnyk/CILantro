@@ -22,7 +22,7 @@ const CilEditTestHasEmptyInputCheckbox: FunctionComponent<CilEditTestHasEmptyInp
 			notistack.enqueueSuccess(translations.tests.emptyInputHasBeenUpdated);
 			props.onHasEmptyInputUpdated();
 		} catch (error) {
-			notistack.enqueueError(translations.tests.errorOccurredWhileUpdatingEmptyInput);
+			notistack.enqueueError(translations.tests.errorOccurredWhileUpdatingEmptyInput, error);
 		}
 	};
 

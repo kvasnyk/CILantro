@@ -91,7 +91,7 @@ const CilTestInputEditor: FunctionComponent<CilTestInputEditorProps> = props => 
 			notistack.enqueueSuccess(translations.tests.inputHasBeenUpdated);
 			props.onInputUpdated();
 		} catch (error) {
-			notistack.enqueueError(translations.tests.errorOccurredWhileUpdatingInput);
+			notistack.enqueueError(translations.tests.errorOccurredWhileUpdatingInput, error);
 		}
 	};
 
@@ -100,7 +100,7 @@ const CilTestInputEditor: FunctionComponent<CilTestInputEditorProps> = props => 
 			const searchTestsResponse = await testsApiClient.searchTests(testsSearch.parameter);
 			testsSearch.setResult(searchTestsResponse.data);
 		} catch (error) {
-			notistack.enqueueError(translations.tests.errorOccurredWhileSearchingTests);
+			notistack.enqueueError(translations.tests.errorOccurredWhileSearchingTests, error);
 		}
 	};
 
@@ -177,7 +177,7 @@ const CilTestInputEditor: FunctionComponent<CilTestInputEditorProps> = props => 
 			props.onInputUpdated();
 			setIsCopyInputDialogOpen(false);
 		} catch (error) {
-			notistack.enqueueError(translations.tests.errorOccurredWhileCopyingInput);
+			notistack.enqueueError(translations.tests.errorOccurredWhileCopyingInput, error);
 		}
 	};
 

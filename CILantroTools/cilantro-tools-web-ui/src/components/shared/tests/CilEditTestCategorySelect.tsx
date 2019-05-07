@@ -25,7 +25,7 @@ const CilEditTestCategorySelect: FunctionComponent<CilEditTestCategorySelectProp
 			notistack.enqueueSuccess(translations.tests.categoryHasBeenUpdated);
 			props.onCategoryUpdated();
 		} catch (error) {
-			notistack.enqueueError(translations.tests.errorOccurredWhileUpdatingCategory);
+			notistack.enqueueError(translations.tests.errorOccurredWhileUpdatingCategory, error);
 		}
 	};
 

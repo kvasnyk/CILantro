@@ -24,7 +24,7 @@ const CilDeleteSubcategoryButton: FunctionComponent<CilDeleteSubcategoryButtonPr
 			notistack.enqueueSuccess(translations.categories.subcategoryHasBeenDeleted);
 			props.onSubcategoryDeleted();
 		} catch (error) {
-			notistack.enqueueError(translations.categories.errorOccurredWhileDeletingSubcategory);
+			notistack.enqueueError(translations.categories.errorOccurredWhileDeletingSubcategory, error);
 		}
 	};
 

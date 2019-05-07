@@ -1,6 +1,8 @@
 import React, { ChangeEvent, FormEvent, FunctionComponent, useState } from 'react';
 
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Fab, TextField, Theme } from '@material-ui/core';
+import {
+    Button, Dialog, DialogActions, DialogContent, DialogTitle, Fab, TextField, Theme
+} from '@material-ui/core';
 import green from '@material-ui/core/colors/green';
 import AddIcon from '@material-ui/icons/AddRounded';
 import { makeStyles } from '@material-ui/styles';
@@ -66,7 +68,7 @@ const CilAddCategoryButton: FunctionComponent<CilAddCategoryButtonProps> = props
 			setFormData(buildEmptyAddCategoryData());
 			props.onCategoryAdded();
 		} catch (error) {
-			notistack.enqueueError(translations.categories.errorOccurredWhileAddingCategory);
+			notistack.enqueueError(translations.categories.errorOccurredWhileAddingCategory, error);
 		}
 	};
 

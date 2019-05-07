@@ -59,7 +59,7 @@ const CilAddSubcategoryButton: FunctionComponent<CilAddSubcategoryButtonProps> =
 			setFormData(buildEmptyAddSubcategoryData());
 			props.onSubcategoryAdded();
 		} catch (error) {
-			notistack.enqueueError(translations.categories.errorOccurredWhileAddingSubcategory);
+			notistack.enqueueError(translations.categories.errorOccurredWhileAddingSubcategory, error);
 		}
 	};
 

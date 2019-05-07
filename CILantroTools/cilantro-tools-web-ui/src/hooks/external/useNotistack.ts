@@ -9,10 +9,23 @@ const useNotistack = () => {
 			variant: 'success'
 		});
 
-	const enqueueError = (message: string) =>
-		enqueueSnackbar(message, {
+	const enqueueError = (message: string, externalError: unknown) => {
+		let errorMessage = message;
+
+		const extErrorObj = externalError as any;
+		if (
+			extErrorObj &&
+			extErrorObj.response &&
+			extErrorObj.response.data &&
+			typeof extErrorObj.response.data === 'string'
+		) {
+			errorMessage = extErrorObj.response.data as string;
+		}
+
+		enqueueSnackbar(errorMessage, {
 			variant: 'error'
 		});
+	};
 
 	return {
 		enqueueError,

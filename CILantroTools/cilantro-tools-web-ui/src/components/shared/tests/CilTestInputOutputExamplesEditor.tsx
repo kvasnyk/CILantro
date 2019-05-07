@@ -187,7 +187,7 @@ const CilTestInputOutputExamplesEditor: FunctionComponent<CilTestInputOutputExam
 			props.onExampleAdded();
 			notistack.enqueueSuccess(translations.tests.ioExampleHasBeenAdded);
 		} catch (error) {
-			notistack.enqueueError(translations.tests.errorOccurredWhileAddingIoExample);
+			notistack.enqueueError(translations.tests.errorOccurredWhileAddingIoExample, error);
 		}
 	};
 
@@ -206,7 +206,7 @@ const CilTestInputOutputExamplesEditor: FunctionComponent<CilTestInputOutputExam
 			setIsNewOutputPopulated(true);
 			notistack.enqueueSuccess(translations.tests.outputHasBeenGenerated);
 		} catch (error) {
-			notistack.enqueueError(translations.tests.errorOccurredWhileGeneratingOutput);
+			notistack.enqueueError(translations.tests.errorOccurredWhileGeneratingOutput, error);
 		}
 	};
 

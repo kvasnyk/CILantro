@@ -201,7 +201,7 @@ const CilTestRunCard: FunctionComponent<CilTestRunCardProps> = props => {
 			});
 			notistack.enqueueSuccess(translations.tests.ioExampleHasBeenAdded);
 		} catch (error) {
-			notistack.enqueueError(translations.tests.errorOccurredWhileAddingIoExample);
+			notistack.enqueueError(translations.tests.errorOccurredWhileAddingIoExample, error);
 		}
 	};
 

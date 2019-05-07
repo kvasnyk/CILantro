@@ -25,7 +25,7 @@ const CilGenerateTestExeButton: FunctionComponent<CilGenerateTestExeButtonProps>
 			notistack.enqueueSuccess(translations.tests.exeHasBeenGenerated);
 			props.onExeGenerated();
 		} catch (error) {
-			notistack.enqueueError(translations.tests.errorOccurredWhileGeneratingExe);
+			notistack.enqueueError(translations.tests.errorOccurredWhileGeneratingExe, error);
 		}
 	};
 

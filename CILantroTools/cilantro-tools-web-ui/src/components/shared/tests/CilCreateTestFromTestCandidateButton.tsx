@@ -27,7 +27,7 @@ const CilCreateTestFromTestCandidateButton: FunctionComponent<CilCreateTestFromT
 			notistack.enqueueSuccess(translations.tests.testHasBeenAdded);
 			props.onTestCreated();
 		} catch (error) {
-			notistack.enqueueError(translations.tests.errorOccurredWhileAddingTest);
+			notistack.enqueueError(translations.tests.errorOccurredWhileAddingTest, error);
 		}
 	};
 
