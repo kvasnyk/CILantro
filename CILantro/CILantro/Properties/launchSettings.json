@@ -2,7 +2,7 @@
   "profiles": {
     "CILantro": {
       "commandName": "Project",
-      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\CSF_DecisionMaking_IfLess\\CSF_DecisionMaking_IfLess.il\""
+      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\CSF_DecisionMaking_IfLessOrEqual\\CSF_DecisionMaking_IfLessOrEqual.il\""
     }
   }
 }
