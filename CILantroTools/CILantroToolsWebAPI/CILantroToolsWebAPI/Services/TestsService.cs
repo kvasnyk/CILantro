@@ -1,6 +1,7 @@
 ﻿using CILantroToolsWebAPI.BindingModels.Tests;
 using CILantroToolsWebAPI.Db;
 using CILantroToolsWebAPI.DbModels;
+using CILantroToolsWebAPI.Enums;
 using CILantroToolsWebAPI.Exceptions;
 using CILantroToolsWebAPI.Models.Tests;
 using CILantroToolsWebAPI.ReadModels.Tests;
@@ -312,6 +313,16 @@ namespace CILantroToolsWebAPI.Services
             };
 
             await _testIoExamplesRepository.CreateAsync(newExample);
+        }
+
+        public async Task<TestsCheck> CheckTests()
+        {
+            return new TestsCheck
+            {
+                NotReadyTests = _testsRepository.Read<TestReadModel>().Count(t => !t.IsReady),
+                NotRunTests = _testsRepository.Read<TestReadModel>().Count(t => !t.LastRunOutcome.HasValue),
+                NotOkTests = _testsRepository.Read<TestReadModel>().Count(t => t.LastRunOutcome.HasValue && t.LastRunOutcome.Value == RunOutcome.Wrong)
+            };
         }
 
         private void EnsureDirectoryExists(string directoryPath)

@@ -11,6 +11,7 @@ const apiRoutes = {
 	tests: {
 		createFromCandidate: '/tests/create-from-candidate',
 		findTests: '/tests/find',
+		checkTests: '/tests/check',
 		getTest: (testId: string) => `/tests/${testId}`,
 		searchTests: '/tests/search',
 		editTestCategory: (testId: string) => `/tests/${testId}/edit-category`,

@@ -1,9 +1,11 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 
-import { MenuItem, Theme } from '@material-ui/core';
+import { MenuItem, Theme, Typography } from '@material-ui/core';
+import { red } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/styles';
 
 import TestsApiClient from '../../api/clients/TestsApiClient';
+import TestsCheck from '../../api/models/tests/TestsCheck';
 import TestReadModel from '../../api/read-models/tests/TestReadModel';
 import SearchDirection from '../../api/search/SearchDirection';
 import useSearch from '../../hooks/useSearch';
@@ -22,7 +24,15 @@ const useStyles = makeStyles((theme: Theme) => ({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center'
-	}
+	},
+	warnings: {
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		justifyContent: 'center',
+		marginBottom: '20px'
+	},
+	warningTypography: { color: red[700] }
 }));
 
 const CilTestsPage: FunctionComponent = props => {
@@ -31,6 +41,7 @@ const CilTestsPage: FunctionComponent = props => {
 	const testsApiClient = new TestsApiClient();
 
 	const [pageState, setPageState] = useState<PageState>('loading');
+	const [testsCheck, setTestsCheck] = useState<TestsCheck | undefined>(undefined);
 
 	const search = useSearch<TestReadModel>({
 		orderBy: {
@@ -56,12 +67,27 @@ const CilTestsPage: FunctionComponent = props => {
 		}
 	};
 
+	const refreshTestCheck = async () => {
+		try {
+			setPageState('loading');
+			const checkTestsResponse = await testsApiClient.checkTests();
+			setTestsCheck(checkTestsResponse.data);
+			setPageState('success');
+		} catch (error) {
+			setPageState('error');
+		}
+	};
+
 	useEffect(
 		() => {
 			refreshTests();
 		},
 		[search.parameter]
 	);
+
+	useEffect(() => {
+		refreshTestCheck();
+	}, []);
 
 	const centerChildren = search.result.data.length <= 0;
 
@@ -79,6 +105,25 @@ const CilTestsPage: FunctionComponent = props => {
 					<CilPagination search={search} />
 				</div>
 			</CilPageHeader>
+			{testsCheck ? (
+				<div className={classes.warnings}>
+					{testsCheck.notReadyTests > 0 ? (
+						<Typography variant="h2" className={classes.warningTypography}>
+							{translations.tests.thereAreNotReadyTests(testsCheck.notReadyTests)}
+						</Typography>
+					) : null}
+					{testsCheck.notRunTests > 0 ? (
+						<Typography variant="h2" className={classes.warningTypography}>
+							{translations.tests.thereAreNotRunTests(testsCheck.notRunTests)}
+						</Typography>
+					) : null}
+					{testsCheck.notOkTests > 0 ? (
+						<Typography variant="h2" className={classes.warningTypography}>
+							{translations.tests.thereAreNotOkTests(testsCheck.notOkTests)}
+						</Typography>
+					) : null}
+				</div>
+			) : null}
 			<CilTestsList tests={search.result.data} />
 		</CilPage>
 	);

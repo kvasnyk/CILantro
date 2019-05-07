@@ -29,6 +29,12 @@ namespace CILantroToolsWebAPI.Controllers
             return await _testsService.FindTestCandidatesAsync();
         }
 
+        [HttpGet("check")]
+        public async Task<TestsCheck> CheckTestsAsync()
+        {
+            return await _testsService.CheckTests();
+        }
+
         [HttpPost("create-from-candidate")]
         public async Task<Guid> CreateTestFromCandidateAsync([FromBody]CreateTestFromCandidateBindingModel model)
         {

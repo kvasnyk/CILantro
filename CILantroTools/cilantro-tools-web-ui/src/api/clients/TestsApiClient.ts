@@ -10,6 +10,7 @@ import EditTestSubcategoryBindingModel from '../binding-models/tests/EditTestSub
 import GenerateOutputBindingModel from '../binding-models/tests/GenerateOutputBindingModel';
 import TestCandidate from '../models/tests/TestCandidate';
 import TestInfo from '../models/tests/TestInfo';
+import TestsCheck from '../models/tests/TestsCheck';
 import TestReadModel from '../read-models/tests/TestReadModel';
 import SearchParameter from '../search/SearchParameter';
 import SearchResult from '../search/SearchResult';
@@ -18,6 +19,10 @@ import ApiClientBase from './ApiClientBase';
 class TestsApiClient extends ApiClientBase {
 	public findTests() {
 		return this.get<{}, TestCandidate[]>(apiRoutes.tests.findTests, {});
+	}
+
+	public checkTests() {
+		return this.get<{}, TestsCheck>(apiRoutes.tests.checkTests, {});
 	}
 
 	public createTestFromCandidate(data: CreateTestFromCandidateBindingModel) {
