@@ -5,6 +5,7 @@ import {
 	Card,
 	CardActions,
 	CardContent,
+	CircularProgress,
 	Collapse,
 	IconButton,
 	Paper,
@@ -95,6 +96,15 @@ const useStyles = makeStyles((theme: Theme) => ({
 		color: red[700],
 		wordBreak: 'break-all',
 		whiteSpace: 'pre-wrap'
+	},
+	loadingWrapper: {
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+	loading: {
+		color: theme.palette.common.white
 	}
 }));
 
@@ -281,7 +291,11 @@ const CilTestRunCard: FunctionComponent<CilTestRunCardProps> = props => {
 								</TableBody>
 							</Table>
 						</Paper>
-					) : null}
+					) : (
+						<div className={classes.loadingWrapper}>
+							<CircularProgress className={classes.loading} />
+						</div>
+					)}
 				</Collapse>
 			</CardContent>
 			<CardActions className={classes.cardActions}>
