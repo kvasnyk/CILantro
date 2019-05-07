@@ -24,6 +24,25 @@ namespace CILantro.Interpreting.Visitors
             _state.Move(instruction.Offset, instruction.Label);
         }
 
+        protected override void VisitBranchOnEqualShortInstruction(BranchOnEqualShortInstruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            var branch = ComputeBinaryBranchOperation(
+                stackVal1,
+                stackVal2,
+                (a, b) => a.Value == b.Value,
+                (a, b) => a.Value == b.Value,
+                (a, b) => a.Value == b.Value
+            );
+
+            if (branch)
+                _state.Move(instruction.Offset, instruction.Label);
+            else
+                _state.MoveToNextInstruction();
+        }
+
         protected override void VisitBranchOnFalseShortInstruction(BranchOnFalseShortInstruction instruction)
         {
             // TODO: finish implementation
