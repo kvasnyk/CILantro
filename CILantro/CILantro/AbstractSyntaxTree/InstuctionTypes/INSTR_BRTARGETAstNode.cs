@@ -104,6 +104,26 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // ___("bge.s")
+            var bgesChildren = AstChildren.Empty()
+                .Add("bge.s");
+            if (bgesChildren.PopulateWith(parseNode))
+            {
+                Instruction = new BranchOnGreaterThanOrEqualToShortInstruction();
+
+                return;
+            }
+
+            // ___("bge.un.s")
+            var bgeunsChildren = AstChildren.Empty()
+                .Add("bge.un.s");
+            if (bgeunsChildren.PopulateWith(parseNode))
+            {
+                Instruction = new BranchOnGreaterThanOrEqualToUnsignedShortInstruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

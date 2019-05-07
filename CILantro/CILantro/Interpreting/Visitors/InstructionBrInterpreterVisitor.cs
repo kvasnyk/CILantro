@@ -59,6 +59,44 @@ namespace CILantro.Interpreting.Visitors
                 _state.MoveToNextInstruction();
         }
 
+        protected override void VisitBranchOnGreaterThanOrEqualToShortInstruction(BranchOnGreaterThanOrEqualToShortInstruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            var branch = ComputeBinaryBranchOperation(
+                stackVal1,
+                stackVal2,
+                (a, b) => a.Value >= b.Value,
+                (a, b) => a.Value >= b.Value,
+                (a, b) => a.Value >= b.Value
+            );
+
+            if (branch)
+                _state.Move(instruction.Offset, instruction.Label);
+            else
+                _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitBranchOnGreaterThanOrEqualToUnsignedShortInstruction(BranchOnGreaterThanOrEqualToUnsignedShortInstruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            var branch = ComputeBinaryBranchOperation(
+                stackVal1,
+                stackVal2,
+                (a, b) => a.ValueUnsigned >= b.ValueUnsigned,
+                (a, b) => a.ValueUnsigned >= b.ValueUnsigned,
+                (a, b) => a.Value >= b.Value
+            );
+
+            if (branch)
+                _state.Move(instruction.Offset, instruction.Label);
+            else
+                _state.MoveToNextInstruction();
+        }
+
         protected override void VisitBranchOnLessThanShortInstruction(BranchOnLessThanShortInstruction instruction)
         {
             // TODO: finish implementation
