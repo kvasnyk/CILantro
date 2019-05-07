@@ -72,6 +72,7 @@ const translations = {
 		addIoExample: 'Add an I/O example',
 		createdOn: 'Created',
 		lastOpenedOn: 'Recently opened',
+		lastRunOutcome: 'Last run result',
 		chars: 'chars',
 		errorOccurredWhileSearchingTests: 'An error occurred while searching tests.',
 		errorOccurredWhileCopyingInput: 'An error occurred while copying the input.',

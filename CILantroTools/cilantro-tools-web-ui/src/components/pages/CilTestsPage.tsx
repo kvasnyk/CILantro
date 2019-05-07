@@ -74,6 +74,7 @@ const CilTestsPage: FunctionComponent = props => {
 						<MenuItem value="createdOn">{translations.tests.createdOn}</MenuItem>
 						<MenuItem value="name">{translations.shared.name}</MenuItem>
 						<MenuItem value="lastOpenedOn">{translations.tests.lastOpenedOn}</MenuItem>
+						<MenuItem value="lastRunOutcome">{translations.tests.lastRunOutcome}</MenuItem>
 					</CilOrderByDropDown>
 					<CilPagination search={search} />
 				</div>

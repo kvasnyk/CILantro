@@ -14,6 +14,8 @@ namespace CILantroToolsWebAPI.Search.Mappers
                 return t => t.CreatedOn.ToString("o");
             if (orderBy.Equals(nameof(TestReadModel.LastOpenedOn), StringComparison.InvariantCultureIgnoreCase))
                 return t => t.LastOpenedOn.ToString("o");
+            if (orderBy.Equals(nameof(TestReadModel.LastRunOutcome), StringComparison.InvariantCultureIgnoreCase))
+                return t => !t.LastRunOutcome.HasValue ? "Z" : t.LastRunOutcome.Value.ToString();
 
             throw new ArgumentException($"{nameof(orderBy)} property '{orderBy}' cannot be recognized.");
         }
