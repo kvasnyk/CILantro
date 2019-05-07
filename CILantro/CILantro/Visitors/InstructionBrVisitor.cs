@@ -14,6 +14,8 @@ namespace CILantro.Visitors
                 VisitBranchOnFalseShortInstruction(branchOnFalseShortInstruction);
             else if (instruction is BranchShortInstruction branchShortInstruction)
                 VisitBranchShortInstruction(branchShortInstruction);
+            else if (instruction is BranchOnNotEqualUnsignedShortInstruction branchOnNotEqualUnsignedShortInstruction)
+                VisitBranchOnNotEqualUnsignedShortInstruction(branchOnNotEqualUnsignedShortInstruction);
             else
                 throw new ArgumentException($"CIL instruction br cannot be recognized: '{instruction.ToString()}'.");
         }
@@ -21,6 +23,8 @@ namespace CILantro.Visitors
         protected abstract void VisitBranchShortInstruction(BranchShortInstruction instruction);
 
         protected abstract void VisitBranchOnFalseShortInstruction(BranchOnFalseShortInstruction instruction);
+
+        protected abstract void VisitBranchOnNotEqualUnsignedShortInstruction(BranchOnNotEqualUnsignedShortInstruction instruction);
 
         protected abstract void VisitBranchOnTrueShortInstruction(BranchOnTrueShortInstruction instruction);
     }

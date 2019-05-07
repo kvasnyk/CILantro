@@ -2,7 +2,7 @@
   "profiles": {
     "CILantro": {
       "commandName": "Project",
-      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\RelationalOperatorsAppl\\RelationalOperatorsAppl.il\""
+      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\CSF_DecisionMaking_IfEqual\\CSF_DecisionMaking_IfEqual.il\""
     }
   }
 }

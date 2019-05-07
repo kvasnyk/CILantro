@@ -40,6 +40,25 @@ namespace CILantro.Interpreting.Visitors
                 _state.MoveToNextInstruction();
         }
 
+        protected override void VisitBranchOnNotEqualUnsignedShortInstruction(BranchOnNotEqualUnsignedShortInstruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            var branch = ComputeBinaryBranchOperation(
+                stackVal1,
+                stackVal2,
+                (a, b) => a.ValueUnsigned != b.ValueUnsigned,
+                (a, b) => a.ValueUnsigned != b.ValueUnsigned,
+                (a, b) => a.Value != b.Value
+            );
+
+            if (branch)
+                _state.Move(instruction.Offset, instruction.Label);
+            else
+                _state.MoveToNextInstruction();
+        }
+
         protected override void VisitBranchOnTrueShortInstruction(BranchOnTrueShortInstruction instruction)
         {
             // TODO: finish implementation
@@ -65,6 +84,26 @@ namespace CILantro.Interpreting.Visitors
 
             if (stackVal is CilStackValueInt32 stackValInt32)
                 return computeInt32(stackValInt32);
+
+            throw new System.NotImplementedException();
+        }
+
+        private bool ComputeBinaryBranchOperation(
+            IStackValue stackVal1,
+            IStackValue stackVal2,
+            Func<CilStackValueInt32, CilStackValueInt32, bool> computeInt32Int32,
+            Func<CilStackValueInt64, CilStackValueInt64, bool> computeInt64Int64,
+            Func<CilStackValueFloat, CilStackValueFloat, bool> computeFloatFloat
+        )
+        {
+            // TODO: cover all cases
+
+            if (stackVal1 is CilStackValueInt32 stackVal1Int32 && stackVal2 is CilStackValueInt32 stackVal2Int32)
+                return computeInt32Int32(stackVal1Int32, stackVal2Int32);
+            if (stackVal1 is CilStackValueInt64 stackVal1Int64 && stackVal2 is CilStackValueInt64 stackVal2Int64)
+                return computeInt64Int64(stackVal1Int64, stackVal2Int64);
+            if (stackVal1 is CilStackValueFloat stackVal1Float && stackVal2 is CilStackValueFloat stackVal2Float)
+                return computeFloatFloat(stackVal1Float, stackVal2Float);
 
             throw new System.NotImplementedException();
         }
