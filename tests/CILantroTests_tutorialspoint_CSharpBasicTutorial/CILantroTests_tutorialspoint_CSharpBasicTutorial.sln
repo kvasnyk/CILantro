@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecisionMakingSwitch", "Dec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecisionMakingNestedSwitch", "DecisionMakingNestedSwitch\DecisionMakingNestedSwitch.csproj", "{2500CC6C-D8A6-40C1-862F-02080E674A77}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OperatorsPrecedenceAppl", "OperatorsPrecedenceAppl\OperatorsPrecedenceAppl.csproj", "{A0FE1B61-5A6C-4C13-884B-0E707504CFDE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{2500CC6C-D8A6-40C1-862F-02080E674A77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2500CC6C-D8A6-40C1-862F-02080E674A77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2500CC6C-D8A6-40C1-862F-02080E674A77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0FE1B61-5A6C-4C13-884B-0E707504CFDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0FE1B61-5A6C-4C13-884B-0E707504CFDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0FE1B61-5A6C-4C13-884B-0E707504CFDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0FE1B61-5A6C-4C13-884B-0E707504CFDE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
