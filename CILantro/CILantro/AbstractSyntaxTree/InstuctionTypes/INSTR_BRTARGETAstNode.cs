@@ -34,6 +34,16 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // ___("br.s")
+            var brsChildren = AstChildren.Empty()
+                .Add("br.s");
+            if (brsChildren.PopulateWith(parseNode))
+            {
+                Instruction = new BranchShortInstruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }
