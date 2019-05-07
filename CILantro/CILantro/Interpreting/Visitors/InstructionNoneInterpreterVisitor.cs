@@ -63,7 +63,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
-            var resultStackVal = ComputeBinaryComparisonOrBranchOperation(
+            var resultStackVal = ComputeBinaryComparisonOperation(
                 stackVal1,
                 stackVal2,
                 (a, b) => a.Value == b.Value,
@@ -80,7 +80,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
-            var resultStackVal = ComputeBinaryComparisonOrBranchOperation(
+            var resultStackVal = ComputeBinaryComparisonOperation(
                 stackVal1,
                 stackVal2,
                 (a, b) => a.Value > b.Value,
@@ -97,7 +97,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
-            var resultStackVal = ComputeBinaryComparisonOrBranchOperation(
+            var resultStackVal = ComputeBinaryComparisonOperation(
                 stackVal1,
                 stackVal2,
                 (a, b) => a.ValueUnsigned > b.ValueUnsigned,
@@ -114,7 +114,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
-            var resultStackVal = ComputeBinaryComparisonOrBranchOperation(
+            var resultStackVal = ComputeBinaryComparisonOperation(
                 stackVal1,
                 stackVal2,
                 (a, b) => a.Value < b.Value,
@@ -131,7 +131,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
-            var resultStackVal = ComputeBinaryComparisonOrBranchOperation(
+            var resultStackVal = ComputeBinaryComparisonOperation(
                 stackVal1,
                 stackVal2,
                 (a, b) => a.ValueUnsigned < b.ValueUnsigned,
@@ -744,7 +744,7 @@ namespace CILantro.Interpreting.Visitors
             throw new System.NotImplementedException();
         }
 
-        private CilStackValueInt32 ComputeBinaryComparisonOrBranchOperation(
+        private CilStackValueInt32 ComputeBinaryComparisonOperation(
             IStackValue stackVal1,
             IStackValue stackVal2,
             Func<CilStackValueInt32, CilStackValueInt32, bool> computeInt32Int32,

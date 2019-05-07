@@ -9,6 +9,8 @@ namespace CILantro.Structure
 
         public List<CilInstruction> Instructions { get; set; }
 
+        public List<string> InstructionsLabels { get; set; }
+
         public List<CilSigArg> Locals { get; set; }
     }
 }

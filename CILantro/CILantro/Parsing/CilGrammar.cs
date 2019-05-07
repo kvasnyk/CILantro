@@ -335,7 +335,35 @@ namespace CILantro.Parsing
                 ___("ldc.r8");
 
             // TODO: INSTR_BRTARGET
-            INSTR_BRTARGET.Rule = _("TODO: INSTR_BRTARGET");
+            INSTR_BRTARGET.Rule =
+                _("beq") |
+                ___("beq.s") |
+                _("bge") |
+                ___("bge.s") |
+                ___("bge.un") |
+                ___("bge.un.s") |
+                _("bgt") |
+                ___("bgt.s") |
+                ___("bgt.un") |
+                ___("bgt.un.s") |
+                _("ble") |
+                ___("ble.s") |
+                ___("ble.un") |
+                ___("ble.un.s") |
+                _("blt") |
+                ___("blt.s") |
+                ___("blt.un") |
+                ___("blt.un.s") |
+                ___("bne.un") |
+                ___("bne.un.s") |
+                _("br") |
+                ___("br.s") |
+                _("brfalse") |
+                ___("brfalse.s") |
+                _("brtrue") |
+                ___("brtrue.s") |
+                _("leave") |
+                ___("leave.s");
 
             INSTR_METHOD.Rule =
                 _("call") |

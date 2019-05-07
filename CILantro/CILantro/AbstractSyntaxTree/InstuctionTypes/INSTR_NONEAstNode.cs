@@ -19,7 +19,8 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 .Add("ldarg.0");
             if (ldarg0Children.PopulateWith(parseNode))
             {
-                // TODO: handle
+                Instruction = new LoadArgument0Instruction();
+
                 return;
             }
 

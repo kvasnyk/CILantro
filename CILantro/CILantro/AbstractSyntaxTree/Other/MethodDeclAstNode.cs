@@ -27,6 +27,8 @@ namespace CILantro.AbstractSyntaxTree.Other
 
         public List<CilSigArg> LocalsSigArgs { get; private set; }
 
+        public string Label { get; private set; }
+
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
             // _(".maxstack") + int32
@@ -68,6 +70,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (idChildren.PopulateWith(parseNode))
             {
                 DeclType = MethodDeclType.Label;
+                Label = idChildren.Child1.Value;
 
                 return;
             }

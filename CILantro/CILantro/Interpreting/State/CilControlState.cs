@@ -28,5 +28,13 @@ namespace CILantro.Interpreting.State
         {
             MethodState.Instruction = MethodInfo.GetNextInstruction(Instruction);
         }
+
+        public void Move(int offset, string label)
+        {
+            if (!string.IsNullOrEmpty(label))
+                MethodState.Instruction = MethodInfo.GetInstructionByLabel(label);
+            else
+                MethodState.Instruction = MethodInfo.GetInstructionByOffset(Instruction, offset);
+        }
     }
 }

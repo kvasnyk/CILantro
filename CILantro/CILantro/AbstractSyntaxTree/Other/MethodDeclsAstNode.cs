@@ -22,6 +22,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 {
                     IsEntryPoint = false,
                     Instructions = new List<Instructions.CilInstruction>(),
+                    InstructionsLabels = new List<string>(),
                     Locals = new List<CilSigArg>()
                 };
 
@@ -49,13 +50,17 @@ namespace CILantro.AbstractSyntaxTree.Other
                         MethodDecls.IsEntryPoint = true;
                         break;
                     case MethodDeclType.Instruction:
-                        MethodDecls.Instructions.Add(methodDeclsChildren.Child2.Instruction);
+                        var instruction = methodDeclsChildren.Child2.Instruction;
+                        instruction.Labels = MethodDecls.InstructionsLabels;
+                        MethodDecls.Instructions.Add(instruction);
+
+                        MethodDecls.InstructionsLabels = new List<string>();
                         break;
                     case MethodDeclType.MaxStack:
                         // TODO: handle
                         break;
                     case MethodDeclType.Label:
-                        // TODO: handle
+                        MethodDecls.InstructionsLabels.Add(methodDeclsChildren.Child2.Label);
                         break;
                     case MethodDeclType.CustomAttr:
                         // TODO: handle
