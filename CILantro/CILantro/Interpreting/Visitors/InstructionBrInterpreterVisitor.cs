@@ -67,9 +67,9 @@ namespace CILantro.Interpreting.Visitors
             var branch = ComputeBinaryBranchOperation(
                 stackVal1,
                 stackVal2,
-                (a, b) => a.Value < b.Value,
-                (a, b) => a.Value < b.Value,
-                (a, b) => a.Value < b.Value
+                (a, b) => a.Value <= b.Value,
+                (a, b) => a.Value <= b.Value,
+                (a, b) => a.Value <= b.Value
             );
 
             if (branch)
@@ -86,9 +86,9 @@ namespace CILantro.Interpreting.Visitors
             var branch = ComputeBinaryBranchOperation(
                 stackVal1,
                 stackVal2,
-                (a, b) => a.ValueUnsigned < b.ValueUnsigned,
-                (a, b) => a.ValueUnsigned < b.ValueUnsigned,
-                (a, b) => a.Value < b.Value
+                (a, b) => a.ValueUnsigned <= b.ValueUnsigned,
+                (a, b) => a.ValueUnsigned <= b.ValueUnsigned,
+                (a, b) => a.Value <= b.Value
             );
 
             if (branch)
