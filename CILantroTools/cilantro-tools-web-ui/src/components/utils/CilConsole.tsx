@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { ChangeEvent, FormEvent, FunctionComponent, useRef, useState } from 'react';
+import React, { ChangeEvent, FormEvent, FunctionComponent, useEffect, useRef, useState } from 'react';
 
 import { Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
@@ -86,6 +86,8 @@ interface CilConsoleProps {
 	isInputEnabled?: boolean;
 	className?: string;
 	autoFocus?: boolean;
+	overrideInputLine?: string;
+	onInputLineChange?: (newInputLine: string) => void;
 }
 
 const CilConsole: FunctionComponent<CilConsoleProps> = props => {
@@ -106,6 +108,10 @@ const CilConsole: FunctionComponent<CilConsoleProps> = props => {
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setInputLine(e.target.value);
 		resizeInput(e.target.value.length);
+
+		if (props.onInputLineChange) {
+			props.onInputLineChange(e.target.value);
+		}
 	};
 
 	const handleSubmit = (e: FormEvent) => {
@@ -128,6 +134,14 @@ const CilConsole: FunctionComponent<CilConsoleProps> = props => {
 	const handleInputBlur = () => {
 		setInputFocused(false);
 	};
+
+	useEffect(
+		() => {
+			const len = props.overrideInputLine ? props.overrideInputLine.length : 0;
+			resizeInput(len);
+		},
+		[props.overrideInputLine]
+	);
 
 	const consoleClassName = classNames(classes.console, props.className);
 
@@ -155,7 +169,7 @@ const CilConsole: FunctionComponent<CilConsoleProps> = props => {
 					<form onSubmit={handleSubmit} className={classes.form}>
 						<input
 							type="text"
-							value={inputLine}
+							value={props.overrideInputLine || inputLine}
 							onChange={handleChange}
 							autoFocus={props.autoFocus}
 							className={classes.input}
@@ -164,7 +178,9 @@ const CilConsole: FunctionComponent<CilConsoleProps> = props => {
 							onFocus={handleInputFocus}
 							onBlur={handleInputBlur}
 						/>
-						{isInputFocused ? <div className={classes.caret} /> : null}
+						{(isInputFocused || props.overrideInputLine || props.overrideInputLine === '') && props.isInputEnabled ? (
+							<div className={classes.caret} />
+						) : null}
 						<button type="submit" className={classes.button} />
 					</form>
 				) : null}

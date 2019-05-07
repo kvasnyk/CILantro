@@ -75,6 +75,7 @@ const CilExecuteTestBothDialog: FunctionComponent<CilExecuteTestBothDialogProps>
 	const [isInterpreterInputEnabled, setIsInterpreterInputEnabled] = useState<boolean>(false);
 	const [isExeEnded, setIsExeEnded] = useState<boolean>(false);
 	const [isInterpreterEnded, setIsInterpreterEnded] = useState<boolean>(false);
+	const [inputLine, setInputLine] = useState<string>('');
 
 	let pageState: PageState = 'loading';
 	if (exePageState === 'error' || interpreterPageState === 'error') {
@@ -199,6 +200,8 @@ const CilExecuteTestBothDialog: FunctionComponent<CilExecuteTestBothDialogProps>
 				]);
 			});
 		}
+
+		setInputLine('');
 	};
 
 	useEffect(() => {
@@ -208,6 +211,10 @@ const CilExecuteTestBothDialog: FunctionComponent<CilExecuteTestBothDialogProps>
 			window.removeEventListener('keyup', handleKeyUp);
 		};
 	}, []);
+
+	const handleInputLineChange = (newInputLine: string) => {
+		setInputLine(newInputLine);
+	};
 
 	return (
 		<Dialog open={true} fullScreen={true} onClose={handleDialogClose}>
@@ -236,6 +243,8 @@ const CilExecuteTestBothDialog: FunctionComponent<CilExecuteTestBothDialogProps>
 							onLineAdded={handleLineAdded}
 							isInputEnabled={isExeInputEnabled}
 							autoFocus={true}
+							onInputLineChange={handleInputLineChange}
+							overrideInputLine={inputLine}
 						/>
 						<CilConsole
 							className={classes.interpreterConsole}
@@ -244,6 +253,8 @@ const CilExecuteTestBothDialog: FunctionComponent<CilExecuteTestBothDialogProps>
 							onLineAdded={handleLineAdded}
 							isInputEnabled={isInterpreterInputEnabled}
 							autoFocus={false}
+							onInputLineChange={handleInputLineChange}
+							overrideInputLine={inputLine}
 						/>
 					</div>
 				</CilPage>
