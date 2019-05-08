@@ -203,6 +203,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_Loops_For", "CSF_Loops_
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_DecisionMaking_ConditionalExpression", "CSF_DecisionMaking_ConditionalExpression\CSF_DecisionMaking_ConditionalExpression.csproj", "{A1ADC23D-DA4E-46E4-9753-34C9EC2DB1BF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_Loops_While", "CSF_Loops_While\CSF_Loops_While.csproj", "{9E812F22-F3BC-43EC-AE81-BB504A47FC22}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -589,6 +591,10 @@ Global
 		{A1ADC23D-DA4E-46E4-9753-34C9EC2DB1BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1ADC23D-DA4E-46E4-9753-34C9EC2DB1BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1ADC23D-DA4E-46E4-9753-34C9EC2DB1BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E812F22-F3BC-43EC-AE81-BB504A47FC22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E812F22-F3BC-43EC-AE81-BB504A47FC22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E812F22-F3BC-43EC-AE81-BB504A47FC22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E812F22-F3BC-43EC-AE81-BB504A47FC22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -689,6 +695,7 @@ Global
 		{C5362824-077E-40E7-80F6-EB581219FB76} = {C4C35060-EE61-4701-A968-2495676AD250}
 		{A4DA9D1B-E241-47C1-BE92-E69EDE17AD2E} = {2883FD29-288E-4772-9B70-64C604FFA05E}
 		{A1ADC23D-DA4E-46E4-9753-34C9EC2DB1BF} = {B5963AFA-8399-497B-94AC-C4B00582E7F2}
+		{9E812F22-F3BC-43EC-AE81-BB504A47FC22} = {2883FD29-288E-4772-9B70-64C604FFA05E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4EA075C6-7843-4D56-B83E-4B4E8D1AA025}
