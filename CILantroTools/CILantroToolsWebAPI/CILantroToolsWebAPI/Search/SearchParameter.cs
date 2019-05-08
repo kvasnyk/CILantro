@@ -1,4 +1,6 @@
-﻿namespace CILantroToolsWebAPI.Search
+﻿using System.Collections.Generic;
+
+namespace CILantroToolsWebAPI.Search
 {
     public class SearchParameter
     {
@@ -11,5 +13,7 @@
         public int PageSize { get; set; }
 
         public int PageNumber { get; set; }
+
+        public List<SearchFilter> Filters { get; set; }
     }
 }

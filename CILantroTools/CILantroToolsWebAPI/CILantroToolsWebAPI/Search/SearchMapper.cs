@@ -16,5 +16,7 @@ namespace CILantroToolsWebAPI.Search
 
             return BuildOrderByExpression(thenBy);
         }
+
+        public abstract Expression<Func<TReadModel, bool>> BuildWhereExpression(SearchFilter filter);
     }
 }

@@ -86,7 +86,8 @@ const CilShowRunPage: FunctionComponent<CilShowRunPageProps> = props => {
 			direction: SearchDirection.Asc
 		},
 		pageSize: 10,
-		pageNumber: 1
+		pageNumber: 1,
+		filters: []
 	});
 
 	const refreshRun = async () => {

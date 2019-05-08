@@ -108,7 +108,8 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 					direction: SearchDirection.Asc
 				},
 				pageSize: 1000000,
-				pageNumber: 1
+				pageNumber: 1,
+				filters: []
 			});
 			setCategories(searchCategoriesResponse.data.data);
 		} catch (error) {

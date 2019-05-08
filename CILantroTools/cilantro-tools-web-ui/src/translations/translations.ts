@@ -22,12 +22,9 @@ const translations = {
 	},
 
 	tests: {
-		thereAreNotReadyTests: (count: number) =>
-			count > 1 ? `There are ${count} not ready tests.` : 'There is 1 not ready test.',
-		thereAreNotRunTests: (count: number) =>
-			count > 1 ? `There are ${count} not yet run tests.` : 'There is 1 not yet run test.',
-		thereAreNotOkTests: (count: number) =>
-			count > 1 ? `There are ${count} tests with wrong run results.` : 'There is 1 test with wrong run result.',
+		thereAreNotReadyTests: (count: number) => `${count} not ready. `,
+		thereAreNotRunTests: (count: number) => `${count} not yet run. `,
+		thereAreNotOkTests: (count: number) => `${count} with wrong run results. `,
 		errorOccurredWhileAddingTest: 'An error occurred while adding the test.',
 		findTests: 'Find tests',
 		noTestCandidates: 'No test candidates have been found.',

@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 
+import SearchFilter from '../api/search/SearchFilter';
 import SearchOrderParameter from '../api/search/SearchOrderParameter';
 import SearchParameter from '../api/search/SearchParameter';
 import SearchResult from '../api/search/SearchResult';
@@ -12,6 +13,10 @@ export interface UseSearchHookResult<TReadModel> {
 	handlePageNumberChange: (newPageNumber: number) => void;
 	handlePageSizeChange: (newPageSize: number) => void;
 	handleOrderByChange: (newOrderBy: SearchOrderParameter<TReadModel>) => void;
+	areFiltersOpen: boolean;
+	setFiltersOpen: (value: boolean) => void;
+	setFilter: (filter: SearchFilter<TReadModel>) => void;
+	clearFilter: (property: keyof TReadModel) => void;
 }
 
 const useSearch = <TReadModel>(
@@ -19,6 +24,7 @@ const useSearch = <TReadModel>(
 ): UseSearchHookResult<TReadModel> => {
 	const [searchParameter, setSearchParameter] = useState<SearchParameter<TReadModel>>(initialSearchParameter);
 	const [searchResult, setSearchResult] = useState<SearchResult<TReadModel>>({ data: [], count: 0 });
+	const [areFiltersOpen, setAreFiltersOpen] = useState<boolean>(false);
 
 	const handlePageNumberChange = (newPageNumber: number) => {
 		setSearchParameter(prevParameter => ({
@@ -43,6 +49,29 @@ const useSearch = <TReadModel>(
 		}));
 	};
 
+	const setFilter = (newFilter: SearchFilter<TReadModel>) => {
+		setSearchParameter(prevParameter => {
+			const newParam = { ...prevParameter };
+			const oldFilter = newParam.filters.findIndex(f => f.property === newFilter.property);
+
+			if (oldFilter >= 0) {
+				newParam.filters[oldFilter] = newFilter;
+			} else {
+				newParam.filters.push(newFilter);
+			}
+
+			return newParam;
+		});
+	};
+
+	const clearFilter = (property: keyof TReadModel) => {
+		setSearchParameter(prevParameter => {
+			const newParam = { ...prevParameter };
+			newParam.filters = prevParameter.filters.filter(f => f.property !== property);
+			return newParam;
+		});
+	};
+
 	return {
 		parameter: searchParameter,
 		setParameter: setSearchParameter,
@@ -50,7 +79,11 @@ const useSearch = <TReadModel>(
 		setResult: setSearchResult,
 		handlePageNumberChange,
 		handlePageSizeChange,
-		handleOrderByChange
+		handleOrderByChange,
+		areFiltersOpen,
+		setFiltersOpen: setAreFiltersOpen,
+		setFilter,
+		clearFilter
 	};
 };
 

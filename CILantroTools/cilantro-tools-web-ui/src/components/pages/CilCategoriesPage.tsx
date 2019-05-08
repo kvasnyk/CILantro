@@ -43,7 +43,8 @@ const CilCategoriesPage: FunctionComponent = props => {
 			direction: SearchDirection.Asc
 		},
 		pageSize: 10,
-		pageNumber: 1
+		pageNumber: 1,
+		filters: []
 	});
 
 	const refreshCategories = async () => {

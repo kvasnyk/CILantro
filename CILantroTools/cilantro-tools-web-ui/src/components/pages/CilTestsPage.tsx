@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 
-import { MenuItem, Theme, Typography } from '@material-ui/core';
+import { MenuItem, Theme } from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/styles';
 
@@ -11,7 +11,10 @@ import SearchDirection from '../../api/search/SearchDirection';
 import useSearch from '../../hooks/useSearch';
 import translations from '../../translations/translations';
 import CilPage, { PageState } from '../base/CilPage';
+import CilCategoryFilter from '../filters/CilCategoryFilter';
 import CilTestsList from '../shared/tests/CilTestsList';
+import CilFiltersPanel from '../utils/CilFiltersPanel';
+import CilOpenFiltersButton from '../utils/CilOpenFiltersButton';
 import CilOrderByDropDown from '../utils/CilOrderByDropDown';
 import CilPageHeader from '../utils/CilPageHeader';
 import CilPagination from '../utils/CilPagination';
@@ -53,7 +56,8 @@ const CilTestsPage: FunctionComponent = props => {
 			direction: SearchDirection.Asc
 		},
 		pageSize: 10,
-		pageNumber: 1
+		pageNumber: 1,
+		filters: []
 	});
 
 	const refreshTests = async () => {
@@ -89,13 +93,25 @@ const CilTestsPage: FunctionComponent = props => {
 		refreshTestCheck();
 	}, []);
 
-	const centerChildren = search.result.data.length <= 0;
+	const centerChildren = search.result.data.length <= 0 && search.parameter.filters.length === 0;
+
+	let testsWarnings = '';
+	if (testsCheck && testsCheck.notReadyTests > 0) {
+		testsWarnings += translations.tests.thereAreNotReadyTests(testsCheck.notReadyTests);
+	}
+	if (testsCheck && testsCheck.notRunTests > 0) {
+		testsWarnings += translations.tests.thereAreNotRunTests(testsCheck.notRunTests);
+	}
+	if (testsCheck && testsCheck.notOkTests > 0) {
+		testsWarnings += translations.tests.thereAreNotOkTests(testsCheck.notOkTests);
+	}
 
 	return (
 		<CilPage state={pageState} centerChildren={centerChildren}>
-			<CilPageHeader text={translations.tests.tests}>
+			<CilPageHeader text={translations.tests.tests} subtext={testsWarnings}>
 				<div className={classes.pageHeaderLeft} />
 				<div className={classes.pageHeaderRight}>
+					<CilOpenFiltersButton search={search} />
 					<CilOrderByDropDown search={search}>
 						<MenuItem value="createdOn">{translations.tests.createdOn}</MenuItem>
 						<MenuItem value="name">{translations.shared.name}</MenuItem>
@@ -105,25 +121,19 @@ const CilTestsPage: FunctionComponent = props => {
 					<CilPagination search={search} />
 				</div>
 			</CilPageHeader>
-			{testsCheck ? (
-				<div className={classes.warnings}>
-					{testsCheck.notReadyTests > 0 ? (
-						<Typography variant="h2" className={classes.warningTypography}>
-							{translations.tests.thereAreNotReadyTests(testsCheck.notReadyTests)}
-						</Typography>
-					) : null}
-					{testsCheck.notRunTests > 0 ? (
-						<Typography variant="h2" className={classes.warningTypography}>
-							{translations.tests.thereAreNotRunTests(testsCheck.notRunTests)}
-						</Typography>
-					) : null}
-					{testsCheck.notOkTests > 0 ? (
-						<Typography variant="h2" className={classes.warningTypography}>
-							{translations.tests.thereAreNotOkTests(testsCheck.notOkTests)}
-						</Typography>
-					) : null}
+			<CilFiltersPanel search={search}>
+				<div>
+					<CilCategoryFilter<TestReadModel>
+						search={search}
+						categoryIdProperty="categoryId"
+						subcategoryIdProperty="subcategoryId"
+					/>
 				</div>
-			) : null}
+				<div />
+				<div />
+				<div />
+				<div />
+			</CilFiltersPanel>
 			<CilTestsList tests={search.result.data} />
 		</CilPage>
 	);

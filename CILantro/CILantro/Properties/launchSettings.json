@@ -2,7 +2,7 @@
   "profiles": {
     "CILantro": {
       "commandName": "Project",
-      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\CSF_DecisionMaking_NotEqualZero\\CSF_DecisionMaking_NotEqualZero.il\""
+      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\CSF_Loops_NestedLoops\\CSF_Loops_NestedLoops.il\""
     }
   }
 }

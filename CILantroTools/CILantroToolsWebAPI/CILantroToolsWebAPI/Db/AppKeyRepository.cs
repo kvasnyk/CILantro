@@ -4,6 +4,7 @@ using CILantroToolsWebAPI.Search;
 using LinqKit;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -69,6 +70,7 @@ namespace CILantroToolsWebAPI.Db
 
             var baseData = Read<TReadModel>()
                 .Where(predicate)
+                .Where(CombinePredicates(searchParameter.Filters.Select(f => searchMapper.BuildWhereExpression(f))))
                 .OrderBy(searchMapper.BuildOrderByExpression(searchParameter.OrderBy.Property), searchParameter.OrderBy.Direction)
                 .ThenBy(searchMapper.BuildThenByExpression(searchParameter.OrderBy2?.Property), searchParameter.OrderBy2?.Direction)
                 .ThenBy(searchMapper.BuildThenByExpression(searchParameter.OrderBy3?.Property), searchParameter.OrderBy3?.Direction);
@@ -86,6 +88,19 @@ namespace CILantroToolsWebAPI.Db
             };
 
             return result;
+        }
+
+        private Expression<Func<TReadModel, bool>> CombinePredicates<TReadModel>(IEnumerable<Expression<Func<TReadModel, bool>>> predicates)
+            where TReadModel : class, IKeyReadModel
+        {
+            Expression<Func<TReadModel, bool>> resultPredicate = rm => true;
+            foreach (var predicate in predicates)
+            {
+                var expr = Expression.AndAlso(resultPredicate.Body, Expression.Invoke(predicate, resultPredicate.Parameters));
+                resultPredicate = Expression.Lambda<Func<TReadModel, bool>>(expr, resultPredicate.Parameters);
+            }
+
+            return resultPredicate;
         }
     }
 }

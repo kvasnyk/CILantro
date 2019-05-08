@@ -79,7 +79,8 @@ const CilTestInputEditor: FunctionComponent<CilTestInputEditorProps> = props => 
 			direction: SearchDirection.Asc
 		},
 		pageSize: 999999,
-		pageNumber: 1
+		pageNumber: 1,
+		filters: []
 	});
 
 	const editTestInput = async () => {

@@ -15,5 +15,10 @@ namespace CILantroToolsWebAPI.Search.Mappers
 
             throw new ArgumentException($"{nameof(orderBy)} property '{orderBy}' cannot be recognized.");
         }
+
+        public override Expression<Func<TestRunReadModel, bool>> BuildWhereExpression(SearchFilter filter)
+        {
+            throw new ArgumentException($"{nameof(filter.Property)} property '{filter.Property}' cannot be recognized.");
+        }
     }
 }
