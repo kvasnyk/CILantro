@@ -14,6 +14,8 @@ interface TestReadModel {
 	category: CategoryReadModel;
 	subcategoryId?: string;
 	subcategory: SubcategoryReadModel;
+	isDisabled: boolean;
+	disabledReason?: string;
 	generateExeOutput: string;
 	hasEmptyInput: boolean;
 	input?: InputOutput;

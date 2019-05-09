@@ -119,6 +119,32 @@ namespace CILantroToolsWebAPI.Services
             return searchResult;
         }
 
+        public async Task DisableTestAsync(Guid testId)
+        {
+            await _testsRepository.UpdateAsync(t => t.Id == testId, test =>
+            {
+                test.IsDisabled = true;
+                test.DisabledReason = null;
+            });
+        }
+
+        public async Task EnableTestAsync(Guid testId)
+        {
+            await _testsRepository.UpdateAsync(t => t.Id == testId, test =>
+            {
+                test.IsDisabled = false;
+                test.DisabledReason = null;
+            });
+        }
+
+        public async Task EditTestDisabledReasonAsync(Guid testId, EditTestDisabledReasonBindingModel model)
+        {
+            await _testsRepository.UpdateAsync(t => t.Id == testId, test =>
+            {
+                test.DisabledReason = model.DisabledReason;
+            });
+        }
+
         public async Task EditTestCategoryAsync(Guid testId, EditTestCategoryBindingModel model)
         {
             await _testsRepository.UpdateAsync(t => t.Id == testId, test =>

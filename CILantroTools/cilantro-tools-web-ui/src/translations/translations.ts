@@ -79,7 +79,14 @@ const translations = {
 		chars: 'chars',
 		errorOccurredWhileSearchingTests: 'An error occurred while searching tests.',
 		errorOccurredWhileCopyingInput: 'An error occurred while copying the input.',
-		excludeZero: 'Exclude zero'
+		excludeZero: 'Exclude zero',
+		testHasBeenDisabled: 'The test has been disabled.',
+		testHasBeenEnabled: 'The test has been enabled.',
+		errorOccurredWhileDisablingTest: 'An error occurred while disabling the test.',
+		errorOccurredWhileEnablingTest: 'An error occurred while enabling the test.',
+		disabledReason: 'Disabled reason',
+		disabledReasonHasBeenUpdated: 'The disabled reason has been updated.',
+		errorOccurredWhileUpdatingDisabledReason: 'An error occurred while updating the disabled reason.'
 	},
 
 	runs: {

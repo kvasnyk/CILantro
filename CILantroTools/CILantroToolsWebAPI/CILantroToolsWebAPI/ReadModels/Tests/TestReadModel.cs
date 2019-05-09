@@ -34,6 +34,10 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
 
         public bool HasExe { get; set; }
 
+        public bool IsDisabled { get; set; }
+
+        public string DisabledReason { get; set; }
+
         public bool HasEmptyInput { get; set; }
 
         public InputOutput Input { get; set; }
@@ -55,6 +59,7 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
         public bool HasIoExample => IoExamples != null && IoExamples.Count > 0;
 
         public bool IsReady =>
+            !IsDisabled &&
             HasCategory &&
             HasSubcategory &&
             HasIlSources &&
@@ -88,7 +93,9 @@ namespace CILantroToolsWebAPI.ReadModels.Tests
             HasExe = test.HasExe,
             CreatedOn = test.CreatedOn,
             LastOpenedOn = test.LastOpenedOn,
-            LastRunOutcome = test.TestRuns.Any() ? test.TestRuns.OrderByDescending(tr => tr.Run.CreatedOn).First().Outcome : (RunOutcome?)null
+            LastRunOutcome = test.TestRuns.Any() ? test.TestRuns.OrderByDescending(tr => tr.Run.CreatedOn).First().Outcome : (RunOutcome?)null,
+            IsDisabled = test.IsDisabled,
+            DisabledReason = test.DisabledReason
         };
     }
 }

@@ -53,6 +53,24 @@ namespace CILantroToolsWebAPI.Controllers
             return await _testsService.SearchTestsAsync(searchParameter);
         }
 
+        [HttpPost("{testId}/disable")]
+        public async Task DisableTestAsync([FromRoute]Guid testId)
+        {
+            await _testsService.DisableTestAsync(testId);
+        }
+
+        [HttpPost("{testId}/enable")]
+        public async Task EnableTestAsync([FromRoute]Guid testId)
+        {
+            await _testsService.EnableTestAsync(testId);
+        }
+
+        [HttpPut("{testId}/edit-disabled-reason")]
+        public async Task EditTestDisabledReasonAsync([FromRoute]Guid testId, [FromBody]EditTestDisabledReasonBindingModel model)
+        {
+            await _testsService.EditTestDisabledReasonAsync(testId, model);
+        }
+
         [HttpPut("{testId}/edit-category")]
         public async Task EditTestCategoryAsync([FromRoute]Guid testId, [FromBody]EditTestCategoryBindingModel model)
         {

@@ -59,6 +59,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 	wrongIcon: {
 		color: red[700],
 		fontSize: '2.5rem'
+	},
+	disabledReasonTypography: {
+		textAlign: 'center',
+		margin: '20px 20px 0 20px'
 	}
 }));
 
@@ -105,7 +109,12 @@ const CiLTestCard: FunctionComponent<CilTestCardProps> = props => {
 						) : null}
 					</div>
 				</div>
-				{!props.test.isReady ? <CilTestChecklist test={props.test} /> : null}
+				{!props.test.isReady && !props.test.isDisabled ? <CilTestChecklist test={props.test} /> : null}
+				{props.test.isDisabled && props.test.disabledReason ? (
+					<Typography variant="h3" className={classes.disabledReasonTypography}>
+						{props.test.disabledReason}
+					</Typography>
+				) : null}
 			</CardContent>
 			<CardActions className={classes.cardActions}>
 				<CilShowTestButton testId={props.test.id} icon="show" />

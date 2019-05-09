@@ -3,6 +3,7 @@ import AddTestInputOutputExampleBindingModel from '../binding-models/tests/AddTe
 import CopyTestInputBindingModel from '../binding-models/tests/CopyTestInputBindingModel';
 import CreateTestFromCandidateBindingModel from '../binding-models/tests/CreateTestFromCandidateBindingModel';
 import EditTestCategoryBindingModel from '../binding-models/tests/EditTestCategoryBindingModel';
+import EditTestDisabledReasonBindingModel from '../binding-models/tests/EditTestDisabledReasonBindingModel';
 import EditTestHasEmptyInputBindingModel from '../binding-models/tests/EditTestHasEmptyInputBindingModel';
 import EditTestInputBindingModel from '../binding-models/tests/EditTestInputBindingModel';
 import EditTestOutputBindingModel from '../binding-models/tests/EditTestOutputBindingModel';
@@ -38,6 +39,18 @@ class TestsApiClient extends ApiClientBase {
 			apiRoutes.tests.searchTests,
 			searchParameter
 		);
+	}
+
+	public disableTest(testId: string) {
+		return this.post<{}, {}>(apiRoutes.tests.disableTest(testId), {});
+	}
+
+	public enableTest(testId: string) {
+		return this.post<{}, {}>(apiRoutes.tests.enableTest(testId), {});
+	}
+
+	public editTestDisabledReason(testId: string, data: EditTestDisabledReasonBindingModel) {
+		return this.put<EditTestDisabledReasonBindingModel, {}>(apiRoutes.tests.editTestDisabledReason(testId), data);
 	}
 
 	public editTestCategory(testId: string, data: EditTestCategoryBindingModel) {

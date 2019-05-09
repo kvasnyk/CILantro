@@ -19,8 +19,11 @@ import routes from '../../routing/routes';
 import translations from '../../translations/translations';
 import CilPage, { PageState } from '../base/CilPage';
 import CilAddRunButton from '../shared/runs/CilAddRunButton';
+import CilDisableTestButton from '../shared/tests/CilDisableTestButton';
 import CilEditTestCategorySelect from '../shared/tests/CilEditTestCategorySelect';
+import CilEditTestDisabledReasonTextField from '../shared/tests/CilEditTestDisabledReasonTextField';
 import CilEditTestSubcategorySelect from '../shared/tests/CilEditTestSubcategorySelect';
+import CilEnableTestButton from '../shared/tests/CilEnableTestButton';
 import CilGenerateTestExeButton from '../shared/tests/CilGenerateTestExeButton';
 import CilGenerateTestIlSourcesButton from '../shared/tests/CilGenerateTestIlSourcesButton';
 import CilRunTestBothButton from '../shared/tests/CilRunTestBothButton';
@@ -181,6 +184,18 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 		refreshTest();
 	};
 
+	const handleTestDisabled = () => {
+		refreshTest();
+	};
+
+	const handleTestEnabled = () => {
+		refreshTest();
+	};
+
+	const handleDisabledReasonUpdated = () => {
+		refreshTest();
+	};
+
 	useEffect(() => {
 		try {
 			refreshTest();
@@ -216,9 +231,15 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 						{testInfo.test.isReady ? (
 							<CilAddRunButton type={RunType.Full} testId={props.testId} onRunAdded={handleRunAdded} />
 						) : null}
+						{!testInfo.test.isDisabled ? (
+							<CilDisableTestButton testInfo={testInfo} onTestDisabled={handleTestDisabled} />
+						) : null}
+						{testInfo.test.isDisabled ? (
+							<CilEnableTestButton testInfo={testInfo} onTestEnabled={handleTestEnabled} />
+						) : null}
 					</CilPageHeader>
 
-					{!testInfo.test.isReady ? (
+					{!testInfo.test.isReady && !testInfo.test.isDisabled ? (
 						<CilTestChecklist
 							test={testInfo.test}
 							onGoToCategory={handleGoToCategory}
@@ -258,6 +279,14 @@ const CilShowTestPage: FunctionComponent<CilShowTestPageProps> = props => {
 									isEditable={subcategories.length > 0}
 								/>
 							</CilDetailsRow>
+							{testInfo.test.isDisabled ? (
+								<CilDetailsRow label={translations.tests.disabledReason}>
+									<CilEditTestDisabledReasonTextField
+										testInfo={testInfo}
+										onDisabledReasonUpdated={handleDisabledReasonUpdated}
+									/>
+								</CilDetailsRow>
+							) : null}
 						</div>
 					) : null}
 

@@ -29,6 +29,10 @@ namespace CILantroToolsWebAPI.DbModels
 
         public bool HasExe { get; set; }
 
+        public bool IsDisabled { get; set; }
+
+        public string DisabledReason { get; set; }
+
         public Guid? CategoryId { get; set; }
 
         public virtual Category Category { get; set; }
