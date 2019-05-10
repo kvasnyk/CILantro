@@ -24,7 +24,8 @@ const getDefaultOutput = (output?: InputOutput) => {
 	return {
 		lines: [
 			{
-				elements: []
+				elements: [],
+				isRepeatBlock: false
 			}
 		]
 	};
@@ -103,7 +104,8 @@ const CilTestOutputEditor: FunctionComponent<CilTestOutputEditorProps> = props =
 	const handleLineAdded = () => {
 		const newOutput = cloneDeep(output);
 		newOutput.lines.push({
-			elements: []
+			elements: [],
+			isRepeatBlock: false
 		});
 		setOutput(newOutput);
 	};
@@ -140,6 +142,21 @@ const CilTestOutputEditor: FunctionComponent<CilTestOutputEditorProps> = props =
 				isReadonly={!isEditable}
 				onElementDeleted={handleElementDeleted}
 				onLineAdded={handleLineAdded}
+				onRepeatBlockAdded={() => {
+					return;
+				}}
+				onRepeatBlockLineAdded={repeatBlockIndex => {
+					return;
+				}}
+				onRepeatBlockElementAdded={(repeatBlockIndex, lineIndex, element) => {
+					return;
+				}}
+				onRepeatBlockMinChange={(repeatBlockIndex, newMin) => {
+					return;
+				}}
+				onRepeatBlockMaxChange={(repeatBlockIndex, newMax) => {
+					return;
+				}}
 			/>
 		</>
 	);

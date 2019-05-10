@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 
 import { TextField, Theme, Typography } from '@material-ui/core';
+import { grey } from '@material-ui/core/colors';
 import AddIcon from '@material-ui/icons/AddRounded';
 import CheckIcon from '@material-ui/icons/CheckRounded';
 import NotCheckIcon from '@material-ui/icons/NotInterestedRounded';
@@ -97,8 +98,58 @@ const useStyles = makeStyles((theme: Theme) => ({
 		border: 'none',
 		outline: 'none',
 		width: '100px'
+	},
+	repeatBlock: {
+		display: 'flex',
+		flexDirection: 'column'
+	},
+	header: {
+		fontSize: '1rem',
+		fontFamily: 'monospace',
+		textTransform: 'uppercase',
+		padding: '10px',
+		backgroundColor: grey[500],
+		borderRadius: '5px 5px 0 0',
+		color: theme.palette.common.white,
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center'
+	},
+	content: {
+		padding: '10px',
+		borderLeft: `3px solid ${grey[500]}`,
+		borderRight: `3px solid ${grey[500]}`,
+		borderBottom: `3px solid ${grey[500]}`,
+		borderRadius: '0 0 5px 5px'
+	},
+	repeatBlockInput: {
+		marginLeft: '10px',
+		width: '100px',
+		fontSize: '1rem',
+		fontFamily: 'monospace',
+		color: theme.palette.common.white,
+		outline: 'none',
+		border: 'none',
+		backgroundColor: grey[500],
+		borderBottom: `2px solid ${theme.palette.common.white}`
 	}
 }));
+
+const createEmptyRepeatBlocksArray = (test: TestReadModel) => {
+	if (test.hasEmptyInput) {
+		return [];
+	}
+
+	return test.input!.lines.map(line => {
+		if (line.isRepeatBlock) {
+			return line.repeatBlockInputOutput!.lines.map(inputLine =>
+				inputLine.elements.map(element => (element.type === 'ConstString' ? element.value : ' '))
+			);
+		}
+
+		return [];
+	});
+};
 
 interface CilTestInputOutputExamplesEditorProps {
 	test: TestReadModel;
@@ -109,8 +160,14 @@ const CilTestInputOutputExamplesEditor: FunctionComponent<CilTestInputOutputExam
 	const testsApiClient = new TestsApiClient();
 
 	const [inputs, setInputs] = useState<string[][]>(
-		props.test.hasEmptyInput ? [] : props.test.input!.lines.map(inputLine => inputLine.elements.map(element => ''))
+		props.test.hasEmptyInput
+			? []
+			: props.test.input!.lines.map(inputLine =>
+					inputLine.elements.map(element => (element.type === 'ConstString' ? element.value : ' '))
+			  )
 	);
+
+	const [repeatBlocks, setRepeatBlocks] = useState<string[][][]>(createEmptyRepeatBlocksArray(props.test));
 
 	const classes = useStyles();
 
@@ -128,15 +185,34 @@ const CilTestInputOutputExamplesEditor: FunctionComponent<CilTestInputOutputExam
 		}
 
 		let result = '';
-		for (const line of inputs) {
-			for (const elementValue of line) {
-				result += elementValue;
-				result += ' ';
+		for (let i = 0; i < props.test.input!.lines.length; i++) {
+			const line = props.test.input!.lines[i];
+
+			if (!line.isRepeatBlock) {
+				for (let j = 0; j < line.elements.length; j++) {
+					result += inputs[i][j];
+					result += ' ';
+				}
+
+				result = result.slice(0, result.length - 1);
+				result += '\n';
 			}
 
-			result = result.slice(0, result.length - 1);
-			result += '\n';
+			if (line.isRepeatBlock) {
+				for (let i2 = 0; i2 < line.repeatBlockInputOutput!.lines.length; i2++) {
+					const repeatBlockLine = line.repeatBlockInputOutput!.lines[i2];
+
+					for (let j2 = 0; j2 < repeatBlockLine.elements.length; j2++) {
+						result += repeatBlocks[i][i2][j2];
+						result += ' ';
+					}
+
+					result = result.slice(0, result.length - 1);
+					result += '\n';
+				}
+			}
 		}
+
 		return result;
 	};
 
@@ -150,6 +226,22 @@ const CilTestInputOutputExamplesEditor: FunctionComponent<CilTestInputOutputExam
 		setInputs(prevInputs => {
 			const result = [...prevInputs];
 			result[i][j] = newValue;
+			return result;
+		});
+		setIsNewOutputPopulated(false);
+	};
+
+	const handleRepeatBlockInputsChange = (
+		i: number,
+		i2: number,
+		j2: number,
+		e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+	) => {
+		const newValue = e.target.value;
+
+		setRepeatBlocks(prevRepeatBlocks => {
+			const result = [...prevRepeatBlocks];
+			result[i][i2][j2] = newValue;
 			return result;
 		});
 		setIsNewOutputPopulated(false);
@@ -247,19 +339,54 @@ const CilTestInputOutputExamplesEditor: FunctionComponent<CilTestInputOutputExam
 							) : (
 								<>
 									{props.test.input!.lines.map((inputLine, index) => (
-										<div key={index} className={classes.exampleInputLine}>
-											{inputLine.elements.map((element, elementIndex) => (
-												<CilInputOutputElement key={elementIndex} variant="custom" element={element}>
-													<input
-														type="text"
-														className={classes.elementInput}
-														value={inputs[index][elementIndex]}
-														onChange={e => handleInputsChange(index, elementIndex, e)}
-														autoFocus={elementIndex === 0 && index === 0}
-													/>
-												</CilInputOutputElement>
-											))}
-										</div>
+										<>
+											{!inputLine.isRepeatBlock ? (
+												<div key={index} className={classes.exampleInputLine}>
+													{inputLine.elements.map((element, elementIndex) => (
+														<CilInputOutputElement key={elementIndex} variant="custom" element={element}>
+															<input
+																type="text"
+																className={classes.elementInput}
+																value={inputs[index][elementIndex]}
+																onChange={e => handleInputsChange(index, elementIndex, e)}
+																autoFocus={elementIndex === 0 && index === 0}
+															/>
+														</CilInputOutputElement>
+													))}
+												</div>
+											) : null}
+
+											{inputLine.isRepeatBlock ? (
+												<>
+													<div className={classes.repeatBlock}>
+														<div className={classes.header}>
+															{translations.tests.repeat}
+															<input type="text" className={classes.repeatBlockInput} readOnly={true} />
+															<input type="text" className={classes.repeatBlockInput} readOnly={true} />
+														</div>
+														<div className={classes.content}>
+															{inputLine.repeatBlockInputOutput!.lines.map((inputLine2, index2) => (
+																<>
+																	<div key={index2} className={classes.exampleInputLine}>
+																		{inputLine2.elements.map((element, elementIndex) => (
+																			<CilInputOutputElement key={elementIndex} variant="custom" element={element}>
+																				<input
+																					type="text"
+																					className={classes.elementInput}
+																					value={inputs[index2][elementIndex]}
+																					onChange={e => handleRepeatBlockInputsChange(index, index2, elementIndex, e)}
+																					autoFocus={elementIndex === 0 && index2 === 0}
+																				/>
+																			</CilInputOutputElement>
+																		))}
+																	</div>
+																</>
+															))}
+														</div>
+													</div>
+												</>
+											) : null}
+										</>
 									))}
 								</>
 							)}

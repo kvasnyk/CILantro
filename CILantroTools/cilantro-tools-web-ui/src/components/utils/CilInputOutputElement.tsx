@@ -393,7 +393,9 @@ const CilInputOutputElement: FunctionComponent<CilInputOutputElementProps> = pro
 				<div className={elementInfoClassName}>{props.element.description}</div>
 			) : null}
 
-			{props.variant === 'custom' ? <div className={elementInfoClassName}>{props.children}</div> : null}
+			{props.variant === 'custom' && props.element.type !== 'ConstString' ? (
+				<div className={elementInfoClassName}>{props.children}</div>
+			) : null}
 		</div>
 	);
 };

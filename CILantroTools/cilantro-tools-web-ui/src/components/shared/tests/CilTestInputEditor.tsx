@@ -3,6 +3,7 @@ import React, { ChangeEvent, FunctionComponent, useEffect, useState } from 'reac
 
 import { Checkbox, Dialog, IconButton, List, ListItem, Theme, Typography } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/CheckRounded';
+import ClearIcon from '@material-ui/icons/ClearRounded';
 import EditIcon from '@material-ui/icons/EditRounded';
 import CopyIcon from '@material-ui/icons/FileCopyRounded';
 import NotCheckIcon from '@material-ui/icons/NotInterestedRounded';
@@ -26,11 +27,7 @@ const getDefaultInput = (output?: InputOutput) => {
 	}
 
 	return {
-		lines: [
-			{
-				elements: []
-			}
-		]
+		lines: []
 	};
 };
 
@@ -158,8 +155,67 @@ const CilTestInputEditor: FunctionComponent<CilTestInputEditorProps> = props => 
 	const handleLineAdded = () => {
 		const newInput = cloneDeep(input);
 		newInput.lines.push({
-			elements: []
+			elements: [],
+			isRepeatBlock: false
 		});
+		setInput(newInput);
+	};
+
+	const handleRepeatBlockAdded = () => {
+		const newInput = cloneDeep(input);
+		newInput.lines.push({
+			elements: [],
+			isRepeatBlock: true,
+			repeatBlockInputOutput: getDefaultInput(undefined)
+		});
+		setInput(newInput);
+	};
+
+	const handleRepeatBlockLineAdded = (repeatBlockIndex: number) => {
+		const newInput = cloneDeep(input);
+		newInput.lines[repeatBlockIndex].repeatBlockInputOutput!.lines.push({ elements: [], isRepeatBlock: false });
+		setInput(newInput);
+	};
+
+	const handleRepeatBlockElementAdded = (
+		repeatBlockIndex: number,
+		lineIndex: number,
+		element: AbstractInputOutputElement
+	) => {
+		const newInput = cloneDeep(input);
+		newInput.lines[repeatBlockIndex].repeatBlockInputOutput!.lines[lineIndex].elements.push(element);
+		setInput(newInput);
+	};
+
+	const handleRepeatBlockMinChange = (repeatBlockIndex: number, newMin: string) => {
+		const newInput = cloneDeep(input);
+		newInput.lines[repeatBlockIndex].repeatBlockMin = newMin;
+		setInput(newInput);
+	};
+
+	const handleRepeatBlockMaxChange = (repeatBlockIndex: number, newMax: string) => {
+		const newInput = cloneDeep(input);
+		newInput.lines[repeatBlockIndex].repeatBlockMax = newMax;
+		setInput(newInput);
+	};
+
+	const handleRepeatBlockElementEdited = (
+		repeatBlockIndex: number,
+		lineIndex: number,
+		elementIndex: number,
+		element: AbstractInputOutputElement
+	) => {
+		const newInput = cloneDeep(input);
+		const newElement = cloneDeep(element);
+		newInput.lines[repeatBlockIndex].repeatBlockInputOutput!.lines[lineIndex].elements[elementIndex] = newElement;
+		setInput(newInput);
+	};
+
+	const handleRepeatBlockElementDeleted = (repeatBlockIndex: number, lineIndex: number, elementIndex: number) => {
+		const newInput = cloneDeep(input);
+		newInput.lines[repeatBlockIndex].repeatBlockInputOutput!.lines[lineIndex].elements = newInput.lines[
+			lineIndex
+		].elements.filter((el, elIndex) => elIndex !== elementIndex);
 		setInput(newInput);
 	};
 
@@ -169,6 +225,12 @@ const CilTestInputEditor: FunctionComponent<CilTestInputEditorProps> = props => 
 
 	const handleCopyInputButtonClick = () => {
 		setIsCopyInputDialogOpen(true);
+	};
+
+	const handleClearInputButtonClick = () => {
+		const newInput = getDefaultInput(undefined);
+		setInput(newInput);
+		setIsEditable(true);
 	};
 
 	const handleCopyInputFromTestButtonClick = async (sourceTestId: string) => {
@@ -205,6 +267,9 @@ const CilTestInputEditor: FunctionComponent<CilTestInputEditorProps> = props => 
 						</CilIconButton>
 						<IconButton onClick={handleCopyInputButtonClick}>
 							<CopyIcon fontSize="small" />
+						</IconButton>
+						<IconButton onClick={handleClearInputButtonClick}>
+							<ClearIcon fontSize="small" />
 						</IconButton>
 						<Dialog open={isCopyInputDialogOpen} onClose={handleCopyInputDialogClose} fullWidth={true}>
 							<List>
@@ -254,6 +319,13 @@ const CilTestInputEditor: FunctionComponent<CilTestInputEditorProps> = props => 
 					onElementEdited={handleElementEdited}
 					onElementDeleted={handleElementDeleted}
 					onLineAdded={handleLineAdded}
+					onRepeatBlockAdded={handleRepeatBlockAdded}
+					onRepeatBlockLineAdded={handleRepeatBlockLineAdded}
+					onRepeatBlockElementAdded={handleRepeatBlockElementAdded}
+					onRepeatBlockElementEdited={handleRepeatBlockElementEdited}
+					onRepeatBlockElementDeleted={handleRepeatBlockElementDeleted}
+					onRepeatBlockMinChange={handleRepeatBlockMinChange}
+					onRepeatBlockMaxChange={handleRepeatBlockMaxChange}
 					isReadonly={!isEditable}
 				/>
 			) : null}

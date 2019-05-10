@@ -87,7 +87,8 @@ const translations = {
 		errorOccurredWhileEnablingTest: 'An error occurred while enabling the test.',
 		disabledReason: 'Disabled reason',
 		disabledReasonHasBeenUpdated: 'The disabled reason has been updated.',
-		errorOccurredWhileUpdatingDisabledReason: 'An error occurred while updating the disabled reason.'
+		errorOccurredWhileUpdatingDisabledReason: 'An error occurred while updating the disabled reason.',
+		repeat: 'repeat'
 	},
 
 	runs: {
