@@ -13,10 +13,10 @@ namespace CILantroToolsWebAPI.Utils
 
         private readonly Random _random;
 
-        public InputFactory(InputOutput input)
+        public InputFactory(InputOutput input, Random random = null)
         {
             _input = input;
-            _random = new Random(Guid.NewGuid().GetHashCode());
+            _random = random ?? new Random(Guid.NewGuid().GetHashCode());
         }
 
         public string GenerateRandomInput()
@@ -28,6 +28,12 @@ namespace CILantroToolsWebAPI.Utils
 
             foreach (var inputLine in _input.Lines)
             {
+                if (inputLine.IsRepeatBlock)
+                {
+                    builder.Append(GenerateRandomRepeatBlockInput(inputLine.RepeatBlockInputOutput, inputLine.RepeatBlockMin, inputLine.RepeatBlockMax));
+                    continue;
+                }
+
                 foreach (var inputElement in inputLine.Elements)
                 {
                     if (inputElement is BoolElement boolElement)
@@ -99,6 +105,10 @@ namespace CILantroToolsWebAPI.Utils
                     {
                         var @char = GenerateChar(charElement);
                         builder.Append(@char.ToString());
+                    }
+                    else if (inputElement is ConstStringElement constStringElement)
+                    {
+                        builder.Append(constStringElement.Value);
                     }
                     else
                     {
@@ -286,6 +296,26 @@ namespace CILantroToolsWebAPI.Utils
             } while (r >= diff || (excludeZero && r + a == 0));
 
             return r + a;
+        }
+
+        private string GenerateRandomRepeatBlockInput(InputOutput repeatBlockIo, string repeatBlockMin, string repeatBlockMax)
+        {
+            var builder = new StringBuilder();
+
+            var innerFactory = new InputFactory(repeatBlockIo, _random);
+
+            int min;
+            int max;
+
+            min = int.Parse(repeatBlockMin);
+            max = int.Parse(repeatBlockMax);
+
+            var lines = _random.Next(min, max + 1);
+
+            for (int i = 0; i < lines; i++)
+                builder.Append(innerFactory.GenerateRandomInput());
+
+            return builder.ToString();
         }
     }
 }
