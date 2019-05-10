@@ -2,7 +2,9 @@ import classNames from 'classnames';
 import moment from 'moment';
 import React, { FunctionComponent, ReactNode, useState } from 'react';
 
-import { Avatar, Card, CardActions, CardContent, LinearProgress, Theme, Typography } from '@material-ui/core';
+import {
+    Avatar, Card, CardActions, CardContent, LinearProgress, Theme, Typography
+} from '@material-ui/core';
 import { green, orange, red } from '@material-ui/core/colors';
 import QuickIcon from '@material-ui/icons/DirectionsRunRounded';
 import FullIcon from '@material-ui/icons/HourglassEmptyRounded';
@@ -134,8 +136,8 @@ const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
 		processedTestsCount: props.run.processedTestsCount,
 		processedForMilliseconds: props.run.processedForMilliseconds,
 		testStepsCount: 0,
-		okTestsCount: 0,
-		wrongTestsCount: 0
+		okTestsCount: props.run.okTestsCount,
+		wrongTestsCount: props.run.wrongTestsCount
 	});
 
 	useRunningRunHub({
