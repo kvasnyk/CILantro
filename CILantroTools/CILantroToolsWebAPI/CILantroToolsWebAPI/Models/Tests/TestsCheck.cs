@@ -7,5 +7,7 @@
         public int NotRunTests { get; set; }
 
         public int NotOkTests { get; set; }
+
+        public int DisabledTests { get; set; }
     }
 }

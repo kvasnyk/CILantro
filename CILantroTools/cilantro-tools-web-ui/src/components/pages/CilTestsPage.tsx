@@ -96,6 +96,9 @@ const CilTestsPage: FunctionComponent = props => {
 	const centerChildren = search.result.data.length <= 0 && search.parameter.filters.length === 0;
 
 	let testsWarnings = '';
+	if (testsCheck && testsCheck.disabledTests > 0) {
+		testsWarnings += translations.tests.thereAreDisabledTests(testsCheck.disabledTests);
+	}
 	if (testsCheck && testsCheck.notReadyTests > 0) {
 		testsWarnings += translations.tests.thereAreNotReadyTests(testsCheck.notReadyTests);
 	}

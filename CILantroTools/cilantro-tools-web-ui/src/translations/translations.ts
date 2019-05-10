@@ -25,6 +25,7 @@ const translations = {
 		thereAreNotReadyTests: (count: number) => `${count} not ready. `,
 		thereAreNotRunTests: (count: number) => `${count} not yet run. `,
 		thereAreNotOkTests: (count: number) => `${count} with wrong run results. `,
+		thereAreDisabledTests: (count: number) => `${count} disabled. `,
 		errorOccurredWhileAddingTest: 'An error occurred while adding the test.',
 		findTests: 'Find tests',
 		noTestCandidates: 'No test candidates have been found.',

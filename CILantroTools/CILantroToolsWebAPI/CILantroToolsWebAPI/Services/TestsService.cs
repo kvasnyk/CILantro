@@ -347,7 +347,8 @@ namespace CILantroToolsWebAPI.Services
             {
                 NotReadyTests = _testsRepository.Read<TestReadModel>().Count(t => !t.IsReady),
                 NotRunTests = _testsRepository.Read<TestReadModel>().Count(t => !t.LastRunOutcome.HasValue),
-                NotOkTests = _testsRepository.Read<TestReadModel>().Count(t => t.LastRunOutcome.HasValue && t.LastRunOutcome.Value == RunOutcome.Wrong)
+                NotOkTests = _testsRepository.Read<TestReadModel>().Count(t => t.LastRunOutcome.HasValue && t.LastRunOutcome.Value == RunOutcome.Wrong),
+                DisabledTests = _testsRepository.Read<TestReadModel>().Count(t => t.IsDisabled)
             };
         }
 
