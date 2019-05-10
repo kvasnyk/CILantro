@@ -209,6 +209,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_Loops_DoWhile", "CSF_Lo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_Loops_NestedLoops", "CSF_Loops_NestedLoops\CSF_Loops_NestedLoops.csproj", "{03EF90D6-F330-4FFB-9A2D-33C601ECA7D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_Loops_Break", "CSF_Loops_Break\CSF_Loops_Break.csproj", "{C9CAE042-15B8-4F34-A36D-15B44774C5EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -607,6 +609,10 @@ Global
 		{03EF90D6-F330-4FFB-9A2D-33C601ECA7D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03EF90D6-F330-4FFB-9A2D-33C601ECA7D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03EF90D6-F330-4FFB-9A2D-33C601ECA7D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9CAE042-15B8-4F34-A36D-15B44774C5EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9CAE042-15B8-4F34-A36D-15B44774C5EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9CAE042-15B8-4F34-A36D-15B44774C5EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9CAE042-15B8-4F34-A36D-15B44774C5EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -710,6 +716,7 @@ Global
 		{9E812F22-F3BC-43EC-AE81-BB504A47FC22} = {2883FD29-288E-4772-9B70-64C604FFA05E}
 		{3563C587-9D62-4D17-97D9-FAF7BD22D966} = {2883FD29-288E-4772-9B70-64C604FFA05E}
 		{03EF90D6-F330-4FFB-9A2D-33C601ECA7D5} = {2883FD29-288E-4772-9B70-64C604FFA05E}
+		{C9CAE042-15B8-4F34-A36D-15B44774C5EF} = {2883FD29-288E-4772-9B70-64C604FFA05E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4EA075C6-7843-4D56-B83E-4B4E8D1AA025}
