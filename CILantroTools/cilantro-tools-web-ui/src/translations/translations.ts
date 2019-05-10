@@ -88,7 +88,8 @@ const translations = {
 		disabledReason: 'Disabled reason',
 		disabledReasonHasBeenUpdated: 'The disabled reason has been updated.',
 		errorOccurredWhileUpdatingDisabledReason: 'An error occurred while updating the disabled reason.',
-		repeat: 'repeat'
+		repeat: 'repeat',
+		generateOutput: 'Generate output'
 	},
 
 	runs: {
