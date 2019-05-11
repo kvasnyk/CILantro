@@ -243,6 +243,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_Arrays_Double", "CSF_Ar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_Arrays_Decimal", "CSF_Arrays_Decimal\CSF_Arrays_Decimal.csproj", "{5BE82EED-B13F-4F53-8CE4-118F3DC8B9D0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnsafeCode", "UnsafeCode", "{66F1B9C1-38D1-4AFB-9096-173E151BC5F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_UnsafeCode_Pointer", "CSF_UnsafeCode_Pointer\CSF_UnsafeCode_Pointer.csproj", "{7A7C2060-E1E7-497B-AE01-FDA3091CA150}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -705,6 +709,10 @@ Global
 		{5BE82EED-B13F-4F53-8CE4-118F3DC8B9D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BE82EED-B13F-4F53-8CE4-118F3DC8B9D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BE82EED-B13F-4F53-8CE4-118F3DC8B9D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A7C2060-E1E7-497B-AE01-FDA3091CA150}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A7C2060-E1E7-497B-AE01-FDA3091CA150}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A7C2060-E1E7-497B-AE01-FDA3091CA150}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A7C2060-E1E7-497B-AE01-FDA3091CA150}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -824,6 +832,7 @@ Global
 		{E2E6F1D5-DCC7-4841-82B3-5B970D9D72EA} = {1638E244-39CF-4B3D-A7F7-A03C688AA5B1}
 		{9EEAA33C-D36A-48F7-A320-94DE377B4683} = {1638E244-39CF-4B3D-A7F7-A03C688AA5B1}
 		{5BE82EED-B13F-4F53-8CE4-118F3DC8B9D0} = {1638E244-39CF-4B3D-A7F7-A03C688AA5B1}
+		{7A7C2060-E1E7-497B-AE01-FDA3091CA150} = {66F1B9C1-38D1-4AFB-9096-173E151BC5F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4EA075C6-7843-4D56-B83E-4B4E8D1AA025}
