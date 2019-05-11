@@ -594,6 +594,16 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // ___("ldelem.u2")
+            var ldelemu2Children = AstChildren.Empty()
+                .Add("ldelem.u2");
+            if (ldelemu2Children.PopulateWith(parseNode))
+            {
+                Instruction = new LoadArrayElementU2Instruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

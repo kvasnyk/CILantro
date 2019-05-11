@@ -23,6 +23,8 @@ namespace CILantro.Structure
                     return new CilTypeInt32();
                 if (type == typeof(sbyte))
                     return new CilTypeInt8();
+                if (type == typeof(ushort))
+                    return new CilTypeUInt16();
                 else
                     throw new NotImplementedException();
             }

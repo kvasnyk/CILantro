@@ -52,6 +52,13 @@ namespace CILantro.Interpreting.Objects
                     return new CilValueInt32((int)arrayElem);
                 }
             }
+            else if (valueType == typeof(CilValueUInt16))
+            {
+                if (_type is CilTypeUInt16)
+                {
+                    return new CilValueUInt16((ushort)arrayElem);
+                }
+            }
             else if (valueType == typeof(CilValueReference))
             {
                 if (_type is CilTypeString)

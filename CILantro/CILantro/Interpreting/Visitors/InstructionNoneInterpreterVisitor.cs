@@ -376,6 +376,21 @@ namespace CILantro.Interpreting.Visitors
             _state.MoveToNextInstruction();
         }
 
+        protected override void VisitLoadArrayElementU2Instruction(LoadArrayElementU2Instruction instruction)
+        {
+            // TODO: finish implementation
+            // TODO: should we convert value from array to stack?
+
+            _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
+
+            var array = _managedMemory.Load(arrayRef) as CilArray;
+            var elem = array.GetValue(indexVal, _managedMemory, typeof(CilValueUInt16));
+
+            _state.EvaluationStack.PushValue(elem);
+
+            _state.MoveToNextInstruction();
+        }
+
         protected override void VisitLoadConstI40Intruction(LoadConstI40Instruction instruction)
         {
             var stackVal = new CilStackValueInt32(0);
