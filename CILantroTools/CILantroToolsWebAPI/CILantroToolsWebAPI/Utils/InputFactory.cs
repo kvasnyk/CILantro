@@ -1,6 +1,7 @@
 ﻿using CILantroToolsWebAPI.Models.Tests.InputOutput;
 using CILantroToolsWebAPI.Models.Tests.InputOutput.Elements;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -13,10 +14,13 @@ namespace CILantroToolsWebAPI.Utils
 
         private readonly Random _random;
 
-        public InputFactory(InputOutput input, Random random = null)
+        private Dictionary<string, string> _vars;
+
+        public InputFactory(InputOutput input, Random random = null, Dictionary<string, string> vars = null)
         {
             _input = input;
             _random = random ?? new Random(Guid.NewGuid().GetHashCode());
+            _vars = vars ?? new Dictionary<string, string>();
         }
 
         public string GenerateRandomInput()
@@ -40,71 +44,99 @@ namespace CILantroToolsWebAPI.Utils
                     {
                         var @bool = GenerateBool(boolElement);
                         builder.Append(@bool.ToString());
+
+                        _vars[boolElement.Name] = @bool.ToString();
                     }
                     else if (inputElement is StringElement stringElement)
                     {
                         var @string = GenerateString(stringElement);
                         builder.Append(@string.ToString());
+
+                        _vars[stringElement.Name] = @string.ToString();
                     }
                     else if (inputElement is ByteElement byteElement)
                     {
                         var @byte = GenerateByte(byteElement);
                         builder.Append(@byte.ToString());
+
+                        _vars[byteElement.Name] = @byte.ToString();
                     }
                     else if (inputElement is IntElement intElement)
                     {
                         var @int = GenerateInt(intElement);
                         builder.Append(@int.ToString());
+
+                        _vars[intElement.Name] = @int.ToString();
                     }
                     else if (inputElement is LongElement longElement)
                     {
                         var @long = GenerateLong(longElement);
                         builder.Append(@long.ToString());
+
+                        _vars[longElement.Name] = @long.ToString();
                     }
                     else if (inputElement is SbyteElement sbyteElement)
                     {
                         var @sbyte = GenerateSbyte(sbyteElement);
                         builder.Append(@sbyte.ToString());
+
+                        _vars[sbyteElement.Name] = @sbyte.ToString();
                     }
                     else if (inputElement is ShortElement shortElement)
                     {
                         var @short = GenerateShort(shortElement);
                         builder.Append(@short.ToString());
+
+                        _vars[shortElement.Name] = @short.ToString();
                     }
                     else if (inputElement is UintElement uintElement)
                     {
                         var @uint = GenerateUint(uintElement);
                         builder.Append(@uint.ToString());
+
+                        _vars[uintElement.Name] = @uint.ToString();
                     }
                     else if (inputElement is UlongElement ulongElement)
                     {
                         var @ulong = GenerateUlong(ulongElement);
                         builder.Append(@ulong.ToString());
+
+                        _vars[ulongElement.Name] = @ulong.ToString();
                     }
                     else if (inputElement is UshortElement ushortElement)
                     {
                         var @ushort = GenerateUshort(ushortElement);
                         builder.Append(@ushort.ToString());
+
+                        _vars[ushortElement.Name] = @ushort.ToString();
                     }
                     else if (inputElement is FloatElement floatElement)
                     {
                         var @float = GenerateFloat(floatElement);
                         builder.Append(@float.ToString());
+
+                        _vars[floatElement.Name] = @float.ToString();
                     }
                     else if (inputElement is DoubleElement doubleElement)
                     {
                         var @double = GenerateDouble(doubleElement);
                         builder.Append(@double.ToString());
+
+                        _vars[doubleElement.Name] = @double.ToString();
                     }
                     else if (inputElement is DecimalElement decimalElement)
                     {
                         var @decimal = GenerateDecimal(decimalElement);
                         builder.Append(@decimal.ToString());
+
+                        _vars[decimalElement.Name] = @decimal.ToString();
                     }
                     else if (inputElement is CharElement charElement)
                     {
                         var @char = GenerateChar(charElement);
                         builder.Append(@char.ToString());
+
+                        _vars[charElement.Name] = @char.ToString();
                     }
                     else if (inputElement is ConstStringElement constStringElement)
                     {
@@ -307,8 +339,15 @@ namespace CILantroToolsWebAPI.Utils
             int min;
             int max;
 
-            min = int.Parse(repeatBlockMin);
-            max = int.Parse(repeatBlockMax);
+            if (_vars.ContainsKey(repeatBlockMin))
+                min = int.Parse(_vars[repeatBlockMin]);
+            else
+                min = int.Parse(repeatBlockMin);
+
+            if (_vars.ContainsKey(repeatBlockMax))
+                max = int.Parse(_vars[repeatBlockMax]);
+            else
+                max = int.Parse(repeatBlockMax);
 
             var lines = _random.Next(min, max + 1);
 
