@@ -34,15 +34,25 @@ namespace CILantro.Interpreting.Objects
             _array.SetValue(arrayElem, indexVal.Value);
         }
 
-        public IValue GetValue(CilValueInt32 indexVal, CilManagedMemory managedMemory)
+        public IValue GetValue(CilValueInt32 indexVal, CilManagedMemory managedMemory, Type valueType)
         {
             var arrayElem = _array.GetValue(indexVal.Value);
 
-            if (_type is CilTypeString)
+            if (valueType == typeof(CilValueInt32))
             {
-                var cilString = new CilString(arrayElem as string);
-                var reference = managedMemory.Store(cilString);
-                return reference;
+                if (_type is CilTypeInt32)
+                {
+                    return new CilValueInt32((int)arrayElem);
+                }
+            }
+            else if (valueType == typeof(CilValueReference))
+            {
+                if (_type is CilTypeString)
+                {
+                    var cilString = new CilString(arrayElem as string);
+                    var reference = managedMemory.Store(cilString);
+                    return reference;
+                }
             }
 
             throw new NotImplementedException();

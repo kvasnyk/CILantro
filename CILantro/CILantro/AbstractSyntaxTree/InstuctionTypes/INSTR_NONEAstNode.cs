@@ -554,6 +554,26 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // ___("stelem.i4")
+            var stelemi4Children = AstChildren.Empty()
+                .Add("stelem.i4");
+            if (stelemi4Children.PopulateWith(parseNode))
+            {
+                Instruction = new StoreArrayElementI4Instruction();
+
+                return;
+            }
+
+            // ___("ldelem.i4")
+            var ldelemi4Children = AstChildren.Empty()
+                .Add("ldelem.i4");
+            if (ldelemi4Children.PopulateWith(parseNode))
+            {
+                Instruction = new LoadArrayElementI4Instruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }
