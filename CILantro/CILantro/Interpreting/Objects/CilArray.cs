@@ -1,6 +1,7 @@
 ﻿using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.Types;
 using CILantro.Interpreting.Values;
+using CILantro.Structure;
 using System;
 
 namespace CILantro.Interpreting.Objects
@@ -11,16 +12,20 @@ namespace CILantro.Interpreting.Objects
 
         private CilType _type;
 
-        public CilArray(Array array, CilType type)
+        private CilProgram _program;
+
+        public CilArray(Array array, CilType type, CilProgram program)
         {
             _array = array;
             _type = type;
+            _program = program;
         }
 
-        public CilArray(CilType type, int numElems)
+        public CilArray(CilType type, int numElems, CilProgram program)
         {
             _array = Array.CreateInstance(type.GetRuntimeType(), numElems);
             _type = type;
+            _program = program;
         }
 
         public override object AsRuntime(CilType type)
@@ -34,42 +39,12 @@ namespace CILantro.Interpreting.Objects
             _array.SetValue(arrayElem, indexVal.Value);
         }
 
-        public IValue GetValue(CilValueInt32 indexVal, CilManagedMemory managedMemory, Type valueType)
+        public IValue GetValue(CilValueInt32 indexVal, CilManagedMemory managedMemory, CilType desiredType)
         {
+            var resultType = desiredType ?? _type;
             var arrayElem = _array.GetValue(indexVal.Value);
 
-            if (valueType == typeof(CilValueInt8))
-            {
-                if (_type is CilTypeInt8)
-                {
-                    return new CilValueInt8((sbyte)arrayElem);
-                }
-            }
-            else if (valueType == typeof(CilValueInt32))
-            {
-                if (_type is CilTypeInt32)
-                {
-                    return new CilValueInt32((int)arrayElem);
-                }
-            }
-            else if (valueType == typeof(CilValueUInt16))
-            {
-                if (_type is CilTypeUInt16)
-                {
-                    return new CilValueUInt16((ushort)arrayElem);
-                }
-            }
-            else if (valueType == typeof(CilValueReference))
-            {
-                if (_type is CilTypeString)
-                {
-                    var cilString = new CilString(arrayElem as string);
-                    var reference = managedMemory.Store(cilString);
-                    return reference;
-                }
-            }
-
-            throw new NotImplementedException();
+            return resultType.CreateValueFromRuntime(arrayElem, managedMemory, _program);
         }
     }
 }

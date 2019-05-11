@@ -3,6 +3,7 @@ using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.StackValues;
 using CILantro.Interpreting.State;
+using CILantro.Interpreting.Types;
 using CILantro.Interpreting.Values;
 using CILantro.Structure;
 using CILantro.Visitors;
@@ -339,7 +340,7 @@ namespace CILantro.Interpreting.Visitors
             _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
 
             var array = _managedMemory.Load(arrayRef) as CilArray;
-            var elem = array.GetValue(indexVal, _managedMemory, typeof(CilValueInt8));
+            var elem = array.GetValue(indexVal, _managedMemory, new CilTypeInt8());
 
             _state.EvaluationStack.PushValue(elem);
 
@@ -354,7 +355,22 @@ namespace CILantro.Interpreting.Visitors
             _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
 
             var array = _managedMemory.Load(arrayRef) as CilArray;
-            var elem = array.GetValue(indexVal, _managedMemory, typeof(CilValueInt32));
+            var elem = array.GetValue(indexVal, _managedMemory, new CilTypeInt32());
+
+            _state.EvaluationStack.PushValue(elem);
+
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitLoadArrayElementI8Instruction(LoadArrayElementI8Instruction instruction)
+        {
+            // TODO: finish implementation
+            // TODO: should we convert value from array to stack?
+
+            _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
+
+            var array = _managedMemory.Load(arrayRef) as CilArray;
+            var elem = array.GetValue(indexVal, _managedMemory, new CilTypeInt64());
 
             _state.EvaluationStack.PushValue(elem);
 
@@ -369,7 +385,7 @@ namespace CILantro.Interpreting.Visitors
             _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
 
             var array = _managedMemory.Load(arrayRef) as CilArray;
-            var elem = array.GetValue(indexVal, _managedMemory, typeof(CilValueReference));
+            var elem = array.GetValue(indexVal, _managedMemory, null);
 
             _state.EvaluationStack.PushValue(elem);
 
@@ -384,7 +400,7 @@ namespace CILantro.Interpreting.Visitors
             _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
 
             var array = _managedMemory.Load(arrayRef) as CilArray;
-            var elem = array.GetValue(indexVal, _managedMemory, typeof(CilValueUInt16));
+            var elem = array.GetValue(indexVal, _managedMemory, new CilTypeUInt16());
 
             _state.EvaluationStack.PushValue(elem);
 
@@ -699,6 +715,18 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
 
             _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal, out CilValueInt32 valueVal);
+
+            var array = _managedMemory.Load(arrayRef) as CilArray;
+            array.SetValue(valueVal, indexVal);
+
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitStoreArrayElementI8Instruction(StoreArrayElementI8Instruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal, out CilValueInt64 valueVal);
 
             var array = _managedMemory.Load(arrayRef) as CilArray;
             array.SetValue(valueVal, indexVal);

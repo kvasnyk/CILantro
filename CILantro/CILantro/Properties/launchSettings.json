@@ -2,7 +2,7 @@
   "profiles": {
     "CILantro": {
       "commandName": "Project",
-      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\CSF_Arrays_Ushort\\CSF_Arrays_Ushort.il\""
+      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\CSF_Arrays_Ulong\\CSF_Arrays_Ulong.il\""
     }
   }
 }

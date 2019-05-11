@@ -17,6 +17,8 @@ namespace CILantro.Interpreting.Values
         {
             if (cilType is CilTypeInt64)
                 return Value;
+            if (cilType is CilTypeUInt64)
+                return (ulong)Value;
 
             throw new System.NotImplementedException();
         }

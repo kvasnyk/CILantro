@@ -25,6 +25,8 @@ namespace CILantro.Structure
                     return new CilTypeInt8();
                 if (type == typeof(ushort))
                     return new CilTypeUInt16();
+                if (type == typeof(ulong))
+                    return new CilTypeUInt64();
                 else
                     throw new NotImplementedException();
             }

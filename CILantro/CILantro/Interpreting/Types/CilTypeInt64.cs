@@ -23,7 +23,7 @@ namespace CILantro.Interpreting.Types
 
         public override IValue CreateValueFromRuntime(object obj, CilManagedMemory managedMemory, CilProgram program)
         {
-            var value = new CilValueInt64((long)obj);
+            var value = new CilValueInt64(Convert.ToInt64(obj));
             return value;
         }
     }
