@@ -27,6 +27,18 @@ namespace CILantro.Structure
                     return new CilTypeUInt16();
                 if (type == typeof(ulong))
                     return new CilTypeUInt64();
+                if (type == typeof(uint))
+                    return new CilTypeUInt32();
+                if (type == typeof(short))
+                    return new CilTypeInt16();
+                if (type == typeof(long))
+                    return new CilTypeInt64();
+                if (type == typeof(float))
+                    return new CilTypeFloat32();
+                if (type == typeof(double))
+                    return new CilTypeFloat64();
+                if (type == typeof(byte))
+                    return new CilTypeUInt8();
                 else
                     throw new NotImplementedException();
             }

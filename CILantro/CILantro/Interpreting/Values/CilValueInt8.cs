@@ -17,6 +17,8 @@ namespace CILantro.Interpreting.Values
         {
             if (cilType is CilTypeInt8)
                 return Value;
+            if (cilType is CilTypeUInt8)
+                return (byte)Value;
 
             throw new System.NotImplementedException();
         }

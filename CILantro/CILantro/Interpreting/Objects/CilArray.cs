@@ -12,20 +12,16 @@ namespace CILantro.Interpreting.Objects
 
         private CilType _type;
 
-        private CilProgram _program;
-
-        public CilArray(Array array, CilType type, CilProgram program)
+        public CilArray(Array array, CilType type)
         {
             _array = array;
             _type = type;
-            _program = program;
         }
 
-        public CilArray(CilType type, int numElems, CilProgram program)
+        public CilArray(CilType type, int numElems)
         {
             _array = Array.CreateInstance(type.GetRuntimeType(), numElems);
             _type = type;
-            _program = program;
         }
 
         public override object AsRuntime(CilType type)
@@ -33,18 +29,18 @@ namespace CILantro.Interpreting.Objects
             return _array;
         }
 
-        public void SetValue(IValue value, CilValueInt32 indexVal)
+        public void SetValue(IValue value, CilValueInt32 indexVal, CilManagedMemory managedMemory)
         {
-            var arrayElem = value.AsRuntime(_type, null);
+            var arrayElem = value.AsRuntime(_type, managedMemory);
             _array.SetValue(arrayElem, indexVal.Value);
         }
 
-        public IValue GetValue(CilValueInt32 indexVal, CilManagedMemory managedMemory, CilType desiredType)
+        public IValue GetValue(CilValueInt32 indexVal, CilType desiredType, CilManagedMemory managedMemory, CilProgram program)
         {
             var resultType = desiredType ?? _type;
             var arrayElem = _array.GetValue(indexVal.Value);
 
-            return resultType.CreateValueFromRuntime(arrayElem, managedMemory, _program);
+            return resultType.CreateValueFromRuntime(arrayElem, managedMemory, program);
         }
     }
 }

@@ -126,6 +126,22 @@ namespace CILantro.Visitors
                 VisitLoadArrayElementI8Instruction(loadArrayElementI8Instruction);
             else if (instruction is StoreArrayElementI8Instruction storeArrayElementI8Instruction)
                 VisitStoreArrayElementI8Instruction(storeArrayElementI8Instruction);
+            else if (instruction is LoadArrayElementU4Instruction loadArrayElementU4Instruction)
+                VisitLoadArrayElementU4Instruction(loadArrayElementU4Instruction);
+            else if (instruction is StoreArrayElementRefInstruction storeArrayElementRefInstruction)
+                VisitStoreArrayElementRefInstruction(storeArrayElementRefInstruction);
+            else if (instruction is LoadArrayElementI2Instruction loadArrayElementI2Instruction)
+                VisitLoadArrayElementI2Instruction(loadArrayElementI2Instruction);
+            else if (instruction is LoadArrayElementR4Instruction loadArrayElementR4Instruction)
+                VisitLoadArrayElementR4Instruction(loadArrayElementR4Instruction);
+            else if (instruction is StoreArrayElementR4Instruction storeArrayElementR4Instruction)
+                VisitStoreArrayElementR4Instruction(storeArrayElementR4Instruction);
+            else if (instruction is StoreArrayElementR8Instruction storeArrayElementR8Instruction)
+                VisitStoreArrayElementR8Instruction(storeArrayElementR8Instruction);
+            else if (instruction is LoadArrayElementR8Instruction loadArrayElementR8Instruction)
+                VisitLoadArrayElementR8Instruction(loadArrayElementR8Instruction);
+            else if (instruction is LoadArrayElementU1Instruction loadArrayElementU1Instruction)
+                VisitLoadArrayElementU1Instruction(loadArrayElementU1Instruction);
             else
                 throw new ArgumentException($"CIL instruction none cannot be recognized: '{instruction.ToString()}'.");
         }
@@ -170,13 +186,23 @@ namespace CILantro.Visitors
 
         protected abstract void VisitLoadArrayElementI1Instruction(LoadArrayElementI1Instruction instruction);
 
+        protected abstract void VisitLoadArrayElementI2Instruction(LoadArrayElementI2Instruction instruction);
+
         protected abstract void VisitLoadArrayElementI4Instruction(LoadArrayElementI4Instruction instruction);
 
         protected abstract void VisitLoadArrayElementI8Instruction(LoadArrayElementI8Instruction instruction);
 
+        protected abstract void VisitLoadArrayElementR4Instruction(LoadArrayElementR4Instruction instruction);
+
+        protected abstract void VisitLoadArrayElementR8Instruction(LoadArrayElementR8Instruction instruction);
+
         protected abstract void VisitLoadArrayElementRefInstruction(LoadArrayElementRefInstruction instruction);
 
+        protected abstract void VisitLoadArrayElementU1Instruction(LoadArrayElementU1Instruction instruction);
+
         protected abstract void VisitLoadArrayElementU2Instruction(LoadArrayElementU2Instruction instruction);
+
+        protected abstract void VisitLoadArrayElementU4Instruction(LoadArrayElementU4Instruction instruction);
 
         protected abstract void VisitLoadConstI40Intruction(LoadConstI40Instruction instruction);
 
@@ -235,6 +261,12 @@ namespace CILantro.Visitors
         protected abstract void VisitStoreArrayElementI4Instruction(StoreArrayElementI4Instruction instruction);
 
         protected abstract void VisitStoreArrayElementI8Instruction(StoreArrayElementI8Instruction instruction);
+
+        protected abstract void VisitStoreArrayElementR4Instruction(StoreArrayElementR4Instruction instruction);
+
+        protected abstract void VisitStoreArrayElementR8Instruction(StoreArrayElementR8Instruction instruction);
+
+        protected abstract void VisitStoreArrayElementRefInstruction(StoreArrayElementRefInstruction instruction);
 
         protected abstract void VisitStoreLocal0Instruction(StoreLocal0Instruction instruction);
 

@@ -624,6 +624,86 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // ___("ldelem.u4")
+            var ldelemu4Children = AstChildren.Empty()
+                .Add("ldelem.u4");
+            if (ldelemu4Children.PopulateWith(parseNode))
+            {
+                Instruction = new LoadArrayElementU4Instruction();
+
+                return;
+            }
+
+            // ___("stelem.ref")
+            var stelemrefChildren = AstChildren.Empty()
+                .Add("stelem.ref");
+            if (stelemrefChildren.PopulateWith(parseNode))
+            {
+                Instruction = new StoreArrayElementRefInstruction();
+
+                return;
+            }
+
+            // ___("ldelem.i2")
+            var ldelemi2Children = AstChildren.Empty()
+                .Add("ldelem.i2");
+            if (ldelemi2Children.PopulateWith(parseNode))
+            {
+                Instruction = new LoadArrayElementI2Instruction();
+
+                return;
+            }
+
+            // ___("stelem.r4")
+            var stelemr4Children = AstChildren.Empty()
+                .Add("stelem.r4");
+            if (stelemr4Children.PopulateWith(parseNode))
+            {
+                Instruction = new StoreArrayElementR4Instruction();
+
+                return;
+            }
+
+            // ___("ldelem.r4")
+            var ldelemr4Children = AstChildren.Empty()
+                .Add("ldelem.r4");
+            if (ldelemr4Children.PopulateWith(parseNode))
+            {
+                Instruction = new LoadArrayElementR4Instruction();
+
+                return;
+            }
+
+            // ___("stelem.r8")
+            var stelemr8Children = AstChildren.Empty()
+                .Add("stelem.r8");
+            if (stelemr8Children.PopulateWith(parseNode))
+            {
+                Instruction = new StoreArrayElementR8Instruction();
+
+                return;
+            }
+
+            // ___("ldelem.r8")
+            var ldelemr8Children = AstChildren.Empty()
+                .Add("ldelem.r8");
+            if (ldelemr8Children.PopulateWith(parseNode))
+            {
+                Instruction = new LoadArrayElementR8Instruction();
+
+                return;
+            }
+
+            // ___("ldelem.u1")
+            var ldelemu1Children = AstChildren.Empty()
+                .Add("ldelem.u1");
+            if (ldelemu1Children.PopulateWith(parseNode))
+            {
+                Instruction = new LoadArrayElementU1Instruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

@@ -17,6 +17,8 @@ namespace CILantro.Interpreting.Values
         {
             if (cilType is CilTypeInt32)
                 return Value;
+            if (cilType is CilTypeUInt32)
+                return (uint)Value;
 
             throw new System.NotImplementedException();
         }
