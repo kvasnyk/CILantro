@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FunctionComponent } from 'react';
+import React, { ChangeEvent, FunctionComponent, useEffect } from 'react';
 
 import { Theme } from '@material-ui/core';
 import { grey } from '@material-ui/core/colors';
@@ -71,6 +71,19 @@ const CilInputOutputRepeatBlock: FunctionComponent<CilInputOutputRepeatBlockProp
 		props.onMaxChange(e.target.value);
 	};
 
+	useEffect(
+		() => {
+			if (!props.repeatBlock.repeatBlockMin) {
+				props.onMinChange('0');
+			}
+
+			if (!props.repeatBlock.repeatBlockMax) {
+				props.onMaxChange('1000');
+			}
+		},
+		[props.repeatBlock]
+	);
+
 	return (
 		<div className={classes.repeatBlock}>
 			<div className={classes.header}>
@@ -78,14 +91,14 @@ const CilInputOutputRepeatBlock: FunctionComponent<CilInputOutputRepeatBlockProp
 				<input
 					type="text"
 					className={classes.input}
-					value={props.repeatBlock.repeatBlockMin || '0'}
+					value={props.repeatBlock.repeatBlockMin}
 					onChange={handleMinChange}
 					readOnly={props.isReadonly}
 				/>
 				<input
 					type="text"
 					className={classes.input}
-					value={props.repeatBlock.repeatBlockMax || '1000'}
+					value={props.repeatBlock.repeatBlockMax}
 					onChange={handleMaxChange}
 					readOnly={props.isReadonly}
 				/>
