@@ -38,7 +38,14 @@ namespace CILantro.Interpreting.Objects
         {
             var arrayElem = _array.GetValue(indexVal.Value);
 
-            if (valueType == typeof(CilValueInt32))
+            if (valueType == typeof(CilValueInt8))
+            {
+                if (_type is CilTypeInt8)
+                {
+                    return new CilValueInt8((sbyte)arrayElem);
+                }
+            }
+            else if (valueType == typeof(CilValueInt32))
             {
                 if (_type is CilTypeInt32)
                 {

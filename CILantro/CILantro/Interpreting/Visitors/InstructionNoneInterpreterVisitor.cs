@@ -331,6 +331,21 @@ namespace CILantro.Interpreting.Visitors
             _state.MoveToNextInstruction();
         }
 
+        protected override void VisitLoadArrayElementI1Instruction(LoadArrayElementI1Instruction instruction)
+        {
+            // TODO: finish implementation
+            // TODO: should we convert value from array to stack?
+
+            _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
+
+            var array = _managedMemory.Load(arrayRef) as CilArray;
+            var elem = array.GetValue(indexVal, _managedMemory, typeof(CilValueInt8));
+
+            _state.EvaluationStack.PushValue(elem);
+
+            _state.MoveToNextInstruction();
+        }
+
         protected override void VisitLoadArrayElementI4Instruction(LoadArrayElementI4Instruction instruction)
         {
             // TODO: finish implementation
@@ -636,6 +651,18 @@ namespace CILantro.Interpreting.Visitors
                 (a, b) => new CilStackValueInt64((long)(a.ValueUnsigned >> b.Value))
             );
             _state.EvaluationStack.Push(resultStackVal);
+
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitStoreArrayElementI1Instruction(StoreArrayElementI1Instruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal, out CilValueInt8 valueVal);
+
+            var array = _managedMemory.Load(arrayRef) as CilArray;
+            array.SetValue(valueVal, indexVal);
 
             _state.MoveToNextInstruction();
         }
