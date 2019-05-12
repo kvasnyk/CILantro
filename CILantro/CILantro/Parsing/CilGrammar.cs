@@ -46,13 +46,15 @@ namespace CILantro.Parsing
             ConfigureAstNode(SQSTRING);
 
             // TODO: specify
-            var INT32 = new NumberLiteral("INT32", NumberOptions.NoDotAfterInt);
+            var INT32 = new NumberLiteral("INT32", NumberOptions.NoDotAfterInt | NumberOptions.AllowSign);
             INT32.AddPrefix("0x", NumberOptions.Hex);
+            INT32.DefaultIntTypes = new TypeCode[] { TypeCode.Int32 };
             ConfigureAstNode(INT32);
 
             // TODO: specify
-            var INT64 = new NumberLiteral("INT64", NumberOptions.NoDotAfterInt);
+            var INT64 = new NumberLiteral("INT64", NumberOptions.NoDotAfterInt | NumberOptions.AllowSign);
             INT64.AddPrefix("0x", NumberOptions.Hex);
+            INT64.DefaultIntTypes = new TypeCode[] { TypeCode.Int64 };
             ConfigureAstNode(INT64);
 
             // TODO: specify
@@ -78,7 +80,9 @@ namespace CILantro.Parsing
             var classDecls = CreateNonTerminal("classDecls");
             var classDecl = CreateNonTerminal("classDecl");
             var fieldDecl = CreateNonTerminal("fieldDecl");
+            var atOpt = CreateNonTerminal("atOpt");
             var initOpt = CreateNonTerminal("initOpt");
+            var repeatOpt = CreateNonTerminal("repeatOpt");
             var customHead = CreateNonTerminal("customHead");
             var customHeadWithOwner = CreateNonTerminal("customHeadWithOwner");
             var customType = CreateNonTerminal("customType");
@@ -93,6 +97,7 @@ namespace CILantro.Parsing
             var pinvAttr = CreateNonTerminal("pinvAttr");
             var methodName = CreateNonTerminal("methodName");
             var paramAttr = CreateNonTerminal("paramAttr");
+            var fieldAttr = CreateNonTerminal("fieldAttr");
             var implAttr = CreateNonTerminal("implAttr");
             var localsHead = CreateNonTerminal("localsHead");
             var methodDecl = CreateNonTerminal("methodDecl");
@@ -100,6 +105,7 @@ namespace CILantro.Parsing
             var sehBlock = CreateNonTerminal("sehBlock");
             var methodDecls = CreateNonTerminal("methodDecls");
             var dataDecl = CreateNonTerminal("dataDecl");
+            var fieldInit = CreateNonTerminal("fieldInit");
             var bytearrayhead = CreateNonTerminal("bytearrayhead");
             var bytes = CreateNonTerminal("bytes");
             var hexbytes = CreateNonTerminal("hexbytes");
@@ -333,8 +339,8 @@ namespace CILantro.Parsing
                 ___("ldc.i4.s") |
                 _("unaligned.");
 
-            // TODO: INSTR_I8
-            INSTR_I8.Rule = _("TODO: INSTR_I8");
+            INSTR_I8.Rule =
+                ___("ldc.i8");
 
             INSTR_R.Rule =
                 ___("ldc.r4") |
@@ -379,8 +385,13 @@ namespace CILantro.Parsing
                 _("ldvirtftn") |
                 _("newobj");
 
-            // TODO: INSTR_FIELD
-            INSTR_FIELD.Rule = _("TODO: INSTR_FIELD");
+            INSTR_FIELD.Rule =
+                _("ldfld") |
+                _("ldflda") |
+                _("ldsfld") |
+                _("ldsflda") |
+                _("stfld") |
+                _("stsfld");
 
             INSTR_TYPE.Rule =
                 _("box") |
@@ -535,11 +546,20 @@ namespace CILantro.Parsing
                 _(".override") + typeSpec + _("::") + methodName + _("with") + callConv + type + typeSpec + _("::") + methodName + _("(") + sigArgs0 + _(")") |
                 languageDecl;
 
-            // TODO: fieldDecl
-            fieldDecl.Rule = _("TODO: fieldDecl");
+            fieldDecl.Rule =
+                _(".field") + repeatOpt + fieldAttr + type + id + atOpt + initOpt;
 
-            // TODO: initOpt
-            initOpt.Rule = _("TODO: initOpt");
+            atOpt.Rule =
+                Empty |
+                _("at") + id;
+
+            initOpt.Rule =
+                Empty |
+                _("=") + fieldInit;
+
+            repeatOpt.Rule =
+                Empty |
+                _("[") + int32 + _("]");
 
             customHead.Rule =
                 _(".custom") + customType + _("=") + _("(");
@@ -604,6 +624,26 @@ namespace CILantro.Parsing
                 _(".cctor") |
                 name1;
 
+            fieldAttr.Rule =
+                Empty |
+                fieldAttr + _("static") |
+                fieldAttr + _("public") |
+                fieldAttr + _("private") |
+                fieldAttr + _("family") |
+                fieldAttr + _("initonly") |
+                fieldAttr + _("rtspecialname") |
+                fieldAttr + _("specialname") |
+                fieldAttr + _("pinvokeimpl") + _("(") + compQstring + _("as") + compQstring + pinvAttr + _(")") |
+                fieldAttr + _("pinvokeimpl") + _("(") + compQstring + pinvAttr + _(")") |
+                fieldAttr + _("pinvokeimpl") + _("(") + pinvAttr + _(")") |
+                fieldAttr + _("marshal") + _("(") + nativeType + _(")") |
+                fieldAttr + _("assembly") |
+                fieldAttr + _("famandassem") |
+                fieldAttr + _("famorassem") |
+                fieldAttr + _("privatescope") |
+                fieldAttr + _("literal") |
+                fieldAttr + _("notserialized");
+
             paramAttr.Rule =
                 Empty |
                 paramAttr + _("[") + _("in") + _("]") |
@@ -662,6 +702,9 @@ namespace CILantro.Parsing
 
             // TODO: dataDecl
             dataDecl.Rule = _("TODO: dataDecl");
+
+            // TODO: fieldInit
+            fieldInit.Rule = _("TODO: fieldInit");
 
             // TODO: bytearrayhead
             bytearrayhead.Rule = _("TODO: bytearrayhead");

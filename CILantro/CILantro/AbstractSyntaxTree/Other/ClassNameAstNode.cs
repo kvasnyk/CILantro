@@ -30,6 +30,19 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // slashedName
+            var slashedNameChildren = AstChildren.Empty()
+                .Add<SlashedNameAstNode>();
+            if (slashedNameChildren.PopulateWith(parseNode))
+            {
+                ClassName = new CilClassName
+                {
+                    ClassName = slashedNameChildren.Child1.Value
+                };
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

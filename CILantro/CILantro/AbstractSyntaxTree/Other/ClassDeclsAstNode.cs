@@ -47,6 +47,9 @@ namespace CILantro.AbstractSyntaxTree.Other
                     case ClassDeclType.CustomAttr:
                         // TODO: handle
                         break;
+                    case ClassDeclType.Field:
+                        // TODO: handle
+                        break;
                     default:
                         throw new AstNodeException($"\"{nameof(declType)}\" cannot be recognized.");
                 }

@@ -9,7 +9,8 @@ namespace CILantro.AbstractSyntaxTree.Other
     public enum ClassDeclType
     {
         Method,
-        CustomAttr
+        CustomAttr,
+        Field
     }
 
     [AstNode("classDecl")]
@@ -47,6 +48,17 @@ namespace CILantro.AbstractSyntaxTree.Other
             {
                 DeclType = ClassDeclType.CustomAttr;
                 // TODO: handle
+
+                return;
+            }
+
+            // fieldDecl
+            var fieldDeclChildren = AstChildren.Empty()
+                .Add<FieldDeclAstNode>();
+            if (fieldDeclChildren.PopulateWith(parseNode))
+            {
+                // TODO: handle
+                DeclType = ClassDeclType.Field;
 
                 return;
             }

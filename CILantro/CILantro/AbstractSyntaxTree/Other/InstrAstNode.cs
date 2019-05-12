@@ -135,6 +135,35 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // INSTR_FIELD + type + typeSpec + _("::") + id
+            var instrField5Children = AstChildren.Empty()
+                .Add<INSTR_FIELDAstNode>()
+                .Add<TypeAstNode>()
+                .Add<TypeSpecAstNode>()
+                .Add("::")
+                .Add<IdAstNode>();
+            if (instrField5Children.PopulateWith(parseNode))
+            {
+                var instructionField = instrField5Children.Child1.Instruction;
+
+                Instruction = instructionField;
+
+                return;
+            }
+
+            // INSTR_I8 + int64
+            var instrI8Children = AstChildren.Empty()
+                .Add<INSTR_I8AstNode>()
+                .Add<Int64AstNode>();
+            if (instrI8Children.PopulateWith(parseNode))
+            {
+                var instructionI8 = instrI8Children.Child1.Instruction;
+
+                Instruction = instructionI8;
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

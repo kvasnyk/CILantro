@@ -32,6 +32,16 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // _(".cctor")
+            var cctorChildren = AstChildren.Empty()
+                .Add(".cctor");
+            if (cctorChildren.PopulateWith(parseNode))
+            {
+                MethodName = ".cctor";
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

@@ -5,8 +5,8 @@ using System;
 
 namespace CILantro.AbstractSyntaxTree.Other
 {
-    [AstNode("initOpt")]
-    public class InitOptAstNode : AstNodeBase
+    [AstNode("repeatOpt")]
+    public class RepeatOptAstNode : AstNodeBase
     {
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
