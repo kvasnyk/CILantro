@@ -126,6 +126,12 @@ namespace CILantro.Parsing
             var int64 = CreateNonTerminal("int64");
             var float64 = CreateNonTerminal("float64");
             var secDecl = CreateNonTerminal("secDecl");
+            var psetHead = CreateNonTerminal("psetHead");
+            var nameValPairs = CreateNonTerminal("nameValPairs");
+            var nameValPair = CreateNonTerminal("nameValPair");
+            var truefalse = CreateNonTerminal("truefalse");
+            var caValue = CreateNonTerminal("caValue");
+            var secAction = CreateNonTerminal("secAction");
             var extSourceSpec = CreateNonTerminal("extSourceSpec");
             var fileDecl = CreateNonTerminal("fileDecl");
             var hashHead = CreateNonTerminal("hashHead");
@@ -816,8 +822,54 @@ namespace CILantro.Parsing
                 _("float32") + _("(") + int32 + _(")") |
                 _("float64") + _("(") + int64 + _(")");
 
-            // TODO: secDecl
-            secDecl.Rule = _("TODO: secDecl");
+            secDecl.Rule =
+                _(".permission") + secAction + typeSpec + _("(") + nameValPairs + _(")") |
+                _(".permission") + secAction + typeSpec |
+                psetHead + bytes + _(")") |
+                _(".permissionset") + secAction + _("=") + _("{") + nameValPairs + _("}"); // DOCS: non-present in ECMA script
+
+            psetHead.Rule =
+                _(".permissionset") + secAction + _("=") + _("(");
+
+            nameValPairs.Rule =
+                nameValPair |
+                nameValPair + _(",") + nameValPairs;
+
+            nameValPair.Rule =
+                compQstring + _("=") + caValue |
+                className + _("=") + caValue; // DOCS: non-present in ECMA script
+
+            truefalse.Rule =
+                _("true") |
+                _("false");
+
+            caValue.Rule =
+                truefalse |
+                int32 |
+                _("int32") + ("(") + int32 + _(")") |
+                compQstring |
+                className + _("(") + _("int8") + _(":") + int32 + _(")") |
+                className + _("(") + _("int16") + _(":") + int32 + _(")") |
+                className + _("(") + _("int32") + _(":") + int32 + _(")") |
+                className + _("(") + int32 + _(")") |
+                _("{") + _("property") + _("bool") + SQSTRING + _("=") + _("bool") + _("(") + _("true") + _(")") + _("}"); // DOCS: non-present in ECMA script
+
+            secAction.Rule =
+                _("request") |
+                _("demand") |
+                _("assert") |
+                _("deny") |
+                _("permitonly") |
+                _("linkcheck") |
+                _("inheritcheck") |
+                _("reqmin") |
+                _("reqopt") |
+                _("reqrefuse") |
+                _("prejitgrant") |
+                _("prejitdeny") |
+                _("noncasdemand") |
+                _("noncaslinkdemand") |
+                _("noncasinheritance");
 
             // TODO: extSourceSpec
             extSourceSpec.Rule = _("TODO: extSourceSpec");

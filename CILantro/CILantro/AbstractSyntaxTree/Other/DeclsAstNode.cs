@@ -77,6 +77,9 @@ namespace CILantro.AbstractSyntaxTree.Other
                     case DeclType.Method:
                         Decls.Methods.Add(declsChildren.Child2.MethodDecl);
                         break;
+                    case DeclType.CustomAttribute:
+                        // TODO: handle
+                        break;
                     default:
                         throw new AstNodeException($"\"{nameof(declType)}\" cannot be recognized.");
                 }

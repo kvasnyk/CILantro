@@ -18,7 +18,8 @@ namespace CILantro.AbstractSyntaxTree.Other
         StackReserve,
         Subsystem,
         ManifestRes,
-        Method
+        Method,
+        CustomAttribute
     }
 
     [AstNode("decl")]
@@ -188,6 +189,16 @@ namespace CILantro.AbstractSyntaxTree.Other
                     Instructions = methodChildren.Child2.MethodDecls.Instructions,
                     Locals = methodChildren.Child2.MethodDecls.Locals
                 };
+
+                return;
+            }
+
+            // customAttrDecl
+            var customAttrDeclChildren = AstChildren.Empty()
+                .Add<CustomAttrDeclAstNode>();
+            if (customAttrDeclChildren.PopulateWith(parseNode))
+            {
+                DeclType = Other.DeclType.CustomAttribute;
 
                 return;
             }

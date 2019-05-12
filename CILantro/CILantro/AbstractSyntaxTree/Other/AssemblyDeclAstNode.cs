@@ -30,6 +30,15 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // secDecl
+            var secDeclChildren = AstChildren.Empty()
+                .Add<SecDeclAstNode>();
+            if (secDeclChildren.PopulateWith(parseNode))
+            {
+                // TODO: handle
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

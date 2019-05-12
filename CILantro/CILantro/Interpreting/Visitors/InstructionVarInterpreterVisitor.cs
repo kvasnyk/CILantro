@@ -21,6 +21,11 @@ namespace CILantro.Interpreting.Visitors
             _program = program;
         }
 
+        protected override void VisitLoadLocalAddressShortInstruction(LoadLocalAddressShortInstruction instruction)
+        {
+            throw new System.NotImplementedException();
+        }
+
         protected override void VisitLoadLocalShortInstruction(LoadLocalShortInstruction instruction)
         {
             // TODO: finish implementation

@@ -34,6 +34,16 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // ___("ldloca.s")
+            var ldlocasChildren = AstChildren.Empty()
+                .Add("ldloca.s");
+            if (ldlocasChildren.PopulateWith(parseNode))
+            {
+                Instruction = new LoadLocalAddressShortInstruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }
