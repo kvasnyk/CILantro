@@ -40,6 +40,11 @@ namespace CILantro.Interpreting.State
                 return _dict[index] as IValue;
         }
 
+        public CilValueManagedPointer LoadAddress(string id, int index)
+        {
+            return new CilValueManagedPointer(Load(id, index));
+        }
+
         public CilType GetLocalType(string id, int index)
         {
             if (!string.IsNullOrEmpty(id))

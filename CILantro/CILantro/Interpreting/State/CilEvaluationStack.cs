@@ -119,6 +119,9 @@ namespace CILantro.Interpreting.State
             if (val is CilValueBool valBool)
                 return new CilStackValueInt32(valBool.Value ? 1 : 0);
 
+            if (val is CilValueManagedPointer valManagedPointer)
+                return new CilStackValuePointer(valManagedPointer.ValueToRef);
+
             throw new NotImplementedException();
         }
 

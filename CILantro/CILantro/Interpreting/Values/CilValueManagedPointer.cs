@@ -7,11 +7,11 @@ namespace CILantro.Interpreting.Values
 {
     public struct CilValueManagedPointer : IValue
     {
-        public int Address { get; set; }
+        public IValue ValueToRef { get; }
 
-        public CilValueManagedPointer(int address)
+        public CilValueManagedPointer(IValue valueToRef)
         {
-            Address = address;
+            ValueToRef = valueToRef;
         }
 
         public object AsRuntime(CilType cilType, CilManagedMemory managedMemory)
@@ -20,6 +20,11 @@ namespace CILantro.Interpreting.Values
         }
 
         public CilValueType Box()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ref object GetRef()
         {
             throw new NotImplementedException();
         }

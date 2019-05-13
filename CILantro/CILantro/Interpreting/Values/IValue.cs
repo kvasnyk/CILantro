@@ -9,5 +9,7 @@ namespace CILantro.Interpreting.Values
         object AsRuntime(CilType cilType, CilManagedMemory managedMemory);
 
         CilValueType Box();
+
+        ref object GetRef();
     }
 }

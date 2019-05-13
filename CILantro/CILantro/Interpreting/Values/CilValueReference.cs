@@ -23,5 +23,10 @@ namespace CILantro.Interpreting.Values
         {
             throw new System.NotImplementedException();
         }
+
+        public ref object GetRef()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

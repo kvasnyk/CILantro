@@ -23,7 +23,12 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadLocalAddressShortInstruction(LoadLocalAddressShortInstruction instruction)
         {
-            throw new System.NotImplementedException();
+            // TODO: finish implementation
+
+            var address = _state.Locals.LoadAddress(instruction.Id, instruction.Index);
+            _state.EvaluationStack.PushValue(address);
+
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitLoadLocalShortInstruction(LoadLocalShortInstruction instruction)

@@ -19,6 +19,8 @@ namespace CILantro.Interpreting.Values
                 return Value;
             if (cilType is CilTypeUInt32)
                 return (uint)Value;
+            if (cilType is CilTypeChar)
+                return (char)Value;
 
             throw new System.NotImplementedException();
         }
@@ -26,6 +28,11 @@ namespace CILantro.Interpreting.Values
         public CilValueType Box()
         {
             return new CilInt32(this);
+        }
+
+        public ref object GetRef()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

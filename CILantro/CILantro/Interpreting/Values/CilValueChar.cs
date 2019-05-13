@@ -17,11 +17,18 @@ namespace CILantro.Interpreting.Values
         {
             if (cilType is CilTypeChar)
                 return Value;
+            if (cilType is CilTypeInt32)
+                return (int)Value;
 
             throw new System.NotImplementedException();
         }
 
         public CilValueType Box()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ref object GetRef()
         {
             throw new System.NotImplementedException();
         }

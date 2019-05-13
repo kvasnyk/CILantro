@@ -1,6 +1,7 @@
 ﻿using CILantro.Instructions;
 using CILantro.Instructions.Method;
 using CILantro.Interpreting.Memory;
+using CILantro.Interpreting.StackValues;
 using CILantro.Interpreting.State;
 using CILantro.Interpreting.Types;
 using CILantro.Interpreting.Values;
@@ -67,8 +68,20 @@ namespace CILantro.Interpreting.Visitors
             object instance = null;
             if (instruction.CallConv.IsInstance)
             {
-                _state.EvaluationStack.PopValue(out CilValueReference instanceRef);
-                instance = _managedMemory.Load(instanceRef).AsRuntime(instruction.ReturnType);
+                _state.EvaluationStack.Pop(out var stackVal);
+
+                if (stackVal is CilStackValueReference stackValReference)
+                {
+                    var instanceRef = new CilValueReference(stackValReference.Address);
+                    instance = _managedMemory.Load(instanceRef).AsRuntime(instruction.TypeSpec.GetCilType());
+                }
+                else if (stackVal is CilStackValuePointer stackValPointer)
+                {
+                    var instancePointer = new CilValueManagedPointer(stackValPointer.ValueToRef);
+                    instance = instancePointer.ValueToRef.AsRuntime(instruction.TypeSpec.GetCilType(), _managedMemory);
+                }
+                else
+                    throw new System.NotImplementedException();
             }
             
             var callerConfig = new ExternalMethodCallerConfig
