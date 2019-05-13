@@ -28,5 +28,10 @@ namespace CILantro.Interpreting.Values
         {
             throw new NotImplementedException();
         }
+
+        public int GetPointerValue()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

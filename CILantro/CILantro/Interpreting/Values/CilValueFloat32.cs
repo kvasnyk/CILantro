@@ -30,5 +30,10 @@ namespace CILantro.Interpreting.Values
         {
             throw new System.NotImplementedException();
         }
+
+        public int GetPointerValue()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

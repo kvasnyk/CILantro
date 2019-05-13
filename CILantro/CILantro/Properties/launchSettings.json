@@ -2,7 +2,7 @@
   "profiles": {
     "CILantro": {
       "commandName": "Project",
-      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\CSF_Loops_NestedLoops\\CSF_Loops_NestedLoops.il\""
+      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\CSF_UnsafeCode_Pointer\\CSF_UnsafeCode_Pointer.il\""
     }
   }
 }

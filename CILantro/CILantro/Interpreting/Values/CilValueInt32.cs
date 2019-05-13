@@ -6,7 +6,7 @@ namespace CILantro.Interpreting.Values
 {
     public struct CilValueInt32 : IValue
     {
-        public int Value { get; }
+        public int Value;
 
         public CilValueInt32(int value)
         {
@@ -28,6 +28,14 @@ namespace CILantro.Interpreting.Values
         public CilValueType Box()
         {
             return new CilInt32(this);
+        }
+
+        public unsafe int GetPointerValue()
+        {
+            fixed (int* pointer = &Value)
+            {
+                return (int)pointer;
+            }
         }
 
         public ref object GetRef()

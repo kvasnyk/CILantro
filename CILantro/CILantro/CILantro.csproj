@@ -6,6 +6,10 @@
     <StartupObject>CILantro.Program</StartupObject>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="CommandLineArgumentsParser" Version="3.0.19" />
     <PackageReference Include="Irony" Version="1.1.0" />

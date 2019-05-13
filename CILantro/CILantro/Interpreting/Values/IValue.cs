@@ -11,5 +11,7 @@ namespace CILantro.Interpreting.Values
         CilValueType Box();
 
         ref object GetRef();
+
+        int GetPointerValue();
     }
 }
