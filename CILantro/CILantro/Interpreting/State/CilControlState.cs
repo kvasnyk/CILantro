@@ -22,6 +22,8 @@ namespace CILantro.Interpreting.State
 
         public Dictionary<string, CilClassStaticInstance> StaticInstances { get; set; }
 
+        public int ProgramResult { get; set; }
+
         public CilControlState(CilProgram program)
         {
             CallStack = new Stack<CilMethodState>();

@@ -756,7 +756,18 @@ namespace CILantro.Interpreting.Visitors
             }
             else
             {
-                throw new NotImplementedException();
+                if (_state.CallStack.Count == 0)
+                {
+                    currentMethodState.EvaluationStack.PopValue(out CilValueInt32 value);
+                    _state.ProgramResult = value.Value;
+                }
+                else
+                {
+                    throw new NotImplementedException();
+                }
+
+                if (!currentMethodState.EvaluationStack.IsEmpty)
+                    throw new Exception("The evaluation stack is not empty!");
             }
         }
 
