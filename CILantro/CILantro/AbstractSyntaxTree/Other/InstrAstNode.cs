@@ -145,6 +145,9 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (instrField5Children.PopulateWith(parseNode))
             {
                 var instructionField = instrField5Children.Child1.Instruction;
+                instructionField.FieldType = instrField5Children.Child2.Type;
+                instructionField.ClassTypeSpec = instrField5Children.Child3.TypeSpec;
+                instructionField.FieldId = instrField5Children.Child5.Value;
 
                 Instruction = instructionField;
 
@@ -158,6 +161,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (instrI8Children.PopulateWith(parseNode))
             {
                 var instructionI8 = instrI8Children.Child1.Instruction;
+                instructionI8.Value = instrI8Children.Child2.Value;
 
                 Instruction = instructionI8;
 

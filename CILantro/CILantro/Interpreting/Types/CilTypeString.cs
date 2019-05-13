@@ -28,5 +28,10 @@ namespace CILantro.Interpreting.Types
             var stringRef = managedMemory.Store(cilString);
             return stringRef;
         }
+
+        public override IValue CreateDefaultValue(CilProgram program)
+        {
+            return new CilValueNull();
+        }
     }
 }

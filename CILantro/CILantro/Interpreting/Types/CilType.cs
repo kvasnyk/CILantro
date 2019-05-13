@@ -16,5 +16,7 @@ namespace CILantro.Interpreting.Types
         public abstract Type GetValueType(CilProgram program);
 
         public abstract IValue CreateValueFromRuntime(object obj, CilManagedMemory managedMemory, CilProgram program);
+
+        public abstract IValue CreateDefaultValue(CilProgram program);
     }
 }

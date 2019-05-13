@@ -8,6 +8,8 @@ namespace CILantro.Structure
     {
         public List<CilAssemblyRef> AssemblyRefs { get; }
 
+        public List<CilAssembly> Assemblies { get; }
+
         public List<CilClass> Classes { get; }
 
         public List<CilMethod> Methods { get; }
@@ -19,6 +21,7 @@ namespace CILantro.Structure
         public CilProgram(CilDecls decls)
         {
             AssemblyRefs = decls.AssemblyRefs;
+            Assemblies = decls.Assemblies;
             Classes = decls.Classes;
             Methods = decls.Methods;
         }

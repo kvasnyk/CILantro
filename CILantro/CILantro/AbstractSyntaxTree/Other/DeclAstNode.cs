@@ -29,6 +29,8 @@ namespace CILantro.AbstractSyntaxTree.Other
 
         public CilAssemblyRef AssemblyRefDecl { get; private set; }
 
+        public CilAssembly AssemblyDecl { get; private set; }
+
         public CilClass ClassDecl { get; private set; }
 
         public CilMethod MethodDecl { get; private set; }
@@ -44,11 +46,15 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (classChildren.PopulateWith(parseNode))
             {
                 DeclType = Other.DeclType.Class;
-                // TODO: handle;
+
                 ClassDecl = new CilClass
                 {
-                    Name = classChildren.Child1.ClassName,
-                    Methods = classChildren.Child3.ClassDecls.Methods
+                    Name = new CilClassName
+                    {
+                        ClassName = classChildren.Child1.ClassName
+                    },
+                    Methods = classChildren.Child3.ClassDecls.Methods,
+                    Fields = classChildren.Child3.ClassDecls.Fields
                 };
 
                 return;
@@ -63,7 +69,11 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (assemblyChildren.PopulateWith(parseNode))
             {
                 DeclType = Other.DeclType.Assembly;
-                // TODO: handle;
+
+                AssemblyDecl = new CilAssembly
+                {
+                    Name = assemblyChildren.Child1.AssemblyName
+                };
 
                 return;
             }

@@ -22,6 +22,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 Decls = new CilDecls
                 {
                     AssemblyRefs = new List<CilAssemblyRef>(),
+                    Assemblies = new List<CilAssembly>(),
                     Classes = new List<CilClass>(),
                     Methods = new List<CilMethod>()
                 };
@@ -48,7 +49,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                         Decls.AssemblyRefs.Add(declsChildren.Child2.AssemblyRefDecl);
                         break;
                     case DeclType.Assembly:
-                        // TODO: handle
+                        Decls.Assemblies.Add(declsChildren.Child2.AssemblyDecl);
                         break;
                     case DeclType.ImageBase:
                         // TODO: handle

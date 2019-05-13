@@ -26,5 +26,10 @@ namespace CILantro.Interpreting.Types
             var value = new CilValueUInt32((uint)obj);
             return value;
         }
+
+        public override IValue CreateDefaultValue(CilProgram program)
+        {
+            return new CilValueUInt32(default(uint));
+        }
     }
 }

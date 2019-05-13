@@ -36,5 +36,10 @@ namespace CILantro.Interpreting.Types
             var arrayRef = managedMemory.Store(cilArray);
             return arrayRef;
         }
+
+        public override IValue CreateDefaultValue(CilProgram program)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

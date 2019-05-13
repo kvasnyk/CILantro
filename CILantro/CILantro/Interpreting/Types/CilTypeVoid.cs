@@ -25,5 +25,10 @@ namespace CILantro.Interpreting.Types
         {
             throw new ArgumentException("Cannot create an instance of type void.");
         }
+
+        public override IValue CreateDefaultValue(CilProgram program)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

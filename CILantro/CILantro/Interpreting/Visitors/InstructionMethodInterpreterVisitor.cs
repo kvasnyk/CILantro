@@ -61,12 +61,28 @@ namespace CILantro.Interpreting.Visitors
             _state.MoveToNextInstruction();
         }
 
+        public override void VisitNewObjectInstruction(NewObjectInstruction instruction)
+        {
+            // TODO: finish implementation
+            // TODO: handle non-external types
+
+            var isExternalType = _program.IsExternalType(instruction.TypeSpec);
+
+            if (isExternalType)
+            {
+                var result = CallExternalMethod(instruction);
+                StoreExternalResult(result, instruction.TypeSpec.GetCilType());
+            }
+
+            _state.MoveToNextInstruction();
+        }
+
         private object CallExternalMethod(CilInstructionMethod instruction)
         {
             var args = PopMethodArguments(instruction);
 
             object instance = null;
-            if (instruction.CallConv.IsInstance)
+            if (instruction.CallConv.IsInstance && instruction.MethodName != ".ctor")
             {
                 _state.EvaluationStack.Pop(out var stackVal);
 
@@ -91,7 +107,8 @@ namespace CILantro.Interpreting.Visitors
                 MethodName = instruction.MethodName,
                 Arguments = args,
                 Types = instruction.SigArgs.Select(sa => sa.Type.GetRuntimeType()).ToArray(),
-                Instance = instance
+                Instance = instance,
+                CallConstructor = instruction.MethodName == ".ctor"
             };
 
             var result = ExternalMetodCaller.Call(callerConfig);
@@ -112,33 +129,13 @@ namespace CILantro.Interpreting.Visitors
             var methodArguments = new List<object>();
             for (int i = 0; i < instruction.SigArgs.Count; i++)
             {
-                _state.EvaluationStack.PopValue(_program, instruction.SigArgs[i].Type, out var value);
-                var argument = value.AsRuntime(instruction.SigArgs[instruction.SigArgs.Count - i - 1].Type, _managedMemory);
+                var ind = instruction.SigArgs.Count - i - 1;
+                _state.EvaluationStack.PopValue(_program, instruction.SigArgs[ind].Type, out var value);
+                var argument = value.AsRuntime(instruction.SigArgs[ind].Type, _managedMemory);
                 methodArguments.Add(argument);
             }
             methodArguments.Reverse();
             return methodArguments.ToArray();
         }
-
-        //private MethodCallerConfig BuildCallerConfigBase(CilInstructionMethod instruction)
-        //{
-        //    var methodArguments = PopMethodArguments(instruction);
-
-        //    var objRef = instruction.CallConv.IsInstance ? _state.CurrentEvaluationStack.Pop() as CilReference : null;
-
-        //    object obj = null;
-        //    if (objRef != null)
-        //        obj = _heap.Load(objRef.Address);
-
-        //    return new MethodCallerConfig
-        //    {
-        //        AssemblyName = instruction.TypeSpec.ClassName.AssemblyName,
-        //        ClassName = instruction.TypeSpec.ClassName.ClassName,
-        //        MethodName = instruction.MethodName,
-        //        Arguments = methodArguments,
-        //        Types = instruction.SigArgs.Select(sa => sa.Type.GetRuntimeType()).ToArray(),
-        //        Instance = obj
-        //    };
-        //}
     }
 }

@@ -41,5 +41,26 @@ namespace CILantro.Interpreting.Types
 
             throw new NotImplementedException();
         }
+
+        public override IValue CreateDefaultValue(CilProgram program)
+        {
+            if (program.IsExternalType(ClassName))
+            {
+                var assembly = Assembly.Load(ClassName.AssemblyName);
+                var type = assembly.GetType(ClassName.ClassName);
+
+                var getDefault = GetType().GetMethod(nameof(GetDefaultGeneric), BindingFlags.NonPublic | BindingFlags.Static).MakeGenericMethod(type);
+                var defaultValue = getDefault.Invoke(null, null);
+
+                return new CilValueExternal(defaultValue);
+            }
+
+            throw new NotImplementedException();
+        }
+
+        private static T GetDefaultGeneric<T>()
+        {
+            return default(T);
+        }
     }
 }

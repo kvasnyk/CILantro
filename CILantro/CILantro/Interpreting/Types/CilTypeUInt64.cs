@@ -26,5 +26,10 @@ namespace CILantro.Interpreting.Types
             var value = new CilValueUInt64((ulong)obj);
             return value;
         }
+
+        public override IValue CreateDefaultValue(CilProgram program)
+        {
+            return new CilValueUInt64(default(ulong));
+        }
     }
 }

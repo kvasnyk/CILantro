@@ -747,9 +747,17 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitReturnInstruction(ReturnInstruction instruction)
         {
-            // TODO: finish implementation
+            var currentMethodState = _state.CallStack.Pop();
 
-            _state.MethodState.Instruction = null;
+            if (currentMethodState.EvaluationStack.IsEmpty)
+            {
+                if (_state.CallStack.Count != 0)
+                    _state.MethodState.Instruction = _state.MethodInfo.GetFirstInstruction();
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
         }
 
         protected override void VisitShiftLeftInstruction(ShiftLeftInstruction instruction)

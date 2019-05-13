@@ -39,6 +39,8 @@ namespace CILantro.Structure
                     return new CilTypeFloat64();
                 if (type == typeof(byte))
                     return new CilTypeUInt8();
+                else if (type.IsValueType)
+                    return new CilTypeValueType(ClassName);
                 else
                     throw new NotImplementedException();
             }

@@ -12,6 +12,8 @@ namespace CILantro.Visitors
                 VisitCallInstruction(callInstruction);
             else if (instruction is CallVirtualInstruction callVirtualInstruction)
                 VisitCallVirtualInstruction(callVirtualInstruction);
+            else if (instruction is NewObjectInstruction newObjectInstruction)
+                VisitNewObjectInstruction(newObjectInstruction);
             else
                 throw new ArgumentException($"CIL instruction method cannot be recognized: '{instruction.ToString()}'.");
         }
@@ -19,5 +21,7 @@ namespace CILantro.Visitors
         public abstract void VisitCallInstruction(CallInstruction instruction);
 
         public abstract void VisitCallVirtualInstruction(CallVirtualInstruction instruction);
+
+        public abstract void VisitNewObjectInstruction(NewObjectInstruction instruction);
     }
 }

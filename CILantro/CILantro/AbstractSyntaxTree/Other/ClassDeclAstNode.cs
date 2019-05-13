@@ -20,6 +20,8 @@ namespace CILantro.AbstractSyntaxTree.Other
 
         public CilMethod Method { get; private set; }
 
+        public CilField Field { get; private set; }
+
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
             // methodHead + methodDecls + _("}")
@@ -57,8 +59,8 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<FieldDeclAstNode>();
             if (fieldDeclChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
                 DeclType = ClassDeclType.Field;
+                Field = fieldDeclChildren.Child1.Field;
 
                 return;
             }

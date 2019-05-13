@@ -16,6 +16,8 @@ namespace CILantro.Interpreting.State
             _stack = new Stack<IStackValue>();
         }
 
+        public bool IsEmpty => _stack.Count == 0;
+
         public void Push(IStackValue val)
         {
             _stack.Push(val);

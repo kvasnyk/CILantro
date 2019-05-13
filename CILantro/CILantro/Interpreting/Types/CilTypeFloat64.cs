@@ -26,5 +26,10 @@ namespace CILantro.Interpreting.Types
             var value = new CilValueFloat64((double)obj);
             return value;
         }
+
+        public override IValue CreateDefaultValue(CilProgram program)
+        {
+            return new CilValueFloat64(default(double));
+        }
     }
 }

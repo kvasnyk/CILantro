@@ -20,7 +20,8 @@ namespace CILantro.AbstractSyntaxTree.Other
             {
                 ClassDecls = new CilClassDecls
                 {
-                    Methods = new List<CilMethod>()
+                    Methods = new List<CilMethod>(),
+                    Fields = new List<CilField>()
                 };
 
                 return;
@@ -48,7 +49,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                         // TODO: handle
                         break;
                     case ClassDeclType.Field:
-                        // TODO: handle
+                        ClassDecls.Fields.Add(classDeclsChildren.Child2.Field);
                         break;
                     default:
                         throw new AstNodeException($"\"{nameof(declType)}\" cannot be recognized.");

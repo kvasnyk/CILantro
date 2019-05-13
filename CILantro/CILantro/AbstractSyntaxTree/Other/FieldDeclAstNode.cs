@@ -1,4 +1,5 @@
-﻿using CILantro.Utils;
+﻿using CILantro.Structure;
+using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
 using System;
@@ -8,6 +9,8 @@ namespace CILantro.AbstractSyntaxTree.Other
     [AstNode("fieldDecl")]
     public class FieldDeclAstNode : AstNodeBase
     {
+        public CilField Field { get; private set; }
+
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
             // _(".field") + repeatOpt + fieldAttr + type + id + atOpt + initOpt
@@ -21,7 +24,12 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<InitOptAstNode>();
             if (fieldChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                Field = new CilField
+                {
+                    Name = fieldChildren.Child5.Value,
+                    Type = fieldChildren.Child4.Type,
+                    IsStatic = fieldChildren.Child3.IsStatic
+                };
 
                 return;
             }

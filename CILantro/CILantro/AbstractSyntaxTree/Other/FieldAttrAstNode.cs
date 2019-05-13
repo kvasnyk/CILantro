@@ -8,13 +8,18 @@ namespace CILantro.AbstractSyntaxTree.Other
     [AstNode("fieldAttr")]
     public class FieldAttrAstNode : AstNodeBase
     {
+        public bool IsPublic { get; set; }
+
+        public bool IsStatic { get; set; }
+        
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
             // Empty
             var emptyChildren = AstChildren.Empty();
             if (emptyChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                IsPublic = false;
+                IsStatic = false;
 
                 return;
             }
@@ -25,7 +30,8 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("public");
             if (publicChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                IsPublic = true;
+                IsStatic = publicChildren.Child1.IsStatic;
 
                 return;
             }
@@ -36,7 +42,8 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("static");
             if (staticChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                IsPublic = publicChildren.Child1.IsPublic;
+                IsStatic = true;
 
                 return;
             }

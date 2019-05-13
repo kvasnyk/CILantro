@@ -25,5 +25,10 @@ namespace CILantro.Interpreting.Types
         {
             return typeof(CilValueReference);
         }
+
+        public override IValue CreateDefaultValue(CilProgram program)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -26,5 +26,10 @@ namespace CILantro.Interpreting.Types
             var value = new CilValueBool((bool)obj);
             return value;
         }
+
+        public override IValue CreateDefaultValue(CilProgram program)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

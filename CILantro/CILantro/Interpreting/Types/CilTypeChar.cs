@@ -26,5 +26,10 @@ namespace CILantro.Interpreting.Types
             var value = new CilValueChar((char)obj);
             return value;
         }
+
+        public override IValue CreateDefaultValue(CilProgram program)
+        {
+            return new CilValueChar(default(char));
+        }
     }
 }

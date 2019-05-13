@@ -26,5 +26,10 @@ namespace CILantro.Interpreting.Types
             var value = new CilValueUInt16(Convert.ToUInt16(obj));
             return value;
         }
+
+        public override IValue CreateDefaultValue(CilProgram program)
+        {
+            return new CilValueUInt16(default(ushort));
+        }
     }
 }

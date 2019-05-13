@@ -13,6 +13,11 @@ namespace CILantro.Interpreting.State
             _method = method;
         }
 
+        public CilInstruction GetFirstInstruction()
+        {
+            return _method.Instructions.First();
+        }
+
         public CilInstruction GetNextInstruction(CilInstruction instruction)
         {
             var instructionIndex = _method.Instructions.IndexOf(instruction);

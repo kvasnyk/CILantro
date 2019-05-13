@@ -26,5 +26,10 @@ namespace CILantro.Interpreting.Types
             var value = new CilValueInt64(Convert.ToInt64(obj));
             return value;
         }
+
+        public override IValue CreateDefaultValue(CilProgram program)
+        {
+            return new CilValueInt64(default(long));
+        }
     }
 }
