@@ -381,6 +381,36 @@ namespace CILantro.Interpreting.Visitors
             _state.MoveToNextInstruction();
         }
 
+        protected override void VisitLoadArgument1Instruction(LoadArgument1Instruction instruction)
+        {
+            // TODO: finish implementation
+
+            var value = _state.Arguments.Load(null, 1);
+            _state.EvaluationStack.PushValue(value);
+
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitLoadArgument2Instruction(LoadArgument2Instruction instruction)
+        {
+            // TODO: finish implementation
+
+            var value = _state.Arguments.Load(null, 2);
+            _state.EvaluationStack.PushValue(value);
+
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitLoadArgument3Instruction(LoadArgument3Instruction instruction)
+        {
+            // TODO: finish implementation
+
+            var value = _state.Arguments.Load(null, 3);
+            _state.EvaluationStack.PushValue(value);
+
+            _state.MoveToNextInstruction();
+        }
+
         protected override void VisitLoadArrayElementI1Instruction(LoadArrayElementI1Instruction instruction)
         {
             // TODO: finish implementation

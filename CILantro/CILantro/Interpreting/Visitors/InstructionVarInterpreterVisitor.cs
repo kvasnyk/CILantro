@@ -21,6 +21,16 @@ namespace CILantro.Interpreting.Visitors
             _program = program;
         }
 
+        protected override void VisitLoadArgumentShortInstruction(LoadArgumentShortInstruction instruction)
+        {
+            // TODO: finish implementation
+
+            var value = _state.Arguments.Load(instruction.Id, instruction.Index);
+            _state.EvaluationStack.PushValue(value);
+
+            _state.MoveToNextInstruction();
+        }
+
         protected override void VisitLoadLocalAddressShortInstruction(LoadLocalAddressShortInstruction instruction)
         {
             // TODO: finish implementation

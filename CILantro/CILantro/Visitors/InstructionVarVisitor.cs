@@ -14,9 +14,13 @@ namespace CILantro.Visitors
                 VisitLoadLocalShortInstruction(loadLocalShortInstruction);
             else if (instruction is LoadLocalAddressShortInstruction loadLocalAddressShortInstruction)
                 VisitLoadLocalAddressShortInstruction(loadLocalAddressShortInstruction);
+            else if (instruction is LoadArgumentShortInstruction loadArgumentShortInstruction)
+                VisitLoadArgumentShortInstruction(loadArgumentShortInstruction);
             else
                 throw new ArgumentException($"CIL instruction none cannot be recognized: '{instruction.ToString()}'.");
         }
+
+        protected abstract void VisitLoadArgumentShortInstruction(LoadArgumentShortInstruction instruction);
 
         protected abstract void VisitLoadLocalAddressShortInstruction(LoadLocalAddressShortInstruction instruction);
 

@@ -232,7 +232,7 @@ namespace CILantro.Parsing
                 _("endfinally") |
                 _("initblk") |
                 ___("ldarg.0") |
-                ___("ladrg.1") |
+                ___("ldarg.1") |
                 ___("ldarg.2") |
                 ___("ldarg.3") |
                 ___("ldc.i4.0") |

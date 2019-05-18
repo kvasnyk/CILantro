@@ -44,6 +44,16 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // ___("ldarg.s")
+            var ldargsChildren = AstChildren.Empty()
+                .Add("ldarg.s");
+            if (ldargsChildren.PopulateWith(parseNode))
+            {
+                Instruction = new LoadArgumentShortInstruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }
