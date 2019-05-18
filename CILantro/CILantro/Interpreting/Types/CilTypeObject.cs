@@ -30,5 +30,10 @@ namespace CILantro.Interpreting.Types
         {
             throw new NotImplementedException();
         }
+
+        public override bool IsAssignableFrom(CilType other)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

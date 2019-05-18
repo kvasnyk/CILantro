@@ -31,5 +31,13 @@ namespace CILantro.Interpreting.Types
         {
             return new CilValueFloat64(default(double));
         }
+
+        public override bool IsAssignableFrom(CilType other)
+        {
+            if (other is CilTypeFloat64)
+                return true;
+
+            return false;
+        }
     }
 }

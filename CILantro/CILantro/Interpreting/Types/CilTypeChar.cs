@@ -31,5 +31,13 @@ namespace CILantro.Interpreting.Types
         {
             return new CilValueChar(default(char));
         }
+
+        public override bool IsAssignableFrom(CilType other)
+        {
+            if (other is CilTypeChar)
+                return true;
+
+            return false;
+        }
     }
 }

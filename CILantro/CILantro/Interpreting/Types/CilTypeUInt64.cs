@@ -31,5 +31,13 @@ namespace CILantro.Interpreting.Types
         {
             return new CilValueUInt64(default(ulong));
         }
+
+        public override bool IsAssignableFrom(CilType other)
+        {
+            if (other is CilTypeUInt64)
+                return true;
+
+            return false;
+        }
     }
 }

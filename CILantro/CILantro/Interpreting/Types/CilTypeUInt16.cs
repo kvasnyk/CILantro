@@ -31,5 +31,13 @@ namespace CILantro.Interpreting.Types
         {
             return new CilValueUInt16(default(ushort));
         }
+
+        public override bool IsAssignableFrom(CilType other)
+        {
+            if (other is CilTypeUInt16)
+                return true;
+
+            return false;
+        }
     }
 }

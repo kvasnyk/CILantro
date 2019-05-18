@@ -31,5 +31,13 @@ namespace CILantro.Interpreting.Types
         {
             return new CilValueUInt32(default(uint));
         }
+
+        public override bool IsAssignableFrom(CilType other)
+        {
+            if (other is CilTypeUInt32)
+                return true;
+
+            return false;
+        }
     }
 }

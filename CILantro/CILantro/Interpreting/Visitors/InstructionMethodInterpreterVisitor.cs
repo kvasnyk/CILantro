@@ -45,7 +45,7 @@ namespace CILantro.Interpreting.Visitors
             else
             {
                 var @class = _program.Classes.Single(c => c.Name.ToString() == instruction.TypeSpec.ClassName.ToString());
-                var @method = @class.Methods.Single(m => m.Name == instruction.MethodName);
+                var @method = @class.Methods.Single(m => m.Name == instruction.MethodName && AreArgumentsAssignable(m.Arguments, instruction.SigArgs));
                 var methodArgs = PopMethodArguments(instruction);
                 var methodState = new CilMethodState(@method, @method.Arguments, methodArgs);
 
@@ -168,6 +168,20 @@ namespace CILantro.Interpreting.Visitors
             }
             methodArguments.Reverse();
             return methodArguments.ToArray();
+        }
+
+        private bool AreArgumentsAssignable(List<CilSigArg> args1, List<CilSigArg> args2)
+        {
+            if (args1.Count != args2.Count)
+                return false;
+
+            for (int i = 0; i < args1.Count; i++)
+            {
+                if (!args1[i].IsAssignableFrom(args2[i]))
+                    return false;
+            }
+
+            return true;
         }
     }
 }
