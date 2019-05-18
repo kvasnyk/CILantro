@@ -808,7 +808,8 @@ namespace CILantro.Interpreting.Visitors
                     }
                     else
                     {
-                        throw new NotImplementedException();
+                        currentMethodState.EvaluationStack.PopValue(_program, currentMethodState.MethodInfo.ReturnType, out var value);
+                        _state.EvaluationStack.PushValue(value);
                     }
                 }
 

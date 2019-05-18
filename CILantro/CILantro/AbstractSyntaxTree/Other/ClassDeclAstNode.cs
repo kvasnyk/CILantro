@@ -39,7 +39,8 @@ namespace CILantro.AbstractSyntaxTree.Other
                     Instructions = methodChildren.Child2.MethodDecls.Instructions,
                     Locals = methodChildren.Child2.MethodDecls.Locals,
                     Arguments = methodChildren.Child1.Arguments,
-                    CallConv = methodChildren.Child1.CallConv
+                    CallConv = methodChildren.Child1.CallConv,
+                    ReturnType = methodChildren.Child1.ReturnType
                 };
 
                 return;

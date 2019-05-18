@@ -1,4 +1,5 @@
 ﻿using CILantro.Instructions;
+using CILantro.Interpreting.Types;
 using CILantro.Structure;
 using System.Linq;
 
@@ -9,6 +10,8 @@ namespace CILantro.Interpreting.State
         private readonly CilMethod _method;
 
         public bool IsConstructor => _method.IsConstructor;
+
+        public CilType ReturnType => _method.ReturnType;
 
         public CilMethodInfo(CilMethod method)
         {

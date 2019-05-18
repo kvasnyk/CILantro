@@ -1,4 +1,5 @@
-﻿using CILantro.Structure;
+﻿using CILantro.Interpreting.Types;
+using CILantro.Structure;
 using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
@@ -15,6 +16,8 @@ namespace CILantro.AbstractSyntaxTree.Other
         public List<CilSigArg> Arguments { get; private set; }
 
         public CilCallConv CallConv { get; private set; }
+
+        public CilType ReturnType { get; private set; }
 
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
@@ -36,6 +39,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 MethodName = shortChildren.Child6.MethodName;
                 Arguments = shortChildren.Child8.SigArgs;
                 CallConv = shortChildren.Child3.CallConv;
+                ReturnType = shortChildren.Child5.Type;
 
                 return;
             }

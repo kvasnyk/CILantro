@@ -1,4 +1,5 @@
 ﻿using CILantro.Instructions;
+using CILantro.Interpreting.Types;
 using System.Collections.Generic;
 
 namespace CILantro.Structure
@@ -18,6 +19,8 @@ namespace CILantro.Structure
         public List<CilSigArg> Locals { get; set; }
 
         public List<CilSigArg> Arguments { get; set; }
+
+        public CilType ReturnType { get; set; }
 
         public override string ToString()
         {
