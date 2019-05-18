@@ -11,6 +11,8 @@ namespace CILantro.AbstractSyntaxTree.Other
         public bool IsPublic { get; set; }
 
         public bool IsStatic { get; set; }
+
+        public bool IsPrivate { get; set; }
         
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
@@ -32,6 +34,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             {
                 IsPublic = true;
                 IsStatic = publicChildren.Child1.IsStatic;
+                IsPrivate = publicChildren.Child1.IsPrivate;
 
                 return;
             }
@@ -42,8 +45,22 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("static");
             if (staticChildren.PopulateWith(parseNode))
             {
-                IsPublic = publicChildren.Child1.IsPublic;
+                IsPublic = staticChildren.Child1.IsPublic;
                 IsStatic = true;
+                IsPrivate = staticChildren.Child1.IsPrivate;
+
+                return;
+            }
+
+            // fieldAttr + _("private")
+            var privateChildren = AstChildren.Empty()
+                .Add<FieldAttrAstNode>()
+                .Add("private");
+            if (privateChildren.PopulateWith(parseNode))
+            {
+                IsPublic = privateChildren.Child1.IsPublic;
+                IsStatic = privateChildren.Child1.IsStatic;
+                IsPrivate = true;
 
                 return;
             }

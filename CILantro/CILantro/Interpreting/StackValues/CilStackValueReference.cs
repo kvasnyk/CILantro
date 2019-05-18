@@ -2,9 +2,9 @@
 {
     public struct CilStackValueReference : IStackValue
     {
-        public int Address { get; }
+        public int? Address { get; }
 
-        public CilStackValueReference(int address)
+        public CilStackValueReference(int? address)
         {
             Address = address;
         }

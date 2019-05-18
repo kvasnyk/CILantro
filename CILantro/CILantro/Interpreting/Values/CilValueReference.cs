@@ -6,9 +6,9 @@ namespace CILantro.Interpreting.Values
 {
     public struct CilValueReference : IValue
     {
-        public int Address { get; }
+        public int? Address { get; }
 
-        public CilValueReference(int address)
+        public CilValueReference(int? address)
         {
             Address = address;
         }

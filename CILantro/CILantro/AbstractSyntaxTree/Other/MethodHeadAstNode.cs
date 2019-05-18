@@ -14,6 +14,8 @@ namespace CILantro.AbstractSyntaxTree.Other
 
         public List<CilSigArg> Arguments { get; private set; }
 
+        public CilCallConv CallConv { get; private set; }
+
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
             // methodHeadPart1 + methAttr + callConv + paramAttr + type + methodName + _("(") + sigArgs0 + _(")") + implAttr + _("{")
@@ -33,6 +35,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             {
                 MethodName = shortChildren.Child6.MethodName;
                 Arguments = shortChildren.Child8.SigArgs;
+                CallConv = shortChildren.Child3.CallConv;
 
                 return;
             }

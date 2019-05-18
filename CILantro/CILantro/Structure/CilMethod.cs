@@ -13,6 +13,8 @@ namespace CILantro.Structure
 
         public List<CilInstruction> Instructions { get; set; }
 
+        public CilCallConv CallConv { get; set; }
+
         public List<CilSigArg> Locals { get; set; }
 
         public List<CilSigArg> Arguments { get; set; }

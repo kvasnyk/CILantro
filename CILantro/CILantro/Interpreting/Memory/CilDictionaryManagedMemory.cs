@@ -23,7 +23,7 @@ namespace CILantro.Interpreting.Memory
 
         public override CilObject Load(CilValueReference reference)
         {
-            return _dictionary[reference.Address] as CilObject;
+            return _dictionary[reference.Address.Value] as CilObject;
         }
 
         public override CilValueReference Store(CilObject obj)

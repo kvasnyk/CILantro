@@ -35,7 +35,7 @@ namespace CILantro.Interpreting.Types
 
         public override Type GetValueType(CilProgram program)
         {
-            throw new NotImplementedException();
+            return typeof(CilValueReference);
         }
 
         public override bool IsAssignableFrom(CilType other)

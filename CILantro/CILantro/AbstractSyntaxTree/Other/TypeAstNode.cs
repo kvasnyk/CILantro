@@ -189,6 +189,18 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // _("class") + className
+            var classChildren = AstChildren.Empty()
+                .Add("class")
+                .Add<ClassNameAstNode>();
+            if (classChildren.PopulateWith(parseNode))
+            {
+                var className = classChildren.Child2.ClassName;
+                Type = new CilTypeClass(className);
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

@@ -273,6 +273,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_Classes_StaticMethod_Ov
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_Classes_Constructor_1Args", "CSF_Classes_Constructor_1Args\CSF_Classes_Constructor_1Args.csproj", "{8756E688-FCEE-42D5-B94E-8BDDD401BCD3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_Classes_Constructor_ManyArgs", "CSF_Classes_Constructor_ManyArgs\CSF_Classes_Constructor_ManyArgs.csproj", "{A5485592-FB3D-4C94-B5BA-C6C2780524AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -787,6 +789,10 @@ Global
 		{8756E688-FCEE-42D5-B94E-8BDDD401BCD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8756E688-FCEE-42D5-B94E-8BDDD401BCD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8756E688-FCEE-42D5-B94E-8BDDD401BCD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5485592-FB3D-4C94-B5BA-C6C2780524AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5485592-FB3D-4C94-B5BA-C6C2780524AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5485592-FB3D-4C94-B5BA-C6C2780524AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5485592-FB3D-4C94-B5BA-C6C2780524AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -919,6 +925,7 @@ Global
 		{9A4CCC8A-4F58-46F2-A2D4-880B55E6628D} = {802DBA79-60D1-4169-91FE-172BC5C63D1C}
 		{7BE7760A-324F-4439-AE3C-CBD0D272A283} = {802DBA79-60D1-4169-91FE-172BC5C63D1C}
 		{8756E688-FCEE-42D5-B94E-8BDDD401BCD3} = {802DBA79-60D1-4169-91FE-172BC5C63D1C}
+		{A5485592-FB3D-4C94-B5BA-C6C2780524AE} = {802DBA79-60D1-4169-91FE-172BC5C63D1C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4EA075C6-7843-4D56-B83E-4B4E8D1AA025}

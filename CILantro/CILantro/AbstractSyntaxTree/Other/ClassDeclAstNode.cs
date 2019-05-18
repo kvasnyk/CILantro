@@ -38,7 +38,8 @@ namespace CILantro.AbstractSyntaxTree.Other
                     IsEntryPoint = methodChildren.Child2.MethodDecls.IsEntryPoint,
                     Instructions = methodChildren.Child2.MethodDecls.Instructions,
                     Locals = methodChildren.Child2.MethodDecls.Locals,
-                    Arguments = methodChildren.Child1.Arguments
+                    Arguments = methodChildren.Child1.Arguments,
+                    CallConv = methodChildren.Child1.CallConv
                 };
 
                 return;
