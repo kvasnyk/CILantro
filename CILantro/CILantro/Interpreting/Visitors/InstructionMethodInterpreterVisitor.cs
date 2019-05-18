@@ -39,9 +39,18 @@ namespace CILantro.Interpreting.Visitors
             {
                 var result = CallExternalMethod(instruction);
                 StoreExternalResult(result, instruction.ReturnType);
-            }
 
-            _state.MoveToNextInstruction();
+                _state.MoveToNextInstruction();
+            }
+            else
+            {
+                var @class = _program.Classes.Single(c => c.Name.ToString() == instruction.TypeSpec.ClassName.ToString());
+                var @method = @class.Methods.Single(m => m.Name == instruction.MethodName);
+                var methodState = new CilMethodState(@method);
+
+                _state.MoveToNextInstruction();
+                _state.CallStack.Push(methodState);
+            }
         }
 
         public override void VisitCallVirtualInstruction(CallVirtualInstruction instruction)

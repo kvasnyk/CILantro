@@ -751,8 +751,6 @@ namespace CILantro.Interpreting.Visitors
 
             if (currentMethodState.EvaluationStack.IsEmpty)
             {
-                if (_state.CallStack.Count != 0)
-                    _state.MethodState.Instruction = _state.MethodInfo.GetFirstInstruction();
             }
             else
             {
