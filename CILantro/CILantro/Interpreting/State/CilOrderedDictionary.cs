@@ -6,13 +6,13 @@ using System.Collections.Specialized;
 
 namespace CILantro.Interpreting.State
 {
-    public class CilLocals
+    public class CilOrderedDictionary
     {
         private OrderedDictionary _typesDict { get; }
 
         private OrderedDictionary _dict;
 
-        public CilLocals(List<CilSigArg> localsSigArgs)
+        public CilOrderedDictionary(List<CilSigArg> localsSigArgs)
         {
             _dict = new OrderedDictionary(localsSigArgs.Count);
             _typesDict = new OrderedDictionary(localsSigArgs.Count);

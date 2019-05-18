@@ -371,6 +371,16 @@ namespace CILantro.Interpreting.Visitors
             throw new NotImplementedException();
         }
 
+        protected override void VisitLoadArgument0Instruction(LoadArgument0Instruction instruction)
+        {
+            // TODO: finish implementation
+
+            var value = _state.Arguments.Load(null, 0);
+            _state.EvaluationStack.PushValue(value);
+
+            _state.MoveToNextInstruction();
+        }
+
         protected override void VisitLoadArrayElementI1Instruction(LoadArrayElementI1Instruction instruction)
         {
             // TODO: finish implementation

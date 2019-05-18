@@ -13,6 +13,8 @@ namespace CILantro.Structure
 
         public List<CilSigArg> Locals { get; set; }
 
+        public List<CilSigArg> Arguments { get; set; }
+
         public override string ToString()
         {
             return Name;

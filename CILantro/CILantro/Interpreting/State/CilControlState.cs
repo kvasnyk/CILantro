@@ -1,5 +1,6 @@
 ﻿using CILantro.Instructions;
 using CILantro.Interpreting.Instances;
+using CILantro.Interpreting.Values;
 using CILantro.Structure;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,9 @@ namespace CILantro.Interpreting.State
 
         public CilMethodInfo MethodInfo => MethodState.MethodInfo;
 
-        public CilLocals Locals => MethodState.Locals;
+        public CilOrderedDictionary Locals => MethodState.Locals;
+
+        public CilOrderedDictionary Arguments => MethodState.Arguments;
 
         public Dictionary<string, CilClassStaticInstance> StaticInstances { get; set; }
 
@@ -27,7 +30,7 @@ namespace CILantro.Interpreting.State
         public CilControlState(CilProgram program)
         {
             CallStack = new Stack<CilMethodState>();
-            CallStack.Push(new CilMethodState(program.EntryPoint));
+            CallStack.Push(new CilMethodState(program.EntryPoint, new List<CilSigArg>(), new List<IValue>()));
 
             var cctors = program.Classes
                 .Select(c => c.Methods.FirstOrDefault(m => m.Name == ".cctor"))
@@ -36,7 +39,7 @@ namespace CILantro.Interpreting.State
 
             foreach (var cctor in cctors)
             {
-                CallStack.Push(new CilMethodState(cctor));
+                CallStack.Push(new CilMethodState(cctor, new List<CilSigArg>(), new List<IValue>()));
             }
 
             StaticInstances = new Dictionary<string, CilClassStaticInstance>();

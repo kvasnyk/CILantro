@@ -21,6 +21,11 @@ namespace CILantro.Interpreting.Visitors
             _managedMemory = managedMemory;
         }
 
+        protected override void VisitLoadFieldInstruction(LoadFieldInstruction instruction)
+        {
+            throw new System.NotImplementedException();
+        }
+
         protected override void VisitLoadStaticFieldInstruction(LoadStaticFieldInstruction instruction)
         {
             var value = _state.StaticInstances[instruction.ClassTypeSpec.ClassName.ToString()].StaticFields[instruction.FieldId];
@@ -28,6 +33,11 @@ namespace CILantro.Interpreting.Visitors
             _state.EvaluationStack.PushValue(value);
 
             _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitStoreFieldInstruction(StoreFieldInstruction instruction)
+        {
+            throw new System.NotImplementedException();
         }
 
         protected override void VisitStoreStaticFieldInstruction(StoreStaticFieldInstruction instruction)

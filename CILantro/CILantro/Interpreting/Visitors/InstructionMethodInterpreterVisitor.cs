@@ -46,7 +46,8 @@ namespace CILantro.Interpreting.Visitors
             {
                 var @class = _program.Classes.Single(c => c.Name.ToString() == instruction.TypeSpec.ClassName.ToString());
                 var @method = @class.Methods.Single(m => m.Name == instruction.MethodName);
-                var methodState = new CilMethodState(@method);
+                var methodArgs = PopMethodArguments(instruction);
+                var methodState = new CilMethodState(@method, @method.Arguments, methodArgs);
 
                 _state.MoveToNextInstruction();
                 _state.CallStack.Push(methodState);
@@ -86,7 +87,7 @@ namespace CILantro.Interpreting.Visitors
             {
                 var @class = _program.Classes.Single(c => c.Name.ToString() == instruction.TypeSpec.ClassName.ToString());
                 var @method = @class.Methods.Single(m => m.Name == instruction.MethodName);
-                var methodState = new CilMethodState(@method);
+                var methodState = new CilMethodState(@method, new List<CilSigArg>(), new List<IValue>());
 
                 _state.MoveToNextInstruction();
                 _state.CallStack.Push(methodState);
@@ -97,7 +98,7 @@ namespace CILantro.Interpreting.Visitors
 
         private object CallExternalMethod(CilInstructionMethod instruction)
         {
-            var args = PopMethodArguments(instruction);
+            var args = PopExternalMethodArguments(instruction);
 
             object instance = null;
             if (instruction.CallConv.IsInstance && instruction.MethodName != ".ctor")
@@ -142,7 +143,20 @@ namespace CILantro.Interpreting.Visitors
             }
         }
 
-        private object[] PopMethodArguments(CilInstructionMethod instruction)
+        private List<IValue> PopMethodArguments(CilInstructionMethod instruction)
+        {
+            var methodArgs = new List<IValue>();
+            for (int i = 0; i < instruction.SigArgs.Count; i++)
+            {
+                var ind = instruction.SigArgs.Count - i - 1;
+                _state.EvaluationStack.PopValue(_program, instruction.SigArgs[ind].Type, out var value);
+                methodArgs.Add(value);
+            }
+            methodArgs.Reverse();
+            return methodArgs;
+        }
+
+        private object[] PopExternalMethodArguments(CilInstructionMethod instruction)
         {
             var methodArguments = new List<object>();
             for (int i = 0; i < instruction.SigArgs.Count; i++)

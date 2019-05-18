@@ -1,5 +1,7 @@
 ﻿using CILantro.Instructions;
+using CILantro.Interpreting.Values;
 using CILantro.Structure;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CILantro.Interpreting.State
@@ -12,14 +14,22 @@ namespace CILantro.Interpreting.State
 
         public CilMethodInfo MethodInfo { get; set; }
 
-        public CilLocals Locals { get; set; }
+        public CilOrderedDictionary Locals { get; set; }
 
-        public CilMethodState(CilMethod method)
+        public CilOrderedDictionary Arguments { get; set; }
+
+        public CilMethodState(CilMethod method, List<CilSigArg> argTypes, List<IValue> argValues)
         {
             Instruction = method.Instructions.First();
             EvaluationStack = new CilEvaluationStack();
             MethodInfo = new CilMethodInfo(method);
-            Locals = new CilLocals(method.Locals);
+            Locals = new CilOrderedDictionary(method.Locals);
+
+            Arguments = new CilOrderedDictionary(argTypes);
+            for (int i = 0; i < argValues.Count; i++)
+            {
+                Arguments.Store(null, i, argValues[i]);
+            }
         }
     }
 }
