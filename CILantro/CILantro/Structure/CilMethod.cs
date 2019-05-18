@@ -9,6 +9,8 @@ namespace CILantro.Structure
 
         public bool IsEntryPoint { get; set; }
 
+        public bool IsConstructor => Name == ".ctor";
+
         public List<CilInstruction> Instructions { get; set; }
 
         public List<CilSigArg> Locals { get; set; }

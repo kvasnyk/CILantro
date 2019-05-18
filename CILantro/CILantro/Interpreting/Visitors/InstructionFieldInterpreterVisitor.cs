@@ -1,6 +1,8 @@
 ﻿using CILantro.Instructions.Field;
+using CILantro.Interpreting.Instances;
 using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.State;
+using CILantro.Interpreting.Values;
 using CILantro.Structure;
 using CILantro.Visitors;
 
@@ -23,7 +25,14 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadFieldInstruction(LoadFieldInstruction instruction)
         {
-            throw new System.NotImplementedException();
+            _state.EvaluationStack.PopValue(out CilValueReference thisRef);
+
+            var classInstance = _managedMemory.Load(thisRef) as CilClassInstance;
+            var value = classInstance.Fields[instruction.FieldId];
+
+            _state.EvaluationStack.PushValue(value);
+
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitLoadStaticFieldInstruction(LoadStaticFieldInstruction instruction)
@@ -37,7 +46,13 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitStoreFieldInstruction(StoreFieldInstruction instruction)
         {
-            throw new System.NotImplementedException();
+            _state.EvaluationStack.PopValue(_program, instruction.FieldType, out var value);
+            _state.EvaluationStack.PopValue(out CilValueReference thisRef);
+
+            var classInstance = _managedMemory.Load(thisRef) as CilClassInstance;
+            classInstance.Fields[instruction.FieldId] = value;
+
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitStoreStaticFieldInstruction(StoreStaticFieldInstruction instruction)

@@ -1,5 +1,6 @@
 ﻿using CILantro.Instructions;
 using CILantro.Instructions.Method;
+using CILantro.Interpreting.Instances;
 using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.StackValues;
 using CILantro.Interpreting.State;
@@ -81,19 +82,28 @@ namespace CILantro.Interpreting.Visitors
             if (isExternalType)
             {
                 var result = CallExternalMethod(instruction);
-                StoreExternalResult(result, instruction.TypeSpec.GetCilType());
+                StoreExternalResult(result, instruction.TypeSpec.GetCilType(_program));
+
+                _state.MoveToNextInstruction();
             }
             else
             {
                 var @class = _program.Classes.Single(c => c.Name.ToString() == instruction.TypeSpec.ClassName.ToString());
                 var @method = @class.Methods.Single(m => m.Name == instruction.MethodName);
-                var methodState = new CilMethodState(@method, new List<CilSigArg>(), new List<IValue>());
+
+                var emptyInstance = new CilClassInstance(@class, _program);
+                var reference = _managedMemory.Store(emptyInstance);
+
+                var instanceSigArg = new CilSigArg
+                {
+                    Id = ".this",
+                    Type = instruction.TypeSpec.GetCilType(_program)
+                };
+                var methodState = new CilMethodState(@method, new List<CilSigArg> { instanceSigArg }, new List<IValue> { reference });
 
                 _state.MoveToNextInstruction();
                 _state.CallStack.Push(methodState);
             }
-
-            _state.MoveToNextInstruction();
         }
 
         private object CallExternalMethod(CilInstructionMethod instruction)
@@ -108,12 +118,12 @@ namespace CILantro.Interpreting.Visitors
                 if (stackVal is CilStackValueReference stackValReference)
                 {
                     var instanceRef = new CilValueReference(stackValReference.Address);
-                    instance = _managedMemory.Load(instanceRef).AsRuntime(instruction.TypeSpec.GetCilType());
+                    instance = _managedMemory.Load(instanceRef).AsRuntime(instruction.TypeSpec.GetCilType(_program));
                 }
                 else if (stackVal is CilStackValuePointer stackValPointer)
                 {
                     var instancePointer = new CilValueManagedPointer(stackValPointer.ValueToRef);
-                    instance = instancePointer.ValueToRef.AsRuntime(instruction.TypeSpec.GetCilType(), _managedMemory);
+                    instance = instancePointer.ValueToRef.AsRuntime(instruction.TypeSpec.GetCilType(_program), _managedMemory);
                 }
                 else
                     throw new System.NotImplementedException();

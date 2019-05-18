@@ -8,6 +8,8 @@ namespace CILantro.Interpreting.State
     {
         private readonly CilMethod _method;
 
+        public bool IsConstructor => _method.IsConstructor;
+
         public CilMethodInfo(CilMethod method)
         {
             _method = method;

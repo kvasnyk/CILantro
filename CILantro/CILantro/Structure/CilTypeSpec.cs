@@ -8,9 +8,14 @@ namespace CILantro.Structure
     {
         public CilClassName ClassName { get; set; }
 
-        public CilType GetCilType()
+        public CilType GetCilType(CilProgram _program)
         {
-            if (ClassName != null)
+            if (!_program.IsExternalType(this) && ClassName != null)
+            {
+                return new CilTypeClass(ClassName);
+            }
+
+            if (_program.IsExternalType(this) && ClassName != null)
             {
                 var assembly = Assembly.Load(ClassName.AssemblyName);
                 var type = assembly.GetType(ClassName.ClassName);

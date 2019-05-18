@@ -801,7 +801,15 @@ namespace CILantro.Interpreting.Visitors
                 }
                 else
                 {
-                    throw new NotImplementedException();
+                    if (currentMethodState.MethodInfo.IsConstructor)
+                    {
+                        currentMethodState.EvaluationStack.Pop(out var stackThisRef);
+                        _state.EvaluationStack.Push(stackThisRef);
+                    }
+                    else
+                    {
+                        throw new NotImplementedException();
+                    }
                 }
 
                 if (!currentMethodState.EvaluationStack.IsEmpty)

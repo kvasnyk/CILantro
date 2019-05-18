@@ -7,13 +7,13 @@ namespace CILantro.Interpreting.Instances
 {
     public class CilClassStaticInstance
     {
-        private CilClass Class { get; set; }
+        private readonly CilClass _class;
 
-        public Dictionary<string, IValue> StaticFields { get; set; }
+        public Dictionary<string, IValue> StaticFields { get; }
 
         public CilClassStaticInstance(CilClass @class, CilProgram program)
         {
-            Class = @class;
+            _class = @class;
 
             StaticFields = new Dictionary<string, IValue>();
             foreach (var field in @class.Fields.Where(f => f.IsStatic))

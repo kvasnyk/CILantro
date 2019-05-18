@@ -25,7 +25,7 @@ namespace CILantro.Interpreting.Visitors
 
         public override void VisitBoxInstruction(BoxInstruction instruction)
         {
-            var cilType = instruction.TypeSpec.GetCilType();
+            var cilType = instruction.TypeSpec.GetCilType(_program);
             _state.EvaluationStack.PopValue(_program, cilType, out var val);
 
             CilObject obj = null;
@@ -48,7 +48,7 @@ namespace CILantro.Interpreting.Visitors
 
             _state.EvaluationStack.PopValue(out CilValueInt32 numElems);
 
-            var newArr = new CilArray(instruction.TypeSpec.GetCilType(), numElems.Value);
+            var newArr = new CilArray(instruction.TypeSpec.GetCilType(_program), numElems.Value);
             var arrRef = _managedMemory.Store(newArr);
 
             _state.EvaluationStack.PushValue(arrRef);
