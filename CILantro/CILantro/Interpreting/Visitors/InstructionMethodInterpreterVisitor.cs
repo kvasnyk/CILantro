@@ -82,6 +82,15 @@ namespace CILantro.Interpreting.Visitors
                 var result = CallExternalMethod(instruction);
                 StoreExternalResult(result, instruction.TypeSpec.GetCilType());
             }
+            else
+            {
+                var @class = _program.Classes.Single(c => c.Name.ToString() == instruction.TypeSpec.ClassName.ToString());
+                var @method = @class.Methods.Single(m => m.Name == instruction.MethodName);
+                var methodState = new CilMethodState(@method);
+
+                _state.MoveToNextInstruction();
+                _state.CallStack.Push(methodState);
+            }
 
             _state.MoveToNextInstruction();
         }
