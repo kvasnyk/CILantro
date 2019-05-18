@@ -257,6 +257,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_Classes_StaticField_Set
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_Classes_Field_GetValue", "CSF_Classes_Field_GetValue\CSF_Classes_Field_GetValue.csproj", "{75B07582-599F-4C5E-A44A-96BBFF1189FB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_Classes_StaticMethod_0Args", "CSF_Classes_StaticMethod_0Args\CSF_Classes_StaticMethod_0Args.csproj", "{5BA990BA-B9DF-47AD-B559-0C29C43B0D55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -739,6 +741,10 @@ Global
 		{75B07582-599F-4C5E-A44A-96BBFF1189FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75B07582-599F-4C5E-A44A-96BBFF1189FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75B07582-599F-4C5E-A44A-96BBFF1189FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BA990BA-B9DF-47AD-B559-0C29C43B0D55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BA990BA-B9DF-47AD-B559-0C29C43B0D55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BA990BA-B9DF-47AD-B559-0C29C43B0D55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BA990BA-B9DF-47AD-B559-0C29C43B0D55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -863,6 +869,7 @@ Global
 		{A2600F57-0C58-442E-B588-AAE339253B57} = {802DBA79-60D1-4169-91FE-172BC5C63D1C}
 		{EBB6C4E4-5B27-4BF7-BBED-5E96F5136034} = {802DBA79-60D1-4169-91FE-172BC5C63D1C}
 		{75B07582-599F-4C5E-A44A-96BBFF1189FB} = {802DBA79-60D1-4169-91FE-172BC5C63D1C}
+		{5BA990BA-B9DF-47AD-B559-0C29C43B0D55} = {802DBA79-60D1-4169-91FE-172BC5C63D1C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4EA075C6-7843-4D56-B83E-4B4E8D1AA025}

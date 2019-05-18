@@ -2,7 +2,7 @@
   "profiles": {
     "CILantro": {
       "commandName": "Project",
-      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\CSF_Classes_StaticField_SetValue\\CSF_Classes_StaticField_SetValue.il\""
+      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\CSF_Classes_Field_GetValue\\CSF_Classes_Field_GetValue.il\""
     }
   }
 }

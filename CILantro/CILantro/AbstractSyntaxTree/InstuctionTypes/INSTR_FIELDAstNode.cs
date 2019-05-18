@@ -34,6 +34,26 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // _("stfld")
+            var stfldChildren = AstChildren.Empty()
+                .Add("stfld");
+            if (stfldChildren.PopulateWith(parseNode))
+            {
+                Instruction = new StoreFieldInstruction();
+
+                return;
+            }
+
+            // _("ldfld")
+            var ldfldChildren = AstChildren.Empty()
+                .Add("ldfld");
+            if (ldfldChildren.PopulateWith(parseNode))
+            {
+                Instruction = new LoadFieldInstruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }
