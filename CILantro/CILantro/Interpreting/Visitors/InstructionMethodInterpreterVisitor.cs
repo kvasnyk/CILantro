@@ -48,7 +48,7 @@ namespace CILantro.Interpreting.Visitors
                 var @class = _program.Classes.Single(c => c.Name.ToString() == instruction.TypeSpec.ClassName.ToString());
                 var @method = @class.Methods.Single(m => m.Name == instruction.MethodName && AreArgumentsAssignable(m.Arguments, instruction.SigArgs));
                 var sigArgs = BuildSigArgs(_program, instruction, @method, @method.CallConv.IsInstance);
-                var methodArgs = PopMethodArguments(instruction, sigArgs, @method.CallConv.IsInstance);
+                var methodArgs = PopMethodArguments(instruction, sigArgs, @method.CallConv.IsInstance, @method.CallConv.IsInstance);
                 var methodState = new CilMethodState(@method, sigArgs, methodArgs);
 
                 _state.MoveToNextInstruction();
@@ -75,7 +75,7 @@ namespace CILantro.Interpreting.Visitors
                 var @class = _program.Classes.Single(c => c.Name.ToString() == instruction.TypeSpec.ClassName.ToString());
                 var @method = @class.Methods.Single(m => m.Name == instruction.MethodName && AreArgumentsAssignable(m.Arguments, instruction.SigArgs));
                 var sigArgs = BuildSigArgs(_program, instruction, @method, @method.CallConv.IsInstance);
-                var methodArgs = PopMethodArguments(instruction, sigArgs, @method.CallConv.IsInstance);
+                var methodArgs = PopMethodArguments(instruction, sigArgs, @method.CallConv.IsInstance, @method.CallConv.IsInstance);
                 var methodState = new CilMethodState(@method, sigArgs, methodArgs);
 
                 _state.MoveToNextInstruction();
@@ -105,8 +105,8 @@ namespace CILantro.Interpreting.Visitors
                 var emptyInstance = new CilClassInstance(@class, _program);
                 var reference = _managedMemory.Store(emptyInstance);
 
-                var sigArgs = BuildSigArgs(_program, instruction, @method, true);
-                var instanceSigArgValues = (new List<IValue> { reference }).Concat(PopMethodArguments(instruction, sigArgs, false)).ToList();
+                var sigArgs = BuildSigArgs(_program, instruction, @method, @method.CallConv.IsInstance);
+                var instanceSigArgValues = (new List<IValue> { reference }).Concat(PopMethodArguments(instruction, sigArgs, @method.CallConv.IsInstance, false)).ToList();
                 var methodState = new CilMethodState(@method, sigArgs, instanceSigArgValues);
 
                 _state.MoveToNextInstruction();
@@ -161,15 +161,15 @@ namespace CILantro.Interpreting.Visitors
             }
         }
 
-        private List<IValue> PopMethodArguments(CilInstructionMethod instruction, List<CilSigArg> sigArgs, bool isInstanceCall)
+        private List<IValue> PopMethodArguments(CilInstructionMethod instruction, List<CilSigArg> sigArgs, bool isInstanceCall, bool getThisRef)
         {
-            var startIndex = isInstanceCall ? 0 : 1;
+            var startIndex = !isInstanceCall || (isInstanceCall && getThisRef) ? 0 : 1;
 
             var methodArgs = new List<IValue>();
             for (int i = startIndex; i < sigArgs.Count; i++)
             {
                 var ind = sigArgs.Count - i - 1;
-                if (!isInstanceCall) ind++;
+                ind += startIndex;
 
                 _state.EvaluationStack.PopValue(_program, sigArgs[ind].Type, out var value);
                 methodArgs.Add(value);
