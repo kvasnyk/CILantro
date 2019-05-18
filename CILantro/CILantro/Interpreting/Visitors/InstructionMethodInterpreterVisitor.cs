@@ -89,7 +89,7 @@ namespace CILantro.Interpreting.Visitors
             else
             {
                 var @class = _program.Classes.Single(c => c.Name.ToString() == instruction.TypeSpec.ClassName.ToString());
-                var @method = @class.Methods.Single(m => m.Name == instruction.MethodName);
+                var @method = @class.Methods.Single(m => m.Name == instruction.MethodName && AreArgumentsAssignable(m.Arguments, instruction.SigArgs));
 
                 var emptyInstance = new CilClassInstance(@class, _program);
                 var reference = _managedMemory.Store(emptyInstance);
@@ -99,7 +99,9 @@ namespace CILantro.Interpreting.Visitors
                     Id = ".this",
                     Type = instruction.TypeSpec.GetCilType(_program)
                 };
-                var methodState = new CilMethodState(@method, new List<CilSigArg> { instanceSigArg }, new List<IValue> { reference });
+                var instanceSigArgs = (new List<CilSigArg> { instanceSigArg }).Concat(method.Arguments).ToList();
+                var instanceSigArgValues = (new List<IValue> { reference }).Concat(PopMethodArguments(instruction)).ToList();
+                var methodState = new CilMethodState(@method, instanceSigArgs, instanceSigArgValues);
 
                 _state.MoveToNextInstruction();
                 _state.CallStack.Push(methodState);
