@@ -92,7 +92,8 @@ const translations = {
 		repeat: 'repeat',
 		generateOutput: 'Generate output',
 		ready: 'Ready',
-		notReady: 'Not ready'
+		notReady: 'Not ready',
+		notRun: 'Not yet run'
 	},
 
 	runs: {
