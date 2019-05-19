@@ -18,7 +18,7 @@ namespace CILantroToolsWebAPI.Search.Mappers
 
         public override Expression<Func<TestRunReadModel, bool>> BuildWhereExpression(SearchFilter filter)
         {
-            throw new ArgumentException($"{nameof(filter.Property)} property '{filter.Property}' cannot be recognized.");
+            throw new ArgumentException($"Cannot build filter expression for property '{filter.Property}' and type '{filter.Type}'.");
         }
     }
 }

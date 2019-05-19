@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 
 import { MenuItem, Theme } from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
@@ -14,6 +14,7 @@ import CilPage, { PageState } from '../base/CilPage';
 import CilCategoryFilter from '../filters/CilCategoryFilter';
 import CilReadyFilter from '../filters/CilReadyFilter';
 import CilRunOutcomeFilter from '../filters/CilRunOutcomeFilter';
+import CilStringFilter from '../filters/CilStringFilter';
 import CilTestsList from '../shared/tests/CilTestsList';
 import CilFiltersPanel from '../utils/CilFiltersPanel';
 import CilOpenFiltersButton from '../utils/CilOpenFiltersButton';
@@ -47,6 +48,7 @@ const CilTestsPage: FunctionComponent = props => {
 
 	const [pageState, setPageState] = useState<PageState>('loading');
 	const [testsCheck, setTestsCheck] = useState<TestsCheck | undefined>(undefined);
+	const isInitialMount = useRef(true);
 
 	const search = useSearch<TestReadModel>({
 		orderBy: {
@@ -64,7 +66,10 @@ const CilTestsPage: FunctionComponent = props => {
 
 	const refreshTests = async () => {
 		try {
-			setPageState('loading');
+			if (isInitialMount.current) {
+				setPageState('loading');
+				isInitialMount.current = false;
+			}
 			const searchTestsResponse = await testsApiClient.searchTests(search.parameter);
 			search.setResult(searchTestsResponse.data);
 			setPageState('success');
@@ -127,6 +132,9 @@ const CilTestsPage: FunctionComponent = props => {
 				</div>
 			</CilPageHeader>
 			<CilFiltersPanel search={search}>
+				<div>
+					<CilStringFilter search={search} property="name" />
+				</div>
 				<div>
 					<CilReadyFilter<TestReadModel> search={search} readyProperty="isReady" />
 				</div>

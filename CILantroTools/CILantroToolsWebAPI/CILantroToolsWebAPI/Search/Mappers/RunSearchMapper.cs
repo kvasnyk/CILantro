@@ -17,10 +17,13 @@ namespace CILantroToolsWebAPI.Search.Mappers
 
         public override Expression<Func<RunReadModel, bool>> BuildWhereExpression(SearchFilter filter)
         {
-            if (filter.Property.EqualsInvariant(nameof(RunReadModel.Outcome)))
-                return r => r.Outcome.ToString() == filter.Value;
+            if (filter.Type == SearchFilterType.Exact)
+            {
+                if (filter.Property.EqualsInvariant(nameof(RunReadModel.Outcome)))
+                    return r => r.Outcome.ToString() == filter.Value;
+            }
 
-            throw new ArgumentException($"{nameof(filter.Property)} property '{filter.Property}' cannot be recognized.");
+            throw new ArgumentException($"Cannot build filter expression for property '{filter.Property}' and type '{filter.Type}'.");
         }
     }
 }

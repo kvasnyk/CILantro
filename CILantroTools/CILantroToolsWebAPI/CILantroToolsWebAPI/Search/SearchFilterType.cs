@@ -2,6 +2,7 @@
 {
     public enum SearchFilterType
     {
-        Exact = 0
+        Exact = 0,
+        Contains = 1
     }
 }
