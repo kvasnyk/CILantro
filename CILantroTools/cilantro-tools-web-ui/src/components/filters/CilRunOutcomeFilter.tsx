@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface CilRunOutcomeFilterProps<TReadModel extends {}> {
 	search: UseSearchHookResult<TReadModel>;
 	runOutcomeProperty: keyof TReadModel;
+	hideNotRun?: boolean;
 }
 
 const CilRunOutcomeFilter = <TReadModel extends {}>(props: CilRunOutcomeFilterProps<TReadModel>) => {
@@ -98,14 +99,16 @@ const CilRunOutcomeFilter = <TReadModel extends {}>(props: CilRunOutcomeFilterPr
 				</IconButton>
 			)}
 
-			<Button
-				className={classes.wrongButton}
-				onClick={handleNullButtonClick}
-				color={value === null ? 'primary' : 'default'}
-				variant={value === null ? 'contained' : 'flat'}
-			>
-				{translations.tests.notRun}
-			</Button>
+			{!props.hideNotRun ? (
+				<Button
+					className={classes.wrongButton}
+					onClick={handleNullButtonClick}
+					color={value === null ? 'primary' : 'default'}
+					variant={value === null ? 'contained' : 'flat'}
+				>
+					{translations.tests.notRun}
+				</Button>
+			) : null}
 		</div>
 	);
 };

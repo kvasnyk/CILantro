@@ -10,8 +10,11 @@ import SearchDirection from '../../api/search/SearchDirection';
 import useSearch from '../../hooks/useSearch';
 import translations from '../../translations/translations';
 import CilPage, { PageState } from '../base/CilPage';
+import CilRunOutcomeFilter from '../filters/CilRunOutcomeFilter';
 import CilAddRunButton from '../shared/runs/CilAddRunButton';
 import CilRunsList from '../shared/runs/CilRunsList';
+import CilFiltersPanel from '../utils/CilFiltersPanel';
+import CilOpenFiltersButton from '../utils/CilOpenFiltersButton';
 import CilOrderByDropDown from '../utils/CilOrderByDropDown';
 import CilPageHeader from '../utils/CilPageHeader';
 import CilPagination from '../utils/CilPagination';
@@ -87,12 +90,18 @@ const CilRunsPage: FunctionComponent = props => {
 					<CilAddRunButton type={RunType.Full} onRunAdded={handleRunAdded} />
 				</div>
 				<div className={classes.pageHeaderRight}>
+					<CilOpenFiltersButton search={search} />
 					<CilOrderByDropDown search={search}>
 						<MenuItem value="createdOn">{translations.runs.createdOn}</MenuItem>
 					</CilOrderByDropDown>
 					<CilPagination search={search} />
 				</div>
 			</CilPageHeader>
+			<CilFiltersPanel search={search}>
+				<div>
+					<CilRunOutcomeFilter<RunReadModel> search={search} runOutcomeProperty="outcome" hideNotRun={true} />
+				</div>
+			</CilFiltersPanel>
 			<CilRunsList
 				runs={search.result.data}
 				onRunDeleted={handleRunDeleted}
