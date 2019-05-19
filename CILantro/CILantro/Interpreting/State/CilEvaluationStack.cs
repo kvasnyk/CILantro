@@ -216,6 +216,12 @@ namespace CILantro.Interpreting.State
                     return new CilValueBool(stackValInt32.Value != 0);
             }
 
+            if (valType == typeof(CilValueManagedPointer))
+            {
+                if (stackVal is CilStackValuePointer stackValPointer)
+                    return new CilValueManagedPointer(stackValPointer.ValueToRef);
+            }
+
             throw new NotImplementedException();
         }
     }

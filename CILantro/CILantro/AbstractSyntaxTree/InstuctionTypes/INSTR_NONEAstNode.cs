@@ -754,6 +754,16 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // ___("stind.i4")
+            var stindi4Children = AstChildren.Empty()
+                .Add("stind.i4");
+            if (stindi4Children.PopulateWith(parseNode))
+            {
+                Instruction = new IndirectStoreI4Instruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

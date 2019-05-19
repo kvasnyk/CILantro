@@ -31,7 +31,6 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (typeArrayChildren.PopulateWith(parseNode))
             {
                 var elementType = typeArrayChildren.Child1.Type;
-
                 Type = new CilTypeArray(elementType);
 
                 return;
@@ -197,6 +196,18 @@ namespace CILantro.AbstractSyntaxTree.Other
             {
                 var className = classChildren.Child2.ClassName;
                 Type = new CilTypeClass(className);
+
+                return;
+            }
+
+            // type + _("&")
+            var addressChildren = AstChildren.Empty()
+                .Add<TypeAstNode>()
+                .Add("&");
+            if (addressChildren.PopulateWith(parseNode))
+            {
+                var innerType = addressChildren.Child1.Type;
+                Type = new CilTypeManagedPointer(innerType);
 
                 return;
             }

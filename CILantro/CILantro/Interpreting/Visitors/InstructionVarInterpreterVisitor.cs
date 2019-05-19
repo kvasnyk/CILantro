@@ -51,6 +51,15 @@ namespace CILantro.Interpreting.Visitors
             _state.MoveToNextInstruction();
         }
 
+        protected override void VisitStoreArgumentShortInstruction(StoreArgumentShortInstruction instruction)
+        {
+            var argType = _state.Arguments.GetLocalType(instruction.Id, instruction.Index);
+            _state.EvaluationStack.PopValue(_program, argType, out var value);
+            _state.Arguments.Store(instruction.Id, instruction.Index, value);
+
+            _state.MoveToNextInstruction();
+        }
+
         protected override void VisitStoreLocalShortInstruction(StoreLocalShortInstruction instruction)
         {
             var localType = _state.Locals.GetLocalType(instruction.Id, instruction.Index);

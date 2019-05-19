@@ -23,7 +23,7 @@ namespace CILantro.Interpreting.Values
 
         public CilValueType Box()
         {
-            throw new System.NotImplementedException();
+            return new CilFloat64(this);
         }
 
         public ref object GetRef()

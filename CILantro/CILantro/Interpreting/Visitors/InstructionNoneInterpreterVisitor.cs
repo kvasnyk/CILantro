@@ -371,6 +371,11 @@ namespace CILantro.Interpreting.Visitors
             throw new NotImplementedException();
         }
 
+        protected override void VisitIndirectStoreI4Instruction(IndirectStoreI4Instruction instruction)
+        {
+            throw new NotImplementedException();
+        }
+
         protected override void VisitLoadArgument0Instruction(LoadArgument0Instruction instruction)
         {
             // TODO: finish implementation

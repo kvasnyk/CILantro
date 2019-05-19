@@ -2,7 +2,7 @@
   "profiles": {
     "CILantro": {
       "commandName": "Project",
-      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\CSF_Classes_Method_0Args\\CSF_Classes_Method_0Args.il\""
+      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\LineApplication3\\LineApplication3.il\""
     }
   }
 }
