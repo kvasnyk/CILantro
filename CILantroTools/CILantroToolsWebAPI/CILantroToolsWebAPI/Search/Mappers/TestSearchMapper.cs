@@ -26,13 +26,15 @@ namespace CILantroToolsWebAPI.Search.Mappers
             if (filter.Type == SearchFilterType.Exact)
             {
                 if (filter.Property.EqualsInvariant(nameof(TestReadModel.CategoryId)))
-                    return t => t.CategoryId.ToString() == filter.Value;
+                    return t => t.CategoryId.ToString().EqualsInvariant(filter.Value);
                 if (filter.Property.EqualsInvariant(nameof(TestReadModel.SubcategoryId)))
-                    return t => t.SubcategoryId.ToString() == filter.Value;
+                    return t => t.SubcategoryId.ToString().EqualsInvariant(filter.Value);
                 if (filter.Property.EqualsInvariant(nameof(TestReadModel.IsReady)))
-                    return t => t.IsReady.ToString() == filter.Value;
+                    return t => t.IsReady.ToString().EqualsInvariant(filter.Value);
+                if (filter.Property.EqualsInvariant(nameof(TestReadModel.IsDisabled)))
+                    return t => t.IsDisabled.ToString().EqualsInvariant(filter.Value);
                 if (filter.Property.EqualsInvariant(nameof(TestReadModel.LastRunOutcome)))
-                    return t => t.LastRunOutcome.ToString() == filter.Value;
+                    return t => t.LastRunOutcome.ToString().EqualsInvariant(filter.Value);
             }
 
             if (filter.Type == SearchFilterType.Contains)

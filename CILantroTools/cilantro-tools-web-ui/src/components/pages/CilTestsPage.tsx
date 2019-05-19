@@ -12,6 +12,7 @@ import useSearch from '../../hooks/useSearch';
 import translations from '../../translations/translations';
 import CilPage, { PageState } from '../base/CilPage';
 import CilCategoryFilter from '../filters/CilCategoryFilter';
+import CilDisabledFilter from '../filters/CilDisabledFilter';
 import CilReadyFilter from '../filters/CilReadyFilter';
 import CilRunOutcomeFilter from '../filters/CilRunOutcomeFilter';
 import CilStringFilter from '../filters/CilStringFilter';
@@ -137,6 +138,7 @@ const CilTestsPage: FunctionComponent = props => {
 				</div>
 				<div>
 					<CilReadyFilter<TestReadModel> search={search} readyProperty="isReady" />
+					<CilDisabledFilter<TestReadModel> search={search} disabledProperty="isDisabled" />
 				</div>
 				<div>
 					<CilRunOutcomeFilter<TestReadModel> search={search} runOutcomeProperty="lastRunOutcome" />

@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { Button, Theme } from '@material-ui/core';
+import { Fab, IconButton, Theme } from '@material-ui/core';
+import DisableIcon from '@material-ui/icons/PowerOffRounded';
+import EnableIcon from '@material-ui/icons/PowerRounded';
 import { makeStyles } from '@material-ui/styles';
 
 import SearchFilter from '../../api/search/SearchFilter';
 import SearchFilterType from '../../api/search/SearchFilterType';
 import { UseSearchHookResult } from '../../hooks/useSearch';
-import translations from '../../translations/translations';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	root: {
@@ -15,30 +16,30 @@ const useStyles = makeStyles((theme: Theme) => ({
 		alignItems: 'center',
 		justifyContent: 'center'
 	},
-	notReadyButton: {
+	disabledButton: {
 		marginLeft: '20px'
 	}
 }));
 
-interface CilReadyFilterProps<TReadModel extends {}> {
+interface CilDisabledFilterProps<TReadModel extends {}> {
 	search: UseSearchHookResult<TReadModel>;
-	readyProperty: keyof TReadModel;
+	disabledProperty: keyof TReadModel;
 }
 
-const CilReadyFilter = <TReadModel extends {}>(props: CilReadyFilterProps<TReadModel>) => {
+const CilDisabledFilter = <TReadModel extends {}>(props: CilDisabledFilterProps<TReadModel>) => {
 	const classes = useStyles();
 
-	const existingFilter = props.search.parameter.filters.find(f => f.property === props.readyProperty);
+	const existingFilter = props.search.parameter.filters.find(f => f.property === props.disabledProperty);
 	const initialValue = existingFilter ? (existingFilter.value === 'True' ? true : false) : undefined;
 
 	const [value, setValue] = useState<boolean | undefined>(initialValue);
 	const isInitialMount = useRef(true);
 
-	const handleReadyButtonClick = () => {
+	const handleDisabledButtonClick = () => {
 		setValue(value === true ? undefined : true);
 	};
 
-	const handleNotReadyButtonClick = () => {
+	const handleNotDisabledButtonClick = () => {
 		setValue(value === false ? undefined : false);
 	};
 
@@ -50,10 +51,10 @@ const CilReadyFilter = <TReadModel extends {}>(props: CilReadyFilterProps<TReadM
 			}
 
 			if (value === undefined) {
-				props.search.clearFilter(props.readyProperty);
+				props.search.clearFilter(props.disabledProperty);
 			} else {
 				const filter: SearchFilter<TReadModel> = {
-					property: props.readyProperty,
+					property: props.disabledProperty,
 					type: SearchFilterType.Exact,
 					value: value === true ? 'True' : 'False'
 				};
@@ -65,23 +66,27 @@ const CilReadyFilter = <TReadModel extends {}>(props: CilReadyFilterProps<TReadM
 
 	return (
 		<div className={classes.root}>
-			<Button
-				color={value === true ? 'primary' : 'default'}
-				variant={value === true ? 'contained' : 'flat'}
-				onClick={handleReadyButtonClick}
-			>
-				{translations.tests.ready}
-			</Button>
-			<Button
-				className={classes.notReadyButton}
-				color={value === false ? 'primary' : 'default'}
-				variant={value === false ? 'contained' : 'flat'}
-				onClick={handleNotReadyButtonClick}
-			>
-				{translations.tests.notReady}
-			</Button>
+			{value === false ? (
+				<Fab size="medium" color="secondary" onClick={handleNotDisabledButtonClick}>
+					<EnableIcon />
+				</Fab>
+			) : (
+				<IconButton onClick={handleNotDisabledButtonClick}>
+					<EnableIcon />
+				</IconButton>
+			)}
+
+			{value === true ? (
+				<Fab size="medium" color="secondary" onClick={handleDisabledButtonClick} className={classes.disabledButton}>
+					<DisableIcon />
+				</Fab>
+			) : (
+				<IconButton onClick={handleDisabledButtonClick} className={classes.disabledButton}>
+					<DisableIcon />
+				</IconButton>
+			)}
 		</div>
 	);
 };
 
-export default CilReadyFilter;
+export default CilDisabledFilter;
