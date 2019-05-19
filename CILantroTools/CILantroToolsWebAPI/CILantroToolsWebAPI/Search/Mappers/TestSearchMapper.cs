@@ -27,6 +27,8 @@ namespace CILantroToolsWebAPI.Search.Mappers
                 return t => t.CategoryId.ToString() == filter.Value;
             if (filter.Property.EqualsInvariant(nameof(TestReadModel.SubcategoryId)))
                 return t => t.SubcategoryId.ToString() == filter.Value;
+            if (filter.Property.EqualsInvariant(nameof(TestReadModel.IsReady)))
+                return t => t.IsReady.ToString() == filter.Value;
 
             throw new ArgumentException($"{nameof(filter.Property)} property '{filter.Property}' cannot be recognized.");
         }
