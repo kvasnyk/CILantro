@@ -1,4 +1,5 @@
 ﻿using CILantroToolsWebAPI.DbModels;
+using CILantroToolsWebAPI.Enums;
 using LinqKit;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,8 @@ namespace CILantroToolsWebAPI.ReadModels.Categories
         public IEnumerable<SubcategoryReadModel> Subcategories { get; set; }
 
         public bool IsAssignedToTest { get; set; }
+
+        public BaseLanguage? Language { get; set; }
     }
 
     public class CategoryReadModelMapping : ReadModelMappingBase<Category, CategoryReadModel>
@@ -27,7 +30,8 @@ namespace CILantroToolsWebAPI.ReadModels.Categories
             Id = category.Id,
             Name = category.Name,
             Subcategories = category.Subcategories.Select(s => _subcategoryMapping.Invoke(s)).OrderBy(s => s.Name),
-            IsAssignedToTest = category.Tests.Any()
+            IsAssignedToTest = category.Tests.Any(),
+            Language = category.Language
         };
     }
 }

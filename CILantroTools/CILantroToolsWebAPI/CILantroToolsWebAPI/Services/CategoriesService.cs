@@ -42,6 +42,7 @@ namespace CILantroToolsWebAPI.Services
             {
                 Id = Guid.NewGuid(),
                 Name = model.Name,
+                Language = model.Language,
                 CreatedOn = DateTime.Now
             };
 

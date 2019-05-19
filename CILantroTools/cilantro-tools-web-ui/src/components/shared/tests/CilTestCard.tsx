@@ -77,7 +77,7 @@ const CiLTestCard: FunctionComponent<CilTestCardProps> = props => {
 		[classes.notReadyTypography]: !props.test.isReady
 	});
 
-	const headerTypohraphyClassName = classNames(typographyClassName, classes.headerTypography);
+	const headerTypographyClassName = classNames(typographyClassName, classes.headerTypography);
 
 	return (
 		<Card className={cardClassName}>
@@ -85,7 +85,7 @@ const CiLTestCard: FunctionComponent<CilTestCardProps> = props => {
 				<div className={classes.headerWrapper}>
 					<div className={classes.headerLeft}>
 						<div className={classes.header}>
-							<Typography variant="h2" className={headerTypohraphyClassName}>
+							<Typography variant="h2" className={headerTypographyClassName}>
 								{props.test.name}
 							</Typography>
 							{props.test.lastRunOutcome === RunOutcome.Ok ? <CheckIcon className={classes.okIcon} /> : null}

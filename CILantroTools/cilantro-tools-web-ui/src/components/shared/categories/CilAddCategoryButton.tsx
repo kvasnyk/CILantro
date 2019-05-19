@@ -1,22 +1,36 @@
 import React, { ChangeEvent, FormEvent, FunctionComponent, useState } from 'react';
 
 import {
-    Button, Dialog, DialogActions, DialogContent, DialogTitle, Fab, TextField, Theme
+	Button,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogTitle,
+	Fab,
+	FormControl,
+	InputLabel,
+	MenuItem,
+	Select,
+	TextField,
+	Theme
 } from '@material-ui/core';
 import green from '@material-ui/core/colors/green';
 import AddIcon from '@material-ui/icons/AddRounded';
 import { makeStyles } from '@material-ui/styles';
 
 import CategoriesApiClient from '../../../api/clients/CategoriesApiClient';
+import BaseLanguage from '../../../api/enums/BaseLanguage';
 import useNotistack from '../../../hooks/external/useNotistack';
 import translations from '../../../translations/translations';
 
 interface AddCategoryData {
 	name: string;
+	language: BaseLanguage;
 }
 
 const buildEmptyAddCategoryData = (): AddCategoryData => ({
-	name: ''
+	name: '',
+	language: BaseLanguage.CIL
 });
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -58,6 +72,14 @@ const CilAddCategoryButton: FunctionComponent<CilAddCategoryButtonProps> = props
 		});
 	};
 
+	const handleLanguageChange = (e: ChangeEvent<HTMLSelectElement>) => {
+		const newValue = e.target.value;
+		setFormData({
+			...formData,
+			language: (newValue as unknown) as BaseLanguage
+		});
+	};
+
 	const handleFormSubmit = async (e: FormEvent) => {
 		e.preventDefault();
 
@@ -89,6 +111,16 @@ const CilAddCategoryButton: FunctionComponent<CilAddCategoryButtonProps> = props
 							autoFocus={true}
 							fullWidth={true}
 						/>
+						<br />
+						<br />
+						<FormControl fullWidth={true}>
+							<InputLabel shrink={true}>{translations.categories.language}</InputLabel>
+							<Select value={formData.language} fullWidth={true} onChange={handleLanguageChange}>
+								<MenuItem value={BaseLanguage.CIL}>{translations.shared.CIL}</MenuItem>
+								<MenuItem value={BaseLanguage.CSharp}>{translations.shared.CSharp}</MenuItem>
+								<MenuItem value={BaseLanguage.FSharp}>{translations.shared.FSharp}</MenuItem>
+							</Select>
+						</FormControl>
 					</DialogContent>
 					<DialogActions>
 						<Button color="primary" type="submit">

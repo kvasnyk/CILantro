@@ -5,12 +5,37 @@ import { Card, CardActions, CardContent, Collapse, IconButton, Theme, Typography
 import ExpandMoreIcon from '@material-ui/icons/ExpandMoreRounded';
 import { makeStyles } from '@material-ui/styles';
 
+import { BaseLanguageHelper } from '../../../api/enums/BaseLanguage';
 import CategoryReadModel from '../../../api/read-models/categories/CategoryReadModel';
 import CilAddSubcategoryButton from './CilAddSubcategoryButton';
 import CilDeleteCategoryButton from './CilDeleteCategoryButton';
 import CilDeleteSubcategoryButton from './CilDeleteSubcategoryButton';
 
 const useStyles = makeStyles((theme: Theme) => ({
+	headerWrapper: {
+		display: 'flex',
+		flexDirection: 'row'
+	},
+	headerLeft: {
+		flexGrow: 1,
+		flexBasis: 0
+	},
+	headerRight: {
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		justifyContent: 'space-around'
+	},
+	header: {
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'flex-start'
+	},
+	headerTypography: {
+		marginBottom: 0,
+		marginRight: '5px'
+	},
 	cardActions: {
 		justifyContent: 'flex-end',
 		marginRight: '5px'
@@ -54,7 +79,18 @@ const CilCategoryCard: FunctionComponent<CilCategoryCardProps> = props => {
 	return (
 		<Card>
 			<CardContent>
-				<Typography variant="h2">{props.category.name}</Typography>
+				<div className={classes.headerWrapper}>
+					<div className={classes.headerLeft}>
+						<div className={classes.header}>
+							<Typography variant="h2" className={classes.headerTypography}>
+								{props.category.name}
+							</Typography>
+						</div>
+					</div>
+					<div className={classes.headerRight}>
+						<Typography variant="h4">{BaseLanguageHelper.getName(props.category.language)}</Typography>
+					</div>
+				</div>
 				<Collapse in={isExpanded} timeout="auto" unmountOnExit={false}>
 					<ul>
 						{props.category.subcategories.map(subcategory => (

@@ -18,7 +18,8 @@ const translations = {
 		noCategories: 'No categories have been found.',
 		subcategoryHasBeenAdded: 'The subcategory has been added.',
 		subcategoryName: 'Name',
-		subcategoryHasBeenDeleted: 'The subcategory has been deleted.'
+		subcategoryHasBeenDeleted: 'The subcategory has been deleted.',
+		language: 'Language'
 	},
 
 	tests: {
@@ -151,7 +152,10 @@ const translations = {
 		type_uint: 'uint',
 		type_ulong: 'ulong',
 		type_ushort: 'ushort',
-		description: 'Description'
+		description: 'Description',
+		CIL: 'CIL',
+		CSharp: 'C#',
+		FSharp: 'F#'
 	}
 };
 
