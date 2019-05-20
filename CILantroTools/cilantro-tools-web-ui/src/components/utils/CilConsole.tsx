@@ -26,7 +26,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 		padding: '10px'
 	},
 	consoleLine: {
-		wordBreak: 'break-all'
+		wordBreak: 'break-all',
+		whiteSpace: 'pre'
 	},
 	consoleInLine: {
 		color: 'white'
