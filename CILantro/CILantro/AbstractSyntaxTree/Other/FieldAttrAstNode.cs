@@ -66,15 +66,29 @@ namespace CILantro.AbstractSyntaxTree.Other
             }
 
             // fieldAttr + _("family")
-            var familyChildern = AstChildren.Empty()
+            var familyChildren = AstChildren.Empty()
                 .Add<FieldAttrAstNode>()
                 .Add("family");
-            if (familyChildern.PopulateWith(parseNode))
+            if (familyChildren.PopulateWith(parseNode))
             {
                 // TODO: handle
-                IsPublic = familyChildern.Child1.IsPublic;
-                IsPrivate = familyChildern.Child1.IsPrivate;
-                IsStatic = familyChildern.Child1.IsStatic;
+                IsPublic = familyChildren.Child1.IsPublic;
+                IsPrivate = familyChildren.Child1.IsPrivate;
+                IsStatic = familyChildren.Child1.IsStatic;
+
+                return;
+            }
+
+            // fieldAttr + _("assembly")
+            var assemblyChildren = AstChildren.Empty()
+                .Add<FieldAttrAstNode>()
+                .Add("assembly");
+            if (assemblyChildren.PopulateWith(parseNode))
+            {
+                // TODO: handle
+                IsPublic = assemblyChildren.Child1.IsPublic;
+                IsPrivate = assemblyChildren.Child1.IsPrivate;
+                IsStatic = assemblyChildren.Child1.IsStatic;
 
                 return;
             }
