@@ -360,20 +360,20 @@ namespace CILantro.Interpreting.Visitors
 
         protected unsafe override void VisitIndirectLoadI4Instruction(IndirectLoadI4Instruction instruction)
         {
-            //_state.EvaluationStack.Pop(out var addressStackVal);
-            //var address = (CilStackValueNativeInt)addressStackVal;
-            //var pointer = (int*)address.Value;
+            _state.EvaluationStack.PopValue(out CilValueManagedPointer valuePointer);
 
-            //var value = new CilValueInt32(*pointer);
+            _state.EvaluationStack.PushValue(valuePointer.ValueToRef);
 
-            // TODO: implement
-
-            throw new NotImplementedException();
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitIndirectStoreI4Instruction(IndirectStoreI4Instruction instruction)
         {
-            throw new NotImplementedException();
+            _state.EvaluationStack.PopValue(out CilValueManagedPointer pointer, out CilValueInt32 value);
+
+            pointer.SetValue(value);
+
+            _state.MoveToNextInstruction();
         }
 
         protected override void VisitLoadArgument0Instruction(LoadArgument0Instruction instruction)

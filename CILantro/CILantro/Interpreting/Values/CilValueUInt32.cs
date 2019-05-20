@@ -4,7 +4,7 @@ using CILantro.Interpreting.Types;
 
 namespace CILantro.Interpreting.Values
 {
-    public struct CilValueUInt32 : IValue
+    public class CilValueUInt32 : IValue
     {
         public uint Value { get; }
 

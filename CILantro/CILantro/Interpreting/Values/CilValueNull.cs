@@ -5,7 +5,7 @@ using System;
 
 namespace CILantro.Interpreting.Values
 {
-    public struct CilValueNull : IValue
+    public class CilValueNull : IValue
     {
         public object AsRuntime(CilType cilType, CilManagedMemory managedMemory)
         {

@@ -46,24 +46,24 @@ namespace CILantro.Interpreting.State
         }
 
         public void PopValue<T>(out T val)
-            where T : struct, IValue
+            where T : IValue
         {
             Pop(out var stackVal);
             val = (T)ConvertToValue(stackVal, typeof(T));
         }
 
         public void PopValue<T1, T2>(out T1 val1, out T2 val2)
-            where T1 : struct, IValue
-            where T2 : struct, IValue
+            where T1 : IValue
+            where T2 : IValue
         {
             PopValue(out val2);
             PopValue(out val1);
         }
 
         public void PopValue<T1, T2, T3>(out T1 val1, out T2 val2, out T3 val3)
-            where T1 : struct, IValue
-            where T2 : struct, IValue
-            where T3 : struct, IValue
+            where T1 : IValue
+            where T2 : IValue
+            where T3 : IValue
         {
             PopValue(out val3);
             PopValue(out val2);

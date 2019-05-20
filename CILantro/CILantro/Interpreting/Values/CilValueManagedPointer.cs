@@ -5,11 +5,16 @@ using System;
 
 namespace CILantro.Interpreting.Values
 {
-    public struct CilValueManagedPointer : IValue
+    public class CilValueManagedPointer : IValue
     {
-        public IValue ValueToRef { get; }
+        public IValue ValueToRef { get; private set; }
 
         public CilValueManagedPointer(IValue valueToRef)
+        {
+            ValueToRef = valueToRef;
+        }
+
+        public void SetValue(IValue valueToRef)
         {
             ValueToRef = valueToRef;
         }

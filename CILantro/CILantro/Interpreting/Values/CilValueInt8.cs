@@ -4,7 +4,7 @@ using CILantro.Interpreting.Types;
 
 namespace CILantro.Interpreting.Values
 {
-    public struct CilValueInt8 : IValue
+    public class CilValueInt8 : IValue
     {
         public sbyte Value { get; }
 
