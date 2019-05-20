@@ -108,6 +108,7 @@ const CilTestInputOutputExamplesEditor: FunctionComponent<CilTestInputOutputExam
 
 	const handleExampleInputChange = (newInput: string) => {
 		setNewExampleInput(newInput);
+		setIsNewOutputPopulated(false);
 	};
 
 	const handleAddButtonClick = () => {
