@@ -73,10 +73,14 @@ namespace CILantro.Interpreting.Visitors
             else
             {
                 var @class = _program.Classes.Single(c => c.Name.ToString() == instruction.TypeSpec.ClassName.ToString());
-                var @method = @class.Methods.Single(m => m.Name == instruction.MethodName && AreArgumentsAssignable(m.Arguments, instruction.SigArgs));
-                var sigArgs = BuildSigArgs(_program, instruction, @method, @method.CallConv.IsInstance);
-                var methodArgs = PopMethodArguments(instruction, sigArgs, @method.CallConv.IsInstance, @method.CallConv.IsInstance);
-                var methodState = new CilMethodState(@method, sigArgs, methodArgs);
+                var baseMethod = @class.Methods.Single(m => m.Name == instruction.MethodName && AreArgumentsAssignable(m.Arguments, instruction.SigArgs));
+                var sigArgs = BuildSigArgs(_program, instruction, baseMethod, baseMethod.CallConv.IsInstance);
+                var methodArgs = PopMethodArguments(instruction, sigArgs, baseMethod.CallConv.IsInstance, baseMethod.CallConv.IsInstance);
+
+                var thisRef = _managedMemory.Load(methodArgs[0] as CilValueReference) as CilClassInstance;
+                var method = thisRef.Class.Methods.Single(m => m.Name == instruction.MethodName && AreArgumentsAssignable(m.Arguments, instruction.SigArgs));
+
+                var methodState = new CilMethodState(method, sigArgs, methodArgs);
 
                 _state.MoveToNextInstruction();
                 _state.CallStack.Push(methodState);

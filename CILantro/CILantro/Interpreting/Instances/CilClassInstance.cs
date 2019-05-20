@@ -9,13 +9,13 @@ namespace CILantro.Interpreting.Instances
 {
     public class CilClassInstance : CilObject
     {
-        private readonly CilClass _class;
+        public CilClass Class { get; private set; }
 
         public Dictionary<string, IValue> Fields { get; }
 
         public CilClassInstance(CilClass @class, CilProgram program)
         {
-            _class = @class;
+            Class = @class;
 
             Fields = new Dictionary<string, IValue>();
             foreach (var field in @class.Fields.Where(f => !f.IsStatic))

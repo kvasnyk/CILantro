@@ -2,7 +2,7 @@
   "profiles": {
     "CILantro": {
       "commandName": "Project",
-      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\CalculatorApplication8\\CalculatorApplication8.il\""
+      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\CSF_Inheritance_SimpleInheritance\\CSF_Inheritance_SimpleInheritance.il\""
     }
   }
 }
