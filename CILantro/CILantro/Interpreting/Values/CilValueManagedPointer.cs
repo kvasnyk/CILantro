@@ -33,5 +33,10 @@ namespace CILantro.Interpreting.Values
         {
             throw new NotImplementedException();
         }
+
+        public IValue As(CilType cilType)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

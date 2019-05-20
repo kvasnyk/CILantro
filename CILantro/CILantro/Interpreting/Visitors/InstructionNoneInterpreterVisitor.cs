@@ -154,6 +154,7 @@ namespace CILantro.Interpreting.Visitors
                 x => new CilStackValueInt32((sbyte)x.Value),
                 x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); },
+                x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); }
             );
             _state.EvaluationStack.Push(newStackVal);
@@ -171,7 +172,26 @@ namespace CILantro.Interpreting.Visitors
                 x => new CilStackValueInt32((short)x.Value),
                 x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); },
+                x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); }
+            );
+            _state.EvaluationStack.Push(newStackVal);
+
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitConvertI4Instruction(ConvertI4Instruction instruction)
+        {
+            // TODO: finish implementation
+
+            _state.EvaluationStack.Pop(out var stackVal);
+            var newStackVal = ComputeConversionOperation(
+                stackVal,
+                x => { throw new NotImplementedException(); },
+                x => { throw new NotImplementedException(); },
+                x => { throw new NotImplementedException(); },
+                x => { throw new NotImplementedException(); },
+                x => new CilStackValueInt32(x.Value)
             );
             _state.EvaluationStack.Push(newStackVal);
 
@@ -186,6 +206,7 @@ namespace CILantro.Interpreting.Visitors
             var newStackVal = ComputeConversionOperation(
                 stackVal,
                 x => new CilStackValueInt64(x.Value),
+                x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); }
@@ -205,6 +226,7 @@ namespace CILantro.Interpreting.Visitors
                 x => new CilStackValueFloat((float)x.Value),
                 x => new CilStackValueFloat((float)x.Value),
                 x => new CilStackValueFloat((float)x.Value),
+                x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); }
             );
             _state.EvaluationStack.Push(newStackVal);
@@ -222,6 +244,7 @@ namespace CILantro.Interpreting.Visitors
                 x => new CilStackValueFloat((double)x.Value),
                 x => new CilStackValueFloat((double)x.Value),
                 x => new CilStackValueFloat(x.Value),
+                x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); }
             );
             _state.EvaluationStack.Push(newStackVal);
@@ -240,6 +263,7 @@ namespace CILantro.Interpreting.Visitors
                 x => new CilStackValueFloat((double)x.ValueUnsigned),
                 x => new CilStackValueFloat((double)x.ValueUnsigned),
                 x => { throw new NotImplementedException(); },
+                x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); }
             );
             _state.EvaluationStack.Push(newStackVal);
@@ -257,7 +281,8 @@ namespace CILantro.Interpreting.Visitors
                 x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); },
-                x => new CilStackValueNativeInt(x.ValueToRef.GetPointerValue())
+                x => new CilStackValueNativeInt(x.ValueToRef.GetPointerValue()),
+                x => { throw new NotImplementedException(); }
             );
             _state.EvaluationStack.Push(newStackVal);
 
@@ -272,6 +297,7 @@ namespace CILantro.Interpreting.Visitors
             var newStackVal = ComputeConversionOperation(
                 stackVal,
                 x => new CilStackValueInt32((byte)x.ValueUnsigned),
+                x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); }
@@ -291,6 +317,7 @@ namespace CILantro.Interpreting.Visitors
                 x => new CilStackValueInt32((ushort)x.ValueUnsigned),
                 x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); },
+                x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); }
             );
             _state.EvaluationStack.Push(newStackVal);
@@ -306,6 +333,7 @@ namespace CILantro.Interpreting.Visitors
             var newStackVal = ComputeConversionOperation(
                 stackVal,
                 x => new CilStackValueInt64((long)(ulong)x.ValueUnsigned),
+                x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); }
@@ -643,6 +671,16 @@ namespace CILantro.Interpreting.Visitors
         {
             var stackVal = new CilStackValueInt32(-1);
             _state.EvaluationStack.Push(stackVal);
+
+            _state.MoveToNextInstruction();
+        }
+
+        protected override void VisitLoadLengthInstruction(LoadLengthInstruction instruction)
+        {
+            _state.EvaluationStack.PopValue(out CilValueReference arrayRef);
+            var array = _managedMemory.Load(arrayRef) as CilArray;
+
+            _state.EvaluationStack.Push(new CilStackValueNativeInt(array.Length));
 
             _state.MoveToNextInstruction();
         }
@@ -1094,7 +1132,8 @@ namespace CILantro.Interpreting.Visitors
             Func<CilStackValueInt32, IStackValue> computeInt32,
             Func<CilStackValueInt64, IStackValue> computeInt64,
             Func<CilStackValueFloat, IStackValue> computeFloat,
-            Func<CilStackValuePointer, IStackValue> computePointer
+            Func<CilStackValuePointer, IStackValue> computePointer,
+            Func<CilStackValueNativeInt, IStackValue> computeNativeInt
         )
         {
             // TODO: cover all cases
@@ -1107,6 +1146,8 @@ namespace CILantro.Interpreting.Visitors
                 return computeFloat(stackValFloat);
             if (stackVal is CilStackValuePointer stackValPointer)
                 return computePointer(stackValPointer);
+            if (stackVal is CilStackValueNativeInt stackValNativeInt)
+                return computeNativeInt(stackValNativeInt);
 
             throw new System.NotImplementedException();
         }

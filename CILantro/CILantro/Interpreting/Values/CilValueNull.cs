@@ -7,6 +7,11 @@ namespace CILantro.Interpreting.Values
 {
     public class CilValueNull : IValue
     {
+        public IValue As(CilType cilType)
+        {
+            throw new NotImplementedException();
+        }
+
         public object AsRuntime(CilType cilType, CilManagedMemory managedMemory)
         {
             throw new NotImplementedException();

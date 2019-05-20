@@ -156,6 +156,10 @@ namespace CILantro.Visitors
                 VisitLoadArgument3Instruction(loadArgument3Instruction);
             else if (instruction is IndirectStoreI4Instruction indirectStoreI4Instruction)
                 VisitIndirectStoreI4Instruction(indirectStoreI4Instruction);
+            else if (instruction is ConvertI4Instruction convertI4Instruction)
+                VisitConvertI4Instruction(convertI4Instruction);
+            else if (instruction is LoadLengthInstruction loadLengthInstruction)
+                VisitLoadLengthInstruction(loadLengthInstruction);
             else
                 throw new ArgumentException($"CIL instruction none cannot be recognized: '{instruction.ToString()}'.");
         }
@@ -177,6 +181,8 @@ namespace CILantro.Visitors
         protected abstract void VisitConvertI1Instruction(ConvertI1Instruction instruction);
 
         protected abstract void VisitConvertI2Instruction(ConvertI2Instruction instruction);
+
+        protected abstract void VisitConvertI4Instruction(ConvertI4Instruction instruction);
 
         protected abstract void VisitConvertI8Instruction(ConvertI8Instruction instruction);
 
@@ -251,6 +257,8 @@ namespace CILantro.Visitors
         protected abstract void VisitLoadConstI48Instruction(LoadConstI48Instruction instruction);
 
         protected abstract void VisitLoadConstI4M1Instruction(LoadConstI4M1Instruction instruction);
+
+        protected abstract void VisitLoadLengthInstruction(LoadLengthInstruction instruction);
 
         protected abstract void VisitLoadLocal0Instruction(LoadLocal0Instruction instruction);
 

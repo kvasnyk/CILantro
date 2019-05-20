@@ -37,5 +37,15 @@ namespace CILantro.Interpreting.Values
         {
             throw new System.NotImplementedException();
         }
+
+        public IValue As(CilType cilType)
+        {
+            if (cilType is CilTypeInt64)
+                return this;
+            else if (cilType is CilTypeUInt64)
+                return new CilValueUInt64((ulong)Value);
+
+            throw new System.NotImplementedException();
+        }
     }
 }

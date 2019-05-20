@@ -39,5 +39,15 @@ namespace CILantro.Interpreting.Values
         {
             throw new System.NotImplementedException();
         }
+
+        public IValue As(CilType cilType)
+        {
+            if (cilType is CilTypeInt16)
+                return this;
+            else if (cilType is CilTypeUInt16)
+                return new CilValueUInt16((ushort)Value);
+
+            throw new System.NotImplementedException();
+        }
     }
 }

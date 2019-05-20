@@ -35,5 +35,13 @@ namespace CILantro.Interpreting.Values
         {
             throw new System.NotImplementedException();
         }
+
+        public IValue As(CilType cilType)
+        {
+            if (cilType is CilTypeFloat32)
+                return this;
+
+            throw new System.NotImplementedException();
+        }
     }
 }

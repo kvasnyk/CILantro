@@ -2,17 +2,18 @@
 using CILantro.Interpreting.Types;
 using CILantro.Interpreting.Values;
 using CILantro.Structure;
-using System;
 
 namespace CILantro.Interpreting.Objects
 {
     public class CilArray : CilObject
     {
-        private Array _array;
+        private IValue[] _array;
 
         private CilType _type;
 
-        public CilArray(Array array, CilType type)
+        public int Length => _array.Length;
+
+        public CilArray(IValue[] array, CilType type)
         {
             _array = array;
             _type = type;
@@ -20,7 +21,7 @@ namespace CILantro.Interpreting.Objects
 
         public CilArray(CilType type, int numElems)
         {
-            _array = Array.CreateInstance(type.GetRuntimeType(), numElems);
+            _array = new IValue[numElems];
             _type = type;
         }
 
@@ -31,16 +32,12 @@ namespace CILantro.Interpreting.Objects
 
         public void SetValue(IValue value, CilValueInt32 indexVal, CilManagedMemory managedMemory)
         {
-            var arrayElem = value.AsRuntime(_type, managedMemory);
-            _array.SetValue(arrayElem, indexVal.Value);
+            _array[indexVal.Value] = value;
         }
 
         public IValue GetValue(CilValueInt32 indexVal, CilType desiredType, CilManagedMemory managedMemory, CilProgram program)
         {
-            var resultType = desiredType ?? _type;
-            var arrayElem = _array.GetValue(indexVal.Value);
-
-            return resultType.CreateValueFromRuntime(arrayElem, managedMemory, program);
+            return _array[indexVal.Value].As(desiredType ?? _type);
         }
     }
 }

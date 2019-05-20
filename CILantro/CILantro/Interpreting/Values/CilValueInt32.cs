@@ -13,6 +13,16 @@ namespace CILantro.Interpreting.Values
             Value = value;
         }
 
+        public IValue As(CilType cilType)
+        {
+            if (cilType is CilTypeInt32)
+                return this;
+            else if (cilType is CilTypeUInt32)
+                return new CilValueUInt32((uint)Value);
+
+            throw new System.NotImplementedException();
+        }
+
         public object AsRuntime(CilType cilType, CilManagedMemory managedMemory)
         {
             if (cilType is CilTypeInt32)
