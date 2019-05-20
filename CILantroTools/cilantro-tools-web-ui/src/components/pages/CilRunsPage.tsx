@@ -11,6 +11,7 @@ import useSearch from '../../hooks/useSearch';
 import translations from '../../translations/translations';
 import CilPage, { PageState } from '../base/CilPage';
 import CilRunOutcomeFilter from '../filters/CilRunOutcomeFilter';
+import CilRunTypeFilter from '../filters/CilRunTypeFilter';
 import CilAddRunButton from '../shared/runs/CilAddRunButton';
 import CilRunsList from '../shared/runs/CilRunsList';
 import CilFiltersPanel from '../utils/CilFiltersPanel';
@@ -102,6 +103,9 @@ const CilRunsPage: FunctionComponent = props => {
 				</div>
 			</CilPageHeader>
 			<CilFiltersPanel search={search}>
+				<div>
+					<CilRunTypeFilter search={search} runTypeProperty="type" />
+				</div>
 				<div>
 					<CilRunOutcomeFilter<RunReadModel> search={search} runOutcomeProperty="outcome" hideNotRun={true} />
 				</div>

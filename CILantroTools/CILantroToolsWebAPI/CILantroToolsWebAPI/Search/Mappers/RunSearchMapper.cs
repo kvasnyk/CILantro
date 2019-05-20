@@ -21,6 +21,8 @@ namespace CILantroToolsWebAPI.Search.Mappers
             {
                 if (filter.Property.EqualsInvariant(nameof(RunReadModel.Outcome)))
                     return r => r.Outcome.ToString().EqualsInvariant(filter.Value);
+                if (filter.Property.EqualsInvariant(nameof(RunReadModel.Type)))
+                    return r => r.Type.ToString().EqualsInvariant(filter.Value);
             }
 
             throw new ArgumentException($"Cannot build filter expression for property '{filter.Property}' and type '{filter.Type}'.");
