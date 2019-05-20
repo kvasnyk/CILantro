@@ -98,6 +98,26 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // methAttr + _("family")
+            var familyChildren = AstChildren.Empty()
+                .Add<MethAttrAstNode>()
+                .Add("family");
+            if (familyChildren.PopulateWith(parseNode))
+            {
+                // TODO: handle
+                return;
+            }
+
+            // methAttr + _("abstract")
+            var abstractChildren = AstChildren.Empty()
+                .Add<MethAttrAstNode>()
+                .Add("abstract");
+            if (abstractChildren.PopulateWith(parseNode))
+            {
+                // TODO: handle
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

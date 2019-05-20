@@ -1,4 +1,5 @@
-﻿using CILantro.Utils;
+﻿using CILantro.Structure;
+using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
 using System;
@@ -8,6 +9,8 @@ namespace CILantro.AbstractSyntaxTree.Other
     [AstNode("extendsClause")]
     public class ExtendsClauseAstNode : AstNodeBase
     {
+        public CilClassName ClassName { get; private set; }
+
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
             // _("extends") + className
@@ -16,7 +19,8 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<ClassNameAstNode>();
             if (extendsChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                ClassName = extendsChildren.Child2.ClassName;
+
                 return;
             }
 

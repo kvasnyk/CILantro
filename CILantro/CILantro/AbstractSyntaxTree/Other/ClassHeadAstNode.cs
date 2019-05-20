@@ -1,4 +1,5 @@
 ﻿using CILantro.Exceptions;
+using CILantro.Structure;
 using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
@@ -9,6 +10,8 @@ namespace CILantro.AbstractSyntaxTree.Other
     public class ClassHeadAstNode : AstNodeBase
     {
         public string ClassName { get; private set; }
+
+        public CilClassName ExtendsClassName { get; private set; }
 
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
@@ -22,6 +25,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (idChildren.PopulateWith(parseNode))
             {
                 ClassName = idChildren.Child3.Value;
+                ExtendsClassName = idChildren.Child4.ClassName;
 
                 return;
             }
@@ -36,6 +40,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (name1Children.PopulateWith(parseNode))
             {
                 ClassName = name1Children.Child3.Value;
+                ExtendsClassName = name1Children.Child4.ClassName;
 
                 return;
             }

@@ -24,6 +24,20 @@ namespace CILantro.Structure
             Assemblies = decls.Assemblies;
             Classes = decls.Classes;
             Methods = decls.Methods;
+
+            foreach (var @class in Classes)
+            {
+                var isExtendsExternal = IsExternalType(@class.ExtendsName);
+
+                if (isExtendsExternal)
+                {
+                    // TODO: handle
+                }
+                else
+                {
+                    @class.Extends = Classes.First(c => c.Name.ToString() == @class.ExtendsName.ToString());
+                }
+            }
         }
 
         public bool IsExternalType(CilClassName className)

@@ -7,9 +7,9 @@ namespace CILantro.Interpreting.Types
 {
     public class CilTypeChar : CilType
     {
-        public override bool IsValueType => throw new NotImplementedException();
+        public override bool IsValueType => true;
 
-        public override bool IsNullable => throw new NotImplementedException();
+        public override bool IsNullable => false;
 
         public override Type GetRuntimeType()
         {

@@ -54,7 +54,8 @@ namespace CILantro.AbstractSyntaxTree.Other
                         ClassName = classChildren.Child1.ClassName
                     },
                     Methods = classChildren.Child3.ClassDecls.Methods,
-                    Fields = classChildren.Child3.ClassDecls.Fields
+                    Fields = classChildren.Child3.ClassDecls.Fields,
+                    ExtendsName = classChildren.Child1.ExtendsClassName
                 };
 
                 return;

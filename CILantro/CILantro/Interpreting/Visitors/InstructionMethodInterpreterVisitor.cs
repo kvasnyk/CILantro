@@ -78,7 +78,17 @@ namespace CILantro.Interpreting.Visitors
                 var methodArgs = PopMethodArguments(instruction, sigArgs, baseMethod.CallConv.IsInstance, baseMethod.CallConv.IsInstance);
 
                 var thisRef = _managedMemory.Load(methodArgs[0] as CilValueReference) as CilClassInstance;
-                var method = thisRef.Class.Methods.Single(m => m.Name == instruction.MethodName && AreArgumentsAssignable(m.Arguments, instruction.SigArgs));
+                var lookingClass = thisRef.Class;
+                CilMethod method = null;
+                while (true)
+                {
+                    method = lookingClass.Methods.SingleOrDefault(m => m.Name == instruction.MethodName && AreArgumentsAssignable(m.Arguments, instruction.SigArgs));
+
+                    if (method != null)
+                        break;
+
+                    lookingClass = lookingClass.Extends;
+                }
 
                 var methodState = new CilMethodState(method, sigArgs, methodArgs);
 

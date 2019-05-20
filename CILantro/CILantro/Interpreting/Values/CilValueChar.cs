@@ -25,7 +25,7 @@ namespace CILantro.Interpreting.Values
 
         public CilValueType Box()
         {
-            throw new System.NotImplementedException();
+            return new CilChar(this);
         }
 
         public ref object GetRef()
