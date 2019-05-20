@@ -45,6 +45,7 @@ namespace CILantroToolsWebAPI.Services
             var testExecs = Directory
                 .GetFiles(_paths.Tests.Absolute, "*.exe", SearchOption.AllDirectories)
                 .Where(path => path.Contains(@"\Release\"))
+                .Where(path => !Path.GetFileName(path).Contains(".vshost"))
                 .Where(path => !path.Contains(@"\obj\"))
                 .OrderBy(path => Path.GetFileNameWithoutExtension(path));
 
