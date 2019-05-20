@@ -32,7 +32,14 @@ namespace CILantro.Interpreting.Types
 
         public override IValue CreateValueFromRuntime(object obj, CilManagedMemory managedMemory, CilProgram program)
         {
-            var cilArray = new CilArray(obj as IValue[], ElementType);
+            var runtimeArr = obj as Array;
+            var resultArray = new IValue[runtimeArr.Length];
+            for (int i = 0; i < runtimeArr.Length; i++)
+            {
+                resultArray[i] = ElementType.CreateValueFromRuntime(runtimeArr.GetValue(i), managedMemory, program);
+            }
+
+            var cilArray = new CilArray(resultArray, ElementType);
             var arrayRef = managedMemory.Store(cilArray);
             return arrayRef;
         }

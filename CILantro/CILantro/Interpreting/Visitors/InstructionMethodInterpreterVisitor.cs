@@ -140,7 +140,7 @@ namespace CILantro.Interpreting.Visitors
                 if (stackVal is CilStackValueReference stackValReference)
                 {
                     var instanceRef = new CilValueReference(stackValReference.Address);
-                    instance = _managedMemory.Load(instanceRef).AsRuntime(instruction.TypeSpec.GetCilType(_program));
+                    instance = _managedMemory.Load(instanceRef).AsRuntime(instruction.TypeSpec.GetCilType(_program), _managedMemory);
                 }
                 else if (stackVal is CilStackValuePointer stackValPointer)
                 {

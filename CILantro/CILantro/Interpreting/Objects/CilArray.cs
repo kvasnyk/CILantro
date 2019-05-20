@@ -2,6 +2,8 @@
 using CILantro.Interpreting.Types;
 using CILantro.Interpreting.Values;
 using CILantro.Structure;
+using System;
+using System.Linq;
 
 namespace CILantro.Interpreting.Objects
 {
@@ -25,9 +27,17 @@ namespace CILantro.Interpreting.Objects
             _type = type;
         }
 
-        public override object AsRuntime(CilType type)
+        public override object AsRuntime(CilType type, CilManagedMemory managedMemory)
         {
-            return _array;
+            if (type is CilTypeArray cilTypeArray)
+            {
+                var result = Array.CreateInstance(cilTypeArray.ElementType.GetRuntimeType(), Length);
+                var objectArr = _array.Select(elem => elem.AsRuntime(cilTypeArray.ElementType, managedMemory)).ToArray();
+                Array.Copy(objectArr, result, Length);
+                return result;
+            }
+
+            throw new System.NotImplementedException();
         }
 
         public void SetValue(IValue value, CilValueInt32 indexVal, CilManagedMemory managedMemory)

@@ -1,4 +1,5 @@
-﻿using CILantro.Interpreting.Objects;
+﻿using CILantro.Interpreting.Memory;
+using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.Types;
 using CILantro.Interpreting.Values;
 using CILantro.Structure;
@@ -24,7 +25,7 @@ namespace CILantro.Interpreting.Instances
             }
         }
 
-        public override object AsRuntime(CilType type)
+        public override object AsRuntime(CilType type, CilManagedMemory managedMemory)
         {
             throw new System.NotImplementedException();
         }

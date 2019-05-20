@@ -16,7 +16,7 @@ namespace CILantro.Interpreting.Values
         public object AsRuntime(CilType cilType, CilManagedMemory managedMemory)
         {
             var result = managedMemory.Load(this);
-            return result.AsRuntime(cilType);
+            return result.AsRuntime(cilType, managedMemory);
         }
 
         public CilValueType Box()
