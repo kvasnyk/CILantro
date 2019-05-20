@@ -65,6 +65,20 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // fieldAttr + _("family")
+            var familyChildern = AstChildren.Empty()
+                .Add<FieldAttrAstNode>()
+                .Add("family");
+            if (familyChildern.PopulateWith(parseNode))
+            {
+                // TODO: handle
+                IsPublic = familyChildern.Child1.IsPublic;
+                IsPrivate = familyChildern.Child1.IsPrivate;
+                IsStatic = familyChildern.Child1.IsStatic;
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }
