@@ -1,4 +1,5 @@
-﻿using CILantro.Interpreting.Visitors;
+﻿using CILantro.Exceptions;
+using CILantro.Interpreting.Visitors;
 using CILantro.Structure;
 
 namespace CILantro.Interpreting
@@ -14,8 +15,25 @@ namespace CILantro.Interpreting
 
         public void Interpret()
         {
+            if (!CheckSupported(_program))
+                return;
+
             var interpreterVisitor = new CilInterpreterInstructionsVisitor(_program);
             interpreterVisitor.Visit();
+        }
+
+        private bool CheckSupported(CilProgram program)
+        {
+            foreach (var method in program.AllMethods)
+            {
+                foreach (var instruction in method.Instructions)
+                {
+                    if (!instruction.IsSupported)
+                        throw new InstructionNotSupportedException(instruction);
+                }
+            }
+
+            return true;
         }
     }
 }

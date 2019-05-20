@@ -6,6 +6,8 @@ namespace CILantro.Instructions
     {
         public List<string> Labels { get; set; }
 
+        public virtual bool IsSupported => true;
+
         public abstract override string ToString();
     }
 }
