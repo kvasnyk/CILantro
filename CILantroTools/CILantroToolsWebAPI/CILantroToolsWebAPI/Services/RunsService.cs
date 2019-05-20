@@ -82,6 +82,31 @@ namespace CILantroToolsWebAPI.Services
             return runId;
         }
 
+        public async Task<Guid> ReplayRunAsync(Guid runId)
+        {
+            var run = _runsRepository.Read<RunReadModel>().Single(r => r.Id == runId);
+
+            var testRuns = run.TestRuns.Select(tr => new TestRun
+            {
+                Id = Guid.NewGuid(),
+                TestId = tr.TestId
+            }).ToList();
+
+            var newRun = new Run
+            {
+                Id = Guid.NewGuid(),
+                Type = run.Type,
+                CreatedOn = DateTime.Now,
+                TestRuns = testRuns
+            };
+
+            var newRunId = await _runsRepository.CreateAsync(newRun);
+
+            _runRunner.Run(newRunId);
+
+            return newRunId;
+        }
+
         public async Task<Guid> AddSingleTestRunAsync(AddSingleTestRunBindingModel model)
         {
             var testRun = new TestRun

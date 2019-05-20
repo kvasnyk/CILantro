@@ -2,9 +2,7 @@ import classNames from 'classnames';
 import moment from 'moment';
 import React, { FunctionComponent, ReactNode, useState } from 'react';
 
-import {
-    Avatar, Card, CardActions, CardContent, LinearProgress, Theme, Typography
-} from '@material-ui/core';
+import { Avatar, Card, CardActions, CardContent, LinearProgress, Theme, Typography } from '@material-ui/core';
 import { green, orange, red } from '@material-ui/core/colors';
 import QuickIcon from '@material-ui/icons/DirectionsRunRounded';
 import FullIcon from '@material-ui/icons/HourglassEmptyRounded';
@@ -20,6 +18,7 @@ import useRunningRunHub from '../../../hooks/useRunningRunHub';
 import translations from '../../../translations/translations';
 import CilTimeSpanDisplayer from '../../utils/CilTimeSpanDisplayer';
 import CilDeleteRunButton from './CilDeleteRunButton';
+import CilReplayRunButton from './CilReplayRunButton';
 import CilShowRunButton from './CilShowRunButton';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -124,6 +123,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface CilRunCardProps {
 	run: RunReadModel;
 	onRunDeleted: () => void;
+	onRunReplayed: () => void;
 	onHubConnectionError: () => void;
 }
 
@@ -289,6 +289,9 @@ const CilRunCard: FunctionComponent<CilRunCardProps> = props => {
 				</div>
 			</CardContent>
 			<CardActions className={classes.cardActions}>
+				{runData.status !== RunStatus.Running ? (
+					<CilReplayRunButton run={props.run} iconClassName={iconClassName} onRunReplayed={props.onRunReplayed} />
+				) : null}
 				{runData.status !== RunStatus.Finished ? (
 					<CilDeleteRunButton run={props.run} iconClassName={iconClassName} onRunDeleted={props.onRunDeleted} />
 				) : null}

@@ -34,6 +34,7 @@ const apiRoutes = {
 		addSingleTestRun: '/runs/add-single',
 		searchRuns: '/runs/search',
 		deleteRun: (runId: string) => `/runs/${runId}/delete`,
+		replayRun: (runId: string) => `/runs/${runId}/replay`,
 		getRun: (runId: string) => `/runs/${runId}`,
 		searchTestRuns: (runId: string) => `/runs/${runId}/test-runs/search`,
 		getFullTestRun: (runId: string, testRunId: string) => `/runs/${runId}/test-runs/${testRunId}`

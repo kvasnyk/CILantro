@@ -76,6 +76,10 @@ const CilRunsPage: FunctionComponent = props => {
 		refreshRuns();
 	};
 
+	const handleRunReplayed = () => {
+		refreshRuns();
+	};
+
 	const handleHubConnectionError = () => {
 		setPageState('error');
 	};
@@ -105,6 +109,7 @@ const CilRunsPage: FunctionComponent = props => {
 			<CilRunsList
 				runs={search.result.data}
 				onRunDeleted={handleRunDeleted}
+				onRunReplayed={handleRunReplayed}
 				onHubConnectionError={handleHubConnectionError}
 			/>
 		</CilPage>

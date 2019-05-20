@@ -35,6 +35,10 @@ class RunsApiClient extends ApiClientBase {
 		return this.delete<{}>(apiRoutes.runs.deleteRun(runId), {});
 	}
 
+	public replayRun(runId: string) {
+		return this.post<{}, {}>(apiRoutes.runs.replayRun(runId), {});
+	}
+
 	public getRun(runId: string) {
 		return this.get<{}, RunReadModel>(apiRoutes.runs.getRun(runId), {});
 	}

@@ -55,6 +55,12 @@ namespace CILantroToolsWebAPI.Controllers
             return await _runsService.GetRunAsync(runId);
         }
 
+        [HttpPost("{runId}/replay")]
+        public async Task ReplayRunAsync([FromRoute]Guid runId)
+        {
+            await _runsService.ReplayRunAsync(runId);
+        }
+
         [HttpGet("{runId}/test-runs/{testRunId}")]
         public async Task<TestRunFullReadModel> GetFullTestRunAsync([FromRoute]Guid runId, [FromRoute]Guid testRunId)
         {

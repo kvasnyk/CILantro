@@ -10,6 +10,7 @@ import CilRunCard from './CilRunCard';
 interface CilRunsListProps {
 	runs: RunReadModel[];
 	onRunDeleted: () => void;
+	onRunReplayed: () => void;
 	onHubConnectionError: () => void;
 }
 
@@ -21,6 +22,7 @@ const CilRunsList: FunctionComponent<CilRunsListProps> = props => {
 					key={run.id}
 					run={run}
 					onRunDeleted={props.onRunDeleted}
+					onRunReplayed={props.onRunReplayed}
 					onHubConnectionError={props.onHubConnectionError}
 				/>
 			))}

@@ -37,6 +37,8 @@ namespace CILantroToolsWebAPI.Hubs
 
         private DateTime? _processingFinishedOn;
 
+        private CancellationTokenSource _cancelToken;
+
         public RunReadModel ProcessingRun;
 
         public HubRunRunner(
@@ -56,6 +58,13 @@ namespace CILantroToolsWebAPI.Hubs
         {
             if (_processingTask != null)
                 await CancelExistingRun();
+
+            if (_cancelToken != null)
+            {
+                _cancelToken.Cancel();
+                _cancelToken.Dispose();
+            }
+            _cancelToken = new CancellationTokenSource();
 
             _processingTask = Task.Run(async () =>
             {
@@ -100,7 +109,9 @@ namespace CILantroToolsWebAPI.Hubs
             {
                 if (_processingTask != null)
                 {
-                    _processingTask.Dispose();
+                    _cancelToken.Cancel();
+                    _cancelToken.Dispose();
+                    _cancelToken = null;
                 }
 
                 _processingRunData.Status = RunStatus.Cancelled;
