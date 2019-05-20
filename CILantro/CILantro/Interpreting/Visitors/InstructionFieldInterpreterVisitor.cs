@@ -5,6 +5,7 @@ using CILantro.Interpreting.State;
 using CILantro.Interpreting.Values;
 using CILantro.Structure;
 using CILantro.Visitors;
+using System.Reflection;
 
 namespace CILantro.Interpreting.Visitors
 {
@@ -37,11 +38,26 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadStaticFieldInstruction(LoadStaticFieldInstruction instruction)
         {
-            var value = _state.StaticInstances[instruction.ClassTypeSpec.ClassName.ToString()].StaticFields[instruction.FieldId];
+            if (_program.IsExternalType(instruction.ClassTypeSpec.ClassName))
+            {
+                var assembly = Assembly.Load(instruction.ClassTypeSpec.ClassName.AssemblyName);
+                var @class = assembly.GetType(instruction.ClassTypeSpec.ClassName.ClassName);
+                var field = @class.GetField(instruction.FieldId, BindingFlags.Static | BindingFlags.Public);
+                var externalValue = field.GetValue(null);
+                var value = instruction.FieldType.CreateValueFromRuntime(externalValue, _managedMemory, _program);
 
-            _state.EvaluationStack.PushValue(value);
+                _state.EvaluationStack.PushValue(value);
 
-            _state.MoveToNextInstruction();
+                _state.MoveToNextInstruction();
+            }
+            else
+            {
+                var value = _state.StaticInstances[instruction.ClassTypeSpec.ClassName.ToString()].StaticFields[instruction.FieldId];
+
+                _state.EvaluationStack.PushValue(value);
+
+                _state.MoveToNextInstruction();
+            }
         }
 
         protected override void VisitStoreFieldInstruction(StoreFieldInstruction instruction)

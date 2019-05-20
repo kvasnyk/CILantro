@@ -50,6 +50,7 @@ namespace CILantro.Interpreting.Visitors
             _state.EvaluationStack.Pop(out var stackVal);
             var branch = ComputeUnaryBranchOperation(
                 stackVal,
+                a => a.Value == 0,
                 a => a.Value == 0
             );
 
@@ -237,6 +238,7 @@ namespace CILantro.Interpreting.Visitors
             _state.EvaluationStack.Pop(out var stackVal);
             var branch = ComputeUnaryBranchOperation(
                 stackVal,
+                a => a.Value != 0,
                 a => a.Value != 0
             );
 
@@ -248,13 +250,16 @@ namespace CILantro.Interpreting.Visitors
 
         private bool ComputeUnaryBranchOperation(
             IStackValue stackVal,
-            Func<CilStackValueInt32, bool> computeInt32
+            Func<CilStackValueInt32, bool> computeInt32,
+            Func<CilStackValueInt64, bool> computeInt64
         )
         {
             // TODO: cover all cases
 
             if (stackVal is CilStackValueInt32 stackValInt32)
                 return computeInt32(stackValInt32);
+            if (stackVal is CilStackValueInt64 stackValInt64)
+                return computeInt64(stackValInt64);
 
             throw new System.NotImplementedException();
         }
