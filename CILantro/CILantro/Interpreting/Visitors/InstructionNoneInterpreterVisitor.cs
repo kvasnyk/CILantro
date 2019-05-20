@@ -371,7 +371,8 @@ namespace CILantro.Interpreting.Visitors
         {
             _state.EvaluationStack.PopValue(out CilValueManagedPointer pointer, out CilValueInt32 value);
 
-            pointer.SetValue(value);
+            var int32PointerValue = pointer.ValueToRef as CilValueInt32;
+            int32PointerValue.Value = value.Value;
 
             _state.MoveToNextInstruction();
         }

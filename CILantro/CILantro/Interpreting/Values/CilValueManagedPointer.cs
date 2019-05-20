@@ -7,14 +7,9 @@ namespace CILantro.Interpreting.Values
 {
     public class CilValueManagedPointer : IValue
     {
-        public IValue ValueToRef { get; private set; }
+        public IValue ValueToRef { get; }
 
         public CilValueManagedPointer(IValue valueToRef)
-        {
-            ValueToRef = valueToRef;
-        }
-
-        public void SetValue(IValue valueToRef)
         {
             ValueToRef = valueToRef;
         }
