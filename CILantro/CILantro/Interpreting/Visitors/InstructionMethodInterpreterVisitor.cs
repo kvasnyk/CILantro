@@ -11,6 +11,8 @@ using CILantro.Utils;
 using CILantro.Visitors;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace CILantro.Interpreting.Visitors
 {
@@ -38,8 +40,8 @@ namespace CILantro.Interpreting.Visitors
 
             if (isExternalType)
             {
-                var result = CallExternalMethod(instruction);
-                StoreExternalResult(result, instruction.ReturnType);
+                var result = CallExternalMethod(instruction, null);
+                StoreExternalResult(result, instruction.ReturnType, false);
 
                 _state.MoveToNextInstruction();
             }
@@ -65,8 +67,8 @@ namespace CILantro.Interpreting.Visitors
 
             if (isExternalType)
             {
-                var result = CallExternalMethod(instruction);
-                StoreExternalResult(result, instruction.ReturnType);
+                var result = CallExternalMethod(instruction, null);
+                StoreExternalResult(result, instruction.ReturnType, false);
 
                 _state.MoveToNextInstruction();
             }
@@ -106,8 +108,12 @@ namespace CILantro.Interpreting.Visitors
 
             if (isExternalType)
             {
-                var result = CallExternalMethod(instruction);
-                StoreExternalResult(result, instruction.TypeSpec.GetCilType(_program));
+                var assembly = Assembly.Load(instruction.TypeSpec.ClassName.AssemblyName);
+                var @type = assembly.GetType(instruction.TypeSpec.ClassName.ClassName);
+                var emptyInstance = FormatterServices.GetUninitializedObject(@type);
+
+                var result = CallExternalMethod(instruction, emptyInstance);
+                StoreExternalResult(result, instruction.TypeSpec.GetCilType(_program), true);
 
                 _state.MoveToNextInstruction();
             }
@@ -123,17 +129,17 @@ namespace CILantro.Interpreting.Visitors
                 var instanceSigArgValues = (new List<IValue> { reference }).Concat(PopMethodArguments(instruction, sigArgs, @method.CallConv.IsInstance, false)).ToList();
                 var methodState = new CilMethodState(@method, sigArgs, instanceSigArgValues);
 
+                _state.EvaluationStack.PushValue(reference);
                 _state.MoveToNextInstruction();
                 _state.CallStack.Push(methodState);
             }
         }
 
-        private object CallExternalMethod(CilInstructionMethod instruction)
+        private object CallExternalMethod(CilInstructionMethod instruction, object instance)
         {
             var args = PopExternalMethodArguments(instruction);
 
-            object instance = null;
-            if (instruction.CallConv.IsInstance)
+            if (instruction.CallConv.IsInstance && instance == null)
             {
                 _state.EvaluationStack.Pop(out var stackVal);
 
@@ -167,9 +173,9 @@ namespace CILantro.Interpreting.Visitors
             return result;
         }
 
-        private void StoreExternalResult(object result, CilType returnType)
+        private void StoreExternalResult(object result, CilType returnType, bool isNewObjectInstruction)
         {
-            if (!(returnType is CilTypeVoid))
+            if (!(returnType is CilTypeVoid) || isNewObjectInstruction)
             {
                 var value = returnType.CreateValueFromRuntime(result, _managedMemory, _program);
                 _state.EvaluationStack.PushValue(value);

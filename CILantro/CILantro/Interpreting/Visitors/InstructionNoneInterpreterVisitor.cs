@@ -845,16 +845,8 @@ namespace CILantro.Interpreting.Visitors
                 }
                 else
                 {
-                    if (currentMethodState.MethodInfo.IsConstructor)
-                    {
-                        currentMethodState.EvaluationStack.Pop(out var stackThisRef);
-                        _state.EvaluationStack.Push(stackThisRef);
-                    }
-                    else
-                    {
-                        currentMethodState.EvaluationStack.PopValue(_program, currentMethodState.MethodInfo.ReturnType, out var value);
-                        _state.EvaluationStack.PushValue(value);
-                    }
+                    currentMethodState.EvaluationStack.PopValue(_program, currentMethodState.MethodInfo.ReturnType, out var value);
+                    _state.EvaluationStack.PushValue(value);
                 }
 
                 if (!currentMethodState.EvaluationStack.IsEmpty)

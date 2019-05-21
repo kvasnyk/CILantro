@@ -27,6 +27,9 @@ namespace CILantro.Interpreting.Instances
 
         public override object AsRuntime(CilType type, CilManagedMemory managedMemory)
         {
+            if (type is CilTypeObject)
+                return this;
+
             throw new System.NotImplementedException();
         }
     }

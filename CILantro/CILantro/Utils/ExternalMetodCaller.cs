@@ -46,7 +46,7 @@ namespace CILantro.Utils
             {
                 var ctor = @class.GetConstructor(flags, null, config.Types, null);
                 var result = ctor.Invoke(config.Instance, config.Arguments);
-                return result;
+                return config.Instance;
             }
             else
             {
