@@ -18,6 +18,10 @@ namespace CILantro.Utils
         public object Instance { get; set; }
 
         public bool CallConstructor { get; set; }
+
+        public bool IsInstanceCall { get; set; }
+
+        public bool IsMethodPublic { get; set; }
     }
 
     public static class ExternalMetodCaller
@@ -32,15 +36,21 @@ namespace CILantro.Utils
             var assembly = Assembly.Load(config.AssemblyName);
             var @class = assembly.GetType(config.ClassName);
 
+            var flags = BindingFlags.Default | BindingFlags.Public | BindingFlags.NonPublic;
+            if (config.IsInstanceCall)
+                flags |= BindingFlags.Instance;
+            else
+                flags |= BindingFlags.Static;
+
             if (config.CallConstructor)
             {
-                var ctor = @class.GetConstructor(config.Types);
-                var result = ctor.Invoke(config.Arguments);
+                var ctor = @class.GetConstructor(flags, null, config.Types, null);
+                var result = ctor.Invoke(config.Instance, config.Arguments);
                 return result;
             }
             else
             {
-                var method = @class.GetMethod(config.MethodName, config.Types);
+                var method = @class.GetMethod(config.MethodName, flags, null, config.Types, null);
                 var result = method.Invoke(config.Instance, config.Arguments);
                 return result;
             }

@@ -133,7 +133,7 @@ namespace CILantro.Interpreting.Visitors
             var args = PopExternalMethodArguments(instruction);
 
             object instance = null;
-            if (instruction.CallConv.IsInstance && instruction.MethodName != ".ctor")
+            if (instruction.CallConv.IsInstance)
             {
                 _state.EvaluationStack.Pop(out var stackVal);
 
@@ -159,7 +159,8 @@ namespace CILantro.Interpreting.Visitors
                 Arguments = args,
                 Types = instruction.SigArgs.Select(sa => sa.Type.GetRuntimeType()).ToArray(),
                 Instance = instance,
-                CallConstructor = instruction.MethodName == ".ctor"
+                CallConstructor = instruction.MethodName == ".ctor",
+                IsInstanceCall = instruction.CallConv.IsInstance
             };
 
             var result = ExternalMetodCaller.Call(callerConfig);
