@@ -132,6 +132,14 @@ namespace CILantro.Interpreting.State
 
         private IValue ConvertToValue(IStackValue stackVal, Type valType)
         {
+            if (stackVal is CilStackValuePointer stackValPointer)
+            {
+                if (valType == typeof(CilValueManagedPointer))
+                    return new CilValueManagedPointer(stackValPointer.ValueToRef);
+                if (valType == stackValPointer.ValueToRef.GetType())
+                    return stackValPointer.ValueToRef;
+            }
+
             if (valType == typeof(CilValueInt8))
             {
                 if (stackVal is CilStackValueInt32 stackValInt32)
@@ -214,12 +222,6 @@ namespace CILantro.Interpreting.State
             {
                 if (stackVal is CilStackValueInt32 stackValInt32)
                     return new CilValueBool(stackValInt32.Value != 0);
-            }
-
-            if (valType == typeof(CilValueManagedPointer))
-            {
-                if (stackVal is CilStackValuePointer stackValPointer)
-                    return new CilValueManagedPointer(stackValPointer.ValueToRef);
             }
 
             throw new NotImplementedException();
