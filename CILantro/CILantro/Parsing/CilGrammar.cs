@@ -417,8 +417,8 @@ namespace CILantro.Parsing
             // TODO: INSTR_RVA
             INSTR_RVA.Rule = _("TODO: INSTR_RVA");
 
-            // TODO: INSTR_SWITCH
-            INSTR_SWITCH.Rule = _("TODO: INSTR_SWITCH");
+            INSTR_SWITCH.Rule =
+                _("switch");
 
             // TODO: INSTR_PHI
             INSTR_PHI.Rule = _("TODO: INSTR_PHI");
@@ -844,8 +844,12 @@ namespace CILantro.Parsing
             // TODO: bounds1
             bounds1.Rule = _("TODO: bounds1");
 
-            // TODO: labels
-            labels.Rule = _("TODO: labels");
+            labels.Rule =
+                Empty |
+                id + _(",") + labels |
+                int32 + _(",") + labels |
+                id |
+                int32;
 
             id.Rule =
                 ID |

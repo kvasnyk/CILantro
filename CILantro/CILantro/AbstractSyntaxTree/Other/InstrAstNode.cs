@@ -168,6 +168,22 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // INSTR_SWITCH + _("(") + labels + _(")")
+            var instrSwitchChildren = AstChildren.Empty()
+                .Add<INSTR_SWITCHAstNode>()
+                .Add("(")
+                .Add<LabelsAstNode>()
+                .Add(")");
+            if (instrSwitchChildren.PopulateWith(parseNode))
+            {
+                var instructionSwitch = instrSwitchChildren.Child1.Instruction;
+                instructionSwitch.Labels = instrSwitchChildren.Child3.Labels;
+
+                Instruction = instructionSwitch;
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

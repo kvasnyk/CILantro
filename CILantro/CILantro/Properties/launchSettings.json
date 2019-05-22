@@ -2,7 +2,7 @@
   "profiles": {
     "CILantro": {
       "commandName": "Project",
-      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\TP_CSF_Decisions_If\\TP_CSF_Decisions_If.il\""
+      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\DecisionMakingSwitch\\DecisionMakingSwitch.il\""
     }
   }
 }
