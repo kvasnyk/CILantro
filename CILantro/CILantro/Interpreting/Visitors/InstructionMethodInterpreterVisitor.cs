@@ -136,14 +136,14 @@ namespace CILantro.Interpreting.Visitors
 
             if (callExternal)
             {
-                throw new System.NotImplementedException();
-
                 object thisObject = null;
                 if (instruction.CallConv.IsInstance)
                     thisObject = GetRuntimeEmptyInstance(instruction);
 
                 var result = CallExternalMethod(instruction, null, methodArgs.ToArray(), thisObject);
+                var resultVal = instruction.TypeSpec.GetCilType(_program).CreateValueFromRuntime(result, _managedMemory, _program);
 
+                _state.EvaluationStack.PushValue(resultVal);
                 _state.MoveToNextInstruction();
             }
             else
@@ -239,19 +239,6 @@ namespace CILantro.Interpreting.Visitors
             return true;
         }
 
-        //private List<CilSigArg> BuildSigArgs(CilProgram program, CilInstructionMethod instruction, bool isInstanceCall)
-        //{
-        //    var instanceSigArg = new CilSigArg
-        //    {
-        //        Id = ".this",
-        //        Type = instruction.TypeSpec.GetCilType(_program)
-        //    };
-
-        //    return isInstanceCall ?
-        //        (new List<CilSigArg> { instanceSigArg }).Concat(instruction.SigArgs).ToList() :
-        //        instruction.SigArgs;
-        //}
-
         private List<CilSigArg> CompleteSigArgs(CilInstructionMethod instruction, CilMethod method)
         {
             var isInstanceCall = instruction.CallConv.IsInstance;
@@ -267,7 +254,7 @@ namespace CILantro.Interpreting.Visitors
                 instruction.SigArgs;
 
             var start = isInstanceCall ? 1 : 0;
-            for (int i = start; i < instruction.SigArgs.Count; i++)
+            for (int i = start; i < result.Count; i++)
             {
                 result[i].Id = isInstanceCall ? method.Arguments[i - 1].Id : method.Arguments[i].Id;
             }

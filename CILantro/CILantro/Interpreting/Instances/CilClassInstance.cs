@@ -32,9 +32,6 @@ namespace CILantro.Interpreting.Instances
             while (!program.IsExternalType(parentClass.ExtendsName))
                 parentClass = parentClass.Extends;
 
-            //var extAssembly = Assembly.Load(parentClass.ExtendsName.AssemblyName);
-            //var extClass = extAssembly.GetType(parentClass.ExtendsName.ClassName);
-
             var extProxy = RuntimeTypeBuilder.RegisterType(parentClass.ExtendsName);
             _externalInstance = FormatterServices.GetUninitializedObject(extProxy);
         }

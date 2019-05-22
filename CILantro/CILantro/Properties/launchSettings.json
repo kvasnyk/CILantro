@@ -2,7 +2,7 @@
   "profiles": {
     "CILantro": {
       "commandName": "Project",
-      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\TP_CSF_Inheritance_ExistingClassInheritance\\TP_CSF_Inheritance_ExistingClassInheritance.il\""
+      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\CSF_Classes_Field_SetValue\\CSF_Classes_Field_SetValue.il\""
     }
   }
 }
