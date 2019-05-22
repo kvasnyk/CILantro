@@ -49,7 +49,7 @@ namespace CILantro.Structure
                 else if (type.IsValueType)
                     return new CilTypeValueType(ClassName);
                 else
-                    throw new NotImplementedException();
+                    return new CilTypeClass(ClassName);
             }
 
             throw new NotImplementedException();

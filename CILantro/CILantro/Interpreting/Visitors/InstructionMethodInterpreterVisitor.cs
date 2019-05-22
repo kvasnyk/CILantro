@@ -49,7 +49,7 @@ namespace CILantro.Interpreting.Visitors
             {
                 var @class = _program.Classes.Single(c => c.Name.ToString() == instruction.TypeSpec.ClassName.ToString());
                 var @method = @class.Methods.Single(m => m.Name == instruction.MethodName && AreArgumentsAssignable(m.Arguments, instruction.SigArgs));
-                var sigArgs = BuildSigArgs(_program, instruction, @method, @method.CallConv.IsInstance);
+                var sigArgs = BuildSigArgs(_program, instruction, @method.CallConv.IsInstance);
                 var methodArgs = PopMethodArguments(instruction, sigArgs, @method.CallConv.IsInstance, @method.CallConv.IsInstance);
                 var methodState = new CilMethodState(@method, sigArgs, methodArgs);
 
@@ -60,10 +60,12 @@ namespace CILantro.Interpreting.Visitors
 
         public override void VisitCallVirtualInstruction(CallVirtualInstruction instruction)
         {
-            // TODO: finish implementation
-            // TODO: handle non-external types
+            var sigArgs = BuildSigArgs(_program, instruction, instruction.CallConv.IsInstance);
+            var methodArgs = PopMethodArguments(instruction, sigArgs, instruction.CallConv.IsInstance, instruction.CallConv.IsInstance);
+            var thisReference = _managedMemory.Load(methodArgs[0] as CilValueReference) as CilClassInstance;
 
-            var isExternalType = _program.IsExternalType(instruction.TypeSpec);
+            // var isExternalType = _program.IsExternalType(instruction.TypeSpec);
+            var isExternalType = _program.IsExternalType(thisReference.Class.Name);
 
             if (isExternalType)
             {
@@ -74,10 +76,8 @@ namespace CILantro.Interpreting.Visitors
             }
             else
             {
-                var @class = _program.Classes.Single(c => c.Name.ToString() == instruction.TypeSpec.ClassName.ToString());
-                var baseMethod = @class.Methods.Single(m => m.Name == instruction.MethodName && AreArgumentsAssignable(m.Arguments, instruction.SigArgs));
-                var sigArgs = BuildSigArgs(_program, instruction, baseMethod, baseMethod.CallConv.IsInstance);
-                var methodArgs = PopMethodArguments(instruction, sigArgs, baseMethod.CallConv.IsInstance, baseMethod.CallConv.IsInstance);
+                //var @class = _program.Classes.Single(c => c.Name.ToString() == instruction.TypeSpec.ClassName.ToString());
+                //var baseMethod = @class.Methods.Single(m => m.Name == instruction.MethodName && AreArgumentsAssignable(m.Arguments, instruction.SigArgs));
 
                 var thisRef = _managedMemory.Load(methodArgs[0] as CilValueReference) as CilClassInstance;
                 var lookingClass = thisRef.Class;
@@ -91,6 +91,8 @@ namespace CILantro.Interpreting.Visitors
 
                     lookingClass = lookingClass.Extends;
                 }
+
+                CompleteSigArgs(sigArgs, method, instruction.CallConv.IsInstance);
 
                 var methodState = new CilMethodState(method, sigArgs, methodArgs);
 
@@ -125,7 +127,7 @@ namespace CILantro.Interpreting.Visitors
                 var emptyInstance = new CilClassInstance(@class, _program);
                 var reference = _managedMemory.Store(emptyInstance);
 
-                var sigArgs = BuildSigArgs(_program, instruction, @method, @method.CallConv.IsInstance);
+                var sigArgs = BuildSigArgs(_program, instruction, @method.CallConv.IsInstance);
                 var instanceSigArgValues = (new List<IValue> { reference }).Concat(PopMethodArguments(instruction, sigArgs, @method.CallConv.IsInstance, false)).ToList();
                 var methodState = new CilMethodState(@method, sigArgs, instanceSigArgValues);
 
@@ -227,17 +229,26 @@ namespace CILantro.Interpreting.Visitors
             return true;
         }
 
-        private List<CilSigArg> BuildSigArgs(CilProgram program, CilInstructionMethod instruction, CilMethod method, bool isInstanceCall)
+        private List<CilSigArg> BuildSigArgs(CilProgram program, CilInstructionMethod instruction, bool isInstanceCall)
         {
             var instanceSigArg = new CilSigArg
             {
                 Id = ".this",
                 Type = instruction.TypeSpec.GetCilType(_program)
             };
-            var instanceSigArgs = (new List<CilSigArg> { instanceSigArg }).Concat(method.Arguments).ToList();
+            
             return isInstanceCall ?
-                (new List<CilSigArg> { instanceSigArg }).Concat(method.Arguments).ToList() :
-                method.Arguments;
+                (new List<CilSigArg> { instanceSigArg }).Concat(instruction.SigArgs).ToList() :
+                instruction.SigArgs;
+        }
+
+        private void CompleteSigArgs(List<CilSigArg> sigArgs, CilMethod method, bool isInstanceCall)
+        {
+            var start = isInstanceCall ? 1 : 0;
+            for (int i = start; i < sigArgs.Count; i++)
+            {
+                sigArgs[i].Id = isInstanceCall ? method.Arguments[i - 1].Id : method.Arguments[i].Id;
+            }
         }
     }
 }
