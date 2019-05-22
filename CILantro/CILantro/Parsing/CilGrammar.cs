@@ -58,7 +58,7 @@ namespace CILantro.Parsing
             ConfigureAstNode(INT64);
 
             // TODO: specify
-            var FLOAT64 = new NumberLiteral("FLOAT64", NumberOptions.AllowStartEndDot);
+            var FLOAT64 = new NumberLiteral("FLOAT64", NumberOptions.AllowStartEndDot | NumberOptions.AllowSign);
             ConfigureAstNode(FLOAT64);
 
             // non-terminals
