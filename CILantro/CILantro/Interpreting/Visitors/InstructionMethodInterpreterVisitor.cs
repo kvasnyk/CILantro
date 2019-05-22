@@ -2,6 +2,7 @@
 using CILantro.Instructions.Method;
 using CILantro.Interpreting.Instances;
 using CILantro.Interpreting.Memory;
+using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.State;
 using CILantro.Interpreting.Types;
 using CILantro.Interpreting.Values;
@@ -77,30 +78,46 @@ namespace CILantro.Interpreting.Visitors
             var callExternal = true;
 
             CilClassInstance thisClassInstance = null;
+            CilObject thisObject = null;
 
             if (thisVal is CilValueReference thisValRef)
-                thisClassInstance = _managedMemory.Load(thisValRef) as CilClassInstance;
+            {
+                var thisObj = _managedMemory.Load(thisValRef);
+
+                if (thisObj is CilClassInstance)
+                {
+                    thisClassInstance = thisObj as CilClassInstance;
+                }
+                else
+                {
+                    thisObject = thisObj;
+                    callExternal = true;
+                }
+            }
             else
                 throw new System.NotImplementedException();
 
             CilMethod method = null;
 
-            var currentClass = thisClassInstance.Class;
-            while (true)
+            if (thisClassInstance != null)
             {
-                var possibleMethod = currentClass.Methods.SingleOrDefault(m => m.Name == instruction.MethodName && AreArgumentsAssignable(instruction.SigArgs, m.Arguments));
-                if (possibleMethod != null)
+                var currentClass = thisClassInstance.Class;
+                while (true)
                 {
-                    method = possibleMethod;
-                    callExternal = false;
-                    break;
-                }
+                    var possibleMethod = currentClass.Methods.SingleOrDefault(m => m.Name == instruction.MethodName && AreArgumentsAssignable(instruction.SigArgs, m.Arguments));
+                    if (possibleMethod != null)
+                    {
+                        method = possibleMethod;
+                        callExternal = false;
+                        break;
+                    }
 
-                currentClass = currentClass.Extends;
-                if (currentClass == null)
-                {
-                    callExternal = true;
-                    break;
+                    currentClass = currentClass.Extends;
+                    if (currentClass == null)
+                    {
+                        callExternal = true;
+                        break;
+                    }
                 }
             }
 
