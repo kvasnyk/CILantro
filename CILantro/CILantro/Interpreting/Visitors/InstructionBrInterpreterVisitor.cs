@@ -19,6 +19,11 @@ namespace CILantro.Interpreting.Visitors
             _managedMemory = managedMemory;
         }
 
+        protected override void VisitBranchInstruction(BranchInstruction instruction)
+        {
+            _state.Move(instruction.Offset, instruction.Label);
+        }
+
         protected override void VisitBranchShortInstruction(BranchShortInstruction instruction)
         {
             _state.Move(instruction.Offset, instruction.Label);

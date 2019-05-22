@@ -34,9 +34,13 @@ namespace CILantro.Visitors
                 VisitBranchOnGreaterThanShortInstruction(branchOnGreaterThanShortInstruction);
             else if (instruction is BranchOnGreaterThanUnsignedShortInstruction branchOnGreaterThanUnsignedShortInstruction)
                 VisitBranchOnGreaterThanUnsignedShortInstruction(branchOnGreaterThanUnsignedShortInstruction);
+            else if (instruction is BranchInstruction branchInstruction)
+                VisitBranchInstruction(branchInstruction);
             else
                 throw new ArgumentException($"CIL instruction br cannot be recognized: '{instruction.ToString()}'.");
         }
+
+        protected abstract void VisitBranchInstruction(BranchInstruction instruction);
 
         protected abstract void VisitBranchShortInstruction(BranchShortInstruction instruction);
 
