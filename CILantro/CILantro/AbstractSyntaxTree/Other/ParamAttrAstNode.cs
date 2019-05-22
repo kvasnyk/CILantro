@@ -45,6 +45,19 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // paramAttr + _("[") + _("opt") + _("]")
+            var optChildren = AstChildren.Empty()
+                .Add<ParamAttrAstNode>()
+                .Add("[")
+                .Add("opt")
+                .Add("]");
+            if (optChildren.PopulateWith(parseNode))
+            {
+                // TODO: handle
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

@@ -19,6 +19,17 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // _("=") + fieldInit
+            var fieldInitChildren = AstChildren.Empty()
+                .Add("=")
+                .Add<FieldInitAstNode>();
+            if (fieldInitChildren.PopulateWith(parseNode))
+            {
+                // TODO: handle
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

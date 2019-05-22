@@ -15,7 +15,8 @@ namespace CILantro.AbstractSyntaxTree.Other
         Label,
         MaxStack,
         CustomAttr,
-        Locals
+        Locals,
+        ParamInit
     }
 
     [AstNode("methodDecl")]
@@ -96,6 +97,22 @@ namespace CILantro.AbstractSyntaxTree.Other
             {
                 DeclType = MethodDeclType.Locals;
                 LocalsSigArgs = localsInitChildren.Child4.SigArgs;
+
+                return;
+            }
+
+            // _(".param") + _("[") + int32 + _("]") + initOpt
+            var paramInitChildren = AstChildren.Empty()
+                .Add(".param")
+                .Add("[")
+                .Add<Int32AstNode>()
+                .Add("]")
+                .Add<InitOptAstNode>();
+            if (paramInitChildren.PopulateWith(parseNode))
+            {
+                // TODO: handle
+
+                DeclType = MethodDeclType.ParamInit;
 
                 return;
             }

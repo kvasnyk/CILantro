@@ -703,8 +703,20 @@ namespace CILantro.Parsing
             // TODO: dataDecl
             dataDecl.Rule = _("TODO: dataDecl");
 
-            // TODO: fieldInit
-            fieldInit.Rule = _("TODO: fieldInit");
+            fieldInit.Rule =
+                _("float32") + _("(") + float64 + _(")") |
+                _("float64") + _("(") + float64 + _(")") |
+                _("float32") + _("(") + int64 + _(")") |
+                _("float64") + _("(") + int64 + _(")") |
+                _("int64") + _("(") + int64 + _(")") |
+                _("int32") + _("(") + int64 + _(")") |
+                _("int16") + _("(") + int64 + _(")") |
+                _("char") + _("(") + int64 + _(")") |
+                _("int8") + _("(") + int64 + _(")") |
+                _("bool") + _("(") + truefalse + _(")") |
+                compQstring |
+                bytearrayhead + bytes + _(")") |
+                _("nullref");
 
             // TODO: bytearrayhead
             bytearrayhead.Rule = _("TODO: bytearrayhead");
