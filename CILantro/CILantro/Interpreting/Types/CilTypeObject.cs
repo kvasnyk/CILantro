@@ -1,4 +1,5 @@
 ﻿using CILantro.Interpreting.Memory;
+using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.Values;
 using CILantro.Structure;
 using System;
@@ -13,7 +14,9 @@ namespace CILantro.Interpreting.Types
 
         public override IValue CreateValueFromRuntime(object obj, CilManagedMemory managedMemory, CilProgram program)
         {
-            throw new NotImplementedException();
+            var cilObj = new CilObjectExternal(obj);
+            var objRef = managedMemory.Store(cilObj);
+            return objRef;
         }
 
         public override Type GetRuntimeType()
