@@ -7,7 +7,7 @@ namespace CILantro.Interpreting.Types
 {
     public class CilTypeClass : CilType
     {
-        private readonly CilClassName _className;
+        private CilClassName ClassName { get; }
 
         public override bool IsValueType => throw new NotImplementedException();
 
@@ -15,12 +15,12 @@ namespace CILantro.Interpreting.Types
 
         public CilTypeClass(CilClassName className)
         {
-            _className = className;
+            ClassName = className;
         }
 
         public override IValue CreateDefaultValue(CilProgram program)
         {
-            throw new NotImplementedException();
+            return new CilValueNull();
         }
 
         public override IValue CreateValueFromRuntime(object obj, CilManagedMemory managedMemory, CilProgram program)
@@ -40,6 +40,12 @@ namespace CILantro.Interpreting.Types
 
         public override bool IsAssignableFrom(CilType other)
         {
+            if (other is CilTypeClass typeClass)
+            {
+                if (ClassName.ToString() == typeClass.ClassName.ToString())
+                    return true;
+            }
+
             throw new NotImplementedException();
         }
     }
