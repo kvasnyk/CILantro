@@ -11,7 +11,7 @@ namespace CILantro.Interpreting.Types
 
         public abstract bool IsNullable { get; }
 
-        public abstract Type GetRuntimeType();
+        public abstract Type GetRuntimeType(CilProgram program);
 
         public abstract Type GetValueType(CilProgram program);
 

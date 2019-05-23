@@ -1,6 +1,7 @@
 ﻿using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.Types;
+using CILantro.Structure;
 
 namespace CILantro.Interpreting.Values
 {
@@ -13,10 +14,10 @@ namespace CILantro.Interpreting.Values
             Address = address;
         }
 
-        public object AsRuntime(CilType cilType, CilManagedMemory managedMemory)
+        public object AsRuntime(CilType cilType, CilManagedMemory managedMemory, CilProgram program)
         {
             var result = managedMemory.Load(this);
-            return result.AsRuntime(cilType, managedMemory);
+            return result.AsRuntime(cilType, managedMemory, program);
         }
 
         public CilValueType Box()

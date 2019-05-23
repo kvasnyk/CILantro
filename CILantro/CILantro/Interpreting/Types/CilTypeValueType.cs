@@ -19,7 +19,7 @@ namespace CILantro.Interpreting.Types
             ClassName = className;
         }
 
-        public override Type GetRuntimeType()
+        public override Type GetRuntimeType(CilProgram program)
         {
             var assembly = Assembly.Load(ClassName.AssemblyName);
             var type = assembly.GetType(ClassName.ClassName);

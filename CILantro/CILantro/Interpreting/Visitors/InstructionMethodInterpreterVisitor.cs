@@ -187,9 +187,9 @@ namespace CILantro.Interpreting.Visitors
             var instance = instanceObj != null ?
                 instanceObj :
                 instruction.CallConv.IsInstance ?
-                    instanceVal.AsRuntime(instruction.TypeSpec.GetCilType(_program), _managedMemory) :
+                    instanceVal.AsRuntime(instruction.TypeSpec.GetCilType(_program), _managedMemory, _program) :
                     null;
-            var args = argsVal.Zip(instruction.SigArgs, (argVal, sigArg) => argVal.AsRuntime(sigArg.Type, _managedMemory)).ToArray();
+            var args = argsVal.Zip(instruction.SigArgs, (argVal, sigArg) => argVal.AsRuntime(sigArg.Type, _managedMemory, _program)).ToArray();
 
             var callerConfig = new ExternalMethodCallerConfig
             {
@@ -197,7 +197,7 @@ namespace CILantro.Interpreting.Visitors
                 ClassName = instruction.TypeSpec.ClassName.ClassName,
                 MethodName = instruction.MethodName,
                 Arguments = args,
-                Types = instruction.SigArgs.Select(sa => sa.Type.GetRuntimeType()).ToArray(),
+                Types = instruction.SigArgs.Select(sa => sa.Type.GetRuntimeType(_program)).ToArray(),
                 Instance = instance,
                 CallConstructor = instruction.MethodName == ".ctor",
                 IsInstanceCall = instruction.CallConv.IsInstance
@@ -209,10 +209,10 @@ namespace CILantro.Interpreting.Visitors
 
         private object GetRuntimeThis(CilClassInstance classInstance, CilType type)
         {
-            return classInstance?.AsRuntime(type, _managedMemory);
+            return classInstance?.AsRuntime(type, _managedMemory, _program);
         }
 
-        private object GetRuntimeEmptyInstance(CilInstructionMethod instruction)
+        private object GetRuntimeEmptyInstance(CilInstructionMethod instruction)    
         {
             var assembly = Assembly.Load(instruction.TypeSpec.ClassName.AssemblyName);
             var @type = assembly.GetType(instruction.TypeSpec.ClassName.ClassName);

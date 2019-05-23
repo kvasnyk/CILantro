@@ -5,11 +5,11 @@ using CILantro.Structure;
 
 namespace CILantro.Interpreting.Objects
 {
-    public class CilFloat64 : CilValueType
+    public class CilInt16 : CilValueType
     {
-        private CilValueFloat64 Value { get; }
+        public CilValueInt16 Value { get; }
 
-        public CilFloat64(CilValueFloat64 value)
+        public CilInt16(CilValueInt16 value)
         {
             Value = value;
         }

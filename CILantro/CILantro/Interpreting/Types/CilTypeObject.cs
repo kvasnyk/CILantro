@@ -19,7 +19,7 @@ namespace CILantro.Interpreting.Types
             return objRef;
         }
 
-        public override Type GetRuntimeType()
+        public override Type GetRuntimeType(CilProgram program)
         {
             return typeof(object);
         }

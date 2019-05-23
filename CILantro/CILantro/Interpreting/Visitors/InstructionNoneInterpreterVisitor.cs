@@ -188,7 +188,7 @@ namespace CILantro.Interpreting.Visitors
             var newStackVal = ComputeConversionOperation(
                 stackVal,
                 x => { throw new NotImplementedException(); },
-                x => { throw new NotImplementedException(); },
+                x => new CilStackValueInt32((int)x.Value),
                 x => new CilStackValueInt32((int)x.Value),
                 x => { throw new NotImplementedException(); },
                 x => new CilStackValueInt32(x.Value)

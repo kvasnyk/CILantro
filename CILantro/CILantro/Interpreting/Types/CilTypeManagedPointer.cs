@@ -28,7 +28,7 @@ namespace CILantro.Interpreting.Types
             throw new NotImplementedException();
         }
 
-        public override Type GetRuntimeType()
+        public override Type GetRuntimeType(CilProgram program)
         {
             throw new NotImplementedException();
         }

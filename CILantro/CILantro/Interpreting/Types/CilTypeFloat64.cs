@@ -11,7 +11,7 @@ namespace CILantro.Interpreting.Types
 
         public override bool IsNullable => false;
 
-        public override Type GetRuntimeType()
+        public override Type GetRuntimeType(CilProgram program)
         {
             return typeof(double);
         }

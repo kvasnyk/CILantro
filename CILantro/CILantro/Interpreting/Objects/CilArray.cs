@@ -27,12 +27,12 @@ namespace CILantro.Interpreting.Objects
             _type = type;
         }
 
-        public override object AsRuntime(CilType type, CilManagedMemory managedMemory)
+        public override object AsRuntime(CilType type, CilManagedMemory managedMemory, CilProgram program)
         {
             if (type is CilTypeArray cilTypeArray)
             {
-                var result = Array.CreateInstance(cilTypeArray.ElementType.GetRuntimeType(), Length);
-                var objectArr = _array.Select(elem => elem.AsRuntime(cilTypeArray.ElementType, managedMemory)).ToArray();
+                var result = Array.CreateInstance(cilTypeArray.ElementType.GetRuntimeType(program), Length);
+                var objectArr = _array.Select(elem => elem.AsRuntime(cilTypeArray.ElementType, managedMemory, program)).ToArray();
                 Array.Copy(objectArr, result, Length);
                 return result;
             }

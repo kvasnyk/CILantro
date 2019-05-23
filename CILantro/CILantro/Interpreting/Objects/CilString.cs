@@ -1,5 +1,6 @@
 ﻿using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.Types;
+using CILantro.Structure;
 
 namespace CILantro.Interpreting.Objects
 {
@@ -12,7 +13,7 @@ namespace CILantro.Interpreting.Objects
             _value = value;
         }
 
-        public override object AsRuntime(CilType type, CilManagedMemory managedMemory)
+        public override object AsRuntime(CilType type, CilManagedMemory managedMemory, CilProgram program)
         {
             return _value;
         }

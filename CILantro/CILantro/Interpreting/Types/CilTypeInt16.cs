@@ -7,11 +7,11 @@ namespace CILantro.Interpreting.Types
 {
     public class CilTypeInt16 : CilType
     {
-        public override bool IsValueType => throw new NotImplementedException();
+        public override bool IsValueType => true;
 
-        public override bool IsNullable => throw new NotImplementedException();
+        public override bool IsNullable => false;
 
-        public override Type GetRuntimeType()
+        public override Type GetRuntimeType(CilProgram program)
         {
             return typeof(short);
         }

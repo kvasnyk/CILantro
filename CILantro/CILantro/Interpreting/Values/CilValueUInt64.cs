@@ -1,6 +1,7 @@
 ﻿using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.Types;
+using CILantro.Structure;
 
 namespace CILantro.Interpreting.Values
 {
@@ -13,7 +14,7 @@ namespace CILantro.Interpreting.Values
             Value = value;
         }
 
-        public object AsRuntime(CilType cilType, CilManagedMemory managedMemory)
+        public object AsRuntime(CilType cilType, CilManagedMemory managedMemory, CilProgram program)
         {
             if (cilType is CilTypeUInt64)
                 return Value;

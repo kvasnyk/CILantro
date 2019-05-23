@@ -19,9 +19,9 @@ namespace CILantro.Interpreting.Types
             ElementType = elementType;
         }
 
-        public override Type GetRuntimeType()
+        public override Type GetRuntimeType(CilProgram program)
         {
-            var fakeArray = Array.CreateInstance(ElementType.GetRuntimeType(), 0);
+            var fakeArray = Array.CreateInstance(ElementType.GetRuntimeType(program), 0);
             return fakeArray.GetType();
         }
 

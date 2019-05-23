@@ -1,6 +1,7 @@
 ﻿using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.Types;
+using CILantro.Structure;
 using System;
 
 namespace CILantro.Interpreting.Values
@@ -12,7 +13,7 @@ namespace CILantro.Interpreting.Values
             throw new NotImplementedException();
         }
 
-        public object AsRuntime(CilType cilType, CilManagedMemory managedMemory)
+        public object AsRuntime(CilType cilType, CilManagedMemory managedMemory, CilProgram program)
         {
             throw new NotImplementedException();
         }

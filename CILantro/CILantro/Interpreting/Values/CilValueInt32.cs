@@ -1,6 +1,7 @@
 ﻿using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.Types;
+using CILantro.Structure;
 
 namespace CILantro.Interpreting.Values
 {
@@ -23,7 +24,7 @@ namespace CILantro.Interpreting.Values
             throw new System.NotImplementedException();
         }
 
-        public object AsRuntime(CilType cilType, CilManagedMemory managedMemory)
+        public object AsRuntime(CilType cilType, CilManagedMemory managedMemory, CilProgram program)
         {
             if (cilType is CilTypeInt32)
                 return Value;
