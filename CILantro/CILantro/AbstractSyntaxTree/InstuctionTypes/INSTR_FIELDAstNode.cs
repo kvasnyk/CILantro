@@ -54,6 +54,16 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // _("ldflda")
+            var ldfldaChildren = AstChildren.Empty()
+                .Add("ldflda");
+            if (ldfldaChildren.PopulateWith(parseNode))
+            {
+                Instruction = new LoadFieldAddressInstruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

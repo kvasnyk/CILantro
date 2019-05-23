@@ -24,6 +24,19 @@ namespace CILantro.Interpreting.Visitors
             _managedMemory = managedMemory;
         }
 
+        protected override void VisitLoadFieldAddressInstruction(LoadFieldAddressInstruction instruction)
+        {
+            _state.EvaluationStack.PopValue(out CilValueReference thisRef);
+
+            var classInstance = _managedMemory.Load(thisRef) as CilClassInstance;
+            var fieldValue = classInstance.Fields[instruction.FieldId];
+            var fieldPointer = new CilValueManagedPointer(fieldValue);
+
+            _state.EvaluationStack.PushValue(fieldPointer);
+
+            _state.MoveToNextInstruction();
+        }
+
         protected override void VisitLoadFieldInstruction(LoadFieldInstruction instruction)
         {
             _state.EvaluationStack.PopValue(out CilValueReference thisRef);

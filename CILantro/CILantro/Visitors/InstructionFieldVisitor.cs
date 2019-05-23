@@ -16,11 +16,15 @@ namespace CILantro.Visitors
                 VisitStoreFieldInstruction(storeFieldInstruction);
             else if (instruction is LoadFieldInstruction loadFieldInstruction)
                 VisitLoadFieldInstruction(loadFieldInstruction);
+            else if (instruction is LoadFieldAddressInstruction loadFieldAddressInstruction)
+                VisitLoadFieldAddressInstruction(loadFieldAddressInstruction);
             else
                 throw new ArgumentException($"CIL instruction field cannot be recognized: '{instruction.ToString()}'.");
         }
 
         protected abstract void VisitLoadFieldInstruction(LoadFieldInstruction instruction);
+
+        protected abstract void VisitLoadFieldAddressInstruction(LoadFieldAddressInstruction instruction);
 
         protected abstract void VisitLoadStaticFieldInstruction(LoadStaticFieldInstruction instruction);
 
