@@ -88,6 +88,16 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // classAttr + _("sequential")
+            var sequentialChildren = AstChildren.Empty()
+                .Add<ClassAttrAstNode>()
+                .Add("sequential");
+            if (sequentialChildren.PopulateWith(parseNode))
+            {
+                // TODO: handle
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

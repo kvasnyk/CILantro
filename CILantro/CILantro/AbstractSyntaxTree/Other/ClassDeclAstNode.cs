@@ -10,7 +10,9 @@ namespace CILantro.AbstractSyntaxTree.Other
     {
         Method,
         CustomAttr,
-        Field
+        Field,
+        Pack,
+        Size
     }
 
     [AstNode("classDecl")]
@@ -64,6 +66,30 @@ namespace CILantro.AbstractSyntaxTree.Other
             {
                 DeclType = ClassDeclType.Field;
                 Field = fieldDeclChildren.Child1.Field;
+
+                return;
+            }
+
+            // _(".pack") + int32
+            var packChildren = AstChildren.Empty()
+                .Add(".pack")
+                .Add<Int32AstNode>();
+            if (packChildren.PopulateWith(parseNode))
+            {
+                // TODO: handle
+                DeclType = ClassDeclType.Pack;
+
+                return;
+            }
+
+            // _(".size") + int32
+            var sizeChildren = AstChildren.Empty()
+                .Add(".size")
+                .Add<Int32AstNode>();
+            if (sizeChildren.PopulateWith(parseNode))
+            {
+                // TODO: handle
+                DeclType = ClassDeclType.Size;
 
                 return;
             }

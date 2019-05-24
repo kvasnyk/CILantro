@@ -291,6 +291,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_Inheritance_CallAbstrac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_Classes_Method_OptionalArgs", "CSF_Classes_Method_OptionalArgs\CSF_Classes_Method_OptionalArgs.csproj", "{93D73428-A832-49E7-B44A-8B29248BE4E5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Structures", "Structures", "{821D156A-C119-432F-AEC2-817489867188}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSF_Structures_EmptyStruct", "CSF_Structures_EmptyStruct\CSF_Structures_EmptyStruct.csproj", "{7CF5FDD2-23B4-4B7C-9F14-D87055758777}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -837,6 +841,10 @@ Global
 		{93D73428-A832-49E7-B44A-8B29248BE4E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93D73428-A832-49E7-B44A-8B29248BE4E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93D73428-A832-49E7-B44A-8B29248BE4E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CF5FDD2-23B4-4B7C-9F14-D87055758777}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CF5FDD2-23B4-4B7C-9F14-D87055758777}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CF5FDD2-23B4-4B7C-9F14-D87055758777}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CF5FDD2-23B4-4B7C-9F14-D87055758777}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -977,6 +985,7 @@ Global
 		{D006B02A-4A92-4BFC-A112-E3009A2067EF} = {B0FC627D-1EC4-4C5C-82D3-B0C4E75D9372}
 		{1090E65E-01C2-404A-A867-3AD35078B1F9} = {B0FC627D-1EC4-4C5C-82D3-B0C4E75D9372}
 		{93D73428-A832-49E7-B44A-8B29248BE4E5} = {802DBA79-60D1-4169-91FE-172BC5C63D1C}
+		{7CF5FDD2-23B4-4B7C-9F14-D87055758777} = {821D156A-C119-432F-AEC2-817489867188}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4EA075C6-7843-4D56-B83E-4B4E8D1AA025}

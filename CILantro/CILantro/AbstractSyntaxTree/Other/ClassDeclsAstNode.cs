@@ -51,6 +51,12 @@ namespace CILantro.AbstractSyntaxTree.Other
                     case ClassDeclType.Field:
                         ClassDecls.Fields.Add(classDeclsChildren.Child2.Field);
                         break;
+                    case ClassDeclType.Pack:
+                        // TODO: handle
+                        break;
+                    case ClassDeclType.Size:
+                        // TODO: handle
+                        break;
                     default:
                         throw new AstNodeException($"\"{nameof(declType)}\" cannot be recognized.");
                 }
