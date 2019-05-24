@@ -52,5 +52,17 @@ namespace CILantro.Structure
 
             throw new NotImplementedException();
         }
+
+        public bool IsValueType(CilClassName className)
+        {
+            if (IsExternalType(className))
+            {
+                throw new NotImplementedException();
+            }
+
+            var @class = Classes.Single(c => c.Name.ToString() == className.ToString());
+            var result = @class.ExtendsName.ToString() == "[mscorlib]System.ValueType" && @class.IsSequential;
+            return result;
+        }
     }
 }

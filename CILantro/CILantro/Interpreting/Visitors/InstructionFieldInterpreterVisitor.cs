@@ -39,9 +39,16 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadFieldInstruction(LoadFieldInstruction instruction)
         {
-            _state.EvaluationStack.PopValue(out CilValueReference thisRef);
+            _state.EvaluationStack.PopValue(_program, instruction.ClassTypeSpec.GetCilType(_program), out var instanceVal);
 
-            var classInstance = _managedMemory.Load(thisRef) as CilClassInstance;
+            CilClassInstance classInstance = null;
+            if (instanceVal is CilValueValueType instanceValValueType)
+                classInstance = instanceValValueType.Value;
+            else if (instanceVal is CilValueReference instanceValReference)
+                classInstance = _managedMemory.Load(instanceValReference) as CilClassInstance;
+            else
+                throw new System.NotImplementedException();
+
             var value = classInstance.Fields[instruction.FieldId];
 
             _state.EvaluationStack.PushValue(value);
@@ -76,9 +83,16 @@ namespace CILantro.Interpreting.Visitors
         protected override void VisitStoreFieldInstruction(StoreFieldInstruction instruction)
         {
             _state.EvaluationStack.PopValue(_program, instruction.FieldType, out var value);
-            _state.EvaluationStack.PopValue(out CilValueReference thisRef);
+            _state.EvaluationStack.PopValue(_program, instruction.ClassTypeSpec.GetCilType(_program), out var instanceVal);
 
-            var classInstance = _managedMemory.Load(thisRef) as CilClassInstance;
+            CilClassInstance classInstance = null;
+            if (instanceVal is CilValueValueType instanceValValueType)
+                classInstance = instanceValValueType.Value;
+            else if (instanceVal is CilValueReference instanceValReference)
+                classInstance = _managedMemory.Load(instanceValReference) as CilClassInstance;
+            else
+                throw new System.NotImplementedException();
+
             classInstance.Fields[instruction.FieldId] = value;
 
             _state.MoveToNextInstruction();

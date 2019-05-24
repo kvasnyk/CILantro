@@ -55,7 +55,8 @@ namespace CILantro.AbstractSyntaxTree.Other
                     },
                     Methods = classChildren.Child3.ClassDecls.Methods,
                     Fields = classChildren.Child3.ClassDecls.Fields,
-                    ExtendsName = classChildren.Child1.ExtendsClassName
+                    ExtendsName = classChildren.Child1.ExtendsClassName,
+                    IsSequential = classChildren.Child1.IsSequential
                 };
 
                 return;

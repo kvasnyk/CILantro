@@ -29,13 +29,24 @@ namespace CILantro.Interpreting.Visitors
             _state.EvaluationStack.PopValue(_program, cilType, out var val);
 
             CilObject obj = null;
-            if (cilType.IsValueType && !cilType.IsNullable)
+            if (cilType.IsValueType(_program) && !cilType.IsNullable)
             {
                 obj = val.Box();
             }
 
             var objRef = _managedMemory.Store(obj);
             _state.EvaluationStack.PushValue(objRef);
+
+            _state.MoveToNextInstruction();
+        }
+
+        public override void VisitInitObjectInstruction(InitObjectInstruction instruction)
+        {
+            _state.EvaluationStack.PopValue(out CilValueManagedPointer pointer);
+
+            var type = instruction.TypeSpec.GetCilType(_program);
+            var empty = type.CreateDefaultValue(_program);
+            pointer.ValueToRef = empty;
 
             _state.MoveToNextInstruction();
         }

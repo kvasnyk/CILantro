@@ -124,6 +124,9 @@ namespace CILantro.Interpreting.State
             if (val is CilValueManagedPointer valManagedPointer)
                 return new CilStackValuePointer(valManagedPointer.ValueToRef);
 
+            if (val is CilValueValueType valValueType)
+                return new CilStackValueValueType(valValueType.Value);
+
             if (val == null)
                 return new CilStackValueReference();
 
@@ -132,6 +135,12 @@ namespace CILantro.Interpreting.State
 
         private IValue ConvertToValue(IStackValue stackVal, Type valType)
         {
+            if (stackVal is CilStackValueValueType stackValValueType)
+            {
+                if (valType == typeof(CilValueValueType))
+                    return new CilValueValueType(stackValValueType.Value);
+            }
+
             if (stackVal is CilStackValuePointer stackValPointer)
             {
                 if (valType == typeof(CilValueManagedPointer))

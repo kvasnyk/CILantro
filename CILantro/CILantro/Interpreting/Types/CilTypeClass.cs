@@ -1,8 +1,10 @@
-﻿using CILantro.Interpreting.Memory;
+﻿using CILantro.Interpreting.Instances;
+using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.Values;
 using CILantro.Structure;
 using System;
+using System.Linq;
 using System.Reflection;
 
 namespace CILantro.Interpreting.Types
@@ -11,7 +13,10 @@ namespace CILantro.Interpreting.Types
     {
         private CilClassName ClassName { get; }
 
-        public override bool IsValueType => throw new NotImplementedException();
+        public override bool IsValueType(CilProgram program)
+        {
+            return program.IsValueType(ClassName);
+        }
 
         public override bool IsNullable => throw new NotImplementedException();
 
@@ -22,6 +27,13 @@ namespace CILantro.Interpreting.Types
 
         public override IValue CreateDefaultValue(CilProgram program)
         {
+            if (IsValueType(program))
+            {
+                var @class = program.Classes.Single(c => c.Name.ToString() == ClassName.ToString());
+                var emptyInstance = new CilClassInstance(@class, program);
+                return new CilValueValueType(emptyInstance);
+            }
+
             return new CilValueNull();
         }
 
@@ -50,6 +62,11 @@ namespace CILantro.Interpreting.Types
 
         public override Type GetValueType(CilProgram program)
         {
+            if (IsValueType(program))
+            {
+                return typeof(CilValueValueType);
+            }
+
             return typeof(CilValueReference);
         }
 

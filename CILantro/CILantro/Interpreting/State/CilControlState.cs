@@ -30,7 +30,7 @@ namespace CILantro.Interpreting.State
         public CilControlState(CilProgram program)
         {
             CallStack = new Stack<CilMethodState>();
-            CallStack.Push(new CilMethodState(program.EntryPoint, new List<CilSigArg>(), new List<IValue>()));
+            CallStack.Push(new CilMethodState(program.EntryPoint, new List<CilSigArg>(), new List<IValue>(), program));
 
             var cctors = program.Classes
                 .Select(c => c.Methods.FirstOrDefault(m => m.Name == ".cctor"))
@@ -39,7 +39,7 @@ namespace CILantro.Interpreting.State
 
             foreach (var cctor in cctors)
             {
-                CallStack.Push(new CilMethodState(cctor, new List<CilSigArg>(), new List<IValue>()));
+                CallStack.Push(new CilMethodState(cctor, new List<CilSigArg>(), new List<IValue>(), program));
             }
 
             StaticInstances = new Dictionary<string, CilClassStaticInstance>();

@@ -7,7 +7,7 @@ namespace CILantro.Interpreting.Types
 {
     public abstract class CilType
     {
-        public abstract bool IsValueType { get; }
+        public abstract bool IsValueType(CilProgram program);
 
         public abstract bool IsNullable { get; }
 

@@ -17,6 +17,8 @@ namespace CILantro.Structure
 
         public CilMethod EntryPoint => Methods.SingleOrDefault(m => m.IsEntryPoint);
 
+        public bool IsSequential { get; set; }
+
         public override string ToString()
         {
             return Name.ToString();

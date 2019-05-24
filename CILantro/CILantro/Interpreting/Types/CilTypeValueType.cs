@@ -10,7 +10,10 @@ namespace CILantro.Interpreting.Types
     {
         public CilClassName ClassName { get; }
 
-        public override bool IsValueType => throw new NotImplementedException();
+        public override bool IsValueType(CilProgram program)
+        {
+            throw new NotImplementedException();
+        }
 
         public override bool IsNullable => throw new NotImplementedException();
 
@@ -31,7 +34,7 @@ namespace CILantro.Interpreting.Types
             if (program.IsExternalType(ClassName))
                 return typeof(CilValueExternal);
 
-            throw new NotImplementedException();
+            return typeof(CilValueValueType);
         }
 
         public override IValue CreateValueFromRuntime(object obj, CilManagedMemory managedMemory, CilProgram program)
@@ -55,7 +58,8 @@ namespace CILantro.Interpreting.Types
                 return new CilValueExternal(defaultValue);
             }
 
-            throw new NotImplementedException();
+            var classType = new CilTypeClass(ClassName);
+            return classType.CreateDefaultValue(program);
         }
 
         private static T GetDefaultGeneric<T>()

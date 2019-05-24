@@ -12,14 +12,14 @@ namespace CILantro.Interpreting.State
 
         private OrderedDictionary _dict;
 
-        public CilOrderedDictionary(List<CilSigArg> localsSigArgs)
+        public CilOrderedDictionary(List<CilSigArg> localsSigArgs, CilProgram program)
         {
             _dict = new OrderedDictionary(localsSigArgs.Count);
             _typesDict = new OrderedDictionary(localsSigArgs.Count);
 
             foreach (var sigArg in localsSigArgs)
             {
-                _dict.Add(sigArg.Id, null);
+                _dict.Add(sigArg.Id, sigArg.Type.CreateDefaultValue(program));
                 _typesDict.Add(sigArg.Id, sigArg.Type);
             }
         }

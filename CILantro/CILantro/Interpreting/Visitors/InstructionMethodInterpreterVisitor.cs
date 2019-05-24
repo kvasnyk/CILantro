@@ -60,7 +60,7 @@ namespace CILantro.Interpreting.Visitors
                 var sigArgsWithThis = CompleteSigArgs(instruction, method);
                 var argsWithThis = CompleteArgs(instruction, methodArgs, thisVal);
 
-                var newMethodState = new CilMethodState(method, sigArgsWithThis, argsWithThis);
+                var newMethodState = new CilMethodState(method, sigArgsWithThis, argsWithThis, _program);
 
                 _state.MoveToNextInstruction();
                 _state.CallStack.Push(newMethodState);
@@ -138,7 +138,7 @@ namespace CILantro.Interpreting.Visitors
                 var sigArgsWithThis = CompleteSigArgs(instruction, method);
                 var argsWithThis = CompleteArgs(instruction, methodArgs, thisVal);
 
-                var newMethodState = new CilMethodState(method, sigArgsWithThis, argsWithThis);
+                var newMethodState = new CilMethodState(method, sigArgsWithThis, argsWithThis, _program);
 
                 _state.MoveToNextInstruction();
                 _state.CallStack.Push(newMethodState);
@@ -175,7 +175,7 @@ namespace CILantro.Interpreting.Visitors
                 var sigArgsWithThis = CompleteSigArgs(instruction, method);
                 var argsWithThis = CompleteArgs(instruction, methodArgs, thisRef);
 
-                var newMethodState = new CilMethodState(method, sigArgsWithThis, argsWithThis);
+                var newMethodState = new CilMethodState(method, sigArgsWithThis, argsWithThis, _program);
 
                 _state.MoveToNextInstruction();
                 _state.CallStack.Push(newMethodState);

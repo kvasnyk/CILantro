@@ -12,6 +12,9 @@ namespace CILantro.Structure
         {
             if (!_program.IsExternalType(this) && ClassName != null)
             {
+                if (_program.IsValueType(ClassName))
+                    return new CilTypeValueType(ClassName);
+
                 return new CilTypeClass(ClassName);
             }
 

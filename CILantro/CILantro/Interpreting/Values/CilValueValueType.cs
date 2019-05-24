@@ -1,4 +1,5 @@
-﻿using CILantro.Interpreting.Memory;
+﻿using CILantro.Interpreting.Instances;
+using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.Types;
 using CILantro.Structure;
@@ -6,13 +7,13 @@ using System;
 
 namespace CILantro.Interpreting.Values
 {
-    public class CilValueManagedPointer : IValue
+    public class CilValueValueType : IValue
     {
-        public IValue ValueToRef { get; set; }
+        public CilClassInstance Value { get; }
 
-        public CilValueManagedPointer(IValue valueToRef)
+        public CilValueValueType(CilClassInstance value)
         {
-            ValueToRef = valueToRef;
+            Value = value;
         }
 
         public object AsRuntime(CilType cilType, CilManagedMemory managedMemory, CilProgram program)

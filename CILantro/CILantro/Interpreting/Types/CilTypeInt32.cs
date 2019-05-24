@@ -7,7 +7,10 @@ namespace CILantro.Interpreting.Types
 {
     public class CilTypeInt32 : CilType
     {
-        public override bool IsValueType => true;
+        public override bool IsValueType(CilProgram program)
+        {
+            return true;
+        }
 
         public override bool IsNullable => false;
 

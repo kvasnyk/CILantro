@@ -8,6 +8,8 @@ namespace CILantro.AbstractSyntaxTree.Other
     [AstNode("classAttr")]
     public class ClassAttrAstNode : AstNodeBase
     {
+        public bool IsSequential { get; private set; }
+
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
             // Empty
@@ -25,6 +27,8 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (privateChildren.PopulateWith(parseNode))
             {
                 // TODO: handle
+                IsSequential = privateChildren.Child1.IsSequential;
+
                 return;
             }
 
@@ -35,6 +39,8 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (autoChildren.PopulateWith(parseNode))
             {
                 // TODO: handle
+                IsSequential = autoChildren.Child1.IsSequential;
+
                 return;
             }
 
@@ -45,6 +51,8 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (ansiChildren.PopulateWith(parseNode))
             {
                 // TODO: hanlde
+                IsSequential = ansiChildren.Child1.IsSequential;
+
                 return;
             }
 
@@ -55,6 +63,8 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (beforeFieldInitChildren.PopulateWith(parseNode))
             {
                 // TODO: handle;
+                IsSequential = beforeFieldInitChildren.Child1.IsSequential;
+
                 return;
             }
 
@@ -65,6 +75,8 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (publicChildren.PopulateWith(parseNode))
             {
                 // TODO: handle
+                IsSequential = publicChildren.Child1.IsSequential;
+
                 return;
             }
 
@@ -75,6 +87,8 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (abstractChildren.PopulateWith(parseNode))
             {
                 // TODO: handle
+                IsSequential = abstractChildren.Child1.IsSequential;
+
                 return;
             }
 
@@ -85,6 +99,8 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (sealedChildren.PopulateWith(parseNode))
             {
                 // TODO: handle
+                IsSequential = sealedChildren.Child1.IsSequential;
+
                 return;
             }
 
@@ -95,6 +111,8 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (sequentialChildren.PopulateWith(parseNode))
             {
                 // TODO: handle
+                IsSequential = true;
+
                 return;
             }
 

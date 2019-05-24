@@ -18,14 +18,14 @@ namespace CILantro.Interpreting.State
 
         public CilOrderedDictionary Arguments { get; set; }
 
-        public CilMethodState(CilMethod method, List<CilSigArg> argTypes, List<IValue> argValues)
+        public CilMethodState(CilMethod method, List<CilSigArg> argTypes, List<IValue> argValues, CilProgram program)
         {
             Instruction = method.Instructions.First();
             EvaluationStack = new CilEvaluationStack();
             MethodInfo = new CilMethodInfo(method);
-            Locals = new CilOrderedDictionary(method.Locals);
+            Locals = new CilOrderedDictionary(method.Locals, program);
 
-            Arguments = new CilOrderedDictionary(argTypes);
+            Arguments = new CilOrderedDictionary(argTypes, program);
             for (int i = 0; i < argValues.Count; i++)
             {
                 Arguments.Store(null, i, argValues[i]);

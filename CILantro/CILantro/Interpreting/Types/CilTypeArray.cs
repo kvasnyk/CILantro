@@ -10,7 +10,10 @@ namespace CILantro.Interpreting.Types
     {
         public CilType ElementType { get; }
 
-        public override bool IsValueType => throw new NotImplementedException();
+        public override bool IsValueType(CilProgram program)
+        {
+            throw new NotImplementedException();
+        }
 
         public override bool IsNullable => throw new NotImplementedException();
 

@@ -34,6 +34,16 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // _("initobj")
+            var initobjChildren = AstChildren.Empty()
+                .Add("initobj");
+            if (initobjChildren.PopulateWith(parseNode))
+            {
+                Instruction = new InitObjectInstruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

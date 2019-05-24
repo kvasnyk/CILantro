@@ -12,11 +12,15 @@ namespace CILantro.Visitors
                 VisitNewArrayInstruction(newArrayInstruction);
             else if (instruction is BoxInstruction boxInstruction)
                 VisitBoxInstruction(boxInstruction);
+            else if (instruction is InitObjectInstruction initObjectInstruction)
+                VisitInitObjectInstruction(initObjectInstruction);
             else
                 throw new ArgumentException($"CIL instruction none cannot be recognized: '{instruction.ToString()}'.");
         }
 
         public abstract void VisitBoxInstruction(BoxInstruction instruction);
+
+        public abstract void VisitInitObjectInstruction(InitObjectInstruction instruction);
 
         public abstract void VisitNewArrayInstruction(NewArrayInstruction instruction);
     }
