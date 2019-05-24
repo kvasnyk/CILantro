@@ -23,7 +23,7 @@ namespace CILantro.Interpreting.Types
 
         public override IValue CreateDefaultValue(CilProgram program)
         {
-            throw new NotImplementedException();
+            return new CilValueManagedPointer(null);
         }
 
         public override IValue CreateValueFromRuntime(object obj, CilManagedMemory managedMemory, CilProgram program)
