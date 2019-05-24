@@ -19,8 +19,7 @@ namespace CILantro.Utils
 
             var moduleBuilder = assemblyBuilder.DefineDynamicModule("CILantroProxiesModule");
 
-            var parentTypeAssembly = Assembly.Load(className.AssemblyName);
-            var parentType = parentTypeAssembly.GetType(className.ClassName);
+            var parentType = ReflectionHelper.GetExternalType(className);
 
             var typeName = $"{className.ClassName}_CILantroProxy_{_counter}";
             var typeBuilder = moduleBuilder.DefineType(typeName, TypeAttributes.Class, parentType);
@@ -50,8 +49,7 @@ namespace CILantro.Utils
 
             var moduleBuilder = assemblyBuilder.DefineDynamicModule("CILantroTypesModule");
 
-            var parentTypeAssembly = Assembly.Load(cilClass.ExtendsName.AssemblyName);
-            var parentType = parentTypeAssembly.GetType(cilClass.ExtendsName.ClassName);
+            var parentType = ReflectionHelper.GetExternalType(cilClass.ExtendsName);
 
             var typeName = $"{cilClass.Name.ClassName}";
             var typeBuilder = moduleBuilder.DefineType(typeName, TypeAttributes.Class, parentType);

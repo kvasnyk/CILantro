@@ -4,6 +4,7 @@ using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.State;
 using CILantro.Interpreting.Values;
 using CILantro.Structure;
+using CILantro.Utils;
 using CILantro.Visitors;
 using System.Reflection;
 
@@ -60,8 +61,7 @@ namespace CILantro.Interpreting.Visitors
         {
             if (_program.IsExternalType(instruction.ClassTypeSpec.ClassName))
             {
-                var assembly = Assembly.Load(instruction.ClassTypeSpec.ClassName.AssemblyName);
-                var @class = assembly.GetType(instruction.ClassTypeSpec.ClassName.ClassName);
+                var @class = ReflectionHelper.GetExternalType(instruction.ClassTypeSpec.ClassName);
                 var field = @class.GetField(instruction.FieldId, BindingFlags.Static | BindingFlags.Public);
                 var externalValue = field.GetValue(null);
                 var value = instruction.FieldType.CreateValueFromRuntime(externalValue, _managedMemory, _program);

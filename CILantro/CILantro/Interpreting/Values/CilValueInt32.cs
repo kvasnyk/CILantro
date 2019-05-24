@@ -43,12 +43,9 @@ namespace CILantro.Interpreting.Values
             return new CilInt32(this);
         }
 
-        public unsafe int GetPointerValue()
+        public int GetPointerValue()
         {
-            fixed (int* pointer = &Value)
-            {
-                return (int)pointer;
-            }
+            throw new System.NotImplementedException();
         }
 
         public ref object GetRef()

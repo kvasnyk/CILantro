@@ -33,8 +33,7 @@ namespace CILantro.Utils
 
         private static object CallBase(ExternalMethodCallerConfig config)
         {
-            var assembly = Assembly.Load(config.AssemblyName);
-            var @class = assembly.GetType(config.ClassName);
+            var @class = ReflectionHelper.GetExternalType(config.AssemblyName, config.ClassName);
 
             var flags = BindingFlags.Default | BindingFlags.Public | BindingFlags.NonPublic;
             if (config.IsInstanceCall)

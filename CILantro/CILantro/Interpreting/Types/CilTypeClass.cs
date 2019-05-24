@@ -3,9 +3,9 @@ using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.Values;
 using CILantro.Structure;
+using CILantro.Utils;
 using System;
 using System.Linq;
-using System.Reflection;
 
 namespace CILantro.Interpreting.Types
 {
@@ -53,8 +53,7 @@ namespace CILantro.Interpreting.Types
         {
             if (program.IsExternalType(ClassName))
             {
-                var assembly = Assembly.Load(ClassName.AssemblyName);
-                return assembly.GetType(ClassName.ClassName);
+                return ReflectionHelper.GetExternalType(ClassName);
             }
 
             throw new NotImplementedException();

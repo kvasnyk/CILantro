@@ -2,6 +2,7 @@
 using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.Values;
 using CILantro.Structure;
+using CILantro.Utils;
 using System;
 using System.Reflection;
 
@@ -25,9 +26,7 @@ namespace CILantro.Interpreting.Types
 
         public override Type GetRuntimeType(CilProgram program)
         {
-            var assembly = Assembly.Load(ClassName.AssemblyName);
-            var type = assembly.GetType(ClassName.ClassName);
-            return type;
+            return ReflectionHelper.GetExternalType(ClassName);
         }
 
         public override Type GetValueType(CilProgram program)
@@ -50,8 +49,7 @@ namespace CILantro.Interpreting.Types
         {
             if (program.IsExternalType(ClassName))
             {
-                var assembly = Assembly.Load(ClassName.AssemblyName);
-                var type = assembly.GetType(ClassName.ClassName);
+                var type = ReflectionHelper.GetExternalType(ClassName);
 
                 var getDefault = GetType().GetMethod(nameof(GetDefaultGeneric), BindingFlags.NonPublic | BindingFlags.Static).MakeGenericMethod(type);
                 var defaultValue = getDefault.Invoke(null, null);

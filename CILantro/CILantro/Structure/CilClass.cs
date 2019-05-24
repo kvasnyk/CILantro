@@ -3,7 +3,6 @@ using CILantro.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace CILantro.Structure
 {
@@ -29,8 +28,7 @@ namespace CILantro.Structure
             while (!program.IsExternalType(parentClass.ExtendsName))
                 parentClass = parentClass.Extends;
 
-            var extAssembly = Assembly.Load(parentClass.ExtendsName.AssemblyName);
-            var extClass = extAssembly.GetType(parentClass.ExtendsName.ClassName);
+            var extClass = ReflectionHelper.GetExternalType(parentClass.ExtendsName);
 
             if (!extClass.IsAbstract)
                 return extClass;

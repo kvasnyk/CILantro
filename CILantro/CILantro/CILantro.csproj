@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -21,6 +23,22 @@
 
   <ItemGroup>
     <Folder Include="Extensions\" />
+    <Folder Include="Externals\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Text.RegularExpressions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Externals\mscorlib.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Externals\System.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -3,9 +3,9 @@ using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.State;
 using CILantro.Interpreting.Values;
 using CILantro.Structure;
+using CILantro.Utils;
 using CILantro.Visitors;
 using System.Linq;
-using System.Reflection;
 
 namespace CILantro.Interpreting.Visitors
 {
@@ -28,8 +28,7 @@ namespace CILantro.Interpreting.Visitors
         {
             if (_program.IsExternalType(instruction.TypeSpec.ClassName))
             {
-                var assembly = Assembly.Load(instruction.TypeSpec.ClassName.AssemblyName);
-                var type = assembly.GetType(instruction.TypeSpec.ClassName.ClassName);
+                var type = ReflectionHelper.GetExternalType(instruction.TypeSpec.ClassName);
                 var result = new CilValueExternal(type.TypeHandle);
 
                 _state.EvaluationStack.PushValue(result);

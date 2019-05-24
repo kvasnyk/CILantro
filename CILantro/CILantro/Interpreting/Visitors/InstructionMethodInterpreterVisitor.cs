@@ -11,7 +11,6 @@ using CILantro.Utils;
 using CILantro.Visitors;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.Serialization;
 
 namespace CILantro.Interpreting.Visitors
@@ -214,8 +213,7 @@ namespace CILantro.Interpreting.Visitors
 
         private object GetRuntimeEmptyInstance(CilInstructionMethod instruction)    
         {
-            var assembly = Assembly.Load(instruction.TypeSpec.ClassName.AssemblyName);
-            var @type = assembly.GetType(instruction.TypeSpec.ClassName.ClassName);
+            var @type = ReflectionHelper.GetExternalType(instruction.TypeSpec.ClassName);
             var emptyInstance = FormatterServices.GetUninitializedObject(@type);
             return emptyInstance;
         }

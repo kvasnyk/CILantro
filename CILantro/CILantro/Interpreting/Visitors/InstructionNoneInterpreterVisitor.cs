@@ -271,7 +271,7 @@ namespace CILantro.Interpreting.Visitors
             _state.MoveToNextInstruction();
         }
 
-        protected unsafe override void VisitConvertUInstruction(ConvertUInstruction instruction)
+        protected override void VisitConvertUInstruction(ConvertUInstruction instruction)
         {
             // TODO: finish implementation
 
@@ -386,7 +386,7 @@ namespace CILantro.Interpreting.Visitors
             _state.MoveToNextInstruction();
         }
 
-        protected unsafe override void VisitIndirectLoadI4Instruction(IndirectLoadI4Instruction instruction)
+        protected override void VisitIndirectLoadI4Instruction(IndirectLoadI4Instruction instruction)
         {
             _state.EvaluationStack.PopValue(out CilValueManagedPointer valuePointer);
 

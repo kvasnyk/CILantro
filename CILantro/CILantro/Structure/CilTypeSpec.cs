@@ -1,6 +1,6 @@
 ﻿using CILantro.Interpreting.Types;
+using CILantro.Utils;
 using System;
-using System.Reflection;
 
 namespace CILantro.Structure
 {
@@ -20,8 +20,7 @@ namespace CILantro.Structure
 
             if (_program.IsExternalType(this) && ClassName != null)
             {
-                var assembly = Assembly.Load(ClassName.AssemblyName);
-                var type = assembly.GetType(ClassName.ClassName);
+                var type = ReflectionHelper.GetExternalType(ClassName);
 
                 if (type == typeof(char))
                     return new CilTypeChar();

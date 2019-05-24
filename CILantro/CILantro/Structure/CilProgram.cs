@@ -1,7 +1,7 @@
-﻿using System;
+﻿using CILantro.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace CILantro.Structure
 {
@@ -58,8 +58,7 @@ namespace CILantro.Structure
         {
             if (IsExternalType(className))
             {
-                var assembly = Assembly.Load(className.AssemblyName);
-                var type = assembly.GetType(className.ClassName);
+                var type = ReflectionHelper.GetExternalType(className);
                 return type.IsValueType;
             }
 
