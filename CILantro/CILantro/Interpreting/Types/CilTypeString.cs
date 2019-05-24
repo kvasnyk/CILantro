@@ -44,5 +44,10 @@ namespace CILantro.Interpreting.Types
 
             return false;
         }
+
+        public override IValue Unbox(CilObject obj, CilManagedMemory managedMemory, CilProgram program)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

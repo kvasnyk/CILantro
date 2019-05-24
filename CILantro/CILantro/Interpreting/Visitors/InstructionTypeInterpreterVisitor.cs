@@ -66,5 +66,17 @@ namespace CILantro.Interpreting.Visitors
 
             _state.MoveToNextInstruction();
         }
+
+        public override void VisitUnboxAnyInstruction(UnboxAnyInstruction instruction)
+        {
+            _state.EvaluationStack.PopValue(out CilValueReference objRef);
+
+            var obj = _managedMemory.Load(objRef);
+            var type = instruction.TypeSpec.GetCilType(_program);
+            var value = type.Unbox(obj, _managedMemory, _program);
+
+            _state.EvaluationStack.PushValue(value);
+            _state.MoveToNextInstruction();
+        }
     }
 }

@@ -44,6 +44,16 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // ___("unbox.any")
+            var unboxanyChildren = AstChildren.Empty()
+                .Add("unbox.any");
+            if (unboxanyChildren.PopulateWith(parseNode))
+            {
+                Instruction = new UnboxAnyInstruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

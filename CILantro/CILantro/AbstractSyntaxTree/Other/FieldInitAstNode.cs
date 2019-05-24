@@ -65,6 +65,19 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // _("int8") + _("(") + int64 + _(")")
+            var int8Children = AstChildren.Empty()
+                .Add("int8")
+                .Add("(")
+                .Add<Int64AstNode>()
+                .Add(")");
+            if (int8Children.PopulateWith(parseNode))
+            {
+                InitValue = new CilValueInt8((sbyte)int8Children.Child3.Value);
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

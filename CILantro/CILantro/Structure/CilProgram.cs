@@ -64,7 +64,7 @@ namespace CILantro.Structure
             }
 
             var @class = Classes.Single(c => c.Name.ToString() == className.ToString());
-            var result = @class.ExtendsName.ToString() == "[mscorlib]System.ValueType" && @class.IsSequential;
+            var result = @class.ExtendsName.ToString() == "[mscorlib]System.ValueType" || @class.ExtendsName.ToString() == "[mscorlib]System.Enum";
             return result;
         }
     }

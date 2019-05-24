@@ -5,6 +5,6 @@ namespace CILantro.Instructions
 {
     public abstract class CilInstructionSwitch : CilInstruction
     {
-        public List<CilLabel> Labels { get; set; }
+        public List<CilLabel> SwitchLabels { get; set; }
     }
 }

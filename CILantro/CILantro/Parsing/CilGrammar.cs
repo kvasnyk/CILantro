@@ -408,7 +408,8 @@ namespace CILantro.Parsing
                 _("refanyval") |
                 _("sizeof") |
                 _("stobj") |
-                _("unbox");
+                _("unbox") |
+                ___("unbox.any"); // DOCS: non-present in ECMA grammar
 
             INSTR_STRING.Rule =
                 _("ldstr");

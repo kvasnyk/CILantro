@@ -1,4 +1,5 @@
 ﻿using CILantro.Interpreting.Memory;
+using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.Values;
 using CILantro.Structure;
 using System;
@@ -50,6 +51,11 @@ namespace CILantro.Interpreting.Types
             }
 
             return false;
+        }
+
+        public override IValue Unbox(CilObject obj, CilManagedMemory managedMemory, CilProgram program)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -168,7 +168,7 @@ namespace CILantro.Interpreting.Visitors
                 var @class = _program.Classes.Single(c => c.Name.ToString() == instruction.TypeSpec.ClassName.ToString());
                 var method = @class.Methods.Single(m => m.Name == instruction.MethodName && AreArgumentsAssignable(instruction.SigArgs, m.Arguments));
 
-                var emptyInstance = new CilClassInstance(@class, _program);
+                var emptyInstance = new CilClassInstance(@class, _program, _managedMemory);
                 var thisRef = _managedMemory.Store(emptyInstance);
                 _state.EvaluationStack.PushValue(thisRef);
 

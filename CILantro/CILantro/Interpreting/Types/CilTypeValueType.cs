@@ -1,4 +1,5 @@
 ﻿using CILantro.Interpreting.Memory;
+using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.Values;
 using CILantro.Structure;
 using System;
@@ -69,6 +70,20 @@ namespace CILantro.Interpreting.Types
 
         public override bool IsAssignableFrom(CilType other)
         {
+            throw new NotImplementedException();
+        }
+
+        public override IValue Unbox(CilObject obj, CilManagedMemory managedMemory, CilProgram program)
+        {
+            if (obj is CilObjectExternal objExternal)
+            {
+                if (objExternal.ExternalObject.GetType().IsEnum)
+                {
+                    var result = Convert.ToInt32(objExternal.ExternalObject);
+                    return new CilValueInt32(result);
+                }
+            }
+
             throw new NotImplementedException();
         }
     }

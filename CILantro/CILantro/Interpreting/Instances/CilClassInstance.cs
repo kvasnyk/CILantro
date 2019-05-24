@@ -17,7 +17,7 @@ namespace CILantro.Interpreting.Instances
 
         private object _externalInstance;
 
-        public CilClassInstance(CilClass @class, CilProgram program)
+        public CilClassInstance(CilClass @class, CilProgram program, CilManagedMemory managedMemory)
         {
             Class = @class;
 
@@ -27,7 +27,7 @@ namespace CILantro.Interpreting.Instances
                 Fields.Add(field.Name, field.Type.CreateDefaultValue(program));
             }
 
-            var runtimeType = Class.BuildRuntimeProxy(program);
+            var runtimeType = program.IsValueType(@class.Name) ? Class.BuildRuntimeType(program, managedMemory) : Class.BuildRuntimeProxy(program);
             _externalInstance = FormatterServices.GetUninitializedObject(runtimeType);
         }
 

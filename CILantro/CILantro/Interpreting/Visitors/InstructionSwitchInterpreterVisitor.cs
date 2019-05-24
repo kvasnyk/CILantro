@@ -22,9 +22,9 @@ namespace CILantro.Interpreting.Visitors
         {
             _state.EvaluationStack.PopValue(out CilValueUInt32 value);
 
-            if (value.Value < instruction.Labels.Count)
+            if (value.Value < instruction.SwitchLabels.Count)
             {
-                var targetLabel = instruction.Labels[(int)value.Value];
+                var targetLabel = instruction.SwitchLabels[(int)value.Value];
                 _state.Move(targetLabel.Offset, targetLabel.Id);
             }
             else

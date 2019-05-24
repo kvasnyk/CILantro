@@ -30,7 +30,7 @@ namespace CILantro.Interpreting.Types
             if (IsValueType(program))
             {
                 var @class = program.Classes.Single(c => c.Name.ToString() == ClassName.ToString());
-                var emptyInstance = new CilClassInstance(@class, program);
+                var emptyInstance = new CilClassInstance(@class, program, null);
                 return new CilValueValueType(emptyInstance);
             }
 
@@ -78,6 +78,11 @@ namespace CILantro.Interpreting.Types
                     return true;
             }
 
+            throw new NotImplementedException();
+        }
+
+        public override IValue Unbox(CilObject obj, CilManagedMemory managedMemory, CilProgram program)
+        {
             throw new NotImplementedException();
         }
     }

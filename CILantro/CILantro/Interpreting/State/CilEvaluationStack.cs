@@ -141,6 +141,12 @@ namespace CILantro.Interpreting.State
                     return new CilValueValueType(stackValValueType.Value);
             }
 
+            if (stackVal is CilStackValueInt32 stackValIn64)
+            {
+                if (valType == typeof(CilValueValueType))
+                    return new CilValueInt32(stackValIn64.Value);
+            }
+
             if (stackVal is CilStackValuePointer stackValPointer)
             {
                 if (valType == typeof(CilValueManagedPointer))

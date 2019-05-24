@@ -177,7 +177,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (instrSwitchChildren.PopulateWith(parseNode))
             {
                 var instructionSwitch = instrSwitchChildren.Child1.Instruction;
-                instructionSwitch.Labels = instrSwitchChildren.Child3.Labels;
+                instructionSwitch.SwitchLabels = instrSwitchChildren.Child3.Labels;
 
                 Instruction = instructionSwitch;
 
