@@ -1,4 +1,5 @@
-﻿using CILantro.Utils;
+﻿using CILantro.Interpreting.Values;
+using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
 using System;
@@ -8,6 +9,8 @@ namespace CILantro.AbstractSyntaxTree.Other
     [AstNode("initOpt")]
     public class InitOptAstNode : AstNodeBase
     {
+        public IValue InitValue { get; private set; }
+
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
             // Empty
@@ -25,7 +28,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<FieldInitAstNode>();
             if (fieldInitChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                InitValue = fieldInitChildren.Child2.InitValue;
 
                 return;
             }

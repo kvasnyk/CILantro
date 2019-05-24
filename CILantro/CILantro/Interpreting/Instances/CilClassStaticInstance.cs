@@ -18,7 +18,8 @@ namespace CILantro.Interpreting.Instances
             StaticFields = new Dictionary<string, IValue>();
             foreach (var field in @class.Fields.Where(f => f.IsStatic))
             {
-                StaticFields.Add(field.Name, field.Type.CreateDefaultValue(program));
+                var initValue = field.InitValue ?? field.Type.CreateDefaultValue(program);
+                StaticFields.Add(field.Name, initValue);
             }
         }
     }

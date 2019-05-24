@@ -28,7 +28,8 @@ namespace CILantro.AbstractSyntaxTree.Other
                 {
                     Name = fieldChildren.Child5.Value,
                     Type = fieldChildren.Child4.Type,
-                    IsStatic = fieldChildren.Child3.IsStatic
+                    IsStatic = fieldChildren.Child3.IsStatic,
+                    InitValue = fieldChildren.Child7.InitValue
                 };
 
                 return;

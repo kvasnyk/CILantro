@@ -184,6 +184,19 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // instr_tok_head + ownerType
+            var instrTokChildren = AstChildren.Empty()
+                .Add<Instr_tok_headAstNode>()
+                .Add<OwnerTypeAstNode>();
+            if (instrTokChildren.PopulateWith(parseNode))
+            {
+                var instructionTok = instrTokChildren.Child1.Instruction;
+
+                Instruction = instructionTok;
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

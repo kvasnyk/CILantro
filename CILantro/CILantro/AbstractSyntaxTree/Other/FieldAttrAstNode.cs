@@ -93,6 +93,48 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // fieldAttr + _("specialname")
+            var specialNameChildren = AstChildren.Empty()
+                .Add<FieldAttrAstNode>()
+                .Add("specialname");
+            if (specialNameChildren.PopulateWith(parseNode))
+            {
+                // TODO: handle
+                IsPublic = specialNameChildren.Child1.IsPublic;
+                IsPrivate = specialNameChildren.Child1.IsPrivate;
+                IsStatic = specialNameChildren.Child1.IsStatic;
+
+                return;
+            }
+
+            // fieldAttr + _("rtspecialname")
+            var rtspecialnameChildren = AstChildren.Empty()
+                .Add<FieldAttrAstNode>()
+                .Add("rtspecialname");
+            if (rtspecialnameChildren.PopulateWith(parseNode))
+            {
+                // TODO: handle
+                IsPublic = rtspecialnameChildren.Child1.IsPublic;
+                IsPrivate = rtspecialnameChildren.Child1.IsPrivate;
+                IsStatic = rtspecialnameChildren.Child1.IsStatic;
+
+                return;
+            }
+
+            // fieldAttr + _("literal")
+            var literalChildren = AstChildren.Empty()
+                .Add<FieldAttrAstNode>()
+                .Add("literal");
+            if (literalChildren.PopulateWith(parseNode))
+            {
+                // TODO: handle
+                IsPublic = literalChildren.Child1.IsPublic;
+                IsPrivate = literalChildren.Child1.IsPrivate;
+                IsStatic = literalChildren.Child1.IsStatic;
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

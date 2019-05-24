@@ -1,4 +1,5 @@
 ﻿using CILantro.Interpreting.Types;
+using CILantro.Interpreting.Values;
 
 namespace CILantro.Structure
 {
@@ -9,5 +10,7 @@ namespace CILantro.Structure
         public CilType Type { get; set; }
 
         public bool IsStatic { get; set; }
+
+        public IValue InitValue { get; set; }
     }
 }

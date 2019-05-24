@@ -85,6 +85,7 @@ namespace CILantro.Parsing
             var repeatOpt = CreateNonTerminal("repeatOpt");
             var customHead = CreateNonTerminal("customHead");
             var customHeadWithOwner = CreateNonTerminal("customHeadWithOwner");
+            var memberRef = CreateNonTerminal("memberRef");
             var customType = CreateNonTerminal("customType");
             var ownerType = CreateNonTerminal("ownerType");
             var eventHead = CreateNonTerminal("eventHead");
@@ -176,6 +177,7 @@ namespace CILantro.Parsing
             var INSTR_RVA = CreateNonTerminal("INSTR_RVA");
             var INSTR_SWITCH = CreateNonTerminal("INSTR_SWITCH");
             var INSTR_PHI = CreateNonTerminal("INSTR_PHI");
+            var INSTR_TOK = CreateNonTerminal("INSTR_TOK");
 
             INSTR_NONE.Rule =
                 _("add") |
@@ -423,6 +425,9 @@ namespace CILantro.Parsing
             // TODO: INSTR_PHI
             INSTR_PHI.Rule = _("TODO: INSTR_PHI");
 
+            INSTR_TOK.Rule =
+                _("ldtoken");
+
             // rules
 
             Root = decls;
@@ -567,12 +572,16 @@ namespace CILantro.Parsing
             customHeadWithOwner.Rule =
                 _(".custom") + _("(") + ownerType + _(")") + customType + _("=") + _("(");
 
+            // TODO: memberRef
+            memberRef.Rule = _("TODO: memberRef");
+
             customType.Rule =
                 callConv + type + typeSpec + _("::") + _(".ctor") + _("(") + sigArgs0 + _(")") |
                 callConv + type + _(".ctor") + _("(") + sigArgs0 + _(")");
 
-            // TODO: ownerType
-            ownerType.Rule = _("TODO: ownerType");
+            ownerType.Rule =
+                typeSpec |
+                memberRef;
 
             // TODO: eventHead
             eventHead.Rule = _("TODO: eventHead");
@@ -732,8 +741,8 @@ namespace CILantro.Parsing
             // TODO: instr_r_head
             instr_r_head.Rule = _("TODO: instr_r_head");
 
-            // TODO: instr_tok_head
-            instr_tok_head.Rule = _("TODO: instr_tok_head");
+            instr_tok_head.Rule =
+                INSTR_TOK;
 
             // TODO: methodSpec
             methodSpec.Rule = _("TODO: methodSpec");
@@ -759,7 +768,7 @@ namespace CILantro.Parsing
                 INSTR_SIG + callConv + type + _("(") + sigArgs0 + _(")") |
                 INSTR_RVA + id |
                 INSTR_RVA + int32 |
-                instr_tok_head + ownerType | // TODO: check comment in ECMA grammar
+                instr_tok_head + ownerType |
                 INSTR_SWITCH + _("(") + labels + _(")") |
                 INSTR_PHI + int16s;
 

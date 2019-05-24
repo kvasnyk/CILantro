@@ -27,6 +27,8 @@ namespace CILantro.Visitors
 
         protected abstract InstructionSwitchVisitor InstructionSwitchVisitor { get; }
 
+        protected abstract InstructionTokVisitor InstructionTokVisitor { get; }
+
         public void Visit()
         {
             var nextInstruction = GetNextInstruction();
@@ -63,6 +65,8 @@ namespace CILantro.Visitors
                 InstructionI8Visitor.VisitInstructionI8(instructionI8);
             else if (instruction is CilInstructionSwitch instructionSwitch)
                 InstructionSwitchVisitor.VisitInstructionSwitch(instructionSwitch);
+            else if (instruction is CilInstructionTok instructionTok)
+                InstructionTokVisitor.VisitInstructionTok(instructionTok);
             else
                 throw new ArgumentException($"CIL instruction cannot be recognized: '{instruction.ToString()}'.");
         }
