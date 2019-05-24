@@ -19,7 +19,7 @@ namespace CILantro.Interpreting.Objects
             if (type is CilTypeObject)
                 return ExternalObject;
 
-            if (ExternalObject.GetType() == type.GetRuntimeType(program))
+            if (type.GetRuntimeType(program).IsAssignableFrom(ExternalObject.GetType()))
                 return ExternalObject;
 
             throw new NotImplementedException();

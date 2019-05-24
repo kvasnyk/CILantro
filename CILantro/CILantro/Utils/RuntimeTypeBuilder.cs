@@ -1,4 +1,6 @@
-﻿using CILantro.Structure;
+﻿using CILantro.Interpreting.Memory;
+using CILantro.Interpreting.Types;
+using CILantro.Structure;
 using System;
 using System.Linq;
 using System.Reflection;
@@ -10,17 +12,17 @@ namespace CILantro.Utils
     {
         private static int _counter = 0;
 
-        public static Type RegisterType(CilClassName parentClassName)
+        public static Type RegisterProxy(CilClassName className)
         {
             var assemblyName = new AssemblyName("CILantroProxiesAssembly");
             var assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndCollect);
 
             var moduleBuilder = assemblyBuilder.DefineDynamicModule("CILantroProxiesModule");
 
-            var parentTypeAssembly = Assembly.Load(parentClassName.AssemblyName);
-            var parentType = parentTypeAssembly.GetType(parentClassName.ClassName);
+            var parentTypeAssembly = Assembly.Load(className.AssemblyName);
+            var parentType = parentTypeAssembly.GetType(className.ClassName);
 
-            var typeName = $"{parentClassName.ClassName}_CILantroProxy_{_counter}";
+            var typeName = $"{className.ClassName}_CILantroProxy_{_counter}";
             var typeBuilder = moduleBuilder.DefineType(typeName, TypeAttributes.Class, parentType);
 
             foreach (var method in parentType.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
@@ -31,6 +33,50 @@ namespace CILantro.Utils
                     var msil = methodBuilder.GetILGenerator();
                     msil.ThrowException(typeof(NotImplementedException));
                     typeBuilder.DefineMethodOverride(methodBuilder, method);
+                }
+            }
+
+            var type = typeBuilder.CreateType();
+
+            _counter++;
+
+            return type;
+        }
+
+        public static Type RegisterType(CilClass cilClass, CilProgram program, CilManagedMemory managedMemory)
+        {
+            var assemblyName = new AssemblyName("CILantroTypesAssembly");
+            var assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndCollect);
+
+            var moduleBuilder = assemblyBuilder.DefineDynamicModule("CILantroTypesModule");
+
+            var parentTypeAssembly = Assembly.Load(cilClass.ExtendsName.AssemblyName);
+            var parentType = parentTypeAssembly.GetType(cilClass.ExtendsName.ClassName);
+
+            var typeName = $"{cilClass.Name.ClassName}";
+            var typeBuilder = moduleBuilder.DefineType(typeName, TypeAttributes.Class, parentType);
+
+            foreach (var field in cilClass.Fields)
+            {
+                Type resultType = null;
+                if (field.Type is CilTypeClass fieldTypeClass)
+                {
+                    if (fieldTypeClass.ClassName.ToString() == cilClass.Name.ToString())
+                        resultType = typeBuilder;
+                }
+                else if (field.Type is CilTypeValueType fieldTypeValueType)
+                {
+                    if (fieldTypeValueType.ClassName.ToString() == cilClass.Name.ToString())
+                        resultType = typeBuilder;
+                }
+                else
+                    resultType = field.Type.GetRuntimeType(program);
+
+                var fieldBuilder = typeBuilder.DefineField(field.Name, resultType, field.GetRuntimeAttributes());
+                
+                if (field.IsStatic)
+                {
+                    fieldBuilder.SetConstant(field.InitValue.AsRuntime(field.Type, managedMemory, program));
                 }
             }
 

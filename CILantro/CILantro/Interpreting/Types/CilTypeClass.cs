@@ -11,7 +11,7 @@ namespace CILantro.Interpreting.Types
 {
     public class CilTypeClass : CilType
     {
-        private CilClassName ClassName { get; }
+        public CilClassName ClassName { get; }
 
         public override bool IsValueType(CilProgram program)
         {

@@ -32,6 +32,8 @@ namespace CILantro.Interpreting.Values
                 return (uint)Value;
             if (cilType is CilTypeChar)
                 return (char)Value;
+            if (cilType is CilTypeValueType)
+                return Value;
 
             throw new System.NotImplementedException();
         }

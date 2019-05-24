@@ -191,6 +191,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (instrTokChildren.PopulateWith(parseNode))
             {
                 var instructionTok = instrTokChildren.Child1.Instruction;
+                instructionTok.TypeSpec = instrTokChildren.Child2.TypeSpec;
 
                 Instruction = instructionTok;
 

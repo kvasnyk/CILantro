@@ -3,10 +3,8 @@ using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.Types;
 using CILantro.Interpreting.Values;
 using CILantro.Structure;
-using CILantro.Utils;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.Serialization;
 
 namespace CILantro.Interpreting.Instances
@@ -29,22 +27,8 @@ namespace CILantro.Interpreting.Instances
                 Fields.Add(field.Name, field.Type.CreateDefaultValue(program));
             }
 
-            var parentClass = Class;
-            while (!program.IsExternalType(parentClass.ExtendsName))
-                parentClass = parentClass.Extends;
-
-            var extAssembly = Assembly.Load(parentClass.ExtendsName.AssemblyName);
-            var extClass = extAssembly.GetType(parentClass.ExtendsName.ClassName);
-
-            if (extClass.IsAbstract)
-            {
-                var extProxy = RuntimeTypeBuilder.RegisterType(parentClass.ExtendsName);
-                _externalInstance = FormatterServices.GetUninitializedObject(extProxy);
-            }
-            else
-            {
-                _externalInstance = FormatterServices.GetUninitializedObject(extClass);
-            }
+            var runtimeType = Class.BuildRuntimeProxy(program);
+            _externalInstance = FormatterServices.GetUninitializedObject(runtimeType);
         }
 
         public override object AsRuntime(CilType type, CilManagedMemory managedMemory, CilProgram program)

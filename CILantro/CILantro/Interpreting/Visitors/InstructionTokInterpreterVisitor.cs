@@ -1,9 +1,11 @@
 ﻿using CILantro.Instructions.Tok;
 using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.State;
+using CILantro.Interpreting.Values;
 using CILantro.Structure;
 using CILantro.Visitors;
 using System;
+using System.Linq;
 
 namespace CILantro.Interpreting.Visitors
 {
@@ -24,7 +26,20 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadTokenInstruction(LoadTokenInstruction instruction)
         {
-            throw new NotImplementedException();
+            if (_program.IsExternalType(instruction.TypeSpec.ClassName))
+            {
+                throw new NotImplementedException();
+            }
+            else
+            {
+                var @class = _program.Classes.Single(c => c.Name.ToString() == instruction.TypeSpec.ClassName.ToString());
+                var runtimeType = @class.BuildRuntimeType(_program, _managedMemory);
+                var runtimeHandle = runtimeType.TypeHandle;
+                var result = new CilValueExternal(runtimeHandle);
+
+                _state.EvaluationStack.PushValue(result);
+                _state.MoveToNextInstruction();
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CILantro.Interpreting.Types;
 using CILantro.Interpreting.Values;
+using System.Reflection;
 
 namespace CILantro.Structure
 {
@@ -12,5 +13,13 @@ namespace CILantro.Structure
         public bool IsStatic { get; set; }
 
         public IValue InitValue { get; set; }
+
+        public FieldAttributes GetRuntimeAttributes()
+        {
+            var result = default(FieldAttributes);
+            if (IsStatic)
+                result |= FieldAttributes.Static;
+            return result;
+        }
     }
 }
