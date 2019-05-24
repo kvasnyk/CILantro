@@ -49,7 +49,7 @@ namespace CILantro.Interpreting.Types
 
         public override IValue CreateDefaultValue(CilProgram program)
         {
-            throw new NotImplementedException();
+            return new CilValueNull();
         }
 
         public override bool IsAssignableFrom(CilType other)
