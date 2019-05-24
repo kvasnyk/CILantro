@@ -2,7 +2,7 @@
   "profiles": {
     "CILantro": {
       "commandName": "Project",
-      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\TP_CSF_Enums_Enum\\TP_CSF_Enums_Enum.il\""
+      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\TP_CSF_Enums_ExistingEnum\\TP_CSF_Enums_ExistingEnum.il\""
     }
   }
 }

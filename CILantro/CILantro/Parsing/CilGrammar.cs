@@ -722,6 +722,7 @@ namespace CILantro.Parsing
                 _("int16") + _("(") + int64 + _(")") |
                 _("char") + _("(") + int64 + _(")") |
                 _("int8") + _("(") + int64 + _(")") |
+                _("uint8") + _("(") + int64 + _(")") | // DOCS: non-present in ECMA grammar
                 _("bool") + _("(") + truefalse + _(")") |
                 compQstring |
                 bytearrayhead + bytes + _(")") |

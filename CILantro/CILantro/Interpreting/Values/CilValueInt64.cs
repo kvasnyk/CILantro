@@ -20,6 +20,8 @@ namespace CILantro.Interpreting.Values
                 return Value;
             if (cilType is CilTypeUInt64)
                 return (ulong)Value;
+            if (cilType is CilTypeValueType)
+                return Value;
 
             throw new System.NotImplementedException();
         }

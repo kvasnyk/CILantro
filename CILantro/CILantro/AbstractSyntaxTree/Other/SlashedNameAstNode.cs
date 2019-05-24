@@ -22,6 +22,18 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // slashedName + _("/") + name1
+            var slashedNameChildren = AstChildren.Empty()
+                .Add<SlashedNameAstNode>()
+                .Add("/")
+                .Add<Name1AstNode>();
+            if (slashedNameChildren.PopulateWith(parseNode))
+            {
+                Value = slashedNameChildren.Child1.Value + "/" + slashedNameChildren.Child3.Value;
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

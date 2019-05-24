@@ -22,6 +22,8 @@ namespace CILantro.Interpreting.Values
                 return Value;
             if (cilType is CilTypeUInt16)
                 return (ushort)Value;
+            if (cilType is CilTypeValueType)
+                return Value;
 
             throw new System.NotImplementedException();
         }

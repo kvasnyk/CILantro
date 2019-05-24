@@ -116,6 +116,19 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // classAttr + _("nested") + _("private")
+            var nestedPrivateChildren = AstChildren.Empty()
+                .Add<ClassAttrAstNode>()
+                .Add("nested")
+                .Add("private");
+            if (nestedPrivateChildren.PopulateWith(parseNode))
+            {
+                // TODO: handle
+                IsSequential = nestedPrivateChildren.Child1.IsSequential;
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }
