@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace CILantro.Structure
 {
@@ -57,7 +58,9 @@ namespace CILantro.Structure
         {
             if (IsExternalType(className))
             {
-                throw new NotImplementedException();
+                var assembly = Assembly.Load(className.AssemblyName);
+                var type = assembly.GetType(className.ClassName);
+                return type.IsValueType;
             }
 
             var @class = Classes.Single(c => c.Name.ToString() == className.ToString());
