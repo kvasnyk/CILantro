@@ -33,8 +33,8 @@ namespace CILantro.Parsing
             ConfigureAstNode(DOTTEDNAME);
 
             // TODO: specify
-            var ID = new IdentifierTerminal("ID");
-            ID.AddPrefix("$", IdOptions.None); // DOCS: ECMA page 110
+            var ID = new IdentifierTerminal("ID", IdOptions.None);
+            ID.AddPrefix("$", IdOptions.NameIncludesPrefix); // DOCS: ECMA page 110
             ConfigureAstNode(ID);
 
             // TODO: specify
@@ -106,6 +106,12 @@ namespace CILantro.Parsing
             var sehBlock = CreateNonTerminal("sehBlock");
             var methodDecls = CreateNonTerminal("methodDecls");
             var dataDecl = CreateNonTerminal("dataDecl");
+            var ddHead = CreateNonTerminal("ddHead");
+            var tls = CreateNonTerminal("tls");
+            var ddBody = CreateNonTerminal("ddBody");
+            var ddItemList = CreateNonTerminal("ddItemList");
+            var ddItemCount = CreateNonTerminal("ddItemCount");
+            var ddItem = CreateNonTerminal("ddItem");
             var fieldInit = CreateNonTerminal("fieldInit");
             var bytearrayhead = CreateNonTerminal("bytearrayhead");
             var bytes = CreateNonTerminal("bytes");
@@ -126,6 +132,7 @@ namespace CILantro.Parsing
             var nativeType = CreateNonTerminal("nativeType");
             var type = CreateNonTerminal("type");
             var bounds1 = CreateNonTerminal("bounds1");
+            var bound = CreateNonTerminal("bound");
             var labels = CreateNonTerminal("labels");
             var id = CreateNonTerminal("id");
             var int16s = CreateNonTerminal("int16s");
@@ -573,8 +580,11 @@ namespace CILantro.Parsing
             customHeadWithOwner.Rule =
                 _(".custom") + _("(") + ownerType + _(")") + customType + _("=") + _("(");
 
-            // TODO: memberRef
-            memberRef.Rule = _("TODO: memberRef");
+            memberRef.Rule =
+                methodSpec + callConv + type + typeSpec + _("::") + methodName + _("(") + sigArgs0 + _(")") |
+                methodSpec + callConv + type + methodName + _("(") + sigArgs0 + _(")") |
+                _("field") + type + typeSpec + _("::") + id |
+                _("field") + type + id;
 
             customType.Rule =
                 callConv + type + typeSpec + _("::") + _(".ctor") + _("(") + sigArgs0 + _(")") |
@@ -710,8 +720,46 @@ namespace CILantro.Parsing
                 Empty |
                 methodDecls + methodDecl;
 
-            // TODO: dataDecl
-            dataDecl.Rule = _("TODO: dataDecl");
+            dataDecl.Rule =
+                ddHead + ddBody;
+
+            ddHead.Rule =
+                _(".data") + tls + id + _("=") |
+                _(".data") + tls;
+
+            tls.Rule =
+                Empty |
+                _("tls") |
+                _("cil"); // DOCS: non-present in ECMA grammar
+
+            ddBody.Rule =
+                _("{") + ddItemList + _("}") |
+                ddItem;
+
+            ddItemList.Rule =
+                ddItem + _(",") + ddItemList |
+                ddItem;
+
+            ddItemCount.Rule =
+                Empty |
+                _("[") + int32 + _("]");
+
+            ddItem.Rule =
+                _("char") + _("*") + _("(") + compQstring + _(")") |
+                _("&") + _("(") + id + _(")") |
+                bytearrayhead + bytes + _(")") |
+                _("float32") + _("(") + float64 + _(")") + ddItemCount |
+                _("float64") + _("(") + float64 + _(")") + ddItemCount |
+                _("int64") + _("(") + int64 + _(")") + ddItemCount |
+                _("int32") + _("(") + int32 + _(")") + ddItemCount |
+                _("int16") + _("(") + int32 + _(")") + ddItemCount |
+                _("int8") + _("(") + int32 + _(")") + ddItemCount |
+                _("float32") + ddItemCount |
+                _("float64") + ddItemCount |
+                _("int64") + ddItemCount |
+                _("int32") + ddItemCount |
+                _("int16") + ddItemCount |
+                _("int8") + ddItemCount;
 
             fieldInit.Rule =
                 _("float32") + _("(") + float64 + _(")") |
@@ -729,8 +777,8 @@ namespace CILantro.Parsing
                 bytearrayhead + bytes + _(")") |
                 _("nullref");
 
-            // TODO: bytearrayhead
-            bytearrayhead.Rule = _("TODO: bytearrayhead");
+            bytearrayhead.Rule =
+                _("bytearray") + _("(");
 
             bytes.Rule =
                 Empty |
@@ -864,8 +912,16 @@ namespace CILantro.Parsing
                 _("uint32") | // DOCS: not present in ECMA grammar
                 _("uint64"); // DOCS: not present in ECMA grammar
 
-            // TODO: bounds1
-            bounds1.Rule = _("TODO: bounds1");
+            bounds1.Rule =
+                bound |
+                bounds1 + _(",") + bound;
+
+            bound.Rule =
+                Empty |
+                _("...") |
+                int32 |
+                int32 + _("...") + int32 |
+                int32 + _("...");
 
             labels.Rule =
                 Empty |

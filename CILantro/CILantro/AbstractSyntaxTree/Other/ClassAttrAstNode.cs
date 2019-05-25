@@ -129,6 +129,18 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // classAttr + _("explicit")
+            var explicitChildren = AstChildren.Empty()
+                .Add<ClassAttrAstNode>()
+                .Add("explicit");
+            if (explicitChildren.PopulateWith(parseNode))
+            {
+                // TODO: handle
+                IsSequential = explicitChildren.Child1.IsSequential;
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

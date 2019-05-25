@@ -17,7 +17,7 @@ namespace CILantro.Interpreting.Types
 
         public override bool IsNullable => throw new NotImplementedException();
 
-        public CilTypeArray(CilType elementType)
+        public CilTypeArray(CilType elementType, int dims = 1)
         {
             ElementType = elementType;
         }
@@ -54,7 +54,10 @@ namespace CILantro.Interpreting.Types
 
         public override bool IsAssignableFrom(CilType other)
         {
-            throw new NotImplementedException();
+            if (other is CilTypeArray otherArray)
+                return ElementType.IsAssignableFrom(otherArray.ElementType);
+
+            return false;
         }
 
         public override IValue Unbox(CilObject obj, CilManagedMemory managedMemory, CilProgram program)

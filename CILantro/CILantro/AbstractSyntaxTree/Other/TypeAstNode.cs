@@ -36,6 +36,22 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // type + ("[") + bounds1 + _("]")
+            var typeArrayBoundsChildren = AstChildren.Empty()
+                .Add<TypeAstNode>()
+                .Add("[")
+                .Add<Bounds1AstNode>()
+                .Add("]");
+            if (typeArrayBoundsChildren.PopulateWith(parseNode))
+            {
+                var elementType = typeArrayBoundsChildren.Child1.Type;
+                var bounds = typeArrayBoundsChildren.Child3.Bounds;
+
+                Type = new CilTypeArray(elementType, bounds.Count);
+
+                return;
+            }
+
             // _("void")
             var voidChildren = AstChildren.Empty()
                 .Add("void");

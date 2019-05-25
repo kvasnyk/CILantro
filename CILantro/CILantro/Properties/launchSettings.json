@@ -2,7 +2,7 @@
   "profiles": {
     "CILantro": {
       "commandName": "Project",
-      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\RegExApplication3\\RegExApplication3.il\""
+      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\ArrayApplication3\\ArrayApplication3.il\""
     }
   }
 }
