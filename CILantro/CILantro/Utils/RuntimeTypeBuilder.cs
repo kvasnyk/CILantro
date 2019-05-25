@@ -2,6 +2,7 @@
 using CILantro.Interpreting.Types;
 using CILantro.Structure;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -11,6 +12,8 @@ namespace CILantro.Utils
     public static class RuntimeTypeBuilder
     {
         private static int _counter = 0;
+
+        private static Dictionary<string, Type> RegisteredTypes { get; set; } = new Dictionary<string, Type>();
 
         public static Type RegisterProxy(CilClassName className)
         {
@@ -44,6 +47,11 @@ namespace CILantro.Utils
 
         public static Type RegisterType(CilClass cilClass, CilProgram program, CilManagedMemory managedMemory)
         {
+            var typeName = $"{cilClass.Name.ClassName}";
+
+            if (RegisteredTypes.ContainsKey(typeName))
+                return RegisteredTypes[typeName];
+
             var assemblyName = new AssemblyName("CILantroTypesAssembly");
             var assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndCollect);
 
@@ -51,8 +59,9 @@ namespace CILantro.Utils
 
             var parentType = ReflectionHelper.GetExternalType(cilClass.ExtendsName);
 
-            var typeName = $"{cilClass.Name.ClassName}";
             var typeBuilder = moduleBuilder.DefineType(typeName, TypeAttributes.Class, parentType);
+
+            RegisteredTypes.Add(typeName, typeBuilder);
 
             foreach (var field in cilClass.Fields)
             {
@@ -66,6 +75,11 @@ namespace CILantro.Utils
                 {
                     if (fieldTypeValueType.ClassName.ToString() == cilClass.Name.ToString())
                         resultType = typeBuilder;
+                    else
+                    {
+                        var cilClass2 = program.AllClasses.Single(c => c.Name.ToString() == fieldTypeValueType.ClassName.ToString());
+                        resultType = RegisterType(cilClass2, program, managedMemory);
+                    }
                 }
                 else
                     resultType = field.Type.GetRuntimeType(program);

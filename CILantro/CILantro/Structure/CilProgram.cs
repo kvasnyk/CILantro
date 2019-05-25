@@ -8,11 +8,28 @@ namespace CILantro.Structure
 {
     public class CilProgram
     {
+        public Dictionary<string, CilData> Datas { get; }
+
         public List<CilAssemblyRef> AssemblyRefs { get; }
 
         public List<CilAssembly> Assemblies { get; }
 
         public List<CilClass> Classes { get; }
+
+        private List<CilClass> _allClasses;
+
+        public List<CilClass> AllClasses
+        {
+            get
+            {
+                if (_allClasses != null)
+                    return _allClasses;
+
+                var result = Classes.SelectMany(c => GetAllAndNestedClasses(c)).ToList();
+                _allClasses = result;
+                return result;
+            }
+        }
 
         public List<CilMethod> Methods { get; }
 
@@ -22,6 +39,7 @@ namespace CILantro.Structure
 
         public CilProgram(CilDecls decls)
         {
+            Datas = decls.Datas;
             AssemblyRefs = decls.AssemblyRefs;
             Assemblies = decls.Assemblies;
             Classes = decls.Classes;
@@ -40,6 +58,15 @@ namespace CILantro.Structure
                 else
                 {
                     @class.Extends = Classes.First(c => c.Name.ToString() == @class.ExtendsName.ToString());
+                }
+
+                foreach (var field in @class.Fields)
+                {
+                    if (!string.IsNullOrEmpty(field.AtId))
+                    {
+                        var atData = Datas[field.AtId];
+                        field.InitValue = atData.GetValue();
+                    }
                 }
             }
         }
@@ -73,12 +100,29 @@ namespace CILantro.Structure
                 return type.IsValueType;
             }
 
-            var @class = Classes.Single(c => c.Name.ToString() == className.ToString());
+            var @class = AllClasses.Single(c => c.Name.ToString() == className.ToString());
 
             if (@class.IsInterface)
                 return false;
 
             var result = @class.ExtendsName.ToString() == "[mscorlib]System.ValueType" || @class.ExtendsName.ToString() == "[mscorlib]System.Enum";
+            return result;
+        }
+
+        private List<CilClass> GetAllAndNestedClasses(CilClass cilClass, string prefix = "")
+        {
+            var result = new List<CilClass>();
+
+            if (!string.IsNullOrEmpty(prefix))
+                cilClass.Name.ClassName = prefix + cilClass.Name.ClassName;
+
+            result.Add(cilClass);
+
+            var newPrefix = prefix + cilClass.Name.ClassName + "/";
+
+            if (cilClass.Classes != null)
+                result.AddRange(cilClass.Classes.SelectMany(nc => GetAllAndNestedClasses(nc, newPrefix)));
+
             return result;
         }
     }

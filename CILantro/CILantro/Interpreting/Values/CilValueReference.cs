@@ -41,6 +41,8 @@ namespace CILantro.Interpreting.Values
                 return this;
             if (cilType is CilTypeClass)
                 return this;
+            if (cilType is CilTypeArray)
+                return this;
 
             throw new System.NotImplementedException();
         }

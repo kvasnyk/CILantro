@@ -19,7 +19,8 @@ namespace CILantro.AbstractSyntaxTree.Other
         Subsystem,
         ManifestRes,
         Method,
-        CustomAttribute
+        CustomAttribute,
+        Data
     }
 
     [AstNode("decl")]
@@ -34,6 +35,10 @@ namespace CILantro.AbstractSyntaxTree.Other
         public CilClass ClassDecl { get; private set; }
 
         public CilMethod MethodDecl { get; private set; }
+
+        public CilData DataDecl { get; private set; }
+
+        public string DataId { get; private set; }
 
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
@@ -55,6 +60,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                     },
                     Methods = classChildren.Child3.ClassDecls.Methods,
                     Fields = classChildren.Child3.ClassDecls.Fields,
+                    Classes = classChildren.Child3.ClassDecls.Classes,
                     ExtendsName = classChildren.Child1.ExtendsClassName,
                     Attributes = classChildren.Child1.ClassAttributes
                 };
@@ -211,6 +217,18 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (customAttrDeclChildren.PopulateWith(parseNode))
             {
                 DeclType = Other.DeclType.CustomAttribute;
+
+                return;
+            }
+
+            // dataDecl
+            var dataDeclChildren = AstChildren.Empty()
+                .Add<DataDeclAstNode>();
+            if (dataDeclChildren.PopulateWith(parseNode))
+            {
+                DeclType = Other.DeclType.Data;
+                DataDecl = dataDeclChildren.Child1.Data;
+                DataId = dataDeclChildren.Child1.DataId;
 
                 return;
             }

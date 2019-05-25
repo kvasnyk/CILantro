@@ -27,7 +27,7 @@ namespace CILantro.Interpreting.Types
 
         public override IValue CreateDefaultValue(CilProgram program)
         {
-            var @class = program.Classes.Single(c => c.Name.ToString() == ClassName.ToString());
+            var @class = program.AllClasses.Single(c => c.Name.ToString() == ClassName.ToString());
 
             if (@class.IsInterface)
                 return new CilValueNull();

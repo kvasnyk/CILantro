@@ -1,4 +1,5 @@
-﻿using Irony.Ast;
+﻿using CILantro.Utils;
+using Irony.Ast;
 using Irony.Parsing;
 using System;
 
@@ -9,6 +10,15 @@ namespace CILantro.AbstractSyntaxTree.Other
     {
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
+            // _("cil")
+            var cilChildren = AstChildren.Empty()
+                .Add("cil");
+            if (cilChildren.PopulateWith(parseNode))
+            {
+                // TODO: handle
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

@@ -33,6 +33,9 @@ namespace CILantro.Interpreting
                 }
             }
 
+            if (program.Datas.Count > 0)
+                throw new FeatureNotSupportedException(".data");
+
             return true;
         }
     }

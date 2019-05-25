@@ -5,14 +5,19 @@ using System;
 
 namespace CILantro.AbstractSyntaxTree.Other
 {
+    [Flags]
+    public enum CilFieldAttributes
+    {
+        Default = 0x0,
+        Public = 0x1,
+        Static = 0x2,
+        Private = 0x3
+    }
+
     [AstNode("fieldAttr")]
     public class FieldAttrAstNode : AstNodeBase
     {
-        public bool IsPublic { get; set; }
-
-        public bool IsStatic { get; set; }
-
-        public bool IsPrivate { get; set; }
+        public CilFieldAttributes FieldAttributes { get; private set; }
         
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
@@ -20,8 +25,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             var emptyChildren = AstChildren.Empty();
             if (emptyChildren.PopulateWith(parseNode))
             {
-                IsPublic = false;
-                IsStatic = false;
+                FieldAttributes = CilFieldAttributes.Default;
 
                 return;
             }
@@ -32,9 +36,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("public");
             if (publicChildren.PopulateWith(parseNode))
             {
-                IsPublic = true;
-                IsStatic = publicChildren.Child1.IsStatic;
-                IsPrivate = publicChildren.Child1.IsPrivate;
+                FieldAttributes |= publicChildren.Child1.FieldAttributes | CilFieldAttributes.Public;
 
                 return;
             }
@@ -45,9 +47,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("static");
             if (staticChildren.PopulateWith(parseNode))
             {
-                IsPublic = staticChildren.Child1.IsPublic;
-                IsStatic = true;
-                IsPrivate = staticChildren.Child1.IsPrivate;
+                FieldAttributes |= staticChildren.Child1.FieldAttributes | CilFieldAttributes.Static;
 
                 return;
             }
@@ -58,9 +58,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("private");
             if (privateChildren.PopulateWith(parseNode))
             {
-                IsPublic = privateChildren.Child1.IsPublic;
-                IsStatic = privateChildren.Child1.IsStatic;
-                IsPrivate = true;
+                FieldAttributes |= privateChildren.Child1.FieldAttributes | CilFieldAttributes.Private;
 
                 return;
             }
@@ -72,9 +70,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (familyChildren.PopulateWith(parseNode))
             {
                 // TODO: handle
-                IsPublic = familyChildren.Child1.IsPublic;
-                IsPrivate = familyChildren.Child1.IsPrivate;
-                IsStatic = familyChildren.Child1.IsStatic;
+                FieldAttributes |= familyChildren.Child1.FieldAttributes;
 
                 return;
             }
@@ -86,9 +82,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (assemblyChildren.PopulateWith(parseNode))
             {
                 // TODO: handle
-                IsPublic = assemblyChildren.Child1.IsPublic;
-                IsPrivate = assemblyChildren.Child1.IsPrivate;
-                IsStatic = assemblyChildren.Child1.IsStatic;
+                FieldAttributes |= assemblyChildren.Child1.FieldAttributes;
 
                 return;
             }
@@ -100,9 +94,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (specialNameChildren.PopulateWith(parseNode))
             {
                 // TODO: handle
-                IsPublic = specialNameChildren.Child1.IsPublic;
-                IsPrivate = specialNameChildren.Child1.IsPrivate;
-                IsStatic = specialNameChildren.Child1.IsStatic;
+                FieldAttributes |= specialNameChildren.Child1.FieldAttributes;
 
                 return;
             }
@@ -114,9 +106,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (rtspecialnameChildren.PopulateWith(parseNode))
             {
                 // TODO: handle
-                IsPublic = rtspecialnameChildren.Child1.IsPublic;
-                IsPrivate = rtspecialnameChildren.Child1.IsPrivate;
-                IsStatic = rtspecialnameChildren.Child1.IsStatic;
+                FieldAttributes |= rtspecialnameChildren.Child1.FieldAttributes;
 
                 return;
             }
@@ -128,9 +118,19 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (literalChildren.PopulateWith(parseNode))
             {
                 // TODO: handle
-                IsPublic = literalChildren.Child1.IsPublic;
-                IsPrivate = literalChildren.Child1.IsPrivate;
-                IsStatic = literalChildren.Child1.IsStatic;
+                FieldAttributes |= literalChildren.Child1.FieldAttributes;
+
+                return;
+            }
+
+            // fieldAttr + _("initonly")
+            var initonlyChildren = AstChildren.Empty()
+                .Add<FieldAttrAstNode>()
+                .Add("initonly");
+            if (initonlyChildren.PopulateWith(parseNode))
+            {
+                // TODO: handle
+                FieldAttributes |= initonlyChildren.Child1.FieldAttributes;
 
                 return;
             }

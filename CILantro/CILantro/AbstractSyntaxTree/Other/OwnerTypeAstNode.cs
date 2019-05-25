@@ -1,4 +1,5 @@
-﻿using CILantro.Structure;
+﻿using CILantro.Interpreting.Types;
+using CILantro.Structure;
 using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
@@ -10,6 +11,12 @@ namespace CILantro.AbstractSyntaxTree.Other
     public class OwnerTypeAstNode : AstNodeBase
     {
         public CilTypeSpec TypeSpec { get; private set; }
+
+        public CilType FieldType { get; private set; }
+
+        public CilTypeSpec FieldTypeSpec { get; private set; }
+
+        public string FieldId { get; private set; }
 
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
@@ -28,7 +35,10 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<MemberRefAstNode>();
             if (memberRefChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                FieldType = memberRefChildren.Child1.FieldType;
+                FieldTypeSpec = memberRefChildren.Child1.FieldTypeSpec;
+                FieldId = memberRefChildren.Child1.FieldId;
+
                 return;
             }
 

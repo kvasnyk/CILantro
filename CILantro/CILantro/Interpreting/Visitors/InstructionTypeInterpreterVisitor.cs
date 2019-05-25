@@ -91,7 +91,7 @@ namespace CILantro.Interpreting.Visitors
 
             _state.EvaluationStack.PopValue(out CilValueInt32 numElems);
 
-            var newArr = new CilArray(instruction.TypeSpec.GetCilType(_program), numElems.Value);
+            var newArr = new CilArray(instruction.TypeSpec.GetCilType(_program), numElems.Value, _program);
             var arrRef = _managedMemory.Store(newArr);
 
             _state.EvaluationStack.PushValue(arrRef);

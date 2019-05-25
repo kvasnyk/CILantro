@@ -206,6 +206,9 @@ namespace CILantro.AbstractSyntaxTree.Other
             {
                 var instructionTok = instrTokChildren.Child1.Instruction;
                 instructionTok.TypeSpec = instrTokChildren.Child2.TypeSpec;
+                instructionTok.FieldType = instrTokChildren.Child2.FieldType;
+                instructionTok.FieldTypeSpec = instrTokChildren.Child2.FieldTypeSpec;
+                instructionTok.FieldId = instrTokChildren.Child2.FieldId;
 
                 Instruction = instructionTok;
 

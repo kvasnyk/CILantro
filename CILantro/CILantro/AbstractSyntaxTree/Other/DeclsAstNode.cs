@@ -24,7 +24,8 @@ namespace CILantro.AbstractSyntaxTree.Other
                     AssemblyRefs = new List<CilAssemblyRef>(),
                     Assemblies = new List<CilAssembly>(),
                     Classes = new List<CilClass>(),
-                    Methods = new List<CilMethod>()
+                    Methods = new List<CilMethod>(),
+                    Datas = new Dictionary<string, CilData>()
                 };
 
                 return;
@@ -80,6 +81,9 @@ namespace CILantro.AbstractSyntaxTree.Other
                         break;
                     case DeclType.CustomAttribute:
                         // TODO: handle
+                        break;
+                    case DeclType.Data:
+                        Decls.Datas.Add(declsChildren.Child2.DataId, declsChildren.Child2.DataDecl);
                         break;
                     default:
                         throw new AstNodeException($"\"{nameof(declType)}\" cannot be recognized.");

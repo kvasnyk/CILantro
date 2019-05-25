@@ -19,6 +19,8 @@ namespace CILantro.Structure
 
         public List<CilField> Fields { get; set; }
 
+        public List<CilClass> Classes { get; set; }
+
         public CilMethod EntryPoint => Methods.SingleOrDefault(m => m.IsEntryPoint);
 
         public bool IsSequential => Attributes.HasFlag(CilClassAttributes.Sequential);

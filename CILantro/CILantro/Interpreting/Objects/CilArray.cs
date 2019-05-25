@@ -21,9 +21,12 @@ namespace CILantro.Interpreting.Objects
             _type = type;
         }
 
-        public CilArray(CilType type, int numElems)
+        public CilArray(CilType type, int numElems, CilProgram program)
         {
             _array = new IValue[numElems];
+            for (int i = 0; i < numElems; i++)
+                _array[i] = type.CreateDefaultValue(program);
+
             _type = type;
         }
 

@@ -12,7 +12,8 @@ namespace CILantro.AbstractSyntaxTree.Other
         CustomAttr,
         Field,
         Pack,
-        Size
+        Size,
+        Class
     }
 
     [AstNode("classDecl")]
@@ -23,6 +24,8 @@ namespace CILantro.AbstractSyntaxTree.Other
         public CilMethod Method { get; private set; }
 
         public CilField Field { get; private set; }
+
+        public CilClass ClassDecl { get; private set; }
 
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
@@ -90,6 +93,32 @@ namespace CILantro.AbstractSyntaxTree.Other
             {
                 // TODO: handle
                 DeclType = ClassDeclType.Size;
+
+                return;
+            }
+
+            // classHead + _("{") + classDecls + _("}")
+            var classHeadChildren = AstChildren.Empty()
+                .Add<ClassHeadAstNode>()
+                .Add("{")
+                .Add<ClassDeclsAstNode>()
+                .Add("}");
+            if (classHeadChildren.PopulateWith(parseNode))
+            {
+                // TODO: handle
+                DeclType = ClassDeclType.Class;
+
+                ClassDecl = new CilClass
+                {
+                    Name = new CilClassName
+                    {
+                        ClassName = classHeadChildren.Child1.ClassName
+                    },
+                    Methods = classHeadChildren.Child3.ClassDecls.Methods,
+                    Fields = classHeadChildren.Child3.ClassDecls.Fields,
+                    ExtendsName = classHeadChildren.Child1.ExtendsClassName,
+                    Attributes = classHeadChildren.Child1.ClassAttributes
+                };
 
                 return;
             }

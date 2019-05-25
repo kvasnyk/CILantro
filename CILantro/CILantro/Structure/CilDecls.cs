@@ -11,5 +11,7 @@ namespace CILantro.Structure
         public List<CilClass> Classes { get; set; }
 
         public List<CilMethod> Methods { get; set; }
+
+        public Dictionary<string, CilData> Datas { get; set; }
     }
 }

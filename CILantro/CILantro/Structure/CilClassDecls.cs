@@ -7,5 +7,7 @@ namespace CILantro.Structure
         public List<CilMethod> Methods { get; set; }
 
         public List<CilField> Fields { get; set; }
+
+        public List<CilClass> Classes { get; set; }
     }
 }
