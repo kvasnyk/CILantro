@@ -408,12 +408,14 @@ namespace CILantro.Parsing
                 _("cpobj") |
                 _("initobj") |
                 _("isinst") |
+                _("ldelem") | // DOCS: non-present in ECMA grammar
                 _("ldelema") |
                 _("ldobj") |
                 _("mkrefany") |
                 _("newarr") |
                 _("refanyval") |
                 _("sizeof") |
+                _("stelem") | // DOCS: non-present in ECMA grammar
                 _("stobj") |
                 _("unbox") |
                 ___("unbox.any"); // DOCS: non-present in ECMA grammar

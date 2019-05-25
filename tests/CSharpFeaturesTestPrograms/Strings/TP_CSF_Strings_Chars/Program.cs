@@ -9,9 +9,13 @@ namespace TP_CSF_Strings_Chars
             string s = Console.ReadLine();
             var n = int.Parse(Console.ReadLine());
 
-            var character = s[n];
-
-            Console.WriteLine(character);
+            if (n < 0 || n >= s.Length)
+                Console.WriteLine("outside");
+            else
+            {
+                var character = s[n];
+                Console.WriteLine(character);
+            }
         }
     }
 }

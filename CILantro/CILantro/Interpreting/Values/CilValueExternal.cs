@@ -39,6 +39,9 @@ namespace CILantro.Interpreting.Values
 
         public IValue As(CilType cilType)
         {
+            if (cilType is CilTypeValueType cilTypeValueType)
+                return this;
+
             throw new System.NotImplementedException();
         }
     }

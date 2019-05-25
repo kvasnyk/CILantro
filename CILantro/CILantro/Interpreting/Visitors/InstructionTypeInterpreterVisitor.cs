@@ -72,6 +72,17 @@ namespace CILantro.Interpreting.Visitors
             _state.MoveToNextInstruction();
         }
 
+        public override void VisitLoadArrayElementInstruction(LoadArrayElementInstruction instruction)
+        {
+            _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
+
+            var array = _managedMemory.Load(arrayRef) as CilArray;
+            var elem = array.GetValue(indexVal, instruction.TypeSpec.GetCilType(_program), _managedMemory, _program);
+
+            _state.EvaluationStack.PushValue(elem);
+            _state.MoveToNextInstruction();
+        }
+
         public override void VisitNewArrayInstruction(NewArrayInstruction instruction)
         {
             // TODO: finish implementation
@@ -84,6 +95,17 @@ namespace CILantro.Interpreting.Visitors
             var arrRef = _managedMemory.Store(newArr);
 
             _state.EvaluationStack.PushValue(arrRef);
+
+            _state.MoveToNextInstruction();
+        }
+
+        public override void VisitStoreArrayElementInstruction(StoreArrayElementInstruction instruction)
+        {
+            _state.EvaluationStack.PopValue(_program, instruction.TypeSpec.GetCilType(_program), out var value);
+            _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
+
+            var array = _managedMemory.Load(arrayRef) as CilArray;
+            array.SetValue(value, indexVal, _managedMemory);
 
             _state.MoveToNextInstruction();
         }
