@@ -5,10 +5,18 @@ using System;
 
 namespace CILantro.AbstractSyntaxTree.Other
 {
+    [Flags]
+    public enum CilClassAttributes
+    {
+        Default = 0x0,
+        Sequential = 0x1,
+        Interface = 0x2
+    }
+
     [AstNode("classAttr")]
     public class ClassAttrAstNode : AstNodeBase
     {
-        public bool IsSequential { get; private set; }
+        public CilClassAttributes ClassAttributes { get; private set; }
 
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
@@ -26,8 +34,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("private");
             if (privateChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
-                IsSequential = privateChildren.Child1.IsSequential;
+                ClassAttributes |= privateChildren.Child1.ClassAttributes;
 
                 return;
             }
@@ -38,8 +45,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("auto");
             if (autoChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
-                IsSequential = autoChildren.Child1.IsSequential;
+                ClassAttributes |= autoChildren.Child1.ClassAttributes;
 
                 return;
             }
@@ -51,7 +57,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (ansiChildren.PopulateWith(parseNode))
             {
                 // TODO: hanlde
-                IsSequential = ansiChildren.Child1.IsSequential;
+                ClassAttributes |= ansiChildren.Child1.ClassAttributes;
 
                 return;
             }
@@ -63,7 +69,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (beforeFieldInitChildren.PopulateWith(parseNode))
             {
                 // TODO: handle;
-                IsSequential = beforeFieldInitChildren.Child1.IsSequential;
+                ClassAttributes |= beforeFieldInitChildren.Child1.ClassAttributes;
 
                 return;
             }
@@ -75,7 +81,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (publicChildren.PopulateWith(parseNode))
             {
                 // TODO: handle
-                IsSequential = publicChildren.Child1.IsSequential;
+                ClassAttributes |= publicChildren.Child1.ClassAttributes;
 
                 return;
             }
@@ -87,7 +93,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (abstractChildren.PopulateWith(parseNode))
             {
                 // TODO: handle
-                IsSequential = abstractChildren.Child1.IsSequential;
+                ClassAttributes |= abstractChildren.Child1.ClassAttributes;
 
                 return;
             }
@@ -99,7 +105,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (sealedChildren.PopulateWith(parseNode))
             {
                 // TODO: handle
-                IsSequential = sealedChildren.Child1.IsSequential;
+                ClassAttributes |= sealedChildren.Child1.ClassAttributes;
 
                 return;
             }
@@ -111,7 +117,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (sequentialChildren.PopulateWith(parseNode))
             {
                 // TODO: handle
-                IsSequential = true;
+                ClassAttributes |= sequentialChildren.Child1.ClassAttributes | CilClassAttributes.Sequential;
 
                 return;
             }
@@ -124,7 +130,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (nestedPrivateChildren.PopulateWith(parseNode))
             {
                 // TODO: handle
-                IsSequential = nestedPrivateChildren.Child1.IsSequential;
+                ClassAttributes |= nestedPrivateChildren.Child1.ClassAttributes;
 
                 return;
             }
@@ -136,7 +142,19 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (explicitChildren.PopulateWith(parseNode))
             {
                 // TODO: handle
-                IsSequential = explicitChildren.Child1.IsSequential;
+                ClassAttributes |= explicitChildren.Child1.ClassAttributes;
+
+                return;
+            }
+
+            // classAttr + _("interface")
+            var interfaceChildren = AstChildren.Empty()
+                .Add<ClassAttrAstNode>()
+                .Add("interface");
+            if (interfaceChildren.PopulateWith(parseNode))
+            {
+                // TODO: handle
+                ClassAttributes |= interfaceChildren.Child1.ClassAttributes | CilClassAttributes.Interface;
 
                 return;
             }

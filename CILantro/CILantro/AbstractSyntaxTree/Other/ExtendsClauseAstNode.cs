@@ -24,6 +24,13 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // Empty
+            var emptyChildren = AstChildren.Empty();
+            if (emptyChildren.PopulateWith(parseNode))
+            {
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

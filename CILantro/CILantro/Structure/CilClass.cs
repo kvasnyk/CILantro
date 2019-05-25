@@ -1,4 +1,5 @@
-﻿using CILantro.Interpreting.Memory;
+﻿using CILantro.AbstractSyntaxTree.Other;
+using CILantro.Interpreting.Memory;
 using CILantro.Utils;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,11 @@ namespace CILantro.Structure
 
         public CilMethod EntryPoint => Methods.SingleOrDefault(m => m.IsEntryPoint);
 
-        public bool IsSequential { get; set; }
+        public bool IsSequential => Attributes.HasFlag(CilClassAttributes.Sequential);
+
+        public bool IsInterface => Attributes.HasFlag(CilClassAttributes.Interface);
+
+        public CilClassAttributes Attributes { get; set; }
 
         public Type BuildRuntimeProxy(CilProgram program)
         {

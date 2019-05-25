@@ -1,4 +1,5 @@
 ﻿using CILantro.Instructions.Type;
+using CILantro.Interpreting.Instances;
 using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.State;
@@ -47,6 +48,26 @@ namespace CILantro.Interpreting.Visitors
             var type = instruction.TypeSpec.GetCilType(_program);
             var empty = type.CreateDefaultValue(_program);
             pointer.ValueToRef = empty;
+
+            _state.MoveToNextInstruction();
+        }
+
+        public override void VisitIsInstanceInstruction(IsInstanceInstruction instruction)
+        {
+            _state.EvaluationStack.PopValue(out CilValueReference objRef);
+            var obj = _managedMemory.Load(objRef);
+
+            if (obj is CilClassInstance objClassInstance)
+            {
+                if (objClassInstance.IsInstanceOf(instruction.TypeSpec, _program))
+                    _state.EvaluationStack.PushValue(objRef);
+                else
+                    _state.EvaluationStack.PushValue(new CilValueNull());
+            }
+            else
+            {
+                throw new System.NotImplementedException();
+            }
 
             _state.MoveToNextInstruction();
         }

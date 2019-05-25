@@ -16,6 +16,8 @@ namespace CILantro.Visitors
                 VisitInitObjectInstruction(initObjectInstruction);
             else if (instruction is UnboxAnyInstruction unboxAnyInstruction)
                 VisitUnboxAnyInstruction(unboxAnyInstruction);
+            else if (instruction is IsInstanceInstruction isInstanceInstruction)
+                VisitIsInstanceInstruction(isInstanceInstruction);
             else
                 throw new ArgumentException($"CIL instruction none cannot be recognized: '{instruction.ToString()}'.");
         }
@@ -23,6 +25,8 @@ namespace CILantro.Visitors
         public abstract void VisitBoxInstruction(BoxInstruction instruction);
 
         public abstract void VisitInitObjectInstruction(InitObjectInstruction instruction);
+
+        public abstract void VisitIsInstanceInstruction(IsInstanceInstruction instruction);
 
         public abstract void VisitNewArrayInstruction(NewArrayInstruction instruction);
 

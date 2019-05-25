@@ -39,6 +39,8 @@ namespace CILantro.Interpreting.Values
         {
             if (cilType is CilTypeString)
                 return this;
+            if (cilType is CilTypeClass)
+                return this;
 
             throw new System.NotImplementedException();
         }

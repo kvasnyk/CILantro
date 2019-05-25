@@ -35,5 +35,22 @@ namespace CILantro.Interpreting.Instances
         {
             return _externalInstance;
         }
+
+        public bool IsInstanceOf(CilTypeSpec typeSpec, CilProgram program)
+        {
+            var cilType = typeSpec.GetCilType(program);
+
+            if (cilType is CilTypeClass cilTypeClass)
+            {
+                if (cilTypeClass.ClassName.ToString() == this.Class.Name.ToString())
+                    return true;
+
+                throw new System.NotImplementedException();
+            }
+            else
+            {
+                throw new System.NotImplementedException();
+            }
+        }
     }
 }

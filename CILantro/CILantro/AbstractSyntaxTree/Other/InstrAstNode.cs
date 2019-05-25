@@ -121,6 +121,20 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // INSTR_R + int64
+            var instrRInt64Children = AstChildren.Empty()
+                .Add<INSTR_RAstNode>()
+                .Add<Int64AstNode>();
+            if (instrRInt64Children.PopulateWith(parseNode))
+            {
+                var instructionR = instrRInt64Children.Child1.Instruction;
+                instructionR.Value = instrRInt64Children.Child2.Value;
+
+                Instruction = instructionR;
+
+                return;
+            }
+
             // INSTR_BRTARGET + id
             var instrBrIdChildren = AstChildren.Empty()
                 .Add<INSTR_BRTARGETAstNode>()

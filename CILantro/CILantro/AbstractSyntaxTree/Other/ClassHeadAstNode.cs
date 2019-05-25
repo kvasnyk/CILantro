@@ -13,7 +13,7 @@ namespace CILantro.AbstractSyntaxTree.Other
 
         public CilClassName ExtendsClassName { get; private set; }
 
-        public bool IsSequential { get; private set; }
+        public CilClassAttributes ClassAttributes { get; private set; }
 
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
@@ -28,7 +28,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             {
                 ClassName = idChildren.Child3.Value;
                 ExtendsClassName = idChildren.Child4.ClassName;
-                IsSequential = idChildren.Child2.IsSequential;
+                ClassAttributes = idChildren.Child2.ClassAttributes;
 
                 return;
             }
@@ -44,7 +44,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             {
                 ClassName = name1Children.Child3.Value;
                 ExtendsClassName = name1Children.Child4.ClassName;
-                IsSequential = name1Children.Child2.IsSequential;
+                ClassAttributes = name1Children.Child2.ClassAttributes;
 
                 return;
             }

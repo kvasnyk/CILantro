@@ -54,6 +54,16 @@ namespace CILantro.AbstractSyntaxTree.InstuctionTypes
                 return;
             }
 
+            // _("isinst")
+            var isinstChildren = AstChildren.Empty()
+                .Add("isinst");
+            if (isinstChildren.PopulateWith(parseNode))
+            {
+                Instruction = new IsInstanceInstruction();
+
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

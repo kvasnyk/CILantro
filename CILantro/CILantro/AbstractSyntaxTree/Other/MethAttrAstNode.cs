@@ -118,6 +118,16 @@ namespace CILantro.AbstractSyntaxTree.Other
                 return;
             }
 
+            // methAttr + _("final")
+            var finalChildren = AstChildren.Empty()
+                .Add<MethAttrAstNode>()
+                .Add("final");
+            if (finalChildren.PopulateWith(parseNode))
+            {
+                // TODO: handle
+                return;
+            }
+
             throw new NotImplementedException();
         }
     }

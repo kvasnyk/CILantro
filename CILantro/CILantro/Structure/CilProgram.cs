@@ -29,11 +29,13 @@ namespace CILantro.Structure
 
             foreach (var @class in Classes)
             {
+                if (@class.IsInterface)
+                    continue;
+
                 var isExtendsExternal = IsExternalType(@class.ExtendsName);
 
                 if (isExtendsExternal)
                 {
-                    // TODO: handle
                 }
                 else
                 {
@@ -72,6 +74,10 @@ namespace CILantro.Structure
             }
 
             var @class = Classes.Single(c => c.Name.ToString() == className.ToString());
+
+            if (@class.IsInterface)
+                return false;
+
             var result = @class.ExtendsName.ToString() == "[mscorlib]System.ValueType" || @class.ExtendsName.ToString() == "[mscorlib]System.Enum";
             return result;
         }
