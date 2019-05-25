@@ -33,8 +33,8 @@ namespace CILantro.Parsing
             ConfigureAstNode(DOTTEDNAME);
 
             // TODO: specify
-            var ID = new IdentifierTerminal("ID", IdOptions.None);
-            ID.AddPrefix("$", IdOptions.NameIncludesPrefix); // DOCS: ECMA page 110
+            var ID = new IdentifierTerminal("ID");
+            ID.AddPrefix("$", IdOptions.None); // DOCS: ECMA page 110
             ConfigureAstNode(ID);
 
             // TODO: specify
@@ -46,13 +46,13 @@ namespace CILantro.Parsing
             ConfigureAstNode(SQSTRING);
 
             // TODO: specify
-            var INT32 = new NumberLiteral("INT32", NumberOptions.NoDotAfterInt | NumberOptions.AllowSign);
+            var INT32 = new NumberLiteral("INT32", NumberOptions.NoDotAfterInt | NumberOptions.AllowSign | NumberOptions.IntOnly);
             INT32.AddPrefix("0x", NumberOptions.Hex);
             INT32.DefaultIntTypes = new TypeCode[] { TypeCode.Int32 };
             ConfigureAstNode(INT32);
 
             // TODO: specify
-            var INT64 = new NumberLiteral("INT64", NumberOptions.NoDotAfterInt | NumberOptions.AllowSign);
+            var INT64 = new NumberLiteral("INT64", NumberOptions.NoDotAfterInt | NumberOptions.AllowSign | NumberOptions.IntOnly);
             INT64.AddPrefix("0x", NumberOptions.Hex);
             INT64.DefaultIntTypes = new TypeCode[] { TypeCode.Int64 };
             ConfigureAstNode(INT64);
