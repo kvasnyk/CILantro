@@ -11,7 +11,7 @@ namespace CILantro.AbstractSyntaxTree.Other
         Default = 0x0,
         Public = 0x1,
         Static = 0x2,
-        Private = 0x3
+        Private = 0x4
     }
 
     [AstNode("fieldAttr")]
