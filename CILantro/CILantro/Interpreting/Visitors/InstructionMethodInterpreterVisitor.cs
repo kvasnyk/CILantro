@@ -9,6 +9,7 @@ using CILantro.Interpreting.Values;
 using CILantro.Structure;
 using CILantro.Utils;
 using CILantro.Visitors;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -32,7 +33,7 @@ namespace CILantro.Interpreting.Visitors
 
         public override void VisitCallInstruction(CallInstruction instruction)
         {
-            var callExternal = _program.IsExternalType(instruction.TypeSpec.ClassName);
+            var callExternal = _program.IsExternalType(instruction.TypeSpec);
 
             var methodArgs = PopMethodArgs(instruction);
             IValue thisVal = null;
@@ -146,7 +147,7 @@ namespace CILantro.Interpreting.Visitors
 
         public override void VisitNewObjectInstruction(NewObjectInstruction instruction)
         {
-            var callExternal = _program.IsExternalType(instruction.TypeSpec.ClassName);
+            var callExternal = _program.IsExternalType(instruction.TypeSpec);
 
             var methodArgs = PopMethodArgs(instruction);
 
@@ -154,7 +155,7 @@ namespace CILantro.Interpreting.Visitors
             {
                 object thisObject = null;
                 if (instruction.CallConv.IsInstance)
-                    thisObject = GetRuntimeEmptyInstance(instruction);
+                    thisObject = GetRuntimeEmptyInstance(instruction, methodArgs, true);
 
                 var result = CallExternalMethod(instruction, null, methodArgs.ToArray(), thisObject);
                 var resultVal = instruction.TypeSpec.GetCilType(_program).CreateValueFromRuntime(result, _managedMemory, _program);
@@ -192,8 +193,9 @@ namespace CILantro.Interpreting.Visitors
 
             var callerConfig = new ExternalMethodCallerConfig
             {
-                AssemblyName = instruction.TypeSpec.ClassName.AssemblyName,
-                ClassName = instruction.TypeSpec.ClassName.ClassName,
+                AssemblyName = instruction.TypeSpec.ClassName?.AssemblyName,
+                ClassName = instruction.TypeSpec.ClassName?.ClassName,
+                ExternalType = instruction.TypeSpec.ClassName == null ? instruction.TypeSpec.GetCilType(_program).GetRuntimeType(_program) : null,
                 MethodName = instruction.MethodName,
                 Arguments = args,
                 Types = instruction.SigArgs.Select(sa => sa.Type.GetRuntimeType(_program)).ToArray(),
@@ -211,10 +213,26 @@ namespace CILantro.Interpreting.Visitors
             return classInstance?.AsRuntime(type, _managedMemory, _program);
         }
 
-        private object GetRuntimeEmptyInstance(CilInstructionMethod instruction)    
+        private object GetRuntimeEmptyInstance(CilInstructionMethod instruction, List<IValue> methodArgs, bool isNewObject)    
         {
-            var @type = ReflectionHelper.GetExternalType(instruction.TypeSpec.ClassName);
-            var emptyInstance = FormatterServices.GetUninitializedObject(@type);
+            object emptyInstance = null;
+           
+            if (instruction.TypeSpec.Type != null && instruction.TypeSpec.Type is CilTypeArray cilTypeArray)
+            {
+                if (isNewObject)
+                {
+                    var lengths = methodArgs.Cast<CilValueInt32>().Select(v => v.Value + 1).ToArray();
+                    emptyInstance = Array.CreateInstance(cilTypeArray.ElementType.GetRuntimeType(_program), lengths);
+                }
+                else
+                    throw new System.NotImplementedException();
+            }
+            else
+            {
+                var type = ReflectionHelper.GetExternalType(instruction.TypeSpec.ClassName);
+                emptyInstance = FormatterServices.GetUninitializedObject(@type);
+            }
+
             return emptyInstance;
         }
 

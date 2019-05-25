@@ -6,6 +6,14 @@ namespace CILantro.Utils
 {
     public static class ReflectionHelper
     {
+        public static Type GetExternalType(CilTypeSpec typeSpec, CilProgram program)
+        {
+            if (typeSpec.ClassName != null)
+                return GetExternalType(typeSpec.ClassName);
+
+            return typeSpec.Type.GetRuntimeType(program);
+        }
+
         public static Type GetExternalType(CilClassName className)
         {
             var dllName = $"Externals/{className.AssemblyName}.dll";

@@ -9,6 +9,8 @@ namespace CILantro.Utils
 
         public string ClassName { get; set; }
 
+        public Type ExternalType { get; set; }
+
         public string MethodName { get; set; }
 
         public object[] Arguments { get; set; }
@@ -33,7 +35,7 @@ namespace CILantro.Utils
 
         private static object CallBase(ExternalMethodCallerConfig config)
         {
-            var @class = ReflectionHelper.GetExternalType(config.AssemblyName, config.ClassName);
+            var @class = config.ExternalType ?? ReflectionHelper.GetExternalType(config.AssemblyName, config.ClassName);
 
             var flags = BindingFlags.Default | BindingFlags.Public | BindingFlags.NonPublic;
             if (config.IsInstanceCall)

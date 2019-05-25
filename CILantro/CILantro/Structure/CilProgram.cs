@@ -1,4 +1,5 @@
-﻿using CILantro.Utils;
+﻿using CILantro.Interpreting.Types;
+using CILantro.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,6 +51,14 @@ namespace CILantro.Structure
         {
             if (typeSpec.ClassName != null)
                 return IsExternalType(typeSpec.ClassName);
+
+            if (typeSpec.Type is CilTypeArray typeArray)
+            {
+                if (typeArray.Dimensions == 1)
+                    return false;
+                else
+                    return true;
+            }
 
             throw new NotImplementedException();
         }

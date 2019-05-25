@@ -1,5 +1,4 @@
-﻿using CILantro.Interpreting.Types;
-using CILantro.Structure;
+﻿using CILantro.Structure;
 using CILantro.Utils;
 using Irony.Ast;
 using Irony.Parsing;
@@ -11,8 +10,6 @@ namespace CILantro.AbstractSyntaxTree.Other
     public class TypeSpecAstNode : AstNodeBase
     {
         public CilTypeSpec TypeSpec { get; private set; }
-
-        public CilType Type { get; private set; }
 
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
@@ -34,7 +31,10 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<TypeAstNode>();
             if (typeChildren.PopulateWith(parseNode))
             {
-                Type = typeChildren.Child1.Type;
+                TypeSpec = new CilTypeSpec
+                {
+                    Type = typeChildren.Child1.Type
+                };
 
                 return;
             }
