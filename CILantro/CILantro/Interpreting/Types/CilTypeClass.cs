@@ -52,7 +52,7 @@ namespace CILantro.Interpreting.Types
             return new CilValueNull();
         }
 
-        public static T GetDefaultGeneric<T>()
+        private static T GetDefaultGeneric<T>()
         {
             return default(T);
         }

@@ -61,7 +61,7 @@ namespace CILantro.Interpreting.Types
             return classType.CreateDefaultValue(program);
         }
 
-        public static T GetDefaultGeneric<T>()
+        private static T GetDefaultGeneric<T>()
         {
             return default(T);
         }
