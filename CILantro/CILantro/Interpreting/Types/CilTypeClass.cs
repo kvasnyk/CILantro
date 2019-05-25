@@ -6,6 +6,7 @@ using CILantro.Structure;
 using CILantro.Utils;
 using System;
 using System.Linq;
+using System.Reflection;
 
 namespace CILantro.Interpreting.Types
 {
@@ -27,6 +28,16 @@ namespace CILantro.Interpreting.Types
 
         public override IValue CreateDefaultValue(CilProgram program)
         {
+            if (program.IsExternalType(ClassName))
+            {
+                var type = ReflectionHelper.GetExternalType(ClassName);
+
+                var getDefault = GetType().GetMethod(nameof(GetDefaultGeneric), BindingFlags.NonPublic | BindingFlags.Static).MakeGenericMethod(type);
+                var defaultValue = getDefault.Invoke(null, null);
+
+                return new CilValueExternal(defaultValue);
+            }
+
             var @class = program.AllClasses.Single(c => c.Name.ToString() == ClassName.ToString());
 
             if (@class.IsInterface)
@@ -39,6 +50,11 @@ namespace CILantro.Interpreting.Types
             }
 
             return new CilValueNull();
+        }
+
+        public static T GetDefaultGeneric<T>()
+        {
+            return default(T);
         }
 
         public override IValue CreateValueFromRuntime(object obj, CilManagedMemory managedMemory, CilProgram program)

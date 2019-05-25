@@ -93,6 +93,7 @@ namespace CILantro.Utils
             }
 
             var type = typeBuilder.CreateType();
+            RegisteredTypes[typeName] = type;
 
             _counter++;
 
