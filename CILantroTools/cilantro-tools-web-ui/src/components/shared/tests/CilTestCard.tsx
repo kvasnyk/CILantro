@@ -48,6 +48,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 	notReadyTypography: {
 		color: theme.palette.getContrastText(theme.palette.grey[500])
 	},
+	disabledCard: {
+		backgroundColor: theme.palette.secondary.dark,
+		color: theme.palette.secondary.contrastText
+	},
+	disabledTypography: {
+		color: theme.palette.secondary.contrastText
+	},
 	cardActions: {
 		justifyContent: 'flex-end',
 		marginRight: '5px'
@@ -70,12 +77,16 @@ const CiLTestCard: FunctionComponent<CilTestCardProps> = props => {
 	const classes = useStyles();
 
 	const cardClassName = classNames({
-		[classes.notReadyCard]: !props.test.isReady
+		[classes.notReadyCard]: !props.test.isReady,
+		[classes.disabledCard]: props.test.isDisabled
 	});
 
 	const typographyClassName = classNames({
-		[classes.notReadyTypography]: !props.test.isReady
+		[classes.notReadyTypography]: !props.test.isReady,
+		[classes.disabledTypography]: props.test.isDisabled
 	});
+
+	const iconClassName = typographyClassName;
 
 	const headerTypographyClassName = classNames(typographyClassName, classes.headerTypography);
 
@@ -88,8 +99,14 @@ const CiLTestCard: FunctionComponent<CilTestCardProps> = props => {
 							<Typography variant="h2" className={headerTypographyClassName}>
 								{props.test.name}
 							</Typography>
-							{props.test.lastRunOutcome === RunOutcome.Ok ? <CheckIcon className={classes.okIcon} /> : null}
-							{props.test.lastRunOutcome === RunOutcome.Wrong ? <NotCheckIcon className={classes.wrongIcon} /> : null}
+							{!props.test.isDisabled ? (
+								<>
+									{props.test.lastRunOutcome === RunOutcome.Ok ? <CheckIcon className={classes.okIcon} /> : null}
+									{props.test.lastRunOutcome === RunOutcome.Wrong ? (
+										<NotCheckIcon className={classes.wrongIcon} />
+									) : null}
+								</>
+							) : null}
 						</div>
 						<Typography variant="subtitle1" className={typographyClassName}>
 							...{props.test.path}
@@ -111,13 +128,13 @@ const CiLTestCard: FunctionComponent<CilTestCardProps> = props => {
 				</div>
 				{!props.test.isReady && !props.test.isDisabled ? <CilTestChecklist test={props.test} /> : null}
 				{props.test.isDisabled && props.test.disabledReason ? (
-					<Typography variant="h3" className={classes.disabledReasonTypography}>
+					<Typography variant="h3" className={classNames(classes.disabledReasonTypography, typographyClassName)}>
 						{props.test.disabledReason}
 					</Typography>
 				) : null}
 			</CardContent>
 			<CardActions className={classes.cardActions}>
-				<CilShowTestButton testId={props.test.id} icon="show" />
+				<CilShowTestButton testId={props.test.id} icon="show" iconClassName={iconClassName} />
 			</CardActions>
 		</Card>
 	);
