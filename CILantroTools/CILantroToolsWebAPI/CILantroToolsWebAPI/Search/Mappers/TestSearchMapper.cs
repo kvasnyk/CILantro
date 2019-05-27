@@ -30,7 +30,7 @@ namespace CILantroToolsWebAPI.Search.Mappers
                 if (filter.Property.EqualsInvariant(nameof(TestReadModel.SubcategoryId)))
                     return t => t.SubcategoryId.ToString().EqualsInvariant(filter.Value);
                 if (filter.Property.EqualsInvariant(nameof(TestReadModel.IsReady)))
-                    return t => t.IsReady.ToString().EqualsInvariant(filter.Value);
+                    return t => t.IsReady.ToString().EqualsInvariant(filter.Value) && t.IsDisabled == false;
                 if (filter.Property.EqualsInvariant(nameof(TestReadModel.IsDisabled)))
                     return t => t.IsDisabled.ToString().EqualsInvariant(filter.Value);
                 if (filter.Property.EqualsInvariant(nameof(TestReadModel.LastRunOutcome)))
