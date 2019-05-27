@@ -35,7 +35,7 @@ const CilFiltersPanel = <TReadModel extends {}>(props: CilFiltersPanelProps<TRea
 	const classes = useStyles();
 
 	return (
-		<Collapse in={props.search.areFiltersOpen}>
+		<Collapse in={props.search.areFiltersOpen} unmountOnExit={true}>
 			<Paper className={classes.paper}>
 				<div className={classes.panel}>{props.children}</div>
 			</Paper>

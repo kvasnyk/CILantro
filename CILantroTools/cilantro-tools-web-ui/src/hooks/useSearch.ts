@@ -26,6 +26,18 @@ const useSearch = <TReadModel>(
 	const [searchResult, setSearchResult] = useState<SearchResult<TReadModel>>({ data: [], count: 0 });
 	const [areFiltersOpen, setAreFiltersOpen] = useState<boolean>(false);
 
+	const setFiltersOpen = (value: boolean) => {
+		if (!value) {
+			setSearchParameter(prevParam => ({
+				...prevParam,
+				filters: [],
+				pageNumber: 1
+			}));
+		}
+
+		setAreFiltersOpen(value);
+	};
+
 	const handlePageNumberChange = (newPageNumber: number) => {
 		setSearchParameter(prevParameter => ({
 			...prevParameter,
@@ -60,6 +72,8 @@ const useSearch = <TReadModel>(
 				newParam.filters.push(newFilter);
 			}
 
+			newParam.pageNumber = 1;
+
 			return newParam;
 		});
 	};
@@ -68,6 +82,7 @@ const useSearch = <TReadModel>(
 		setSearchParameter(prevParameter => {
 			const newParam = { ...prevParameter };
 			newParam.filters = prevParameter.filters.filter(f => f.property !== property);
+			newParam.pageNumber = 1;
 			return newParam;
 		});
 	};
@@ -81,7 +96,7 @@ const useSearch = <TReadModel>(
 		handlePageSizeChange,
 		handleOrderByChange,
 		areFiltersOpen,
-		setFiltersOpen: setAreFiltersOpen,
+		setFiltersOpen,
 		setFilter,
 		clearFilter
 	};
