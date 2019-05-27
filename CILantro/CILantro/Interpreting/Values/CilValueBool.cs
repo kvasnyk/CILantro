@@ -18,6 +18,8 @@ namespace CILantro.Interpreting.Values
         {
             if (cilType is CilTypeBool)
                 return Value;
+            if (cilType is CilTypeValueType)
+                return Value;
 
             throw new System.NotImplementedException();
         }

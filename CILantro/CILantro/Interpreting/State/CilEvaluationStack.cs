@@ -153,6 +153,8 @@ namespace CILantro.Interpreting.State
                     return new CilValueManagedPointer(stackValPointer.ValueToRef);
                 if (valType == stackValPointer.ValueToRef.GetType())
                     return stackValPointer.ValueToRef;
+                if (valType == typeof(CilValueExternal))
+                    return stackValPointer.ValueToRef;
             }
 
             if (valType == typeof(CilValueInt8))

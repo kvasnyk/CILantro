@@ -2,7 +2,7 @@
   "profiles": {
     "CILantro": {
       "commandName": "Project",
-      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\CSF_Arrays_Decimal\\CSF_Arrays_Decimal.il\""
+      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\TypeConversionApplication2\\TypeConversionApplication2.il\""
     }
   }
 }
