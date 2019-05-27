@@ -7,6 +7,7 @@ import CheckIcon from '@material-ui/icons/CheckRounded';
 import NotCheckIcon from '@material-ui/icons/NotInterestedRounded';
 import { makeStyles } from '@material-ui/styles';
 
+import { BaseLanguageHelper } from '../../../api/enums/BaseLanguage';
 import RunOutcome from '../../../api/enums/RunOutcome';
 import TestReadModel from '../../../api/read-models/tests/TestReadModel';
 import CilShowTestButton from './CilShowTestButton';
@@ -116,6 +117,9 @@ const CiLTestCard: FunctionComponent<CilTestCardProps> = props => {
 					<div className={classes.headerRight}>
 						{props.test.hasCategory && props.test.hasSubcategory ? (
 							<>
+								<Typography variant="h4" className={typographyClassName}>
+									{BaseLanguageHelper.getName(props.test.category.language)}
+								</Typography>
 								<Typography variant="h4" className={typographyClassName}>
 									{props.test.category.name}
 								</Typography>
