@@ -1,6 +1,7 @@
 ﻿using CILantroToolsWebAPI.BindingModels.Runs;
 using CILantroToolsWebAPI.Db;
 using CILantroToolsWebAPI.DbModels;
+using CILantroToolsWebAPI.Exceptions;
 using CILantroToolsWebAPI.Hubs;
 using CILantroToolsWebAPI.ReadModels.Runs;
 using CILantroToolsWebAPI.ReadModels.Tests;
@@ -59,6 +60,9 @@ namespace CILantroToolsWebAPI.Services
 
         public async Task<Guid> AddRunAsync(AddRunBindingModel model)
         {
+            if (_runRunner.ProcessingRun != null)
+                throw new ToolsException("There is a run in progress.");
+
             var allTests = _testsRepository.Read<TestReadModel>().ToList();
 
             var testRuns = allTests.Where(t => t.IsReady).Select(t => new TestRun
@@ -84,6 +88,9 @@ namespace CILantroToolsWebAPI.Services
 
         public async Task<Guid> ReplayRunAsync(Guid runId)
         {
+            if (_runRunner.ProcessingRun != null)
+                throw new ToolsException("There is a run in progress.");
+
             var run = _runsRepository.Read<RunReadModel>().Single(r => r.Id == runId);
 
             var testRuns = run.TestRuns.Select(tr => new TestRun
@@ -109,6 +116,9 @@ namespace CILantroToolsWebAPI.Services
 
         public async Task<Guid> AddSingleTestRunAsync(AddSingleTestRunBindingModel model)
         {
+            if (_runRunner.ProcessingRun != null)
+                throw new ToolsException("There is a run in progress.");
+
             var testRun = new TestRun
             {
                 Id = Guid.NewGuid(),
