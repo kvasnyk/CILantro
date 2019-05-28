@@ -1,6 +1,7 @@
 ﻿using CILantro.Exceptions;
 using CILantro.Interpreting.Visitors;
 using CILantro.Structure;
+using System;
 
 namespace CILantro.Interpreting
 {
@@ -15,11 +16,26 @@ namespace CILantro.Interpreting
 
         public void Interpret()
         {
-            if (!CheckSupported(_program))
-                return;
+            try
+            {
+                if (!CheckSupported(_program))
+                    return;
 
-            var interpreterVisitor = new CilInterpreterInstructionsVisitor(_program);
-            interpreterVisitor.Visit();
+                var interpreterVisitor = new CilInterpreterInstructionsVisitor(_program);
+                interpreterVisitor.Visit();
+            }
+            catch (InstructionNotSupportedException ex)
+            {
+                Console.WriteLine("An interpreter error occurrred:");
+                Console.WriteLine();
+                Console.WriteLine(ex.Message);
+            }
+            catch (FeatureNotSupportedException ex)
+            {
+                Console.WriteLine("An interpreter error occurrred:");
+                Console.WriteLine();
+                Console.WriteLine(ex.Message);
+            }
         }
 
         private bool CheckSupported(CilProgram program)

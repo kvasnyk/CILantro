@@ -2,7 +2,7 @@
   "profiles": {
     "CILantro": {
       "commandName": "Project",
-      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\TypeConversionApplication2\\TypeConversionApplication2.il\""
+      "commandLineArgs": "--fileName \"D:\\mgr\\tests-data\\il-sources\\CSF_UnsafeCode_Pointer\\CSF_UnsafeCode_Pointer.il\""
     }
   }
 }
