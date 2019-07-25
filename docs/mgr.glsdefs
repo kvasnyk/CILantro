@@ -1,0 +1,30 @@
+\ifglsentryexists{cil}{}%
+{%
+\gls@defglossaryentry{cil}%
+{%
+name={cil},%
+sort={cil},%
+type={main},%
+first={cil},%
+firstplural={cils},%
+text={cil},%
+plural={cils},%
+description={Common Intermediate Language},%
+descriptionplural={Common Intermediate Language},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%

@@ -1,0 +1,20 @@
+\begin{thebibliography}{1}
+
+\bibitem{isoStandard}
+{Information technology -- Common Language Infrastructure (CLI)}.
+\newblock Standard ISO/IEC 23271:2012, The International Organization for
+  Standardization, 2012.
+\newblock [Online] Available: \url{https://www.iso.org/standard/58046.html}.
+
+\bibitem{ecmaStandard}
+{Common Language Infrastructure (CLI)}.
+\newblock Standard ECMA-335, ECMA International, 2012.
+\newblock [Online] Available:
+  \url{https://www.ecma-international.org/publications/standards/Ecma-335.htm}.
+
+\bibitem{procsharp7}
+A.~Troelsen and P.~Japikse.
+\newblock {\em Pro C\# 7: With .NET and .NET Core}.
+\newblock Apress, 8th edition, 2017.
+
+\end{thebibliography}
