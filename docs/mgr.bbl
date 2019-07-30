@@ -17,4 +17,15 @@ A.~Troelsen and P.~Japikse.
 \newblock {\em Pro C\# 7: With .NET and .NET Core}.
 \newblock Apress, 8th edition, 2017.
 
+\bibitem{zychlaThesis}
+W.~Zychla.
+\newblock {\em {exTensible Multi Security: Security Framework for .NET}}.
+\newblock PhD thesis, Institute of Computer Science, University of Wrocław,
+  2008.
+
+\bibitem{wierzbicki}
+T.~Wierzbicki.
+\newblock {\em {Języki programowania}}.
+\newblock 2001.
+
 \end{thebibliography}
