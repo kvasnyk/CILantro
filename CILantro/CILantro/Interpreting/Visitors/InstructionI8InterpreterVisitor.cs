@@ -2,28 +2,34 @@
 using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.StackValues;
 using CILantro.Interpreting.State;
+using CILantro.Structure;
 using CILantro.Visitors;
 
 namespace CILantro.Interpreting.Visitors
 {
     public class InstructionI8InterpreterVisitor : InstructionI8Visitor
     {
-        private readonly CilControlState _state;
+        private readonly CilExecutionState _executionState;
 
-        private readonly CilManagedMemory _managedMemory;
+        private readonly CilProgram _program;
 
-        public InstructionI8InterpreterVisitor(CilControlState state, CilManagedMemory managedMemory)
+        private CilControlState ControlState => _executionState.ControlState;
+
+        private CilManagedMemory ManagedMemory => _executionState.ManagedMemory;
+
+        public InstructionI8InterpreterVisitor(CilProgram program, CilExecutionState executionState)
         {
-            _state = state;
-            _managedMemory = managedMemory;
+            _executionState = executionState;
+
+            _program = program;
         }
 
         protected override void VisitLoadConstI8Instruction(LoadConstI8Instruction instruction)
         {
             var stackVal = new CilStackValueInt64(instruction.Value);
-            _state.EvaluationStack.Push(stackVal);
+            ControlState.EvaluationStack.Push(stackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
     }
 }

@@ -12,49 +12,51 @@ namespace CILantro.Interpreting.Visitors
 {
     public class InstructionFieldInterpreterVisitor : InstructionFieldVisitor
     {
-        private readonly CilControlState _state;
-
-        private readonly CilManagedMemory _managedMemory;
+        private readonly CilExecutionState _executionState;
 
         private readonly CilProgram _program;
 
-        public InstructionFieldInterpreterVisitor(CilProgram program, CilControlState state, CilManagedMemory managedMemory)
+        private CilControlState ControlState => _executionState.ControlState;
+
+        private CilManagedMemory ManagedMemory => _executionState.ManagedMemory;
+
+        public InstructionFieldInterpreterVisitor(CilProgram program, CilExecutionState executionState)
         {
+            _executionState = executionState;
+
             _program = program;
-            _state = state;
-            _managedMemory = managedMemory;
         }
 
         protected override void VisitLoadFieldAddressInstruction(LoadFieldAddressInstruction instruction)
         {
-            _state.EvaluationStack.PopValue(out CilValueReference thisRef);
+            ControlState.EvaluationStack.PopValue(out CilValueReference thisRef);
 
-            var classInstance = _managedMemory.Load(thisRef) as CilClassInstance;
+            var classInstance = ManagedMemory.Load(thisRef) as CilClassInstance;
             var fieldValue = classInstance.Fields[instruction.FieldId];
             var fieldPointer = new CilValueManagedPointer(fieldValue);
 
-            _state.EvaluationStack.PushValue(fieldPointer);
+            ControlState.EvaluationStack.PushValue(fieldPointer);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadFieldInstruction(LoadFieldInstruction instruction)
         {
-            _state.EvaluationStack.PopValue(_program, instruction.ClassTypeSpec.GetCilType(_program), out var instanceVal);
+            ControlState.EvaluationStack.PopValue(_program, instruction.ClassTypeSpec.GetCilType(_program), out var instanceVal);
 
             CilClassInstance classInstance = null;
             if (instanceVal is CilValueValueType instanceValValueType)
                 classInstance = instanceValValueType.Value;
             else if (instanceVal is CilValueReference instanceValReference)
-                classInstance = _managedMemory.Load(instanceValReference) as CilClassInstance;
+                classInstance = ManagedMemory.Load(instanceValReference) as CilClassInstance;
             else
                 throw new System.NotImplementedException();
 
             var value = classInstance.Fields[instruction.FieldId];
 
-            _state.EvaluationStack.PushValue(value);
+            ControlState.EvaluationStack.PushValue(value);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadStaticFieldInstruction(LoadStaticFieldInstruction instruction)
@@ -64,47 +66,47 @@ namespace CILantro.Interpreting.Visitors
                 var @class = ReflectionHelper.GetExternalType(instruction.ClassTypeSpec.ClassName);
                 var field = @class.GetField(instruction.FieldId, BindingFlags.Static | BindingFlags.Public);
                 var externalValue = field.GetValue(null);
-                var value = instruction.FieldType.CreateValueFromRuntime(externalValue, _managedMemory, _program);
+                var value = instruction.FieldType.CreateValueFromRuntime(externalValue, ManagedMemory, _program);
 
-                _state.EvaluationStack.PushValue(value);
+                ControlState.EvaluationStack.PushValue(value);
 
-                _state.MoveToNextInstruction();
+                ControlState.MoveToNextInstruction();
             }
             else
             {
-                var value = _state.StaticInstances[instruction.ClassTypeSpec.ClassName.ToString()].StaticFields[instruction.FieldId];
+                var value = ControlState.StaticInstances[instruction.ClassTypeSpec.ClassName.ToString()].StaticFields[instruction.FieldId];
 
-                _state.EvaluationStack.PushValue(value);
+                ControlState.EvaluationStack.PushValue(value);
 
-                _state.MoveToNextInstruction();
+                ControlState.MoveToNextInstruction();
             }
         }
 
         protected override void VisitStoreFieldInstruction(StoreFieldInstruction instruction)
         {
-            _state.EvaluationStack.PopValue(_program, instruction.FieldType, out var value);
-            _state.EvaluationStack.PopValue(_program, instruction.ClassTypeSpec.GetCilType(_program), out var instanceVal);
+            ControlState.EvaluationStack.PopValue(_program, instruction.FieldType, out var value);
+            ControlState.EvaluationStack.PopValue(_program, instruction.ClassTypeSpec.GetCilType(_program), out var instanceVal);
 
             CilClassInstance classInstance = null;
             if (instanceVal is CilValueValueType instanceValValueType)
                 classInstance = instanceValValueType.Value;
             else if (instanceVal is CilValueReference instanceValReference)
-                classInstance = _managedMemory.Load(instanceValReference) as CilClassInstance;
+                classInstance = ManagedMemory.Load(instanceValReference) as CilClassInstance;
             else
                 throw new System.NotImplementedException();
 
             classInstance.Fields[instruction.FieldId] = value;
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitStoreStaticFieldInstruction(StoreStaticFieldInstruction instruction)
         {
-            _state.EvaluationStack.PopValue(_program, instruction.FieldType, out var value);
+            ControlState.EvaluationStack.PopValue(_program, instruction.FieldType, out var value);
 
-            _state.StaticInstances[instruction.ClassTypeSpec.ClassName.ToString()].StaticFields[instruction.FieldId] = value;
+            ControlState.StaticInstances[instruction.ClassTypeSpec.ClassName.ToString()].StaticFields[instruction.FieldId] = value;
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
     }
 }

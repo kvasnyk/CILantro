@@ -8,9 +8,7 @@ namespace CILantro.Interpreting.Visitors
 {
     public class CilInterpreterInstructionsVisitor : CilInstructionsVisitor
     {
-        private readonly CilControlState _state;
-
-        private readonly CilManagedMemory _managedMemory;
+        private readonly CilExecutionState _executionState;
 
         private readonly InstructionNoneInterpreterVisitor _instructionNoneVisitor;
 
@@ -62,26 +60,32 @@ namespace CILantro.Interpreting.Visitors
 
         public CilInterpreterInstructionsVisitor(CilProgram program)
         {
-            _state = new CilControlState(program);
-            _managedMemory = new CilDictionaryManagedMemory();
+            var state = new CilControlState(program);
+            var managedMemory = new CilDictionaryManagedMemory();
 
-            _instructionNoneVisitor = new InstructionNoneInterpreterVisitor(program, _state, _managedMemory);
-            _instructionMethodVisitor = new InstructionMethodInterpreterVisitor(program, _state, _managedMemory);
-            _instructionStringVisitor = new InstructionStringInterpreterVisitor(_state, _managedMemory);
-            _instructionIVisitor = new InstructionIInterpreterVisitor(_state, _managedMemory);
-            _instructionTypeVisitor = new InstructionTypeInterpreterVisitor(program, _state, _managedMemory);
-            _instructionVarVisitor = new InstructionVarInterpreterVisitor(program, _state, _managedMemory);
-            _instructionRVisitor = new InstructionRInterpreterVisitor(_state, _managedMemory);
-            _instructionBrVisitor = new InstructionBrInterpreterVisitor(_state, _managedMemory);
-            _instructionFieldVisitor = new InstructionFieldInterpreterVisitor(program, _state, _managedMemory);
-            _instructionI8InterpreterVisitor = new InstructionI8InterpreterVisitor(_state, _managedMemory);
-            _instructionSwitchInterpreterVisitor = new InstructionSwitchInterpreterVisitor(_state, _managedMemory);
-            _instructionTokInterpreterVisitor = new InstructionTokInterpreterVisitor(program, _state, _managedMemory);
+            _executionState = new CilExecutionState
+            {
+                ControlState = state,
+                ManagedMemory = managedMemory
+            };
+
+            _instructionNoneVisitor = new InstructionNoneInterpreterVisitor(program, _executionState);
+            _instructionMethodVisitor = new InstructionMethodInterpreterVisitor(program, _executionState);
+            _instructionStringVisitor = new InstructionStringInterpreterVisitor(program, _executionState);
+            _instructionIVisitor = new InstructionIInterpreterVisitor(program, _executionState);
+            _instructionTypeVisitor = new InstructionTypeInterpreterVisitor(program, _executionState);
+            _instructionVarVisitor = new InstructionVarInterpreterVisitor(program, _executionState);
+            _instructionRVisitor = new InstructionRInterpreterVisitor(program, _executionState);
+            _instructionBrVisitor = new InstructionBrInterpreterVisitor(program, _executionState);
+            _instructionFieldVisitor = new InstructionFieldInterpreterVisitor(program, _executionState);
+            _instructionI8InterpreterVisitor = new InstructionI8InterpreterVisitor(program, _executionState);
+            _instructionSwitchInterpreterVisitor = new InstructionSwitchInterpreterVisitor(program, _executionState);
+            _instructionTokInterpreterVisitor = new InstructionTokInterpreterVisitor(program, _executionState);
         }
 
         protected override CilInstruction GetNextInstruction()
         {
-            return _state.Instruction;
+            return _executionState.ControlState.Instruction;
         }
     }
 }

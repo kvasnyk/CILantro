@@ -2,34 +2,40 @@
 using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.State;
 using CILantro.Interpreting.Values;
+using CILantro.Structure;
 using CILantro.Visitors;
 
 namespace CILantro.Interpreting.Visitors
 {
     public class InstructionSwitchInterpreterVisitor : InstructionSwitchVisitor
     {
-        private readonly CilControlState _state;
+        private readonly CilExecutionState _executionState;
 
-        private readonly CilManagedMemory _managedMemory;
+        private readonly CilProgram _program;
 
-        public InstructionSwitchInterpreterVisitor(CilControlState state, CilManagedMemory managedMemory)
+        private CilControlState ControlState => _executionState.ControlState;
+
+        private CilManagedMemory ManagedMemory => _executionState.ManagedMemory;
+
+        public InstructionSwitchInterpreterVisitor(CilProgram program, CilExecutionState executionState)
         {
-            _state = state;
-            _managedMemory = managedMemory;
+            _executionState = executionState;
+
+            _program = program;
         }
 
         protected override void VisitSwitchInstruction(SwitchInstruction instruction)
         {
-            _state.EvaluationStack.PopValue(out CilValueUInt32 value);
+            ControlState.EvaluationStack.PopValue(out CilValueUInt32 value);
 
             if (value.Value < instruction.SwitchLabels.Count)
             {
                 var targetLabel = instruction.SwitchLabels[(int)value.Value];
-                _state.Move(targetLabel.Offset, targetLabel.Id);
+                ControlState.Move(targetLabel.Offset, targetLabel.Id);
             }
             else
             {
-                _state.MoveToNextInstruction();
+                ControlState.MoveToNextInstruction();
             }
         }
     }

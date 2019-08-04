@@ -2,20 +2,26 @@
 using CILantro.Interpreting.Memory;
 using CILantro.Interpreting.Objects;
 using CILantro.Interpreting.State;
+using CILantro.Structure;
 using CILantro.Visitors;
 
 namespace CILantro.Interpreting.Visitors
 {
     public class InstructionStringInterpreterVisitor : InstructionStringVisitor
     {
-        private readonly CilControlState _state;
+        private readonly CilExecutionState _executionState;
 
-        private readonly CilManagedMemory _managedMemory;
+        private readonly CilProgram _program;
 
-        public InstructionStringInterpreterVisitor(CilControlState state, CilManagedMemory managedMemory)
+        private CilControlState ControlState => _executionState.ControlState;
+
+        private CilManagedMemory ManagedMemory => _executionState.ManagedMemory;
+
+        public InstructionStringInterpreterVisitor(CilProgram program, CilExecutionState executionState)
         {
-            _state = state;
-            _managedMemory = managedMemory;
+            _executionState = executionState;
+
+            _program = program;
         }
 
         protected override void VisitLoadStringInstruction(LoadStringInstruction instruction)
@@ -24,10 +30,10 @@ namespace CILantro.Interpreting.Visitors
 
             var cilString = new CilString(instruction.StringValue);
 
-            var reference = _managedMemory.Store(cilString);
-            _state.EvaluationStack.PushValue(reference);
+            var reference = ManagedMemory.Store(cilString);
+            ControlState.EvaluationStack.PushValue(reference);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
     }
 }

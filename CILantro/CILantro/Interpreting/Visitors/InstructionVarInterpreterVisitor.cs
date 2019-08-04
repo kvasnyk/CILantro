@@ -8,16 +8,18 @@ namespace CILantro.Interpreting.Visitors
 {
     public class InstructionVarInterpreterVisitor : InstructionVarVisitor
     {
-        private readonly CilControlState _state;
-
-        private readonly CilManagedMemory _managedMemory;
+        private readonly CilExecutionState _executionState;
 
         private readonly CilProgram _program;
 
-        public InstructionVarInterpreterVisitor(CilProgram program, CilControlState state, CilManagedMemory managedMemory)
+        private CilControlState ControlState => _executionState.ControlState;
+
+        private CilManagedMemory ManagedMemory => _executionState.ManagedMemory;
+
+        public InstructionVarInterpreterVisitor(CilProgram program, CilExecutionState executionState)
         {
-            _state = state;
-            _managedMemory = managedMemory;
+            _executionState = executionState;
+
             _program = program;
         }
 
@@ -25,48 +27,48 @@ namespace CILantro.Interpreting.Visitors
         {
             // TODO: finish implementation
 
-            var value = _state.Arguments.Load(instruction.Id, instruction.Index);
-            _state.EvaluationStack.PushValue(value);
+            var value = ControlState.Arguments.Load(instruction.Id, instruction.Index);
+            ControlState.EvaluationStack.PushValue(value);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadLocalAddressShortInstruction(LoadLocalAddressShortInstruction instruction)
         {
             // TODO: finish implementation
 
-            var address = _state.Locals.LoadAddress(instruction.Id, instruction.Index);
-            _state.EvaluationStack.PushValue(address);
+            var address = ControlState.Locals.LoadAddress(instruction.Id, instruction.Index);
+            ControlState.EvaluationStack.PushValue(address);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadLocalShortInstruction(LoadLocalShortInstruction instruction)
         {
             // TODO: finish implementation
 
-            var value = _state.Locals.Load(instruction.Id, instruction.Index);
-            _state.EvaluationStack.PushValue(value);
+            var value = ControlState.Locals.Load(instruction.Id, instruction.Index);
+            ControlState.EvaluationStack.PushValue(value);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitStoreArgumentShortInstruction(StoreArgumentShortInstruction instruction)
         {
-            var argType = _state.Arguments.GetLocalType(instruction.Id, instruction.Index);
-            _state.EvaluationStack.PopValue(_program, argType, out var value);
-            _state.Arguments.Store(instruction.Id, instruction.Index, value);
+            var argType = ControlState.Arguments.GetLocalType(instruction.Id, instruction.Index);
+            ControlState.EvaluationStack.PopValue(_program, argType, out var value);
+            ControlState.Arguments.Store(instruction.Id, instruction.Index, value);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitStoreLocalShortInstruction(StoreLocalShortInstruction instruction)
         {
-            var localType = _state.Locals.GetLocalType(instruction.Id, instruction.Index);
-            _state.EvaluationStack.PopValue(_program, localType, out var value);
-            _state.Locals.Store(instruction.Id, instruction.Index, value);
+            var localType = ControlState.Locals.GetLocalType(instruction.Id, instruction.Index);
+            ControlState.EvaluationStack.PopValue(_program, localType, out var value);
+            ControlState.Locals.Store(instruction.Id, instruction.Index, value);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
     }
 }

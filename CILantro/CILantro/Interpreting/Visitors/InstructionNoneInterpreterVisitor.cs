@@ -13,16 +13,18 @@ namespace CILantro.Interpreting.Visitors
 {
     public class InstructionNoneInterpreterVisitor : InstructionNoneVisitor
     {
-        private readonly CilControlState _state;
-
-        private readonly CilManagedMemory _managedMemory;
+        private readonly CilExecutionState _executionState;
 
         private readonly CilProgram _program;
 
-        public InstructionNoneInterpreterVisitor(CilProgram program, CilControlState state, CilManagedMemory managedMemory)
+        private CilControlState ControlState => _executionState.ControlState;
+
+        private CilManagedMemory ManagedMemory => _executionState.ManagedMemory;
+
+        public InstructionNoneInterpreterVisitor(CilProgram program, CilExecutionState executionState)
         {
-            _state = state;
-            _managedMemory = managedMemory;
+            _executionState = executionState;
+
             _program = program;
         }
 
@@ -30,7 +32,7 @@ namespace CILantro.Interpreting.Visitors
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeBinaryNumericOperation(
                 stackVal1,
                 stackVal2,
@@ -38,32 +40,32 @@ namespace CILantro.Interpreting.Visitors
                 (a, b) => new CilStackValueInt64(a.Value + b.Value),
                 (a, b) => new CilStackValueFloat(a.Value + b.Value)
             );
-            _state.EvaluationStack.Push(resultStackVal);
+            ControlState.EvaluationStack.Push(resultStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitAndInstruction(AndInstruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeIntegerOperation(
                 stackVal1,
                 stackVal2,
                 (a, b) => new CilStackValueInt32(a.Value & b.Value),
                 (a, b) => new CilStackValueInt64(a.Value & b.Value)
             );
-            _state.EvaluationStack.Push(resultStackVal);
+            ControlState.EvaluationStack.Push(resultStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitCompareEqualInstruction(CompareEqualInstruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeBinaryComparisonOperation(
                 stackVal1,
                 stackVal2,
@@ -71,16 +73,16 @@ namespace CILantro.Interpreting.Visitors
                 (a, b) => a.Value == b.Value,
                 (a, b) => a.Value == b.Value
             );
-            _state.EvaluationStack.Push(resultStackVal);
+            ControlState.EvaluationStack.Push(resultStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitCompareGreaterThanInstruction(CompareGreaterThanInstruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeBinaryComparisonOperation(
                 stackVal1,
                 stackVal2,
@@ -88,16 +90,16 @@ namespace CILantro.Interpreting.Visitors
                 (a, b) => a.Value > b.Value,
                 (a, b) => a.Value > b.Value
             );
-            _state.EvaluationStack.Push(resultStackVal);
+            ControlState.EvaluationStack.Push(resultStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitCompareGreaterThanUnsignedInstruction(CompareGreaterThanUnsignedInstruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeBinaryComparisonOperation(
                 stackVal1,
                 stackVal2,
@@ -105,16 +107,16 @@ namespace CILantro.Interpreting.Visitors
                 (a, b) => a.ValueUnsigned > b.ValueUnsigned,
                 (a, b) => a.Value > b.Value
             );
-            _state.EvaluationStack.Push(resultStackVal);
+            ControlState.EvaluationStack.Push(resultStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitCompareLessThanInstruction(CompareLessThanInstruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeBinaryComparisonOperation(
                 stackVal1,
                 stackVal2,
@@ -122,16 +124,16 @@ namespace CILantro.Interpreting.Visitors
                 (a, b) => a.Value < b.Value,
                 (a, b) => a.Value < b.Value
             );
-            _state.EvaluationStack.Push(resultStackVal);
+            ControlState.EvaluationStack.Push(resultStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitCompareLessThanUnsignedInstruction(CompareLessThanUnsignedInstruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeBinaryComparisonOperation(
                 stackVal1,
                 stackVal2,
@@ -139,16 +141,16 @@ namespace CILantro.Interpreting.Visitors
                 (a, b) => a.ValueUnsigned < b.ValueUnsigned,
                 (a, b) => a.Value < b.Value
             );
-            _state.EvaluationStack.Push(resultStackVal);
+            ControlState.EvaluationStack.Push(resultStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitConvertI1Instruction(ConvertI1Instruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal);
+            ControlState.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionOperation(
                 stackVal,
                 x => new CilStackValueInt32((sbyte)x.Value),
@@ -157,16 +159,16 @@ namespace CILantro.Interpreting.Visitors
                 x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); }
             );
-            _state.EvaluationStack.Push(newStackVal);
+            ControlState.EvaluationStack.Push(newStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitConvertI2Instruction(ConvertI2Instruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal);
+            ControlState.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionOperation(
                 stackVal,
                 x => new CilStackValueInt32((short)x.Value),
@@ -175,16 +177,16 @@ namespace CILantro.Interpreting.Visitors
                 x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); }
             );
-            _state.EvaluationStack.Push(newStackVal);
+            ControlState.EvaluationStack.Push(newStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitConvertI4Instruction(ConvertI4Instruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal);
+            ControlState.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionOperation(
                 stackVal,
                 x => { throw new NotImplementedException(); },
@@ -193,16 +195,16 @@ namespace CILantro.Interpreting.Visitors
                 x => { throw new NotImplementedException(); },
                 x => new CilStackValueInt32(x.Value)
             );
-            _state.EvaluationStack.Push(newStackVal);
+            ControlState.EvaluationStack.Push(newStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitConvertI8Instruction(ConvertI8Instruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal);
+            ControlState.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionOperation(
                 stackVal,
                 x => new CilStackValueInt64(x.Value),
@@ -211,16 +213,16 @@ namespace CILantro.Interpreting.Visitors
                 x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); }
             );
-            _state.EvaluationStack.Push(newStackVal);
+            ControlState.EvaluationStack.Push(newStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitConvertR4Instruction(ConvertR4Instruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal);
+            ControlState.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionOperation(
                 stackVal,
                 x => new CilStackValueFloat((float)x.Value),
@@ -229,16 +231,16 @@ namespace CILantro.Interpreting.Visitors
                 x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); }
             );
-            _state.EvaluationStack.Push(newStackVal);
+            ControlState.EvaluationStack.Push(newStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitConvertR8Instruction(ConvertR8Instruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal);
+            ControlState.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionOperation(
                 stackVal,
                 x => new CilStackValueFloat((double)x.Value),
@@ -247,9 +249,9 @@ namespace CILantro.Interpreting.Visitors
                 x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); }
             );
-            _state.EvaluationStack.Push(newStackVal);
+            ControlState.EvaluationStack.Push(newStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitConvertRUnsignedInstruction(ConvertRUnsignedInstruction instruction)
@@ -257,7 +259,7 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
             // TODO: should we deal with the fact it is unsigned instruction?
 
-            _state.EvaluationStack.Pop(out var stackVal);
+            ControlState.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionOperation(
                 stackVal,
                 x => new CilStackValueFloat((double)x.ValueUnsigned),
@@ -266,16 +268,16 @@ namespace CILantro.Interpreting.Visitors
                 x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); }
             );
-            _state.EvaluationStack.Push(newStackVal);
+            ControlState.EvaluationStack.Push(newStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitConvertUInstruction(ConvertUInstruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal);
+            ControlState.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionOperation(
                 stackVal,
                 x => { throw new NotImplementedException(); },
@@ -284,16 +286,16 @@ namespace CILantro.Interpreting.Visitors
                 x => new CilStackValueNativeInt(x.ValueToRef.GetPointerValue()),
                 x => { throw new NotImplementedException(); }
             );
-            _state.EvaluationStack.Push(newStackVal);
+            ControlState.EvaluationStack.Push(newStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitConvertU1Instruction(ConvertU1Instruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal);
+            ControlState.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionOperation(
                 stackVal,
                 x => new CilStackValueInt32((byte)x.ValueUnsigned),
@@ -302,16 +304,16 @@ namespace CILantro.Interpreting.Visitors
                 x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); }
             );
-            _state.EvaluationStack.Push(newStackVal);
+            ControlState.EvaluationStack.Push(newStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitConvertU2Instruction(ConvertU2Instruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal);
+            ControlState.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionOperation(
                 stackVal,
                 x => new CilStackValueInt32((ushort)x.ValueUnsigned),
@@ -320,16 +322,16 @@ namespace CILantro.Interpreting.Visitors
                 x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); }
             );
-            _state.EvaluationStack.Push(newStackVal);
+            ControlState.EvaluationStack.Push(newStackVal);
 
-            _state.MoveToNextInstruction(); ;
+            ControlState.MoveToNextInstruction(); ;
         }
 
         protected override void VisitConvertU8Instruction(ConvertU8Instruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal);
+            ControlState.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionOperation(
                 stackVal,
                 x => new CilStackValueInt64((long)(ulong)x.ValueUnsigned),
@@ -338,16 +340,16 @@ namespace CILantro.Interpreting.Visitors
                 x => { throw new NotImplementedException(); },
                 x => { throw new NotImplementedException(); }
             );
-            _state.EvaluationStack.Push(newStackVal);
+            ControlState.EvaluationStack.Push(newStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitDivideInstruction(DivideInstruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeBinaryNumericOperation(
                 stackVal1,
                 stackVal2,
@@ -355,94 +357,94 @@ namespace CILantro.Interpreting.Visitors
                 (a, b) => new CilStackValueInt64(a.Value / b.Value),
                 (a, b) => new CilStackValueFloat(a.Value / b.Value)
             );
-            _state.EvaluationStack.Push(resultStackVal);
+            ControlState.EvaluationStack.Push(resultStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitDivideUnsignedInstruction(DivideUnsignedInstruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeIntegerOperation(
                 stackVal1,
                 stackVal2,
                 (a, b) => new CilStackValueInt32((int)(a.ValueUnsigned / b.ValueUnsigned)),
                 (a, b) => new CilStackValueInt64((long)(a.ValueUnsigned / b.ValueUnsigned))
             );
-            _state.EvaluationStack.Push(resultStackVal);
+            ControlState.EvaluationStack.Push(resultStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitDuplicateInstruction(DuplicateInstruction instruction)
         {
-            _state.EvaluationStack.Pop(out var value);
+            ControlState.EvaluationStack.Pop(out var value);
 
-            _state.EvaluationStack.Push(value);
-            _state.EvaluationStack.Push(value);
+            ControlState.EvaluationStack.Push(value);
+            ControlState.EvaluationStack.Push(value);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitIndirectLoadI4Instruction(IndirectLoadI4Instruction instruction)
         {
-            _state.EvaluationStack.PopValue(out CilValueManagedPointer valuePointer);
+            ControlState.EvaluationStack.PopValue(out CilValueManagedPointer valuePointer);
 
-            _state.EvaluationStack.PushValue(valuePointer.ValueToRef);
+            ControlState.EvaluationStack.PushValue(valuePointer.ValueToRef);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitIndirectStoreI4Instruction(IndirectStoreI4Instruction instruction)
         {
-            _state.EvaluationStack.PopValue(out CilValueManagedPointer pointer, out CilValueInt32 value);
+            ControlState.EvaluationStack.PopValue(out CilValueManagedPointer pointer, out CilValueInt32 value);
 
             var int32PointerValue = pointer.ValueToRef as CilValueInt32;
             int32PointerValue.Value = value.Value;
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadArgument0Instruction(LoadArgument0Instruction instruction)
         {
             // TODO: finish implementation
 
-            var value = _state.Arguments.Load(null, 0);
-            _state.EvaluationStack.PushValue(value);
+            var value = ControlState.Arguments.Load(null, 0);
+            ControlState.EvaluationStack.PushValue(value);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadArgument1Instruction(LoadArgument1Instruction instruction)
         {
             // TODO: finish implementation
 
-            var value = _state.Arguments.Load(null, 1);
-            _state.EvaluationStack.PushValue(value);
+            var value = ControlState.Arguments.Load(null, 1);
+            ControlState.EvaluationStack.PushValue(value);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadArgument2Instruction(LoadArgument2Instruction instruction)
         {
             // TODO: finish implementation
 
-            var value = _state.Arguments.Load(null, 2);
-            _state.EvaluationStack.PushValue(value);
+            var value = ControlState.Arguments.Load(null, 2);
+            ControlState.EvaluationStack.PushValue(value);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadArgument3Instruction(LoadArgument3Instruction instruction)
         {
             // TODO: finish implementation
 
-            var value = _state.Arguments.Load(null, 3);
-            _state.EvaluationStack.PushValue(value);
+            var value = ControlState.Arguments.Load(null, 3);
+            ControlState.EvaluationStack.PushValue(value);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadArrayElementI1Instruction(LoadArrayElementI1Instruction instruction)
@@ -450,14 +452,14 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
             // TODO: should we convert value from array to stack?
 
-            _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
+            ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
 
-            var array = _managedMemory.Load(arrayRef) as CilArray;
-            var elem = array.GetValue(indexVal, new CilTypeInt8(), _managedMemory, _program);
+            var array = ManagedMemory.Load(arrayRef) as CilArray;
+            var elem = array.GetValue(indexVal, new CilTypeInt8(), ManagedMemory, _program);
 
-            _state.EvaluationStack.PushValue(elem);
+            ControlState.EvaluationStack.PushValue(elem);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadArrayElementI2Instruction(LoadArrayElementI2Instruction instruction)
@@ -465,14 +467,14 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
             // TODO: should we convert value from array to stack?
 
-            _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
+            ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
 
-            var array = _managedMemory.Load(arrayRef) as CilArray;
-            var elem = array.GetValue(indexVal, new CilTypeInt16(), _managedMemory, _program);
+            var array = ManagedMemory.Load(arrayRef) as CilArray;
+            var elem = array.GetValue(indexVal, new CilTypeInt16(), ManagedMemory, _program);
 
-            _state.EvaluationStack.PushValue(elem);
+            ControlState.EvaluationStack.PushValue(elem);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadArrayElementI4Instruction(LoadArrayElementI4Instruction instruction)
@@ -480,14 +482,14 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
             // TODO: should we convert value from array to stack?
 
-            _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
+            ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
 
-            var array = _managedMemory.Load(arrayRef) as CilArray;
-            var elem = array.GetValue(indexVal, new CilTypeInt32(), _managedMemory, _program);
+            var array = ManagedMemory.Load(arrayRef) as CilArray;
+            var elem = array.GetValue(indexVal, new CilTypeInt32(), ManagedMemory, _program);
 
-            _state.EvaluationStack.PushValue(elem);
+            ControlState.EvaluationStack.PushValue(elem);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadArrayElementI8Instruction(LoadArrayElementI8Instruction instruction)
@@ -495,14 +497,14 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
             // TODO: should we convert value from array to stack?
 
-            _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
+            ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
 
-            var array = _managedMemory.Load(arrayRef) as CilArray;
-            var elem = array.GetValue(indexVal, new CilTypeInt64(), _managedMemory, _program);
+            var array = ManagedMemory.Load(arrayRef) as CilArray;
+            var elem = array.GetValue(indexVal, new CilTypeInt64(), ManagedMemory, _program);
 
-            _state.EvaluationStack.PushValue(elem);
+            ControlState.EvaluationStack.PushValue(elem);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadArrayElementR4Instruction(LoadArrayElementR4Instruction instruction)
@@ -510,14 +512,14 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
             // TODO: should we convert value from array to stack?
 
-            _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
+            ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
 
-            var array = _managedMemory.Load(arrayRef) as CilArray;
-            var elem = array.GetValue(indexVal, new CilTypeFloat32(), _managedMemory, _program);
+            var array = ManagedMemory.Load(arrayRef) as CilArray;
+            var elem = array.GetValue(indexVal, new CilTypeFloat32(), ManagedMemory, _program);
 
-            _state.EvaluationStack.PushValue(elem);
+            ControlState.EvaluationStack.PushValue(elem);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadArrayElementR8Instruction(LoadArrayElementR8Instruction instruction)
@@ -525,14 +527,14 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
             // TODO: should we convert value from array to stack?
 
-            _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
+            ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
 
-            var array = _managedMemory.Load(arrayRef) as CilArray;
-            var elem = array.GetValue(indexVal, new CilTypeFloat64(), _managedMemory, _program);
+            var array = ManagedMemory.Load(arrayRef) as CilArray;
+            var elem = array.GetValue(indexVal, new CilTypeFloat64(), ManagedMemory, _program);
 
-            _state.EvaluationStack.PushValue(elem);
+            ControlState.EvaluationStack.PushValue(elem);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadArrayElementRefInstruction(LoadArrayElementRefInstruction instruction)
@@ -540,14 +542,14 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
             // TODO: should we convert value from array to stack?
 
-            _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
+            ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
 
-            var array = _managedMemory.Load(arrayRef) as CilArray;
-            var elem = array.GetValue(indexVal, null, _managedMemory, _program);
+            var array = ManagedMemory.Load(arrayRef) as CilArray;
+            var elem = array.GetValue(indexVal, null, ManagedMemory, _program);
 
-            _state.EvaluationStack.PushValue(elem);
+            ControlState.EvaluationStack.PushValue(elem);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadArrayElementU1Instruction(LoadArrayElementU1Instruction instruction)
@@ -555,14 +557,14 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
             // TODO: should we convert value from array to stack?
 
-            _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
+            ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
 
-            var array = _managedMemory.Load(arrayRef) as CilArray;
-            var elem = array.GetValue(indexVal, new CilTypeUInt8(), _managedMemory, _program);
+            var array = ManagedMemory.Load(arrayRef) as CilArray;
+            var elem = array.GetValue(indexVal, new CilTypeUInt8(), ManagedMemory, _program);
 
-            _state.EvaluationStack.PushValue(elem);
+            ControlState.EvaluationStack.PushValue(elem);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadArrayElementU2Instruction(LoadArrayElementU2Instruction instruction)
@@ -570,14 +572,14 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
             // TODO: should we convert value from array to stack?
 
-            _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
+            ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
 
-            var array = _managedMemory.Load(arrayRef) as CilArray;
-            var elem = array.GetValue(indexVal, new CilTypeUInt16(), _managedMemory, _program);
+            var array = ManagedMemory.Load(arrayRef) as CilArray;
+            var elem = array.GetValue(indexVal, new CilTypeUInt16(), ManagedMemory, _program);
 
-            _state.EvaluationStack.PushValue(elem);
+            ControlState.EvaluationStack.PushValue(elem);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadArrayElementU4Instruction(LoadArrayElementU4Instruction instruction)
@@ -585,151 +587,151 @@ namespace CILantro.Interpreting.Visitors
             // TODO: finish implementation
             // TODO: should we convert value from array to stack?
 
-            _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
+            ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
 
-            var array = _managedMemory.Load(arrayRef) as CilArray;
-            var elem = array.GetValue(indexVal, new CilTypeUInt32(), _managedMemory, _program);
+            var array = ManagedMemory.Load(arrayRef) as CilArray;
+            var elem = array.GetValue(indexVal, new CilTypeUInt32(), ManagedMemory, _program);
 
-            _state.EvaluationStack.PushValue(elem);
+            ControlState.EvaluationStack.PushValue(elem);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadConstI40Intruction(LoadConstI40Instruction instruction)
         {
             var stackVal = new CilStackValueInt32(0);
-            _state.EvaluationStack.Push(stackVal);
+            ControlState.EvaluationStack.Push(stackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadConstI41Instruction(LoadConstI41Instruction instruction)
         {
             var stackVal = new CilStackValueInt32(1);
-            _state.EvaluationStack.Push(stackVal);
+            ControlState.EvaluationStack.Push(stackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadConstI42Instruction(LoadConstI42Instruction instruction)
         {
             var stackVal = new CilStackValueInt32(2);
-            _state.EvaluationStack.Push(stackVal);
+            ControlState.EvaluationStack.Push(stackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadConstI43Instruction(LoadConstI43Instruction instruction)
         {
             var stackVal = new CilStackValueInt32(3);
-            _state.EvaluationStack.Push(stackVal);
+            ControlState.EvaluationStack.Push(stackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadConstI44Instruction(LoadConstI44Instruction instruction)
         {
             var stackVal = new CilStackValueInt32(4);
-            _state.EvaluationStack.Push(stackVal);
+            ControlState.EvaluationStack.Push(stackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadConstI45Instruction(LoadConstI45Instruction instruction)
         {
             var stackVal = new CilStackValueInt32(5);
-            _state.EvaluationStack.Push(stackVal);
+            ControlState.EvaluationStack.Push(stackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadConstI46Instruction(LoadConstI46Instruction instruction)
         {
             var stackVal = new CilStackValueInt32(6);
-            _state.EvaluationStack.Push(stackVal);
+            ControlState.EvaluationStack.Push(stackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadConstI47Instruction(LoadConstI47Instruction instruction)
         {
             var stackVal = new CilStackValueInt32(7);
-            _state.EvaluationStack.Push(stackVal);
+            ControlState.EvaluationStack.Push(stackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadConstI48Instruction(LoadConstI48Instruction instruction)
         {
             var stackVal = new CilStackValueInt32(8);
-            _state.EvaluationStack.Push(stackVal);
+            ControlState.EvaluationStack.Push(stackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadConstI4M1Instruction(LoadConstI4M1Instruction instruction)
         {
             var stackVal = new CilStackValueInt32(-1);
-            _state.EvaluationStack.Push(stackVal);
+            ControlState.EvaluationStack.Push(stackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadLengthInstruction(LoadLengthInstruction instruction)
         {
-            _state.EvaluationStack.PopValue(out CilValueReference arrayRef);
-            var array = _managedMemory.Load(arrayRef) as CilArray;
+            ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef);
+            var array = ManagedMemory.Load(arrayRef) as CilArray;
 
-            _state.EvaluationStack.Push(new CilStackValueNativeInt(array.Length));
+            ControlState.EvaluationStack.Push(new CilStackValueNativeInt(array.Length));
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadLocal0Instruction(LoadLocal0Instruction instruction)
         {
             // TODO: finish implementation
 
-            var value = _state.Locals.Load(null, 0);
-            _state.EvaluationStack.PushValue(value);
+            var value = ControlState.Locals.Load(null, 0);
+            ControlState.EvaluationStack.PushValue(value);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadLocal1Instruction(LoadLocal1Instruction instruction)
         {
             // TODO: finish implementation
 
-            var value = _state.Locals.Load(null, 1);
-            _state.EvaluationStack.PushValue(value);
+            var value = ControlState.Locals.Load(null, 1);
+            ControlState.EvaluationStack.PushValue(value);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadLocal2Instruction(LoadLocal2Instruction instruction)
         {
             // TODO: finish implementation
 
-            var value = _state.Locals.Load(null, 2);
-            _state.EvaluationStack.PushValue(value);
+            var value = ControlState.Locals.Load(null, 2);
+            ControlState.EvaluationStack.PushValue(value);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitLoadLocal3Instruction(LoadLocal3Instruction instruction)
         {
             // TODO: finish implementation
 
-            var value = _state.Locals.Load(null, 3);
-            _state.EvaluationStack.PushValue(value);
+            var value = ControlState.Locals.Load(null, 3);
+            ControlState.EvaluationStack.PushValue(value);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitMultiplyInstruction(MultiplyInstruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeBinaryNumericOperation(
                 stackVal1,
                 stackVal2,
@@ -737,70 +739,70 @@ namespace CILantro.Interpreting.Visitors
                 (a, b) => new CilStackValueInt64(a.Value * b.Value),
                 (a, b) => new CilStackValueFloat(a.Value * b.Value)
             );
-            _state.EvaluationStack.Push(resultStackVal);
+            ControlState.EvaluationStack.Push(resultStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitNegateInstruction(NegateInstruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal);
+            ControlState.EvaluationStack.Pop(out var stackVal);
             var resultStackVal = ComputeUnaryNumericOperation(
                 stackVal,
                 a => new CilStackValueInt32(-a.Value),
                 a => new CilStackValueInt64(-a.Value),
                 a => new CilStackValueFloat(-a.Value)
             );
-            _state.EvaluationStack.Push(resultStackVal);
+            ControlState.EvaluationStack.Push(resultStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitNotInstruction(NotInstruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal);
+            ControlState.EvaluationStack.Pop(out var stackVal);
             var resultStackVal = ComputeUnaryIntegerOperation(
                 stackVal,
                 a => new CilStackValueInt32(~a.Value),
                 a => new CilStackValueInt64(~a.Value)
             );
-            _state.EvaluationStack.Push(resultStackVal);
+            ControlState.EvaluationStack.Push(resultStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitOrInstruction(OrInstruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeIntegerOperation(
                 stackVal1,
                 stackVal2,
                 (a, b) => new CilStackValueInt32(a.Value | b.Value),
                 (a, b) => new CilStackValueInt64(a.Value | b.Value)
             );
-            _state.EvaluationStack.Push(resultStackVal);
+            ControlState.EvaluationStack.Push(resultStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitPopInstruction(PopInstruction instruction)
         {
-            var stackValue = _state.EvaluationStack.Pop();
+            var stackValue = ControlState.EvaluationStack.Pop();
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitRemainderInstruction(RemainderInstruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeBinaryNumericOperation(
                 stackVal1,
                 stackVal2,
@@ -808,45 +810,45 @@ namespace CILantro.Interpreting.Visitors
                 (a, b) => new CilStackValueInt64(a.Value % b.Value),
                 (a, b) => new CilStackValueFloat(a.Value % b.Value)
             );
-            _state.EvaluationStack.Push(resultStackVal);
+            ControlState.EvaluationStack.Push(resultStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitRemainderUnsignedInstruction(RemainderUnsignedInstruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeIntegerOperation(
                 stackVal1,
                 stackVal2,
                 (a, b) => new CilStackValueInt32((int)(a.ValueUnsigned % b.ValueUnsigned)),
                 (a, b) => new CilStackValueInt64((long)(a.ValueUnsigned % b.ValueUnsigned))
             );
-            _state.EvaluationStack.Push(resultStackVal);
+            ControlState.EvaluationStack.Push(resultStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitReturnInstruction(ReturnInstruction instruction)
         {
-            var currentMethodState = _state.CallStack.Pop();
+            var currentMethodState = ControlState.CallStack.Pop();
 
             if (currentMethodState.EvaluationStack.IsEmpty)
             {
             }
             else
             {
-                if (_state.CallStack.Count == 0)
+                if (ControlState.CallStack.Count == 0)
                 {
                     currentMethodState.EvaluationStack.PopValue(out CilValueInt32 value);
-                    _state.ProgramResult = value.Value;
+                    ControlState.ProgramResult = value.Value;
                 }
                 else
                 {
                     currentMethodState.EvaluationStack.PopValue(_program, currentMethodState.MethodInfo.ReturnType, out var value);
-                    _state.EvaluationStack.PushValue(value);
+                    ControlState.EvaluationStack.PushValue(value);
                 }
 
                 if (!currentMethodState.EvaluationStack.IsEmpty)
@@ -858,175 +860,175 @@ namespace CILantro.Interpreting.Visitors
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeShiftOperation(
                 stackVal1,
                 stackVal2,
                 (a, b) => new CilStackValueInt32(a.Value << b.Value),
                 (a, b) => new CilStackValueInt64(a.Value << b.Value)
             );
-            _state.EvaluationStack.Push(resultStackVal);
+            ControlState.EvaluationStack.Push(resultStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitShiftRightInstruction(ShiftRightInstruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeShiftOperation(
                 stackVal1,
                 stackVal2,
                 (a, b) => new CilStackValueInt32(a.Value >> b.Value),
                 (a, b) => new CilStackValueInt64(a.Value >> b.Value)
             );
-            _state.EvaluationStack.Push(resultStackVal);
+            ControlState.EvaluationStack.Push(resultStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitShiftRightUnsignedInstruction(ShiftRightUnsignedInstruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeShiftOperation(
                 stackVal1,
                 stackVal2,
                 (a, b) => new CilStackValueInt32((int)(a.ValueUnsigned >> b.Value)),
                 (a, b) => new CilStackValueInt64((long)(a.ValueUnsigned >> b.Value))
             );
-            _state.EvaluationStack.Push(resultStackVal);
+            ControlState.EvaluationStack.Push(resultStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitStoreArrayElementI1Instruction(StoreArrayElementI1Instruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal, out CilValueInt8 valueVal);
+            ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal, out CilValueInt8 valueVal);
 
-            var array = _managedMemory.Load(arrayRef) as CilArray;
-            array.SetValue(valueVal, indexVal, _managedMemory);
+            var array = ManagedMemory.Load(arrayRef) as CilArray;
+            array.SetValue(valueVal, indexVal, ManagedMemory);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitStoreArrayElementI2Instruction(StoreArrayElementI2Instruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal, out CilValueInt16 valueVal);
+            ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal, out CilValueInt16 valueVal);
 
-            var array = _managedMemory.Load(arrayRef) as CilArray;
-            array.SetValue(valueVal, indexVal, _managedMemory);
+            var array = ManagedMemory.Load(arrayRef) as CilArray;
+            array.SetValue(valueVal, indexVal, ManagedMemory);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitStoreArrayElementI4Instruction(StoreArrayElementI4Instruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal, out CilValueInt32 valueVal);
+            ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal, out CilValueInt32 valueVal);
 
-            var array = _managedMemory.Load(arrayRef) as CilArray;
-            array.SetValue(valueVal, indexVal, _managedMemory);
+            var array = ManagedMemory.Load(arrayRef) as CilArray;
+            array.SetValue(valueVal, indexVal, ManagedMemory);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitStoreArrayElementI8Instruction(StoreArrayElementI8Instruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal, out CilValueInt64 valueVal);
+            ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal, out CilValueInt64 valueVal);
 
-            var array = _managedMemory.Load(arrayRef) as CilArray;
-            array.SetValue(valueVal, indexVal, _managedMemory);
+            var array = ManagedMemory.Load(arrayRef) as CilArray;
+            array.SetValue(valueVal, indexVal, ManagedMemory);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitStoreArrayElementR4Instruction(StoreArrayElementR4Instruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal, out CilValueFloat32 valueVal);
+            ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal, out CilValueFloat32 valueVal);
 
-            var array = _managedMemory.Load(arrayRef) as CilArray;
-            array.SetValue(valueVal, indexVal, _managedMemory);
+            var array = ManagedMemory.Load(arrayRef) as CilArray;
+            array.SetValue(valueVal, indexVal, ManagedMemory);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitStoreArrayElementR8Instruction(StoreArrayElementR8Instruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal, out CilValueFloat64 valueVal);
+            ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal, out CilValueFloat64 valueVal);
 
-            var array = _managedMemory.Load(arrayRef) as CilArray;
-            array.SetValue(valueVal, indexVal, _managedMemory);
+            var array = ManagedMemory.Load(arrayRef) as CilArray;
+            array.SetValue(valueVal, indexVal, ManagedMemory);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitStoreArrayElementRefInstruction(StoreArrayElementRefInstruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal, out CilValueReference valueVal);
+            ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal, out CilValueReference valueVal);
 
-            var array = _managedMemory.Load(arrayRef) as CilArray;
-            array.SetValue(valueVal, indexVal, _managedMemory);
+            var array = ManagedMemory.Load(arrayRef) as CilArray;
+            array.SetValue(valueVal, indexVal, ManagedMemory);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitStoreLocal0Instruction(StoreLocal0Instruction instruction)
         {
-            var localType = _state.Locals.GetLocalType(null, 0);
-            _state.EvaluationStack.PopValue(_program, localType, out var value);
-            _state.Locals.Store(null, 0, value);
+            var localType = ControlState.Locals.GetLocalType(null, 0);
+            ControlState.EvaluationStack.PopValue(_program, localType, out var value);
+            ControlState.Locals.Store(null, 0, value);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitStoreLocal1Instruction(StoreLocal1Instruction instruction)
         {
-            var localType = _state.Locals.GetLocalType(null, 1);
-            _state.EvaluationStack.PopValue(_program, localType, out var value);
-            _state.Locals.Store(null, 1, value);
+            var localType = ControlState.Locals.GetLocalType(null, 1);
+            ControlState.EvaluationStack.PopValue(_program, localType, out var value);
+            ControlState.Locals.Store(null, 1, value);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitStoreLocal2Instruction(StoreLocal2Instruction instruction)
         {
-            var localType = _state.Locals.GetLocalType(null, 2);
-            _state.EvaluationStack.PopValue(_program, localType, out var value);
-            _state.Locals.Store(null, 2, value);
+            var localType = ControlState.Locals.GetLocalType(null, 2);
+            ControlState.EvaluationStack.PopValue(_program, localType, out var value);
+            ControlState.Locals.Store(null, 2, value);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitStoreLocal3Instruction(StoreLocal3Instruction instruction)
         {
-            var localType = _state.Locals.GetLocalType(null, 3);
-            _state.EvaluationStack.PopValue(_program, localType, out var value);
-            _state.Locals.Store(null, 3, value);
+            var localType = ControlState.Locals.GetLocalType(null, 3);
+            ControlState.EvaluationStack.PopValue(_program, localType, out var value);
+            ControlState.Locals.Store(null, 3, value);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitSubtractInstruction(SubtractInstruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeBinaryNumericOperation(
                 stackVal1,
                 stackVal2,
@@ -1034,25 +1036,25 @@ namespace CILantro.Interpreting.Visitors
                 (a, b) => new CilStackValueInt64(a.Value - b.Value),
                 (a, b) => new CilStackValueFloat(a.Value - b.Value)
             );
-            _state.EvaluationStack.Push(resultStackVal);
+            ControlState.EvaluationStack.Push(resultStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         protected override void VisitXorInstruction(XorInstruction instruction)
         {
             // TODO: finish implementation
 
-            _state.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
+            ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeIntegerOperation(
                 stackVal1,
                 stackVal2,
                 (a, b) => new CilStackValueInt32(a.Value ^ b.Value),
                 (a, b) => new CilStackValueInt64(a.Value ^ b.Value)
             );
-            _state.EvaluationStack.Push(resultStackVal);
+            ControlState.EvaluationStack.Push(resultStackVal);
 
-            _state.MoveToNextInstruction();
+            ControlState.MoveToNextInstruction();
         }
 
         private IStackValue ComputeUnaryNumericOperation(

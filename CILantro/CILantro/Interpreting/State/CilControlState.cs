@@ -11,6 +11,8 @@ namespace CILantro.Interpreting.State
     {
         public Stack<CilMethodState> CallStack { get; set; }
 
+        #region Helper properties
+
         public CilMethodState MethodState => CallStack.Count > 0 ? CallStack.Peek() : null;
 
         public CilInstruction Instruction => MethodState?.Instruction;
@@ -22,10 +24,16 @@ namespace CILantro.Interpreting.State
         public CilOrderedDictionary Locals => MethodState.Locals;
 
         public CilOrderedDictionary Arguments => MethodState.Arguments;
+        
+        // TODO: move it upper
 
         public Dictionary<string, CilClassStaticInstance> StaticInstances { get; set; }
 
         public int ProgramResult { get; set; }
+
+        #endregion
+
+        #region Constructors
 
         public CilControlState(CilProgram program)
         {
@@ -49,6 +57,10 @@ namespace CILantro.Interpreting.State
             }
         }
 
+        #endregion
+
+        #region Helper methods
+
         public void MoveToNextInstruction()
         {
             MethodState.Instruction = MethodInfo.GetNextInstruction(Instruction);
@@ -61,5 +73,7 @@ namespace CILantro.Interpreting.State
             else
                 MethodState.Instruction = MethodInfo.GetInstructionByOffset(Instruction, offset);
         }
+
+        #endregion
     }
 }

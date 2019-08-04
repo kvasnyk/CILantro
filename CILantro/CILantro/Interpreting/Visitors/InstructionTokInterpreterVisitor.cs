@@ -11,17 +11,19 @@ namespace CILantro.Interpreting.Visitors
 {
     public class InstructionTokInterpreterVisitor : InstructionTokVisitor
     {
-        private readonly CilControlState _state;
-
-        private readonly CilManagedMemory _managedMemory;
+        private readonly CilExecutionState _executionState;
 
         private readonly CilProgram _program;
 
-        public InstructionTokInterpreterVisitor(CilProgram program, CilControlState state, CilManagedMemory managedMemory)
+        private CilControlState ControlState => _executionState.ControlState;
+
+        private CilManagedMemory ManagedMemory => _executionState.ManagedMemory;
+
+        public InstructionTokInterpreterVisitor(CilProgram program, CilExecutionState executionState)
         {
+            _executionState = executionState;
+
             _program = program;
-            _state = state;
-            _managedMemory = managedMemory;
         }
 
         protected override void VisitLoadTokenInstruction(LoadTokenInstruction instruction)
@@ -33,18 +35,18 @@ namespace CILantro.Interpreting.Visitors
                     var type = ReflectionHelper.GetExternalType(instruction.TypeSpec.ClassName);
                     var result = new CilValueExternal(type.TypeHandle);
 
-                    _state.EvaluationStack.PushValue(result);
-                    _state.MoveToNextInstruction();
+                    ControlState.EvaluationStack.PushValue(result);
+                    ControlState.MoveToNextInstruction();
                 }
                 else
                 {
                     var @class = _program.Classes.Single(c => c.Name.ToString() == instruction.TypeSpec.ClassName.ToString());
-                    var runtimeType = @class.BuildRuntimeType(_program, _managedMemory);
+                    var runtimeType = @class.BuildRuntimeType(_program, ManagedMemory);
                     var runtimeHandle = runtimeType.TypeHandle;
                     var result = new CilValueExternal(runtimeHandle);
 
-                    _state.EvaluationStack.PushValue(result);
-                    _state.MoveToNextInstruction();
+                    ControlState.EvaluationStack.PushValue(result);
+                    ControlState.MoveToNextInstruction();
                 }
             }
             else if (!string.IsNullOrEmpty(instruction.FieldId))
@@ -56,15 +58,15 @@ namespace CILantro.Interpreting.Visitors
                 else
                 {
                     var @class = _program.AllClasses.Single(c => c.Name.ToString() == instruction.FieldTypeSpec.ClassName.ToString());
-                    var runtimeType = @class.BuildRuntimeType(_program, _managedMemory);
+                    var runtimeType = @class.BuildRuntimeType(_program, ManagedMemory);
 
                     throw new System.NotImplementedException();
 
                     var runtimeHandle = runtimeType.TypeHandle;
                     var result = new CilValueExternal(runtimeHandle);
 
-                    _state.EvaluationStack.PushValue(result);
-                    _state.MoveToNextInstruction();
+                    ControlState.EvaluationStack.PushValue(result);
+                    ControlState.MoveToNextInstruction();
                 }
             }
             else

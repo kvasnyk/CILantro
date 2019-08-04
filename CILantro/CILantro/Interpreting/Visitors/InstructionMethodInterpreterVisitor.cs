@@ -18,17 +18,19 @@ namespace CILantro.Interpreting.Visitors
 {
     public class InstructionMethodInterpreterVisitor : InstructionMethodVisitor
     {
+        private readonly CilExecutionState _executionState;
+
         private readonly CilProgram _program;
 
-        private readonly CilControlState _state;
+        private CilControlState ControlState => _executionState.ControlState;
 
-        private readonly CilManagedMemory _managedMemory;
+        private CilManagedMemory ManagedMemory => _executionState.ManagedMemory;
 
-        public InstructionMethodInterpreterVisitor(CilProgram program, CilControlState state, CilManagedMemory managedMemory)
+        public InstructionMethodInterpreterVisitor(CilProgram program, CilExecutionState executionState)
         {
+            _executionState = executionState;
+
             _program = program;
-            _state = state;
-            _managedMemory = managedMemory;
         }
 
         public override void VisitCallInstruction(CallInstruction instruction)
@@ -38,7 +40,7 @@ namespace CILantro.Interpreting.Visitors
             var methodArgs = PopMethodArgs(instruction);
             IValue thisVal = null;
             if (instruction.CallConv.IsInstance)
-                _state.EvaluationStack.PopValue(_program, instruction.TypeSpec.GetCilType(_program), out thisVal);
+                ControlState.EvaluationStack.PopValue(_program, instruction.TypeSpec.GetCilType(_program), out thisVal);
 
             if (callExternal)
             {
@@ -46,11 +48,11 @@ namespace CILantro.Interpreting.Visitors
 
                 if (!(instruction.ReturnType is CilTypeVoid))
                 {
-                    var resultVal = instruction.ReturnType.CreateValueFromRuntime(result, _managedMemory, _program);
-                    _state.EvaluationStack.PushValue(resultVal);
+                    var resultVal = instruction.ReturnType.CreateValueFromRuntime(result, ManagedMemory, _program);
+                    ControlState.EvaluationStack.PushValue(resultVal);
                 }
 
-                _state.MoveToNextInstruction();
+                ControlState.MoveToNextInstruction();
             }
             else
             {
@@ -62,8 +64,8 @@ namespace CILantro.Interpreting.Visitors
 
                 var newMethodState = new CilMethodState(method, sigArgsWithThis, argsWithThis, _program);
 
-                _state.MoveToNextInstruction();
-                _state.CallStack.Push(newMethodState);
+                ControlState.MoveToNextInstruction();
+                ControlState.CallStack.Push(newMethodState);
             }
         }
 
@@ -73,7 +75,7 @@ namespace CILantro.Interpreting.Visitors
                 throw new System.NotImplementedException();
 
             var methodArgs = PopMethodArgs(instruction);
-            _state.EvaluationStack.PopValue(_program, instruction.TypeSpec.GetCilType(_program), out var thisVal);
+            ControlState.EvaluationStack.PopValue(_program, instruction.TypeSpec.GetCilType(_program), out var thisVal);
 
             var callExternal = true;
 
@@ -82,7 +84,7 @@ namespace CILantro.Interpreting.Visitors
 
             if (thisVal is CilValueReference thisValRef)
             {
-                var thisObj = _managedMemory.Load(thisValRef);
+                var thisObj = ManagedMemory.Load(thisValRef);
 
                 if (thisObj is CilClassInstance)
                 {
@@ -127,11 +129,11 @@ namespace CILantro.Interpreting.Visitors
 
                 if (!(instruction.ReturnType is CilTypeVoid))
                 {
-                    var resultVal = instruction.ReturnType.CreateValueFromRuntime(result, _managedMemory, _program);
-                    _state.EvaluationStack.PushValue(resultVal);
+                    var resultVal = instruction.ReturnType.CreateValueFromRuntime(result, ManagedMemory, _program);
+                    ControlState.EvaluationStack.PushValue(resultVal);
                 }
 
-                _state.MoveToNextInstruction();
+                ControlState.MoveToNextInstruction();
             }
             else
             {
@@ -140,8 +142,8 @@ namespace CILantro.Interpreting.Visitors
 
                 var newMethodState = new CilMethodState(method, sigArgsWithThis, argsWithThis, _program);
 
-                _state.MoveToNextInstruction();
-                _state.CallStack.Push(newMethodState);
+                ControlState.MoveToNextInstruction();
+                ControlState.CallStack.Push(newMethodState);
             }
         }
 
@@ -158,27 +160,27 @@ namespace CILantro.Interpreting.Visitors
                     thisObject = GetRuntimeEmptyInstance(instruction, methodArgs, true);
 
                 var result = CallExternalMethod(instruction, null, methodArgs.ToArray(), thisObject);
-                var resultVal = instruction.TypeSpec.GetCilType(_program).CreateValueFromRuntime(result, _managedMemory, _program);
+                var resultVal = instruction.TypeSpec.GetCilType(_program).CreateValueFromRuntime(result, ManagedMemory, _program);
 
-                _state.EvaluationStack.PushValue(resultVal);
-                _state.MoveToNextInstruction();
+                ControlState.EvaluationStack.PushValue(resultVal);
+                ControlState.MoveToNextInstruction();
             }
             else
             {
                 var @class = _program.Classes.Single(c => c.Name.ToString() == instruction.TypeSpec.ClassName.ToString());
                 var method = @class.Methods.Single(m => m.Name == instruction.MethodName && AreArgumentsAssignable(instruction.SigArgs, m.Arguments));
 
-                var emptyInstance = new CilClassInstance(@class, _program, _managedMemory);
-                var thisRef = _managedMemory.Store(emptyInstance);
-                _state.EvaluationStack.PushValue(thisRef);
+                var emptyInstance = new CilClassInstance(@class, _program, ManagedMemory);
+                var thisRef = ManagedMemory.Store(emptyInstance);
+                ControlState.EvaluationStack.PushValue(thisRef);
 
                 var sigArgsWithThis = CompleteSigArgs(instruction, method);
                 var argsWithThis = CompleteArgs(instruction, methodArgs, thisRef);
 
                 var newMethodState = new CilMethodState(method, sigArgsWithThis, argsWithThis, _program);
 
-                _state.MoveToNextInstruction();
-                _state.CallStack.Push(newMethodState);
+                ControlState.MoveToNextInstruction();
+                ControlState.CallStack.Push(newMethodState);
             }
         }
 
@@ -187,9 +189,9 @@ namespace CILantro.Interpreting.Visitors
             var instance = instanceObj != null ?
                 instanceObj :
                 instruction.CallConv.IsInstance ?
-                    instanceVal.AsRuntime(instruction.TypeSpec.GetCilType(_program), _managedMemory, _program) :
+                    instanceVal.AsRuntime(instruction.TypeSpec.GetCilType(_program), ManagedMemory, _program) :
                     null;
-            var args = argsVal.Zip(instruction.SigArgs, (argVal, sigArg) => argVal.AsRuntime(sigArg.Type, _managedMemory, _program)).ToArray();
+            var args = argsVal.Zip(instruction.SigArgs, (argVal, sigArg) => argVal.AsRuntime(sigArg.Type, ManagedMemory, _program)).ToArray();
 
             var callerConfig = new ExternalMethodCallerConfig
             {
@@ -210,7 +212,7 @@ namespace CILantro.Interpreting.Visitors
 
         private object GetRuntimeThis(CilClassInstance classInstance, CilType type)
         {
-            return classInstance?.AsRuntime(type, _managedMemory, _program);
+            return classInstance?.AsRuntime(type, ManagedMemory, _program);
         }
 
         private object GetRuntimeEmptyInstance(CilInstructionMethod instruction, List<IValue> methodArgs, bool isNewObject)    
@@ -240,8 +242,8 @@ namespace CILantro.Interpreting.Visitors
         {
             if (!(returnType is CilTypeVoid) || isNewObjectInstruction)
             {
-                var value = returnType.CreateValueFromRuntime(result, _managedMemory, _program);
-                _state.EvaluationStack.PushValue(value);
+                var value = returnType.CreateValueFromRuntime(result, ManagedMemory, _program);
+                ControlState.EvaluationStack.PushValue(value);
             }
         }
 
@@ -251,7 +253,7 @@ namespace CILantro.Interpreting.Visitors
             for (int i = 0; i < instruction.SigArgs.Count; i++)
             {
                 var ind = instruction.SigArgs.Count - i - 1;
-                _state.EvaluationStack.PopValue(_program, instruction.SigArgs[ind].Type, out var value);
+                ControlState.EvaluationStack.PopValue(_program, instruction.SigArgs[ind].Type, out var value);
                 methodArgs.Add(value);
             }
             methodArgs.Reverse();
