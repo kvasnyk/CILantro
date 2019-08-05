@@ -63,11 +63,7 @@ namespace CILantro.Interpreting.Visitors
             var state = new CilControlState(program);
             var managedMemory = new CilDictionaryManagedMemory();
 
-            _executionState = new CilExecutionState
-            {
-                ControlState = state,
-                ManagedMemory = managedMemory
-            };
+            _executionState = new CilExecutionState(state, managedMemory);
 
             _instructionNoneVisitor = new InstructionNoneInterpreterVisitor(program, _executionState);
             _instructionMethodVisitor = new InstructionMethodInterpreterVisitor(program, _executionState);

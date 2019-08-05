@@ -19,7 +19,8 @@
 	tabsize=2,
 	captionpos=b,
 	aboveskip=2em,
-	belowskip=2em
+	belowskip=2em,
+	breaklines=true
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -264,7 +265,7 @@ For instance:
 	\item{$\sval{0}{int32}$ represents $0$ of type \texttt{int32}}.
 \end{itemize}
 
-\subsection{The examples}
+\subsection{Examples}
 \label{sec:instruction_examples}
 
 \subsubsection{\texttt{ldc.i4.0}}
@@ -310,6 +311,7 @@ The \acrshort{cil} provides a number of similar instructions to push other const
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{The semantics}
+\label{sec:semantics}
 
 As described in \ref{sec:global_state}, an instruction can be thought as a description of how to manipulate the current global state. Examples of such informal descriptions can be found in \ref{sec:instruction_examples}. \cite{ecmaStandard} presents further examples but it does not provide any formal way to describe the \acrshort{cil} instructions and their semantics. Thus, one of the goals of the thesis is to introduce a formal, mathematical model to represent the semantics of the \acrshort{cil}.
 
@@ -335,6 +337,7 @@ It can be understood as follows: if the program is in the state $\sigma_1$ and i
 \end{equation}.
 
 \subsection{The execution state}
+\label{sec:executionState}
 
 Since the global state and its mathematical representation can be very complex, this section is to provide a simpler concept called hereinafter \textit{the execution state}. As a single instruction can only change a state of a single thread of control, there is no need to include the whole global state in the semantics. The execution state is then a part of the global state that could be potentially changed by an instruction and can be represented as an ordered pair:
 \begin{equation}
@@ -397,7 +400,7 @@ $$
 
 Additionally, according to the syntax presented in \cite{zychlaThesis}, $I_n$ denotes hereinafter a pointer to the $n$-th instruction of a method.
 
-\subsection{The examples}
+\subsection{Examples}
 
 This section follows the informal descriptions contained in \ref{sec:instruction_examples} and uses the conventions described above in order to specify the semantics of several \acrshort{cil} instructions which can be found in formulas \ref{eq:semantics_first}-\ref{eq:semantics_last}.
 
@@ -464,7 +467,169 @@ Before interpreting the provided source code, the application checks if the code
 
 \subsection{The actual interpreter}
 
-In order to implement the interpreter, a couple of concepts described before needed to be modelled in \texttt{C\#}.
+In order to implement the interpreter, a couple of concepts described before needed to be modelled in \texttt{C\#}. For example, the \texttt{CilExecutionState} class is responsible for the execution state explained in \ref{eq:executionState} and can be seen in listing \ref{lst:executionState}. There are other classes which have been implemented by analogy, inter alia:
+\begin{itemize}
+	\item{\texttt{CilControlState},}
+	\item{\texttt{CilMethodState},}
+	\item{\texttt{CilEvaluationStack}.}
+\end{itemize}
+
+\begin{lstlisting}[
+	caption={The \texttt{CilExecutionState} class.},
+	label={lst:executionState}
+]
+public class CilExecutionState
+{
+	public CilControlState ControlState { get; }
+
+	public CilManagedMemory ManagedMemory { get; }
+
+	public CilExecutionState(CilControlState controlState, CilManagedMemory managedMemory)
+	{
+		ControlState = controlState;
+		ManagedMemory = managedMemory;
+	}
+}
+\end{lstlisting}
+
+\subsubsection{The visitor}
+\label{sec:visitor}
+
+Since the semantics presented in \ref{sec:semantics} bases on transformations of the execution state, the same concept has been used to implement the interpreter. A single transformation of the state always depends on the current instruction pointer so the process of interpreting can be thought as visiting various instructions presented in the abstract syntax tree. To implement such a behaviour, a design pattern called \textit{Visitor} has been used. The pattern allows to write a new operation for each element of an object structure \cite{designPatterns}.
+
+\texttt{CilInstructionsVisitor} shown in listing \ref{lst:visitor} is an abstract class which implements the Visitor design pattern. In order to make its implementation reusable, the class does not decide what instruction should be visited next. Instead, an abstract method \texttt{GetNextInstruction} is used. As the \acrshort{cil} instruction set contains around 200 instructions, the visitor itself has been split up into several smaller classes (called subvisitors) responsible for visiting instructions of different types. Each instruction has its corresponding abstract method in the subvisitors set that is called by the main \texttt{Visit} method once an instruction of the appropriate type is going to be visited.
+
+Using such an abstract implementation allows to implement different types of visitors for the abstract syntax tree. For now, there is only one implementation - the \texttt{CilInterpreterInstructionsVisitor} class and its subvisitors. This implementation uses the execution state to implement the \texttt{GetNextInstruction} method. To be precise, the instruction pointer of the top method state is used to determine the next instruction to visit.
+
+\begin{lstlisting}[
+	caption={The \texttt{CilInstructionsVisitor} class.},
+	label={lst:visitor}
+]
+public abstract class CilInstructionsVisitor
+{
+	protected abstract InstructionNoneVisitor InstructionNoneVisitor { get; }
+
+	protected abstract InstructionMethodVisitor InstructionMethodVisitor { get; }
+
+	protected abstract InstructionStringVisitor InstructionStringVisitor { get; }
+
+	protected abstract InstructionIVisitor InstructionIVisitor { get; }
+
+	protected abstract InstructionTypeVisitor InstructionTypeVisitor { get; }
+
+	protected abstract InstructionVarVisitor InstructionVarVisitor { get; }
+
+	protected abstract InstructionRVisitor InstructionRVisitor { get; }
+
+	protected abstract InstructionBrVisitor InstructionBrVisitor { get; }
+
+	protected abstract InstructionFieldVisitor InstructionFieldVisitor { get; }
+
+	protected abstract InstructionI8Visitor InstructionI8Visitor { get; }
+
+	protected abstract InstructionSwitchVisitor InstructionSwitchVisitor { get; }
+
+	protected abstract InstructionTokVisitor InstructionTokVisitor { get; }
+
+	public void Visit()
+	{
+		var nextInstruction = GetNextInstruction();
+		while (nextInstruction != null)
+		{
+			VisitInstruction(nextInstruction);
+			nextInstruction = GetNextInstruction();
+		}
+	}
+
+	protected abstract CilInstruction GetNextInstruction();
+
+	private void VisitInstruction(CilInstruction instruction)
+	{
+		if (instruction is CilInstructionNone instructionNone)
+			InstructionNoneVisitor.VisitInstructionNone(instructionNone);
+		else if (instruction is CilInstructionMethod instructionMethod)
+			InstructionMethodVisitor.VisitInstructionMethod(instructionMethod);
+		else if (instruction is CilInstructionString instructionString)
+			InstructionStringVisitor.VisitInstructionString(instructionString);
+		else if (instruction is CilInstructionI instructionI)
+			InstructionIVisitor.VisitInstructionI(instructionI);
+		else if (instruction is CilInstructionType instructionType)
+			InstructionTypeVisitor.VisitInstructionType(instructionType);
+		else if (instruction is CilInstructionVar instructionVar)
+			InstructionVarVisitor.VisitInstructionVar(instructionVar);
+		else if (instruction is CilInstructionR instructionR)
+			InstructionRVisitor.VisitInstructionR(instructionR);
+		else if (instruction is CilInstructionBr instructionBr)
+			InstructionBrVisitor.VisitInstructionBr(instructionBr);
+		else if (instruction is CilInstructionField instructionField)
+			InstructionFieldVisitor.VisitInstructionField(instructionField);
+		else if (instruction is CilInstructionI8 instructionI8)
+			InstructionI8Visitor.VisitInstructionI8(instructionI8);
+		else if (instruction is CilInstructionSwitch instructionSwitch)
+			InstructionSwitchVisitor.VisitInstructionSwitch(instructionSwitch);
+		else if (instruction is CilInstructionTok instructionTok)
+			InstructionTokVisitor.VisitInstructionTok(instructionTok);
+		else
+			throw new ArgumentException($"CIL instruction cannot be recognized: '{instruction.ToString()}'.");
+	}
+}
+\end{lstlisting}
+
+\subsection{Examples}
+
+Having the abstract visitors structure described in the previous section, implementing the interpreter is equivalent to completing the implementation of all of the abstract methods of the subvisitors. The implementation itself is based on the semantics described in \ref{sec:semantics}.
+
+\subsubsection{\texttt{ldc.i4.0}}
+
+The \texttt{VisitLoadConstI40Intruction} method shown in listing \ref{lst:visitldci40} corresponds to the \texttt{ldc.i4.0} instruction described in \ref{sec:desc_ldci40} with its semantics presented in formula \ref{eq:semantics_first}. The meaning of the method can be explained as follows:
+\begin{itemize}
+	\item{Line 3 creates a new stack value of type \texttt{int32} with value equal to \texttt{0}.}
+	\item{Line 4 pushes the newly created value to the top of the evaluation stack. \texttt{ControlState.EvaluationStack} is just a shorthand for accessing the evaluation stack of the top method state.}
+	\item{Line 6 moves the instruction pointer of the top method state to the next instruction of the same method. The \texttt{MoveToNextInstruction} method is just a helper as such an operation is used very often.}
+\end{itemize}
+
+\begin{lstlisting}[
+	caption={The \texttt{VisitLoadConstI40Intruction} method.},
+	label={lst:visitldci40}
+]
+protected override void VisitLoadConstI40Intruction(LoadConstI40Instruction instruction)
+{
+	var stackVal = new CilStackValueInt32(0);
+	ControlState.EvaluationStack.Push(stackVal);
+
+	ControlState.MoveToNextInstruction();
+}
+\end{lstlisting}
+
+\#\#\# TO DO: INNE PRZYKLADY IMPLEMENTACJI METOD TYPU VISIT \#\#\#
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%
+%%%%%	Testing
+%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Testing}
+
+\#\#\# TO DO: OPIS TESTOWANIA, W SZCZEGOLNOSCI OPIS APLIKACJI / SRODOWISKA STWORZONEGO NA TE POTRZEBY \#\#\#
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%
+%%%%%	Limitations
+%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Limitations}
+
+\#\#\# TO DO: OPIS OGRANICZEN, KTORE TYCZA SIE SAMEGO INTERPRETERA JAK I SRODOWISKA \#\#\#
 
 \clearpage
 

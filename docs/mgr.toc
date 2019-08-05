@@ -7,7 +7,7 @@
 \contentsline {subsection}{\numberline {2.2}The evaluation stack}{7}{subsection.2.2}% 
 \contentsline {subsection}{\numberline {2.3}Stack transformations}{9}{subsection.2.3}% 
 \contentsline {subsection}{\numberline {2.4}Stack values}{9}{subsection.2.4}% 
-\contentsline {subsection}{\numberline {2.5}The examples}{9}{subsection.2.5}% 
+\contentsline {subsection}{\numberline {2.5}Examples}{9}{subsection.2.5}% 
 \contentsline {subsubsection}{\numberline {2.5.1}\texttt {ldc.i4.0}}{9}{subsubsection.2.5.1}% 
 \contentsline {subsubsection}{\numberline {2.5.2}{\#\#\# TO DO: PRZYKLADY UZYCIA INNYCH INSTRUKCJI \#\#\#}}{10}{subsubsection.2.5.2}% 
 \contentsline {section}{\numberline {3}The semantics}{11}{section.3}% 
@@ -16,9 +16,14 @@
 \contentsline {subsection}{\numberline {3.3}The method state}{12}{subsection.3.3}% 
 \contentsline {subsection}{\numberline {3.4}The final syntax}{12}{subsection.3.4}% 
 \contentsline {subsection}{\numberline {3.5}Instruction pointers}{12}{subsection.3.5}% 
-\contentsline {subsection}{\numberline {3.6}The examples}{13}{subsection.3.6}% 
+\contentsline {subsection}{\numberline {3.6}Examples}{13}{subsection.3.6}% 
 \contentsline {section}{\numberline {4}The interpreter}{14}{section.4}% 
 \contentsline {subsection}{\numberline {4.1}The lexer and the parser}{14}{subsection.4.1}% 
 \contentsline {subsection}{\numberline {4.2}Technical background}{14}{subsection.4.2}% 
 \contentsline {subsection}{\numberline {4.3}Detection of non-supported features}{14}{subsection.4.3}% 
 \contentsline {subsection}{\numberline {4.4}The actual interpreter}{14}{subsection.4.4}% 
+\contentsline {subsubsection}{\numberline {4.4.1}The visitor}{15}{subsubsection.4.4.1}% 
+\contentsline {subsection}{\numberline {4.5}Examples}{18}{subsection.4.5}% 
+\contentsline {subsubsection}{\numberline {4.5.1}\texttt {ldc.i4.0}}{18}{subsubsection.4.5.1}% 
+\contentsline {section}{\numberline {5}Testing}{19}{section.5}% 
+\contentsline {section}{\numberline {6}Limitations}{20}{section.6}% 

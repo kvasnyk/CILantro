@@ -28,4 +28,9 @@ T.~Wierzbicki.
 \newblock {\em {Języki programowania}}.
 \newblock 2001.
 
+\bibitem{designPatterns}
+Johnson~R. Gamma~E., Helm~R. and Vlissides J.
+\newblock {\em Design Patterns: Elements of reusable Object-Oriented Software.}
+\newblock Pearson Education, 1994.
+
 \end{thebibliography}

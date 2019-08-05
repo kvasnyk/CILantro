@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.4.22)  4 AUG 2019 16:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.4.22)  5 AUG 2019 17:15
 entering extended mode
 **./mgr.tex
 (mgr.tex
@@ -488,31 +488,31 @@ y"
 \glo@main@file=\write4
 \openout4 = `mgr.glo'.
 
-Package glossaries Info: Writing glossary file mgr.glo on input line 65.
+Package glossaries Info: Writing glossary file mgr.glo on input line 66.
 \glo@acronym@file=\write5
 \openout5 = `mgr.acn'.
 
-Package glossaries Info: Writing glossary file mgr.acn on input line 65.
+Package glossaries Info: Writing glossary file mgr.acn on input line 66.
  (mgr.aux)
 \openout1 = `mgr.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 75.
-LaTeX Font Info:    ... okay on input line 75.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 75.
-LaTeX Font Info:    ... okay on input line 75.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 75.
-LaTeX Font Info:    ... okay on input line 75.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 75.
-LaTeX Font Info:    ... okay on input line 75.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 75.
-LaTeX Font Info:    ... okay on input line 75.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 75.
-LaTeX Font Info:    ... okay on input line 75.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 75.
-LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
  (mgr.glsdefs)
 \AtBeginShipoutBox=\box40
-Package hyperref Info: Link coloring OFF on input line 75.
+Package hyperref Info: Link coloring OFF on input line 76.
 
 ("C:\Users\Kamil\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\nameref.s
 ty"
@@ -524,9 +524,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count146
 )
-LaTeX Info: Redefining \ref on input line 75.
-LaTeX Info: Redefining \pageref on input line 75.
-LaTeX Info: Redefining \nameref on input line 75.
+LaTeX Info: Redefining \ref on input line 76.
+LaTeX Info: Redefining \pageref on input line 76.
+LaTeX Info: Redefining \nameref on input line 76.
  (mgr.out) (mgr.out)
 \@outlinefile=\write6
 \openout6 = `mgr.out'.
@@ -594,26 +594,26 @@ File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 ]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\acrlong' on input line 132.
+(hyperref)                removing `\acrlong' on input line 133.
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 138.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 139.
 
 ("C:\Users\Kamil\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 138.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 139.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\acrlong' on input line 154.
+(hyperref)                removing `\acrlong' on input line 155.
 
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 163.
+nput line 164.
 [5
 
 ]
-Overfull \hbox (3.36551pt too wide) in paragraph at lines 187--188
+Overfull \hbox (3.36551pt too wide) in paragraph at lines 188--189
 \T1/cmtt/m/n/10 WriteLine \T1/cmr/m/n/10 method from the \T1/cmtt/m/n/10 System
 .Console \T1/cmr/m/n/10 class de-fined in the \T1/cmtt/m/n/10 mscorlib
  []
@@ -621,20 +621,20 @@ Overfull \hbox (3.36551pt too wide) in paragraph at lines 187--188
 [6]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\acrshort' on input line 204.
+(hyperref)                removing `\acrshort' on input line 205.
 
-<./img/global_state.png, id=196, 1024.57782pt x 1024.57782pt>
+<./img/global_state.png, id=222, 1024.57782pt x 1024.57782pt>
 File: ./img/global_state.png Graphic file (type png)
 <use ./img/global_state.png>
-Package pdftex.def Info: ./img/global_state.png  used on input line 214.
+Package pdftex.def Info: ./img/global_state.png  used on input line 215.
 (pdftex.def)             Requested size: 345.0pt x 344.99059pt.
 [7
 
 ] [8 <./img/global_state.png>]
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 270.
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 271.
  [9]
-Overfull \hbox (11.94943pt too wide) in paragraph at lines 300--300
+Overfull \hbox (11.94943pt too wide) in paragraph at lines 301--301
 []\T1/cmr/bx/n/10 ### TO DO: PRZYK-LADY UZY-CIA IN-NYCH IN-STRUKCJI
  []
 
@@ -642,9 +642,18 @@ Overfull \hbox (11.94943pt too wide) in paragraph at lines 300--300
 
 ] [12] [13] [14
 
+] [15] [16] [17] [18]
+Overfull \hbox (1.50711pt too wide) in paragraph at lines 618--619
+\T1/cmr/m/n/10 ### TO DO: OPIS TESTOWA-NIA, W SZCZEGOLNOSCI OPIS AP-LIKACJI
+ []
+
+[19
+
+] [20
+
 ] (mgr.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 492.
- [15
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 657.
+ [21
 
 runsystem(makeindex -s mgr.ist -t mgr.glg -o mgr.gls mgr.glo)...executed (allow
 ed).
@@ -653,21 +662,28 @@ runsystem(makeindex -s mgr.ist -t mgr.alg -o mgr.acr mgr.acn)...executed (allow
 ed).
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 492.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 657.
  (mgr.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 492.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 492.
-Package rerunfilecheck Info: File `mgr.out' has not changed.
-(rerunfilecheck)             Checksum: 884BC0AB1A03BF32B0352889C25822BA;1686.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 657.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 657.
+
+
+Package rerunfilecheck Warning: File `mgr.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `mgr.out':
+(rerunfilecheck)             Before: D4FF46EB2B4531420FAE9E8A6F1E5B03;1922
+(rerunfilecheck)             After:  4BBBEE9B4ADAEC549389A8F3F5A00102;1970.
  ) 
 Here is how much of TeX's memory you used:
- 11884 strings out of 492902
- 175425 string characters out of 3123806
- 323059 words of memory out of 3000000
- 15508 multiletter control sequences out of 15000+200000
+ 11997 strings out of 492902
+ 177148 string characters out of 3123806
+ 394424 words of memory out of 3000000
+ 15519 multiletter control sequences out of 15000+200000
  13969 words of font info for 32 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 45i,8n,39p,1988b,1869s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 45i,8n,39p,1988b,1885s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\Kamil\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\
 ecit1000.pk> <C:\Users\Kamil\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/
 ec/dpi525\ectt0800.pk> <C:\Users\Kamil\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour
@@ -687,9 +703,9 @@ ta/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users
 /Kamil/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pf
 b><C:/Users/Kamil/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
 /cm/cmsy10.pfb>
-Output written on mgr.pdf (15 pages, 471989 bytes).
+Output written on mgr.pdf (21 pages, 508979 bytes).
 PDF statistics:
- 754 PDF objects out of 1000 (max. 8388607)
- 88 named destinations out of 1000 (max. 500000)
- 198 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 953 PDF objects out of 1000 (max. 8388607)
+ 190 named destinations out of 1000 (max. 500000)
+ 230 words of extra memory for PDF output out of 10000 (max. 10000000)
 
