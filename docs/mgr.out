@@ -26,4 +26,12 @@
 \BOOKMARK [2][-]{subsection.4.5}{Examples}{section.4}% 26
 \BOOKMARK [3][-]{subsubsection.4.5.1}{ldc.i4.0}{subsection.4.5}% 27
 \BOOKMARK [1][-]{section.5}{Testing}{}% 28
-\BOOKMARK [1][-]{section.6}{Limitations}{}% 29
+\BOOKMARK [2][-]{subsection.5.1}{The tests}{section.5}% 29
+\BOOKMARK [2][-]{subsection.5.2}{The environment}{section.5}% 30
+\BOOKMARK [3][-]{subsubsection.5.2.1}{Finding tests}{subsection.5.2}% 31
+\BOOKMARK [3][-]{subsubsection.5.2.2}{Managing categories}{subsection.5.2}% 32
+\BOOKMARK [3][-]{subsubsection.5.2.3}{Managing tests}{subsection.5.2}% 33
+\BOOKMARK [3][-]{subsubsection.5.2.4}{Managing a single test}{subsection.5.2}% 34
+\BOOKMARK [3][-]{subsubsection.5.2.5}{Managing test runs}{subsection.5.2}% 35
+\BOOKMARK [3][-]{subsubsection.5.2.6}{Managing a single test run}{subsection.5.2}% 36
+\BOOKMARK [1][-]{section.6}{Limitations}{}% 37

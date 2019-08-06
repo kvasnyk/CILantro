@@ -26,4 +26,12 @@
 \contentsline {subsection}{\numberline {4.5}Examples}{18}{subsection.4.5}% 
 \contentsline {subsubsection}{\numberline {4.5.1}\texttt {ldc.i4.0}}{18}{subsubsection.4.5.1}% 
 \contentsline {section}{\numberline {5}Testing}{19}{section.5}% 
-\contentsline {section}{\numberline {6}Limitations}{20}{section.6}% 
+\contentsline {subsection}{\numberline {5.1}The tests}{19}{subsection.5.1}% 
+\contentsline {subsection}{\numberline {5.2}The environment}{20}{subsection.5.2}% 
+\contentsline {subsubsection}{\numberline {5.2.1}Finding tests}{20}{subsubsection.5.2.1}% 
+\contentsline {subsubsection}{\numberline {5.2.2}Managing categories}{20}{subsubsection.5.2.2}% 
+\contentsline {subsubsection}{\numberline {5.2.3}Managing tests}{22}{subsubsection.5.2.3}% 
+\contentsline {subsubsection}{\numberline {5.2.4}Managing a single test}{22}{subsubsection.5.2.4}% 
+\contentsline {subsubsection}{\numberline {5.2.5}Managing test runs}{22}{subsubsection.5.2.5}% 
+\contentsline {subsubsection}{\numberline {5.2.6}Managing a single test run}{23}{subsubsection.5.2.6}% 
+\contentsline {section}{\numberline {6}Limitations}{24}{section.6}% 

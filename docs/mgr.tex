@@ -615,7 +615,95 @@ protected override void VisitLoadConstI40Intruction(LoadConstI40Instruction inst
 
 \section{Testing}
 
-\#\#\# TO DO: OPIS TESTOWANIA, W SZCZEGOLNOSCI OPIS APLIKACJI / SRODOWISKA STWORZONEGO NA TE POTRZEBY \#\#\#
+Writing an interpreter of such a complex programming language as the \acrshort{cil} may be a little complicated. Implementing all the visit instructions at the same time seems to be impossible so a specific process needed to be introduced in order to achieve the desired effect. This particular process consists of 4 steps:
+\begin{enumerate}
+	\item{Write a test.}
+	\item{Cover the implementation of the interpreter so that the test passes.}
+	\item{Run all the existing tests.}
+	\item{Correct the implementation so that all the tests pass.}
+	\item{Repeat steps 1-4.}
+\end{enumerate}
+The process is illustrated in figure \ref{fig:process}.
+
+\begin{figure}
+	\includegraphics[width=0.75\textwidth]{process.png}
+    \centering
+    \caption{The process of implementing the interpreter.}
+    \label{fig:process}
+\end{figure}
+
+\subsection{The tests}
+
+Potentially, a set of unit tests could be written based on the documentation and the semantics of each instruction. Nevertheless, such a task might be very difficult so another type of tests was used instead. Since there are functioning implementations of the \acrshort{cli}, working of the interpreter can be compared to working of one of such implementations. To be exact, the \texttt{.NET Framework 4.7.2} was selected to write the tests.
+
+Taking into account the abilities of the interpreter, only console programs writing to the standard input, reading from the standard outuput and using the standard error stream are considered proper tests. The vast majority of the tests are written in \texttt{C\#}. Using the \texttt{ildasm} tool provided together with the \texttt{.NET Framework}, the tests can be decompiled to their \acrshort{cil} source code which can be then used as the input file for the interpreter. 
+
+Once a test is prepared, it can be executed using the interpreter and the result of the execution can be compared to the result of the original test program. The result of such a comparison is assumed to be correct when the output produced by the interpreter is the same as the output produced by the original program for the same input. Even though a single test can be potentially executed using an infinite set of different inputs, only a small part is used so that the process is not too time-consuming. In order to make the process as reliable as possible, a set of random inputs is prepared every time the test is executed.
+
+\subsection{The environment}
+
+Since repeating the process described above manually might be arduous for bigger numbers of tests, a dedicated system was written separately to automate the procedure. The system is hereinafter called \textit{the tools} or \textit{the environment}. It comprises 2 projects:
+\begin{itemize}
+	\item{an \texttt{ASP.NET Core WebAPI} application (the back-end),}
+	\item{a \texttt{React.js} application (the front-end).}
+\end{itemize}
+The tools provide several functionalities described below.
+
+\subsubsection{Finding tests}
+
+The environment watches the folder provided in the configuration and displays a list of the new tests that have been found. Each of the found tests can be then saved in the database and used to perform various operations. An example of the functionality is shown in figure \ref{fig:tools_find}.
+
+\begin{figure}
+	\includegraphics[width=1\textwidth]{tools_find.png}
+    \centering
+    \caption{The environment - the \textit{Find tests} functionality.}
+    \label{fig:tools_find}
+\end{figure}
+
+\subsubsection{Managing categories}
+
+The tools allow the user to define categories and subcategories that can be listed, ordered and filtered. The categories and the subcategories can be then assigned to the tests. The \textit{Categories} page is shown in figure \ref{fig:tools_categories}.
+
+\begin{figure}
+	\includegraphics[width=1\textwidth]{tools_categories.png}
+    \centering
+    \caption{The environment - the \textit{Categories} page.}
+    \label{fig:tools_categories}
+\end{figure}
+
+\subsubsection{Managing tests}
+
+The tests can be also listed, ordered and filtered. Each test is presented as a single card of a specific colour which determines the state of the test. If a card is grey, the related test is not configured and needs some additional attention - the card contains a list of tasks to be done in order to configure the test properly. If a card is purple, the corresponding test has been marked as unsupported. If a card is white, the test is ready to be used and run. Additionally, if a test has been already run, the card shows an icon that represents the result of the last run of the test. The \textit{Tests} page is shown in figure \ref{fig:tools_tests}.
+
+\begin{figure}
+	\includegraphics[width=1\textwidth]{tools_tests.png}
+    \centering
+    \caption{The environment - the \textit{Tests} page.}
+    \label{fig:tools_tests}
+\end{figure}
+
+\subsubsection{Managing a single test}
+
+\#\#\# TO DO: OPIS I SCREENSHOT \#\#\#
+
+\subsubsection{Managing test runs}
+
+The test runs can be listed, ordered and filter. A single run is represented by a card of a specific colour. If a card is orange, the corresponding run is being executed at the moment. If a card is red, the run has already ended but its result is wrong. If a card is green, the related run has ended and the result is correct. Each run can be also restarted and the user can display its details.
+
+The page contains two buttons that start a single test run including all the well-configured tests. There are two types of runs: quick and full. A quick run executes each test using only 3 random inputs while a full run uses 100 random inputs for each test. Regardless of the type, each run also executes the tests using the inputs defined in the tools.
+
+The \textit{Test runs} page is shown in figure \ref{fig:tools_runs}.
+
+\begin{figure}
+	\includegraphics[width=1\textwidth]{tools_runs.png}
+    \centering
+    \caption{The environment - the \textit{Test runs} page.}
+    \label{fig:tools_runs}
+\end{figure}
+
+\subsubsection{Managing a single test run}
+
+\#\#\# TO DO: OPIS I SCREENSHOT \#\#\#
 
 \clearpage
 
