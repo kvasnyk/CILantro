@@ -689,8 +689,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadLocal0Instruction(LoadLocal0Instruction instruction)
         {
-            // TODO: finish implementation
-
             var value = ControlState.Locals.Load(null, 0);
             ControlState.EvaluationStack.PushValue(value);
 

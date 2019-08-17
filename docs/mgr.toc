@@ -1,37 +1,40 @@
-\contentsline {section}{\numberline {1}Introduction}{5}{section.1}% 
-\contentsline {subsection}{\numberline {1.1}The \acrlong {cli}}{5}{subsection.1.1}% 
-\contentsline {subsection}{\numberline {1.2}The \acrlong {cil}}{5}{subsection.1.2}% 
-\contentsline {subsection}{\numberline {1.3}{\#\#\# TO DO: ZALOZENIA, CEL PRACY I ZAKONCZENIE WSTEPU \#\#\#}}{6}{subsection.1.3}% 
-\contentsline {section}{\numberline {2}The \acrshort {cil} instruction set}{7}{section.2}% 
-\contentsline {subsection}{\numberline {2.1}The global state}{7}{subsection.2.1}% 
-\contentsline {subsection}{\numberline {2.2}The evaluation stack}{7}{subsection.2.2}% 
-\contentsline {subsection}{\numberline {2.3}Stack transformations}{9}{subsection.2.3}% 
-\contentsline {subsection}{\numberline {2.4}Stack values}{9}{subsection.2.4}% 
-\contentsline {subsection}{\numberline {2.5}Examples}{9}{subsection.2.5}% 
-\contentsline {subsubsection}{\numberline {2.5.1}\texttt {ldc.i4.0}}{9}{subsubsection.2.5.1}% 
-\contentsline {subsubsection}{\numberline {2.5.2}{\#\#\# TO DO: PRZYKLADY UZYCIA INNYCH INSTRUKCJI \#\#\#}}{10}{subsubsection.2.5.2}% 
-\contentsline {section}{\numberline {3}The semantics}{11}{section.3}% 
-\contentsline {subsection}{\numberline {3.1}The global state}{11}{subsection.3.1}% 
-\contentsline {subsection}{\numberline {3.2}The execution state}{11}{subsection.3.2}% 
-\contentsline {subsection}{\numberline {3.3}The method state}{12}{subsection.3.3}% 
-\contentsline {subsection}{\numberline {3.4}The final syntax}{12}{subsection.3.4}% 
-\contentsline {subsection}{\numberline {3.5}Instruction pointers}{12}{subsection.3.5}% 
-\contentsline {subsection}{\numberline {3.6}Examples}{13}{subsection.3.6}% 
-\contentsline {section}{\numberline {4}The interpreter}{14}{section.4}% 
-\contentsline {subsection}{\numberline {4.1}The lexer and the parser}{14}{subsection.4.1}% 
-\contentsline {subsection}{\numberline {4.2}Technical background}{14}{subsection.4.2}% 
-\contentsline {subsection}{\numberline {4.3}Detection of non-supported features}{14}{subsection.4.3}% 
-\contentsline {subsection}{\numberline {4.4}The actual interpreter}{14}{subsection.4.4}% 
-\contentsline {subsubsection}{\numberline {4.4.1}The visitor}{15}{subsubsection.4.4.1}% 
-\contentsline {subsection}{\numberline {4.5}Examples}{18}{subsection.4.5}% 
-\contentsline {subsubsection}{\numberline {4.5.1}\texttt {ldc.i4.0}}{18}{subsubsection.4.5.1}% 
-\contentsline {section}{\numberline {5}Testing}{19}{section.5}% 
-\contentsline {subsection}{\numberline {5.1}The tests}{19}{subsection.5.1}% 
-\contentsline {subsection}{\numberline {5.2}The environment}{20}{subsection.5.2}% 
-\contentsline {subsubsection}{\numberline {5.2.1}Finding tests}{20}{subsubsection.5.2.1}% 
-\contentsline {subsubsection}{\numberline {5.2.2}Managing categories}{20}{subsubsection.5.2.2}% 
-\contentsline {subsubsection}{\numberline {5.2.3}Managing tests}{22}{subsubsection.5.2.3}% 
-\contentsline {subsubsection}{\numberline {5.2.4}Managing a single test}{22}{subsubsection.5.2.4}% 
-\contentsline {subsubsection}{\numberline {5.2.5}Managing test runs}{22}{subsubsection.5.2.5}% 
-\contentsline {subsubsection}{\numberline {5.2.6}Managing a single test run}{23}{subsubsection.5.2.6}% 
-\contentsline {section}{\numberline {6}Limitations}{24}{section.6}% 
+\contentsline {section}{\numberline {1}Introduction}{6}{section.1}% 
+\contentsline {subsection}{\numberline {1.1}The \acrlong {cli}}{6}{subsection.1.1}% 
+\contentsline {subsection}{\numberline {1.2}The \acrlong {cil}}{6}{subsection.1.2}% 
+\contentsline {subsection}{\numberline {1.3}{\#\#\# TO DO: ZALOZENIA, CEL PRACY I ZAKONCZENIE WSTEPU \#\#\#}}{7}{subsection.1.3}% 
+\contentsline {section}{\numberline {2}The \acrshort {cil} instruction set}{8}{section.2}% 
+\contentsline {subsection}{\numberline {2.1}The global state}{8}{subsection.2.1}% 
+\contentsline {subsection}{\numberline {2.2}The evaluation stack}{8}{subsection.2.2}% 
+\contentsline {subsection}{\numberline {2.3}Stack transformations}{10}{subsection.2.3}% 
+\contentsline {subsection}{\numberline {2.4}Stack values}{10}{subsection.2.4}% 
+\contentsline {subsection}{\numberline {2.5}Examples}{10}{subsection.2.5}% 
+\contentsline {subsubsection}{\numberline {2.5.1}\texttt {ldc.i4.0}}{10}{subsubsection.2.5.1}% 
+\contentsline {subsubsection}{\numberline {2.5.2}\texttt {stloc.0} and \texttt {ldloc.0}}{11}{subsubsection.2.5.2}% 
+\contentsline {subsubsection}{\numberline {2.5.3}{\#\#\# TO DO: PRZYKLADY UZYCIA INNYCH INSTRUKCJI \#\#\#}}{12}{subsubsection.2.5.3}% 
+\contentsline {section}{\numberline {3}The semantics}{13}{section.3}% 
+\contentsline {subsection}{\numberline {3.1}The global state}{13}{subsection.3.1}% 
+\contentsline {subsection}{\numberline {3.2}The execution state}{13}{subsection.3.2}% 
+\contentsline {subsection}{\numberline {3.3}The method state}{14}{subsection.3.3}% 
+\contentsline {subsection}{\numberline {3.4}The final syntax}{14}{subsection.3.4}% 
+\contentsline {subsection}{\numberline {3.5}Instruction pointers}{15}{subsection.3.5}% 
+\contentsline {subsection}{\numberline {3.6}Arrays}{15}{subsection.3.6}% 
+\contentsline {subsection}{\numberline {3.7}Examples}{15}{subsection.3.7}% 
+\contentsline {section}{\numberline {4}The interpreter}{18}{section.4}% 
+\contentsline {subsection}{\numberline {4.1}The lexer and the parser}{18}{subsection.4.1}% 
+\contentsline {subsection}{\numberline {4.2}Technical background}{18}{subsection.4.2}% 
+\contentsline {subsection}{\numberline {4.3}Detection of non-supported features}{18}{subsection.4.3}% 
+\contentsline {subsection}{\numberline {4.4}The actual interpreter}{18}{subsection.4.4}% 
+\contentsline {subsubsection}{\numberline {4.4.1}The visitor}{19}{subsubsection.4.4.1}% 
+\contentsline {subsection}{\numberline {4.5}Examples}{22}{subsection.4.5}% 
+\contentsline {subsubsection}{\numberline {4.5.1}\texttt {ldc.i4.0}}{22}{subsubsection.4.5.1}% 
+\contentsline {subsubsection}{\numberline {4.5.2}\texttt {stloc.0}}{22}{subsubsection.4.5.2}% 
+\contentsline {section}{\numberline {5}Testing}{24}{section.5}% 
+\contentsline {subsection}{\numberline {5.1}The tests}{24}{subsection.5.1}% 
+\contentsline {subsection}{\numberline {5.2}The environment}{25}{subsection.5.2}% 
+\contentsline {subsubsection}{\numberline {5.2.1}Finding tests}{25}{subsubsection.5.2.1}% 
+\contentsline {subsubsection}{\numberline {5.2.2}Managing categories}{25}{subsubsection.5.2.2}% 
+\contentsline {subsubsection}{\numberline {5.2.3}Managing tests}{27}{subsubsection.5.2.3}% 
+\contentsline {subsubsection}{\numberline {5.2.4}Managing a single test}{27}{subsubsection.5.2.4}% 
+\contentsline {subsubsection}{\numberline {5.2.5}Managing test runs}{27}{subsubsection.5.2.5}% 
+\contentsline {subsubsection}{\numberline {5.2.6}Managing a single test run}{28}{subsubsection.5.2.6}% 
+\contentsline {section}{\numberline {6}Limitations}{29}{section.6}% 

@@ -8,6 +8,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{proof}
+\usepackage{amsmath}
 \graphicspath{ {./img/} }
 \numberwithin{equation}{section}
 
@@ -34,8 +35,8 @@
 \renewcommand{\lstlistingname}{Code listing}
 \renewcommand{\lstlistlistingname}{List of code listings}
 
-\newcommand{\mstate}[2]{
-	\langle#1, #2\rangle
+\newcommand{\mstate}[5] {
+	\langle#1, #2, #3, #4, #5\rangle
 }
 
 \newcommand{\ipointsto}[2] {
@@ -44,6 +45,10 @@
 
 \newcommand{\sval}[2] {
 	#1_\texttt{#2}
+}
+
+\newcommand{\setarrayitem}[3] {
+	#1[#2 \mapsto #3]
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -279,7 +284,7 @@ $$
 The program shown in code listing \ref{lst:ldci40} uses the instruction to push $0$ onto the stack and then writes out the top stack value ($0$) using the \texttt{call} instruction.
 
 \begin{lstlisting}[
-	caption={Usage of \texttt{ldc.i4.0} instruction.},
+	caption={Usage of the \texttt{ldc.i4.0} instruction.},
 	label={lst:ldci40}
 ]
 .assembly extern mscorlib {}
@@ -297,6 +302,44 @@ The program shown in code listing \ref{lst:ldci40} uses the instruction to push 
 \end{lstlisting}
 
 The \acrshort{cil} provides a number of similar instructions to push other constant values onto the stack: \texttt{ldc.i4.1}, \texttt{ldc.i4.2}, \texttt{ldc.i4.3}, \texttt{ldc.i4.4}, \texttt{ldc.i4.5}, \texttt{ldc.i4.6}, \texttt{ldc.i4.7}, \texttt{ldc.i4.8} and \texttt{ldc.i4.m1} (or \texttt{ldc.i4.M1}) which pushes $-1$ onto the stack.
+
+\subsubsection{\texttt{stloc.0} and \texttt{ldloc.0}}
+\label{sec:desc_stloc0_ldloc0}
+
+The \texttt{stloc.0} instruction pops a value $v$ from the evaluation stack and moves it to the $0$-th position in the local variable array. Its stack transformation can be represented as follows \cite{ecmaStandard}:
+$$
+	S \cdot v \rightarrow S
+$$
+
+Conversely, the \texttt{ldloc.0} instruction loads the $0$-th local variable $v$ onto the evaluation stack and its stack transformation is \cite{ecmaStandard}:
+$$
+	S \rightarrow S \cdot v
+$$
+
+The program shown in code listing \ref{lst:stloc0_ldloc0} uses both instruction to store $7$ in the $0$-th local variable and then to load it onto the stack.
+
+There are several similar instructions provided by the \acrshort{cil}: \texttt{stloc.1}, \texttt{stloc.2}, \texttt{stloc.3}, \texttt{stloc}, \texttt{stloc.s}, \texttt{ldloc.1}, \texttt{ldloc.2}, \texttt{ldloc.3}, \texttt{ldloc}, \texttt{ldloc.s}.
+
+\begin{lstlisting}[
+	caption={Usage of the \texttt{stloc.0} and \texttt{ldloc.0} instructions.},
+	label={lst:stloc0_ldloc0}
+]
+.assembly extern mscorlib {}
+
+.assembly HelloWorld {}
+
+.method static public void main() cil managed
+{
+	.entrypoint
+	.maxstack 1
+	.locals init ([0] int32 n)
+	ldc.i4.7
+	stloc.0
+	ldloc.0
+	call void [mscorlib]System.Console::WriteLine(int32)
+	ret
+}
+\end{lstlisting}
 
 \subsubsection{{\#\#\# TO DO: PRZYKLADY UZYCIA INNYCH INSTRUKCJI \#\#\#}}
 
@@ -358,15 +401,16 @@ The formula has an analogous meaning to formula \ref{eq:wierzbickiFormula2} howe
 As mentioned before, the state of a single thread of control can be understood as a call stack of method states. Thus a similar syntax to the one introduced in section \ref{sec:stackTransformations} is used to illustrate the changes made on a call stack. A single method state can be then described using a tuple
 \begin{equation}
 \label{eq:methodState}
-	\langle I, S \rangle
+	\mstate{I}{S}{M}{L}{A}
 \end{equation}
 where:
 \begin{itemize}
 	\item{$I$ is the instruction pointer},
-	\item{$S$ is the evaluation stack}.
+	\item{$S$ is the evaluation stack},
+	\item{$M$ is the method information handle},
+	\item{$L$ is the local variable array},
+	\item{$A$ is the argument array}.
 \end{itemize}
-
-\#\#\# TO DO: ROZSZERZYĆ OPIS METHOD STATE'U O POZOSTAŁE ELEMENTY \#\#\#
 
 \subsection{The final syntax}
 
@@ -384,7 +428,7 @@ where
 
 For instance, the following describes a transformation which pushes 0 of type \texttt{int32} onto the evaluation stack of the top method state:
 $$
-	\gamma \cdot \mstate{I}{S}, \eta \rightarrow \gamma \cdot \mstate{I}{S \cdot 0_\texttt{int32}}, \eta.
+	\gamma \cdot \mstate{I}{S}{M}{L}{A}, \eta \rightarrow \gamma \cdot \mstate{I}{S \cdot 0_\texttt{int32}}{M}{L}{A}, \eta.
 $$
 
 \subsection{Instruction pointers}
@@ -400,31 +444,219 @@ $$
 
 Additionally, according to the syntax presented in \cite{zychlaThesis}, $I_n$ denotes hereinafter a pointer to the $n$-th instruction of a method.
 
+\subsection{Arrays}
+
+A single method state contains 2 different arrays: a local variable array and an argument array. An array $A$ can be represented as a function associating a single value to each natural number that is less than the length of the array. In order to formalise the changes made on arrays, the following term is used:
+\begin{equation}
+\label{eq:array_change}
+	\setarrayitem{A}{n}{v}
+\end{equation}
+It can be understood as the array $A$ with the $n$-th element set to the value $v$. Formally \cite{zychlaThesis}:
+\begin{equation}
+\label{eq:array_change_formal}
+	(\setarrayitem{A}{n}{v})(i) =
+	\begin{cases}
+		v		& \text{if } i = n,\\
+		A(i)	& \text{otherwise.}
+	\end{cases}
+\end{equation}
+
+
 \subsection{Examples}
 
-This section follows the informal descriptions contained in \ref{sec:instruction_examples} and uses the conventions described above in order to specify the semantics of several \acrshort{cil} instructions which can be found in formulas \ref{eq:semantics_first}-\ref{eq:semantics_last}.
+This section follows the informal descriptions contained in \ref{sec:instruction_examples} and uses the conventions described above in order to specify the semantics of several \acrshort{cil} instructions which can be found in formulas \ref{eq:semantics_ldci40}-\ref{eq:semantics_last}.
 
 \begin{equation}
-\label{eq:semantics_first}
+\label{eq:semantics_ldci40}
 	\infer{
-		\gamma \cdot \mstate{I_n}{S}, \eta
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
 			\rightarrow
-		\gamma \cdot \mstate{I_{n+1}}{S \cdot \sval{0}{int32}}, \eta
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot \sval{0}{int32}}{M}{L}{A}, \eta
 	}
 	{\ipointsto{I_n}{ldc.i4.0}}
 \end{equation}
 
 \begin{equation}
-\label{eq:semantics_last}
+\label{eq:semantics_ldci41}
 	\infer{
-		\gamma \cdot \mstate{I_n}{S}, \eta
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
 			\rightarrow
-		\gamma \cdot \mstate{I_{n+1}}{S \cdot \sval{1}{int32}}, \eta
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot \sval{1}{int32}}{M}{L}{A}, \eta
 	}
 	{\ipointsto{I_n}{ldc.i4.1}}
 \end{equation}
 
-\#\#\# TO DO: UZUPELNIC SEMANTYKA KOLEJNYCH INSTRUKCJI ZGODNIE Z SEKCJA 2.5 \#\#\#
+\begin{equation}
+\label{eq:semantics_ldci42}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot \sval{2}{int32}}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldc.i4.2}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldci43}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot \sval{3}{int32}}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldc.i4.3}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldci44}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot \sval{4}{int32}}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldc.i4.4}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldci45}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot \sval{5}{int32}}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldc.i4.5}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldci46}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot \sval{6}{int32}}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldc.i4.6}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldci47}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot \sval{7}{int32}}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldc.i4.7}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldci48}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot \sval{8}{int32}}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldc.i4.8}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldci4m1}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot \sval{(-1)}{int32}}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldc.i4.m1}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldci4M1}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot \sval{(-1)}{int32}}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldc.i4.M1}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_stloc0}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{\setarrayitem{L}{0}{v}}{A}, \eta
+	}
+	{\ipointsto{I_n}{stloc.0}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_stloc1}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{\setarrayitem{L}{1}{v}}{A}, \eta
+	}
+	{\ipointsto{I_n}{stloc.1}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_stloc2}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{\setarrayitem{L}{2}{v}}{A}, \eta
+	}
+	{\ipointsto{I_n}{stloc.2}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_stloc3}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{\setarrayitem{L}{3}{v}}{A}, \eta
+	}
+	{\ipointsto{I_n}{stloc.3}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldloc0}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot L(0)}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldloc.0}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldloc1}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot L(1)}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldloc.1}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldloc2}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot L(2)}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldloc.2}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldloc3}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot L(3)}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldloc.3}}
+\end{equation}
+
+\#\#\# TO DO: SEMANTYKA INSTRUKCJI stloc.s, stloc, ldloc.s, ldloc \#\#\#
 
 \clearpage
 
@@ -581,7 +813,7 @@ Having the abstract visitors structure described in the previous section, implem
 
 \subsubsection{\texttt{ldc.i4.0}}
 
-The \texttt{VisitLoadConstI40Intruction} method shown in listing \ref{lst:visitldci40} corresponds to the \texttt{ldc.i4.0} instruction described in \ref{sec:desc_ldci40} with its semantics presented in formula \ref{eq:semantics_first}. The meaning of the method can be explained as follows:
+The \texttt{VisitLoadConstI40Intruction} method shown in listing \ref{lst:visitldci40} corresponds to the \texttt{ldc.i4.0} instruction described in \ref{sec:desc_ldci40} with its semantics presented in formula \ref{eq:semantics_ldci40}. The meaning of the method can be explained as follows:
 \begin{itemize}
 	\item{Line 3 creates a new stack value of type \texttt{int32} with value equal to \texttt{0}.}
 	\item{Line 4 pushes the newly created value to the top of the evaluation stack. \texttt{ControlState.EvaluationStack} is just a shorthand for accessing the evaluation stack of the top method state.}
@@ -601,7 +833,24 @@ protected override void VisitLoadConstI40Intruction(LoadConstI40Instruction inst
 }
 \end{lstlisting}
 
-\#\#\# TO DO: INNE PRZYKLADY IMPLEMENTACJI METOD TYPU VISIT \#\#\#
+\subsubsection{\texttt{stloc.0}}
+
+The \texttt{VisitStoreLocal0Instruction} method is shown in listing \ref{lst:visitstloc0}. It is related to the \texttt{stloc.0} instruction described in \ref{sec:desc_stloc0_ldloc0} and its semantics presented in formula \ref{eq:semantics_stloc0}. The implementation can be understood as follows:
+
+
+\begin{lstlisting}[
+	caption={The \texttt{VisitSetLocal0Instruction} method.},
+	label={lst:visitstloc0}
+]
+protected override void VisitStoreLocal0Instruction(StoreLocal0Instruction instruction)
+{
+	var localType = ControlState.Locals.GetLocalType(null, 0);
+	ControlState.EvaluationStack.PopValue(_program, localType, out var value);
+	ControlState.Locals.Store(null, 0, value);
+
+	ControlState.MoveToNextInstruction();
+}
+\end{lstlisting}
 
 \clearpage
 
