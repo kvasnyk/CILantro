@@ -39,8 +39,8 @@
 	\langle#1, #2, #3, #4, #5\rangle
 }
 
-\newcommand{\ipointsto}[2] {
-	#1 \nearrow \texttt{#2}
+\newcommand{\ipointsto}[3] {
+	#1 \nearrow \texttt{#2} \text{ } #3
 }
 
 \newcommand{\sval}[2] {
@@ -341,8 +341,6 @@ There are several similar instructions provided by the \acrshort{cil}: \texttt{s
 }
 \end{lstlisting}
 
-\subsubsection{{\#\#\# TO DO: PRZYKLADY UZYCIA INNYCH INSTRUKCJI \#\#\#}}
-
 \clearpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -577,6 +575,26 @@ This section follows the informal descriptions contained in \ref{sec:instruction
 \end{equation}
 
 \begin{equation}
+\label{eq:semantics_ldci4s}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot \sval{v}{int32}}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldc.i4.s}{v}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldci4}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot \sval{v}{int32}}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldc.i4}{v}}
+\end{equation}
+
+\begin{equation}
 \label{eq:semantics_stloc0}
 	\infer{
 		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
@@ -614,6 +632,26 @@ This section follows the informal descriptions contained in \ref{sec:instruction
 		\gamma \cdot \mstate{I_{n+1}}{S}{M}{\setarrayitem{L}{3}{v}}{A}, \eta
 	}
 	{\ipointsto{I_n}{stloc.3}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_stlocs}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{\setarrayitem{L}{i}{v}}{A}, \eta
+	}
+	{\ipointsto{I_n}{stloc.s}{i}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_stloc}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{\setarrayitem{L}{i}{v}}{A}, \eta
+	}
+	{\ipointsto{I_n}{stloc}{i}}
 \end{equation}
 
 \begin{equation}
@@ -656,7 +694,55 @@ This section follows the informal descriptions contained in \ref{sec:instruction
 	{\ipointsto{I_n}{ldloc.3}}
 \end{equation}
 
-\#\#\# TO DO: SEMANTYKA INSTRUKCJI stloc.s, stloc, ldloc.s, ldloc \#\#\#
+\begin{equation}
+\label{eq:semantics_ldlocs}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot L(i)}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldloc.s}{i}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldloc}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot L(i)}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldloc}{i}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_nop}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{nop}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_dup}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot v \cdot v}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{dup}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_pop}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{pop}}
+\end{equation}
 
 \clearpage
 
@@ -680,7 +766,11 @@ The main part of this thesis is the interpreter which reads a \acrshort{cil} sou
 
 \subsection{Technical background}
 
-In order to focus on the semantics of the \acrshort{cil} and not on data types, the interpreter has been written in \texttt{C\#} which is itself compiled into the \acrshort{cil} so it uses the same type system and the same external assemblies. 
+In order to focus on the semantics of the \acrshort{cil} and not on data types, the interpreter has been written in \texttt{C\#} which is itself compiled into the \acrshort{cil} so it uses the same type system and the same external assemblies. The source code of the interpreter can be found under the following link:
+
+\begin{center}
+	\href{https://github.com/kvasnyk/CILantro/tree/master/CILantro}{https://github.com/kvasnyk/CILantro/tree/master/CILantro}.
+\end{center}
 
 The interpreter is a console application based on the \texttt{.NET Framework 4.7.2} so it can be executed in \texttt{Windows} operating system with the appropriate framework installed. The program can be run with the following command line argument:
 \begin{itemize}
@@ -699,113 +789,54 @@ Before interpreting the provided source code, the application checks if the code
 
 \subsection{The actual interpreter}
 
-In order to implement the interpreter, a couple of concepts described before needed to be modelled in \texttt{C\#}. For example, the \texttt{CilExecutionState} class is responsible for the execution state explained in \ref{eq:executionState} and can be seen in listing \ref{lst:executionState}. There are other classes which have been implemented by analogy, inter alia:
+In order to implement the interpreter, a couple of concepts described before needed to be modelled in \texttt{C\#}. While the semantics is an abstract description of the language that defines each instruction as a transformation of the execution state, it does not provide any details on how to implement the transformations or the execution state itself. This very chapter describes various approaches that could be followed to reflect some elements of the semantics in the implementation of an interpreter.
+
+\subsubsection{The evaluation stack}
+
+Potentially, the evaluation stack could be implemented as a simple stack that provides methods to pop and push values. There is the \texttt{Stack} class in the \texttt{C\#} standard library that meets these requirements. However, there are a couple of problems that need to be resolved while using such a model:
 \begin{itemize}
-	\item{\texttt{CilControlState},}
-	\item{\texttt{CilMethodState},}
-	\item{\texttt{CilEvaluationStack}.}
+	\item{many \acrshort{cil} instructions require more than one value to be popped or pushed at the same time;}
+	\item{the evaluation stack can only operate on a very limited set of types;}
+	\item{the \acrshort{cil} requires specific conversions between the standard types and the stack types while pushing or popping values.}
 \end{itemize}
 
-\begin{lstlisting}[
-	caption={The \texttt{CilExecutionState} class.},
-	label={lst:executionState}
-]
-public class CilExecutionState
-{
-	public CilControlState ControlState { get; }
+In order to avoid such problems, the evaluation stack has been implemented as a new class containing a private \texttt{Stack} instance. The class provides a number of useful \textit{pop} and \textit{push} methods that can operate on the limited set of stack types as well as other standard types. While calling a method, all the required conversions are made if possible or an exception is thrown. Additionally, the \texttt{CilEvaluationStack} class allows to call a method that pops or pushes several values at the same type. The source code of the class can be seen in the repository, under the following path: 
+\begin{center}
+\href{https://github.com/kvasnyk/CILantro/blob/master/CILantro/CILantro/Interpreting/State/CilEvaluationStack.cs}{\texttt{/CILantro/Interpreting/State/CilEvaluationStack.cs}}.
+\end{center}
 
-	public CilManagedMemory ManagedMemory { get; }
+\subsubsection{The managed memory}
 
-	public CilExecutionState(CilControlState controlState, CilManagedMemory managedMemory)
-	{
-		ControlState = controlState;
-		ManagedMemory = managedMemory;
-	}
-}
-\end{lstlisting}
+The semantics operates on a set of managed heaps. This thesis does not go into the detail and collectively treats all the managed heaps as \textit{the managed memory}. Ideally, the managed memory could be implemented by directly using the unmanaged memory. Such a solution is undoubtedly the most flexible and the most desired while implementing any interpreter.
+
+Nevertheless, operating on the unmanaged memory might be really challenging using \texttt{C\#} as it is based on the managed memory itself. Alternatively, a simpler approach can be adopted - the managed memory can be simply simulated as a dictionary mapping addresses to objects. Using such an approach has its serious consequences - no unmanaged memory operations are allowed and the managed memory depends on the \texttt{C\#} managed memory.
+
+As this thesis does not focus on the managed memory but on the semantics of the \acrshort{cil}, the managed memory has been implemented using the simpler method described above. The source code of the \texttt{CilDictionaryManagedMemory} can be found in the repository, under the path:
+\begin{center}
+	\href{https://github.com/kvasnyk/CILantro/blob/master/CILantro/CILantro/Interpreting/Memory/CilDictionaryManagedMemory.cs}{/CILantro/Interpreting/Memory/CilDictionaryManagedMemory.cs}
+\end{center}
+
+However, in order to make the implementation easy to change, there is an abstract class \texttt{CilManagedMemory} that could be potentially used to implement the managed memory in any other way, including the desired solution that involves the unmanaged memory.
+
+\subsubsection{The state arrays}
+
+There are 2 similar arrays included in a single method state: the local variable array and the argument array. They cannot be implemented as standard arrays as their elements must be accessible by a local variable name or an argument name respectively. In order to fulfil this criterion, the interpreter uses the \texttt{CilOrderedDictionary} class. It bases on the \texttt{OrderedDitionary} class from the \texttt{C\#} standard library that allows to access its elements by an index as well as a name. The class can be found in the repository, under the following path:
+\begin{center}
+	\href{https://github.com/kvasnyk/CILantro/blob/master/CILantro/CILantro/Interpreting/State/CilOrderedDictionary.cs}{/CILantro/Interpreting/State/CilOrderedDictionary.cs}
+\end{center}
 
 \subsubsection{The visitor}
 \label{sec:visitor}
 
 Since the semantics presented in \ref{sec:semantics} bases on transformations of the execution state, the same concept has been used to implement the interpreter. A single transformation of the state always depends on the current instruction pointer so the process of interpreting can be thought as visiting various instructions presented in the abstract syntax tree. To implement such a behaviour, a design pattern called \textit{Visitor} has been used. The pattern allows to write a new operation for each element of an object structure \cite{designPatterns}.
 
-\texttt{CilInstructionsVisitor} shown in listing \ref{lst:visitor} is an abstract class which implements the Visitor design pattern. In order to make its implementation reusable, the class does not decide what instruction should be visited next. Instead, an abstract method \texttt{GetNextInstruction} is used. As the \acrshort{cil} instruction set contains around 200 instructions, the visitor itself has been split up into several smaller classes (called subvisitors) responsible for visiting instructions of different types. Each instruction has its corresponding abstract method in the subvisitors set that is called by the main \texttt{Visit} method once an instruction of the appropriate type is going to be visited.
+\texttt{CilInstructionsVisitor} is an abstract class which implements the Visitor design pattern. Its source code can be found in the repository, under the following path:
+\begin{center}
+\href{https://github.com/kvasnyk/CILantro/blob/master/CILantro/CILantro/Visitors/CilInstructionsVisitor.cs}{\texttt{/CILantro/Visitors/CilInstructionsVisitor.cs}}.
+\end{center}
+In order to make its implementation reusable, the class does not decide what instruction should be visited next. Instead, an abstract method \texttt{GetNextInstruction} is used. As the \acrshort{cil} instruction set contains around 200 instructions, the visitor itself has been split up into several smaller classes (called subvisitors) responsible for visiting instructions of different types. Each instruction has its corresponding abstract method in the subvisitors set that is called by the main \texttt{Visit} method once an instruction of the appropriate type is going to be visited.
 
 Using such an abstract implementation allows to implement different types of visitors for the abstract syntax tree. For now, there is only one implementation - the \texttt{CilInterpreterInstructionsVisitor} class and its subvisitors. This implementation uses the execution state to implement the \texttt{GetNextInstruction} method. To be precise, the instruction pointer of the top method state is used to determine the next instruction to visit.
-
-\begin{lstlisting}[
-	caption={The \texttt{CilInstructionsVisitor} class.},
-	label={lst:visitor}
-]
-public abstract class CilInstructionsVisitor
-{
-	protected abstract InstructionNoneVisitor InstructionNoneVisitor { get; }
-
-	protected abstract InstructionMethodVisitor InstructionMethodVisitor { get; }
-
-	protected abstract InstructionStringVisitor InstructionStringVisitor { get; }
-
-	protected abstract InstructionIVisitor InstructionIVisitor { get; }
-
-	protected abstract InstructionTypeVisitor InstructionTypeVisitor { get; }
-
-	protected abstract InstructionVarVisitor InstructionVarVisitor { get; }
-
-	protected abstract InstructionRVisitor InstructionRVisitor { get; }
-
-	protected abstract InstructionBrVisitor InstructionBrVisitor { get; }
-
-	protected abstract InstructionFieldVisitor InstructionFieldVisitor { get; }
-
-	protected abstract InstructionI8Visitor InstructionI8Visitor { get; }
-
-	protected abstract InstructionSwitchVisitor InstructionSwitchVisitor { get; }
-
-	protected abstract InstructionTokVisitor InstructionTokVisitor { get; }
-
-	public void Visit()
-	{
-		var nextInstruction = GetNextInstruction();
-		while (nextInstruction != null)
-		{
-			VisitInstruction(nextInstruction);
-			nextInstruction = GetNextInstruction();
-		}
-	}
-
-	protected abstract CilInstruction GetNextInstruction();
-
-	private void VisitInstruction(CilInstruction instruction)
-	{
-		if (instruction is CilInstructionNone instructionNone)
-			InstructionNoneVisitor.VisitInstructionNone(instructionNone);
-		else if (instruction is CilInstructionMethod instructionMethod)
-			InstructionMethodVisitor.VisitInstructionMethod(instructionMethod);
-		else if (instruction is CilInstructionString instructionString)
-			InstructionStringVisitor.VisitInstructionString(instructionString);
-		else if (instruction is CilInstructionI instructionI)
-			InstructionIVisitor.VisitInstructionI(instructionI);
-		else if (instruction is CilInstructionType instructionType)
-			InstructionTypeVisitor.VisitInstructionType(instructionType);
-		else if (instruction is CilInstructionVar instructionVar)
-			InstructionVarVisitor.VisitInstructionVar(instructionVar);
-		else if (instruction is CilInstructionR instructionR)
-			InstructionRVisitor.VisitInstructionR(instructionR);
-		else if (instruction is CilInstructionBr instructionBr)
-			InstructionBrVisitor.VisitInstructionBr(instructionBr);
-		else if (instruction is CilInstructionField instructionField)
-			InstructionFieldVisitor.VisitInstructionField(instructionField);
-		else if (instruction is CilInstructionI8 instructionI8)
-			InstructionI8Visitor.VisitInstructionI8(instructionI8);
-		else if (instruction is CilInstructionSwitch instructionSwitch)
-			InstructionSwitchVisitor.VisitInstructionSwitch(instructionSwitch);
-		else if (instruction is CilInstructionTok instructionTok)
-			InstructionTokVisitor.VisitInstructionTok(instructionTok);
-		else
-			throw new ArgumentException($"CIL instruction cannot be recognized: '{instruction.ToString()}'.");
-	}
-}
-\end{lstlisting}
 
 \subsection{Examples}
 
@@ -875,7 +906,7 @@ Writing an interpreter of such a complex programming language as the \acrshort{c
 The process is illustrated in figure \ref{fig:process}.
 
 \begin{figure}
-	\includegraphics[width=0.75\textwidth]{process.png}
+	\includegraphics[width=1\textwidth]{process.jpg}
     \centering
     \caption{The process of implementing the interpreter.}
     \label{fig:process}
@@ -933,15 +964,42 @@ The tests can be also listed, ordered and filtered. Each test is presented as a 
 
 \subsubsection{Managing a single test}
 
-\#\#\# TO DO: OPIS I SCREENSHOT \#\#\#
+The details of each test defined in the application can be shown on a separate page. The page is divided into the following tabs:
+\begin{itemize}
+	\item{\texttt{OVERVIEW} - it shows some basic information about the test such as its category and subcategory};
+	\item{\texttt{IL SOURCES} - allows the user to display and regenerate the main \texttt{.il} file containing the \acrshort{cil} source code of the test};
+	\item{\texttt{EXE} - can be used to compile the source code into an executable file required to execute the test};
+	\item{\texttt{I/O} - used for defining example inputs and the pattern of input accepted by the test}.
+\end{itemize}
+
+Above the tabs, there is an action area that allows the user to:
+\begin{itemize}
+	\item{run the original program, the interpreter or both at the same time};
+	\item{schedule a test run for the test};
+	\item{mark the test as supported or non-supported}.
+\end{itemize}
+
+Figure \ref{fig:tools_test} shows a single test page while figure \ref{fig:tools_run_both} presents an example of executing both the original program and the interpreter using the comparison view.
+
+\begin{figure}
+	\includegraphics[width=1\textwidth]{tools_test.png}
+    \centering
+    \caption{The environment - an example test page.}
+    \label{fig:tools_test}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=1\textwidth]{tools_run_both.png}
+    \centering
+    \caption{The environment - running a test in the comparison view.}
+    \label{fig:tools_run_both}
+\end{figure}
 
 \subsubsection{Managing test runs}
 
 The test runs can be listed, ordered and filter. A single run is represented by a card of a specific colour. If a card is orange, the corresponding run is being executed at the moment. If a card is red, the run has already ended but its result is wrong. If a card is green, the related run has ended and the result is correct. Each run can be also restarted and the user can display its details.
 
-The page contains two buttons that start a single test run including all the well-configured tests. There are two types of runs: quick and full. A quick run executes each test using only 3 random inputs while a full run uses 100 random inputs for each test. Regardless of the type, each run also executes the tests using the inputs defined in the tools.
-
-The \textit{Test runs} page is shown in figure \ref{fig:tools_runs}.
+The page contains two buttons that start a single test run including all the well-configured tests. There are two types of runs: quick and full. A quick run executes each test using only 3 random inputs while a full run uses 100 random inputs for each test. Regardless of the type, each run also executes the tests using the inputs defined in the tools. The \textit{Test runs} page is shown in figure \ref{fig:tools_runs}.
 
 \begin{figure}
 	\includegraphics[width=1\textwidth]{tools_runs.png}
@@ -952,7 +1010,21 @@ The \textit{Test runs} page is shown in figure \ref{fig:tools_runs}.
 
 \subsubsection{Managing a single test run}
 
-\#\#\# TO DO: OPIS I SCREENSHOT \#\#\#
+Once a test run is finished, its details can be viewed on a separate page. The page contains a card for each test that has been executed within the test run. A card is red if the corresponding test ended with a wrong result and green otherwise. The environment allows the user to open a card and access the details of the executed test. An open card shows a table where each input is represented by a single row containing icons that show the result of each of the following execution phases:
+\begin{itemize}
+	\item{generating input},
+	\item{executing the original program},
+	\item{executing the interpreter},
+	\item{comparing the results}.
+\end{itemize}
+Additionally, each row can be also opened in order to see the input and the outputs of the original program and the interpreter. An example of the functionality is shown in figure \ref{fig:tools_run}.
+
+\begin{figure}
+	\includegraphics[width=1\textwidth]{tools_run.png}
+    \centering
+    \caption{The environment - the \textit{Test run} functionality.}
+    \label{fig:tools_run}
+\end{figure}
 
 \clearpage
 

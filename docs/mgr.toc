@@ -10,7 +10,6 @@
 \contentsline {subsection}{\numberline {2.5}Examples}{10}{subsection.2.5}% 
 \contentsline {subsubsection}{\numberline {2.5.1}\texttt {ldc.i4.0}}{10}{subsubsection.2.5.1}% 
 \contentsline {subsubsection}{\numberline {2.5.2}\texttt {stloc.0} and \texttt {ldloc.0}}{11}{subsubsection.2.5.2}% 
-\contentsline {subsubsection}{\numberline {2.5.3}{\#\#\# TO DO: PRZYKLADY UZYCIA INNYCH INSTRUKCJI \#\#\#}}{12}{subsubsection.2.5.3}% 
 \contentsline {section}{\numberline {3}The semantics}{13}{section.3}% 
 \contentsline {subsection}{\numberline {3.1}The global state}{13}{subsection.3.1}% 
 \contentsline {subsection}{\numberline {3.2}The execution state}{13}{subsection.3.2}% 
@@ -23,18 +22,21 @@
 \contentsline {subsection}{\numberline {4.1}The lexer and the parser}{18}{subsection.4.1}% 
 \contentsline {subsection}{\numberline {4.2}Technical background}{18}{subsection.4.2}% 
 \contentsline {subsection}{\numberline {4.3}Detection of non-supported features}{18}{subsection.4.3}% 
-\contentsline {subsection}{\numberline {4.4}The actual interpreter}{18}{subsection.4.4}% 
-\contentsline {subsubsection}{\numberline {4.4.1}The visitor}{19}{subsubsection.4.4.1}% 
-\contentsline {subsection}{\numberline {4.5}Examples}{22}{subsection.4.5}% 
-\contentsline {subsubsection}{\numberline {4.5.1}\texttt {ldc.i4.0}}{22}{subsubsection.4.5.1}% 
-\contentsline {subsubsection}{\numberline {4.5.2}\texttt {stloc.0}}{22}{subsubsection.4.5.2}% 
-\contentsline {section}{\numberline {5}Testing}{24}{section.5}% 
+\contentsline {subsection}{\numberline {4.4}The actual interpreter}{19}{subsection.4.4}% 
+\contentsline {subsubsection}{\numberline {4.4.1}The evaluation stack}{19}{subsubsection.4.4.1}% 
+\contentsline {subsubsection}{\numberline {4.4.2}The managed memory}{19}{subsubsection.4.4.2}% 
+\contentsline {subsubsection}{\numberline {4.4.3}The state arrays}{20}{subsubsection.4.4.3}% 
+\contentsline {subsubsection}{\numberline {4.4.4}The visitor}{20}{subsubsection.4.4.4}% 
+\contentsline {subsection}{\numberline {4.5}Examples}{21}{subsection.4.5}% 
+\contentsline {subsubsection}{\numberline {4.5.1}\texttt {ldc.i4.0}}{21}{subsubsection.4.5.1}% 
+\contentsline {subsubsection}{\numberline {4.5.2}\texttt {stloc.0}}{21}{subsubsection.4.5.2}% 
+\contentsline {section}{\numberline {5}Testing}{23}{section.5}% 
 \contentsline {subsection}{\numberline {5.1}The tests}{24}{subsection.5.1}% 
-\contentsline {subsection}{\numberline {5.2}The environment}{25}{subsection.5.2}% 
-\contentsline {subsubsection}{\numberline {5.2.1}Finding tests}{25}{subsubsection.5.2.1}% 
-\contentsline {subsubsection}{\numberline {5.2.2}Managing categories}{25}{subsubsection.5.2.2}% 
-\contentsline {subsubsection}{\numberline {5.2.3}Managing tests}{27}{subsubsection.5.2.3}% 
-\contentsline {subsubsection}{\numberline {5.2.4}Managing a single test}{27}{subsubsection.5.2.4}% 
+\contentsline {subsection}{\numberline {5.2}The environment}{24}{subsection.5.2}% 
+\contentsline {subsubsection}{\numberline {5.2.1}Finding tests}{24}{subsubsection.5.2.1}% 
+\contentsline {subsubsection}{\numberline {5.2.2}Managing categories}{24}{subsubsection.5.2.2}% 
+\contentsline {subsubsection}{\numberline {5.2.3}Managing tests}{26}{subsubsection.5.2.3}% 
+\contentsline {subsubsection}{\numberline {5.2.4}Managing a single test}{26}{subsubsection.5.2.4}% 
 \contentsline {subsubsection}{\numberline {5.2.5}Managing test runs}{27}{subsubsection.5.2.5}% 
-\contentsline {subsubsection}{\numberline {5.2.6}Managing a single test run}{28}{subsubsection.5.2.6}% 
-\contentsline {section}{\numberline {6}Limitations}{29}{section.6}% 
+\contentsline {subsubsection}{\numberline {5.2.6}Managing a single test run}{29}{subsubsection.5.2.6}% 
+\contentsline {section}{\numberline {6}Limitations}{30}{section.6}% 

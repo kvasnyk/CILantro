@@ -60,7 +60,6 @@
 \newlabel{sec:desc_stloc0_ldloc0}{{2.5.2}{11}{\texttt {stloc.0} and \texttt {ldloc.0}}{subsubsection.2.5.2}{}}
 \newlabel{lst:stloc0_ldloc0}{{2.2}{11}{Usage of the \texttt {stloc.0} and \texttt {ldloc.0} instructions}{lstlisting.2.2}{}}
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {2.2}Usage of the \texttt  {stloc.0} and \texttt  {ldloc.0} instructions.}{11}{lstlisting.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.5.3}{\#\#\# TO DO: PRZYKLADY UZYCIA INNYCH INSTRUKCJI \#\#\#}}{12}{subsubsection.2.5.3}\protected@file@percent }
 \citation{ecmaStandard}
 \citation{zychlaThesis}
 \citation{wierzbicki}
@@ -73,11 +72,11 @@
 \newlabel{sec:executionState}{{3.2}{13}{The execution state}{subsection.3.2}{}}
 \newlabel{eq:executionState}{{3.4}{13}{The execution state}{equation.3.4}{}}
 \newlabel{eq:simpleSemantics}{{3.5}{13}{The execution state}{equation.3.5}{}}
-\citation{zychlaThesis}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.3}The method state}{14}{subsection.3.3}\protected@file@percent }
 \newlabel{eq:methodState}{{3.6}{14}{The method state}{equation.3.6}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.4}The final syntax}{14}{subsection.3.4}\protected@file@percent }
 \newlabel{eq:finalSyntax}{{3.7}{14}{The final syntax}{equation.3.7}{}}
+\citation{zychlaThesis}
 \citation{zychlaThesis}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Instruction pointers}{15}{subsection.3.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.6}Arrays}{15}{subsection.3.6}\protected@file@percent }
@@ -95,53 +94,67 @@
 \newlabel{eq:semantics_ldci48}{{3.19}{16}{Examples}{equation.3.19}{}}
 \newlabel{eq:semantics_ldci4m1}{{3.20}{16}{Examples}{equation.3.20}{}}
 \newlabel{eq:semantics_ldci4M1}{{3.21}{16}{Examples}{equation.3.21}{}}
-\newlabel{eq:semantics_stloc0}{{3.22}{16}{Examples}{equation.3.22}{}}
-\newlabel{eq:semantics_stloc1}{{3.23}{16}{Examples}{equation.3.23}{}}
-\newlabel{eq:semantics_stloc2}{{3.24}{16}{Examples}{equation.3.24}{}}
-\newlabel{eq:semantics_stloc3}{{3.25}{16}{Examples}{equation.3.25}{}}
-\newlabel{eq:semantics_ldloc0}{{3.26}{16}{Examples}{equation.3.26}{}}
-\newlabel{eq:semantics_ldloc1}{{3.27}{16}{Examples}{equation.3.27}{}}
-\newlabel{eq:semantics_ldloc2}{{3.28}{17}{Examples}{equation.3.28}{}}
-\newlabel{eq:semantics_ldloc3}{{3.29}{17}{Examples}{equation.3.29}{}}
+\newlabel{eq:semantics_ldci4s}{{3.22}{16}{Examples}{equation.3.22}{}}
+\newlabel{eq:semantics_ldci4}{{3.23}{16}{Examples}{equation.3.23}{}}
+\newlabel{eq:semantics_stloc0}{{3.24}{16}{Examples}{equation.3.24}{}}
+\newlabel{eq:semantics_stloc1}{{3.25}{16}{Examples}{equation.3.25}{}}
+\newlabel{eq:semantics_stloc2}{{3.26}{16}{Examples}{equation.3.26}{}}
+\newlabel{eq:semantics_stloc3}{{3.27}{16}{Examples}{equation.3.27}{}}
+\newlabel{eq:semantics_stlocs}{{3.28}{17}{Examples}{equation.3.28}{}}
+\newlabel{eq:semantics_stloc}{{3.29}{17}{Examples}{equation.3.29}{}}
+\newlabel{eq:semantics_ldloc0}{{3.30}{17}{Examples}{equation.3.30}{}}
+\newlabel{eq:semantics_ldloc1}{{3.31}{17}{Examples}{equation.3.31}{}}
+\newlabel{eq:semantics_ldloc2}{{3.32}{17}{Examples}{equation.3.32}{}}
+\newlabel{eq:semantics_ldloc3}{{3.33}{17}{Examples}{equation.3.33}{}}
+\newlabel{eq:semantics_ldlocs}{{3.34}{17}{Examples}{equation.3.34}{}}
+\newlabel{eq:semantics_ldloc}{{3.35}{17}{Examples}{equation.3.35}{}}
+\newlabel{eq:semantics_nop}{{3.36}{17}{Examples}{equation.3.36}{}}
+\newlabel{eq:semantics_dup}{{3.37}{17}{Examples}{equation.3.37}{}}
+\newlabel{eq:semantics_pop}{{3.38}{17}{Examples}{equation.3.38}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {4}The interpreter}{18}{section.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}The lexer and the parser}{18}{subsection.4.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Technical background}{18}{subsection.4.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Detection of non-supported features}{18}{subsection.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}The actual interpreter}{18}{subsection.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}The actual interpreter}{19}{subsection.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.1}The evaluation stack}{19}{subsubsection.4.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.2}The managed memory}{19}{subsubsection.4.4.2}\protected@file@percent }
 \citation{designPatterns}
-\newlabel{lst:executionState}{{4.1}{19}{The \texttt {CilExecutionState} class}{lstlisting.4.1}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.1}The \texttt  {CilExecutionState} class.}{19}{lstlisting.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.1}The visitor}{19}{subsubsection.4.4.1}\protected@file@percent }
-\newlabel{sec:visitor}{{4.4.1}{19}{The visitor}{subsubsection.4.4.1}{}}
-\newlabel{lst:visitor}{{4.2}{20}{The \texttt {CilInstructionsVisitor} class}{lstlisting.4.2}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.2}The \texttt  {CilInstructionsVisitor} class.}{20}{lstlisting.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Examples}{22}{subsection.4.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.1}\texttt  {ldc.i4.0}}{22}{subsubsection.4.5.1}\protected@file@percent }
-\newlabel{lst:visitldci40}{{4.3}{22}{The \texttt {VisitLoadConstI40Intruction} method}{lstlisting.4.3}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.3}The \texttt  {VisitLoadConstI40Intruction} method.}{22}{lstlisting.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.2}\texttt  {stloc.0}}{22}{subsubsection.4.5.2}\protected@file@percent }
-\newlabel{lst:visitstloc0}{{4.4}{23}{The \texttt {VisitSetLocal0Instruction} method}{lstlisting.4.4}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.4}The \texttt  {VisitSetLocal0Instruction} method.}{23}{lstlisting.4.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces The process of implementing the interpreter.}}{24}{figure.2}\protected@file@percent }
-\newlabel{fig:process}{{2}{24}{The process of implementing the interpreter}{figure.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Testing}{24}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.3}The state arrays}{20}{subsubsection.4.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.4}The visitor}{20}{subsubsection.4.4.4}\protected@file@percent }
+\newlabel{sec:visitor}{{4.4.4}{20}{The visitor}{subsubsection.4.4.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Examples}{21}{subsection.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.1}\texttt  {ldc.i4.0}}{21}{subsubsection.4.5.1}\protected@file@percent }
+\newlabel{lst:visitldci40}{{4.1}{21}{The \texttt {VisitLoadConstI40Intruction} method}{lstlisting.4.1}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.1}The \texttt  {VisitLoadConstI40Intruction} method.}{21}{lstlisting.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.2}\texttt  {stloc.0}}{21}{subsubsection.4.5.2}\protected@file@percent }
+\newlabel{lst:visitstloc0}{{4.2}{22}{The \texttt {VisitSetLocal0Instruction} method}{lstlisting.4.2}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.2}The \texttt  {VisitSetLocal0Instruction} method.}{22}{lstlisting.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces The process of implementing the interpreter.}}{23}{figure.2}\protected@file@percent }
+\newlabel{fig:process}{{2}{23}{The process of implementing the interpreter}{figure.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Testing}{23}{section.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.1}The tests}{24}{subsection.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}The environment}{25}{subsection.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Finding tests}{25}{subsubsection.5.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}Managing categories}{25}{subsubsection.5.2.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces The environment - the \textit  {Find tests} functionality.}}{26}{figure.3}\protected@file@percent }
-\newlabel{fig:tools_find}{{3}{26}{The environment - the \textit {Find tests} functionality}{figure.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces The environment - the \textit  {Categories} page.}}{26}{figure.4}\protected@file@percent }
-\newlabel{fig:tools_categories}{{4}{26}{The environment - the \textit {Categories} page}{figure.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces The environment - the \textit  {Tests} page.}}{27}{figure.5}\protected@file@percent }
-\newlabel{fig:tools_tests}{{5}{27}{The environment - the \textit {Tests} page}{figure.5}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.3}Managing tests}{27}{subsubsection.5.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.4}Managing a single test}{27}{subsubsection.5.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}The environment}{24}{subsection.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Finding tests}{24}{subsubsection.5.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}Managing categories}{24}{subsubsection.5.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces The environment - the \textit  {Find tests} functionality.}}{25}{figure.3}\protected@file@percent }
+\newlabel{fig:tools_find}{{3}{25}{The environment - the \textit {Find tests} functionality}{figure.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces The environment - the \textit  {Categories} page.}}{25}{figure.4}\protected@file@percent }
+\newlabel{fig:tools_categories}{{4}{25}{The environment - the \textit {Categories} page}{figure.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces The environment - the \textit  {Tests} page.}}{26}{figure.5}\protected@file@percent }
+\newlabel{fig:tools_tests}{{5}{26}{The environment - the \textit {Tests} page}{figure.5}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.3}Managing tests}{26}{subsubsection.5.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.4}Managing a single test}{26}{subsubsection.5.2.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces The environment - an example test page.}}{27}{figure.6}\protected@file@percent }
+\newlabel{fig:tools_test}{{6}{27}{The environment - an example test page}{figure.6}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.5}Managing test runs}{27}{subsubsection.5.2.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces The environment - the \textit  {Test runs} page.}}{28}{figure.6}\protected@file@percent }
-\newlabel{fig:tools_runs}{{6}{28}{The environment - the \textit {Test runs} page}{figure.6}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.6}Managing a single test run}{28}{subsubsection.5.2.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6}Limitations}{29}{section.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces The environment - running a test in the comparison view.}}{28}{figure.7}\protected@file@percent }
+\newlabel{fig:tools_run_both}{{7}{28}{The environment - running a test in the comparison view}{figure.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces The environment - the \textit  {Test runs} page.}}{28}{figure.8}\protected@file@percent }
+\newlabel{fig:tools_runs}{{8}{28}{The environment - the \textit {Test runs} page}{figure.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces The environment - the \textit  {Test run} functionality.}}{29}{figure.9}\protected@file@percent }
+\newlabel{fig:tools_run}{{9}{29}{The environment - the \textit {Test run} functionality}{figure.9}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.6}Managing a single test run}{29}{subsubsection.5.2.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Limitations}{30}{section.6}\protected@file@percent }
 \bibdata{mgr}
 \bibcite{isoStandard}{1}
 \bibcite{ecmaStandard}{2}
