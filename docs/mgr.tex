@@ -9,6 +9,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{proof}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \graphicspath{ {./img/} }
 \numberwithin{equation}{section}
 
@@ -40,7 +41,7 @@
 }
 
 \newcommand{\ipointsto}[3] {
-	#1 \nearrow \texttt{#2} \text{ } #3
+	#1 \leadsto \texttt{#2} \text{ } #3
 }
 
 \newcommand{\sval}[2] {
@@ -354,7 +355,7 @@ There are several similar instructions provided by the \acrshort{cil}: \texttt{s
 \section{The semantics}
 \label{sec:semantics}
 
-As described in \ref{sec:global_state}, an instruction can be thought as a description of how to manipulate the current global state. Examples of such informal descriptions can be found in \ref{sec:instruction_examples}. \cite{ecmaStandard} presents further examples but it does not provide any formal way to describe the \acrshort{cil} instructions and their semantics. Thus, one of the goals of the thesis is to introduce a formal, mathematical model to represent the semantics of the \acrshort{cil}.
+As described in \ref{sec:global_state}, an instruction can be thought as a description of how to manipulate the current global state. Examples of such informal descriptions can be found in \ref{sec:instruction_examples}. \cite{ecmaStandard} presents further examples but it does not provide any formal way to describe the \acrshort{cil} instructions and their semantics. Furthermore, the formal \acrshort{cil} semantics cannot be easily found among other sources. Thus, one of the goals of the thesis is to introduce a formal, mathematical model to represent the semantics of the \acrshort{cil}.
 
 The semantics presented below is patterned upon the example of the \acrshort{cil} semantics presented in \cite{zychlaThesis}. However, this thesis attempts to simplify it and to represent the semantics on a higher level of abstraction.
 
@@ -758,11 +759,32 @@ This section follows the informal descriptions contained in \ref{sec:instruction
 
 The main part of this thesis is the interpreter which reads a \acrshort{cil} source code and is able to execute it.
 
-\#\#\# TO DO: KILKA ZDAN / AKAPITOW O TEORII INTERPRETACJI NA PODSTAWIE ZRODEL \#\#\#
+The process of interpreting source code is commonly split up into several phases \cite{compilerDesign}:
+\begin{itemize}
+	\item{\textit{Lexical analysis} is the initial step of processing the input source code. It reads the text and divides it into specific tokens.}
+	\item{\textit{Syntax analysis} or \textit{parsing} - this step produces an \acrshort{ast} based on the list of tokens.}
+	\item{\textit{Interpreting} - the last phase processes the \acrshort{ast} in order to evaluate expressions and execute statements.}
+\end{itemize}
 
-\subsection{The lexer and the parser}
-
-\#\#\# TO DO: KILKA ZDAN O GRAMATYCE, TOKENIZACJI, I PARSOWANIU KODU DO AST \#\#\#
+Since the thesis focuses mainly on the last step, the interpreter bases on an external library called \texttt{Irony} which allows to tokenise and parse the input source code in a very straightforward way. The library requires a definition of a context-free grammar that should be used to process the input code. An almost complete grammar of the \acrshort{cil} is provided in \cite{ecmaStandard} thus it was used as a sample. For instance, code listing \ref{lst:grammar} presents a rule implemented within the interpreter that corresponds to the one defined in the original grammar:
+\begin{center}
+\texttt{name1: id
+| DOTTEDNAME
+| name1 '.' name1;}
+\end{center}
+\begin{lstlisting}[
+	caption={An example of the grammar definition within the interpreter.},
+	label={lst:grammar}
+]
+name1.Rule =
+	id |
+	DOTTEDNAME |
+	name1 + _(".") + name1;
+\end{lstlisting}
+The whole grammar implementation can be found in the repository, under the path:
+\begin{center}
+	\href{https://github.com/kvasnyk/CILantro/blob/master/CILantro/CILantro/Parsing/CilGrammar.cs}{\texttt{/CILantro/Parsing/CilGrammar.cs}}.
+\end{center}
 
 \subsection{Technical background}
 
@@ -813,7 +835,7 @@ Nevertheless, operating on the unmanaged memory might be really challenging usin
 
 As this thesis does not focus on the managed memory but on the semantics of the \acrshort{cil}, the managed memory has been implemented using the simpler method described above. The source code of the \texttt{CilDictionaryManagedMemory} can be found in the repository, under the path:
 \begin{center}
-	\href{https://github.com/kvasnyk/CILantro/blob/master/CILantro/CILantro/Interpreting/Memory/CilDictionaryManagedMemory.cs}{/CILantro/Interpreting/Memory/CilDictionaryManagedMemory.cs}
+	\href{https://github.com/kvasnyk/CILantro/blob/master/CILantro/CILantro/Interpreting/Memory/CilDictionaryManagedMemory.cs}{\texttt{/CILantro/Interpreting/Memory/CilDictionaryManagedMemory.cs}}
 \end{center}
 
 However, in order to make the implementation easy to change, there is an abstract class \texttt{CilManagedMemory} that could be potentially used to implement the managed memory in any other way, including the desired solution that involves the unmanaged memory.
@@ -822,7 +844,7 @@ However, in order to make the implementation easy to change, there is an abstrac
 
 There are 2 similar arrays included in a single method state: the local variable array and the argument array. They cannot be implemented as standard arrays as their elements must be accessible by a local variable name or an argument name respectively. In order to fulfil this criterion, the interpreter uses the \texttt{CilOrderedDictionary} class. It bases on the \texttt{OrderedDitionary} class from the \texttt{C\#} standard library that allows to access its elements by an index as well as a name. The class can be found in the repository, under the following path:
 \begin{center}
-	\href{https://github.com/kvasnyk/CILantro/blob/master/CILantro/CILantro/Interpreting/State/CilOrderedDictionary.cs}{/CILantro/Interpreting/State/CilOrderedDictionary.cs}
+	\href{https://github.com/kvasnyk/CILantro/blob/master/CILantro/CILantro/Interpreting/State/CilOrderedDictionary.cs}{\texttt{/CILantro/Interpreting/State/CilOrderedDictionary.cs}}
 \end{center}
 
 \subsubsection{The visitor}
@@ -924,9 +946,14 @@ Once a test is prepared, it can be executed using the interpreter and the result
 
 Since repeating the process described above manually might be arduous for bigger numbers of tests, a dedicated system was written separately to automate the procedure. The system is hereinafter called \textit{the tools} or \textit{the environment}. It comprises 2 projects:
 \begin{itemize}
-	\item{an \texttt{ASP.NET Core WebAPI} application (the back-end),}
-	\item{a \texttt{React.js} application (the front-end).}
+	\item{a back-end application,}
+	\item{a front-end application.}
 \end{itemize}
+
+The back-end application is built using \texttt{ASP.NET Core} which is a modern framework for building Web APIs and applications \cite{littleAsp}. It provides a set of API actions and socket connections that were designed to handle tests, their categories and executions. The application uses a database to store all the data collected so far.
+
+The front-end application was written in \texttt{Typescript} using \texttt{React.js} which is a popular library created for building user interfaces \cite{learningReact}. It is a single-page application that interacts with users and communicates with the back-end application in order to send or receive data.
+
 The tools provide several functionalities described below.
 
 \subsubsection{Finding tests}

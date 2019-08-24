@@ -19,24 +19,23 @@
 \BOOKMARK [2][-]{subsection.3.6}{Arrays}{section.3}% 19
 \BOOKMARK [2][-]{subsection.3.7}{Examples}{section.3}% 20
 \BOOKMARK [1][-]{section.4}{The interpreter}{}% 21
-\BOOKMARK [2][-]{subsection.4.1}{The lexer and the parser}{section.4}% 22
-\BOOKMARK [2][-]{subsection.4.2}{Technical background}{section.4}% 23
-\BOOKMARK [2][-]{subsection.4.3}{Detection of non-supported features}{section.4}% 24
-\BOOKMARK [2][-]{subsection.4.4}{The actual interpreter}{section.4}% 25
-\BOOKMARK [3][-]{subsubsection.4.4.1}{The evaluation stack}{subsection.4.4}% 26
-\BOOKMARK [3][-]{subsubsection.4.4.2}{The managed memory}{subsection.4.4}% 27
-\BOOKMARK [3][-]{subsubsection.4.4.3}{The state arrays}{subsection.4.4}% 28
-\BOOKMARK [3][-]{subsubsection.4.4.4}{The visitor}{subsection.4.4}% 29
-\BOOKMARK [2][-]{subsection.4.5}{Examples}{section.4}% 30
-\BOOKMARK [3][-]{subsubsection.4.5.1}{ldc.i4.0}{subsection.4.5}% 31
-\BOOKMARK [3][-]{subsubsection.4.5.2}{stloc.0}{subsection.4.5}% 32
-\BOOKMARK [1][-]{section.5}{Testing}{}% 33
-\BOOKMARK [2][-]{subsection.5.1}{The tests}{section.5}% 34
-\BOOKMARK [2][-]{subsection.5.2}{The environment}{section.5}% 35
-\BOOKMARK [3][-]{subsubsection.5.2.1}{Finding tests}{subsection.5.2}% 36
-\BOOKMARK [3][-]{subsubsection.5.2.2}{Managing categories}{subsection.5.2}% 37
-\BOOKMARK [3][-]{subsubsection.5.2.3}{Managing tests}{subsection.5.2}% 38
-\BOOKMARK [3][-]{subsubsection.5.2.4}{Managing a single test}{subsection.5.2}% 39
-\BOOKMARK [3][-]{subsubsection.5.2.5}{Managing test runs}{subsection.5.2}% 40
-\BOOKMARK [3][-]{subsubsection.5.2.6}{Managing a single test run}{subsection.5.2}% 41
-\BOOKMARK [1][-]{section.6}{Limitations}{}% 42
+\BOOKMARK [2][-]{subsection.4.1}{Technical background}{section.4}% 22
+\BOOKMARK [2][-]{subsection.4.2}{Detection of non-supported features}{section.4}% 23
+\BOOKMARK [2][-]{subsection.4.3}{The actual interpreter}{section.4}% 24
+\BOOKMARK [3][-]{subsubsection.4.3.1}{The evaluation stack}{subsection.4.3}% 25
+\BOOKMARK [3][-]{subsubsection.4.3.2}{The managed memory}{subsection.4.3}% 26
+\BOOKMARK [3][-]{subsubsection.4.3.3}{The state arrays}{subsection.4.3}% 27
+\BOOKMARK [3][-]{subsubsection.4.3.4}{The visitor}{subsection.4.3}% 28
+\BOOKMARK [2][-]{subsection.4.4}{Examples}{section.4}% 29
+\BOOKMARK [3][-]{subsubsection.4.4.1}{ldc.i4.0}{subsection.4.4}% 30
+\BOOKMARK [3][-]{subsubsection.4.4.2}{stloc.0}{subsection.4.4}% 31
+\BOOKMARK [1][-]{section.5}{Testing}{}% 32
+\BOOKMARK [2][-]{subsection.5.1}{The tests}{section.5}% 33
+\BOOKMARK [2][-]{subsection.5.2}{The environment}{section.5}% 34
+\BOOKMARK [3][-]{subsubsection.5.2.1}{Finding tests}{subsection.5.2}% 35
+\BOOKMARK [3][-]{subsubsection.5.2.2}{Managing categories}{subsection.5.2}% 36
+\BOOKMARK [3][-]{subsubsection.5.2.3}{Managing tests}{subsection.5.2}% 37
+\BOOKMARK [3][-]{subsubsection.5.2.4}{Managing a single test}{subsection.5.2}% 38
+\BOOKMARK [3][-]{subsubsection.5.2.5}{Managing test runs}{subsection.5.2}% 39
+\BOOKMARK [3][-]{subsubsection.5.2.6}{Managing a single test run}{subsection.5.2}% 40
+\BOOKMARK [1][-]{section.6}{Limitations}{}% 41

@@ -4,4 +4,6 @@ Database file #1: mgr.bib
 Warning--empty author in isoStandard
 Warning--empty author in ecmaStandard
 Warning--empty publisher in wierzbicki
-(There were 3 warnings)
+Warning--empty publisher in compilerDesign
+Warning--empty publisher in littleAsp
+(There were 5 warnings)

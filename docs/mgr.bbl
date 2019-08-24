@@ -28,9 +28,25 @@ T.~Wierzbicki.
 \newblock {\em {Języki programowania}}.
 \newblock 2001.
 
+\bibitem{compilerDesign}
+Torben~Ægidius Mogensen.
+\newblock {\em Basics of Compiler Design}.
+\newblock 2010.
+
 \bibitem{designPatterns}
-Johnson~R. Gamma~E., Helm~R. and Vlissides J.
-\newblock {\em Design Patterns: Elements of reusable Object-Oriented Software.}
+E.~Gamma, R.~Helm, R.~Johnson, and J.~Vlissides.
+\newblock {\em Design Patterns: Elements of reusable Object-Oriented Software}.
 \newblock Pearson Education, 1994.
+
+\bibitem{littleAsp}
+N.~Barbettini.
+\newblock {\em the little ASP.NET Core book}.
+\newblock 2017.
+
+\bibitem{learningReact}
+A.~Banks and E.~Porcello.
+\newblock {\em Learning React: Functional Web Development with React and
+  Redux}.
+\newblock O’Reilly Media, 1st edition, 2017.
 
 \end{thebibliography}
