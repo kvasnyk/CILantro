@@ -208,7 +208,21 @@ The difference between ILAsm and the \acrshort{cil} can be easily understood by 
 	\item{Line 12 ends the body of the \texttt{main} method.}
 \end{itemize}
 
-\subsection{{\#\#\# TO DO: ZALOZENIA, CEL PRACY I ZAKONCZENIE WSTEPU \#\#\#}}
+\subsection{Thesis motivation and organisation}
+
+Being a student of Computer Science and working as a \texttt{C\#} and \texttt{.NET} developer for several years was an inspiration that resulted in this very thesis. It focuses on some fundamental and theoretical aspects of the \acrshort{cil} and particularly on the \acrshort{cil} instruction set. There are 3 goals of the thesis:
+\begin{itemize}
+	\item{investigate the semantics of the \acrshort{cil},}
+	\item{implement an interpreter of the \acrshort{cil} covering various instructions,}
+	\item{create a comprehensive environment for testing the interpreter.}
+\end{itemize}
+
+The main concepts of the \acrshort{cil} instructions are presented in section \ref{sec:instructionSet}. Section \ref{sec:semantics} introduces a formal mathematical model and tries to specify the semantics of the \acrshort{cil}. The interpreter together with its technical details is described in section \ref{sec:interpreter}. The environment and the methodology of testing are presented in section \ref{sec:testing}. Section \ref{sec:results} summarises the results while section \ref{sec:conclusions} contains the conclusions and suggests some ideas that could be potentially undertaken in the future.
+
+All the source code produced as a part of the thesis can be found in a repository available under the following link:
+\begin{center}
+	\href{https://github.com/kvasnyk/CILantro/tree/master/CILantro}{https://github.com/kvasnyk/CILantro/tree/master/CILantro}.
+\end{center}
 
 \clearpage
 
@@ -221,6 +235,7 @@ The difference between ILAsm and the \acrshort{cil} can be easily understood by 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{The \acrshort{cil} instruction set}
+\label{sec:instructionSet}
 
 In order to understand how the \acrshort{cil} instructions work, this section explains the concept of the global state and provides code examples introducing several \acrshort{cil} instructions. As the whole set contains more than 200 instructions, further information on each of them can be found in \cite{ecmaStandard} and \cite{isoStandard}. A full list of the instructions is also shown in tables \ref{tab:coverage1} and \ref{tab:coverage2} which illustrate whether each instruction was implemented in the final interpreter or not.
 
@@ -775,6 +790,7 @@ This section follows the informal descriptions contained in \ref{sec:instruction
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{The interpreter}
+\label{sec:interpreter}
 
 The main part of this thesis is the interpreter which reads a \acrshort{cil} source code and is able to execute it.
 
@@ -936,6 +952,7 @@ protected override void VisitStoreLocal0Instruction(StoreLocal0Instruction instr
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Testing}
+\label{sec:testing}
 
 Writing an interpreter of such a complex programming language as the \acrshort{cil} may be a little complicated. Implementing all the visit instructions at the same time seems to be impossible so a specific methodology needed to be arranged in order to achieve the desired effect. As a common approach in software development, an iterative methodology was introduced. Since the main goal of the thesis was to create an interpreter and maximise its compatibility with the \acrshort{cil} specification, the methodology was based on the following assumption - the main goal of each iteration is to increase the compatibility of the interpreter and the coverage of the \acrshort{cil} instruction set. The methodology can be also described as a specific process consisting of 4 steps:
 \begin{enumerate}
@@ -1084,6 +1101,7 @@ Additionally, each row can be also opened in order to see the input and the outp
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Results}
+\label{sec:results}
 
 As mentioned, the main goal of the thesis was to implement an interpreter covering as many \acrshort{cil} instructions as possible.
 
@@ -1192,6 +1210,7 @@ As mentioned, the main goal of the thesis was to implement an interpreter coveri
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Conclusions and future work}
+\label{sec:conclusions}
 
 Only a few programming languages are well-described and standardised. The \acrshort{cil} with its formal documentation seemed to be an ideal candidate for investigating its semantics and trying to build an interpreter. Nevertheless, the standard is sometimes deficient in important details and its contents have not been updated for several years.
 Additionally, the \acrshort{cil} itself introduces various features and approaches and its instruction set is quite big.
