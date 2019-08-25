@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.4.22)  24 AUG 2019 05:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.4.22)  25 AUG 2019 02:41
 entering extended mode
 **./mgr.tex
 (mgr.tex
@@ -496,35 +496,42 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
+("C:\Users\Kamil\AppData\Local\Programs\MiKTeX 2.9\tex/latex/wasysym\wasysym.st
+y"
+Package: wasysym 2003/10/30 v2.0 Wasy-2 symbol support package
+\symwasy=\mathgroup6
+LaTeX Font Info:    Overwriting symbol font `wasy' in version `bold'
+(Font)                  U/wasy/m/n --> U/wasy/b/n on input line 90.
+)
 \glswrite=\write3
 \glo@main@file=\write4
 \openout4 = `mgr.glo'.
 
-Package glossaries Info: Writing glossary file mgr.glo on input line 72.
+Package glossaries Info: Writing glossary file mgr.glo on input line 73.
 \glo@acronym@file=\write5
 \openout5 = `mgr.acn'.
 
-Package glossaries Info: Writing glossary file mgr.acn on input line 72.
+Package glossaries Info: Writing glossary file mgr.acn on input line 73.
  (mgr.aux)
 \openout1 = `mgr.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
  (mgr.glsdefs)
 \AtBeginShipoutBox=\box40
-Package hyperref Info: Link coloring OFF on input line 82.
+Package hyperref Info: Link coloring OFF on input line 83.
 
 ("C:\Users\Kamil\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\nameref.s
 ty"
@@ -536,9 +543,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count146
 )
-LaTeX Info: Redefining \ref on input line 82.
-LaTeX Info: Redefining \pageref on input line 82.
-LaTeX Info: Redefining \nameref on input line 82.
+LaTeX Info: Redefining \ref on input line 83.
+LaTeX Info: Redefining \pageref on input line 83.
+LaTeX Info: Redefining \nameref on input line 83.
  (mgr.out) (mgr.out)
 \@outlinefile=\write6
 \openout6 = `mgr.out'.
@@ -584,6 +591,10 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 2.
 ("C:\Users\Kamil\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
+LaTeX Font Info:    Try loading font information for U+wasy on input line 2.
+("C:\Users\Kamil\AppData\Local\Programs\MiKTeX 2.9\tex/latex/wasysym\uwasy.fd"
+File: uwasy.fd 2003/10/30 v2.0 Wasy-2 symbol font definitions
+)
 LaTeX Font Info:    Try loading font information for T1+cmtt on input line 11.
 ("C:\Users\Kamil\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\t1cmtt.fd"
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
@@ -605,130 +616,137 @@ File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 
  [4
 
-] (mgr.lol)
-\tf@lol=\write9
-\openout9 = `mgr.lol'.
+] (mgr.lot)
+\tf@lot=\write9
+\openout9 = `mgr.lot'.
 
  [5
+
+] (mgr.lol)
+\tf@lol=\write10
+\openout10 = `mgr.lol'.
+
+ [6
 
 ]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\acrlong' on input line 139.
+(hyperref)                removing `\acrlong' on input line 151.
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 145.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 157.
 
 ("C:\Users\Kamil\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 145.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 157.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\acrlong' on input line 161.
+(hyperref)                removing `\acrlong' on input line 173.
 
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 170.
-[6
+nput line 182.
+[7
 
 ]
-Overfull \hbox (3.36551pt too wide) in paragraph at lines 194--195
+Overfull \hbox (3.36551pt too wide) in paragraph at lines 206--207
 \T1/cmtt/m/n/10 WriteLine \T1/cmr/m/n/10 method from the \T1/cmtt/m/n/10 System
 .Console \T1/cmr/m/n/10 class de-fined in the \T1/cmtt/m/n/10 mscorlib
  []
 
-[7]
+[8]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\acrshort' on input line 211.
+(hyperref)                removing `\acrshort' on input line 223.
 
-<./img/global_state.png, id=309, 1024.57782pt x 1024.57782pt>
+<./img/global_state.png, id=330, 1024.57782pt x 1024.57782pt>
 File: ./img/global_state.png Graphic file (type png)
 <use ./img/global_state.png>
-Package pdftex.def Info: ./img/global_state.png  used on input line 221.
+Package pdftex.def Info: ./img/global_state.png  used on input line 233.
 (pdftex.def)             Requested size: 345.0pt x 344.99059pt.
-[8
+[9
 
-] [9 <./img/global_state.png>]
+] [10 <./img/global_state.png>]
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 277.
- [10]
-Overfull \hbox (2.77985pt too wide) in paragraph at lines 322--323
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 289.
+ [11]
+Overfull \hbox (2.77985pt too wide) in paragraph at lines 334--335
 []\T1/cmr/m/n/10 There are sev-eral sim-i-lar in-struc-tions pro-vided by the [
 ]CIL: \T1/cmtt/m/n/10 stloc.1\T1/cmr/m/n/10 , \T1/cmtt/m/n/10 stloc.2\T1/cmr/m/
 n/10 ,
  []
 
-[11] [12] [13
+[12] [13] [14
 
-] [14]
+] [15]
 
-LaTeX Warning: Reference `eq:semantics_last' on page 15 undefined on input line
- 466.
+LaTeX Warning: Reference `eq:semantics_last' on page 16 undefined on input line
+ 484.
 
-[15] [16] [17] [18
+[16] [17] [18] [19
 
-] [19] [20]
-Overfull \hbox (13.76425pt too wide) in paragraph at lines 859--860
+] [20] [21]
+Overfull \hbox (13.76425pt too wide) in paragraph at lines 877--878
 \T1/cmr/m/n/10 struc-tion should be vis-ited next. In-stead, an ab-stract metho
 d \T1/cmtt/m/n/10 GetNextInstruction
  []
 
-[21] [22]
-<./img/process.jpg, id=510, 732.06833pt x 625.00166pt>
+[22] [23]
+<./img/process.jpg, id=533, 732.06833pt x 625.00166pt>
 File: ./img/process.jpg Graphic file (type jpg)
 <use ./img/process.jpg>
-Package pdftex.def Info: ./img/process.jpg  used on input line 931.
+Package pdftex.def Info: ./img/process.jpg  used on input line 949.
 (pdftex.def)             Requested size: 345.0pt x 294.54237pt.
- [23
+ [24
 
- <./img/process.jpg>] [24]
-<./img/tools_find.png, id=529, 974.13937pt x 635.37375pt>
+] [25 <./img/process.jpg>]
+<./img/tools_find.png, id=551, 974.13937pt x 635.37375pt>
 File: ./img/tools_find.png Graphic file (type png)
 <use ./img/tools_find.png>
-Package pdftex.def Info: ./img/tools_find.png  used on input line 964.
+Package pdftex.def Info: ./img/tools_find.png  used on input line 982.
 (pdftex.def)             Requested size: 345.0pt x 225.02118pt.
-<./img/tools_categories.png, id=531, 975.645pt x 635.37375pt>
+<./img/tools_categories.png, id=553, 975.645pt x 635.37375pt>
 File: ./img/tools_categories.png Graphic file (type png)
 <use ./img/tools_categories.png>
-Package pdftex.def Info: ./img/tools_categories.png  used on input line 975.
+Package pdftex.def Info: ./img/tools_categories.png  used on input line 993.
 (pdftex.def)             Requested size: 345.0pt x 224.67216pt.
-<./img/tools_tests.png, id=533, 976.39781pt x 636.87938pt>
+<./img/tools_tests.png, id=555, 976.39781pt x 636.87938pt>
 File: ./img/tools_tests.png Graphic file (type png)
 <use ./img/tools_tests.png>
-Package pdftex.def Info: ./img/tools_tests.png  used on input line 986.
+Package pdftex.def Info: ./img/tools_tests.png  used on input line 1004.
 (pdftex.def)             Requested size: 345.0pt x 225.03935pt.
- [25 <./img/tools_find.png>] [26 <./img/tools_categories.png> <./img/tools_test
-s.png>]
-<./img/tools_test.png, id=546, 1111.90407pt x 635.37375pt>
+ [26] [27 <./img/tools_find.png> <./img/tools_categories.png>]
+<./img/tools_test.png, id=569, 1111.90407pt x 635.37375pt>
 File: ./img/tools_test.png Graphic file (type png)
 <use ./img/tools_test.png>
-Package pdftex.def Info: ./img/tools_test.png  used on input line 1012.
+Package pdftex.def Info: ./img/tools_test.png  used on input line 1030.
 (pdftex.def)             Requested size: 345.0pt x 197.13834pt.
-<./img/tools_run_both.png, id=547, 1110.39844pt x 634.62094pt>
+<./img/tools_run_both.png, id=570, 1110.39844pt x 634.62094pt>
 File: ./img/tools_run_both.png Graphic file (type png)
 <use ./img/tools_run_both.png>
-Package pdftex.def Info: ./img/tools_run_both.png  used on input line 1019.
+Package pdftex.def Info: ./img/tools_run_both.png  used on input line 1037.
 (pdftex.def)             Requested size: 345.0pt x 197.17589pt.
- [27 <./img/tools_test.png>]
-<./img/tools_runs.png, id=553, 1053.1847pt x 636.12656pt>
+ [28 <./img/tools_tests.png>] [29 <./img/tools_test.png> <./img/tools_run_both.
+png>]
+<./img/tools_runs.png, id=580, 1053.1847pt x 636.12656pt>
 File: ./img/tools_runs.png Graphic file (type png)
 <use ./img/tools_runs.png>
-Package pdftex.def Info: ./img/tools_runs.png  used on input line 1032.
+Package pdftex.def Info: ./img/tools_runs.png  used on input line 1050.
 (pdftex.def)             Requested size: 345.0pt x 208.37907pt.
-
-[28 <./img/tools_run_both.png>]
-<./img/tools_run.png, id=559, 1444.64719pt x 705.38531pt>
+ [30 <./img/tools_runs.png>]
+<./img/tools_run.png, id=586, 1444.64719pt x 705.38531pt>
 File: ./img/tools_run.png Graphic file (type png)
 <use ./img/tools_run.png>
-Package pdftex.def Info: ./img/tools_run.png  used on input line 1050.
+Package pdftex.def Info: ./img/tools_run.png  used on input line 1068.
 (pdftex.def)             Requested size: 345.0pt x 168.45639pt.
- [29 <./img/tools_runs.png>] [30 <./img/tools_run.png>] [31
+ [31 <./img/tools_run.png>] [32
+
+] [33] [34] [35
 
 ] (mgr.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1093.
- [32
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1215.
+ [36
 
 runsystem(makeindex -s mgr.ist -t mgr.glg -o mgr.gls mgr.glo)...executed (allow
 ed).
@@ -737,24 +755,24 @@ runsystem(makeindex -s mgr.ist -t mgr.alg -o mgr.acr mgr.acn)...executed (allow
 ed).
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1093.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1215.
  (mgr.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1093.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1093.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1215.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1215.
 
 Package rerunfilecheck Info: File `mgr.out' has not changed.
-(rerunfilecheck)             Checksum: BDF199AEFFEA39AF1FE2414CAE1B013E;2813.
+(rerunfilecheck)             Checksum: EA03D94A96951B6293127DDD5C8C39F9;2942.
 
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 12393 strings out of 492902
- 182455 string characters out of 3123806
- 352860 words of memory out of 3000000
- 15872 multiletter control sequences out of 15000+200000
- 15214 words of font info for 38 fonts, out of 3000000 for 9000
+ 12588 strings out of 492902
+ 184558 string characters out of 3123806
+ 354663 words of memory out of 3000000
+ 16044 multiletter control sequences out of 15000+200000
+ 15855 words of font info for 41 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  45i,9n,39p,1988b,1885s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\Kamil\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\
@@ -777,10 +795,10 @@ s/Kamil/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.
 pfb><C:/Users/Kamil/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfon
 ts/cm/cmr7.pfb><C:/Users/Kamil/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
 blic/amsfonts/cm/cmsy10.pfb><C:/Users/Kamil/AppData/Local/Programs/MiKTeX 2.9/f
-onts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on mgr.pdf (32 pages, 1700348 bytes).
+onts/type1/public/wasy/wasy10.pfb>
+Output written on mgr.pdf (36 pages, 1711440 bytes).
 PDF statistics:
- 1110 PDF objects out of 1200 (max. 8388607)
- 205 named destinations out of 1000 (max. 500000)
- 374 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1160 PDF objects out of 1200 (max. 8388607)
+ 215 named destinations out of 1000 (max. 500000)
+ 390 words of extra memory for PDF output out of 10000 (max. 10000000)
 

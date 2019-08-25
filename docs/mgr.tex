@@ -10,6 +10,7 @@
 \usepackage{proof}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{wasysym}
 \graphicspath{ {./img/} }
 \numberwithin{equation}{section}
 
@@ -118,6 +119,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%
+%%%%%	List of tables
+%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\listoftables
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%
 %%%%%	Code listings
 %%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -210,7 +222,7 @@ The difference between ILAsm and the \acrshort{cil} can be easily understood by 
 
 \section{The \acrshort{cil} instruction set}
 
-In order to understand how the \acrshort{cil} instructions work, this section explains the concept of the global state and provides code examples introducing several \acrshort{cil} instructions. As the whole set contains more than 200 instructions, further information on each of them can be found in \cite{ecmaStandard} and \cite{isoStandard}.
+In order to understand how the \acrshort{cil} instructions work, this section explains the concept of the global state and provides code examples introducing several \acrshort{cil} instructions. As the whole set contains more than 200 instructions, further information on each of them can be found in \cite{ecmaStandard} and \cite{isoStandard}. A full list of the instructions is also shown in tables \ref{tab:coverage1} and \ref{tab:coverage2} which illustrate whether each instruction was implemented in the final interpreter or not.
 
 \subsection{The global state}
 \label{sec:global_state}
@@ -358,6 +370,12 @@ There are several similar instructions provided by the \acrshort{cil}: \texttt{s
 As described in \ref{sec:global_state}, an instruction can be thought as a description of how to manipulate the current global state. Examples of such informal descriptions can be found in \ref{sec:instruction_examples}. \cite{ecmaStandard} presents further examples but it does not provide any formal way to describe the \acrshort{cil} instructions and their semantics. Furthermore, the formal \acrshort{cil} semantics cannot be easily found among other sources. Thus, one of the goals of the thesis is to introduce a formal, mathematical model to represent the semantics of the \acrshort{cil}.
 
 The semantics presented below is patterned upon the example of the \acrshort{cil} semantics presented in \cite{zychlaThesis}. However, this thesis attempts to simplify it and to represent the semantics on a higher level of abstraction.
+
+\subsection{Code verifiability}
+
+A full \acrshort{cli} implementation should involve a verification algorithm that is responsible for checking the correctness of instructions and local variables. Precisely, the algorithm requires all local variables to be initialised before executing a method. It also simulates all possible control flows and branches in order to verify each reachable instruction. Obviously, the algorithm cannot predict the actual values on the current evaluation stack but is still able to check their number and types \cite{expertIl}.
+
+Since the algorithm itself is responsible for checking types, the semantics assumes all the values on the evaluation stack and local variables to be correct and verified. The interpreter described later was also implemented to handle valid programs only.
 
 \subsection{The global state}
 
@@ -917,7 +935,7 @@ protected override void VisitStoreLocal0Instruction(StoreLocal0Instruction instr
 
 \section{Testing}
 
-Writing an interpreter of such a complex programming language as the \acrshort{cil} may be a little complicated. Implementing all the visit instructions at the same time seems to be impossible so a specific process needed to be introduced in order to achieve the desired effect. This particular process consists of 4 steps:
+Writing an interpreter of such a complex programming language as the \acrshort{cil} may be a little complicated. Implementing all the visit instructions at the same time seems to be impossible so a specific methodology needed to be arranged in order to achieve the desired effect. As a common approach in software development, an iterative methodology was introduced. Since the main goal of the thesis was to create an interpreter and maximise its compatibility with the \acrshort{cil} specification, the methodology was based on the following assumption - the main goal of each iteration is to increase the compatibility of the interpreter and the coverage of the \acrshort{cil} instruction set. The methodology can be also described as a specific process consisting of 4 steps:
 \begin{enumerate}
 	\item{Write a test.}
 	\item{Cover the implementation of the interpreter so that the test passes.}
@@ -1058,14 +1076,118 @@ Additionally, each row can be also opened in order to see the input and the outp
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%
-%%%%%	Limitations
+%%%%%	Results
 %%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Limitations}
+\section{Results}
 
-\#\#\# TO DO: OPIS OGRANICZEN, KTORE TYCZA SIE SAMEGO INTERPRETERA JAK I SRODOWISKA \#\#\#
+\begin{table}
+\begin{center}
+	\begin{tabular}{|cc||cc||cc|}
+\hline
+\texttt{nop} & \Circle & \texttt{pop} & \Circle & \texttt{ldind.u4} & \Circle \\ \hline
+\texttt{break} & \Circle & \texttt{jmp} & \Circle & \texttt{ldind.i8} & \Circle \\ \hline
+\texttt{ldarg.0} & \Circle & \texttt{call} & \Circle & \texttt{ldind.i} & \Circle \\ \hline
+\texttt{ldarg.1} & \Circle & \texttt{calli} & \Circle & \texttt{ldind.r4} & \Circle \\ \hline
+\texttt{ldarg.2} & \Circle & \texttt{ret} & \Circle & \texttt{ldind.r8} & \Circle \\ \hline
+\texttt{ldarg.3} & \Circle & \texttt{br.s} & \Circle & \texttt{ldind.ref} & \Circle \\ \hline
+\texttt{ldloc.0} & \Circle & \texttt{brfalse.s} & \Circle & \texttt{stind.ref} & \Circle \\ \hline
+\texttt{ldloc.1} & \Circle & \texttt{brtrue.s} & \Circle & \texttt{stind.i1} & \Circle \\ \hline
+\texttt{ldloc.2} & \Circle & \texttt{beq.s} & \Circle & \texttt{stind.i2} & \Circle \\ \hline
+\texttt{ldloc.3} & \Circle & \texttt{bge.s} & \Circle & \texttt{stind.i4} & \Circle \\ \hline
+\texttt{stloc.0} & \Circle & \texttt{bgt.s} & \Circle & \texttt{stind.i8} & \Circle \\ \hline
+\texttt{stloc.1} & \Circle & \texttt{ble.s} & \Circle & \texttt{stind.r4} & \Circle \\ \hline
+\texttt{stloc.2} & \Circle & \texttt{blt.s} & \Circle & \texttt{stind.r8} & \Circle \\ \hline
+\texttt{stloc.3} & \Circle & \texttt{bne.un.s} & \Circle & \texttt{add} & \Circle \\ \hline
+\texttt{ldarg.s} & \Circle & \texttt{bge.un.s} & \Circle & \texttt{sub} & \Circle \\ \hline
+\texttt{ldarga.s} & \Circle & \texttt{bgt.un.s} & \Circle & \texttt{mul} & \Circle \\ \hline
+\texttt{starg.s} & \Circle & \texttt{ble.un.s} & \Circle & \texttt{div} & \Circle \\ \hline
+\texttt{ldloc.s} & \Circle & \texttt{blt.un.s} & \Circle & \texttt{div.un} & \Circle \\ \hline
+\texttt{ldloca.s} & \Circle & \texttt{br} & \Circle & \texttt{rem} & \Circle \\ \hline
+\texttt{stloc.s} & \Circle & \texttt{brfalse} & \Circle & \texttt{rem.un} & \Circle \\ \hline
+\texttt{ldnull} & \Circle & \texttt{brtrue} & \Circle & \texttt{and} & \Circle \\ \hline
+\texttt{ldc.i4.m1} & \Circle & \texttt{beq} & \Circle & \texttt{or} & \Circle \\ \hline
+\texttt{ldc.i4.0} & \Circle & \texttt{bge} & \Circle & \texttt{xor} & \Circle \\ \hline
+\texttt{ldc.i4.1} & \Circle & \texttt{bgt} & \Circle & \texttt{shl} & \Circle \\ \hline
+\texttt{ldc.i4.2} & \Circle & \texttt{ble} & \Circle & \texttt{shr} & \Circle \\ \hline
+\texttt{ldc.i4.3} & \Circle & \texttt{blt} & \Circle & \texttt{shr.un} & \Circle \\ \hline
+\texttt{ldc.i4.4} & \Circle & \texttt{bne.un} & \Circle & \texttt{neg} & \Circle \\ \hline
+\texttt{ldc.i4.5} & \Circle & \texttt{bge.un} & \Circle & \texttt{not} & \Circle \\ \hline
+\texttt{ldc.i4.6} & \Circle & \texttt{bgt.un} & \Circle & \texttt{conv.i1} & \Circle \\ \hline
+\texttt{ldc.i4.7} & \Circle & \texttt{ble.un} & \Circle & \texttt{conv.i2} & \Circle \\ \hline
+\texttt{ldc.i4.8} & \Circle & \texttt{blt.un} & \Circle & \texttt{conv.i4} & \Circle \\ \hline
+\texttt{ldc.i4.s} & \Circle & \texttt{switch} & \Circle & \texttt{conv.i8} & \Circle \\ \hline
+\texttt{ldc.i4} & \Circle & \texttt{ldind.i1} & \Circle & \texttt{conv.r4} & \Circle \\ \hline
+\texttt{ldc.i8} & \Circle & \texttt{ldind.u1} & \Circle & \texttt{conv.r8} & \Circle \\ \hline
+\texttt{ldc.r4} & \Circle & \texttt{ldind.i2} & \Circle & \texttt{conv.u4} & \Circle \\ \hline
+\texttt{ldc.r8} & \Circle & \texttt{ldind.u2} & \Circle & \texttt{conv.u8} & \Circle \\ \hline
+\texttt{dup} & \Circle & \texttt{ldind.i4} & \Circle & \texttt{callvirt} & \Circle \\ \hline
+	\end{tabular}
+\caption{The \acrshort{cil} instructions covered by the interpreter (part 1 of 2).}
+\label{tab:coverage1}
+\end{center}
+\end{table}
+
+\begin{table}
+\begin{center}
+	\begin{tabular}{|cc||cc||cc|}
+\hline
+\texttt{cpobj} & \Circle & \texttt{ldelem.i} & \Circle & \texttt{sub.ovf.un} & \Circle \\ \hline
+\texttt{ldobj} & \Circle & \texttt{ldelem.r4} & \Circle & \texttt{endfinally} & \Circle \\ \hline
+\texttt{ldstr} & \Circle & \texttt{ldelem.r8} & \Circle & \texttt{leave} & \Circle \\ \hline
+\texttt{newobj} & \Circle & \texttt{ldelem.ref} & \Circle & \texttt{leave.s} & \Circle \\ \hline
+\texttt{castclass} & \Circle & \texttt{stelem.i} & \Circle & \texttt{stind.i} & \Circle \\ \hline
+\texttt{isinst} & \Circle & \texttt{stelem.i1} & \Circle & \texttt{conv.u} & \Circle \\ \hline
+\texttt{conv.r.un} & \Circle & \texttt{stelem.i2} & \Circle & \texttt{arglist} & \Circle \\ \hline
+\texttt{unbox} & \Circle & \texttt{stelem.i4} & \Circle & \texttt{ceq} & \Circle \\ \hline
+\texttt{throw} & \Circle & \texttt{stelem.i8} & \Circle & \texttt{cgt} & \Circle \\ \hline
+\texttt{ldfld} & \Circle & \texttt{stelem.r4} & \Circle & \texttt{cgt.un} & \Circle \\ \hline
+\texttt{ldflda} & \Circle & \texttt{stelem.r8} & \Circle & \texttt{clt} & \Circle \\ \hline
+\texttt{stfld} & \Circle & \texttt{stelem.ref} & \Circle & \texttt{clt.un} & \Circle \\ \hline
+\texttt{ldsfld} & \Circle & \texttt{ldelem} & \Circle & \texttt{ldftn} & \Circle \\ \hline
+\texttt{ldsflda} & \Circle & \texttt{stelem} & \Circle & \texttt{ldvirtftn} & \Circle \\ \hline
+\texttt{stsfld} & \Circle & \texttt{unbox.any} & \Circle & \texttt{ldarg} & \Circle \\ \hline
+\texttt{stobj} & \Circle & \texttt{conv.ovf.i1} & \Circle & \texttt{ldarga} & \Circle \\ \hline
+\texttt{conv.ovf.i1.un} & \Circle & \texttt{conv.ovf.u1} & \Circle & \texttt{starg} & \Circle \\ \hline
+\texttt{conv.ovf.i2.un} & \Circle & \texttt{conv.ovf.i2} & \Circle & \texttt{ldloc} & \Circle \\ \hline
+\texttt{conv.ovf.i4.un} & \Circle & \texttt{conv.ovf.u2} & \Circle & \texttt{ldloca} & \Circle \\ \hline
+\texttt{conv.ovf.i8.un} & \Circle & \texttt{conv.ovf.i4} & \Circle & \texttt{stloc} & \Circle \\ \hline
+\texttt{conv.ovf.u1.un} & \Circle & \texttt{conv.ovf.u4} & \Circle & \texttt{localloc} & \Circle \\ \hline
+\texttt{conv.ovf.u2.un} & \Circle & \texttt{conv.ovf.i8} & \Circle & \texttt{endfilter} & \Circle \\ \hline
+\texttt{conv.ovf.u4.un} & \Circle & \texttt{conv.ovf.u8} & \Circle & \texttt{unaligned.} & \Circle \\ \hline
+\texttt{conv.ovf.u8.un} & \Circle & \texttt{refanyval} & \Circle & \texttt{volatile.} & \Circle \\ \hline
+\texttt{conv.ovf.i.un} & \Circle & \texttt{ckfinite} & \Circle & \texttt{tail.} & \Circle \\ \hline
+\texttt{conv.ovf.u.un} & \Circle & \texttt{mkrefany} & \Circle & \texttt{Initobj} & \Circle \\ \hline
+\texttt{box} & \Circle & \texttt{ldtoken} & \Circle & \texttt{constrained.} & \Circle \\ \hline
+\texttt{newarr} & \Circle & \texttt{conv.u2} & \Circle & \texttt{cpblk} & \Circle \\ \hline
+\texttt{ldlen} & \Circle & \texttt{conv.u1} & \Circle & \texttt{initblk} & \Circle \\ \hline
+\texttt{ldelema} & \Circle & \texttt{conv.i} & \Circle & \texttt{no.} & \Circle \\ \hline
+\texttt{ldelem.i1} & \Circle & \texttt{conv.ovf.i} & \Circle & \texttt{rethrow} & \Circle \\ \hline
+\texttt{ldelem.u1} & \Circle & \texttt{conv.ovf.u} & \Circle & \texttt{sizeof} & \Circle \\ \hline
+\texttt{ldelem.i2} & \Circle & \texttt{add.ovf} & \Circle & \texttt{Refanytype} & \Circle \\ \hline
+\texttt{ldelem.u2} & \Circle & \texttt{add.ovf.un} & \Circle & \texttt{readonly.} & \Circle \\ \hline
+\texttt{ldelem.i4} & \Circle & \texttt{mul.ovf} & \Circle &  &  \\ \hline
+\texttt{ldelem.u4} & \Circle & \texttt{mul.ovf.un} & \Circle &  &  \\ \hline
+\texttt{ldelem.i8} & \Circle & \texttt{sub.ovf} & \Circle &  &  \\ \hline
+	\end{tabular}
+\caption{The \acrshort{cil} instructions covered by the interpreter (part 2 of 2).}
+\label{tab:coverage2}
+\end{center}
+\end{table}
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%
+%%%%%	Conclusions & future work
+%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Conclusions and future work}
 
 \clearpage
 

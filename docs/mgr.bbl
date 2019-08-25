@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{isoStandard}
 {Information technology -- Common Language Infrastructure (CLI)}.
@@ -22,6 +22,11 @@ W.~Zychla.
 \newblock {\em {exTensible Multi Security: Security Framework for .NET}}.
 \newblock PhD thesis, Institute of Computer Science, University of Wrocław,
   2008.
+
+\bibitem{expertIl}
+Lidin S.
+\newblock {\em Expert .NET 2.0 IL Assembler}.
+\newblock Apress, 2006.
 
 \bibitem{wierzbicki}
 T.~Wierzbicki.
