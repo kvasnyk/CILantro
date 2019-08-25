@@ -372,6 +372,7 @@ As described in \ref{sec:global_state}, an instruction can be thought as a descr
 The semantics presented below is patterned upon the example of the \acrshort{cil} semantics presented in \cite{zychlaThesis}. However, this thesis attempts to simplify it and to represent the semantics on a higher level of abstraction.
 
 \subsection{Code verifiability}
+\label{sec:codeVerifiability}
 
 A full \acrshort{cli} implementation should involve a verification algorithm that is responsible for checking the correctness of instructions and local variables. Precisely, the algorithm requires all local variables to be initialised before executing a method. It also simulates all possible control flows and branches in order to verify each reachable instruction. Obviously, the algorithm cannot predict the actual values on the current evaluation stack but is still able to check their number and types \cite{expertIl}.
 
@@ -846,6 +847,7 @@ In order to avoid such problems, the evaluation stack has been implemented as a 
 \end{center}
 
 \subsubsection{The managed memory}
+\label{sec:managedMemory}
 
 The semantics operates on a set of managed heaps. This thesis does not go into the detail and collectively treats all the managed heaps as \textit{the managed memory}. Ideally, the managed memory could be implemented by directly using the unmanaged memory. Such a solution is undoubtedly the most flexible and the most desired while implementing any interpreter.
 
@@ -1083,6 +1085,8 @@ Additionally, each row can be also opened in order to see the input and the outp
 
 \section{Results}
 
+As mentioned, the main goal of the thesis was to implement an interpreter covering as many \acrshort{cil} instructions as possible.
+
 \begin{table}
 \begin{center}
 	\begin{tabular}{|cc||cc||cc|}
@@ -1188,6 +1192,28 @@ Additionally, each row can be also opened in order to see the input and the outp
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Conclusions and future work}
+
+Only a few programming languages are well-described and standardised. The \acrshort{cil} with its formal documentation seemed to be an ideal candidate for investigating its semantics and trying to build an interpreter. Nevertheless, the standard is sometimes deficient in important details and its contents have not been updated for several years.
+Additionally, the \acrshort{cil} itself introduces various features and approaches and its instruction set is quite big.
+
+Taken all together, building an interpreter of a complex and modern programming language is a very time-consuming undertaking. There are many details that need to be taken into consideration. Some solutions implemented at the first attempt turn out to be insufficient or inadequate hence they need to be rewritten all over again.
+
+Furthermore, building an interpreter has to be done simultaneously with several different tasks. It is indeed a process that involves additional work such as creating tests, taking care of compatibility and investigating defects. For instance, the environment built as a part of the thesis required a big effort but was crucial in terms of testing the solution.
+
+To sum up, the thesis and the project explain why there is often a large number of developers, engineers, testers and other people involved in the process of building and improving modern and valuable programming languages.
+
+\subsection{Future work}
+
+There are several areas that could be potentially improved or even completed in terms of the interpreter:
+\begin{itemize}
+	\item{The whole \acrshort{cil} instruction set could be covered.}
+	\item{The interpreter supports console programs only. The only interaction with the user can be arranged through the standard input, output and error streams. One could extend this model and try to support different types of communication with end users.}
+	\item{No external code is interpreted at the moment. The interpreter uses a \texttt{C\#} mechanism known as \textit{reflection} in order to call and execute methods from external assemblies.}
+	\item{As mentioned in section \ref{sec:managedMemory}, the memory operations are currently simulated which results in some limitations. For example, the unmanaged memory cannot be accessed by the interpreted program, it also depends on the \texttt{C\#} memory management. A full implementation could involve a completely new approach for the memory.}
+	\item{No garbage collector is implemented so values remain in the memory until the very end of the program.}
+	\item{There is no support for multithreading or asynchronous operations.}
+	\item{The algorithm described in section \ref{sec:codeVerifiability} could be implemented and involved in the whole process of interpreting. For now, the interpreter cannot verify the input code thus only correct programs are allowed.}
+\end{itemize}
 
 \clearpage
 

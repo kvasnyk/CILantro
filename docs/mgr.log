@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.4.22)  25 AUG 2019 02:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.4.22)  25 AUG 2019 04:36
 entering extended mode
 **./mgr.tex
 (mgr.tex
@@ -660,7 +660,7 @@ Overfull \hbox (3.36551pt too wide) in paragraph at lines 206--207
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\acrshort' on input line 223.
 
-<./img/global_state.png, id=330, 1024.57782pt x 1024.57782pt>
+<./img/global_state.png, id=335, 1024.57782pt x 1024.57782pt>
 File: ./img/global_state.png Graphic file (type png)
 <use ./img/global_state.png>
 Package pdftex.def Info: ./img/global_state.png  used on input line 233.
@@ -682,71 +682,71 @@ n/10 ,
 ] [15]
 
 LaTeX Warning: Reference `eq:semantics_last' on page 16 undefined on input line
- 484.
+ 485.
 
 [16] [17] [18] [19
 
 ] [20] [21]
-Overfull \hbox (13.76425pt too wide) in paragraph at lines 877--878
+Overfull \hbox (13.76425pt too wide) in paragraph at lines 879--880
 \T1/cmr/m/n/10 struc-tion should be vis-ited next. In-stead, an ab-stract metho
 d \T1/cmtt/m/n/10 GetNextInstruction
  []
 
 [22] [23]
-<./img/process.jpg, id=533, 732.06833pt x 625.00166pt>
+<./img/process.jpg, id=538, 732.06833pt x 625.00166pt>
 File: ./img/process.jpg Graphic file (type jpg)
 <use ./img/process.jpg>
-Package pdftex.def Info: ./img/process.jpg  used on input line 949.
+Package pdftex.def Info: ./img/process.jpg  used on input line 951.
 (pdftex.def)             Requested size: 345.0pt x 294.54237pt.
  [24
 
 ] [25 <./img/process.jpg>]
-<./img/tools_find.png, id=551, 974.13937pt x 635.37375pt>
+<./img/tools_find.png, id=556, 974.13937pt x 635.37375pt>
 File: ./img/tools_find.png Graphic file (type png)
 <use ./img/tools_find.png>
-Package pdftex.def Info: ./img/tools_find.png  used on input line 982.
+Package pdftex.def Info: ./img/tools_find.png  used on input line 984.
 (pdftex.def)             Requested size: 345.0pt x 225.02118pt.
-<./img/tools_categories.png, id=553, 975.645pt x 635.37375pt>
+<./img/tools_categories.png, id=558, 975.645pt x 635.37375pt>
 File: ./img/tools_categories.png Graphic file (type png)
 <use ./img/tools_categories.png>
-Package pdftex.def Info: ./img/tools_categories.png  used on input line 993.
+Package pdftex.def Info: ./img/tools_categories.png  used on input line 995.
 (pdftex.def)             Requested size: 345.0pt x 224.67216pt.
-<./img/tools_tests.png, id=555, 976.39781pt x 636.87938pt>
+<./img/tools_tests.png, id=560, 976.39781pt x 636.87938pt>
 File: ./img/tools_tests.png Graphic file (type png)
 <use ./img/tools_tests.png>
-Package pdftex.def Info: ./img/tools_tests.png  used on input line 1004.
+Package pdftex.def Info: ./img/tools_tests.png  used on input line 1006.
 (pdftex.def)             Requested size: 345.0pt x 225.03935pt.
  [26] [27 <./img/tools_find.png> <./img/tools_categories.png>]
-<./img/tools_test.png, id=569, 1111.90407pt x 635.37375pt>
+<./img/tools_test.png, id=574, 1111.90407pt x 635.37375pt>
 File: ./img/tools_test.png Graphic file (type png)
 <use ./img/tools_test.png>
-Package pdftex.def Info: ./img/tools_test.png  used on input line 1030.
+Package pdftex.def Info: ./img/tools_test.png  used on input line 1032.
 (pdftex.def)             Requested size: 345.0pt x 197.13834pt.
-<./img/tools_run_both.png, id=570, 1110.39844pt x 634.62094pt>
+<./img/tools_run_both.png, id=575, 1110.39844pt x 634.62094pt>
 File: ./img/tools_run_both.png Graphic file (type png)
 <use ./img/tools_run_both.png>
-Package pdftex.def Info: ./img/tools_run_both.png  used on input line 1037.
+Package pdftex.def Info: ./img/tools_run_both.png  used on input line 1039.
 (pdftex.def)             Requested size: 345.0pt x 197.17589pt.
  [28 <./img/tools_tests.png>] [29 <./img/tools_test.png> <./img/tools_run_both.
 png>]
-<./img/tools_runs.png, id=580, 1053.1847pt x 636.12656pt>
+<./img/tools_runs.png, id=585, 1053.1847pt x 636.12656pt>
 File: ./img/tools_runs.png Graphic file (type png)
 <use ./img/tools_runs.png>
-Package pdftex.def Info: ./img/tools_runs.png  used on input line 1050.
+Package pdftex.def Info: ./img/tools_runs.png  used on input line 1052.
 (pdftex.def)             Requested size: 345.0pt x 208.37907pt.
  [30 <./img/tools_runs.png>]
-<./img/tools_run.png, id=586, 1444.64719pt x 705.38531pt>
+<./img/tools_run.png, id=591, 1444.64719pt x 705.38531pt>
 File: ./img/tools_run.png Graphic file (type png)
 <use ./img/tools_run.png>
-Package pdftex.def Info: ./img/tools_run.png  used on input line 1068.
+Package pdftex.def Info: ./img/tools_run.png  used on input line 1070.
 (pdftex.def)             Requested size: 345.0pt x 168.45639pt.
  [31 <./img/tools_run.png>] [32
 
 ] [33] [34] [35
 
-] (mgr.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1215.
- [36
+] [36] (mgr.bbl)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1241.
+ [37
 
 runsystem(makeindex -s mgr.ist -t mgr.glg -o mgr.gls mgr.glo)...executed (allow
 ed).
@@ -755,23 +755,23 @@ runsystem(makeindex -s mgr.ist -t mgr.alg -o mgr.acr mgr.acn)...executed (allow
 ed).
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1215.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1241.
  (mgr.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1215.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1215.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1241.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1241.
 
 Package rerunfilecheck Info: File `mgr.out' has not changed.
-(rerunfilecheck)             Checksum: EA03D94A96951B6293127DDD5C8C39F9;2942.
+(rerunfilecheck)             Checksum: 913C59C6F7B4A68AE718C013FFB1D1DC;3004.
 
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 12588 strings out of 492902
- 184558 string characters out of 3123806
- 354663 words of memory out of 3000000
- 16044 multiletter control sequences out of 15000+200000
+ 12593 strings out of 492902
+ 184637 string characters out of 3123806
+ 354771 words of memory out of 3000000
+ 16047 multiletter control sequences out of 15000+200000
  15855 words of font info for 41 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  45i,9n,39p,1988b,1885s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -796,9 +796,9 @@ pfb><C:/Users/Kamil/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfon
 ts/cm/cmr7.pfb><C:/Users/Kamil/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
 blic/amsfonts/cm/cmsy10.pfb><C:/Users/Kamil/AppData/Local/Programs/MiKTeX 2.9/f
 onts/type1/public/wasy/wasy10.pfb>
-Output written on mgr.pdf (36 pages, 1711440 bytes).
+Output written on mgr.pdf (37 pages, 1717409 bytes).
 PDF statistics:
- 1160 PDF objects out of 1200 (max. 8388607)
- 215 named destinations out of 1000 (max. 500000)
- 390 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1181 PDF objects out of 1200 (max. 8388607)
+ 217 named destinations out of 1000 (max. 500000)
+ 398 words of extra memory for PDF output out of 10000 (max. 10000000)
 
