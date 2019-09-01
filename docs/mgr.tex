@@ -30,7 +30,7 @@
 }
 
 \polishtitle    {Implementacja i testowanie \fmlinebreak interpretera języka CIL}
-\englishtitle   {Implementing and testing \fmlinebreak an interpreter of the CIL}
+\englishtitle   {Implementation and testing \fmlinebreak of the CIL interpreter}
 \author         {Kamil Kwaśny}
 \advisor        {dr Wiktor Zychla}
 
@@ -214,9 +214,9 @@ Being a student of Computer Science and working as a \texttt{C\#} and \texttt{.N
 
 The main concepts of the \acrshort{cil} instructions are presented in section \ref{sec:instructionSet}. Section \ref{sec:semantics} introduces a formal mathematical model and tries to specify the semantics of the \acrshort{cil}. The interpreter together with its technical details is described in section \ref{sec:interpreter}. The environment and the methodology of testing are presented in section \ref{sec:testing}. Section \ref{sec:results} summarises the results while section \ref{sec:conclusions} contains the conclusions and suggests some ideas that could be potentially undertaken in the future.
 
-All the source code produced as a part of the thesis can be found in a repository available under the following link:
+All the source code produced as a part of the thesis can be found in the repository available under the following link:
 \begin{center}
-	\href{https://github.com/kvasnyk/CILantro/tree/master/CILantro}{https://github.com/kvasnyk/CILantro/tree/master/CILantro}.
+	\href{https://github.com/kvasnyk/CILantro}{\texttt{https://github.com/kvasnyk/CILantro}}.
 \end{center}
 
 \clearpage
@@ -288,10 +288,7 @@ To illustrate the difference between various stack values, the following syntax 
 $$
 	\sval{v}{type}
 $$.
-For instance:
-\begin{itemize}
-	\item{$\sval{0}{int32}$ represents $0$ of type \texttt{int32}}.
-\end{itemize}
+For instance, $\sval{0}{int32}$ represents $0$ of type \texttt{int32}.
 
 \section{Examples}
 \label{sec:instruction_examples}
@@ -359,6 +356,75 @@ There are several similar instructions provided by the \acrshort{cil}: \texttt{s
 	ldc.i4.7
 	stloc.0
 	ldloc.0
+	call void [mscorlib]System.Console::WriteLine(int32)
+	ret
+}
+\end{lstlisting}
+
+\subsection{\texttt{add}}
+
+The \texttt{add} instruction is responsible for adding 2 numeric values so its stack transformation is as follows \cite{ecmaStandard}:
+$$
+	S, v_1, v_2 \rightarrow S, r
+$$
+where $r = v_1 + v_2$. The instruction does not detect any overflows and its result type is computed based on the types of $v_1$ and $v_2$. For instance:
+\begin{itemize}
+	\item{If $v_1$ is \texttt{int32} and $v_2$ is \texttt{int32}, the result type is also \texttt{int32}.}
+	\item{If $v_1$ is \texttt{int64} and $v_2$ is \texttt{int64}, the result type is also \texttt{int64}.}
+	\item{If $v_1$ is \texttt{int32} and $v_2$ is \texttt{int64}, the operation is invalid. However, it seems the \texttt{.NET} implementation of the \acrshort{cli} does not respect this part of the documentation as it allows adding (and other binary numeric operations) for values of types \texttt{int32} and \texttt{int64}.}
+\end{itemize}
+The full table of valid combinations of $v_1$ and $v_2$ types with their result types can be found in \cite{ecmaStandard}. It applies to various binary numeric operations such as \texttt{sub}, \texttt{mul} and \texttt{div}.
+
+The example presented in listing \ref{lst:add} pushes 2 and 7 onto the stack, adds them using the \texttt{add} instruction and writes out the result to the console.
+
+\begin{lstlisting}[
+	caption={Usage of the \texttt{add} instruction.},
+	label={lst:add}
+]
+.assembly extern mscorlib {}
+
+.assembly HelloWorld {}
+
+.method static public void main() cil managed
+{
+	.entrypoint
+	.maxstack 2
+	ldc.i4.2
+	ldc.i4.7
+	add
+	call void [mscorlib]System.Console::WriteLine(int32)
+	ret
+}
+\end{lstlisting}
+
+\subsection{\texttt{br}}
+
+The \texttt{br} instruction moves control to the target which is represented by a signed offset from the beginning of the next instruction. It does not affect the evaluation stack hence the corresponding stack transformation is very simple \cite{ecmaStandard}:
+$$
+	S \rightarrow S
+$$
+
+Practically, instead of an offset, the instruction can also handle a label that is assigned to the instruction where the control should be transferred to. All the labels within a method are unique so they can be used in order to compute the desired offset.
+
+The program presented in listing \ref{lst:br} uses the \texttt{br} instruction in order to leave out one instruction so the \texttt{ldc.i4.1} instruction is never executed.
+
+The \acrshort{cil} supports various branch operations which can transfer control by the offset depending on different conditions, for example \texttt{br}, \texttt{brtrue}, \texttt{brfalse}, \texttt{beq}, \texttt{bge}, \texttt{bgt}, \texttt{ble} and \texttt{blt}.
+
+\begin{lstlisting}[
+	caption={Usage of the \texttt{br} instruction.},
+	label={lst:br}
+]
+.assembly extern mscorlib {}
+
+.assembly HelloWorld {}
+
+.method static public void main() cil managed
+{
+	.entrypoint
+	.maxstack 2
+	br 1
+	ldc.i4.1
+	ldc.i4.2
 	call void [mscorlib]System.Console::WriteLine(int32)
 	ret
 }
@@ -470,7 +536,7 @@ $$
 	\ipointsto{I}{ldc.i4.0}.
 $$
 
-Additionally, according to the syntax presented in \cite{zychlaThesis}, $I_n$ denotes hereinafter a pointer to the $n$-th instruction of a method.
+Additionally, according to the syntax presented in \cite{zychlaThesis}, $I_n$ denotes hereinafter a pointer to the $n$-th instruction of a method. Furthermore, $I \oplus o$ syntax is used in order to denote the instruction pointer that is the result of moving the instruction pointer $I$ by the offset $o$.
 
 \section{Arrays}
 
@@ -492,7 +558,187 @@ It can be understood as the array $A$ with the $n$-th element set to the value $
 
 \section{Examples}
 
-This section follows the informal descriptions contained in \ref{sec:instruction_examples} and uses the conventions described above in order to specify the semantics of several \acrshort{cil} instructions which can be found in formulas \ref{eq:semantics_ldci40}-\ref{eq:semantics_pop}.
+This section follows the informal descriptions contained in \ref{sec:instruction_examples} and uses the conventions described above in order to specify the semantics of several \acrshort{cil} instructions which can be found in formulas \ref{eq:semantics_nop}-\ref{eq:semantics_pop}.
+
+\begin{equation}
+\label{eq:semantics_nop}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{nop}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldarg0}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot A(0)}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldarg.0}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldarg1}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot A(1)}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldarg.1}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldarg2}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot A(2)}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldarg.2}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldarg3}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot A(3)}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldarg.3}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldloc0}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot L(0)}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldloc.0}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldloc1}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot L(1)}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldloc.1}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldloc2}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot L(2)}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldloc.2}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldloc3}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot L(3)}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldloc.3}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_stloc0}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{\setarrayitem{L}{0}{v}}{A}, \eta
+	}
+	{\ipointsto{I_n}{stloc.0}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_stloc1}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{\setarrayitem{L}{1}{v}}{A}, \eta
+	}
+	{\ipointsto{I_n}{stloc.1}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_stloc2}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{\setarrayitem{L}{2}{v}}{A}, \eta
+	}
+	{\ipointsto{I_n}{stloc.2}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_stloc3}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{\setarrayitem{L}{3}{v}}{A}, \eta
+	}
+	{\ipointsto{I_n}{stloc.3}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldargs}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot A(i)}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldarg.s}{i}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_stargs}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{L}{\setarrayitem{A}{i}{v}}, \eta
+	}
+	{\ipointsto{I_n}{starg.s}{i}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldlocs}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot L(i)}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldloc.s}{i}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_stlocs}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{\setarrayitem{L}{i}{v}}{A}, \eta
+	}
+	{\ipointsto{I_n}{stloc.s}{i}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldci4m1}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot \sval{(-1)}{int32}}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldc.i4.m1}}
+\end{equation}
 
 \begin{equation}
 \label{eq:semantics_ldci40}
@@ -585,26 +831,6 @@ This section follows the informal descriptions contained in \ref{sec:instruction
 \end{equation}
 
 \begin{equation}
-\label{eq:semantics_ldci4m1}
-	\infer{
-		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
-			\rightarrow
-		\gamma \cdot \mstate{I_{n+1}}{S \cdot \sval{(-1)}{int32}}{M}{L}{A}, \eta
-	}
-	{\ipointsto{I_n}{ldc.i4.m1}}
-\end{equation}
-
-\begin{equation}
-\label{eq:semantics_ldci4M1}
-	\infer{
-		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
-			\rightarrow
-		\gamma \cdot \mstate{I_{n+1}}{S \cdot \sval{(-1)}{int32}}{M}{L}{A}, \eta
-	}
-	{\ipointsto{I_n}{ldc.i4.M1}}
-\end{equation}
-
-\begin{equation}
 \label{eq:semantics_ldci4s}
 	\infer{
 		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
@@ -625,136 +851,6 @@ This section follows the informal descriptions contained in \ref{sec:instruction
 \end{equation}
 
 \begin{equation}
-\label{eq:semantics_stloc0}
-	\infer{
-		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
-			\rightarrow
-		\gamma \cdot \mstate{I_{n+1}}{S}{M}{\setarrayitem{L}{0}{v}}{A}, \eta
-	}
-	{\ipointsto{I_n}{stloc.0}}
-\end{equation}
-
-\begin{equation}
-\label{eq:semantics_stloc1}
-	\infer{
-		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
-			\rightarrow
-		\gamma \cdot \mstate{I_{n+1}}{S}{M}{\setarrayitem{L}{1}{v}}{A}, \eta
-	}
-	{\ipointsto{I_n}{stloc.1}}
-\end{equation}
-
-\begin{equation}
-\label{eq:semantics_stloc2}
-	\infer{
-		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
-			\rightarrow
-		\gamma \cdot \mstate{I_{n+1}}{S}{M}{\setarrayitem{L}{2}{v}}{A}, \eta
-	}
-	{\ipointsto{I_n}{stloc.2}}
-\end{equation}
-
-\begin{equation}
-\label{eq:semantics_stloc3}
-	\infer{
-		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
-			\rightarrow
-		\gamma \cdot \mstate{I_{n+1}}{S}{M}{\setarrayitem{L}{3}{v}}{A}, \eta
-	}
-	{\ipointsto{I_n}{stloc.3}}
-\end{equation}
-
-\begin{equation}
-\label{eq:semantics_stlocs}
-	\infer{
-		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
-			\rightarrow
-		\gamma \cdot \mstate{I_{n+1}}{S}{M}{\setarrayitem{L}{i}{v}}{A}, \eta
-	}
-	{\ipointsto{I_n}{stloc.s}{i}}
-\end{equation}
-
-\begin{equation}
-\label{eq:semantics_stloc}
-	\infer{
-		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
-			\rightarrow
-		\gamma \cdot \mstate{I_{n+1}}{S}{M}{\setarrayitem{L}{i}{v}}{A}, \eta
-	}
-	{\ipointsto{I_n}{stloc}{i}}
-\end{equation}
-
-\begin{equation}
-\label{eq:semantics_ldloc0}
-	\infer{
-		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
-			\rightarrow
-		\gamma \cdot \mstate{I_{n+1}}{S \cdot L(0)}{M}{L}{A}, \eta
-	}
-	{\ipointsto{I_n}{ldloc.0}}
-\end{equation}
-
-\begin{equation}
-\label{eq:semantics_ldloc1}
-	\infer{
-		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
-			\rightarrow
-		\gamma \cdot \mstate{I_{n+1}}{S \cdot L(1)}{M}{L}{A}, \eta
-	}
-	{\ipointsto{I_n}{ldloc.1}}
-\end{equation}
-
-\begin{equation}
-\label{eq:semantics_ldloc2}
-	\infer{
-		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
-			\rightarrow
-		\gamma \cdot \mstate{I_{n+1}}{S \cdot L(2)}{M}{L}{A}, \eta
-	}
-	{\ipointsto{I_n}{ldloc.2}}
-\end{equation}
-
-\begin{equation}
-\label{eq:semantics_ldloc3}
-	\infer{
-		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
-			\rightarrow
-		\gamma \cdot \mstate{I_{n+1}}{S \cdot L(3)}{M}{L}{A}, \eta
-	}
-	{\ipointsto{I_n}{ldloc.3}}
-\end{equation}
-
-\begin{equation}
-\label{eq:semantics_ldlocs}
-	\infer{
-		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
-			\rightarrow
-		\gamma \cdot \mstate{I_{n+1}}{S \cdot L(i)}{M}{L}{A}, \eta
-	}
-	{\ipointsto{I_n}{ldloc.s}{i}}
-\end{equation}
-
-\begin{equation}
-\label{eq:semantics_ldloc}
-	\infer{
-		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
-			\rightarrow
-		\gamma \cdot \mstate{I_{n+1}}{S \cdot L(i)}{M}{L}{A}, \eta
-	}
-	{\ipointsto{I_n}{ldloc}{i}}
-\end{equation}
-
-\begin{equation}
-\label{eq:semantics_nop}
-	\infer{
-		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
-			\rightarrow
-		\gamma \cdot \mstate{I_{n+1}}{S}{M}{L}{A}, \eta
-	}
-	{\ipointsto{I_n}{nop}}
-\end{equation}
-
-\begin{equation}
 \label{eq:semantics_dup}
 	\infer{
 		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
@@ -772,6 +868,276 @@ This section follows the informal descriptions contained in \ref{sec:instruction
 		\gamma \cdot \mstate{I_{n+1}}{S}{M}{L}{A}, \eta
 	}
 	{\ipointsto{I_n}{pop}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_br}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n} \oplus o}{S}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{br}{o}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_brfalse1}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n} \oplus o}{S}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{brfalse}{o} \land v = 0}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_brfalse2}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{brfalse}{o} \land v \neq 0}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_brtrue1}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n} \oplus o}{S}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{brtrue}{o} \land v \neq 0}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_brtrue2}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{brtrue}{o} \land v = 0}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_beq1}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v_1 \cdot v_2}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n} \oplus o}{S}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{beq}{o} \land v_1 = v_2}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_beq2}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v_1 \cdot v_2}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{beq}{o} \land v_1 \neq v_2}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_bge1}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v_1 \cdot v_2}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n} \oplus o}{S}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{bge}{o} \land v_1 \geq v_2}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_bge2}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v_1 \cdot v_2}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{bge}{o} \land v_1 < v_2}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_bgt1}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v_1 \cdot v_2}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n} \oplus o}{S}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{bgt}{o} \land v_1 > v_2}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_bgt2}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v_1 \cdot v_2}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{bgt}{o} \land v_1 \leq v_2}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ble1}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v_1 \cdot v_2}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n} \oplus o}{S}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ble}{o} \land v_1 \leq v_2}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ble2}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v_1 \cdot v_2}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ble}{o} \land v_1 > v_2}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_blt1}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v_1 \cdot v_2}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n} \oplus o}{S}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{blt}{o} \land v_1 < v_2}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_blt2}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v_1 \cdot v_2}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{blt}{o} \land v_1 \geq v_2}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_bneun1}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v_1 \cdot v_2}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n} \oplus o}{S}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{bne.un}{o} \land v_1 \neq v_2}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_bneun2}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v_1 \cdot v_2}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{bne.un}{o} \land v_1 = v_2}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_add}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v_1 \cdot v_2}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot (v_1 + v_2)}{M}{L}{A}, \eta		
+	}
+	{\ipointsto{I_n}{add}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_sub}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v_1 \cdot v_2}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot (v_1 - v_2)}{M}{L}{A}, \eta		
+	}
+	{\ipointsto{I_n}{sub}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_mul}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v_1 \cdot v_2}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot (v_1 * v_2)}{M}{L}{A}, \eta		
+	}
+	{\ipointsto{I_n}{mul}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_div}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v_1 \cdot v_2}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot (v_1 / v_2)}{M}{L}{A}, \eta		
+	}
+	{\ipointsto{I_n}{div}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_rem}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v_1 \cdot v_2}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot (v_1 \% v_2)}{M}{L}{A}, \eta		
+	}
+	{\ipointsto{I_n}{rem}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_neg}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot (-v)}{M}{L}{A}, \eta		
+	}
+	{\ipointsto{I_n}{neg}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldarg}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot A(i)}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldarg}{i}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_starg}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{L}{\setarrayitem{A}{i}{v}}, \eta
+	}
+	{\ipointsto{I_n}{starg}{i}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ldloc}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S \cdot L(i)}{M}{L}{A}, \eta
+	}
+	{\ipointsto{I_n}{ldloc}{i}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_stloc}
+	\infer{
+		\gamma \cdot \mstate{I_n}{S \cdot v}{M}{L}{A}, \eta
+			\rightarrow
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{\setarrayitem{L}{i}{v}}{A}, \eta
+	}
+	{\ipointsto{I_n}{stloc}{i}}
 \end{equation}
 
 \clearpage
@@ -821,7 +1187,7 @@ The whole grammar implementation can be found in the repository, under the path:
 In order to focus on the semantics of the \acrshort{cil} and not on data types, the interpreter has been written in \texttt{C\#} which is itself compiled into the \acrshort{cil} so it uses the same type system and the same external assemblies. The source code of the interpreter can be found under the following link:
 
 \begin{center}
-	\href{https://github.com/kvasnyk/CILantro/tree/master/CILantro}{https://github.com/kvasnyk/CILantro/tree/master/CILantro}.
+	\href{https://github.com/kvasnyk/CILantro/tree/master/CILantro}{\texttt{https://github.com/kvasnyk/CILantro/tree/master/CILantro}}.
 \end{center}
 
 The interpreter is a console application based on the \texttt{.NET Framework 4.7.2} so it can be executed in \texttt{Windows} operating system with the appropriate framework installed. The program can be run with the following command line argument:
@@ -1218,7 +1584,7 @@ To sum up, the thesis and the project explain why there is often a large number 
 
 \section{Future work}
 
-There are several areas that could be potentially improved or even completed in terms of the interpreter:
+There are several areas that could be potentially improved or completed in terms of the interpreter:
 \begin{itemize}
 	\item{The whole \acrshort{cil} instruction set could be covered.}
 	\item{The interpreter supports console programs only. The only interaction with the user can be arranged through the standard input, output and error streams. One could extend this model and try to support different types of communication with end users.}

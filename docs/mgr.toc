@@ -21,36 +21,38 @@
 \contentsline {section}{\numberline {2.4}Stack values}{22}{section.2.4}% 
 \contentsline {section}{\numberline {2.5}Examples}{22}{section.2.5}% 
 \contentsline {subsection}{\numberline {2.5.1}\texttt {ldc.i4.0}}{22}{subsection.2.5.1}% 
-\contentsline {subsection}{\numberline {2.5.2}\texttt {stloc.0} and \texttt {ldloc.0}}{23}{subsection.2.5.2}% 
-\contentsline {chapter}{\numberline {3}The semantics}{25}{chapter.3}% 
-\contentsline {section}{\numberline {3.1}Code verifiability}{25}{section.3.1}% 
-\contentsline {section}{\numberline {3.2}The global state}{25}{section.3.2}% 
-\contentsline {section}{\numberline {3.3}The execution state}{26}{section.3.3}% 
-\contentsline {section}{\numberline {3.4}The method state}{26}{section.3.4}% 
-\contentsline {section}{\numberline {3.5}The final syntax}{27}{section.3.5}% 
-\contentsline {section}{\numberline {3.6}Instruction pointers}{27}{section.3.6}% 
-\contentsline {section}{\numberline {3.7}Arrays}{28}{section.3.7}% 
-\contentsline {section}{\numberline {3.8}Examples}{28}{section.3.8}% 
-\contentsline {chapter}{\numberline {4}The interpreter}{31}{chapter.4}% 
-\contentsline {section}{\numberline {4.1}Technical background}{32}{section.4.1}% 
-\contentsline {section}{\numberline {4.2}Detection of non-supported features}{32}{section.4.2}% 
-\contentsline {section}{\numberline {4.3}The actual interpreter}{32}{section.4.3}% 
-\contentsline {subsection}{\numberline {4.3.1}The evaluation stack}{33}{subsection.4.3.1}% 
-\contentsline {subsection}{\numberline {4.3.2}The managed memory}{33}{subsection.4.3.2}% 
-\contentsline {subsection}{\numberline {4.3.3}The state arrays}{34}{subsection.4.3.3}% 
-\contentsline {subsection}{\numberline {4.3.4}The visitor}{34}{subsection.4.3.4}% 
-\contentsline {section}{\numberline {4.4}Examples}{35}{section.4.4}% 
-\contentsline {subsection}{\numberline {4.4.1}\texttt {ldc.i4.0}}{35}{subsection.4.4.1}% 
-\contentsline {subsection}{\numberline {4.4.2}\texttt {stloc.0}}{36}{subsection.4.4.2}% 
-\contentsline {chapter}{\numberline {5}Testing}{37}{chapter.5}% 
-\contentsline {section}{\numberline {5.1}The tests}{37}{section.5.1}% 
-\contentsline {section}{\numberline {5.2}The environment}{39}{section.5.2}% 
-\contentsline {subsection}{\numberline {5.2.1}Finding tests}{39}{subsection.5.2.1}% 
-\contentsline {subsection}{\numberline {5.2.2}Managing categories}{40}{subsection.5.2.2}% 
-\contentsline {subsection}{\numberline {5.2.3}Managing tests}{40}{subsection.5.2.3}% 
-\contentsline {subsection}{\numberline {5.2.4}Managing a single test}{42}{subsection.5.2.4}% 
-\contentsline {subsection}{\numberline {5.2.5}Managing test runs}{43}{subsection.5.2.5}% 
-\contentsline {subsection}{\numberline {5.2.6}Managing a single test run}{43}{subsection.5.2.6}% 
-\contentsline {chapter}{\numberline {6}Results}{47}{chapter.6}% 
-\contentsline {chapter}{\numberline {7}Conclusions and future work}{51}{chapter.7}% 
-\contentsline {section}{\numberline {7.1}Future work}{51}{section.7.1}% 
+\contentsline {subsection}{\numberline {2.5.2}\texttt {stloc.0} and \texttt {ldloc.0}}{22}{subsection.2.5.2}% 
+\contentsline {subsection}{\numberline {2.5.3}\texttt {add}}{23}{subsection.2.5.3}% 
+\contentsline {subsection}{\numberline {2.5.4}\texttt {br}}{24}{subsection.2.5.4}% 
+\contentsline {chapter}{\numberline {3}The semantics}{27}{chapter.3}% 
+\contentsline {section}{\numberline {3.1}Code verifiability}{27}{section.3.1}% 
+\contentsline {section}{\numberline {3.2}The global state}{27}{section.3.2}% 
+\contentsline {section}{\numberline {3.3}The execution state}{28}{section.3.3}% 
+\contentsline {section}{\numberline {3.4}The method state}{28}{section.3.4}% 
+\contentsline {section}{\numberline {3.5}The final syntax}{29}{section.3.5}% 
+\contentsline {section}{\numberline {3.6}Instruction pointers}{29}{section.3.6}% 
+\contentsline {section}{\numberline {3.7}Arrays}{30}{section.3.7}% 
+\contentsline {section}{\numberline {3.8}Examples}{30}{section.3.8}% 
+\contentsline {chapter}{\numberline {4}The interpreter}{35}{chapter.4}% 
+\contentsline {section}{\numberline {4.1}Technical background}{36}{section.4.1}% 
+\contentsline {section}{\numberline {4.2}Detection of non-supported features}{36}{section.4.2}% 
+\contentsline {section}{\numberline {4.3}The actual interpreter}{36}{section.4.3}% 
+\contentsline {subsection}{\numberline {4.3.1}The evaluation stack}{37}{subsection.4.3.1}% 
+\contentsline {subsection}{\numberline {4.3.2}The managed memory}{37}{subsection.4.3.2}% 
+\contentsline {subsection}{\numberline {4.3.3}The state arrays}{38}{subsection.4.3.3}% 
+\contentsline {subsection}{\numberline {4.3.4}The visitor}{38}{subsection.4.3.4}% 
+\contentsline {section}{\numberline {4.4}Examples}{39}{section.4.4}% 
+\contentsline {subsection}{\numberline {4.4.1}\texttt {ldc.i4.0}}{39}{subsection.4.4.1}% 
+\contentsline {subsection}{\numberline {4.4.2}\texttt {stloc.0}}{40}{subsection.4.4.2}% 
+\contentsline {chapter}{\numberline {5}Testing}{41}{chapter.5}% 
+\contentsline {section}{\numberline {5.1}The tests}{41}{section.5.1}% 
+\contentsline {section}{\numberline {5.2}The environment}{43}{section.5.2}% 
+\contentsline {subsection}{\numberline {5.2.1}Finding tests}{43}{subsection.5.2.1}% 
+\contentsline {subsection}{\numberline {5.2.2}Managing categories}{44}{subsection.5.2.2}% 
+\contentsline {subsection}{\numberline {5.2.3}Managing tests}{44}{subsection.5.2.3}% 
+\contentsline {subsection}{\numberline {5.2.4}Managing a single test}{46}{subsection.5.2.4}% 
+\contentsline {subsection}{\numberline {5.2.5}Managing test runs}{47}{subsection.5.2.5}% 
+\contentsline {subsection}{\numberline {5.2.6}Managing a single test run}{47}{subsection.5.2.6}% 
+\contentsline {chapter}{\numberline {6}Results}{51}{chapter.6}% 
+\contentsline {chapter}{\numberline {7}Conclusions and future work}{55}{chapter.7}% 
+\contentsline {section}{\numberline {7.1}Future work}{55}{section.7.1}% 
