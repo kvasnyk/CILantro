@@ -2,7 +2,7 @@
   "profiles": {
     "CILantro": {
       "commandName": "Project",
-      "commandLineArgs": "--fileName \"D:/mgr/tests-data/il-sources/CSF_Performance_Fibonacci/CSF_Performance_Fibonacci.il\""
+      "commandLineArgs": "--fileName \"D:/mgr/tests-data/il-sources/CSF_Performance_Ackermann/CSF_Performance_Ackermann.il\""
     }
   }
 }

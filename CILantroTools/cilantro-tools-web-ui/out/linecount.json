@@ -1,0 +1,4227 @@
+{
+    "extension": "linecount",
+    "version": "0.1.7",
+    "workspace": "d:\\mgr\\CILantroTools\\cilantro-tools-web-ui",
+    "linecount": [
+        {
+            "version": "0.1.7",
+            "counttime": "2019-09-02 04:18:35",
+            "filesum": 165,
+            "codesum": 27021,
+            "commentsum": 98,
+            "blanksum": 1338,
+            "filelist": [
+                {
+                    "blank": 4,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": ".gitignore"
+                },
+                {
+                    "blank": 0,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "build\\asset-manifest.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "build\\index.html"
+                },
+                {
+                    "blank": 0,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "build\\precache-manifest.c847d732bbf2133746fa8051ba52b401.js"
+                },
+                {
+                    "blank": 7,
+                    "code": 10,
+                    "comment": 17,
+                    "filename": "build\\service-worker.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 2,
+                    "filename": "build\\static\\js\\1.9f9fd7e6.chunk.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "build\\static\\js\\1.9f9fd7e6.chunk.js.map"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 1,
+                    "filename": "build\\static\\js\\main.8b45fa0d.chunk.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "build\\static\\js\\main.8b45fa0d.chunk.js.map"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 1,
+                    "filename": "build\\static\\js\\runtime~main.229c360f.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "build\\static\\js\\runtime~main.229c360f.js.map"
+                },
+                {
+                    "blank": 10,
+                    "code": 48,
+                    "comment": 0,
+                    "filename": "config\\env.js"
+                },
+                {
+                    "blank": 12,
+                    "code": 50,
+                    "comment": 0,
+                    "filename": "config\\paths.js"
+                },
+                {
+                    "blank": 14,
+                    "code": 350,
+                    "comment": 0,
+                    "filename": "config\\webpack.config.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 40,
+                    "comment": 0,
+                    "filename": "config\\webpackDevServer.config.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 17704,
+                    "comment": 0,
+                    "filename": "package-lock.json"
+                },
+                {
+                    "blank": 7,
+                    "code": 133,
+                    "comment": 0,
+                    "filename": "package.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "public\\appsettings.js"
+                },
+                {
+                    "blank": 12,
+                    "code": 43,
+                    "comment": 0,
+                    "filename": "public\\index.html"
+                },
+                {
+                    "blank": 22,
+                    "code": 150,
+                    "comment": 20,
+                    "filename": "scripts\\build.js"
+                },
+                {
+                    "blank": 11,
+                    "code": 87,
+                    "comment": 17,
+                    "filename": "scripts\\start.js"
+                },
+                {
+                    "blank": 10,
+                    "code": 36,
+                    "comment": 7,
+                    "filename": "scripts\\test.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 41,
+                    "comment": 0,
+                    "filename": "src\\api\\apiRoutes.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\categories\\AddCategoryBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\categories\\AddSubcategoryBindingModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\runs\\AddRunBindingModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\runs\\AddSingleTestRunBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\AddTestInputOutputExampleBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\CopyTestInputBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\CreateTestFromCandidateBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestCategoryBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestDisabledReasonBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestHasEmptyInputBindingModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestInputBindingModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestOutputBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestSubcategoryBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\GenerateOutputBindingModel.ts"
+                },
+                {
+                    "blank": 8,
+                    "code": 26,
+                    "comment": 0,
+                    "filename": "src\\api\\clients\\ApiClientBase.ts"
+                },
+                {
+                    "blank": 6,
+                    "code": 28,
+                    "comment": 0,
+                    "filename": "src\\api\\clients\\CategoriesApiClient.ts"
+                },
+                {
+                    "blank": 9,
+                    "code": 42,
+                    "comment": 0,
+                    "filename": "src\\api\\clients\\RunsApiClient.ts"
+                },
+                {
+                    "blank": 19,
+                    "code": 81,
+                    "comment": 0,
+                    "filename": "src\\api\\clients\\TestsApiClient.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 21,
+                    "comment": 0,
+                    "filename": "src\\api\\enums\\BaseLanguage.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\enums\\RunOutcome.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\enums\\RunStatus.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\enums\\RunType.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 22,
+                    "comment": 0,
+                    "filename": "src\\api\\enums\\TestRunStep.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 19,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\runs\\RunData.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\AbstractInputOutputElement.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\BoolElement.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\ConstStringElement.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\FloatElement.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\IntElement.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\StringElement.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\InputOutput.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\InputOutputLine.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\TestCandidate.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\TestInfo.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\TestsCheck.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\categories\\CategoryReadModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\categories\\SubcategoryReadModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\runs\\RunReadModel.ts"
+                },
+                {
+                    "blank": 4,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\runs\\TestRunFullReadModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\runs\\TestRunReadModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\tests\\TestIoExampleReadModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 33,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\tests\\TestReadModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchDirection.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchFilter.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchFilterType.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchOrderParameter.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchParameter.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchResult.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": "src\\bootstraps\\material-ui-bootstrap.ts"
+                },
+                {
+                    "blank": 7,
+                    "code": 62,
+                    "comment": 0,
+                    "filename": "src\\components\\app\\CilApp.tsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 30,
+                    "comment": 0,
+                    "filename": "src\\components\\app\\CilAppBar.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 63,
+                    "comment": 0,
+                    "filename": "src\\components\\app\\CilAppContent.tsx"
+                },
+                {
+                    "blank": 10,
+                    "code": 49,
+                    "comment": 0,
+                    "filename": "src\\components\\app\\CilMenu.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 54,
+                    "comment": 0,
+                    "filename": "src\\components\\app\\CilMenuItem.tsx"
+                },
+                {
+                    "blank": 12,
+                    "code": 66,
+                    "comment": 0,
+                    "filename": "src\\components\\base\\CilPage.tsx"
+                },
+                {
+                    "blank": 17,
+                    "code": 112,
+                    "comment": 0,
+                    "filename": "src\\components\\filters\\CilCategoryFilter.tsx"
+                },
+                {
+                    "blank": 14,
+                    "code": 78,
+                    "comment": 0,
+                    "filename": "src\\components\\filters\\CilDisabledFilter.tsx"
+                },
+                {
+                    "blank": 13,
+                    "code": 74,
+                    "comment": 0,
+                    "filename": "src\\components\\filters\\CilReadyFilter.tsx"
+                },
+                {
+                    "blank": 16,
+                    "code": 100,
+                    "comment": 0,
+                    "filename": "src\\components\\filters\\CilRunOutcomeFilter.tsx"
+                },
+                {
+                    "blank": 14,
+                    "code": 93,
+                    "comment": 0,
+                    "filename": "src\\components\\filters\\CilRunTypeFilter.tsx"
+                },
+                {
+                    "blank": 10,
+                    "code": 45,
+                    "comment": 0,
+                    "filename": "src\\components\\filters\\CilStringFilter.tsx"
+                },
+                {
+                    "blank": 16,
+                    "code": 93,
+                    "comment": 0,
+                    "filename": "src\\components\\pages\\CilCategoriesPage.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "src\\components\\pages\\CilFindTestsPage.tsx"
+                },
+                {
+                    "blank": 16,
+                    "code": 107,
+                    "comment": 0,
+                    "filename": "src\\components\\pages\\CilRunsPage.tsx"
+                },
+                {
+                    "blank": 20,
+                    "code": 164,
+                    "comment": 0,
+                    "filename": "src\\components\\pages\\CilShowRunPage.tsx"
+                },
+                {
+                    "blank": 41,
+                    "code": 297,
+                    "comment": 0,
+                    "filename": "src\\components\\pages\\CilShowTestPage.tsx"
+                },
+                {
+                    "blank": 15,
+                    "code": 144,
+                    "comment": 0,
+                    "filename": "src\\components\\pages\\CilTestsPage.tsx"
+                },
+                {
+                    "blank": 19,
+                    "code": 117,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\categories\\CilAddCategoryButton.tsx"
+                },
+                {
+                    "blank": 16,
+                    "code": 79,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\categories\\CilAddSubcategoryButton.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 32,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\categories\\CilCategoriesList.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 115,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\categories\\CilCategoryCard.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 34,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\categories\\CilDeleteCategoryButton.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 34,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\categories\\CilDeleteSubcategoryButton.tsx"
+                },
+                {
+                    "blank": 19,
+                    "code": 73,
+                    "comment": 30,
+                    "filename": "src\\components\\shared\\runs\\CilAddRunButton.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 31,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilDeleteRunButton.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 31,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilReplayRunButton.tsx"
+                },
+                {
+                    "blank": 28,
+                    "code": 278,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilRunCard.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 32,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilRunsList.tsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilShowRunButton.tsx"
+                },
+                {
+                    "blank": 24,
+                    "code": 292,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilTestRunCard.tsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 26,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilTestRunsList.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 33,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilCreateTestFromTestCandidateButton.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 30,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilDisableTestButton.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 44,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilEditTestCategorySelect.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilEditTestDisabledReasonTextField.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 28,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilEditTestHasEmptyInputCheckbox.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 44,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilEditTestSubcategorySelect.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 30,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilEnableTestButton.tsx"
+                },
+                {
+                    "blank": 20,
+                    "code": 246,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilExecuteTestBothDialog.tsx"
+                },
+                {
+                    "blank": 22,
+                    "code": 175,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilExecuteTestDialog.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 31,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilGenerateTestExeButton.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 31,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilGenerateTestIlSourcesButton.tsx"
+                },
+                {
+                    "blank": 11,
+                    "code": 52,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilRunTestBothButton.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 38,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilRunTestExeButton.tsx"
+                },
+                {
+                    "blank": 11,
+                    "code": 54,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilRunTestInterpreterButton.tsx"
+                },
+                {
+                    "blank": 11,
+                    "code": 85,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilShowIlSourcesButton.tsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 28,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilShowTestButton.tsx"
+                },
+                {
+                    "blank": 7,
+                    "code": 30,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestCandidateCard.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestCandidatesList.tsx"
+                },
+                {
+                    "blank": 12,
+                    "code": 135,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestCard.tsx"
+                },
+                {
+                    "blank": 12,
+                    "code": 94,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestChecklist.tsx"
+                },
+                {
+                    "blank": 40,
+                    "code": 296,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestInputEditor.tsx"
+                },
+                {
+                    "blank": 22,
+                    "code": 204,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestInputOutputExamplesEditor.tsx"
+                },
+                {
+                    "blank": 22,
+                    "code": 143,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestOutputEditor.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestsList.tsx"
+                },
+                {
+                    "blank": 59,
+                    "code": 629,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilAddInputOutputElementButton.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilCardList.tsx"
+                },
+                {
+                    "blank": 4,
+                    "code": 27,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilCodeEditor.tsx"
+                },
+                {
+                    "blank": 21,
+                    "code": 177,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilConsole.tsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 43,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilDetailsRow.tsx"
+                },
+                {
+                    "blank": 7,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilDetailsValue.tsx"
+                },
+                {
+                    "blank": 10,
+                    "code": 50,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilEditableCheckbox.tsx"
+                },
+                {
+                    "blank": 16,
+                    "code": 91,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilEditableSelect.tsx"
+                },
+                {
+                    "blank": 12,
+                    "code": 60,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilEditableTextField.tsx"
+                },
+                {
+                    "blank": 13,
+                    "code": 66,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilExampleInputEditor.tsx"
+                },
+                {
+                    "blank": 10,
+                    "code": 47,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilExampleInputElementEditor.tsx"
+                },
+                {
+                    "blank": 17,
+                    "code": 141,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilExampleInputLineEditor.tsx"
+                },
+                {
+                    "blank": 7,
+                    "code": 39,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilFiltersPanel.tsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 39,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilIconButton.tsx"
+                },
+                {
+                    "blank": 10,
+                    "code": 82,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilInputOutputEditor.tsx"
+                },
+                {
+                    "blank": 39,
+                    "code": 364,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilInputOutputElement.tsx"
+                },
+                {
+                    "blank": 13,
+                    "code": 116,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilInputOutputLineEditor.tsx"
+                },
+                {
+                    "blank": 11,
+                    "code": 126,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilInputOutputRepeatBlock.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilLoading.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilOpenFiltersButton.tsx"
+                },
+                {
+                    "blank": 11,
+                    "code": 57,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilOrderByDropDown.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 48,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilPageHeader.tsx"
+                },
+                {
+                    "blank": 4,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilPageSubheader.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 46,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilPagination.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 19,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilTimeSpanDisplayer.tsx"
+                },
+                {
+                    "blank": 7,
+                    "code": 29,
+                    "comment": 0,
+                    "filename": "src\\hooks\\external\\useNotistack.ts"
+                },
+                {
+                    "blank": 19,
+                    "code": 69,
+                    "comment": 0,
+                    "filename": "src\\hooks\\useExecuteTestHub.ts"
+                },
+                {
+                    "blank": 17,
+                    "code": 52,
+                    "comment": 0,
+                    "filename": "src\\hooks\\useRunningRunHub.ts"
+                },
+                {
+                    "blank": 15,
+                    "code": 90,
+                    "comment": 0,
+                    "filename": "src\\hooks\\useSearch.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "src\\index.tsx"
+                },
+                {
+                    "blank": 13,
+                    "code": 48,
+                    "comment": 3,
+                    "filename": "src\\react-app-env.d.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "src\\routing\\routes.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\styles\\styles.ts"
+                },
+                {
+                    "blank": 4,
+                    "code": 161,
+                    "comment": 0,
+                    "filename": "src\\translations\\translations.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\types\\SnackbarContext.d.ts"
+                },
+                {
+                    "blank": 0,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "tsconfig.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 17,
+                    "comment": 0,
+                    "filename": "tslint.json"
+                }
+            ]
+        },
+        {
+            "version": "0.1.7",
+            "counttime": "2019-09-02 04:22:26",
+            "filesum": 165,
+            "codesum": 27021,
+            "commentsum": 98,
+            "blanksum": 1338,
+            "filelist": [
+                {
+                    "blank": 4,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": ".gitignore"
+                },
+                {
+                    "blank": 0,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "build\\asset-manifest.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "build\\index.html"
+                },
+                {
+                    "blank": 0,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "build\\precache-manifest.c847d732bbf2133746fa8051ba52b401.js"
+                },
+                {
+                    "blank": 7,
+                    "code": 10,
+                    "comment": 17,
+                    "filename": "build\\service-worker.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 2,
+                    "filename": "build\\static\\js\\1.9f9fd7e6.chunk.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "build\\static\\js\\1.9f9fd7e6.chunk.js.map"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 1,
+                    "filename": "build\\static\\js\\main.8b45fa0d.chunk.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "build\\static\\js\\main.8b45fa0d.chunk.js.map"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 1,
+                    "filename": "build\\static\\js\\runtime~main.229c360f.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "build\\static\\js\\runtime~main.229c360f.js.map"
+                },
+                {
+                    "blank": 10,
+                    "code": 48,
+                    "comment": 0,
+                    "filename": "config\\env.js"
+                },
+                {
+                    "blank": 12,
+                    "code": 50,
+                    "comment": 0,
+                    "filename": "config\\paths.js"
+                },
+                {
+                    "blank": 14,
+                    "code": 350,
+                    "comment": 0,
+                    "filename": "config\\webpack.config.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 40,
+                    "comment": 0,
+                    "filename": "config\\webpackDevServer.config.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 17704,
+                    "comment": 0,
+                    "filename": "package-lock.json"
+                },
+                {
+                    "blank": 7,
+                    "code": 133,
+                    "comment": 0,
+                    "filename": "package.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "public\\appsettings.js"
+                },
+                {
+                    "blank": 12,
+                    "code": 43,
+                    "comment": 0,
+                    "filename": "public\\index.html"
+                },
+                {
+                    "blank": 22,
+                    "code": 150,
+                    "comment": 20,
+                    "filename": "scripts\\build.js"
+                },
+                {
+                    "blank": 11,
+                    "code": 87,
+                    "comment": 17,
+                    "filename": "scripts\\start.js"
+                },
+                {
+                    "blank": 10,
+                    "code": 36,
+                    "comment": 7,
+                    "filename": "scripts\\test.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 41,
+                    "comment": 0,
+                    "filename": "src\\api\\apiRoutes.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\categories\\AddCategoryBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\categories\\AddSubcategoryBindingModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\runs\\AddRunBindingModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\runs\\AddSingleTestRunBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\AddTestInputOutputExampleBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\CopyTestInputBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\CreateTestFromCandidateBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestCategoryBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestDisabledReasonBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestHasEmptyInputBindingModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestInputBindingModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestOutputBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestSubcategoryBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\GenerateOutputBindingModel.ts"
+                },
+                {
+                    "blank": 8,
+                    "code": 26,
+                    "comment": 0,
+                    "filename": "src\\api\\clients\\ApiClientBase.ts"
+                },
+                {
+                    "blank": 6,
+                    "code": 28,
+                    "comment": 0,
+                    "filename": "src\\api\\clients\\CategoriesApiClient.ts"
+                },
+                {
+                    "blank": 9,
+                    "code": 42,
+                    "comment": 0,
+                    "filename": "src\\api\\clients\\RunsApiClient.ts"
+                },
+                {
+                    "blank": 19,
+                    "code": 81,
+                    "comment": 0,
+                    "filename": "src\\api\\clients\\TestsApiClient.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 21,
+                    "comment": 0,
+                    "filename": "src\\api\\enums\\BaseLanguage.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\enums\\RunOutcome.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\enums\\RunStatus.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\enums\\RunType.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 22,
+                    "comment": 0,
+                    "filename": "src\\api\\enums\\TestRunStep.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 19,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\runs\\RunData.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\AbstractInputOutputElement.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\BoolElement.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\ConstStringElement.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\FloatElement.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\IntElement.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\StringElement.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\InputOutput.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\InputOutputLine.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\TestCandidate.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\TestInfo.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\TestsCheck.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\categories\\CategoryReadModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\categories\\SubcategoryReadModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\runs\\RunReadModel.ts"
+                },
+                {
+                    "blank": 4,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\runs\\TestRunFullReadModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\runs\\TestRunReadModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\tests\\TestIoExampleReadModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 33,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\tests\\TestReadModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchDirection.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchFilter.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchFilterType.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchOrderParameter.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchParameter.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchResult.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": "src\\bootstraps\\material-ui-bootstrap.ts"
+                },
+                {
+                    "blank": 7,
+                    "code": 62,
+                    "comment": 0,
+                    "filename": "src\\components\\app\\CilApp.tsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 30,
+                    "comment": 0,
+                    "filename": "src\\components\\app\\CilAppBar.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 63,
+                    "comment": 0,
+                    "filename": "src\\components\\app\\CilAppContent.tsx"
+                },
+                {
+                    "blank": 10,
+                    "code": 49,
+                    "comment": 0,
+                    "filename": "src\\components\\app\\CilMenu.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 54,
+                    "comment": 0,
+                    "filename": "src\\components\\app\\CilMenuItem.tsx"
+                },
+                {
+                    "blank": 12,
+                    "code": 66,
+                    "comment": 0,
+                    "filename": "src\\components\\base\\CilPage.tsx"
+                },
+                {
+                    "blank": 17,
+                    "code": 112,
+                    "comment": 0,
+                    "filename": "src\\components\\filters\\CilCategoryFilter.tsx"
+                },
+                {
+                    "blank": 14,
+                    "code": 78,
+                    "comment": 0,
+                    "filename": "src\\components\\filters\\CilDisabledFilter.tsx"
+                },
+                {
+                    "blank": 13,
+                    "code": 74,
+                    "comment": 0,
+                    "filename": "src\\components\\filters\\CilReadyFilter.tsx"
+                },
+                {
+                    "blank": 16,
+                    "code": 100,
+                    "comment": 0,
+                    "filename": "src\\components\\filters\\CilRunOutcomeFilter.tsx"
+                },
+                {
+                    "blank": 14,
+                    "code": 93,
+                    "comment": 0,
+                    "filename": "src\\components\\filters\\CilRunTypeFilter.tsx"
+                },
+                {
+                    "blank": 10,
+                    "code": 45,
+                    "comment": 0,
+                    "filename": "src\\components\\filters\\CilStringFilter.tsx"
+                },
+                {
+                    "blank": 16,
+                    "code": 93,
+                    "comment": 0,
+                    "filename": "src\\components\\pages\\CilCategoriesPage.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "src\\components\\pages\\CilFindTestsPage.tsx"
+                },
+                {
+                    "blank": 16,
+                    "code": 107,
+                    "comment": 0,
+                    "filename": "src\\components\\pages\\CilRunsPage.tsx"
+                },
+                {
+                    "blank": 20,
+                    "code": 164,
+                    "comment": 0,
+                    "filename": "src\\components\\pages\\CilShowRunPage.tsx"
+                },
+                {
+                    "blank": 41,
+                    "code": 297,
+                    "comment": 0,
+                    "filename": "src\\components\\pages\\CilShowTestPage.tsx"
+                },
+                {
+                    "blank": 15,
+                    "code": 144,
+                    "comment": 0,
+                    "filename": "src\\components\\pages\\CilTestsPage.tsx"
+                },
+                {
+                    "blank": 19,
+                    "code": 117,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\categories\\CilAddCategoryButton.tsx"
+                },
+                {
+                    "blank": 16,
+                    "code": 79,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\categories\\CilAddSubcategoryButton.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 32,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\categories\\CilCategoriesList.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 115,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\categories\\CilCategoryCard.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 34,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\categories\\CilDeleteCategoryButton.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 34,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\categories\\CilDeleteSubcategoryButton.tsx"
+                },
+                {
+                    "blank": 19,
+                    "code": 73,
+                    "comment": 30,
+                    "filename": "src\\components\\shared\\runs\\CilAddRunButton.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 31,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilDeleteRunButton.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 31,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilReplayRunButton.tsx"
+                },
+                {
+                    "blank": 28,
+                    "code": 278,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilRunCard.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 32,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilRunsList.tsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilShowRunButton.tsx"
+                },
+                {
+                    "blank": 24,
+                    "code": 292,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilTestRunCard.tsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 26,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilTestRunsList.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 33,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilCreateTestFromTestCandidateButton.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 30,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilDisableTestButton.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 44,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilEditTestCategorySelect.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilEditTestDisabledReasonTextField.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 28,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilEditTestHasEmptyInputCheckbox.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 44,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilEditTestSubcategorySelect.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 30,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilEnableTestButton.tsx"
+                },
+                {
+                    "blank": 20,
+                    "code": 246,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilExecuteTestBothDialog.tsx"
+                },
+                {
+                    "blank": 22,
+                    "code": 175,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilExecuteTestDialog.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 31,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilGenerateTestExeButton.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 31,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilGenerateTestIlSourcesButton.tsx"
+                },
+                {
+                    "blank": 11,
+                    "code": 52,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilRunTestBothButton.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 38,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilRunTestExeButton.tsx"
+                },
+                {
+                    "blank": 11,
+                    "code": 54,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilRunTestInterpreterButton.tsx"
+                },
+                {
+                    "blank": 11,
+                    "code": 85,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilShowIlSourcesButton.tsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 28,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilShowTestButton.tsx"
+                },
+                {
+                    "blank": 7,
+                    "code": 30,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestCandidateCard.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestCandidatesList.tsx"
+                },
+                {
+                    "blank": 12,
+                    "code": 135,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestCard.tsx"
+                },
+                {
+                    "blank": 12,
+                    "code": 94,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestChecklist.tsx"
+                },
+                {
+                    "blank": 40,
+                    "code": 296,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestInputEditor.tsx"
+                },
+                {
+                    "blank": 22,
+                    "code": 204,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestInputOutputExamplesEditor.tsx"
+                },
+                {
+                    "blank": 22,
+                    "code": 143,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestOutputEditor.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestsList.tsx"
+                },
+                {
+                    "blank": 59,
+                    "code": 629,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilAddInputOutputElementButton.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilCardList.tsx"
+                },
+                {
+                    "blank": 4,
+                    "code": 27,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilCodeEditor.tsx"
+                },
+                {
+                    "blank": 21,
+                    "code": 177,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilConsole.tsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 43,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilDetailsRow.tsx"
+                },
+                {
+                    "blank": 7,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilDetailsValue.tsx"
+                },
+                {
+                    "blank": 10,
+                    "code": 50,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilEditableCheckbox.tsx"
+                },
+                {
+                    "blank": 16,
+                    "code": 91,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilEditableSelect.tsx"
+                },
+                {
+                    "blank": 12,
+                    "code": 60,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilEditableTextField.tsx"
+                },
+                {
+                    "blank": 13,
+                    "code": 66,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilExampleInputEditor.tsx"
+                },
+                {
+                    "blank": 10,
+                    "code": 47,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilExampleInputElementEditor.tsx"
+                },
+                {
+                    "blank": 17,
+                    "code": 141,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilExampleInputLineEditor.tsx"
+                },
+                {
+                    "blank": 7,
+                    "code": 39,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilFiltersPanel.tsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 39,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilIconButton.tsx"
+                },
+                {
+                    "blank": 10,
+                    "code": 82,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilInputOutputEditor.tsx"
+                },
+                {
+                    "blank": 39,
+                    "code": 364,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilInputOutputElement.tsx"
+                },
+                {
+                    "blank": 13,
+                    "code": 116,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilInputOutputLineEditor.tsx"
+                },
+                {
+                    "blank": 11,
+                    "code": 126,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilInputOutputRepeatBlock.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilLoading.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilOpenFiltersButton.tsx"
+                },
+                {
+                    "blank": 11,
+                    "code": 57,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilOrderByDropDown.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 48,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilPageHeader.tsx"
+                },
+                {
+                    "blank": 4,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilPageSubheader.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 46,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilPagination.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 19,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilTimeSpanDisplayer.tsx"
+                },
+                {
+                    "blank": 7,
+                    "code": 29,
+                    "comment": 0,
+                    "filename": "src\\hooks\\external\\useNotistack.ts"
+                },
+                {
+                    "blank": 19,
+                    "code": 69,
+                    "comment": 0,
+                    "filename": "src\\hooks\\useExecuteTestHub.ts"
+                },
+                {
+                    "blank": 17,
+                    "code": 52,
+                    "comment": 0,
+                    "filename": "src\\hooks\\useRunningRunHub.ts"
+                },
+                {
+                    "blank": 15,
+                    "code": 90,
+                    "comment": 0,
+                    "filename": "src\\hooks\\useSearch.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "src\\index.tsx"
+                },
+                {
+                    "blank": 13,
+                    "code": 48,
+                    "comment": 3,
+                    "filename": "src\\react-app-env.d.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "src\\routing\\routes.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\styles\\styles.ts"
+                },
+                {
+                    "blank": 4,
+                    "code": 161,
+                    "comment": 0,
+                    "filename": "src\\translations\\translations.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\types\\SnackbarContext.d.ts"
+                },
+                {
+                    "blank": 0,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "tsconfig.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 17,
+                    "comment": 0,
+                    "filename": "tslint.json"
+                }
+            ]
+        },
+        {
+            "version": "0.1.7",
+            "counttime": "2019-09-02 04:22:31",
+            "filesum": 165,
+            "codesum": 27021,
+            "commentsum": 98,
+            "blanksum": 1338,
+            "filelist": [
+                {
+                    "blank": 4,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": ".gitignore"
+                },
+                {
+                    "blank": 0,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "build\\asset-manifest.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "build\\index.html"
+                },
+                {
+                    "blank": 0,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "build\\precache-manifest.c847d732bbf2133746fa8051ba52b401.js"
+                },
+                {
+                    "blank": 7,
+                    "code": 10,
+                    "comment": 17,
+                    "filename": "build\\service-worker.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 2,
+                    "filename": "build\\static\\js\\1.9f9fd7e6.chunk.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "build\\static\\js\\1.9f9fd7e6.chunk.js.map"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 1,
+                    "filename": "build\\static\\js\\main.8b45fa0d.chunk.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "build\\static\\js\\main.8b45fa0d.chunk.js.map"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 1,
+                    "filename": "build\\static\\js\\runtime~main.229c360f.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "build\\static\\js\\runtime~main.229c360f.js.map"
+                },
+                {
+                    "blank": 10,
+                    "code": 48,
+                    "comment": 0,
+                    "filename": "config\\env.js"
+                },
+                {
+                    "blank": 12,
+                    "code": 50,
+                    "comment": 0,
+                    "filename": "config\\paths.js"
+                },
+                {
+                    "blank": 14,
+                    "code": 350,
+                    "comment": 0,
+                    "filename": "config\\webpack.config.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 40,
+                    "comment": 0,
+                    "filename": "config\\webpackDevServer.config.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 17704,
+                    "comment": 0,
+                    "filename": "package-lock.json"
+                },
+                {
+                    "blank": 7,
+                    "code": 133,
+                    "comment": 0,
+                    "filename": "package.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "public\\appsettings.js"
+                },
+                {
+                    "blank": 12,
+                    "code": 43,
+                    "comment": 0,
+                    "filename": "public\\index.html"
+                },
+                {
+                    "blank": 22,
+                    "code": 150,
+                    "comment": 20,
+                    "filename": "scripts\\build.js"
+                },
+                {
+                    "blank": 11,
+                    "code": 87,
+                    "comment": 17,
+                    "filename": "scripts\\start.js"
+                },
+                {
+                    "blank": 10,
+                    "code": 36,
+                    "comment": 7,
+                    "filename": "scripts\\test.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 41,
+                    "comment": 0,
+                    "filename": "src\\api\\apiRoutes.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\categories\\AddCategoryBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\categories\\AddSubcategoryBindingModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\runs\\AddRunBindingModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\runs\\AddSingleTestRunBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\AddTestInputOutputExampleBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\CopyTestInputBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\CreateTestFromCandidateBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestCategoryBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestDisabledReasonBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestHasEmptyInputBindingModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestInputBindingModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestOutputBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestSubcategoryBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\GenerateOutputBindingModel.ts"
+                },
+                {
+                    "blank": 8,
+                    "code": 26,
+                    "comment": 0,
+                    "filename": "src\\api\\clients\\ApiClientBase.ts"
+                },
+                {
+                    "blank": 6,
+                    "code": 28,
+                    "comment": 0,
+                    "filename": "src\\api\\clients\\CategoriesApiClient.ts"
+                },
+                {
+                    "blank": 9,
+                    "code": 42,
+                    "comment": 0,
+                    "filename": "src\\api\\clients\\RunsApiClient.ts"
+                },
+                {
+                    "blank": 19,
+                    "code": 81,
+                    "comment": 0,
+                    "filename": "src\\api\\clients\\TestsApiClient.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 21,
+                    "comment": 0,
+                    "filename": "src\\api\\enums\\BaseLanguage.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\enums\\RunOutcome.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\enums\\RunStatus.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\enums\\RunType.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 22,
+                    "comment": 0,
+                    "filename": "src\\api\\enums\\TestRunStep.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 19,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\runs\\RunData.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\AbstractInputOutputElement.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\BoolElement.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\ConstStringElement.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\FloatElement.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\IntElement.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\StringElement.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\InputOutput.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\InputOutputLine.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\TestCandidate.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\TestInfo.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\TestsCheck.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\categories\\CategoryReadModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\categories\\SubcategoryReadModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\runs\\RunReadModel.ts"
+                },
+                {
+                    "blank": 4,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\runs\\TestRunFullReadModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\runs\\TestRunReadModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\tests\\TestIoExampleReadModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 33,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\tests\\TestReadModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchDirection.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchFilter.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchFilterType.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchOrderParameter.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchParameter.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchResult.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": "src\\bootstraps\\material-ui-bootstrap.ts"
+                },
+                {
+                    "blank": 7,
+                    "code": 62,
+                    "comment": 0,
+                    "filename": "src\\components\\app\\CilApp.tsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 30,
+                    "comment": 0,
+                    "filename": "src\\components\\app\\CilAppBar.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 63,
+                    "comment": 0,
+                    "filename": "src\\components\\app\\CilAppContent.tsx"
+                },
+                {
+                    "blank": 10,
+                    "code": 49,
+                    "comment": 0,
+                    "filename": "src\\components\\app\\CilMenu.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 54,
+                    "comment": 0,
+                    "filename": "src\\components\\app\\CilMenuItem.tsx"
+                },
+                {
+                    "blank": 12,
+                    "code": 66,
+                    "comment": 0,
+                    "filename": "src\\components\\base\\CilPage.tsx"
+                },
+                {
+                    "blank": 17,
+                    "code": 112,
+                    "comment": 0,
+                    "filename": "src\\components\\filters\\CilCategoryFilter.tsx"
+                },
+                {
+                    "blank": 14,
+                    "code": 78,
+                    "comment": 0,
+                    "filename": "src\\components\\filters\\CilDisabledFilter.tsx"
+                },
+                {
+                    "blank": 13,
+                    "code": 74,
+                    "comment": 0,
+                    "filename": "src\\components\\filters\\CilReadyFilter.tsx"
+                },
+                {
+                    "blank": 16,
+                    "code": 100,
+                    "comment": 0,
+                    "filename": "src\\components\\filters\\CilRunOutcomeFilter.tsx"
+                },
+                {
+                    "blank": 14,
+                    "code": 93,
+                    "comment": 0,
+                    "filename": "src\\components\\filters\\CilRunTypeFilter.tsx"
+                },
+                {
+                    "blank": 10,
+                    "code": 45,
+                    "comment": 0,
+                    "filename": "src\\components\\filters\\CilStringFilter.tsx"
+                },
+                {
+                    "blank": 16,
+                    "code": 93,
+                    "comment": 0,
+                    "filename": "src\\components\\pages\\CilCategoriesPage.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "src\\components\\pages\\CilFindTestsPage.tsx"
+                },
+                {
+                    "blank": 16,
+                    "code": 107,
+                    "comment": 0,
+                    "filename": "src\\components\\pages\\CilRunsPage.tsx"
+                },
+                {
+                    "blank": 20,
+                    "code": 164,
+                    "comment": 0,
+                    "filename": "src\\components\\pages\\CilShowRunPage.tsx"
+                },
+                {
+                    "blank": 41,
+                    "code": 297,
+                    "comment": 0,
+                    "filename": "src\\components\\pages\\CilShowTestPage.tsx"
+                },
+                {
+                    "blank": 15,
+                    "code": 144,
+                    "comment": 0,
+                    "filename": "src\\components\\pages\\CilTestsPage.tsx"
+                },
+                {
+                    "blank": 19,
+                    "code": 117,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\categories\\CilAddCategoryButton.tsx"
+                },
+                {
+                    "blank": 16,
+                    "code": 79,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\categories\\CilAddSubcategoryButton.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 32,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\categories\\CilCategoriesList.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 115,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\categories\\CilCategoryCard.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 34,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\categories\\CilDeleteCategoryButton.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 34,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\categories\\CilDeleteSubcategoryButton.tsx"
+                },
+                {
+                    "blank": 19,
+                    "code": 73,
+                    "comment": 30,
+                    "filename": "src\\components\\shared\\runs\\CilAddRunButton.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 31,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilDeleteRunButton.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 31,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilReplayRunButton.tsx"
+                },
+                {
+                    "blank": 28,
+                    "code": 278,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilRunCard.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 32,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilRunsList.tsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilShowRunButton.tsx"
+                },
+                {
+                    "blank": 24,
+                    "code": 292,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilTestRunCard.tsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 26,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilTestRunsList.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 33,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilCreateTestFromTestCandidateButton.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 30,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilDisableTestButton.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 44,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilEditTestCategorySelect.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilEditTestDisabledReasonTextField.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 28,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilEditTestHasEmptyInputCheckbox.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 44,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilEditTestSubcategorySelect.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 30,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilEnableTestButton.tsx"
+                },
+                {
+                    "blank": 20,
+                    "code": 246,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilExecuteTestBothDialog.tsx"
+                },
+                {
+                    "blank": 22,
+                    "code": 175,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilExecuteTestDialog.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 31,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilGenerateTestExeButton.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 31,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilGenerateTestIlSourcesButton.tsx"
+                },
+                {
+                    "blank": 11,
+                    "code": 52,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilRunTestBothButton.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 38,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilRunTestExeButton.tsx"
+                },
+                {
+                    "blank": 11,
+                    "code": 54,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilRunTestInterpreterButton.tsx"
+                },
+                {
+                    "blank": 11,
+                    "code": 85,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilShowIlSourcesButton.tsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 28,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilShowTestButton.tsx"
+                },
+                {
+                    "blank": 7,
+                    "code": 30,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestCandidateCard.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestCandidatesList.tsx"
+                },
+                {
+                    "blank": 12,
+                    "code": 135,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestCard.tsx"
+                },
+                {
+                    "blank": 12,
+                    "code": 94,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestChecklist.tsx"
+                },
+                {
+                    "blank": 40,
+                    "code": 296,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestInputEditor.tsx"
+                },
+                {
+                    "blank": 22,
+                    "code": 204,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestInputOutputExamplesEditor.tsx"
+                },
+                {
+                    "blank": 22,
+                    "code": 143,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestOutputEditor.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestsList.tsx"
+                },
+                {
+                    "blank": 59,
+                    "code": 629,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilAddInputOutputElementButton.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilCardList.tsx"
+                },
+                {
+                    "blank": 4,
+                    "code": 27,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilCodeEditor.tsx"
+                },
+                {
+                    "blank": 21,
+                    "code": 177,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilConsole.tsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 43,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilDetailsRow.tsx"
+                },
+                {
+                    "blank": 7,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilDetailsValue.tsx"
+                },
+                {
+                    "blank": 10,
+                    "code": 50,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilEditableCheckbox.tsx"
+                },
+                {
+                    "blank": 16,
+                    "code": 91,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilEditableSelect.tsx"
+                },
+                {
+                    "blank": 12,
+                    "code": 60,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilEditableTextField.tsx"
+                },
+                {
+                    "blank": 13,
+                    "code": 66,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilExampleInputEditor.tsx"
+                },
+                {
+                    "blank": 10,
+                    "code": 47,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilExampleInputElementEditor.tsx"
+                },
+                {
+                    "blank": 17,
+                    "code": 141,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilExampleInputLineEditor.tsx"
+                },
+                {
+                    "blank": 7,
+                    "code": 39,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilFiltersPanel.tsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 39,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilIconButton.tsx"
+                },
+                {
+                    "blank": 10,
+                    "code": 82,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilInputOutputEditor.tsx"
+                },
+                {
+                    "blank": 39,
+                    "code": 364,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilInputOutputElement.tsx"
+                },
+                {
+                    "blank": 13,
+                    "code": 116,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilInputOutputLineEditor.tsx"
+                },
+                {
+                    "blank": 11,
+                    "code": 126,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilInputOutputRepeatBlock.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilLoading.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilOpenFiltersButton.tsx"
+                },
+                {
+                    "blank": 11,
+                    "code": 57,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilOrderByDropDown.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 48,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilPageHeader.tsx"
+                },
+                {
+                    "blank": 4,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilPageSubheader.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 46,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilPagination.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 19,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilTimeSpanDisplayer.tsx"
+                },
+                {
+                    "blank": 7,
+                    "code": 29,
+                    "comment": 0,
+                    "filename": "src\\hooks\\external\\useNotistack.ts"
+                },
+                {
+                    "blank": 19,
+                    "code": 69,
+                    "comment": 0,
+                    "filename": "src\\hooks\\useExecuteTestHub.ts"
+                },
+                {
+                    "blank": 17,
+                    "code": 52,
+                    "comment": 0,
+                    "filename": "src\\hooks\\useRunningRunHub.ts"
+                },
+                {
+                    "blank": 15,
+                    "code": 90,
+                    "comment": 0,
+                    "filename": "src\\hooks\\useSearch.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "src\\index.tsx"
+                },
+                {
+                    "blank": 13,
+                    "code": 48,
+                    "comment": 3,
+                    "filename": "src\\react-app-env.d.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "src\\routing\\routes.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\styles\\styles.ts"
+                },
+                {
+                    "blank": 4,
+                    "code": 161,
+                    "comment": 0,
+                    "filename": "src\\translations\\translations.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\types\\SnackbarContext.d.ts"
+                },
+                {
+                    "blank": 0,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "tsconfig.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 17,
+                    "comment": 0,
+                    "filename": "tslint.json"
+                }
+            ]
+        },
+        {
+            "version": "0.1.7",
+            "counttime": "2019-09-02 04:22:36",
+            "filesum": 59,
+            "codesum": 1088,
+            "commentsum": 3,
+            "blanksum": 196,
+            "filelist": [
+                {
+                    "blank": 3,
+                    "code": 41,
+                    "comment": 0,
+                    "filename": "src\\api\\apiRoutes.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\categories\\AddCategoryBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\categories\\AddSubcategoryBindingModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\runs\\AddRunBindingModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\runs\\AddSingleTestRunBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\AddTestInputOutputExampleBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\CopyTestInputBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\CreateTestFromCandidateBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestCategoryBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestDisabledReasonBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestHasEmptyInputBindingModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestInputBindingModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestOutputBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestSubcategoryBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\GenerateOutputBindingModel.ts"
+                },
+                {
+                    "blank": 8,
+                    "code": 26,
+                    "comment": 0,
+                    "filename": "src\\api\\clients\\ApiClientBase.ts"
+                },
+                {
+                    "blank": 6,
+                    "code": 28,
+                    "comment": 0,
+                    "filename": "src\\api\\clients\\CategoriesApiClient.ts"
+                },
+                {
+                    "blank": 9,
+                    "code": 42,
+                    "comment": 0,
+                    "filename": "src\\api\\clients\\RunsApiClient.ts"
+                },
+                {
+                    "blank": 19,
+                    "code": 81,
+                    "comment": 0,
+                    "filename": "src\\api\\clients\\TestsApiClient.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 21,
+                    "comment": 0,
+                    "filename": "src\\api\\enums\\BaseLanguage.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\enums\\RunOutcome.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\enums\\RunStatus.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\enums\\RunType.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 22,
+                    "comment": 0,
+                    "filename": "src\\api\\enums\\TestRunStep.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 19,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\runs\\RunData.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\AbstractInputOutputElement.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\BoolElement.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\ConstStringElement.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\FloatElement.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\IntElement.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\StringElement.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\InputOutput.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\InputOutputLine.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\TestCandidate.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\TestInfo.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\TestsCheck.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\categories\\CategoryReadModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\categories\\SubcategoryReadModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\runs\\RunReadModel.ts"
+                },
+                {
+                    "blank": 4,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\runs\\TestRunFullReadModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\runs\\TestRunReadModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\tests\\TestIoExampleReadModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 33,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\tests\\TestReadModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchDirection.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchFilter.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchFilterType.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchOrderParameter.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchParameter.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchResult.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": "src\\bootstraps\\material-ui-bootstrap.ts"
+                },
+                {
+                    "blank": 7,
+                    "code": 29,
+                    "comment": 0,
+                    "filename": "src\\hooks\\external\\useNotistack.ts"
+                },
+                {
+                    "blank": 19,
+                    "code": 69,
+                    "comment": 0,
+                    "filename": "src\\hooks\\useExecuteTestHub.ts"
+                },
+                {
+                    "blank": 17,
+                    "code": 52,
+                    "comment": 0,
+                    "filename": "src\\hooks\\useRunningRunHub.ts"
+                },
+                {
+                    "blank": 15,
+                    "code": 90,
+                    "comment": 0,
+                    "filename": "src\\hooks\\useSearch.ts"
+                },
+                {
+                    "blank": 13,
+                    "code": 48,
+                    "comment": 3,
+                    "filename": "src\\react-app-env.d.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "src\\routing\\routes.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\styles\\styles.ts"
+                },
+                {
+                    "blank": 4,
+                    "code": 161,
+                    "comment": 0,
+                    "filename": "src\\translations\\translations.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\types\\SnackbarContext.d.ts"
+                }
+            ]
+        },
+        {
+            "version": "0.1.7",
+            "counttime": "2019-09-02 04:23:19",
+            "filesum": 141,
+            "codesum": 8276,
+            "commentsum": 33,
+            "blanksum": 1225,
+            "filelist": [
+                {
+                    "blank": 3,
+                    "code": 41,
+                    "comment": 0,
+                    "filename": "src\\api\\apiRoutes.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\categories\\AddCategoryBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\categories\\AddSubcategoryBindingModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\runs\\AddRunBindingModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\runs\\AddSingleTestRunBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\AddTestInputOutputExampleBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\CopyTestInputBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\CreateTestFromCandidateBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestCategoryBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestDisabledReasonBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestHasEmptyInputBindingModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestInputBindingModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestOutputBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\EditTestSubcategoryBindingModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\api\\binding-models\\tests\\GenerateOutputBindingModel.ts"
+                },
+                {
+                    "blank": 8,
+                    "code": 26,
+                    "comment": 0,
+                    "filename": "src\\api\\clients\\ApiClientBase.ts"
+                },
+                {
+                    "blank": 6,
+                    "code": 28,
+                    "comment": 0,
+                    "filename": "src\\api\\clients\\CategoriesApiClient.ts"
+                },
+                {
+                    "blank": 9,
+                    "code": 42,
+                    "comment": 0,
+                    "filename": "src\\api\\clients\\RunsApiClient.ts"
+                },
+                {
+                    "blank": 19,
+                    "code": 81,
+                    "comment": 0,
+                    "filename": "src\\api\\clients\\TestsApiClient.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 21,
+                    "comment": 0,
+                    "filename": "src\\api\\enums\\BaseLanguage.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\enums\\RunOutcome.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\enums\\RunStatus.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\enums\\RunType.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 22,
+                    "comment": 0,
+                    "filename": "src\\api\\enums\\TestRunStep.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 19,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\runs\\RunData.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\AbstractInputOutputElement.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\BoolElement.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\ConstStringElement.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\FloatElement.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\IntElement.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\elements\\StringElement.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\InputOutput.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\input-output\\InputOutputLine.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\TestCandidate.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\TestInfo.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "src\\api\\models\\tests\\TestsCheck.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\categories\\CategoryReadModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\categories\\SubcategoryReadModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\runs\\RunReadModel.ts"
+                },
+                {
+                    "blank": 4,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\runs\\TestRunFullReadModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\runs\\TestRunReadModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\tests\\TestIoExampleReadModel.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 33,
+                    "comment": 0,
+                    "filename": "src\\api\\read-models\\tests\\TestReadModel.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchDirection.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchFilter.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchFilterType.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchOrderParameter.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchParameter.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\api\\search\\SearchResult.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": "src\\bootstraps\\material-ui-bootstrap.ts"
+                },
+                {
+                    "blank": 7,
+                    "code": 62,
+                    "comment": 0,
+                    "filename": "src\\components\\app\\CilApp.tsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 30,
+                    "comment": 0,
+                    "filename": "src\\components\\app\\CilAppBar.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 63,
+                    "comment": 0,
+                    "filename": "src\\components\\app\\CilAppContent.tsx"
+                },
+                {
+                    "blank": 10,
+                    "code": 49,
+                    "comment": 0,
+                    "filename": "src\\components\\app\\CilMenu.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 54,
+                    "comment": 0,
+                    "filename": "src\\components\\app\\CilMenuItem.tsx"
+                },
+                {
+                    "blank": 12,
+                    "code": 66,
+                    "comment": 0,
+                    "filename": "src\\components\\base\\CilPage.tsx"
+                },
+                {
+                    "blank": 17,
+                    "code": 112,
+                    "comment": 0,
+                    "filename": "src\\components\\filters\\CilCategoryFilter.tsx"
+                },
+                {
+                    "blank": 14,
+                    "code": 78,
+                    "comment": 0,
+                    "filename": "src\\components\\filters\\CilDisabledFilter.tsx"
+                },
+                {
+                    "blank": 13,
+                    "code": 74,
+                    "comment": 0,
+                    "filename": "src\\components\\filters\\CilReadyFilter.tsx"
+                },
+                {
+                    "blank": 16,
+                    "code": 100,
+                    "comment": 0,
+                    "filename": "src\\components\\filters\\CilRunOutcomeFilter.tsx"
+                },
+                {
+                    "blank": 14,
+                    "code": 93,
+                    "comment": 0,
+                    "filename": "src\\components\\filters\\CilRunTypeFilter.tsx"
+                },
+                {
+                    "blank": 10,
+                    "code": 45,
+                    "comment": 0,
+                    "filename": "src\\components\\filters\\CilStringFilter.tsx"
+                },
+                {
+                    "blank": 16,
+                    "code": 93,
+                    "comment": 0,
+                    "filename": "src\\components\\pages\\CilCategoriesPage.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "src\\components\\pages\\CilFindTestsPage.tsx"
+                },
+                {
+                    "blank": 16,
+                    "code": 107,
+                    "comment": 0,
+                    "filename": "src\\components\\pages\\CilRunsPage.tsx"
+                },
+                {
+                    "blank": 20,
+                    "code": 164,
+                    "comment": 0,
+                    "filename": "src\\components\\pages\\CilShowRunPage.tsx"
+                },
+                {
+                    "blank": 41,
+                    "code": 297,
+                    "comment": 0,
+                    "filename": "src\\components\\pages\\CilShowTestPage.tsx"
+                },
+                {
+                    "blank": 15,
+                    "code": 144,
+                    "comment": 0,
+                    "filename": "src\\components\\pages\\CilTestsPage.tsx"
+                },
+                {
+                    "blank": 19,
+                    "code": 117,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\categories\\CilAddCategoryButton.tsx"
+                },
+                {
+                    "blank": 16,
+                    "code": 79,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\categories\\CilAddSubcategoryButton.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 32,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\categories\\CilCategoriesList.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 115,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\categories\\CilCategoryCard.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 34,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\categories\\CilDeleteCategoryButton.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 34,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\categories\\CilDeleteSubcategoryButton.tsx"
+                },
+                {
+                    "blank": 19,
+                    "code": 73,
+                    "comment": 30,
+                    "filename": "src\\components\\shared\\runs\\CilAddRunButton.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 31,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilDeleteRunButton.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 31,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilReplayRunButton.tsx"
+                },
+                {
+                    "blank": 28,
+                    "code": 278,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilRunCard.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 32,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilRunsList.tsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilShowRunButton.tsx"
+                },
+                {
+                    "blank": 24,
+                    "code": 292,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilTestRunCard.tsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 26,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\runs\\CilTestRunsList.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 33,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilCreateTestFromTestCandidateButton.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 30,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilDisableTestButton.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 44,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilEditTestCategorySelect.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilEditTestDisabledReasonTextField.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 28,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilEditTestHasEmptyInputCheckbox.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 44,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilEditTestSubcategorySelect.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 30,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilEnableTestButton.tsx"
+                },
+                {
+                    "blank": 20,
+                    "code": 246,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilExecuteTestBothDialog.tsx"
+                },
+                {
+                    "blank": 22,
+                    "code": 175,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilExecuteTestDialog.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 31,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilGenerateTestExeButton.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 31,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilGenerateTestIlSourcesButton.tsx"
+                },
+                {
+                    "blank": 11,
+                    "code": 52,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilRunTestBothButton.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 38,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilRunTestExeButton.tsx"
+                },
+                {
+                    "blank": 11,
+                    "code": 54,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilRunTestInterpreterButton.tsx"
+                },
+                {
+                    "blank": 11,
+                    "code": 85,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilShowIlSourcesButton.tsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 28,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilShowTestButton.tsx"
+                },
+                {
+                    "blank": 7,
+                    "code": 30,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestCandidateCard.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestCandidatesList.tsx"
+                },
+                {
+                    "blank": 12,
+                    "code": 135,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestCard.tsx"
+                },
+                {
+                    "blank": 12,
+                    "code": 94,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestChecklist.tsx"
+                },
+                {
+                    "blank": 40,
+                    "code": 296,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestInputEditor.tsx"
+                },
+                {
+                    "blank": 22,
+                    "code": 204,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestInputOutputExamplesEditor.tsx"
+                },
+                {
+                    "blank": 22,
+                    "code": 143,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestOutputEditor.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "src\\components\\shared\\tests\\CilTestsList.tsx"
+                },
+                {
+                    "blank": 59,
+                    "code": 629,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilAddInputOutputElementButton.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilCardList.tsx"
+                },
+                {
+                    "blank": 4,
+                    "code": 27,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilCodeEditor.tsx"
+                },
+                {
+                    "blank": 21,
+                    "code": 177,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilConsole.tsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 43,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilDetailsRow.tsx"
+                },
+                {
+                    "blank": 7,
+                    "code": 23,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilDetailsValue.tsx"
+                },
+                {
+                    "blank": 10,
+                    "code": 50,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilEditableCheckbox.tsx"
+                },
+                {
+                    "blank": 16,
+                    "code": 91,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilEditableSelect.tsx"
+                },
+                {
+                    "blank": 12,
+                    "code": 60,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilEditableTextField.tsx"
+                },
+                {
+                    "blank": 13,
+                    "code": 66,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilExampleInputEditor.tsx"
+                },
+                {
+                    "blank": 10,
+                    "code": 47,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilExampleInputElementEditor.tsx"
+                },
+                {
+                    "blank": 17,
+                    "code": 141,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilExampleInputLineEditor.tsx"
+                },
+                {
+                    "blank": 7,
+                    "code": 39,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilFiltersPanel.tsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 39,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilIconButton.tsx"
+                },
+                {
+                    "blank": 10,
+                    "code": 82,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilInputOutputEditor.tsx"
+                },
+                {
+                    "blank": 39,
+                    "code": 364,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilInputOutputElement.tsx"
+                },
+                {
+                    "blank": 13,
+                    "code": 116,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilInputOutputLineEditor.tsx"
+                },
+                {
+                    "blank": 11,
+                    "code": 126,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilInputOutputRepeatBlock.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilLoading.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilOpenFiltersButton.tsx"
+                },
+                {
+                    "blank": 11,
+                    "code": 57,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilOrderByDropDown.tsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 48,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilPageHeader.tsx"
+                },
+                {
+                    "blank": 4,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilPageSubheader.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 46,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilPagination.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 19,
+                    "comment": 0,
+                    "filename": "src\\components\\utils\\CilTimeSpanDisplayer.tsx"
+                },
+                {
+                    "blank": 7,
+                    "code": 29,
+                    "comment": 0,
+                    "filename": "src\\hooks\\external\\useNotistack.ts"
+                },
+                {
+                    "blank": 19,
+                    "code": 69,
+                    "comment": 0,
+                    "filename": "src\\hooks\\useExecuteTestHub.ts"
+                },
+                {
+                    "blank": 17,
+                    "code": 52,
+                    "comment": 0,
+                    "filename": "src\\hooks\\useRunningRunHub.ts"
+                },
+                {
+                    "blank": 15,
+                    "code": 90,
+                    "comment": 0,
+                    "filename": "src\\hooks\\useSearch.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "src\\index.tsx"
+                },
+                {
+                    "blank": 13,
+                    "code": 48,
+                    "comment": 3,
+                    "filename": "src\\react-app-env.d.ts"
+                },
+                {
+                    "blank": 3,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "src\\routing\\routes.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\styles\\styles.ts"
+                },
+                {
+                    "blank": 4,
+                    "code": 161,
+                    "comment": 0,
+                    "filename": "src\\translations\\translations.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\types\\SnackbarContext.d.ts"
+                }
+            ]
+        }
+    ]
+}

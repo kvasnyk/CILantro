@@ -25,4 +25,7 @@
 \contentsline {figure}{\numberline {5.7}{\ignorespaces The environment - the \textit {Test runs} page.}}{48}{figure.5.7}% 
 \contentsline {figure}{\numberline {5.8}{\ignorespaces The environment - the \textit {Test run} functionality.}}{49}{figure.5.8}% 
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Average execution time of the Fibonacci test program.}}{54}{figure.6.1}% 
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Average execution time of the Ackermann function test program.}}{55}{figure.6.2}% 
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Average execution time of the natural numbers writer.}}{55}{figure.6.3}% 
 \addvspace {10\p@ }

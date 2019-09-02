@@ -54,5 +54,6 @@
 \contentsline {subsection}{\numberline {5.2.5}Managing test runs}{47}{subsection.5.2.5}% 
 \contentsline {subsection}{\numberline {5.2.6}Managing a single test run}{47}{subsection.5.2.6}% 
 \contentsline {chapter}{\numberline {6}Results}{51}{chapter.6}% 
-\contentsline {chapter}{\numberline {7}Conclusions and future work}{55}{chapter.7}% 
-\contentsline {section}{\numberline {7.1}Future work}{55}{section.7.1}% 
+\contentsline {section}{\numberline {6.1}Performance}{54}{section.6.1}% 
+\contentsline {chapter}{\numberline {7}Conclusions and future work}{57}{chapter.7}% 
+\contentsline {section}{\numberline {7.1}Future work}{57}{section.7.1}% 

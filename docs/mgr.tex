@@ -212,7 +212,7 @@ Being a student of Computer Science and working as a \texttt{C\#} and \texttt{.N
 	\item{create a comprehensive environment for testing the interpreter.}
 \end{itemize}
 
-The main concepts of the \acrshort{cil} instructions are presented in section \ref{sec:instructionSet}. Section \ref{sec:semantics} introduces a formal mathematical model and tries to specify the semantics of the \acrshort{cil}. The interpreter together with its technical details is described in section \ref{sec:interpreter}. The environment and the methodology of testing are presented in section \ref{sec:testing}. Section \ref{sec:results} summarises the results while section \ref{sec:conclusions} contains the conclusions and suggests some ideas that could be potentially undertaken in the future.
+The main concepts of the \acrshort{cil} instructions are presented in chapter \ref{sec:instructionSet}. Chapter \ref{sec:semantics} introduces a formal mathematical model and tries to specify the semantics of the \acrshort{cil}. The interpreter together with its technical details is described in chapter \ref{sec:interpreter}. The environment and the methodology of testing are presented in chapter \ref{sec:testing}. Chapter \ref{sec:results} summarises the results while chapter \ref{sec:conclusions} contains the conclusions and suggests some ideas that could be potentially undertaken in the future.
 
 All the source code produced as a part of the thesis can be found in the repository available under the following link:
 \begin{center}
@@ -232,7 +232,7 @@ All the source code produced as a part of the thesis can be found in the reposit
 \chapter{The CIL instruction set}
 \label{sec:instructionSet}
 
-In order to understand how the \acrshort{cil} instructions work, this section explains the concept of the global state and provides code examples introducing several \acrshort{cil} instructions. As the whole set contains more than 200 instructions, further information on each of them can be found in \cite{ecmaStandard} and \cite{isoStandard}. A full list of the instructions is also shown in tables \ref{tab:coverage1} and \ref{tab:coverage2} which illustrate whether each instruction was implemented in the final interpreter or not.
+In order to understand how the \acrshort{cil} instructions work, this chapter explains the concept of the global state and provides code examples introducing several \acrshort{cil} instructions. As the whole set contains more than 200 instructions, further information on each of them can be found in \cite{ecmaStandard} and \cite{isoStandard}. A full list of the instructions is also shown in tables \ref{tab:coverage1} and \ref{tab:coverage2} which illustrate whether each instruction was implemented in the final interpreter or not.
 
 \section{The global state}
 \label{sec:global_state}
@@ -1341,6 +1341,7 @@ Taking into account the abilities of the interpreter, only console programs writ
 Once a test is prepared, it can be executed using the interpreter and the result of the execution can be compared to the result of the original test program. The result of such a comparison is assumed to be correct when the output produced by the interpreter is the same as the output produced by the original program for the same input. Even though a single test can be potentially executed using an infinite set of different inputs, only a small part is used so that the process is not too time-consuming. In order to make the process as reliable as possible, a set of random inputs is prepared every time the test is executed.
 
 \section{The environment}
+\label{sec:environment}
 
 Since repeating the process described above manually might be arduous for bigger numbers of tests, a dedicated system was written separately to automate the procedure. The system is hereinafter called \textit{the tools} or \textit{the environment}. It comprises 2 projects:
 \begin{itemize}
@@ -1464,49 +1465,61 @@ Additionally, each row can be also opened in order to see the input and the outp
 \chapter{Results}
 \label{sec:results}
 
-As mentioned, the main goal of the thesis was to implement an interpreter covering as many \acrshort{cil} instructions as possible.
+As mentioned, the main goal of the thesis was to implement an interpreter covering as many \acrshort{cil} instructions as possible. The final version of the interpreter fully handles \textbf{101 out of 219} instructions. Moreover, \textbf{17} instructions are partially implemented so they work in some cases but their \texttt{Visit} methods still need to be completed. The details of the \acrshort{cil} instructions set coverage can be found in tables \ref{tab:coverage1} and \ref{tab:coverage2} where:
+\begin{itemize}
+	\item{$\Circle$ denotes an instruction that is not implemented,}
+	\item{$\LEFTcircle$ denotes an instruction that is partially implemented,}
+	\item{$\CIRCLE$ denotes an instruction that is fully implemented.}
+\end{itemize}
+
+The project itself consists of:
+\begin{itemize}
+	\item{\textbf{393} source code files (\texttt{.cs}),}
+	\item{\textbf{394} \texttt{C\#} classes},
+	\item{\textbf{14574} lines of code.}
+\end{itemize}
 
 \begin{table}
 \begin{center}
 	\begin{tabular}{|cc||cc||cc|}
-\hline
-\texttt{nop} & \Circle & \texttt{pop} & \Circle & \texttt{ldind.u4} & \Circle \\ \hline
+	\hline
+\texttt{nop} & \Circle & \texttt{pop} & \CIRCLE & \texttt{ldind.u4} & \Circle \\ \hline
 \texttt{break} & \Circle & \texttt{jmp} & \Circle & \texttt{ldind.i8} & \Circle \\ \hline
-\texttt{ldarg.0} & \Circle & \texttt{call} & \Circle & \texttt{ldind.i} & \Circle \\ \hline
-\texttt{ldarg.1} & \Circle & \texttt{calli} & \Circle & \texttt{ldind.r4} & \Circle \\ \hline
-\texttt{ldarg.2} & \Circle & \texttt{ret} & \Circle & \texttt{ldind.r8} & \Circle \\ \hline
-\texttt{ldarg.3} & \Circle & \texttt{br.s} & \Circle & \texttt{ldind.ref} & \Circle \\ \hline
-\texttt{ldloc.0} & \Circle & \texttt{brfalse.s} & \Circle & \texttt{stind.ref} & \Circle \\ \hline
-\texttt{ldloc.1} & \Circle & \texttt{brtrue.s} & \Circle & \texttt{stind.i1} & \Circle \\ \hline
-\texttt{ldloc.2} & \Circle & \texttt{beq.s} & \Circle & \texttt{stind.i2} & \Circle \\ \hline
-\texttt{ldloc.3} & \Circle & \texttt{bge.s} & \Circle & \texttt{stind.i4} & \Circle \\ \hline
-\texttt{stloc.0} & \Circle & \texttt{bgt.s} & \Circle & \texttt{stind.i8} & \Circle \\ \hline
-\texttt{stloc.1} & \Circle & \texttt{ble.s} & \Circle & \texttt{stind.r4} & \Circle \\ \hline
-\texttt{stloc.2} & \Circle & \texttt{blt.s} & \Circle & \texttt{stind.r8} & \Circle \\ \hline
-\texttt{stloc.3} & \Circle & \texttt{bne.un.s} & \Circle & \texttt{add} & \Circle \\ \hline
-\texttt{ldarg.s} & \Circle & \texttt{bge.un.s} & \Circle & \texttt{sub} & \Circle \\ \hline
-\texttt{ldarga.s} & \Circle & \texttt{bgt.un.s} & \Circle & \texttt{mul} & \Circle \\ \hline
-\texttt{starg.s} & \Circle & \texttt{ble.un.s} & \Circle & \texttt{div} & \Circle \\ \hline
-\texttt{ldloc.s} & \Circle & \texttt{blt.un.s} & \Circle & \texttt{div.un} & \Circle \\ \hline
-\texttt{ldloca.s} & \Circle & \texttt{br} & \Circle & \texttt{rem} & \Circle \\ \hline
-\texttt{stloc.s} & \Circle & \texttt{brfalse} & \Circle & \texttt{rem.un} & \Circle \\ \hline
-\texttt{ldnull} & \Circle & \texttt{brtrue} & \Circle & \texttt{and} & \Circle \\ \hline
-\texttt{ldc.i4.m1} & \Circle & \texttt{beq} & \Circle & \texttt{or} & \Circle \\ \hline
-\texttt{ldc.i4.0} & \Circle & \texttt{bge} & \Circle & \texttt{xor} & \Circle \\ \hline
-\texttt{ldc.i4.1} & \Circle & \texttt{bgt} & \Circle & \texttt{shl} & \Circle \\ \hline
-\texttt{ldc.i4.2} & \Circle & \texttt{ble} & \Circle & \texttt{shr} & \Circle \\ \hline
-\texttt{ldc.i4.3} & \Circle & \texttt{blt} & \Circle & \texttt{shr.un} & \Circle \\ \hline
-\texttt{ldc.i4.4} & \Circle & \texttt{bne.un} & \Circle & \texttt{neg} & \Circle \\ \hline
-\texttt{ldc.i4.5} & \Circle & \texttt{bge.un} & \Circle & \texttt{not} & \Circle \\ \hline
-\texttt{ldc.i4.6} & \Circle & \texttt{bgt.un} & \Circle & \texttt{conv.i1} & \Circle \\ \hline
-\texttt{ldc.i4.7} & \Circle & \texttt{ble.un} & \Circle & \texttt{conv.i2} & \Circle \\ \hline
-\texttt{ldc.i4.8} & \Circle & \texttt{blt.un} & \Circle & \texttt{conv.i4} & \Circle \\ \hline
-\texttt{ldc.i4.s} & \Circle & \texttt{switch} & \Circle & \texttt{conv.i8} & \Circle \\ \hline
-\texttt{ldc.i4} & \Circle & \texttt{ldind.i1} & \Circle & \texttt{conv.r4} & \Circle \\ \hline
-\texttt{ldc.i8} & \Circle & \texttt{ldind.u1} & \Circle & \texttt{conv.r8} & \Circle \\ \hline
-\texttt{ldc.r4} & \Circle & \texttt{ldind.i2} & \Circle & \texttt{conv.u4} & \Circle \\ \hline
-\texttt{ldc.r8} & \Circle & \texttt{ldind.u2} & \Circle & \texttt{conv.u8} & \Circle \\ \hline
-\texttt{dup} & \Circle & \texttt{ldind.i4} & \Circle & \texttt{callvirt} & \Circle \\ \hline
+\texttt{ldarg.0} & \CIRCLE & \texttt{call} & \CIRCLE & \texttt{ldind.i} & \Circle \\ \hline
+\texttt{ldarg.1} & \CIRCLE & \texttt{calli} & \Circle & \texttt{ldind.r4} & \Circle \\ \hline
+\texttt{ldarg.2} & \CIRCLE & \texttt{ret} & \CIRCLE & \texttt{ldind.r8} & \Circle \\ \hline
+\texttt{ldarg.3} & \CIRCLE & \texttt{br.s} & \CIRCLE & \texttt{ldind.ref} & \Circle \\ \hline
+\texttt{ldloc.0} & \CIRCLE & \texttt{brfalse.s} & \CIRCLE & \texttt{stind.ref} & \Circle \\ \hline
+\texttt{ldloc.1} & \CIRCLE & \texttt{brtrue.s} & \CIRCLE & \texttt{stind.i1} & \Circle \\ \hline
+\texttt{ldloc.2} & \CIRCLE & \texttt{beq.s} & \CIRCLE & \texttt{stind.i2} & \Circle \\ \hline
+\texttt{ldloc.3} & \CIRCLE & \texttt{bge.s} & \CIRCLE & \texttt{stind.i4} & \LEFTcircle \\ \hline
+\texttt{stloc.0} & \CIRCLE & \texttt{bgt.s} & \CIRCLE & \texttt{stind.i8} & \Circle \\ \hline
+\texttt{stloc.1} & \CIRCLE & \texttt{ble.s} & \CIRCLE & \texttt{stind.r4} & \Circle \\ \hline
+\texttt{stloc.2} & \CIRCLE & \texttt{blt.s} & \CIRCLE & \texttt{stind.r8} & \Circle \\ \hline
+\texttt{stloc.3} & \CIRCLE & \texttt{bne.un.s} & \CIRCLE & \texttt{add} & \CIRCLE \\ \hline
+\texttt{ldarg.s} & \CIRCLE & \texttt{bge.un.s} & \CIRCLE & \texttt{sub} & \CIRCLE \\ \hline
+\texttt{ldarga.s} & \Circle & \texttt{bgt.un.s} & \CIRCLE & \texttt{mul} & \CIRCLE \\ \hline
+\texttt{starg.s} & \CIRCLE & \texttt{ble.un.s} & \CIRCLE & \texttt{div} & \CIRCLE \\ \hline
+\texttt{ldloc.s} & \CIRCLE & \texttt{blt.un.s} & \CIRCLE & \texttt{div.un} & \CIRCLE \\ \hline
+\texttt{ldloca.s} & \LEFTcircle & \texttt{br} & \CIRCLE & \texttt{rem} & \CIRCLE \\ \hline
+\texttt{stloc.s} & \CIRCLE & \texttt{brfalse} & \Circle & \texttt{rem.un} & \CIRCLE \\ \hline
+\texttt{ldnull} & \Circle & \texttt{brtrue} & \Circle & \texttt{and} & \CIRCLE \\ \hline
+\texttt{ldc.i4.m1} & \CIRCLE & \texttt{beq} & \Circle & \texttt{or} & \CIRCLE \\ \hline
+\texttt{ldc.i4.0} & \CIRCLE & \texttt{bge} & \Circle & \texttt{xor} & \CIRCLE \\ \hline
+\texttt{ldc.i4.1} & \CIRCLE & \texttt{bgt} & \Circle & \texttt{shl} & \CIRCLE \\ \hline
+\texttt{ldc.i4.2} & \CIRCLE & \texttt{ble} & \Circle & \texttt{shr} & \CIRCLE \\ \hline
+\texttt{ldc.i4.3} & \CIRCLE & \texttt{blt} & \Circle & \texttt{shr.un} & \CIRCLE \\ \hline
+\texttt{ldc.i4.4} & \CIRCLE & \texttt{bne.un} & \Circle & \texttt{neg} & \CIRCLE \\ \hline
+\texttt{ldc.i4.5} & \CIRCLE & \texttt{bge.un} & \Circle & \texttt{not} & \CIRCLE \\ \hline
+\texttt{ldc.i4.6} & \CIRCLE & \texttt{bgt.un} & \Circle & \texttt{conv.i1} & \LEFTcircle \\ \hline
+\texttt{ldc.i4.7} & \CIRCLE & \texttt{ble.un} & \Circle & \texttt{conv.i2} & \LEFTcircle \\ \hline
+\texttt{ldc.i4.8} & \CIRCLE & \texttt{blt.un} & \Circle & \texttt{conv.i4} & \LEFTcircle \\ \hline
+\texttt{ldc.i4.s} & \CIRCLE & \texttt{switch} & \CIRCLE & \texttt{conv.i8} & \LEFTcircle \\ \hline
+\texttt{ldc.i4} & \CIRCLE & \texttt{ldind.i1} & \Circle & \texttt{conv.r4} & \LEFTcircle \\ \hline
+\texttt{ldc.i8} & \CIRCLE & \texttt{ldind.u1} & \Circle & \texttt{conv.r8} & \LEFTcircle \\ \hline
+\texttt{ldc.r4} & \CIRCLE & \texttt{ldind.i2} & \Circle & \texttt{conv.u4} & \Circle \\ \hline
+\texttt{ldc.r8} & \CIRCLE & \texttt{ldind.u2} & \Circle & \texttt{conv.u8} & \LEFTcircle \\ \hline
+\texttt{dup} & \CIRCLE & \texttt{ldind.i4} & \LEFTcircle & \texttt{callvirt} & \CIRCLE \\ \hline
 	\end{tabular}
 \caption{The \acrshort{cil} instructions covered by the interpreter (part 1 of 2).}
 \label{tab:coverage1}
@@ -1516,22 +1529,22 @@ As mentioned, the main goal of the thesis was to implement an interpreter coveri
 \begin{table}
 \begin{center}
 	\begin{tabular}{|cc||cc||cc|}
-\hline
+	\hline
 \texttt{cpobj} & \Circle & \texttt{ldelem.i} & \Circle & \texttt{sub.ovf.un} & \Circle \\ \hline
-\texttt{ldobj} & \Circle & \texttt{ldelem.r4} & \Circle & \texttt{endfinally} & \Circle \\ \hline
-\texttt{ldstr} & \Circle & \texttt{ldelem.r8} & \Circle & \texttt{leave} & \Circle \\ \hline
-\texttt{newobj} & \Circle & \texttt{ldelem.ref} & \Circle & \texttt{leave.s} & \Circle \\ \hline
+\texttt{ldobj} & \Circle & \texttt{ldelem.r4} & \CIRCLE & \texttt{endfinally} & \Circle \\ \hline
+\texttt{ldstr} & \CIRCLE & \texttt{ldelem.r8} & \CIRCLE & \texttt{leave} & \Circle \\ \hline
+\texttt{newobj} & \CIRCLE & \texttt{ldelem.ref} & \CIRCLE & \texttt{leave.s} & \Circle \\ \hline
 \texttt{castclass} & \Circle & \texttt{stelem.i} & \Circle & \texttt{stind.i} & \Circle \\ \hline
-\texttt{isinst} & \Circle & \texttt{stelem.i1} & \Circle & \texttt{conv.u} & \Circle \\ \hline
-\texttt{conv.r.un} & \Circle & \texttt{stelem.i2} & \Circle & \texttt{arglist} & \Circle \\ \hline
-\texttt{unbox} & \Circle & \texttt{stelem.i4} & \Circle & \texttt{ceq} & \Circle \\ \hline
-\texttt{throw} & \Circle & \texttt{stelem.i8} & \Circle & \texttt{cgt} & \Circle \\ \hline
-\texttt{ldfld} & \Circle & \texttt{stelem.r4} & \Circle & \texttt{cgt.un} & \Circle \\ \hline
-\texttt{ldflda} & \Circle & \texttt{stelem.r8} & \Circle & \texttt{clt} & \Circle \\ \hline
-\texttt{stfld} & \Circle & \texttt{stelem.ref} & \Circle & \texttt{clt.un} & \Circle \\ \hline
-\texttt{ldsfld} & \Circle & \texttt{ldelem} & \Circle & \texttt{ldftn} & \Circle \\ \hline
-\texttt{ldsflda} & \Circle & \texttt{stelem} & \Circle & \texttt{ldvirtftn} & \Circle \\ \hline
-\texttt{stsfld} & \Circle & \texttt{unbox.any} & \Circle & \texttt{ldarg} & \Circle \\ \hline
+\texttt{isinst} & \LEFTcircle & \texttt{stelem.i1} & \CIRCLE & \texttt{conv.u} & \LEFTcircle \\ \hline
+\texttt{conv.r.un} & \LEFTcircle & \texttt{stelem.i2} & \CIRCLE & \texttt{arglist} & \Circle \\ \hline
+\texttt{unbox} & \Circle & \texttt{stelem.i4} & \CIRCLE & \texttt{ceq} & \CIRCLE \\ \hline
+\texttt{throw} & \Circle & \texttt{stelem.i8} & \CIRCLE & \texttt{cgt} & \CIRCLE \\ \hline
+\texttt{ldfld} & \CIRCLE & \texttt{stelem.r4} & \CIRCLE & \texttt{cgt.un} & \CIRCLE \\ \hline
+\texttt{ldflda} & \LEFTcircle & \texttt{stelem.r8} & \CIRCLE & \texttt{clt} & \CIRCLE \\ \hline
+\texttt{stfld} & \CIRCLE & \texttt{stelem.ref} & \CIRCLE & \texttt{clt.un} & \CIRCLE \\ \hline
+\texttt{ldsfld} & \CIRCLE & \texttt{ldelem} & \CIRCLE & \texttt{ldftn} & \Circle \\ \hline
+\texttt{ldsflda} & \Circle & \texttt{stelem} & \CIRCLE & \texttt{ldvirtftn} & \Circle \\ \hline
+\texttt{stsfld} & \CIRCLE & \texttt{unbox.any} & \CIRCLE & \texttt{ldarg} & \Circle \\ \hline
 \texttt{stobj} & \Circle & \texttt{conv.ovf.i1} & \Circle & \texttt{ldarga} & \Circle \\ \hline
 \texttt{conv.ovf.i1.un} & \Circle & \texttt{conv.ovf.u1} & \Circle & \texttt{starg} & \Circle \\ \hline
 \texttt{conv.ovf.i2.un} & \Circle & \texttt{conv.ovf.i2} & \Circle & \texttt{ldloc} & \Circle \\ \hline
@@ -1542,23 +1555,72 @@ As mentioned, the main goal of the thesis was to implement an interpreter coveri
 \texttt{conv.ovf.u4.un} & \Circle & \texttt{conv.ovf.u8} & \Circle & \texttt{unaligned.} & \Circle \\ \hline
 \texttt{conv.ovf.u8.un} & \Circle & \texttt{refanyval} & \Circle & \texttt{volatile.} & \Circle \\ \hline
 \texttt{conv.ovf.i.un} & \Circle & \texttt{ckfinite} & \Circle & \texttt{tail.} & \Circle \\ \hline
-\texttt{conv.ovf.u.un} & \Circle & \texttt{mkrefany} & \Circle & \texttt{Initobj} & \Circle \\ \hline
-\texttt{box} & \Circle & \texttt{ldtoken} & \Circle & \texttt{constrained.} & \Circle \\ \hline
-\texttt{newarr} & \Circle & \texttt{conv.u2} & \Circle & \texttt{cpblk} & \Circle \\ \hline
-\texttt{ldlen} & \Circle & \texttt{conv.u1} & \Circle & \texttt{initblk} & \Circle \\ \hline
+\texttt{conv.ovf.u.un} & \Circle & \texttt{mkrefany} & \Circle & \texttt{Initobj} & \CIRCLE \\ \hline
+\texttt{box} & \CIRCLE & \texttt{ldtoken} & \LEFTcircle & \texttt{constrained.} & \Circle \\ \hline
+\texttt{newarr} & \CIRCLE & \texttt{conv.u2} & \LEFTcircle & \texttt{cpblk} & \Circle \\ \hline
+\texttt{ldlen} & \CIRCLE & \texttt{conv.u1} & \LEFTcircle & \texttt{initblk} & \Circle \\ \hline
 \texttt{ldelema} & \Circle & \texttt{conv.i} & \Circle & \texttt{no.} & \Circle \\ \hline
-\texttt{ldelem.i1} & \Circle & \texttt{conv.ovf.i} & \Circle & \texttt{rethrow} & \Circle \\ \hline
-\texttt{ldelem.u1} & \Circle & \texttt{conv.ovf.u} & \Circle & \texttt{sizeof} & \Circle \\ \hline
-\texttt{ldelem.i2} & \Circle & \texttt{add.ovf} & \Circle & \texttt{Refanytype} & \Circle \\ \hline
-\texttt{ldelem.u2} & \Circle & \texttt{add.ovf.un} & \Circle & \texttt{readonly.} & \Circle \\ \hline
-\texttt{ldelem.i4} & \Circle & \texttt{mul.ovf} & \Circle &  &  \\ \hline
-\texttt{ldelem.u4} & \Circle & \texttt{mul.ovf.un} & \Circle &  &  \\ \hline
-\texttt{ldelem.i8} & \Circle & \texttt{sub.ovf} & \Circle &  &  \\ \hline
+\texttt{ldelem.i1} & \CIRCLE & \texttt{conv.ovf.i} & \Circle & \texttt{rethrow} & \Circle \\ \hline
+\texttt{ldelem.u1} & \CIRCLE & \texttt{conv.ovf.u} & \Circle & \texttt{sizeof} & \Circle \\ \hline
+\texttt{ldelem.i2} & \CIRCLE & \texttt{add.ovf} & \Circle & \texttt{Refanytype} & \Circle \\ \hline
+\texttt{ldelem.u2} & \CIRCLE & \texttt{add.ovf.un} & \Circle & \texttt{readonly.} & \Circle \\ \hline
+\texttt{ldelem.i4} & \CIRCLE & \texttt{mul.ovf} & \Circle &  &  \\ \hline
+\texttt{ldelem.u4} & \CIRCLE & \texttt{mul.ovf.un} & \Circle &  &  \\ \hline
+\texttt{ldelem.i8} & \CIRCLE & \texttt{sub.ovf} & \Circle &  &  \\ \hline
 	\end{tabular}
 \caption{The \acrshort{cil} instructions covered by the interpreter (part 2 of 2).}
 \label{tab:coverage2}
 \end{center}
 \end{table}
+
+While working on the interpreter, a total number of \textbf{408} tests were used where:
+\begin{itemize}
+	\item{\textbf{328} tests were written manually using mainly \texttt{C\#} but also \texttt{F\#} and the \acrshort{cil} itself;}
+	\item{\textbf{80} tests were adopted from \cite{tutorialspoint};}
+	\item{\textbf{384} tests were successfully handled by the interpreter;}
+	\item{\textbf{more than 14000} lines of code were produced for the manually created tests.}
+\end{itemize}
+
+The environment presented in section \ref{sec:environment} was written using:
+\begin{itemize}
+	\item{\textbf{10348} lines of code for the back-end application,}
+	\item{\textbf{8276} lines of code for the front-end application.}
+\end{itemize}
+
+\section{Performance}
+\label{sec:performance}
+
+Although performance was not a part of the thesis, 3 special tests were written in order to compare the performance of the interpreter to the standard \texttt{.NET Framework 4.7.2} implementation. Each of the charts included in this section presents results in the same manner. Each input data was used 5 times and a chart presents the average execution time in milliseconds. The left column corresponds to the original program while the right one relates to the interpreter. The logarithmic scale was used for each chart.
+
+The first program computes the $n$-th Fibonacci number using the standard recursive formula. It relates to figure \ref{fig:fibonacci_chart}. The second test computes the Ackermann function using the recursive formula again and corresponds to figure \ref{fig:ackermann_chart}. The last performance test simply writes out the first $n$ natural numbers and its results are presented in figure \ref{fig:natural_chart}.
+
+\begin{figure}
+	\includegraphics[width=1\textwidth]{fibonacci_chart.png}
+    \centering
+    \caption{Average execution time of the Fibonacci test program.}
+    \label{fig:fibonacci_chart}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=1\textwidth]{ackermann_chart.png}
+    \centering
+    \caption{Average execution time of the Ackermann function test program.}
+    \label{fig:ackermann_chart}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=1\textwidth]{natural_chart.png}
+    \centering
+    \caption{Average execution time of the natural numbers writer.}
+    \label{fig:natural_chart}
+\end{figure}
+
+As shown in the figures, the interpreter seems to work much slower than the original test programs. However, it might have been anticipated. There are several reasons that could explain the performance gap between the two:
+\begin{itemize}
+	\item{The interpreter works directly on the source code while the \texttt{.NET Framework} operates on compiled versions of programs.}
+	\item{The interpreter is written in \texttt{C\#} which is itself executed by the framework.}
+	\item{The implementation of the interpreter is simplified and could be potentially improved as shown in section \ref{sec:future_work}.}
+\end{itemize}
 
 \clearpage
 
@@ -1583,6 +1645,7 @@ Furthermore, building an interpreter has to be done simultaneously with several 
 To sum up, the thesis and the project explain why there is often a large number of developers, engineers, testers and other people involved in the process of building and improving modern and valuable programming languages.
 
 \section{Future work}
+\label{sec:future_work}
 
 There are several areas that could be potentially improved or completed in terms of the interpreter:
 \begin{itemize}
@@ -1593,6 +1656,7 @@ There are several areas that could be potentially improved or completed in terms
 	\item{No garbage collector is implemented so values remain in the memory until the very end of the program.}
 	\item{There is no support for multithreading or asynchronous operations.}
 	\item{The algorithm described in section \ref{sec:codeVerifiability} could be implemented and involved in the whole process of interpreting. For now, the interpreter cannot verify the input code thus only correct programs are allowed.}
+	\item{As shown in section \ref{sec:performance}, the performance of the interpreter could be possibly improved.}
 \end{itemize}
 
 \clearpage
