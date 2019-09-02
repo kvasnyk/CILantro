@@ -17,8 +17,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<Name1AstNode>();
             if (children.PopulateWith(parseNode))
             {
-                // TODO: implement something
-
+                // TODO - handle
                 return;
             }
 

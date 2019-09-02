@@ -23,41 +23,33 @@ namespace CILantro.Parsing
 
             // lexical tokens
 
-            // TODO: specify
             var HEXBYTE = new RegexBasedTerminal("HEXBYTE", @"[A-F0-9]{2}"); // DOCS: not specified in ECMA grammar
             ConfigureAstNode(HEXBYTE);
 
-            // TODO: specify
             var DOTTEDNAME = CreateNonTerminal("DOTTEDNAME");
             DOTTEDNAME.Rule = _("TODO: DOTTEDNAME");
             ConfigureAstNode(DOTTEDNAME);
 
-            // TODO: specify
             var ID = new IdentifierTerminal("ID");
             ID.AddPrefix("$", IdOptions.None); // DOCS: ECMA page 110
             ConfigureAstNode(ID);
 
-            // TODO: specify
             var QSTRING = new StringLiteral("QSTRING", "\"");
             ConfigureAstNode(QSTRING);
 
-            // TODO: specify
             var SQSTRING = new StringLiteral("SQSTRING", "'");
             ConfigureAstNode(SQSTRING);
 
-            // TODO: specify
             var INT32 = new NumberLiteral("INT32", NumberOptions.AllowSign | NumberOptions.IntOnly);
             INT32.AddPrefix("0x", NumberOptions.Hex);
             INT32.DefaultIntTypes = new TypeCode[] { TypeCode.Int32 };
             ConfigureAstNode(INT32);
 
-            // TODO: specify
             var INT64 = new NumberLiteral("INT64", NumberOptions.AllowSign | NumberOptions.IntOnly);
             INT64.AddPrefix("0x", NumberOptions.Hex);
             INT64.DefaultIntTypes = new TypeCode[] { TypeCode.Int64 };
             ConfigureAstNode(INT64);
 
-            // TODO: specify
             var FLOAT64 = new NumberLiteral("FLOAT64", NumberOptions.AllowStartEndDot | NumberOptions.AllowSign);
             ConfigureAstNode(FLOAT64);
 
@@ -328,7 +320,6 @@ namespace CILantro.Parsing
                 _("volatile.") |
                 _("xor");
 
-            // TODO: INSTR_VAR
             INSTR_VAR.Rule =
                 _("ladrg") |
                 ___("ldarg.s") |
@@ -355,7 +346,6 @@ namespace CILantro.Parsing
                 ___("ldc.r4") |
                 ___("ldc.r8");
 
-            // TODO: INSTR_BRTARGET
             INSTR_BRTARGET.Rule =
                 _("beq") |
                 ___("beq.s") |
@@ -423,16 +413,13 @@ namespace CILantro.Parsing
             INSTR_STRING.Rule =
                 _("ldstr");
 
-            // TODO: INSTR_SIG
             INSTR_SIG.Rule = _("TODO: INSTR_SIG");
 
-            // TODO: INSTR_RVA
             INSTR_RVA.Rule = _("TODO: INSTR_RVA");
 
             INSTR_SWITCH.Rule =
                 _("switch");
 
-            // TODO: INSTR_PHI
             INSTR_PHI.Rule = _("TODO: INSTR_PHI");
 
             INSTR_TOK.Rule =
@@ -474,7 +461,7 @@ namespace CILantro.Parsing
                 QSTRING |
                 compQstring + _("+") + QSTRING;
 
-            // TODO: languageDecl
+            // TODO - languageDecl
             languageDecl.Rule = _("TODO: languageDecl");
 
             customAttrDecl.Rule =
@@ -490,13 +477,13 @@ namespace CILantro.Parsing
                 _(".module") + name1 |
                 _(".module") + _("extern") + name1;
 
-            // TODO: vtfixupDecl
+            // TODO - vtfixupDecl
             vtfixupDecl.Rule = _("TODO: vtfixupDecl");
 
-            // TODO: vtableDecl
+            // TODO - vtableDecl
             vtableDecl.Rule = _("TODO: vtableDecl");
 
-            // TODO: nameSpaceHead
+            // TODO - nameSpaceHead
             nameSpaceHead.Rule = _("TODO: nameSpaceHead");
 
             classHead.Rule =
@@ -597,16 +584,16 @@ namespace CILantro.Parsing
                 typeSpec |
                 memberRef;
 
-            // TODO: eventHead
+            // TODO - eventHead
             eventHead.Rule = _("TODO: eventHead");
 
-            // TODO: eventDecls
+            // TODO - eventDecls
             eventDecls.Rule = _("TODO: eventDecls");
 
-            // TODO: propHead
+            // TODO - propHead
             propHead.Rule = _("TODO: propHead");
 
-            // TODO: propDecls
+            // TODO - propDecls
             propDecls.Rule = _("TODO: propDecls");
 
             methodHeadPart1.Rule =
@@ -639,7 +626,7 @@ namespace CILantro.Parsing
                 methAttr + _("pinvokeimpl") + _("(") + compQstring + pinvAttr + _(")") |
                 methAttr + _("pinvokeimpl") + _("(") + pinvAttr + _(")");
 
-            // TODO: pinvAttr
+            // TODO - pinvAttr
             pinvAttr.Rule = _("TODO: pinvAttr");
 
             methodName.Rule =
@@ -713,10 +700,10 @@ namespace CILantro.Parsing
                 scopeBlock |
                 _(".param") + _("[") + int32 + _("]") + initOpt;
 
-            // TODO: scopeBlock
+            // TODO - scopeBlock
             scopeBlock.Rule = _("TODO: scopeBlock");
 
-            // TODO: sehBlock
+            // TODO - sehBlock
             sehBlock.Rule = _("TODO: sehBlock");
 
             methodDecls.Rule =
@@ -791,13 +778,13 @@ namespace CILantro.Parsing
                 HEXBYTE |
                 hexbytes + HEXBYTE;
 
-            // TODO: instr_r_head
+            // TODO - instr_r_head
             instr_r_head.Rule = _("TODO: instr_r_head");
 
             instr_tok_head.Rule =
                 INSTR_TOK;
 
-            // TODO: methodSpec
+            // TODO - methodSpec
             methodSpec.Rule = _("TODO: methodSpec");
 
             instr.Rule =
@@ -874,7 +861,7 @@ namespace CILantro.Parsing
                 _("unmanaged") + _("thiscall") |
                 _("unmanaged") + _("fastcall");
 
-            // TODO: nativeType
+            // TODO - nativeType
             nativeType.Rule = _("TODO: nativeType");
 
             type.Rule =
@@ -885,7 +872,7 @@ namespace CILantro.Parsing
                 _("valuetype") + className |
                 type + _("[") + _("]") |
                 type + ("[") + bounds1 + _("]") |
-                type + _("value") + _("[") + int32 + _("]") | // TODO: check ECMA comment
+                type + _("value") + _("[") + int32 + _("]") |
                 type + _("&") |
                 type + _("*") |
                 type + _("pinned") |
@@ -937,11 +924,11 @@ namespace CILantro.Parsing
                 ID |
                 SQSTRING;
 
-            // TODO: int16s
+            // TODO - int16s
             int16s.Rule = _("TODO: int16s");
 
             int32.Rule =
-                INT32; // TODO: ECMA grammar uses INT32 here
+                INT32;
 
             int64.Rule =
                 INT64;
@@ -1000,13 +987,13 @@ namespace CILantro.Parsing
                 _("noncaslinkdemand") |
                 _("noncasinheritance");
 
-            // TODO: extSourceSpec
+            // TODO - extSourceSpec
             extSourceSpec.Rule = _("TODO: extSourceSpec");
 
-            // TODO: fileDecl
+            // TODO - fileDecl
             fileDecl.Rule = _("TODO: fileDecl");
 
-            // TODO: hashHead
+            // TODO - hashHead
             hashHead.Rule = _("TODO: hashHead");
 
             assemblyHead.Rule =
@@ -1034,13 +1021,13 @@ namespace CILantro.Parsing
                 localeHead + bytes + _(")") |
                 customAttrDecl;
 
-            // TODO: publicKeyHead
+            // TODO - publicKeyHead
             publicKeyHead.Rule = _("TODO: publicKeyHead");
 
             publicKeyTokenHead.Rule =
                 _(".publickeytoken") + _("=") + _("(");
 
-            // TODO: localeHead
+            // TODO - localeHead
             localeHead.Rule = _("TODO: localeHead");
 
             assemblyRefHead.Rule =
@@ -1056,13 +1043,13 @@ namespace CILantro.Parsing
                 asmOrRefDecl |
                 publicKeyTokenHead + bytes + _(")");
 
-            // TODO: comtypeHead
+            // TODO - comtypeHead
             comtypeHead.Rule = _("TODO: comtypeHead");
 
-            // TODO: exportHead
+            // TODO - exportHead
             exportHead.Rule = _("TODO: exportHead");
 
-            // TODO: comtypeDecls
+            // TODO - comtypeDecls
             comtypeDecls.Rule = _("TODO: comtypeDecls");
 
             manifestResHead.Rule =

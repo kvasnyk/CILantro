@@ -8,13 +8,13 @@ namespace CILantro.AbstractSyntaxTree.Other
     [AstNode("assemblyDecls")]
     public class AssemblyDeclsAstNode : AstNodeBase
     {
-        // TODO: handle
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
             // Empty
             var children0 = AstChildren.Empty();
             if (children0.PopulateWith(parseNode))
             {
+                // TODO - handle
                 return;
             }
 
@@ -24,6 +24,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<AssemblyDeclAstNode>();
             if (children2.PopulateWith(parseNode))
             {
+                // TODO - handle
                 return;
             }
 

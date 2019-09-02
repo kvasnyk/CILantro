@@ -17,7 +17,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<Int32AstNode>();
             if (hashChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                // TODO - handle
                 return;
             }
 
@@ -26,7 +26,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<AsmOrRefDeclAstNode>();
             if (asmOrRefDeclChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                // TODO - handle
                 return;
             }
 
@@ -35,7 +35,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<SecDeclAstNode>();
             if (secDeclChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                // TODO - handle
                 return;
             }
 

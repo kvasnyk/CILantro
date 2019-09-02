@@ -11,7 +11,6 @@ namespace CILantro.AbstractSyntaxTree.Other
     {
         public CilCustomType CustomType { get; private set; }
 
-        // TODO: what's this?
         public byte[] Bytes { get; private set; }
 
         public override void Init(AstContext context, ParseTreeNode parseNode)

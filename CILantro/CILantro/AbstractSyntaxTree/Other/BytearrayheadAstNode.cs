@@ -16,7 +16,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("(");
             if (bytearrayChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                // TODO - handle
                 return;
             }
 

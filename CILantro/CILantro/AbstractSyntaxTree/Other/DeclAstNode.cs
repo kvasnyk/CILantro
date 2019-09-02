@@ -111,7 +111,6 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (moduleChildren.PopulateWith(parseNode))
             {
                 DeclType = Other.DeclType.Module;
-                // TODO: handle
 
                 return;
             }
@@ -124,7 +123,6 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (fileAlignmentChildren.PopulateWith(parseNode))
             {
                 DeclType = Other.DeclType.FileAlignment;
-                // TODO: handle
 
                 return;
             }
@@ -136,7 +134,6 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (subsystemChildren.PopulateWith(parseNode))
             {
                 DeclType = Other.DeclType.Subsystem;
-                // TODO: handle;
 
                 return;
             }
@@ -148,7 +145,6 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (corFlagsChildren.PopulateWith(parseNode))
             {
                 DeclType = Other.DeclType.CorFlags;
-                // TODO: handle
 
                 return;
             }
@@ -160,7 +156,6 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (imageBaseChildren.PopulateWith(parseNode))
             {
                 DeclType = Other.DeclType.ImageBase;
-                // TODO: handle
 
                 return;
             }
@@ -172,7 +167,6 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (stackReserveChildren.PopulateWith(parseNode))
             {
                 DeclType = Other.DeclType.StackReserve;
-                // TODO: handle
 
                 return;
             }
@@ -186,7 +180,6 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (manifestResChildren.PopulateWith(parseNode))
             {
                 DeclType = Other.DeclType.ManifestRes;
-                // TODO: handle
 
                 return;
             }

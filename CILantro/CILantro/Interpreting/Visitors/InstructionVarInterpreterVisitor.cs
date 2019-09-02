@@ -25,8 +25,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadArgumentShortInstruction(LoadArgumentShortInstruction instruction)
         {
-            // TODO: finish implementation
-
             var value = ControlState.Arguments.Load(instruction.Id, instruction.Index);
             ControlState.EvaluationStack.PushValue(value);
 
@@ -35,8 +33,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadLocalAddressShortInstruction(LoadLocalAddressShortInstruction instruction)
         {
-            // TODO: finish implementation
-
             var address = ControlState.Locals.LoadAddress(instruction.Id, instruction.Index);
             ControlState.EvaluationStack.PushValue(address);
 
@@ -45,8 +41,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadLocalShortInstruction(LoadLocalShortInstruction instruction)
         {
-            // TODO: finish implementation
-
             var value = ControlState.Locals.Load(instruction.Id, instruction.Index);
             ControlState.EvaluationStack.PushValue(value);
 

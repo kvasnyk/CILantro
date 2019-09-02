@@ -69,7 +69,6 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("family");
             if (familyChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
                 FieldAttributes |= familyChildren.Child1.FieldAttributes;
 
                 return;
@@ -81,7 +80,6 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("assembly");
             if (assemblyChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
                 FieldAttributes |= assemblyChildren.Child1.FieldAttributes;
 
                 return;
@@ -93,7 +91,6 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("specialname");
             if (specialNameChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
                 FieldAttributes |= specialNameChildren.Child1.FieldAttributes;
 
                 return;
@@ -105,7 +102,6 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("rtspecialname");
             if (rtspecialnameChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
                 FieldAttributes |= rtspecialnameChildren.Child1.FieldAttributes;
 
                 return;
@@ -117,7 +113,6 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("literal");
             if (literalChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
                 FieldAttributes |= literalChildren.Child1.FieldAttributes;
 
                 return;
@@ -129,7 +124,6 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("initonly");
             if (initonlyChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
                 FieldAttributes |= initonlyChildren.Child1.FieldAttributes;
 
                 return;

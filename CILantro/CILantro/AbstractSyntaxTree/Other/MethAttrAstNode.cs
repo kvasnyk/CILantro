@@ -14,7 +14,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             var emptyChildren = AstChildren.Empty();
             if (emptyChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                // TODO - handle
                 return;
             }
 
@@ -24,7 +24,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("static");
             if (staticChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                // TODO - handle
                 return;
             }
 
@@ -34,7 +34,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("public");
             if (publicChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                // TODO - handle
                 return;
             }
 
@@ -44,7 +44,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("private");
             if (privateChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                // TODO - handle
                 return;
             }
 
@@ -54,7 +54,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("specialname");
             if (specialNameChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                // TODO - handle
                 return;
             }
 
@@ -64,7 +64,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("hidebysig");
             if (hidebysigChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                // TODO - handle
                 return;
             }
 
@@ -74,7 +74,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("rtspecialname");
             if (rtSpecialNameChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                // TODO - handle
                 return;
             }
 
@@ -84,7 +84,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("newslot");
             if (newslotChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                // TODO - handle
                 return;
             }
 
@@ -94,7 +94,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("virtual");
             if (virtualChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                // TODO - handle
                 return;
             }
 
@@ -104,7 +104,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("family");
             if (familyChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                // TODO - handle
                 return;
             }
 
@@ -114,7 +114,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("abstract");
             if (abstractChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                // TODO - handle
                 return;
             }
 
@@ -124,7 +124,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("final");
             if (finalChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                // TODO - handle
                 return;
             }
 

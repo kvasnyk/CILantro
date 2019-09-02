@@ -110,8 +110,6 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<InitOptAstNode>();
             if (paramInitChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
-
                 DeclType = MethodDeclType.ParamInit;
 
                 return;

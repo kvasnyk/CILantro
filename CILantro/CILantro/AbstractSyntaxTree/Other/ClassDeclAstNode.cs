@@ -57,7 +57,6 @@ namespace CILantro.AbstractSyntaxTree.Other
             if (customAttrChildren.PopulateWith(parseNode))
             {
                 DeclType = ClassDeclType.CustomAttr;
-                // TODO: handle
 
                 return;
             }
@@ -79,7 +78,6 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<Int32AstNode>();
             if (packChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
                 DeclType = ClassDeclType.Pack;
 
                 return;
@@ -91,7 +89,6 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<Int32AstNode>();
             if (sizeChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
                 DeclType = ClassDeclType.Size;
 
                 return;
@@ -105,7 +102,6 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("}");
             if (classHeadChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
                 DeclType = ClassDeclType.Class;
 
                 ClassDecl = new CilClass

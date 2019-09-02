@@ -9,7 +9,6 @@ namespace CILantro.AbstractSyntaxTree.Other
     [AstNode("callConv")]
     public class CallConvAstNode : AstNodeBase
     {
-        // TODO: is only one value possible or should it be changed to list?
         public CilCallKind CallKind { get; private set; }
 
         public CilCallConv CallConv { get; private set; }

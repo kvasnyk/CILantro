@@ -24,8 +24,6 @@ namespace CILantro.Interpreting.State
         public CilOrderedDictionary Locals => MethodState.Locals;
 
         public CilOrderedDictionary Arguments => MethodState.Arguments;
-        
-        // TODO: move it upper
 
         public Dictionary<string, CilClassStaticInstance> StaticInstances { get; set; }
 

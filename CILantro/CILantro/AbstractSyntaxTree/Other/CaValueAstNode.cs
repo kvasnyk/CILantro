@@ -25,8 +25,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("}");
             if (complexChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
-
+                // TODO - handle
                 return;
             }
 

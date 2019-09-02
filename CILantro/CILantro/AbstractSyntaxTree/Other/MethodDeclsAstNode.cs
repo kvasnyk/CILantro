@@ -57,25 +57,24 @@ namespace CILantro.AbstractSyntaxTree.Other
                         MethodDecls.InstructionsLabels = new List<string>();
                         break;
                     case MethodDeclType.MaxStack:
-                        // TODO: handle
+                        // TODO - handle
                         break;
                     case MethodDeclType.Label:
                         MethodDecls.InstructionsLabels.Add(methodDeclsChildren.Child2.Label);
                         break;
                     case MethodDeclType.CustomAttr:
-                        // TODO: handle
+                        // TODO - handle
                         break;
                     case MethodDeclType.Locals:
                         MethodDecls.Locals = methodDeclsChildren.Child2.LocalsSigArgs;
                         break;
                     case MethodDeclType.ParamInit:
-                        // TODO: handle
+                        // TODO - handle
                         break;
                     default:
                         throw new AstNodeException($"\"{nameof(declType)}\" cannot be recognized.");
                 }
 
-                // TODO: handle
                 return;
             }
 

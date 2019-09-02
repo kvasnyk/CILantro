@@ -26,8 +26,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadConstR4Instruction(LoadConstR4Instruction instruction)
         {
-            // TODO: finish implementation
-
             var value = new CilValueFloat32((float)instruction.Value);
             ControlState.EvaluationStack.PushValue(value);
 
@@ -36,8 +34,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadConstR8Instruction(LoadConstR8Instruction instruction)
         {
-            // TODO: finish implementation
-
             var value = new CilValueFloat64(instruction.Value);
             ControlState.EvaluationStack.PushValue(value);
 

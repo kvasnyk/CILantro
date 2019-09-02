@@ -8,8 +8,6 @@ namespace CILantro.AbstractSyntaxTree.Other
     [AstNode("paramAttr")]
     public class ParamAttrAstNode : AstNodeBase
     {
-        // TODO: what should we store here?
-
         public override void Init(AstContext context, ParseTreeNode parseNode)
         {
             // Empty
@@ -27,8 +25,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("]");
             if (int32Children.PopulateWith(parseNode))
             {
-                // TODO: handle
-
+                // TODO - handle
                 return;
             }
 
@@ -40,8 +37,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("]");
             if (outChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
-
+                // TODO - handle
                 return;
             }
 
@@ -53,8 +49,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("]");
             if (optChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
-
+                // TODO - handle
                 return;
             }
 

@@ -87,10 +87,6 @@ namespace CILantro.Interpreting.Visitors
 
         public override void VisitNewArrayInstruction(NewArrayInstruction instruction)
         {
-            // TODO: finish implementation
-            // TODO: can we really use Array class?
-            // TODO: and do we really need to use Array class?
-
             ControlState.EvaluationStack.PopValue(out CilValueInt32 numElems);
 
             var newArr = new CilArray(instruction.TypeSpec.GetCilType(_program), numElems.Value, _program);

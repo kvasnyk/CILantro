@@ -17,8 +17,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             var emptyChildren = AstChildren.Empty();
             if (emptyChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
-
+                // TODO - handle
                 return;
             }
 

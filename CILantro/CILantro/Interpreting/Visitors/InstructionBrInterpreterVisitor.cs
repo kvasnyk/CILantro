@@ -37,8 +37,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitBranchOnEqualShortInstruction(BranchOnEqualShortInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var branch = ComputeBinaryBranchOperation(
                 stackVal1,
@@ -56,8 +54,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitBranchOnFalseShortInstruction(BranchOnFalseShortInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal);
             var branch = ComputeUnaryBranchOperation(
                 stackVal,
@@ -73,8 +69,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitBranchOnGreaterThanShortInstruction(BranchOnGreaterThanShortInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var branch = ComputeBinaryBranchOperation(
                 stackVal1,
@@ -92,8 +86,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitBranchOnGreaterThanUnsignedShortInstruction(BranchOnGreaterThanUnsignedShortInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var branch = ComputeBinaryBranchOperation(
                 stackVal1,
@@ -111,8 +103,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitBranchOnGreaterThanOrEqualToShortInstruction(BranchOnGreaterThanOrEqualToShortInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var branch = ComputeBinaryBranchOperation(
                 stackVal1,
@@ -130,8 +120,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitBranchOnGreaterThanOrEqualToUnsignedShortInstruction(BranchOnGreaterThanOrEqualToUnsignedShortInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var branch = ComputeBinaryBranchOperation(
                 stackVal1,
@@ -149,8 +137,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitBranchOnLessThanShortInstruction(BranchOnLessThanShortInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var branch = ComputeBinaryBranchOperation(
                 stackVal1,
@@ -168,8 +154,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitBranchOnLessThanUnsignedShortInstruction(BranchOnLessThanUnsignedShortInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var branch = ComputeBinaryBranchOperation(
                 stackVal1,
@@ -187,8 +171,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitBranchOnLessThanOrEqualToShortInstruction(BranchOnLessThanOrEqualToShortInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var branch = ComputeBinaryBranchOperation(
                 stackVal1,
@@ -206,8 +188,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitBranchOnLessThanOrEqualToUnsignedShortInstruction(BranchOnLessThanOrEqualToUnsignedShortInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var branch = ComputeBinaryBranchOperation(
                 stackVal1,
@@ -225,8 +205,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitBranchOnNotEqualUnsignedShortInstruction(BranchOnNotEqualUnsignedShortInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var branch = ComputeBinaryBranchOperation(
                 stackVal1,
@@ -244,8 +222,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitBranchOnTrueShortInstruction(BranchOnTrueShortInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal);
             var branch = ComputeUnaryBranchOperation(
                 stackVal,
@@ -265,8 +241,6 @@ namespace CILantro.Interpreting.Visitors
             Func<CilStackValueInt64, bool> computeInt64
         )
         {
-            // TODO: cover all cases
-
             if (stackVal is CilStackValueInt32 stackValInt32)
                 return computeInt32(stackValInt32);
             if (stackVal is CilStackValueInt64 stackValInt64)
@@ -283,8 +257,6 @@ namespace CILantro.Interpreting.Visitors
             Func<CilStackValueFloat, CilStackValueFloat, bool> computeFloatFloat
         )
         {
-            // TODO: cover all cases
-
             if (stackVal1 is CilStackValueInt32 stackVal1Int32 && stackVal2 is CilStackValueInt32 stackVal2Int32)
                 return computeInt32Int32(stackVal1Int32, stackVal2Int32);
             if (stackVal1 is CilStackValueInt64 stackVal1Int64 && stackVal2 is CilStackValueInt64 stackVal2Int64)

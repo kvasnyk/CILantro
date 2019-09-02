@@ -49,7 +49,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add<CustomAttrDeclAstNode>();
             if (customAttrDeclChildren.PopulateWith(parseNode))
             {
-                // TODO: what to do here?
+                // TODO - handle
                 return;
             }
 

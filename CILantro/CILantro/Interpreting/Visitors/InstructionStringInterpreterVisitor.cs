@@ -26,8 +26,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadStringInstruction(LoadStringInstruction instruction)
         {
-            // TODO: finish implementation
-
             var cilString = new CilString(instruction.StringValue);
 
             var reference = ManagedMemory.Store(cilString);

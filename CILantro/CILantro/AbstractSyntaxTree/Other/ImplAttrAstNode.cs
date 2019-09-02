@@ -14,7 +14,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             var emptyChildren = AstChildren.Empty();
             if (emptyChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                // TODO - handle
                 return;
             }
 
@@ -24,7 +24,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("cil");
             if (cilChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                // TODO - handle
                 return;
             }
 
@@ -34,7 +34,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("managed");
             if (managedChildren.PopulateWith(parseNode))
             {
-                // TODO: handle
+                // TODO - handle
                 return;
             }
 

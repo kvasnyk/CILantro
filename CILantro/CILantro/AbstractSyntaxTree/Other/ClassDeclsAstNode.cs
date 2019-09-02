@@ -47,16 +47,16 @@ namespace CILantro.AbstractSyntaxTree.Other
                         ClassDecls.Methods.Add(classDeclsChildren.Child2.Method);
                         break;
                     case ClassDeclType.CustomAttr:
-                        // TODO: handle
+                        // TODO - handle
                         break;
                     case ClassDeclType.Field:
                         ClassDecls.Fields.Add(classDeclsChildren.Child2.Field);
                         break;
                     case ClassDeclType.Pack:
-                        // TODO: handle
+                        // TODO - handle
                         break;
                     case ClassDeclType.Size:
-                        // TODO: handle
+                        // TODO - handle
                         break;
                     case ClassDeclType.Class:
                         ClassDecls.Classes.Add(classDeclsChildren.Child2.ClassDecl);

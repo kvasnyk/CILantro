@@ -14,8 +14,7 @@ namespace CILantro.AbstractSyntaxTree.Other
             var children0 = AstChildren.Empty();
             if (children0.PopulateWith(parseNode))
             {
-                // TODO: implement something
-
+                // TODO - handle
                 return;
             }
 
@@ -25,8 +24,7 @@ namespace CILantro.AbstractSyntaxTree.Other
                 .Add("public");
             if (publicChildren.PopulateWith(parseNode))
             {
-                // TODO: implement something
-
+                // TODO - handle
                 return;
             }
 

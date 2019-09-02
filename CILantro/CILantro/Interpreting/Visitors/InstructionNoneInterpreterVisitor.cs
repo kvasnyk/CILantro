@@ -30,8 +30,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitAddInstruction(AddInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeBinaryNumericOperation(
                 stackVal1,
@@ -47,8 +45,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitAndInstruction(AndInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeIntegerOperation(
                 stackVal1,
@@ -63,8 +59,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitCompareEqualInstruction(CompareEqualInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeBinaryComparisonOperation(
                 stackVal1,
@@ -80,8 +74,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitCompareGreaterThanInstruction(CompareGreaterThanInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeBinaryComparisonOperation(
                 stackVal1,
@@ -97,8 +89,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitCompareGreaterThanUnsignedInstruction(CompareGreaterThanUnsignedInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeBinaryComparisonOperation(
                 stackVal1,
@@ -114,8 +104,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitCompareLessThanInstruction(CompareLessThanInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeBinaryComparisonOperation(
                 stackVal1,
@@ -131,8 +119,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitCompareLessThanUnsignedInstruction(CompareLessThanUnsignedInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeBinaryComparisonOperation(
                 stackVal1,
@@ -148,8 +134,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitConvertI1Instruction(ConvertI1Instruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionOperation(
                 stackVal,
@@ -166,8 +150,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitConvertI2Instruction(ConvertI2Instruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionOperation(
                 stackVal,
@@ -184,8 +166,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitConvertI4Instruction(ConvertI4Instruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionOperation(
                 stackVal,
@@ -202,8 +182,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitConvertI8Instruction(ConvertI8Instruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionOperation(
                 stackVal,
@@ -220,8 +198,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitConvertR4Instruction(ConvertR4Instruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionOperation(
                 stackVal,
@@ -238,8 +214,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitConvertR8Instruction(ConvertR8Instruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionOperation(
                 stackVal,
@@ -256,9 +230,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitConvertRUnsignedInstruction(ConvertRUnsignedInstruction instruction)
         {
-            // TODO: finish implementation
-            // TODO: should we deal with the fact it is unsigned instruction?
-
             ControlState.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionOperation(
                 stackVal,
@@ -275,8 +246,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitConvertUInstruction(ConvertUInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionOperation(
                 stackVal,
@@ -293,8 +262,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitConvertU1Instruction(ConvertU1Instruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionOperation(
                 stackVal,
@@ -311,8 +278,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitConvertU2Instruction(ConvertU2Instruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionOperation(
                 stackVal,
@@ -329,8 +294,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitConvertU8Instruction(ConvertU8Instruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal);
             var newStackVal = ComputeConversionOperation(
                 stackVal,
@@ -347,8 +310,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitDivideInstruction(DivideInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeBinaryNumericOperation(
                 stackVal1,
@@ -364,8 +325,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitDivideUnsignedInstruction(DivideUnsignedInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeIntegerOperation(
                 stackVal1,
@@ -409,8 +368,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadArgument0Instruction(LoadArgument0Instruction instruction)
         {
-            // TODO: finish implementation
-
             var value = ControlState.Arguments.Load(null, 0);
             ControlState.EvaluationStack.PushValue(value);
 
@@ -419,8 +376,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadArgument1Instruction(LoadArgument1Instruction instruction)
         {
-            // TODO: finish implementation
-
             var value = ControlState.Arguments.Load(null, 1);
             ControlState.EvaluationStack.PushValue(value);
 
@@ -429,8 +384,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadArgument2Instruction(LoadArgument2Instruction instruction)
         {
-            // TODO: finish implementation
-
             var value = ControlState.Arguments.Load(null, 2);
             ControlState.EvaluationStack.PushValue(value);
 
@@ -439,8 +392,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadArgument3Instruction(LoadArgument3Instruction instruction)
         {
-            // TODO: finish implementation
-
             var value = ControlState.Arguments.Load(null, 3);
             ControlState.EvaluationStack.PushValue(value);
 
@@ -449,9 +400,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadArrayElementI1Instruction(LoadArrayElementI1Instruction instruction)
         {
-            // TODO: finish implementation
-            // TODO: should we convert value from array to stack?
-
             ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
 
             var array = ManagedMemory.Load(arrayRef) as CilArray;
@@ -464,9 +412,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadArrayElementI2Instruction(LoadArrayElementI2Instruction instruction)
         {
-            // TODO: finish implementation
-            // TODO: should we convert value from array to stack?
-
             ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
 
             var array = ManagedMemory.Load(arrayRef) as CilArray;
@@ -479,9 +424,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadArrayElementI4Instruction(LoadArrayElementI4Instruction instruction)
         {
-            // TODO: finish implementation
-            // TODO: should we convert value from array to stack?
-
             ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
 
             var array = ManagedMemory.Load(arrayRef) as CilArray;
@@ -494,9 +436,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadArrayElementI8Instruction(LoadArrayElementI8Instruction instruction)
         {
-            // TODO: finish implementation
-            // TODO: should we convert value from array to stack?
-
             ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
 
             var array = ManagedMemory.Load(arrayRef) as CilArray;
@@ -509,9 +448,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadArrayElementR4Instruction(LoadArrayElementR4Instruction instruction)
         {
-            // TODO: finish implementation
-            // TODO: should we convert value from array to stack?
-
             ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
 
             var array = ManagedMemory.Load(arrayRef) as CilArray;
@@ -524,9 +460,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadArrayElementR8Instruction(LoadArrayElementR8Instruction instruction)
         {
-            // TODO: finish implementation
-            // TODO: should we convert value from array to stack?
-
             ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
 
             var array = ManagedMemory.Load(arrayRef) as CilArray;
@@ -539,9 +472,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadArrayElementRefInstruction(LoadArrayElementRefInstruction instruction)
         {
-            // TODO: finish implementation
-            // TODO: should we convert value from array to stack?
-
             ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
 
             var array = ManagedMemory.Load(arrayRef) as CilArray;
@@ -554,9 +484,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadArrayElementU1Instruction(LoadArrayElementU1Instruction instruction)
         {
-            // TODO: finish implementation
-            // TODO: should we convert value from array to stack?
-
             ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
 
             var array = ManagedMemory.Load(arrayRef) as CilArray;
@@ -569,9 +496,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadArrayElementU2Instruction(LoadArrayElementU2Instruction instruction)
         {
-            // TODO: finish implementation
-            // TODO: should we convert value from array to stack?
-
             ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
 
             var array = ManagedMemory.Load(arrayRef) as CilArray;
@@ -584,9 +508,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadArrayElementU4Instruction(LoadArrayElementU4Instruction instruction)
         {
-            // TODO: finish implementation
-            // TODO: should we convert value from array to stack?
-
             ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal);
 
             var array = ManagedMemory.Load(arrayRef) as CilArray;
@@ -697,8 +618,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadLocal1Instruction(LoadLocal1Instruction instruction)
         {
-            // TODO: finish implementation
-
             var value = ControlState.Locals.Load(null, 1);
             ControlState.EvaluationStack.PushValue(value);
 
@@ -707,8 +626,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadLocal2Instruction(LoadLocal2Instruction instruction)
         {
-            // TODO: finish implementation
-
             var value = ControlState.Locals.Load(null, 2);
             ControlState.EvaluationStack.PushValue(value);
 
@@ -717,8 +634,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitLoadLocal3Instruction(LoadLocal3Instruction instruction)
         {
-            // TODO: finish implementation
-
             var value = ControlState.Locals.Load(null, 3);
             ControlState.EvaluationStack.PushValue(value);
 
@@ -727,8 +642,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitMultiplyInstruction(MultiplyInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeBinaryNumericOperation(
                 stackVal1,
@@ -744,8 +657,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitNegateInstruction(NegateInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal);
             var resultStackVal = ComputeUnaryNumericOperation(
                 stackVal,
@@ -760,8 +671,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitNotInstruction(NotInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal);
             var resultStackVal = ComputeUnaryIntegerOperation(
                 stackVal,
@@ -775,8 +684,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitOrInstruction(OrInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeIntegerOperation(
                 stackVal1,
@@ -798,8 +705,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitRemainderInstruction(RemainderInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeBinaryNumericOperation(
                 stackVal1,
@@ -815,8 +720,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitRemainderUnsignedInstruction(RemainderUnsignedInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeIntegerOperation(
                 stackVal1,
@@ -856,8 +759,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitShiftLeftInstruction(ShiftLeftInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeShiftOperation(
                 stackVal1,
@@ -872,8 +773,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitShiftRightInstruction(ShiftRightInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeShiftOperation(
                 stackVal1,
@@ -888,8 +787,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitShiftRightUnsignedInstruction(ShiftRightUnsignedInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeShiftOperation(
                 stackVal1,
@@ -904,8 +801,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitStoreArrayElementI1Instruction(StoreArrayElementI1Instruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal, out CilValueInt8 valueVal);
 
             var array = ManagedMemory.Load(arrayRef) as CilArray;
@@ -916,8 +811,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitStoreArrayElementI2Instruction(StoreArrayElementI2Instruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal, out CilValueInt16 valueVal);
 
             var array = ManagedMemory.Load(arrayRef) as CilArray;
@@ -928,8 +821,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitStoreArrayElementI4Instruction(StoreArrayElementI4Instruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal, out CilValueInt32 valueVal);
 
             var array = ManagedMemory.Load(arrayRef) as CilArray;
@@ -940,8 +831,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitStoreArrayElementI8Instruction(StoreArrayElementI8Instruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal, out CilValueInt64 valueVal);
 
             var array = ManagedMemory.Load(arrayRef) as CilArray;
@@ -952,8 +841,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitStoreArrayElementR4Instruction(StoreArrayElementR4Instruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal, out CilValueFloat32 valueVal);
 
             var array = ManagedMemory.Load(arrayRef) as CilArray;
@@ -964,8 +851,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitStoreArrayElementR8Instruction(StoreArrayElementR8Instruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal, out CilValueFloat64 valueVal);
 
             var array = ManagedMemory.Load(arrayRef) as CilArray;
@@ -976,8 +861,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitStoreArrayElementRefInstruction(StoreArrayElementRefInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.PopValue(out CilValueReference arrayRef, out CilValueInt32 indexVal, out CilValueReference valueVal);
 
             var array = ManagedMemory.Load(arrayRef) as CilArray;
@@ -1024,8 +907,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitSubtractInstruction(SubtractInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeBinaryNumericOperation(
                 stackVal1,
@@ -1041,8 +922,6 @@ namespace CILantro.Interpreting.Visitors
 
         protected override void VisitXorInstruction(XorInstruction instruction)
         {
-            // TODO: finish implementation
-
             ControlState.EvaluationStack.Pop(out var stackVal1, out var stackVal2);
             var resultStackVal = ComputeIntegerOperation(
                 stackVal1,
@@ -1062,8 +941,6 @@ namespace CILantro.Interpreting.Visitors
             Func<CilStackValueFloat, CilStackValueFloat> computeFloat
         )
         {
-            // TODO: cover all cases
-
             if (stackVal is CilStackValueInt32 stackValInt32)
                 return computeInt32(stackValInt32);
             if (stackVal is CilStackValueInt64 stackValInt64)
@@ -1082,8 +959,6 @@ namespace CILantro.Interpreting.Visitors
             Func<CilStackValueFloat, CilStackValueFloat, CilStackValueFloat> computeFloatFloat
         )
         {
-            // TODO: cover all cases
-
             if (stackVal1 is CilStackValueInt32 stackVal1Int32 && stackVal2 is CilStackValueInt32 stackVal2Int32)
                 return computeInt32Int32(stackVal1Int32, stackVal2Int32);
             if (stackVal1 is CilStackValueInt64 stackVal1Int64 && stackVal2 is CilStackValueInt64 stackVal2Int64)
@@ -1102,8 +977,6 @@ namespace CILantro.Interpreting.Visitors
             Func<CilStackValueFloat, CilStackValueFloat, bool> computeFloatFloat
         )
         {
-            // TODO: cover all cases
-
             bool result;
 
             if (stackVal1 is CilStackValueInt32 stackVal1Int32 && stackVal2 is CilStackValueInt32 stackVal2Int32)
@@ -1128,8 +1001,6 @@ namespace CILantro.Interpreting.Visitors
             Func<CilStackValueNativeInt, IStackValue> computeNativeInt
         )
         {
-            // TODO: cover all cases
-
             if (stackVal is CilStackValueInt32 stackValInt32)
                 return computeInt32(stackValInt32);
             if (stackVal is CilStackValueInt64 stackValInt64)
@@ -1150,8 +1021,6 @@ namespace CILantro.Interpreting.Visitors
             Func<CilStackValueInt64, CilStackValueInt64> computeInt64
         )
         {
-            // TODO: cover all cases
-
             if (stackVal is CilStackValueInt32 stackValInt32)
                 return computeInt32(stackValInt32);
             if (stackVal is CilStackValueInt64 stackValInt64)
@@ -1167,8 +1036,6 @@ namespace CILantro.Interpreting.Visitors
             Func<CilStackValueInt64, CilStackValueInt64, CilStackValueInt64> computeInt64Int64
         )
         {
-            // TODO: cover all cases
-
             if (stackVal1 is CilStackValueInt32 stackVal1Int32 && stackVal2 is CilStackValueInt32 stackVal2Int32)
                 return computeInt32Int32(stackVal1Int32, stackVal2Int32);
             if (stackVal1 is CilStackValueInt64 stackVal1Int64 && stackVal2 is CilStackValueInt64 stackVal2Int64)
@@ -1184,8 +1051,6 @@ namespace CILantro.Interpreting.Visitors
             Func<CilStackValueInt64, CilStackValueInt32, CilStackValueInt64> computeInt64Int32
         )
         {
-            // TODO: cover all cases
-
             if (stackVal1 is CilStackValueInt32 stackVal1Int32 && stackVal2 is CilStackValueInt32 stackVal2Int32)
                 return computeInt32Int32(stackVal1Int32, stackVal2Int32);
             if (stackVal1 is CilStackValueInt64 stackVal1Int64 && stackVal2 is CilStackValueInt32 stackVal2Int32_2)
