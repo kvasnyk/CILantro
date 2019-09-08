@@ -365,7 +365,7 @@ There are several similar instructions provided by the \acrshort{cil}: \texttt{s
 
 The \texttt{add} instruction is responsible for adding 2 numeric values so its stack transformation is as follows \cite{ecmaStandard}:
 $$
-	S, v_1, v_2 \rightarrow S, r
+	S \cdot v_1 \cdot v_2 \rightarrow S \cdot r
 $$
 where $r = v_1 + v_2$. The instruction does not detect any overflows and its result type is computed based on the types of $v_1$ and $v_2$. For instance:
 \begin{itemize}
@@ -427,6 +427,50 @@ The \acrshort{cil} supports various branch operations which can transfer control
 	ldc.i4.2
 	call void [mscorlib]System.Console::WriteLine(int32)
 	ret
+}
+\end{lstlisting}
+
+\subsection{\texttt{call} and \texttt{ret}}
+
+The \texttt{call} instruction can be used to call a method. It pops the required number of arguments from the evaluation stack and may also pop the \texttt{this} pointer if the method to be called is not static. Thus, there are 2 possible stack transformations \cite{ecmaStandard}:
+$$
+	S \cdot v_1 \cdot v_2 \cdot ... \cdot v_n \rightarrow S
+$$
+or
+$$
+	S \cdot t \cdot v_1 \cdot v_2 \cdot ... \cdot v_n \rightarrow S
+$$
+
+Once a new method is called, a new method state is pushed onto the call stack in order to transfer the control to that method. On the other hand, the \texttt{ret} instruction can be used in order to indicate that the control should be returned from the method. It simply removes the top method state and may move a value from the top evaluation stack onto the evaluation stack of the previous method state. It depends on the return type of the method as some methods do not return any value.
+
+Listing \ref{lst:call_ret} shows a program that calls a method returning $3$ and writes its return value out to the console.
+
+\begin{lstlisting}[
+	caption={Usage of the \texttt{call} and \texttt{ret} instructions.},
+	label={lst:call_ret}
+]
+.assembly extern mscorlib {}
+
+.assembly HelloWorld {}
+
+.class private auto ansi beforefieldinit Test.Program
+       extends [mscorlib]System.Object
+{
+	.method public hidebysig static int32 Compute() cil managed
+	{
+		.maxstack 1
+		ldc.i4.3
+		ret
+	}
+
+	.method static public void main() cil managed
+	{
+		.entrypoint
+		.maxstack 1
+		call int32 Test.Program::Compute()
+		call void [mscorlib]System.Console::WriteLine(int32)
+		ret
+	}
 }
 \end{lstlisting}
 
@@ -1465,7 +1509,7 @@ Additionally, each row can be also opened in order to see the input and the outp
 \chapter{Results}
 \label{sec:results}
 
-As mentioned, the main goal of the thesis was to implement an interpreter covering as many \acrshort{cil} instructions as possible. The final version of the interpreter fully handles \textbf{101 out of 219} instructions. Moreover, \textbf{17} instructions are partially implemented so they work in some cases but their \texttt{Visit} methods still need to be completed. The details of the \acrshort{cil} instructions set coverage can be found in tables \ref{tab:coverage1} and \ref{tab:coverage2} where:
+As mentioned, the main goal of the thesis was to implement an interpreter covering as many \acrshort{cil} instructions as possible. The final version of the interpreter fully handles \textbf{113 out of 219} instructions. Moreover, \textbf{17} instructions are partially implemented so they work in some cases but their \texttt{Visit} methods still need to be completed. The details of the \acrshort{cil} instructions set coverage can be found in tables \ref{tab:coverage1} and \ref{tab:coverage2} where:
 \begin{itemize}
 	\item{$\Circle$ denotes an instruction that is not implemented,}
 	\item{$\LEFTcircle$ denotes an instruction that is partially implemented,}
@@ -1474,9 +1518,9 @@ As mentioned, the main goal of the thesis was to implement an interpreter coveri
 
 The project itself consists of:
 \begin{itemize}
-	\item{\textbf{393} source code files (\texttt{.cs}),}
-	\item{\textbf{394} \texttt{C\#} classes},
-	\item{\textbf{14574} lines of code.}
+	\item{\textbf{405} source code files (\texttt{.cs}),}
+	\item{\textbf{406} \texttt{C\#} classes},
+	\item{\textbf{15040} lines of code.}
 \end{itemize}
 
 \begin{table}
@@ -1502,18 +1546,18 @@ The project itself consists of:
 \texttt{starg.s} & \CIRCLE & \texttt{ble.un.s} & \CIRCLE & \texttt{div} & \CIRCLE \\ \hline
 \texttt{ldloc.s} & \CIRCLE & \texttt{blt.un.s} & \CIRCLE & \texttt{div.un} & \CIRCLE \\ \hline
 \texttt{ldloca.s} & \LEFTcircle & \texttt{br} & \CIRCLE & \texttt{rem} & \CIRCLE \\ \hline
-\texttt{stloc.s} & \CIRCLE & \texttt{brfalse} & \Circle & \texttt{rem.un} & \CIRCLE \\ \hline
-\texttt{ldnull} & \Circle & \texttt{brtrue} & \Circle & \texttt{and} & \CIRCLE \\ \hline
-\texttt{ldc.i4.m1} & \CIRCLE & \texttt{beq} & \Circle & \texttt{or} & \CIRCLE \\ \hline
-\texttt{ldc.i4.0} & \CIRCLE & \texttt{bge} & \Circle & \texttt{xor} & \CIRCLE \\ \hline
-\texttt{ldc.i4.1} & \CIRCLE & \texttt{bgt} & \Circle & \texttt{shl} & \CIRCLE \\ \hline
-\texttt{ldc.i4.2} & \CIRCLE & \texttt{ble} & \Circle & \texttt{shr} & \CIRCLE \\ \hline
-\texttt{ldc.i4.3} & \CIRCLE & \texttt{blt} & \Circle & \texttt{shr.un} & \CIRCLE \\ \hline
-\texttt{ldc.i4.4} & \CIRCLE & \texttt{bne.un} & \Circle & \texttt{neg} & \CIRCLE \\ \hline
-\texttt{ldc.i4.5} & \CIRCLE & \texttt{bge.un} & \Circle & \texttt{not} & \CIRCLE \\ \hline
-\texttt{ldc.i4.6} & \CIRCLE & \texttt{bgt.un} & \Circle & \texttt{conv.i1} & \LEFTcircle \\ \hline
-\texttt{ldc.i4.7} & \CIRCLE & \texttt{ble.un} & \Circle & \texttt{conv.i2} & \LEFTcircle \\ \hline
-\texttt{ldc.i4.8} & \CIRCLE & \texttt{blt.un} & \Circle & \texttt{conv.i4} & \LEFTcircle \\ \hline
+\texttt{stloc.s} & \CIRCLE & \texttt{brfalse} & \CIRCLE & \texttt{rem.un} & \CIRCLE \\ \hline
+\texttt{ldnull} & \Circle & \texttt{brtrue} & \CIRCLE & \texttt{and} & \CIRCLE \\ \hline
+\texttt{ldc.i4.m1} & \CIRCLE & \texttt{beq} & \CIRCLE & \texttt{or} & \CIRCLE \\ \hline
+\texttt{ldc.i4.0} & \CIRCLE & \texttt{bge} & \CIRCLE & \texttt{xor} & \CIRCLE \\ \hline
+\texttt{ldc.i4.1} & \CIRCLE & \texttt{bgt} & \CIRCLE & \texttt{shl} & \CIRCLE \\ \hline
+\texttt{ldc.i4.2} & \CIRCLE & \texttt{ble} & \CIRCLE & \texttt{shr} & \CIRCLE \\ \hline
+\texttt{ldc.i4.3} & \CIRCLE & \texttt{blt} & \CIRCLE & \texttt{shr.un} & \CIRCLE \\ \hline
+\texttt{ldc.i4.4} & \CIRCLE & \texttt{bne.un} & \CIRCLE & \texttt{neg} & \CIRCLE \\ \hline
+\texttt{ldc.i4.5} & \CIRCLE & \texttt{bge.un} & \CIRCLE & \texttt{not} & \CIRCLE \\ \hline
+\texttt{ldc.i4.6} & \CIRCLE & \texttt{bgt.un} & \CIRCLE & \texttt{conv.i1} & \LEFTcircle \\ \hline
+\texttt{ldc.i4.7} & \CIRCLE & \texttt{ble.un} & \CIRCLE & \texttt{conv.i2} & \LEFTcircle \\ \hline
+\texttt{ldc.i4.8} & \CIRCLE & \texttt{blt.un} & \CIRCLE & \texttt{conv.i4} & \LEFTcircle \\ \hline
 \texttt{ldc.i4.s} & \CIRCLE & \texttt{switch} & \CIRCLE & \texttt{conv.i8} & \LEFTcircle \\ \hline
 \texttt{ldc.i4} & \CIRCLE & \texttt{ldind.i1} & \Circle & \texttt{conv.r4} & \LEFTcircle \\ \hline
 \texttt{ldc.i8} & \CIRCLE & \texttt{ldind.u1} & \Circle & \texttt{conv.r8} & \LEFTcircle \\ \hline
@@ -1573,9 +1617,9 @@ The project itself consists of:
 \end{center}
 \end{table}
 
-While working on the interpreter, a total number of \textbf{408} tests were used where:
+While working on the interpreter, a total number of \textbf{409} tests were used where:
 \begin{itemize}
-	\item{\textbf{328} tests were written manually using mainly \texttt{C\#} but also \texttt{F\#} and the \acrshort{cil} itself;}
+	\item{\textbf{329} tests were written manually using mainly \texttt{C\#} but also \texttt{F\#} and the \acrshort{cil} itself;}
 	\item{\textbf{80} tests were adopted from \cite{tutorialspoint};}
 	\item{\textbf{384} tests were successfully handled by the interpreter;}
 	\item{\textbf{more than 14000} lines of code were produced for the manually created tests.}
@@ -1657,6 +1701,7 @@ There are several areas that could be potentially improved or completed in terms
 	\item{There is no support for multithreading or asynchronous operations.}
 	\item{The algorithm described in section \ref{sec:codeVerifiability} could be implemented and involved in the whole process of interpreting. For now, the interpreter cannot verify the input code thus only correct programs are allowed.}
 	\item{As shown in section \ref{sec:performance}, the performance of the interpreter could be possibly improved.}
+	\item{The generic types could be covered by the interpreter as they are a part of the \acrshort{cli}.}
 \end{itemize}
 
 \clearpage

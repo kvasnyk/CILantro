@@ -24,6 +24,7 @@
 \contentsline {subsection}{\numberline {2.5.2}\texttt {stloc.0} and \texttt {ldloc.0}}{22}{subsection.2.5.2}% 
 \contentsline {subsection}{\numberline {2.5.3}\texttt {add}}{23}{subsection.2.5.3}% 
 \contentsline {subsection}{\numberline {2.5.4}\texttt {br}}{24}{subsection.2.5.4}% 
+\contentsline {subsection}{\numberline {2.5.5}\texttt {call} and \texttt {ret}}{25}{subsection.2.5.5}% 
 \contentsline {chapter}{\numberline {3}The semantics}{27}{chapter.3}% 
 \contentsline {section}{\numberline {3.1}Code verifiability}{27}{section.3.1}% 
 \contentsline {section}{\numberline {3.2}The global state}{27}{section.3.2}% 
