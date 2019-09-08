@@ -34,8 +34,11 @@
 \author         {Kamil Kwaśny}
 \advisor        {dr Wiktor Zychla}
 
-\polishabstract {\ldots}
-\englishabstract{\ldots}
+\polishabstract {Interpretacja i kompilacja języków programowania stanowi kluczową część informatyki - żaden język nie byłby użyteczny, gdyby nie istniały narzędzia, które potrafiłyby go zrozumieć. Proces sam w sobie jest bardzo skomplikowany, ponieważ obejmuje on kilka kroków, takich jak analiza leksykalna czy też parsowanie. Jak się okazuje, jest on również ściśle powiązany z matematyką, gdyż każdy język programowania może być opisany jako zbiór formalnych reguł, które składają się na semantykę języka. Jeżeli semantyka jest dobrze zdefiniowana, interpretowanie języka sprowadza się do odzwierciedlenia reguł semantycznych w kodzie źródłowym. Inna ważna kwestia odnosi się do tego, w jaki sposób interpreter bądź kompilator może być testowany. Niniejsza praca skupia się na teoretycznych aspektach \acrshort{cil} - pośredniego języka programowania stworzonego przez \texttt{Microsoft}. Wprowadza ona do samego języka, studiuje jego dokumentację i bada jego semantykę. Praktyczna część pracy zawiera interpreter języka \acrshort{cil} oraz dostarcza metodologię, która została użyta podczas testowania wypracowanego rozwiązania.}
+
+\englishabstract{
+
+Interpretation and compilation of programming languages is a crucial part of information technology - no language would be usable if there were no tools that could understand it. The process itself is very complex as it involves several steps such as lexical analysis or parsing. As it turns out, it is also strictly related to mathematics as each programming language can be described as a set of formal rules that compose the semantics of the language. If the semantics is well-defined, interpreting the language comes down to reflecting semantic rules in source code. Another important issue is related to how an interpreter or a compiler can be tested. This thesis focuses on the theoretical aspects of the \acrshort{cil} - an intermediate programming language created by \texttt{Microsoft}. It provides an introduction to the language itself, studies its documentation and investigates its semantics. The practical part of the thesis includes an interpreter of the \acrshort{cil} and provides a methodology that was used while testing the developed solution.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -598,11 +601,24 @@ It can be understood as the array $A$ with the $n$-th element set to the value $
 		A(i)	& \text{otherwise.}
 	\end{cases}
 \end{equation}
+Additionally, the term $[v_0, v_1, ..., v_{n - 1}]$ means hereinafter an array of length $n$ that stores the value $v_i$ for index $i$, formally:
+\begin{equation}
+\label{eq:array_v1_vn}
+	[v_0, v_1, ..., v_{n - 1}](i) = v_i
+\end{equation}
 
+\section{Additional syntax}
+
+The semantics presented below uses additional syntax:
+\begin{itemize}
+	\item{$\epsilon$ denotes an empty evaluation stack;}
+	\item{$m_{\text{info}}$ denotes the method information handle of the method $m$;}
+	\item{$m_{\text{loc}}$ denotes a zero-initialised local variable array created for the method $m$.}
+\end{itemize}
 
 \section{Examples}
 
-This section follows the informal descriptions contained in \ref{sec:instruction_examples} and uses the conventions described above in order to specify the semantics of several \acrshort{cil} instructions which can be found in formulas \ref{eq:semantics_nop}-\ref{eq:semantics_pop}.
+This section follows the informal descriptions contained in \ref{sec:instruction_examples} and uses the conventions described above in order to specify the semantics of several \acrshort{cil} instructions which can be found in formulas \ref{eq:semantics_nop}-\ref{eq:semantics_stloc}.
 
 \begin{equation}
 \label{eq:semantics_nop}
@@ -912,6 +928,54 @@ This section follows the informal descriptions contained in \ref{sec:instruction
 		\gamma \cdot \mstate{I_{n+1}}{S}{M}{L}{A}, \eta
 	}
 	{\ipointsto{I_n}{pop}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_call_static}
+	\infer{
+		\begin{gathered}
+		\gamma \cdot \mstate{I_n}{S \cdot v_1 \cdot v_2 \cdot ... \cdot v_n}{M}{L}{A}, \eta\\
+			\rightarrow			
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{L}{A} \cdot \mstate{I_0}{\epsilon}{m_{\text{info}}}{m_{\text{loc}}}{[v_1, v_2, ..., v_n]}, \eta
+		\end{gathered}
+	}
+	{\ipointsto{I_n}{call}{m} \land m \text{ is static}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_call_not_static}
+	\infer{
+		\begin{gathered}
+		\gamma \cdot \mstate{I_n}{S \cdot t \cdot v_1 \cdot v_2 \cdot ... \cdot v_n}{M}{L}{A}, \eta\\
+			\rightarrow			
+		\gamma \cdot \mstate{I_{n+1}}{S}{M}{L}{A} \cdot \mstate{I_0}{\epsilon}{m_{\text{info}}}{m_{\text{loc}}}{[t, v_1, v_2, ..., v_n]}, \eta
+		\end{gathered}
+	}
+	{\ipointsto{I_n}{call}{m} \land m \text{ is not static}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ret_void}
+	\infer{
+		\begin{gathered}
+		\gamma \cdot \mstate{I'}{S'}{M'}{L'}{A'} \cdot \mstate{I}{\epsilon}{M}{L}{A}, \eta\\
+			\rightarrow			
+		\gamma \cdot \mstate{I'}{S'}{M'}{L'}{A'}, \eta
+		\end{gathered}
+	}
+	{\ipointsto{I_n}{ret} \land \text{ the return type of } M \text{ is \texttt{void}}}
+\end{equation}
+
+\begin{equation}
+\label{eq:semantics_ret_not_void}
+	\infer{
+		\begin{gathered}
+		\gamma \cdot \mstate{I'}{S'}{M'}{L'}{A'} \cdot \mstate{I}{\epsilon \cdot r}{M}{L}{A}, \eta\\
+			\rightarrow			
+		\gamma \cdot \mstate{I'}{S' \cdot r}{M'}{L'}{A'}, \eta
+		\end{gathered}
+	}
+	{\ipointsto{I_n}{ret} \land \text{ the return type of } M \text{ is not \texttt{void}}}
 \end{equation}
 
 \begin{equation}
@@ -1288,6 +1352,16 @@ There are 2 similar arrays included in a single method state: the local variable
 	\href{https://github.com/kvasnyk/CILantro/blob/master/CILantro/CILantro/Interpreting/State/CilOrderedDictionary.cs}{\texttt{/CILantro/Interpreting/State/CilOrderedDictionary.cs}}
 \end{center}
 
+\subsection{Interoperability with the operating system}
+
+Since the interpreter should be functional and testable it should be definitely capable of handling such operations as reading from the standard input stream and writing to the standard output stream. The easiest way to achieve such a requirement is to allow the interpreter to use external assemblies as the \texttt{mscorlib} library provides a set of class and methods to communicate with the operating system. Furthermore, the capability of calling external assemblies considerably broadens the abilities of the interpreter. There are several ways that could be potentially used in order to handle external assemblies.
+
+The first option is to cover all the \acrshort{cil} instructions so that the interpreter is able to execute external methods as usual. However, this requires a lot of \acrshort{cil} instructions to be correctly handled by the interpreter at the very beginning and does not let to implement and test it instruction by instruction.
+
+Another option is to manually cover a set of external classes and methods by creating a proxy that is called every time an external method is called. Such a solution is rather limited as there are countless external assemblies and writing a proxy for each external class is simply impossible. However, the approach could be used in order to cover the most common and most often used cases.
+
+Since the interpreter was written in \texttt{C\#}, it was possible to use the mechanism called \textit{reflection}. It is the ability of \texttt{.NET} programs to use any classes and methods in runtime, especially external ones. By using the reflection, the interpreter is able to handle any external assembly as long as its \texttt{dll} file is provided. Nevertheless, the process of calling external methods had to be simplified hence every time an external method is called, it is treated as a single operation and its return value is simply pushed onto the evaluation stack. No new method state is created as the control is transferred to the reflection mechanism so it is then responsible for executing the method and the interpreter can just wait for the outcome.
+
 \subsection{The visitor}
 \label{sec:visitor}
 
@@ -1301,13 +1375,7 @@ In order to make its implementation reusable, the class does not decide what ins
 
 Using such an abstract implementation allows to implement different types of visitors for the abstract syntax tree. For now, there is only one implementation - the \texttt{CilInterpreterInstructionsVisitor} class and its subvisitors. This implementation uses the execution state to implement the \texttt{GetNextInstruction} method. To be precise, the instruction pointer of the top method state is used to determine the next instruction to visit.
 
-\section{Examples}
-
-Having the abstract visitors structure described in the previous section, implementing the interpreter is equivalent to completing the implementation of all of the abstract methods of the subvisitors. The implementation itself is based on the semantics described in \ref{sec:semantics}.
-
-\subsection{\texttt{ldc.i4.0}}
-
-The \texttt{VisitLoadConstI40Intruction} method shown in listing \ref{lst:visitldci40} corresponds to the \texttt{ldc.i4.0} instruction described in \ref{sec:desc_ldci40} with its semantics presented in formula \ref{eq:semantics_ldci40}. The meaning of the method can be explained as follows:
+Having the abstract visitors structure described above, implementing the interpreter is equivalent to completing the implementation of all of the abstract methods of the subvisitors. The implementation itself is based on the semantics described in \ref{sec:semantics}. For instance, the \texttt{VisitLoadConstI40Intruction} method shown in listing \ref{lst:visitldci40} corresponds to the \texttt{ldc.i4.0} instruction described in \ref{sec:desc_ldci40} with its semantics presented in formula \ref{eq:semantics_ldci40}. The meaning of the method can be explained as follows:
 \begin{itemize}
 	\item{Line 3 creates a new stack value of type \texttt{int32} with value equal to \texttt{0}.}
 	\item{Line 4 pushes the newly created value to the top of the evaluation stack. \texttt{ControlState.EvaluationStack} is just a shorthand for accessing the evaluation stack of the top method state.}
@@ -1322,25 +1390,6 @@ protected override void VisitLoadConstI40Intruction(LoadConstI40Instruction inst
 {
 	var stackVal = new CilStackValueInt32(0);
 	ControlState.EvaluationStack.Push(stackVal);
-
-	ControlState.MoveToNextInstruction();
-}
-\end{lstlisting}
-
-\subsection{\texttt{stloc.0}}
-
-The \texttt{VisitStoreLocal0Instruction} method is shown in listing \ref{lst:visitstloc0}. It is related to the \texttt{stloc.0} instruction described in \ref{sec:desc_stloc0_ldloc0} and its semantics presented in formula \ref{eq:semantics_stloc0}. The implementation can be understood as follows:
-
-
-\begin{lstlisting}[
-	caption={The \texttt{VisitSetLocal0Instruction} method.},
-	label={lst:visitstloc0}
-]
-protected override void VisitStoreLocal0Instruction(StoreLocal0Instruction instruction)
-{
-	var localType = ControlState.Locals.GetLocalType(null, 0);
-	ControlState.EvaluationStack.PopValue(_program, localType, out var value);
-	ControlState.Locals.Store(null, 0, value);
 
 	ControlState.MoveToNextInstruction();
 }

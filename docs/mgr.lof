@@ -16,16 +16,16 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces The process of implementing the interpreter.}}{42}{figure.5.1}% 
-\contentsline {figure}{\numberline {5.2}{\ignorespaces The environment - the \textit {Find tests} functionality.}}{44}{figure.5.2}% 
-\contentsline {figure}{\numberline {5.3}{\ignorespaces The environment - the \textit {Categories} page.}}{45}{figure.5.3}% 
-\contentsline {figure}{\numberline {5.4}{\ignorespaces The environment - the \textit {Tests} page.}}{45}{figure.5.4}% 
-\contentsline {figure}{\numberline {5.5}{\ignorespaces The environment - an example test page.}}{46}{figure.5.5}% 
-\contentsline {figure}{\numberline {5.6}{\ignorespaces The environment - running a test in the comparison view.}}{47}{figure.5.6}% 
-\contentsline {figure}{\numberline {5.7}{\ignorespaces The environment - the \textit {Test runs} page.}}{48}{figure.5.7}% 
-\contentsline {figure}{\numberline {5.8}{\ignorespaces The environment - the \textit {Test run} functionality.}}{49}{figure.5.8}% 
+\contentsline {figure}{\numberline {5.1}{\ignorespaces The process of implementing the interpreter.}}{44}{figure.5.1}% 
+\contentsline {figure}{\numberline {5.2}{\ignorespaces The environment - the \textit {Find tests} functionality.}}{46}{figure.5.2}% 
+\contentsline {figure}{\numberline {5.3}{\ignorespaces The environment - the \textit {Categories} page.}}{47}{figure.5.3}% 
+\contentsline {figure}{\numberline {5.4}{\ignorespaces The environment - the \textit {Tests} page.}}{47}{figure.5.4}% 
+\contentsline {figure}{\numberline {5.5}{\ignorespaces The environment - an example test page.}}{48}{figure.5.5}% 
+\contentsline {figure}{\numberline {5.6}{\ignorespaces The environment - running a test in the comparison view.}}{49}{figure.5.6}% 
+\contentsline {figure}{\numberline {5.7}{\ignorespaces The environment - the \textit {Test runs} page.}}{50}{figure.5.7}% 
+\contentsline {figure}{\numberline {5.8}{\ignorespaces The environment - the \textit {Test run} functionality.}}{51}{figure.5.8}% 
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Average execution time of the Fibonacci test program.}}{54}{figure.6.1}% 
-\contentsline {figure}{\numberline {6.2}{\ignorespaces Average execution time of the Ackermann function test program.}}{55}{figure.6.2}% 
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Average execution time of the natural numbers writer.}}{55}{figure.6.3}% 
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Average execution time of the Fibonacci test program.}}{56}{figure.6.1}% 
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Average execution time of the Ackermann function test program.}}{57}{figure.6.2}% 
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Average execution time of the natural numbers writer.}}{57}{figure.6.3}% 
 \addvspace {10\p@ }

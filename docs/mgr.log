@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.4.22)  8 SEP 2019 03:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.4.22)  8 SEP 2019 07:01
 entering extended mode
 **./mgr.tex
 (mgr.tex
@@ -628,32 +628,32 @@ LaTeX Font Info:    Overwriting symbol font `wasy' in version `bold'
 \glo@main@file=\write4
 \openout4 = `mgr.glo'.
 
-Package glossaries Info: Writing glossary file mgr.glo on input line 84.
+Package glossaries Info: Writing glossary file mgr.glo on input line 87.
 \glo@acronym@file=\write5
 \openout5 = `mgr.acn'.
 
-Package glossaries Info: Writing glossary file mgr.acn on input line 84.
+Package glossaries Info: Writing glossary file mgr.acn on input line 87.
  (mgr.aux)
 \openout1 = `mgr.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for OT4/cmr/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for OT4/cmr/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -691,7 +691,7 @@ LaTeX Font Info:    ... okay on input line 94.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 \AtBeginShipoutBox=\box40
-Package hyperref Info: Link coloring OFF on input line 94.
+Package hyperref Info: Link coloring OFF on input line 97.
 
 ("C:\Users\Kamil\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\nameref.s
 ty"
@@ -703,23 +703,23 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count152
 )
-LaTeX Info: Redefining \ref on input line 94.
-LaTeX Info: Redefining \pageref on input line 94.
-LaTeX Info: Redefining \nameref on input line 94.
+LaTeX Info: Redefining \ref on input line 97.
+LaTeX Info: Redefining \pageref on input line 97.
+LaTeX Info: Redefining \nameref on input line 97.
  (mgr.out) (mgr.out)
 \@outlinefile=\write6
 \openout6 = `mgr.out'.
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 94.
+LaTeX Font Info:    Try loading font information for U+msa on input line 97.
 
 ("C:\Users\Kamil\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 94.
+LaTeX Font Info:    Try loading font information for U+msb on input line 97.
 ("C:\Users\Kamil\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+wasy on input line 94.
+LaTeX Font Info:    Try loading font information for U+wasy on input line 97.
 ("C:\Users\Kamil\AppData\Local\Programs\MiKTeX 2.9\tex/latex/wasysym\uwasy.fd"
 File: uwasy.fd 2003/10/30 v2.0 Wasy-2 symbol font definitions
 ) [1
@@ -729,14 +729,14 @@ File: uwasy.fd 2003/10/30 v2.0 Wasy-2 symbol font definitions
 {C:/Users/Kamil/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2
 
 ]
-[3] [4
-
-] (mgr.toc
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 23.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 97.
 
 ("C:\Users\Kamil\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\t1cmtt.fd"
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
+[3] [4
+
+] (mgr.toc
 Underfull \vbox (badness 3769) has occurred while \output is active []
 
  [5])
@@ -807,25 +807,25 @@ G,.JBIG2,.JB2,.eps]
 Chapter 1.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\acrlong' on input line 146.
+(hyperref)                removing `\acrlong' on input line 149.
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 152.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 155.
 
 ("C:\Users\Kamil\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 152.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 155.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\acrlong' on input line 168.
+(hyperref)                removing `\acrlong' on input line 171.
 
 [15]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 177.
+nput line 180.
 
-Overfull \hbox (1.5711pt too wide) in paragraph at lines 192--193
+Overfull \hbox (1.5711pt too wide) in paragraph at lines 195--196
 []\T1/cmr/m/n/10.95 The dif-fer-ence be-tween ILAsm and the [][]CIL[] can be ea
 s-ily un-der-stood by analysing
  []
@@ -835,102 +835,102 @@ s-ily un-der-stood by analysing
 
 ]
 Chapter 2.
-<./img/global_state.png, id=483, 1024.57782pt x 1024.57782pt>
+<./img/global_state.png, id=480, 1024.57782pt x 1024.57782pt>
 File: ./img/global_state.png Graphic file (type png)
 <use ./img/global_state.png>
-Package pdftex.def Info: ./img/global_state.png  used on input line 243.
+Package pdftex.def Info: ./img/global_state.png  used on input line 246.
 (pdftex.def)             Requested size: 398.33861pt x 398.33304pt.
 [19] [20 <./img/global_state.png>] [21]
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 296.
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 299.
  [22] [23] [24] [25] [26]
 Chapter 3.
 [27
 
 
-] [28] [29] [30] [31] [32] [33] [34]
+] [28] [29] [30] [31] [32] [33] [34] [35] [36
+
+
+]
 Chapter 4.
-[35
-
-
-] [36] [37] [38] [39] [40]
+[37] [38] [39] [40] [41] [42]
 Chapter 5.
-<./img/process.jpg, id=834, 732.06833pt x 625.00166pt>
+<./img/process.jpg, id=837, 732.06833pt x 625.00166pt>
 File: ./img/process.jpg Graphic file (type jpg)
 <use ./img/process.jpg>
-Package pdftex.def Info: ./img/process.jpg  used on input line 1373.
+Package pdftex.def Info: ./img/process.jpg  used on input line 1422.
 (pdftex.def)             Requested size: 398.33861pt x 340.08032pt.
-[41
+[43
 
 
-] [42 <./img/process.jpg>]
-<./img/tools_find.png, id=853, 974.13937pt x 635.37375pt>
+] [44 <./img/process.jpg>]
+<./img/tools_find.png, id=857, 974.13937pt x 635.37375pt>
 File: ./img/tools_find.png Graphic file (type png)
 <use ./img/tools_find.png>
-Package pdftex.def Info: ./img/tools_find.png  used on input line 1407.
+Package pdftex.def Info: ./img/tools_find.png  used on input line 1456.
 (pdftex.def)             Requested size: 398.33861pt x 259.80688pt.
- [43]
-<./img/tools_categories.png, id=862, 975.645pt x 635.37375pt>
+ [45]
+<./img/tools_categories.png, id=865, 975.645pt x 635.37375pt>
 File: ./img/tools_categories.png Graphic file (type png)
 <use ./img/tools_categories.png>
-Package pdftex.def Info: ./img/tools_categories.png  used on input line 1418.
+Package pdftex.def Info: ./img/tools_categories.png  used on input line 1467.
 (pdftex.def)             Requested size: 398.33861pt x 259.40938pt.
-<./img/tools_tests.png, id=864, 976.39781pt x 636.87938pt>
+<./img/tools_tests.png, id=867, 976.39781pt x 636.87938pt>
 File: ./img/tools_tests.png Graphic file (type png)
 <use ./img/tools_tests.png>
-Package pdftex.def Info: ./img/tools_tests.png  used on input line 1429.
+Package pdftex.def Info: ./img/tools_tests.png  used on input line 1478.
 (pdftex.def)             Requested size: 398.33861pt x 259.82974pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [44 <./img/tools_find.png>] [45 <./img/tools_categories.png> <./img/tools_test
+ [46 <./img/tools_find.png>] [47 <./img/tools_categories.png> <./img/tools_test
 s.png>]
-<./img/tools_test.png, id=877, 1111.90407pt x 635.37375pt>
+<./img/tools_test.png, id=880, 1111.90407pt x 635.37375pt>
 File: ./img/tools_test.png Graphic file (type png)
 <use ./img/tools_test.png>
-Package pdftex.def Info: ./img/tools_test.png  used on input line 1455.
+Package pdftex.def Info: ./img/tools_test.png  used on input line 1504.
 (pdftex.def)             Requested size: 398.33861pt x 227.61945pt.
-<./img/tools_run_both.png, id=878, 1110.39844pt x 634.62094pt>
+<./img/tools_run_both.png, id=881, 1110.39844pt x 634.62094pt>
 File: ./img/tools_run_both.png Graphic file (type png)
 <use ./img/tools_run_both.png>
-Package pdftex.def Info: ./img/tools_run_both.png  used on input line 1462.
+Package pdftex.def Info: ./img/tools_run_both.png  used on input line 1511.
 (pdftex.def)             Requested size: 398.33861pt x 227.65962pt.
 
-[46 <./img/tools_test.png>]
-<./img/tools_runs.png, id=884, 1053.1847pt x 636.12656pt>
+[48 <./img/tools_test.png>]
+<./img/tools_runs.png, id=887, 1053.1847pt x 636.12656pt>
 File: ./img/tools_runs.png Graphic file (type png)
 <use ./img/tools_runs.png>
-Package pdftex.def Info: ./img/tools_runs.png  used on input line 1475.
+Package pdftex.def Info: ./img/tools_runs.png  used on input line 1524.
 (pdftex.def)             Requested size: 398.33861pt x 240.59494pt.
- [47 <./img/tools_run_both.png>]
-<./img/tools_run.png, id=890, 1444.64719pt x 705.38531pt>
+ [49 <./img/tools_run_both.png>]
+<./img/tools_run.png, id=894, 1444.64719pt x 705.38531pt>
 File: ./img/tools_run.png Graphic file (type png)
 <use ./img/tools_run.png>
-Package pdftex.def Info: ./img/tools_run.png  used on input line 1493.
+Package pdftex.def Info: ./img/tools_run.png  used on input line 1542.
 (pdftex.def)             Requested size: 398.33861pt x 194.49281pt.
- [48 <./img/tools_runs.png>] [49 <./img/tools_run.png>] [50
+ [50 <./img/tools_runs.png>] [51 <./img/tools_run.png>] [52
 
 
 ]
 Chapter 6.
-[51] [52] [53]
-<./img/fibonacci_chart.png, id=929, 1157.82562pt x 540.51938pt>
+[53] [54] [55]
+<./img/fibonacci_chart.png, id=933, 1157.82562pt x 540.51938pt>
 File: ./img/fibonacci_chart.png Graphic file (type png)
 <use ./img/fibonacci_chart.png>
-Package pdftex.def Info: ./img/fibonacci_chart.png  used on input line 1642.
+Package pdftex.def Info: ./img/fibonacci_chart.png  used on input line 1691.
 (pdftex.def)             Requested size: 398.33861pt x 185.95978pt.
-<./img/ackermann_chart.png, id=930, 1124.70187pt x 547.2947pt>
+<./img/ackermann_chart.png, id=934, 1124.70187pt x 547.2947pt>
 File: ./img/ackermann_chart.png Graphic file (type png)
 <use ./img/ackermann_chart.png>
-Package pdftex.def Info: ./img/ackermann_chart.png  used on input line 1649.
+Package pdftex.def Info: ./img/ackermann_chart.png  used on input line 1698.
 (pdftex.def)             Requested size: 398.33861pt x 193.83583pt.
-<./img/natural_chart.png, id=931, 1059.96pt x 545.78906pt>
+<./img/natural_chart.png, id=935, 1059.96pt x 545.78906pt>
 File: ./img/natural_chart.png Graphic file (type png)
 <use ./img/natural_chart.png>
-Package pdftex.def Info: ./img/natural_chart.png  used on input line 1656.
+Package pdftex.def Info: ./img/natural_chart.png  used on input line 1705.
 (pdftex.def)             Requested size: 398.33861pt x 205.11177pt.
- [54 <./img/fibonacci_chart.png>] [55 <./img/ackermann_chart.png> <./img/natura
-l_chart.png>] [56
+ [56 <./img/fibonacci_chart.png>] [57 <./img/ackermann_chart.png> <./img/natura
+l_chart.png>] [58
 
 
 ]
@@ -938,10 +938,10 @@ Chapter 7.
 
 Underfull \vbox (badness 2495) has occurred while \output is active []
 
- [57]
-[58] (mgr.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1730.
- [59
+ [59]
+[60] (mgr.bbl)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1779.
+ [61
 
 
 runsystem(makeindex -s mgr.ist -t mgr.glg -o mgr.gls mgr.glo)...executed (allow
@@ -951,54 +951,56 @@ runsystem(makeindex -s mgr.ist -t mgr.alg -o mgr.acr mgr.acn)...executed (allow
 ed).
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1730.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1779.
  (mgr.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1730.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1730.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1779.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1779.
 
 Package rerunfilecheck Info: File `mgr.out' has not changed.
-(rerunfilecheck)             Checksum: 88558105B3AB4F35BFDF292A6893EF62;6479.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1730.
+(rerunfilecheck)             Checksum: 678633F80B5EFE1BABB3B95BA53B9DE0;6611.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1779.
  ) 
 Here is how much of TeX's memory you used:
- 19348 strings out of 492902
- 299496 string characters out of 3123806
- 457146 words of memory out of 3000000
- 22583 multiletter control sequences out of 15000+200000
+ 19347 strings out of 492902
+ 299507 string characters out of 3123806
+ 459456 words of memory out of 3000000
+ 22585 multiletter control sequences out of 15000+200000
  26850 words of font info for 67 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 45i,9n,39p,1971b,1918s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 45i,11n,39p,1971b,1918s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\Kamil\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\
 ecit1095.pk> <C:\Users\Kamil\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/
-ec/dpi600\ectt1200.pk> <C:\Users\Kamil\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour
-/jknappen/ec/dpi600\ectt0800.pk> <C:\Users\Kamil\AppData\Local\MiKTeX\2.9\fonts
-/pk/ljfour/jknappen/ec/dpi600\ectt1000.pk> <C:\Users\Kamil\AppData\Local\MiKTeX
-\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\Kamil\AppData\Lo
-cal\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecbi1095.pk> <C:\Users\Kamil\
-AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Us
-ers\Kamil\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2074.
+ec/dpi600\ecrm0800.pk> <C:\Users\Kamil\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour
+/jknappen/ec/dpi600\ectt1200.pk> <C:\Users\Kamil\AppData\Local\MiKTeX\2.9\fonts
+/pk/ljfour/jknappen/ec/dpi600\ectt0800.pk> <C:\Users\Kamil\AppData\Local\MiKTeX
+\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1000.pk> <C:\Users\Kamil\AppData\Lo
+cal\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\Kamil\
+AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecbi1095.pk> <C:\Us
+ers\Kamil\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.
 pk> <C:\Users\Kamil\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600
-\ecti1095.pk> <C:\Users\Kamil\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen
-/ec/dpi600\ecsl1095.pk> <C:\Users\Kamil\AppData\Local\MiKTeX\2.9\fonts/pk/ljfou
-r/jknappen/ec/dpi600\ectt1095.pk> <C:\Users\Kamil\AppData\Local\MiKTeX\2.9\font
+\ecbx2074.pk> <C:\Users\Kamil\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen
+/ec/dpi600\ecti1095.pk> <C:\Users\Kamil\AppData\Local\MiKTeX\2.9\fonts/pk/ljfou
+r/jknappen/ec/dpi600\ecsl1095.pk> <C:\Users\Kamil\AppData\Local\MiKTeX\2.9\font
 s/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk> <C:\Users\Kamil\AppData\Local\MiKTe
-X\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1095.pk> <C:\Users\Kamil\AppData\L
-ocal\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1095.pk> <C:\Users\Kamil
-\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\U
-sers\Kamil\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200
+X\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1095.pk> <C:\Users\Kamil\AppData\L
+ocal\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1095.pk> <C:\Users\Kamil
+\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1095.pk> <C:\U
+sers\Kamil\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200
 .pk> <C:\Users\Kamil\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi60
-0\ecbx1728.pk><C:/Users/Kamil/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pub
-lic/amsfonts/cm/cmex10.pfb><C:/Users/Kamil/AppData/Local/Programs/MiKTeX 2.9/fo
-nts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Kamil/AppData/Local/Programs/
-MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/Kamil/AppData/Loc
-al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Kamil
-/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/
-Users/Kamil/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cm
-sy10.pfb><C:/Users/Kamil/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/w
-asy/wasy10.pfb>
-Output written on mgr.pdf (59 pages, 1912889 bytes).
+0\ecrm1200.pk> <C:\Users\Kamil\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappe
+n/ec/dpi600\ecbx1728.pk><C:/Users/Kamil/AppData/Local/Programs/MiKTeX 2.9/fonts
+/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Kamil/AppData/Local/Programs/MiK
+TeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Kamil/AppData/Local
+/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/Kamil/A
+ppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/U
+sers/Kamil/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr
+8.pfb><C:/Users/Kamil/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsf
+onts/cm/cmsy10.pfb><C:/Users/Kamil/AppData/Local/Programs/MiKTeX 2.9/fonts/type
+1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Kamil/AppData/Local/Programs/MiKTeX 2.
+9/fonts/type1/public/wasy/wasy10.pfb>
+Output written on mgr.pdf (61 pages, 1932486 bytes).
 PDF statistics:
- 1686 PDF objects out of 1728 (max. 8388607)
- 340 named destinations out of 1000 (max. 500000)
- 445 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1712 PDF objects out of 1728 (max. 8388607)
+ 337 named destinations out of 1000 (max. 500000)
+ 437 words of extra memory for PDF output out of 10000 (max. 10000000)
 

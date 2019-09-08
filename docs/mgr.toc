@@ -33,28 +33,27 @@
 \contentsline {section}{\numberline {3.5}The final syntax}{29}{section.3.5}% 
 \contentsline {section}{\numberline {3.6}Instruction pointers}{29}{section.3.6}% 
 \contentsline {section}{\numberline {3.7}Arrays}{30}{section.3.7}% 
-\contentsline {section}{\numberline {3.8}Examples}{30}{section.3.8}% 
-\contentsline {chapter}{\numberline {4}The interpreter}{35}{chapter.4}% 
-\contentsline {section}{\numberline {4.1}Technical background}{36}{section.4.1}% 
-\contentsline {section}{\numberline {4.2}Detection of non-supported features}{36}{section.4.2}% 
-\contentsline {section}{\numberline {4.3}The actual interpreter}{36}{section.4.3}% 
-\contentsline {subsection}{\numberline {4.3.1}The evaluation stack}{37}{subsection.4.3.1}% 
-\contentsline {subsection}{\numberline {4.3.2}The managed memory}{37}{subsection.4.3.2}% 
-\contentsline {subsection}{\numberline {4.3.3}The state arrays}{38}{subsection.4.3.3}% 
-\contentsline {subsection}{\numberline {4.3.4}The visitor}{38}{subsection.4.3.4}% 
-\contentsline {section}{\numberline {4.4}Examples}{39}{section.4.4}% 
-\contentsline {subsection}{\numberline {4.4.1}\texttt {ldc.i4.0}}{39}{subsection.4.4.1}% 
-\contentsline {subsection}{\numberline {4.4.2}\texttt {stloc.0}}{40}{subsection.4.4.2}% 
-\contentsline {chapter}{\numberline {5}Testing}{41}{chapter.5}% 
-\contentsline {section}{\numberline {5.1}The tests}{41}{section.5.1}% 
-\contentsline {section}{\numberline {5.2}The environment}{43}{section.5.2}% 
-\contentsline {subsection}{\numberline {5.2.1}Finding tests}{43}{subsection.5.2.1}% 
-\contentsline {subsection}{\numberline {5.2.2}Managing categories}{44}{subsection.5.2.2}% 
-\contentsline {subsection}{\numberline {5.2.3}Managing tests}{44}{subsection.5.2.3}% 
-\contentsline {subsection}{\numberline {5.2.4}Managing a single test}{46}{subsection.5.2.4}% 
-\contentsline {subsection}{\numberline {5.2.5}Managing test runs}{47}{subsection.5.2.5}% 
-\contentsline {subsection}{\numberline {5.2.6}Managing a single test run}{47}{subsection.5.2.6}% 
-\contentsline {chapter}{\numberline {6}Results}{51}{chapter.6}% 
-\contentsline {section}{\numberline {6.1}Performance}{54}{section.6.1}% 
-\contentsline {chapter}{\numberline {7}Conclusions and future work}{57}{chapter.7}% 
-\contentsline {section}{\numberline {7.1}Future work}{57}{section.7.1}% 
+\contentsline {section}{\numberline {3.8}Additional syntax}{30}{section.3.8}% 
+\contentsline {section}{\numberline {3.9}Examples}{30}{section.3.9}% 
+\contentsline {chapter}{\numberline {4}The interpreter}{37}{chapter.4}% 
+\contentsline {section}{\numberline {4.1}Technical background}{38}{section.4.1}% 
+\contentsline {section}{\numberline {4.2}Detection of non-supported features}{38}{section.4.2}% 
+\contentsline {section}{\numberline {4.3}The actual interpreter}{38}{section.4.3}% 
+\contentsline {subsection}{\numberline {4.3.1}The evaluation stack}{39}{subsection.4.3.1}% 
+\contentsline {subsection}{\numberline {4.3.2}The managed memory}{39}{subsection.4.3.2}% 
+\contentsline {subsection}{\numberline {4.3.3}The state arrays}{40}{subsection.4.3.3}% 
+\contentsline {subsection}{\numberline {4.3.4}Interoperability with the operating system}{40}{subsection.4.3.4}% 
+\contentsline {subsection}{\numberline {4.3.5}The visitor}{41}{subsection.4.3.5}% 
+\contentsline {chapter}{\numberline {5}Testing}{43}{chapter.5}% 
+\contentsline {section}{\numberline {5.1}The tests}{43}{section.5.1}% 
+\contentsline {section}{\numberline {5.2}The environment}{45}{section.5.2}% 
+\contentsline {subsection}{\numberline {5.2.1}Finding tests}{45}{subsection.5.2.1}% 
+\contentsline {subsection}{\numberline {5.2.2}Managing categories}{46}{subsection.5.2.2}% 
+\contentsline {subsection}{\numberline {5.2.3}Managing tests}{46}{subsection.5.2.3}% 
+\contentsline {subsection}{\numberline {5.2.4}Managing a single test}{48}{subsection.5.2.4}% 
+\contentsline {subsection}{\numberline {5.2.5}Managing test runs}{49}{subsection.5.2.5}% 
+\contentsline {subsection}{\numberline {5.2.6}Managing a single test run}{49}{subsection.5.2.6}% 
+\contentsline {chapter}{\numberline {6}Results}{53}{chapter.6}% 
+\contentsline {section}{\numberline {6.1}Performance}{56}{section.6.1}% 
+\contentsline {chapter}{\numberline {7}Conclusions and future work}{59}{chapter.7}% 
+\contentsline {section}{\numberline {7.1}Future work}{59}{section.7.1}% 
