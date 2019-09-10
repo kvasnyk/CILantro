@@ -10,50 +10,55 @@
 \babel@toc {english}{}
 \babel@toc {polish}{}
 \babel@toc {english}{}
-\contentsline {chapter}{\numberline {1}Introduction}{15}{chapter.1}% 
-\contentsline {section}{\numberline {1.1}The \acrlong {cli}}{15}{section.1.1}% 
-\contentsline {section}{\numberline {1.2}The \acrlong {cil}}{15}{section.1.2}% 
-\contentsline {section}{\numberline {1.3}Thesis motivation and organisation}{17}{section.1.3}% 
-\contentsline {chapter}{\numberline {2}The CIL instruction set}{19}{chapter.2}% 
-\contentsline {section}{\numberline {2.1}The global state}{19}{section.2.1}% 
-\contentsline {section}{\numberline {2.2}The evaluation stack}{21}{section.2.2}% 
-\contentsline {section}{\numberline {2.3}Stack transformations}{21}{section.2.3}% 
-\contentsline {section}{\numberline {2.4}Stack values}{22}{section.2.4}% 
-\contentsline {section}{\numberline {2.5}Examples}{22}{section.2.5}% 
-\contentsline {subsection}{\numberline {2.5.1}\texttt {ldc.i4.0}}{22}{subsection.2.5.1}% 
-\contentsline {subsection}{\numberline {2.5.2}\texttt {stloc.0} and \texttt {ldloc.0}}{22}{subsection.2.5.2}% 
-\contentsline {subsection}{\numberline {2.5.3}\texttt {add}}{23}{subsection.2.5.3}% 
-\contentsline {subsection}{\numberline {2.5.4}\texttt {br}}{24}{subsection.2.5.4}% 
-\contentsline {subsection}{\numberline {2.5.5}\texttt {call} and \texttt {ret}}{25}{subsection.2.5.5}% 
-\contentsline {chapter}{\numberline {3}The semantics}{27}{chapter.3}% 
-\contentsline {section}{\numberline {3.1}Code verifiability}{27}{section.3.1}% 
-\contentsline {section}{\numberline {3.2}The global state}{27}{section.3.2}% 
-\contentsline {section}{\numberline {3.3}The execution state}{28}{section.3.3}% 
-\contentsline {section}{\numberline {3.4}The method state}{28}{section.3.4}% 
-\contentsline {section}{\numberline {3.5}The final syntax}{29}{section.3.5}% 
-\contentsline {section}{\numberline {3.6}Instruction pointers}{29}{section.3.6}% 
-\contentsline {section}{\numberline {3.7}Arrays}{30}{section.3.7}% 
-\contentsline {section}{\numberline {3.8}Additional syntax}{30}{section.3.8}% 
-\contentsline {section}{\numberline {3.9}Examples}{30}{section.3.9}% 
-\contentsline {chapter}{\numberline {4}The interpreter}{37}{chapter.4}% 
-\contentsline {section}{\numberline {4.1}Technical background}{38}{section.4.1}% 
-\contentsline {section}{\numberline {4.2}Detection of non-supported features}{38}{section.4.2}% 
-\contentsline {section}{\numberline {4.3}The actual interpreter}{38}{section.4.3}% 
-\contentsline {subsection}{\numberline {4.3.1}The evaluation stack}{39}{subsection.4.3.1}% 
-\contentsline {subsection}{\numberline {4.3.2}The managed memory}{39}{subsection.4.3.2}% 
-\contentsline {subsection}{\numberline {4.3.3}The state arrays}{40}{subsection.4.3.3}% 
-\contentsline {subsection}{\numberline {4.3.4}Interoperability with the operating system}{40}{subsection.4.3.4}% 
-\contentsline {subsection}{\numberline {4.3.5}The visitor}{41}{subsection.4.3.5}% 
-\contentsline {chapter}{\numberline {5}Testing}{43}{chapter.5}% 
-\contentsline {section}{\numberline {5.1}The tests}{43}{section.5.1}% 
-\contentsline {section}{\numberline {5.2}The environment}{45}{section.5.2}% 
-\contentsline {subsection}{\numberline {5.2.1}Finding tests}{45}{subsection.5.2.1}% 
-\contentsline {subsection}{\numberline {5.2.2}Managing categories}{46}{subsection.5.2.2}% 
-\contentsline {subsection}{\numberline {5.2.3}Managing tests}{46}{subsection.5.2.3}% 
-\contentsline {subsection}{\numberline {5.2.4}Managing a single test}{48}{subsection.5.2.4}% 
-\contentsline {subsection}{\numberline {5.2.5}Managing test runs}{49}{subsection.5.2.5}% 
-\contentsline {subsection}{\numberline {5.2.6}Managing a single test run}{49}{subsection.5.2.6}% 
+\contentsline {chapter}{Acronyms}{9}{chapter*.1}% 
+\contentsline {chapter}{List of Figures}{11}{chapter*.3}% 
+\contentsline {chapter}{List of Tables}{13}{chapter*.4}% 
+\contentsline {chapter}{List of Code Listings}{15}{chapter*.5}% 
+\contentsline {chapter}{\numberline {1}Introduction}{17}{chapter.1}% 
+\contentsline {section}{\numberline {1.1}The \acrlong {cli}}{17}{section.1.1}% 
+\contentsline {section}{\numberline {1.2}The \acrlong {cil}}{17}{section.1.2}% 
+\contentsline {section}{\numberline {1.3}Thesis motivation and organisation}{19}{section.1.3}% 
+\contentsline {chapter}{\numberline {2}The CIL instruction set}{21}{chapter.2}% 
+\contentsline {section}{\numberline {2.1}The global state}{21}{section.2.1}% 
+\contentsline {section}{\numberline {2.2}The evaluation stack}{23}{section.2.2}% 
+\contentsline {section}{\numberline {2.3}Stack transformations}{23}{section.2.3}% 
+\contentsline {section}{\numberline {2.4}Stack values}{24}{section.2.4}% 
+\contentsline {section}{\numberline {2.5}Examples}{24}{section.2.5}% 
+\contentsline {subsection}{\numberline {2.5.1}\texttt {ldc.i4.0}}{24}{subsection.2.5.1}% 
+\contentsline {subsection}{\numberline {2.5.2}\texttt {stloc.0} and \texttt {ldloc.0}}{25}{subsection.2.5.2}% 
+\contentsline {subsection}{\numberline {2.5.3}\texttt {add}}{25}{subsection.2.5.3}% 
+\contentsline {subsection}{\numberline {2.5.4}\texttt {br}}{26}{subsection.2.5.4}% 
+\contentsline {subsection}{\numberline {2.5.5}\texttt {call} and \texttt {ret}}{27}{subsection.2.5.5}% 
+\contentsline {chapter}{\numberline {3}The semantics}{29}{chapter.3}% 
+\contentsline {section}{\numberline {3.1}Code verifiability}{29}{section.3.1}% 
+\contentsline {section}{\numberline {3.2}The global state}{29}{section.3.2}% 
+\contentsline {section}{\numberline {3.3}The execution state}{30}{section.3.3}% 
+\contentsline {section}{\numberline {3.4}The method state}{30}{section.3.4}% 
+\contentsline {section}{\numberline {3.5}The final syntax}{31}{section.3.5}% 
+\contentsline {section}{\numberline {3.6}Instruction pointers}{31}{section.3.6}% 
+\contentsline {section}{\numberline {3.7}Arrays}{32}{section.3.7}% 
+\contentsline {section}{\numberline {3.8}Additional syntax}{32}{section.3.8}% 
+\contentsline {section}{\numberline {3.9}Examples}{32}{section.3.9}% 
+\contentsline {chapter}{\numberline {4}The interpreter}{39}{chapter.4}% 
+\contentsline {section}{\numberline {4.1}Technical background}{40}{section.4.1}% 
+\contentsline {section}{\numberline {4.2}Detection of non-supported features}{40}{section.4.2}% 
+\contentsline {section}{\numberline {4.3}The actual interpreter}{40}{section.4.3}% 
+\contentsline {subsection}{\numberline {4.3.1}The evaluation stack}{41}{subsection.4.3.1}% 
+\contentsline {subsection}{\numberline {4.3.2}The managed memory}{41}{subsection.4.3.2}% 
+\contentsline {subsection}{\numberline {4.3.3}The state arrays}{42}{subsection.4.3.3}% 
+\contentsline {subsection}{\numberline {4.3.4}Interoperability with the operating system}{42}{subsection.4.3.4}% 
+\contentsline {subsection}{\numberline {4.3.5}The visitor}{43}{subsection.4.3.5}% 
+\contentsline {chapter}{\numberline {5}Testing}{45}{chapter.5}% 
+\contentsline {section}{\numberline {5.1}The tests}{45}{section.5.1}% 
+\contentsline {section}{\numberline {5.2}The environment}{46}{section.5.2}% 
+\contentsline {subsection}{\numberline {5.2.1}Finding tests}{47}{subsection.5.2.1}% 
+\contentsline {subsection}{\numberline {5.2.2}Managing categories}{47}{subsection.5.2.2}% 
+\contentsline {subsection}{\numberline {5.2.3}Managing tests}{47}{subsection.5.2.3}% 
+\contentsline {subsection}{\numberline {5.2.4}Managing a single test}{49}{subsection.5.2.4}% 
+\contentsline {subsection}{\numberline {5.2.5}Managing test runs}{51}{subsection.5.2.5}% 
+\contentsline {subsection}{\numberline {5.2.6}Managing a single test run}{51}{subsection.5.2.6}% 
 \contentsline {chapter}{\numberline {6}Results}{53}{chapter.6}% 
 \contentsline {section}{\numberline {6.1}Performance}{56}{section.6.1}% 
 \contentsline {chapter}{\numberline {7}Conclusions and future work}{59}{chapter.7}% 
 \contentsline {section}{\numberline {7.1}Future work}{59}{section.7.1}% 
+\contentsline {chapter}{Bibliography}{61}{section.7.1}% 

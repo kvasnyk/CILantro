@@ -12,18 +12,18 @@
 \babel@toc {english}{}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces The global state concept.}}{20}{figure.2.1}% 
+\contentsline {figure}{\numberline {2.1}{\ignorespaces The global state concept.}}{22}{figure.2.1}% 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces The process of implementing the interpreter.}}{44}{figure.5.1}% 
-\contentsline {figure}{\numberline {5.2}{\ignorespaces The environment - the \textit {Find tests} functionality.}}{46}{figure.5.2}% 
-\contentsline {figure}{\numberline {5.3}{\ignorespaces The environment - the \textit {Categories} page.}}{47}{figure.5.3}% 
-\contentsline {figure}{\numberline {5.4}{\ignorespaces The environment - the \textit {Tests} page.}}{47}{figure.5.4}% 
-\contentsline {figure}{\numberline {5.5}{\ignorespaces The environment - an example test page.}}{48}{figure.5.5}% 
-\contentsline {figure}{\numberline {5.6}{\ignorespaces The environment - running a test in the comparison view.}}{49}{figure.5.6}% 
-\contentsline {figure}{\numberline {5.7}{\ignorespaces The environment - the \textit {Test runs} page.}}{50}{figure.5.7}% 
-\contentsline {figure}{\numberline {5.8}{\ignorespaces The environment - the \textit {Test run} functionality.}}{51}{figure.5.8}% 
+\contentsline {figure}{\numberline {5.1}{\ignorespaces The process of implementing the interpreter.}}{46}{figure.5.1}% 
+\contentsline {figure}{\numberline {5.2}{\ignorespaces The environment - the \textit {Find tests} functionality.}}{48}{figure.5.2}% 
+\contentsline {figure}{\numberline {5.3}{\ignorespaces The environment - the \textit {Categories} page.}}{48}{figure.5.3}% 
+\contentsline {figure}{\numberline {5.4}{\ignorespaces The environment - the \textit {Tests} page.}}{49}{figure.5.4}% 
+\contentsline {figure}{\numberline {5.5}{\ignorespaces The environment - an example test page.}}{50}{figure.5.5}% 
+\contentsline {figure}{\numberline {5.6}{\ignorespaces The environment - running a test in the comparison view.}}{50}{figure.5.6}% 
+\contentsline {figure}{\numberline {5.7}{\ignorespaces The environment - the \textit {Test runs} page.}}{51}{figure.5.7}% 
+\contentsline {figure}{\numberline {5.8}{\ignorespaces The environment - the \textit {Test run} functionality.}}{52}{figure.5.8}% 
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {6.1}{\ignorespaces Average execution time of the Fibonacci test program.}}{56}{figure.6.1}% 
 \contentsline {figure}{\numberline {6.2}{\ignorespaces Average execution time of the Ackermann function test program.}}{57}{figure.6.2}% 

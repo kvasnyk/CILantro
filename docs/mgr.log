@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.4.22)  8 SEP 2019 07:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.4.22)  10 SEP 2019 13:36
 entering extended mode
 **./mgr.tex
 (mgr.tex
@@ -736,10 +736,10 @@ File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 [3] [4
 
-] (mgr.toc
-Underfull \vbox (badness 3769) has occurred while \output is active []
+] (mgr.toc [5]
+Underfull \vbox (badness 1117) has occurred while \output is active []
 
- [5])
+ [6])
 \tf@toc=\write7
 \openout7 = `mgr.toc'.
 
@@ -779,155 +779,158 @@ Package grfext Info: Graphics extension search list:
 (grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
-) (mgr.acr [6]) [7
+) [7] [8
+
+] (mgr.acr) [9
 
 
-] [8
+] [10
 
 ] (mgr.lof)
 \tf@lof=\write8
 \openout8 = `mgr.lof'.
 
- [9] [10
+ [11
+
+] [12
 
 ] (mgr.lot)
 \tf@lot=\write9
 \openout9 = `mgr.lot'.
 
- [11] [12
+ [13
 
-] (mgr.lol)
+] [14
+
+]
+(mgr.lol)
 \tf@lol=\write10
 \openout10 = `mgr.lol'.
 
+ [15
 
-[13] [14
+] [16
 
 ]
 Chapter 1.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\acrlong' on input line 149.
+(hyperref)                removing `\acrlong' on input line 157.
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 155.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 163.
 
 ("C:\Users\Kamil\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 155.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 163.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\acrlong' on input line 171.
+(hyperref)                removing `\acrlong' on input line 179.
 
-[15]
+[17]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 180.
+nput line 188.
 
-Overfull \hbox (1.5711pt too wide) in paragraph at lines 195--196
+Overfull \hbox (1.5711pt too wide) in paragraph at lines 203--204
 []\T1/cmr/m/n/10.95 The dif-fer-ence be-tween ILAsm and the [][]CIL[] can be ea
 s-ily un-der-stood by analysing
  []
 
-[16] [17] [18
+[18] [19] [20
 
 
 ]
 Chapter 2.
-<./img/global_state.png, id=480, 1024.57782pt x 1024.57782pt>
+<./img/global_state.png, id=509, 1024.57782pt x 1024.57782pt>
 File: ./img/global_state.png Graphic file (type png)
 <use ./img/global_state.png>
-Package pdftex.def Info: ./img/global_state.png  used on input line 246.
+Package pdftex.def Info: ./img/global_state.png  used on input line 254.
 (pdftex.def)             Requested size: 398.33861pt x 398.33304pt.
-[19] [20 <./img/global_state.png>] [21]
+[21] [22 <./img/global_state.png>] [23]
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 299.
- [22] [23] [24] [25] [26]
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 307.
+ [24] [25] [26] [27] [28]
 Chapter 3.
-[27
+[29
 
 
-] [28] [29] [30] [31] [32] [33] [34] [35] [36
+] [30] [31] [32] [33] [34] [35] [36] [37] [38
 
 
 ]
 Chapter 4.
-[37] [38] [39] [40] [41] [42]
+[39] [40] [41] [42] [43] [44]
 Chapter 5.
-<./img/process.jpg, id=837, 732.06833pt x 625.00166pt>
+<./img/process.jpg, id=867, 732.06833pt x 625.00166pt>
 File: ./img/process.jpg Graphic file (type jpg)
 <use ./img/process.jpg>
-Package pdftex.def Info: ./img/process.jpg  used on input line 1422.
-(pdftex.def)             Requested size: 398.33861pt x 340.08032pt.
-[43
+Package pdftex.def Info: ./img/process.jpg  used on input line 1442.
+(pdftex.def)             Requested size: 318.67209pt x 272.06425pt.
+[45
 
 
-] [44 <./img/process.jpg>]
-<./img/tools_find.png, id=857, 974.13937pt x 635.37375pt>
+] [46 <./img/process.jpg>]
+<./img/tools_find.png, id=886, 974.13937pt x 635.37375pt>
 File: ./img/tools_find.png Graphic file (type png)
 <use ./img/tools_find.png>
-Package pdftex.def Info: ./img/tools_find.png  used on input line 1456.
+Package pdftex.def Info: ./img/tools_find.png  used on input line 1476.
 (pdftex.def)             Requested size: 398.33861pt x 259.80688pt.
- [45]
-<./img/tools_categories.png, id=865, 975.645pt x 635.37375pt>
+<./img/tools_categories.png, id=888, 975.645pt x 635.37375pt>
 File: ./img/tools_categories.png Graphic file (type png)
 <use ./img/tools_categories.png>
-Package pdftex.def Info: ./img/tools_categories.png  used on input line 1467.
+Package pdftex.def Info: ./img/tools_categories.png  used on input line 1487.
 (pdftex.def)             Requested size: 398.33861pt x 259.40938pt.
-<./img/tools_tests.png, id=867, 976.39781pt x 636.87938pt>
+<./img/tools_tests.png, id=890, 976.39781pt x 636.87938pt>
 File: ./img/tools_tests.png Graphic file (type png)
 <use ./img/tools_tests.png>
-Package pdftex.def Info: ./img/tools_tests.png  used on input line 1478.
+Package pdftex.def Info: ./img/tools_tests.png  used on input line 1498.
 (pdftex.def)             Requested size: 398.33861pt x 259.82974pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [46 <./img/tools_find.png>] [47 <./img/tools_categories.png> <./img/tools_test
-s.png>]
-<./img/tools_test.png, id=880, 1111.90407pt x 635.37375pt>
+ [47] [48 <./img/tools_find.png> <./img/tools_categories.png>]
+<./img/tools_test.png, id=905, 1111.90407pt x 635.37375pt>
 File: ./img/tools_test.png Graphic file (type png)
 <use ./img/tools_test.png>
-Package pdftex.def Info: ./img/tools_test.png  used on input line 1504.
+Package pdftex.def Info: ./img/tools_test.png  used on input line 1524.
 (pdftex.def)             Requested size: 398.33861pt x 227.61945pt.
-<./img/tools_run_both.png, id=881, 1110.39844pt x 634.62094pt>
+<./img/tools_run_both.png, id=906, 1110.39844pt x 634.62094pt>
 File: ./img/tools_run_both.png Graphic file (type png)
 <use ./img/tools_run_both.png>
-Package pdftex.def Info: ./img/tools_run_both.png  used on input line 1511.
+Package pdftex.def Info: ./img/tools_run_both.png  used on input line 1531.
 (pdftex.def)             Requested size: 398.33861pt x 227.65962pt.
-
-[48 <./img/tools_test.png>]
-<./img/tools_runs.png, id=887, 1053.1847pt x 636.12656pt>
+ [49 <./img/tools_tests.png>] [50 <./img/tools_test.png> <./img/tools_run_both.
+png>]
+<./img/tools_runs.png, id=917, 1053.1847pt x 636.12656pt>
 File: ./img/tools_runs.png Graphic file (type png)
 <use ./img/tools_runs.png>
-Package pdftex.def Info: ./img/tools_runs.png  used on input line 1524.
+Package pdftex.def Info: ./img/tools_runs.png  used on input line 1544.
 (pdftex.def)             Requested size: 398.33861pt x 240.59494pt.
- [49 <./img/tools_run_both.png>]
-<./img/tools_run.png, id=894, 1444.64719pt x 705.38531pt>
+ [51 <./img/tools_runs.png>]
+<./img/tools_run.png, id=923, 1444.64719pt x 705.38531pt>
 File: ./img/tools_run.png Graphic file (type png)
 <use ./img/tools_run.png>
-Package pdftex.def Info: ./img/tools_run.png  used on input line 1542.
+Package pdftex.def Info: ./img/tools_run.png  used on input line 1562.
 (pdftex.def)             Requested size: 398.33861pt x 194.49281pt.
- [50 <./img/tools_runs.png>] [51 <./img/tools_run.png>] [52
-
-
-]
+ [52 <./img/tools_run.png>]
 Chapter 6.
-[53] [54] [55]
-<./img/fibonacci_chart.png, id=933, 1157.82562pt x 540.51938pt>
+[53
+
+
+] [54] [55]
+<./img/fibonacci_chart.png, id=954, 1157.82562pt x 540.51938pt>
 File: ./img/fibonacci_chart.png Graphic file (type png)
 <use ./img/fibonacci_chart.png>
-Package pdftex.def Info: ./img/fibonacci_chart.png  used on input line 1691.
+Package pdftex.def Info: ./img/fibonacci_chart.png  used on input line 1711.
 (pdftex.def)             Requested size: 398.33861pt x 185.95978pt.
-<./img/ackermann_chart.png, id=934, 1124.70187pt x 547.2947pt>
+<./img/ackermann_chart.png, id=955, 1124.70187pt x 547.2947pt>
 File: ./img/ackermann_chart.png Graphic file (type png)
 <use ./img/ackermann_chart.png>
-Package pdftex.def Info: ./img/ackermann_chart.png  used on input line 1698.
+Package pdftex.def Info: ./img/ackermann_chart.png  used on input line 1718.
 (pdftex.def)             Requested size: 398.33861pt x 193.83583pt.
-<./img/natural_chart.png, id=935, 1059.96pt x 545.78906pt>
+<./img/natural_chart.png, id=956, 1059.96pt x 545.78906pt>
 File: ./img/natural_chart.png Graphic file (type png)
 <use ./img/natural_chart.png>
-Package pdftex.def Info: ./img/natural_chart.png  used on input line 1705.
+Package pdftex.def Info: ./img/natural_chart.png  used on input line 1725.
 (pdftex.def)             Requested size: 398.33861pt x 205.11177pt.
  [56 <./img/fibonacci_chart.png>] [57 <./img/ackermann_chart.png> <./img/natura
 l_chart.png>] [58
@@ -940,8 +943,9 @@ Underfull \vbox (badness 2495) has occurred while \output is active []
 
  [59]
 [60] (mgr.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1779.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1802.
  [61
+
 
 
 runsystem(makeindex -s mgr.ist -t mgr.glg -o mgr.gls mgr.glo)...executed (allow
@@ -951,20 +955,20 @@ runsystem(makeindex -s mgr.ist -t mgr.alg -o mgr.acr mgr.acn)...executed (allow
 ed).
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1779.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1802.
  (mgr.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1779.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1779.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1802.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1802.
 
 Package rerunfilecheck Info: File `mgr.out' has not changed.
-(rerunfilecheck)             Checksum: 678633F80B5EFE1BABB3B95BA53B9DE0;6611.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1779.
+(rerunfilecheck)             Checksum: CAA7F9CAC5F5EF6DF496FFA16F52DD11;7213.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1802.
  ) 
 Here is how much of TeX's memory you used:
- 19347 strings out of 492902
- 299507 string characters out of 3123806
- 459456 words of memory out of 3000000
- 22585 multiletter control sequences out of 15000+200000
+ 19351 strings out of 492902
+ 299555 string characters out of 3123806
+ 458025 words of memory out of 3000000
+ 22589 multiletter control sequences out of 15000+200000
  26850 words of font info for 67 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  45i,11n,39p,1971b,1918s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -998,9 +1002,9 @@ sers/Kamil/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr
 onts/cm/cmsy10.pfb><C:/Users/Kamil/AppData/Local/Programs/MiKTeX 2.9/fonts/type
 1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Kamil/AppData/Local/Programs/MiKTeX 2.
 9/fonts/type1/public/wasy/wasy10.pfb>
-Output written on mgr.pdf (61 pages, 1932486 bytes).
+Output written on mgr.pdf (61 pages, 1936726 bytes).
 PDF statistics:
- 1712 PDF objects out of 1728 (max. 8388607)
+ 1735 PDF objects out of 2073 (max. 8388607)
  337 named destinations out of 1000 (max. 500000)
- 437 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 477 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -48,8 +48,8 @@ Interpretation and compilation of programming languages is a crucial part of inf
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
-\renewcommand{\lstlistingname}{Code listing}
-\renewcommand{\lstlistlistingname}{List of code listings}
+\renewcommand{\lstlistingname}{Code Listing}
+\renewcommand{\lstlistlistingname}{List of Code Listings}
 
 \newcommand{\mstate}[5] {
 	\langle#1, #2, #3, #4, #5\rangle
@@ -104,6 +104,8 @@ Interpretation and compilation of programming languages is a crucial part of inf
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Acronyms}
 \printglossary[type=\acronymtype]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -114,6 +116,8 @@ Interpretation and compilation of programming languages is a crucial part of inf
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\cleardoublepage
+\addcontentsline{toc}{chapter}{\listfigurename}
 \listoffigures
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -124,6 +128,8 @@ Interpretation and compilation of programming languages is a crucial part of inf
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\cleardoublepage
+\addcontentsline{toc}{chapter}{\listtablename}
 \listoftables
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -134,6 +140,8 @@ Interpretation and compilation of programming languages is a crucial part of inf
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\cleardoublepage
+\addcontentsline{toc}{chapter}{\lstlistlistingname}
 \lstlistoflistings
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -198,9 +206,9 @@ The difference between ILAsm and the \acrshort{cil} can be easily understood by 
 	\item{Line 3 defines the assembly that should be created as the result of the compiler.}
 	\item{Line 5 declares a static public method (\texttt{main}). It also defines that the method contains \acrshort{cil} code.}
 	\item{Line 6 begins the body of the \texttt{main} method.}
-	\item{Line 7 informs that the method should be used as the entry point of the program - it should be called by the compiler as the very first method.}
+	\item{Line 7 informs that the method should be used as the entry point of the program - it should be treated by the compiler as the very first method.}
 	\item{Line 8 specifies the maximal size of the evaluation stack associated with the method.}
-	\item{Line 9 contains a \texttt{ldstr} instruction. It tells the compiler to put the \textit{Hello world!} string onto the evaluation stack.}
+	\item{Line 9 contains a \texttt{ldstr} instruction. It tells the compiler to put a reference to the \textit{Hello world!} string onto the evaluation stack.}
 	\item{Line 10 contains a \texttt{call} instruction. It tells the compiler to call the \texttt{WriteLine} method from the \texttt{System.Console} class defined in the \texttt{mscorlib} assembly.}
 	\item{Line 11 contains a \texttt{ret} instruction. It tells the compiler to return the result of the method and to transfer the control to the next method on the call stack.}
 	\item{Line 12 ends the body of the \texttt{main} method.}
@@ -235,7 +243,7 @@ All the source code produced as a part of the thesis can be found in the reposit
 \chapter{The CIL instruction set}
 \label{sec:instructionSet}
 
-In order to understand how the \acrshort{cil} instructions work, this chapter explains the concept of the global state and provides code examples introducing several \acrshort{cil} instructions. As the whole set contains more than 200 instructions, further information on each of them can be found in \cite{ecmaStandard} and \cite{isoStandard}. A full list of the instructions is also shown in tables \ref{tab:coverage1} and \ref{tab:coverage2} which illustrate whether each instruction was implemented in the final interpreter or not.
+In order to understand how the \acrshort{cil} instructions work, this chapter explains the concept of the global state and provides code examples introducing several \acrshort{cil} instructions. As the whole set contains more than 200 instructions, further information on each of them can be found in \cite{isoStandard} and \cite{ecmaStandard}. A full list of the instructions is also shown in tables \ref{tab:coverage1} and \ref{tab:coverage2} which illustrate whether each instruction was implemented in the final interpreter or not.
 
 \section{The global state}
 \label{sec:global_state}
@@ -258,7 +266,7 @@ A single method state includes several items required for the \acrshort{ves} to 
 	\item{an argument array.}
 \end{itemize}
 
-Generally, a single instruction can be understood as a description of how to manipulate the corresponding method state - there are only a few exceptions to this rule. Some instructions only require access to the evaluation stack while some do need to change other parts of the global state. To better understand these differences, the examples below present a couple of instructions and describe what effect they have on the global state.
+Generally, a single instruction can be understood as a description of how to manipulate the corresponding method state - there are only a few exceptions to this rule, for instance the \texttt{call} instruction operates on the current method state but also puts a new one onto the call stack. Some instructions only require access to the evaluation stack while some do need to change other parts of the global state. To better understand these differences, the examples below present a couple of instructions and describe what effect they have on the global state.
 
 \section{The evaluation stack}
 
@@ -281,8 +289,8 @@ A stack transformation can be thought as a sequence of pop and / or push operati
 \begin{itemize}
 	\item{$S$ denotes an evaluation stack;}
 	\item{$S \rightarrow S \cdot v_1 \cdot v_2 \cdot ... \cdot v_n$ denotes a stack transformation which is equivalent to pushing the values $v_1, v_2, ..., v_n$ onto the stack $S$;}
-	\item{$S \cdot u_1 \cdot u_2 \cdot ... \cdot u_n \rightarrow S$ denotes a stack transformation which is equivalent to popping the values $u_1, u_2, ..., u_n$ from the stack $S$;}
-	\item{$S \cdot u_1 \cdot u_2 \cdot ... \cdot u_n \rightarrow S \cdot v_1 \cdot v_2 \cdot ... \cdot v_m$ denotes a stack transformation which is equivalent to popping values $u_1, u_2, ..., u_n$ from the stack $S$ and then pushing the values $v_1, v_2, ..., v_m$ onto it.}
+	\item{$S \cdot u_n \cdot ... \cdot u_2 \cdot u_1 \rightarrow S$ denotes a stack transformation which is equivalent to popping the values $u_1, u_2, ..., u_n$ from the stack $S$;}
+	\item{$S \cdot u_n \cdot ... \cdot u_2 \cdot u_1 \rightarrow S \cdot v_1 \cdot v_2 \cdot ... \cdot v_m$ denotes a stack transformation which is equivalent to popping values $u_1, u_2, ..., u_n$ from the stack $S$ and then pushing the values $v_1, v_2, ..., v_m$ onto it.}
 \end{itemize}
 
 \section{Stack values}
@@ -1356,7 +1364,7 @@ There are 2 similar arrays included in a single method state: the local variable
 
 Since the interpreter should be functional and testable it should be definitely capable of handling such operations as reading from the standard input stream and writing to the standard output stream. The easiest way to achieve such a requirement is to allow the interpreter to use external assemblies as the \texttt{mscorlib} library provides a set of class and methods to communicate with the operating system. Furthermore, the capability of calling external assemblies considerably broadens the abilities of the interpreter. There are several ways that could be potentially used in order to handle external assemblies.
 
-The first option is to cover all the \acrshort{cil} instructions so that the interpreter is able to execute external methods as usual. However, this requires a lot of \acrshort{cil} instructions to be correctly handled by the interpreter at the very beginning and does not let to implement and test it instruction by instruction.
+The first option is to cover all the \acrshort{cil} instructions and make the interpreter able to use multiple files at the same time so that the external libraries are handled directly by the interpreter. However, this requires a lot of \acrshort{cil} instructions to be correctly handled by the interpreter at the very beginning and does not let to implement and test it instruction by instruction.
 
 Another option is to manually cover a set of external classes and methods by creating a proxy that is called every time an external method is called. Such a solution is rather limited as there are countless external assemblies and writing a proxy for each external class is simply impossible. However, the approach could be used in order to cover the most common and most often used cases.
 
@@ -1395,6 +1403,18 @@ protected override void VisitLoadConstI40Intruction(LoadConstI40Instruction inst
 }
 \end{lstlisting}
 
+The implementation of the visit methods for various instructions is rather similar although there are some more complicated ones. For instance the following methods contain more interesting examples:
+\begin{itemize}
+	\item{\texttt{VisitCallInstruction},}
+	\item{\texttt{VisitCallVirtualInstruction},}
+	\item{\texttt{VisitAddInstruction},}
+	\item{\texttt{VisitLoadArrayElementInstruction}.}
+\end{itemize}
+They can be found in the subvisitors, under the following path in the repository:
+\begin{center}
+	\href{https://github.com/kvasnyk/CILantro/tree/master/CILantro/CILantro/Interpreting/Visitors}{\texttt{/CILantro/Interpreting/Visitors}}
+\end{center}
+
 \clearpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1419,7 +1439,7 @@ Writing an interpreter of such a complex programming language as the \acrshort{c
 The process is illustrated in figure \ref{fig:process}.
 
 \begin{figure}
-	\includegraphics[width=1\textwidth]{process.jpg}
+	\includegraphics[width=0.8\textwidth]{process.jpg}
     \centering
     \caption{The process of implementing the interpreter.}
     \label{fig:process}
@@ -1431,7 +1451,7 @@ Potentially, a set of unit tests could be written based on the documentation and
 
 Taking into account the abilities of the interpreter, only console programs writing to the standard input, reading from the standard outuput and using the standard error stream are considered proper tests. The vast majority of the tests are written in \texttt{C\#}. Using the \texttt{ildasm} tool provided together with the \texttt{.NET Framework}, the tests can be decompiled to their \acrshort{cil} source code which can be then used as the input file for the interpreter. 
 
-Once a test is prepared, it can be executed using the interpreter and the result of the execution can be compared to the result of the original test program. The result of such a comparison is assumed to be correct when the output produced by the interpreter is the same as the output produced by the original program for the same input. Even though a single test can be potentially executed using an infinite set of different inputs, only a small part is used so that the process is not too time-consuming. In order to make the process as reliable as possible, a set of random inputs is prepared every time the test is executed.
+Once a test is prepared, it can be executed using the interpreter and the result of the execution can be compared to the result of the original test program. The result of such a comparison is assumed to be correct when the output produced by the interpreter is the same as the output produced by the original program for the same input. Even though a single test can be potentially executed using an infinite set of different inputs, only a small part is used so that the process is not too time-consuming. In order to make the process as reliable as possible, a set of random inputs is prepared every time the test is executed. The size of the set depends on the type of the run - for quick runs only 3 random inputs are generated while for full runs there are 100 random inputs.
 
 \section{The environment}
 \label{sec:environment}
@@ -1749,6 +1769,7 @@ There are several areas that could be potentially improved or completed in terms
 	\item{No garbage collector is implemented so values remain in the memory until the very end of the program.}
 	\item{There is no support for multithreading or asynchronous operations.}
 	\item{The algorithm described in section \ref{sec:codeVerifiability} could be implemented and involved in the whole process of interpreting. For now, the interpreter cannot verify the input code thus only correct programs are allowed.}
+	\item{The abstract visitor could be potentially used in order to implement the algorithm, a compiler or various code validators.}
 	\item{As shown in section \ref{sec:performance}, the performance of the interpreter could be possibly improved.}
 	\item{The generic types could be covered by the interpreter as they are a part of the \acrshort{cli}.}
 \end{itemize}
@@ -1765,6 +1786,8 @@ There are several areas that could be potentially improved or completed in terms
 
 \renewcommand{\refname}{Bibliography}
 
+\cleardoublepage
+\addcontentsline{toc}{chapter}{\refname}
 \bibliography{mgr}{}
 \bibliographystyle{unsrt}
 
